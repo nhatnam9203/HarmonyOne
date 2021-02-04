@@ -7,7 +7,7 @@ import { animatedHook, logicLogin } from './customHook'
 import NavigationService from '@navigation/NavigationService';
 import styles from './styles'
 
-const index = () => {
+const index = (props) => {
     const [isOpenInput, setOpenInput] = React.useState(false);
 
     const [
@@ -17,7 +17,7 @@ const index = () => {
         leftAnimated
     ] = animatedHook();
 
-    const [valuePincode, onChangePincode] = logicLogin();
+    const [valuePincode, onChangePincode , loginPincode] = logicLogin(props);
 
     const openInput = () => {
         setOpenInput(true);
@@ -48,6 +48,7 @@ const index = () => {
                 onChange={onChangePincode}
             />
             <ButtonContinue
+                onPress={loginPincode}
                 isActive={valuePincode.toString().length == 4}
             />
             <TextLink onPress={forgotPincode} text='Forgot PIN code?' />

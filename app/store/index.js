@@ -10,7 +10,7 @@ import sagas from 'app/store/sagas';
 const config = {
   key: 'root',
   storage: AsyncStorage,
-  blacklist: ['loadingReducer'],
+  whitelist: ['authReducer'],
   debug: true, //to get useful logging
 };
 
@@ -19,9 +19,9 @@ const sagaMiddleware = createSagaMiddleware();
 
 middleware.push(sagaMiddleware);
 
-if (__DEV__) {
-  middleware.push(createLogger());
-}
+// if (__DEV__) {
+//   middleware.push(createLogger());
+// }
 
 const reducers = persistCombineReducers(config, rootReducers);
 const enhancers = [applyMiddleware(...middleware)];

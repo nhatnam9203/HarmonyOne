@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
             width: '100%',
             marginTop: scaleHeight(5),
             borderRadius: 5,
-            padding: scaleWidth(4),
+            height: scaleWidth(12),
             justifyContent: 'center',
             alignItems: 'center',
             borderWidth: isActive ? 0 : 1,

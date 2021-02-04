@@ -2,16 +2,19 @@ import React from 'react'
 import { Animated } from 'react-native'
 import { scaleWidth, scaleHeight } from '@utils';
 import NavigationService from '@navigation/NavigationService'
+import { useDispatch } from 'react-redux'
+import actions from '@actions';
 
 const logicLogin = () => {
+    const dispatch = useDispatch();
     const [valueMID, setValueMID] = React.useState("");
 
     const onChangeMID = (txt) => {
         setValueMID(txt);
     }
 
-    const onPressContinue = () =>{
-        NavigationService.navigate("LoginPincode");
+    const onPressContinue = () => {
+        dispatch(actions.authAction.loginMID(valueMID));
     }
 
     return [

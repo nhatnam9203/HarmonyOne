@@ -55,13 +55,9 @@ const { persistor, store } = configureStore();
 
 
 const RootNavigation = () => {
-  const isDark = useSelector((state) => state.themeReducer.isDark);
-  const paperTheme = isDark ? PaperThemeDark : PaperThemeDefault;
-  const combinedTheme = isDark ? CombinedDarkTheme : CombinedDefaultTheme;
-
   return (
-    <PaperProvider theme={paperTheme}>
-        <Navigator theme={combinedTheme} />
+    <PaperProvider >
+      <Navigator />
     </PaperProvider>
   );
 };

@@ -3,6 +3,20 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { Dimensions, Platform } from 'react-native';
+import NavigationService from '@navigation/NavigationService';
+import { baseURL, baseUrl } from '../config';
+import axios from 'axios';
+
+export function createReducer(initialState, handlers) {
+  return function reducer(state = initialState, action) {
+    if (handlers.hasOwnProperty(action.type)) {
+      return handlers[action.type](state, action);
+    } else {
+      return state;
+    }
+  };
+}
+
 
 export function isIphoneX() {
   let dimen = Dimensions.get('window');
@@ -33,16 +47,16 @@ export const requestAPI = async (action, header = {}) => {
   if (action.token) {
     headers["Authorization"] = `Bearer ${action.token}`;
   }
-  headers["User-Agent"] = `HarmonyConsumer/${Config.VERSION}/${Config.IS_PLATFORM}`;
+
+  // headers["User-Agent"] = `HarmonyConsumer/${Config.VERSION}/${Config.IS_PLATFORM}`;
   let configs = {
-    method: `${method}`.toLowerCase(),
-    baseURL: API.DEMO_API,
+    method: `${method}`,
+    baseURL : baseURL,
     url: `${action.route}`,
     headers: headers,
     timeout: 20000,
     validateStatus: (status) => status >= 200 && status < 600,
   };
-
   if ((method == "POST" || method == "DELETE" || method == "PUT") && action.body) {
     configs["data"] = JSON.stringify(action.body);
   }
@@ -53,7 +67,7 @@ export const requestAPI = async (action, header = {}) => {
     const codeNumber = response.status ? response.status : 0;
     if (codeNumber === 200) {
       if (response.data.codeNumber == 401) {
-        RootNavigation.navigate("Auth");
+        NavigationService.navigate("Auth");
         alert(response.data.message);
         return;
       }
@@ -61,7 +75,7 @@ export const requestAPI = async (action, header = {}) => {
     }
 
     if (codeNumber === 401) {
-      RootNavigation.navigate("Auth");
+      NavigationService.navigate("Auth");
       alert("Your session is expired , please login again");
       return;
     } else if (codeNumber === 404) {
