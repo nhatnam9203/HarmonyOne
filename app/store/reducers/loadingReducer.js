@@ -2,6 +2,7 @@
 
 const initialState = {
   isLoadingButton: false,
+  isLoadingRoot : false,
   contentError : '',
 };
 
@@ -18,11 +19,25 @@ export const loadingReducer = createReducer(initialState, {
       isLoadingButton: false,
     };
   },
-  ['CONTENT_ERROR'](state) {
+  ['START_LOADING_ROOT'](state) {
     return {
       ...state,
-      contentError: action.payload,
+      isLoadingRoot: true,
+    };
+  },
+  ['STOP_LOADING_ROOT'](state) {
+    return {
+      ...state,
+      isLoadingRoot: false,
+    };
+  },
+  ['SET_CONTENT_ERROR'](state,action) {
+    return {
+      ...state,
+      contentError: action.content,
     };
   },
 });
+
+
 

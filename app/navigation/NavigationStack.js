@@ -8,12 +8,13 @@ import { RootComponent } from '@components';
 
 import { StatusBar } from 'react-native';
 import Auth from './Auth';
+import Main from './Main';
 
 const Stack = createStackNavigator();
 
 const App = (props) => {
   const { theme } = props;
-
+  const { isLogin } = useSelector(state => state.loginReducer);
   return (
     <RootComponent>
       <NavigationContainer ref={navigationRef}>
@@ -24,10 +25,18 @@ const App = (props) => {
             gestureEnabled: false,
           }}
         >
-          <Stack.Screen
-            name="Auth"
-            component={Auth}
-          />
+          {
+            !isLogin ?
+              <Stack.Screen
+                name="Auth"
+                component={Auth}
+              />
+              :
+              <Stack.Screen
+                name="Main"
+                component={Main}
+              />
+          }
         </Stack.Navigator>
       </NavigationContainer>
     </RootComponent>

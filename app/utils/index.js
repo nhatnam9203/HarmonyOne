@@ -4,7 +4,7 @@ import {
 } from "react-native-responsive-screen";
 import { Dimensions, Platform } from 'react-native';
 import NavigationService from '@navigation/NavigationService';
-import { baseURL, baseUrl } from '../config';
+import { baseURL } from '../config';
 import axios from 'axios';
 
 export function createReducer(initialState, handlers) {

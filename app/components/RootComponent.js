@@ -10,13 +10,16 @@ import {
 } from "react-native";
 import { scaleWidth, scaleHeight } from "@utils";
 import { useSelector, useDispatch } from "react-redux";
-import Modal from "./Modal";
+import ModalError from "./ModalError";
+import LoadingRoot from './LoadingRoot';
 import actions from "@actions";
 
 let RootComponent = (props) => {
     return (
         <View style={styles.container}>
             {props.children}
+            <ModalError />
+            <LoadingRoot />
         </View>
     );
 };

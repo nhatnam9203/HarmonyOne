@@ -11,7 +11,7 @@ function* loginMID(action) {
                 NavigationService.navigate("LoginPincode", { merchantCode: action.body.merchantCode });
                 break;
             default:
-                yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+                yield put({ type: "SET_CONTENT_ERROR", content: response.message });
                 break;
         }
         yield put({ type: "STOP_LOADING_BUTTON" });
@@ -22,7 +22,7 @@ function* loginMID(action) {
 
 function* loginPincode(action) {
     try {
-        yield put({ type: "START_LOADING_BUTTON" });
+        yield put({ type: "START_LOADING_ROOT"});
         const response = yield requestAPI(action);
         switch (parseInt(response.codeNumber)) {
             case 200:
@@ -30,15 +30,18 @@ function* loginPincode(action) {
                     type : 'SET_INFO_LOGIN',
                     payload : response.data
                  })
+                 yield put({ 
+                    type : 'LOGIN_SUCCESS',
+                 })
                 break;
             default:
-                yield put({ type: "SHOW_POPUP_ERROR", content: response.message });
+                yield put({ type: "SET_CONTENT_ERROR", content: response.message });
                 action.cb();
                 break;
         }
-        yield put({ type: "STOP_LOADING_BUTTON" });
+        yield put({ type: "STOP_LOADING_ROOT"});
     } catch (e) {
-        yield put({ type: "STOP_LOADING_BUTTON" });
+        yield put({ type: "STOP_LOADING_ROOT"});
     }
 }
 

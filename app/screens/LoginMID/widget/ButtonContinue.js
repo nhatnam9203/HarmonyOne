@@ -10,10 +10,6 @@ const ButtonContinue = ({
 }) => {
 
     const { isLoadingButton } = useSelector(state => state.loadingReducer);
-    console.log({
-        isLoadingButton
-    })
-
     return (
         <TouchableOpacity
             onPress={onPress}

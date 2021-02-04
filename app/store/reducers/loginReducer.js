@@ -1,14 +1,22 @@
-const get_INITIAL_STATE = () => {
-  return {
+import { createReducer } from '@utils';
 
-  };
+const initialState = {
+  isLogin: false
 };
 
-function loginReducer(state = get_INITIAL_STATE(), action) {
-  switch (action.type) {
- 
-    default:
-      return state;
-  }
-}
-export default loginReducer;
+export const loginReducer = createReducer(initialState, {
+  ['LOGIN_SUCCESS'](state) {
+    return {
+      ...state,
+      isLogin: true,
+    };
+  },
+  ['LOGOUT'](state) {
+    return {
+      ...state,
+      isLogin: false,
+    };
+  },
+});
+
+
