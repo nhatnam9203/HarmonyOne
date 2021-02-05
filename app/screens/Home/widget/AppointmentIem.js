@@ -30,7 +30,7 @@ const AppointmentItem = ({ item }) => {
             <View style={{ marginTop: scaleWidth(2) }}>
                 {
                     item.services.map((obj) => (
-                        <Text style={[styles.time(item.status), { fontSize: scaleWidth(3.2) }]}>
+                        <Text fontFamily={'light'} style={[styles.time(item.status), { fontSize: scaleWidth(3.2) }]}>
                             {obj.name}
                         </Text>
                     ))

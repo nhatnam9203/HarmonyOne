@@ -10,6 +10,10 @@ import bell from './home/bell.png';
 import email from './home/email.png';
 import calendar from './home/calendar.png';
 import personHome from './home/personHome.png';
+import calendar_bottom from './bottomTab/calendar_bottom.png';
+import statistic_bottom from './bottomTab/statistic_bottom.png';
+import information_bottom from './bottomTab/information_bottom.png';
+import setting_bottom from './bottomTab/setting_bottom.png';
 
 module.exports = {
     logoHarmony,
@@ -24,4 +28,8 @@ module.exports = {
     email,
     calendar,
     personHome,
+    calendar_bottom,
+    statistic_bottom,
+    information_bottom,
+    setting_bottom
 }

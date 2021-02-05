@@ -9,6 +9,7 @@ import { RootComponent } from '@components';
 import { StatusBar } from 'react-native';
 import Auth from './Auth';
 import Main from './Main';
+import BottomMain from './BottomMain';
 
 const Stack = createStackNavigator();
 
@@ -33,8 +34,8 @@ const App = (props) => {
               />
               :
               <Stack.Screen
-                name="Main"
-                component={Main}
+                name="BottomMain"
+                component={BottomMain}
               />
           }
         </Stack.Navigator>

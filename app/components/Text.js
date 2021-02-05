@@ -6,11 +6,12 @@ const fonts = {
   bold: "SFProDisplay-Bold",
   semi: "SFProDisplay-Semibold",
   medium: "SFProDisplay-Medium",
+  light : "SFProDisplay-Light"
 };
 
 export default class TextComponent extends Component {
   render() {
-    const { fontSize, color, fontFamily = "regular", style, children, ...anyProps } = this.props;
+    const { fontSize = 17, color, fontFamily = "regular", style, children, ...anyProps } = this.props;
     const _fontsFamily = fonts[fontFamily];
 
     return (
