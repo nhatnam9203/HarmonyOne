@@ -7,7 +7,7 @@ import { personHome } from '@assets'
 const AppointmentItem = ({ item }) => {
 
     return (
-        <View style={styles.item(item.status)}>
+        <TouchableOpacity activeOpacity={1} style={styles.item(item.status)}>
             {item.status == 'unconfirm' && <IconPerson />}
 
             <Text fontFamily='bold' style={styles.time(item.status)}>
@@ -36,7 +36,7 @@ const AppointmentItem = ({ item }) => {
                     ))
                 }
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
