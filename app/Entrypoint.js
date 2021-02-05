@@ -3,7 +3,7 @@
  * Everything starts from the entrypoint
  */
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator , StatusBar } from 'react-native';
 import { Provider, useSelector } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import {
@@ -64,11 +64,15 @@ const RootNavigation = () => {
 
 const Entrypoint = () => {
   return (
-    <Provider store={store}>
-      <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
-        <RootNavigation />
-      </PersistGate>
-    </Provider>
+    <React.Fragment>
+      <StatusBar backgroundColor="transparent" translucent={true} barStyle="light-content" />
+      <Provider store={store}>
+        <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
+          <RootNavigation />
+        </PersistGate>
+      </Provider>
+    </React.Fragment>
+
   );
 };
 

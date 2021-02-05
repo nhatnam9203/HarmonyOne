@@ -16,7 +16,7 @@ const index = () => {
         NavigationService.navigate('LoginMID');
     }
 
-    return (
+return (
         <View style={styles.container}>
             <ButtonBack onPress={back} />
             <Text

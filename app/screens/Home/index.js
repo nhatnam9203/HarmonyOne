@@ -1,12 +1,18 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
+import { Header, HeaderCalendar , AppointmentList } from './widget'
+import styles from './styles'
 
-export default class index extends Component {
-    render() {
-        return (
-            <View>
-                <Text> textInComponent </Text>
+const index = () => {
+    return (
+        <View style={styles.container}>
+            <Header />
+            <View style={styles.body}>
+                <HeaderCalendar />
+                <AppointmentList />
             </View>
-        )
-    }
+        </View>
+    )
 }
+
+export default index;

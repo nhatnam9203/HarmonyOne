@@ -12,7 +12,7 @@ const LoadingRoot = () => {
             isVisible={isLoadingRoot}
         >
                 <View style={styles.wrapLoading}>
-                    <ActivityIndicator color='#404040' size='large' />
+                    <ActivityIndicator color='white' size='small' />
                 </View>
         </Modal>
     )
@@ -20,9 +20,9 @@ const LoadingRoot = () => {
 
 const styles = StyleSheet.create({
     wrapLoading: {
-        padding: scaleWidth(5),
+        padding: scaleWidth(7),
         borderRadius: 8,
-        backgroundColor : 'white'
+        backgroundColor : 'rgba(0,0,0,0.5)'
     }
 })
 

@@ -1,17 +1,35 @@
 import React, { Component } from 'react'
-import { View, Image, TouchableOpacity } from 'react-native'
+import { View, Image, TouchableOpacity, Animated } from 'react-native'
 import { Text } from '@components'
 import { logoHarmony, back } from '@assets'
-import { slop } from '@utils'
+import { slop , scaleHeight } from '@utils'
 import NavigationService from '@navigation/NavigationService'
 import styles from './styles'
 
 const index = () => {
 
+    const TextAnimated = Animated.createAnimatedComponent(Text);
+    const translateY = React.useRef(new Animated.Value(scaleHeight(30))).current;
+    const scale = React.useRef(new Animated.Value(1.2)).current;
+
+    React.useEffect(()=>{
+        Animated.parallel([
+            Animated.timing(translateY,{
+                toValue : 0,
+                duration : 700,
+                useNativeDriver : true
+            }),
+            Animated.timing(scale,{
+                toValue : 1,
+                duration : 700,
+                useNativeDriver : true
+            }),
+        ]).start();
+    },[]);
+
     const back = () => {
         NavigationService.back();
     }
-
     const backSignIn = () => {
         NavigationService.navigate('LoginMID');
     }
@@ -30,9 +48,17 @@ const index = () => {
                 source={logoHarmony}
                 resizeMode='contain'
             />
-            <Text fontFamily='medium' style={[styles.title, { marginTop: 0 }]}>
+            <TextAnimated
+                fontFamily='medium'
+                style={[
+                    styles.title, {
+                        marginTop: 0,
+                        transform: [{ translateY },{ scale }]
+                    }
+                ]}
+            >
                 What is Merchant ID ?
-            </Text>
+            </TextAnimated>
             <Text style={styles.content}>
                 Merchant ID is confidential information provided to the owner when registering on the system of the Harmony Pay. It is used to identify the store you are working in. If you have any questions please contact the owner for more details.
             </Text>

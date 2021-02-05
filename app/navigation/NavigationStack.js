@@ -26,7 +26,7 @@ const App = (props) => {
           }}
         >
           {
-            !isLogin ?
+            isLogin ?
               <Stack.Screen
                 name="Auth"
                 component={Auth}
