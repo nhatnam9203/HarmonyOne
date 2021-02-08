@@ -8,15 +8,23 @@ import NavigationService from '@navigation/NavigationService';
 
 const Header = () => {
 
+    const [isSchedule, setSchedule] = React.useState(false);
+
     const navigateSchedule = () => {
         NavigationService.navigate('Schedule');
+        setSchedule(true);
+    }
+
+    const back = () => {
+        NavigationService.navigate('AppointmentList');
+        setSchedule(false);
     }
 
     return (
         <View style={styles.container}>
-            <DayPicked />
+            <DayPicked onPress={back} />
             <Text fontFamily='bold' style={styles.month}>
-                {moment().format('MMMM YYYY')}
+                {isSchedule ? 'Schedule' : `${moment().format('MMMM YYYY')}`}
             </Text>
             <TouchableOpacity onPress={navigateSchedule}>
                 <Image style={styles.calendar} source={calendar} />
@@ -25,10 +33,11 @@ const Header = () => {
     )
 }
 
-const DayPicked = () => {
+const DayPicked = ({ onPress }) => {
     return (
         <TouchableOpacity
             hitSlop={slop}
+            onPress={onPress}
             opacity={1}
             style={styles.containerDayPicked}
         >
@@ -48,7 +57,7 @@ const DayPicked = () => {
     )
 }
 
-export default Header;
+export default React.memo(Header);
 
 const styles = StyleSheet.create({
     container: {

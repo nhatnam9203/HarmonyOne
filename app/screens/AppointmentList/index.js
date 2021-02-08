@@ -1,7 +1,7 @@
 import React from 'react'
 import { FlatList } from 'react-native'
 import { scaleWidth, scaleHeight } from '@utils'
-import AppointmentItem from './AppointmentIem'
+import AppointmentItem from './AppointmentItem'
 
 const dataAppointments = [
     {
@@ -76,6 +76,7 @@ const AppointmentList = () => {
     return (
         <FlatList
             data={data}
+            style={{ flex : 1, backgroundColor : 'white' }}
             renderItem={({ item }) => <AppointmentItem item={item} />}
             keyExtractor={item => item.id.toString()}
         />

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { Header, HeaderCalendar , AppointmentList } from './widget'
+import HomeStack from './HomeStack'
 import styles from './styles'
 
 const index = () => {
@@ -9,7 +10,7 @@ const index = () => {
             <Header />
             <View style={styles.body}>
                 <HeaderCalendar />
-                <AppointmentList />
+                <HomeStack />
             </View>
         </View>
     )
