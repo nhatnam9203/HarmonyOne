@@ -104,7 +104,7 @@ function MyTabBar({ state, descriptors, navigation }) {
     }
 
     return (
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row' , backgroundColor : 'white' }}>
             {state.routes.map((route, index) => {
                 const { options } = descriptors[route.key];
                 const label = route.name;

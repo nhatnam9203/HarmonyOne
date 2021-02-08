@@ -102,6 +102,9 @@ const styles = StyleSheet.create({
             case 'paid':
                 backgroundColor = '#50CF25'
                 break;
+            case 'cancel':
+                backgroundColor = '#CCCCCC'
+                break;
 
             default:
                 break;
@@ -118,7 +121,7 @@ const styles = StyleSheet.create({
     },
     txtStatus: status => {
         let color = 'white';
-        if (status == 'unconfirm' || status == 'confirm') {
+        if (status == 'unconfirm' || status == 'confirm' || status == 'cancel') {
             color = '#404040';
         }
         return {

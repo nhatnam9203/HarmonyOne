@@ -120,5 +120,6 @@ export const statusConvert = {
   unconfirm : 'Unconfirm',
   confirm : 'Confirmed',
   checkin : 'Checked in',
-  paid : 'Paid'
+  paid : 'Paid',
+  cancel : 'Cancel'
 };
