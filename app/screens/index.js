@@ -4,6 +4,8 @@ import ForgotPincode from './ForgotPincode';
 import ForgotPincodeSuccess from './ForgotPincodeSuccess';
 import WhatIsMerchant from './WhatIsMerchant';
 import Home from './Home';
+import Schedule from './Schedule';
+import AppointmentDetail from './AppointmentDetail';
 
 module.exports = {
     LoginMID,
@@ -11,5 +13,7 @@ module.exports = {
     ForgotPincode,
     ForgotPincodeSuccess,
     WhatIsMerchant,
-    Home
+    Home,
+    Schedule,
+    AppointmentDetail,
 }
