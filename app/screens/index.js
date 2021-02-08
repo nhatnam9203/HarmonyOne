@@ -6,6 +6,7 @@ import WhatIsMerchant from './WhatIsMerchant';
 import Home from './Home';
 import Schedule from './Schedule';
 import AppointmentDetail from './AppointmentDetail';
+import Notification from './Notification';
 
 module.exports = {
     LoginMID,
@@ -16,4 +17,5 @@ module.exports = {
     Home,
     Schedule,
     AppointmentDetail,
+    Notification,
 }

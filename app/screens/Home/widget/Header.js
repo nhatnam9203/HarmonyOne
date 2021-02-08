@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
-import { View, ImageBackground, StyleSheet, Image } from 'react-native'
+import { View, ImageBackground, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { scaleWidth, scaleHeight } from '@utils'
 import { Text } from '@components'
 import { backgroundHeader, avatarUser, bell, email } from '@assets'
+import NavigationService from '@navigation/NavigationService'
 
 const Header = () => {
+
+    const navigateNotification = () => {
+        NavigationService.navigate('Notification');
+    }
+
     return (
         <ImageBackground source={backgroundHeader} style={styles.header}>
             <View style={styles.rowHeader}>
@@ -14,7 +20,7 @@ const Header = () => {
                         <Text fontFamily='medium' style={styles.txtUser}>
                             Welcome Meredith !
                         </Text>
-                        <View style={[styles.rowLeft,{ marginTop : scaleWidth(1) }]}>
+                        <View style={[styles.rowLeft, { marginTop: scaleWidth(1) }]}>
                             <Image source={email} style={styles.email} />
                             <Text style={styles.txtEmail}>
                                 Meredith85@gmail.com
@@ -22,15 +28,17 @@ const Header = () => {
                         </View>
                     </View>
                 </View>
-                <IconBell />
+                <IconBell onPress={navigateNotification} />
             </View>
         </ImageBackground>
     )
 }
 
-const IconBell = () => {
+const IconBell = ({ onPress }) => {
     return (
-        <Image source={bell} style={styles.bell} />
+        <TouchableOpacity onPress={onPress}>
+            <Image source={bell} style={styles.bell} />
+        </TouchableOpacity>
     )
 }
 
@@ -50,7 +58,7 @@ const styles = StyleSheet.create({
     },
     rowLeft: {
         flexDirection: 'row',
-        alignItems : 'center'
+        alignItems: 'center'
     },
     avatar: {
         width: scaleWidth(13),
@@ -60,7 +68,7 @@ const styles = StyleSheet.create({
     bell: {
         width: scaleWidth(5.3),
         height: scaleWidth(5.3),
-        marginTop : scaleWidth(1.5)
+        marginTop: scaleWidth(1.5)
     },
     email: {
         width: scaleWidth(4),
@@ -73,6 +81,6 @@ const styles = StyleSheet.create({
     txtEmail: {
         fontSize: scaleWidth(3.5),
         color: 'white',
-        marginLeft : scaleWidth(1)
+        marginLeft: scaleWidth(1)
     }
 })
