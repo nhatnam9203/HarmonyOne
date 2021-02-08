@@ -51,7 +51,7 @@ export const requestAPI = async (action, header = {}) => {
   // headers["User-Agent"] = `HarmonyConsumer/${Config.VERSION}/${Config.IS_PLATFORM}`;
   let configs = {
     method: `${method}`,
-    baseURL : baseURL,
+    baseURL: baseURL,
     url: `${action.route}`,
     headers: headers,
     timeout: 20000,
@@ -114,4 +114,11 @@ export const requestAPI = async (action, header = {}) => {
       message: "something went wrong.",
     };
   }
+};
+
+export const statusConvert = {
+  unconfirm : 'Unconfirm',
+  confirm : 'Confirmed',
+  checkin : 'Checked in',
+  paid : 'Paid'
 };

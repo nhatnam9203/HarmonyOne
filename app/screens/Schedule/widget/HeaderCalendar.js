@@ -3,31 +3,29 @@ import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { scaleWidth, scaleHeight, slop } from '@utils'
 import { Text } from '@components'
 import { calendar, personHome } from '@assets'
-import moment from 'moment'
-import NavigationService from '@navigation/NavigationService';
+import NavigationService from '@navigation/NavigationService'
 
 const Header = () => {
 
-    const navigateSchedule = () => {
-        NavigationService.navigate('Schedule');
+    const back = () => {
+        NavigationService.back();
     }
 
     return (
         <View style={styles.container}>
-            <DayPicked />
+            <DayPicked onPress={back} />
             <Text fontFamily='bold' style={styles.month}>
-                {moment().format('MMMM YYYY')}
+                Schedule
             </Text>
-            <TouchableOpacity onPress={navigateSchedule}>
-                <Image style={styles.calendar} source={calendar} />
-            </TouchableOpacity>
+            <Image style={styles.calendar} source={calendar} />
         </View>
     )
 }
 
-const DayPicked = () => {
+const DayPicked = ({ onPress }) => {
     return (
         <TouchableOpacity
+            onPress={onPress}
             hitSlop={slop}
             opacity={1}
             style={styles.containerDayPicked}
@@ -55,8 +53,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: scaleHeight(1),
-        paddingHorizontal: scaleWidth(5)
+        paddingTop : scaleHeight(1),
+        paddingHorizontal: scaleWidth(5),
     },
     calendar: {
         width: scaleWidth(8),

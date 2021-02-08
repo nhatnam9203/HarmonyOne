@@ -3,11 +3,17 @@ import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { scaleWidth, scaleHeight } from '@utils'
 import { Text } from '@components'
 import { personHome } from '@assets'
+import NavigationService from '@navigation/NavigationService'
 
 const AppointmentItem = ({ item }) => {
 
+    const navigateDetail = () => {
+        NavigationService.navigate('AppointmentDetail')
+    }
+
     return (
-        <TouchableOpacity activeOpacity={1} style={styles.item(item.status)}>
+
+        <TouchableOpacity onPress={navigateDetail} style={styles.item(item.status)}>
             {item.status == 'unconfirm' && <IconPerson />}
 
             <Text fontFamily='bold' style={styles.time(item.status)}>
@@ -15,7 +21,7 @@ const AppointmentItem = ({ item }) => {
             </Text>
 
             <Text
-                fontFamily='medium'
+                fontFamily='medium' 
                 style={[styles.time(item.status), { fontSize: scaleWidth(4.7), marginTop: scaleWidth(1) }]}
             >
                 {`${item.name}`}
