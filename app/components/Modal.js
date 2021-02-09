@@ -8,7 +8,7 @@ export default class index extends React.PureComponent {
         return (
             <Modal
                 animationIn='zoomInUp'
-                animationOut='zoomOutDown'
+                animationOut='zoomOutUp'
                 isVisible={isVisible}
                 backdropColor={'rgba(0,0,0,0.25)'}
             >

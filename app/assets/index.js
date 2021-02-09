@@ -17,6 +17,7 @@ import setting_bottom from './bottomTab/setting_bottom.png';
 import barTimeLine from './home/barTimeLine.png';
 import clear from './home/clear.png';
 import treedot from './home/treedot.png';
+import buttonAddMore from './home/buttonAddMore.png';
 
 module.exports = {
     logoHarmony,
@@ -38,4 +39,5 @@ module.exports = {
     barTimeLine,
     clear,
     treedot,
+    buttonAddMore,
 }

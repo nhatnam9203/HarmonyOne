@@ -17,10 +17,6 @@ const MainStack = () => {
                 name="Home"
                 component={Home}
             />
-            <Main.Screen
-                name="Schedule"
-                component={Schedule}
-            />
         </Main.Navigator>
     );
 };

@@ -3,17 +3,28 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Text } from '@components'
 import { scaleWidth, scaleHeight, slop } from '@utils'
 import { treedot } from '@assets'
+import NavigationService from '@navigation/NavigationService';
 
-const GroupModalButton = ({ closeModal }) => {
+const GroupModalButton = ({ closeModal , openPopupCancel }) => {
 
-    const close = () =>{
+    const close = () => {
         closeModal();
+    }
+
+    const navigateEdit = () => {
+        closeModal();
+        NavigationService.navigate('EditAppointment');
+    }
+
+    const cancel = () =>{
+        closeModal();
+        openPopupCancel();
     }
 
     return (
         <View style={styles.container}>
             <TouchableOpacity
-                onPress={close}
+                onPress={navigateEdit}
                 activeOpacity={1}
                 fontFamily='medium'
                 style={[styles.button, styles.btnEdit]}
@@ -22,7 +33,7 @@ const GroupModalButton = ({ closeModal }) => {
             </TouchableOpacity>
 
             <TouchableOpacity
-                onPress={close}
+                onPress={cancel}
                 activeOpacity={1}
                 fontFamily='medium'
                 style={[styles.button, styles.btnCancel]}

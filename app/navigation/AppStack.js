@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Notification, AppointmentDetail } from '@screens';
+import { Notification, AppointmentDetail, EditAppointment } from '@screens';
 import BottomMain from './BottomMain';
 
 const App = createStackNavigator();
@@ -25,6 +25,10 @@ const AppStack = () => {
             <App.Screen
                 name="AppointmentDetail"
                 component={AppointmentDetail}
+            />
+            <App.Screen
+                name="EditAppointment"
+                component={EditAppointment}
             />
         </App.Navigator>
     );

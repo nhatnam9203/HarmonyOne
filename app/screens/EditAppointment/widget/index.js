@@ -3,9 +3,8 @@ import UserInfo from './UserInfo'
 import Time from './Time'
 import Service from './Service'
 import HomeService from './HomeService'
-import BottomButton from './BottomButton'
-import GroupModalButton from './GroupModalButton'
-import PopupCancel from './PopupCancel'
+import ButtonSave from './ButtonSave'
+import TotalInfo from './TotalInfo'
 
 module.exports = {
     Header,
@@ -13,7 +12,6 @@ module.exports = {
     Time,
     Service,
     HomeService,
-    BottomButton,
-    GroupModalButton,
-    PopupCancel
+    ButtonSave,
+    TotalInfo,
 }
