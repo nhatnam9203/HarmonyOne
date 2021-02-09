@@ -6,7 +6,7 @@ import { buttonAddMore } from '@assets'
 
 const TotalInfo = () => {
     return (
-        <View>
+        <View style={{ paddingHorizontal : scaleWidth(5) }}>
             <Text style={styles.totalDuration}>
                 Total Duration : 90 min
             </Text>
@@ -69,4 +69,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: scaleHeight(1)
     }
-})
+});
+

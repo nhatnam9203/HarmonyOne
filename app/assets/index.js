@@ -18,6 +18,8 @@ import barTimeLine from './home/barTimeLine.png';
 import clear from './home/clear.png';
 import treedot from './home/treedot.png';
 import buttonAddMore from './home/buttonAddMore.png';
+import rightButton from './home/rightButton.png';
+import leftButton from './home/leftButton.png';
 
 module.exports = {
     logoHarmony,
@@ -40,4 +42,6 @@ module.exports = {
     clear,
     treedot,
     buttonAddMore,
+    rightButton,
+    leftButton,
 }

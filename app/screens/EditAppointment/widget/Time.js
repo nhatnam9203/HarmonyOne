@@ -1,13 +1,24 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Text } from '@components'
-import { scaleWidth, scaleHeight } from '@utils'
+import { scaleWidth, scaleHeight, slop } from '@utils'
+import { rightButton } from '@assets';
 
-const Time = ({ }) => {
+const Time = ({ openCalendarPicker = () => { } }) => {
     return (
-        <Text style={styles.time} fontFamily='medium'>
-            Thursday, 20 Feb 2020
-        </Text>
+        <TouchableOpacity
+            hitSlop={slop}
+            onPress={openCalendarPicker}
+            style={styles.row}
+        >
+            <Text style={styles.time} fontFamily='medium'>
+                Thursday, 20 Feb 2020
+            </Text>
+            <Image
+                resizeMode='contain'
+                source={rightButton} style={styles.rightButton}
+            />
+        </TouchableOpacity>
     )
 }
 
@@ -17,6 +28,16 @@ const styles = StyleSheet.create({
     time: {
         fontSize: scaleWidth(4.8),
         color: '#1366AE',
-        marginTop : scaleHeight(2)
+    },
+    rightButton: {
+        width: scaleWidth(3.5),
+        height: scaleWidth(3.5)
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: scaleHeight(2)
+
     }
 })

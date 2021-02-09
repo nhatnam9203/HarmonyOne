@@ -5,6 +5,7 @@ import Service from './Service'
 import HomeService from './HomeService'
 import ButtonSave from './ButtonSave'
 import TotalInfo from './TotalInfo'
+import CalendarPicker from './CalendarPicker'
 
 module.exports = {
     Header,
@@ -14,4 +15,5 @@ module.exports = {
     HomeService,
     ButtonSave,
     TotalInfo,
+    CalendarPicker,
 }

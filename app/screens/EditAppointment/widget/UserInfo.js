@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderBottomWidth: 1,
         borderBottomColor : '#eeeeee',
-        paddingBottom : scaleHeight(1.5)
+        paddingBottom : scaleHeight(1.5),
+        marginTop : scaleHeight(2)
     },
     wrap: {
         width: scaleWidth(13),

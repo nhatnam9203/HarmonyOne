@@ -5,7 +5,7 @@ import { scaleWidth, scaleHeight, slop } from '@utils'
 import { back } from '@assets'
 import NavigationService from '@navigation/NavigationService';
 
-const Header = ({ onPress }) => {
+const ButtonSave = ({ onPress }) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={onPress} style={styles.button}>
@@ -17,7 +17,7 @@ const Header = ({ onPress }) => {
     )
 }
 
-export default Header;
+export default ButtonSave;
 
 const styles = StyleSheet.create({
     container : {

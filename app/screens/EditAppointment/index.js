@@ -2,23 +2,56 @@ import React, { Component } from 'react'
 import { View, ScrollView } from 'react-native'
 import { Text } from '@components'
 import { scaleHeight } from '@utils'
-import { Header, UserInfo, Time, Service, HomeService, ButtonSave, TotalInfo } from './widget'
+import { Header, UserInfo, Time, Service, HomeService, ButtonSave, TotalInfo, CalendarPicker } from './widget'
+import { Modalize } from 'react-native-modalize'
 import styles from './styles'
+import { scaleWidth } from 'app/utils'
 
 const index = () => {
+
+    const modalizeRef = React.useRef(null);
+
+    const openCalendarPicker = () => {
+        modalizeRef.current?.open();
+    }
+
+    const closeCalendarPicker = () => {
+        modalizeRef.current?.close();
+    }
 
     return (
         <View style={styles.container}>
             <Header />
-            <ScrollView style={styles.body}>
-                <UserInfo />
-                <HomeService />
-                <Time />
+            <ScrollView showsVerticalScrollIndicator={false} style={styles.body}>
+                <View style={{ paddingHorizontal: scaleWidth(5) }}>
+                    <UserInfo />
+                    <HomeService />
+                    <Time openCalendarPicker={openCalendarPicker} />
+                </View>
                 <Service />
                 <TotalInfo />
                 <View style={{ height: scaleHeight(40) }} />
             </ScrollView>
             <ButtonSave />
+
+            <Modalize
+                handleStyle={{
+                    opacity: 0
+                }}
+                overlayStyle={{
+                    backgroundColor: 'rgba(0,0,0,0.4)'
+                }}
+                modalStyle={{
+                    backgroundColor: 'transparent'
+                }}
+                adjustToContentHeight
+                onBackButtonPress={closeCalendarPicker}
+                ref={modalizeRef}
+            >
+                <CalendarPicker
+                    closeCalendarPicker={closeCalendarPicker}
+                />
+            </Modalize>
         </View>
     )
 }

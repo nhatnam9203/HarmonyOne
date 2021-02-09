@@ -35,7 +35,16 @@ const styles = StyleSheet.create({
         paddingTop: scaleHeight(8),
         paddingBottom: scaleHeight(1.5),
         backgroundColor: 'white',
-        position: 'relative'
+        position: 'relative',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.08,
+        shadowRadius: 1.04,
+
+        elevation: 5,
     },
     title: {
         textAlign: 'center',
@@ -50,6 +59,6 @@ const styles = StyleSheet.create({
     btnBack: {
         position: 'absolute',
         top: scaleHeight(8.2),
-        left: scaleWidth(3),
+        left: scaleWidth(5),
     }
 })
