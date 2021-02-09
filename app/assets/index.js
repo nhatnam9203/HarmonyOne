@@ -15,6 +15,7 @@ import statistic_bottom from './bottomTab/statistic_bottom.png';
 import information_bottom from './bottomTab/information_bottom.png';
 import setting_bottom from './bottomTab/setting_bottom.png';
 import barTimeLine from './home/barTimeLine.png';
+import clear from './home/clear.png';
 
 module.exports = {
     logoHarmony,
@@ -34,4 +35,5 @@ module.exports = {
     information_bottom,
     setting_bottom,
     barTimeLine,
+    clear
 }

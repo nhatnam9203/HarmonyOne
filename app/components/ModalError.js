@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import Text from './Text';
-import Modal from './Modal';
+import Modal from './Modal77';
 import { scaleWidth, scaleHeight, slop } from '@utils';
 import { useDispatch, useSelector } from 'react-redux';
 import AntDesign from 'react-native-vector-icons/AntDesign';

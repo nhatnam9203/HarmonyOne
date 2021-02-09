@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { Text } from '@components'
-import { Header, UserInfo, Time, Service } from './widget'
+import { Header, UserInfo, Time, Service, HomeService } from './widget'
 import styles from './styles'
 
 const index = () => {
@@ -10,6 +10,7 @@ const index = () => {
             <Header />
             <View style={styles.body}>
                 <UserInfo />
+                <HomeService />
                 <Time />
                 <Service />
             </View>
