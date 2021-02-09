@@ -21,10 +21,6 @@ const MainStack = () => {
                 name="Schedule"
                 component={Schedule}
             />
-            <Main.Screen
-                name="AppointmentDetail"
-                component={AppointmentDetail}
-            />
         </Main.Navigator>
     );
 };

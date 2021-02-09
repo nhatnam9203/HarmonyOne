@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, ActivityIndicator } from 'react-native'
-import Modal from './Modal77';
+import Modal from './Modal';
 import { scaleWidth, scaleHeight, slop } from '@utils';
 import { useSelector } from 'react-redux';
 
