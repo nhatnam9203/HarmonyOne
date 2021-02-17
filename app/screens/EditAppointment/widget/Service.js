@@ -4,20 +4,26 @@ import { Text } from '@components'
 import { scaleWidth, scaleHeight } from '@utils'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import NavigationService from '@navigation/NavigationService';
 
 const Service = ({ }) => {
+
+    const editService = () => {
+        NavigationService.navigate('EditService');
+    }
+
     return (
         <React.Fragment>
             <Text style={styles.title} fontFamily='medium'>
                 Services
             </Text>
-            <ItemService />
-            <ItemService />
+            <ItemService onPress={editService} />
+            <ItemService onPress={editService} />
         </React.Fragment>
     )
 }
 
-const ItemService = () => {
+const ItemService = ({ onPress = () => { } }) => {
     const renderLeftActions = (progress, dragX) => {
         /*       const trans = dragX.interpolate({
                   inputRange: [0, 50, 100, 101],
@@ -32,7 +38,10 @@ const ItemService = () => {
 
     return (
         <Swipeable renderRightActions={renderLeftActions}>
-            <View style={styles.itemService}>
+            <TouchableOpacity
+                onPress={onPress}
+                style={styles.itemService}
+            >
                 <Text style={styles.time} fontFamily='bold'>
                     10:00 AM
             </Text>
@@ -47,7 +56,7 @@ const ItemService = () => {
                 <Text style={styles.duration}>
                     60 min
                 </Text>
-            </View>
+            </TouchableOpacity>
         </Swipeable>
     )
 }
@@ -68,7 +77,7 @@ const styles = StyleSheet.create({
     serviceName: {
         fontSize: scaleWidth(4),
         color: '#1366AE',
-        width : scaleWidth(70)
+        width: scaleWidth(70)
     },
     price: {
         fontSize: scaleWidth(4),
@@ -97,7 +106,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         marginTop: scaleHeight(0.8),
-        paddingRight : scaleWidth(4)
+        paddingRight: scaleWidth(4)
     },
     rightButton: {
         backgroundColor: '#EB1E26',

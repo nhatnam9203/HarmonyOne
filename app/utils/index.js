@@ -123,3 +123,13 @@ export const statusConvert = {
   paid : 'Paid',
   cancel : 'Cancel'
 };
+
+export function convertMinsToHrsMins(mins) {
+  let h = Math.floor(mins / 60);
+  let m = mins % 60;
+  if (h !== 0){
+    if(m == 0) return `${h} hour`;
+    return `${h} hour ${m} min`;
+  }
+  return `${m} min`;
+}

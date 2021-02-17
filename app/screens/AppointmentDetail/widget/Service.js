@@ -11,7 +11,6 @@ const Service = ({ }) => {
             </Text>
             <ItemService />
             <ItemService />
-            <TotalInfo />
         </React.Fragment>
     )
 }
@@ -33,32 +32,6 @@ const ItemService = () => {
             <Text style={styles.duration}>
                 60 min
             </Text>
-        </View>
-    )
-}
-
-const TotalInfo = () => {
-    return (
-        <View>
-            <Text style={styles.totalDuration}>
-                Total Duration : 90 min
-            </Text>
-            <View style={[styles.row,{ marginTop : scaleHeight(2) }]}>
-                <Text
-                    fontFamily='bold'
-                    fontSize={scaleWidth(4)}
-                    style={{ color: '#7B99BA' }}
-                >
-                    Total
-                </Text>
-                <Text
-                    fontFamily='bold'
-                    fontSize={scaleWidth(5)}
-                    style={{ color: '#50CF25' }}
-                >
-                    $ 100.00
-                </Text>
-            </View>
         </View>
     )
 }
@@ -104,10 +77,4 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center'
     },
-    totalDuration: {
-        color: '#7B99BA',
-        fontSize: scaleWidth(3.8),
-        alignSelf: 'flex-end',
-        marginTop: scaleHeight(0.5)
-    }
 })

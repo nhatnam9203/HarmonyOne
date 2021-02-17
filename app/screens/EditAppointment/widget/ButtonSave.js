@@ -9,7 +9,7 @@ const ButtonSave = ({ onPress }) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={onPress} style={styles.button}>
-                <Text fontFamily='medium' style={styles.text}>
+                <Text fontFamily='bold' style={styles.text}>
                     Save
             </Text>
             </TouchableOpacity>

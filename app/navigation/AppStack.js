@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Notification, AppointmentDetail, EditAppointment } from '@screens';
+import {
+    Notification, AppointmentDetail, EditAppointment, EditService, AddService,
+    Checkout, SelectPayment, EditProfile, ChangePincode, ForgotPincode, FeedBack,
+    Services, NewCategory, NewService,
+} from '@screens';
 import BottomMain from './BottomMain';
 
 const App = createStackNavigator();
@@ -30,6 +34,51 @@ const AppStack = () => {
                 name="EditAppointment"
                 component={EditAppointment}
             />
+            <App.Screen
+                name="EditService"
+                component={EditService}
+            />
+            <App.Screen
+                name="AddService"
+                component={AddService}
+            />
+            <App.Screen
+                name="Checkout"
+                component={Checkout}
+            />
+            <App.Screen
+                name="SelectPayment"
+                component={SelectPayment}
+            />
+            <App.Screen
+                name="EditProfile"
+                component={EditProfile}
+            />
+            <App.Screen
+                name="ChangePincode"
+                component={ChangePincode}
+            />
+            <App.Screen
+                name="ForgotPincode"
+                component={ForgotPincode}
+            />
+            <App.Screen
+                name="FeedBack"
+                component={FeedBack}
+            />
+            <App.Screen
+                name="Services"
+                component={Services}
+            />
+            <App.Screen
+                name="NewCategory"
+                component={NewCategory}
+            />
+            <App.Screen
+                name="NewService"
+                component={NewService}
+            />
+
         </App.Navigator>
     );
 };

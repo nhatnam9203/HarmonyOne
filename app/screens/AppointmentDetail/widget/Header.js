@@ -16,14 +16,14 @@ const Header = ({ status = 'checkin' }) => {
             <Text fontFamily='medium' style={styles.title(status)}>
                 Appointment details
             </Text>
-            <ButtonBack onPress={back} />
+            <ButtonBack onPress={back} status={status} />
         </View>
     )
 }
 
-const ButtonBack = ({ onPress = () => { } }) => (
+const ButtonBack = ({ onPress = () => { } , status}) => (
     <TouchableOpacity activeOpacity={1} onPress={onPress} style={styles.btnBack}>
-        <Image source={back} style={styles.iconBack} resizeMode='contain' />
+        <Image source={back} style={styles.iconBack(status)} resizeMode='contain' />
     </TouchableOpacity>
 )
 
@@ -58,20 +58,26 @@ const styles = StyleSheet.create({
         }
     },
     title: status => {
+        let color = '#000000';
+        if(status == 'checkin' || status == 'paid') color = 'white';
         return {
             textAlign: 'center',
             fontSize: scaleWidth(5),
-            color: 'white'
+            color,
         }
     },
-    iconBack: {
-        tintColor: 'white',
-        width: scaleWidth(5),
-        height: scaleWidth(5)
+    iconBack: status => {
+        let tintColor = '#000000';
+        if(status == 'checkin' || status == 'paid') tintColor = 'white';
+        return{
+            tintColor,
+            width: scaleWidth(5),
+            height: scaleWidth(5)
+        }
     },
     btnBack: {
         position: 'absolute',
         top: scaleHeight(8.2),
-        left: scaleWidth(3),
+        left: scaleWidth(5),
     }
 })

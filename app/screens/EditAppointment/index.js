@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { View, ScrollView } from 'react-native'
-import { Text } from '@components'
+import { Text , DayPicker } from '@components'
 import { scaleHeight } from '@utils'
-import { Header, UserInfo, Time, Service, HomeService, ButtonSave, TotalInfo, CalendarPicker } from './widget'
+import { Header, UserInfo, Time, Service, HomeService, ButtonSave, TotalInfo } from './widget'
 import { Modalize } from 'react-native-modalize'
 import styles from './styles'
 import { scaleWidth } from 'app/utils'
@@ -48,8 +48,9 @@ const index = () => {
                 onBackButtonPress={closeCalendarPicker}
                 ref={modalizeRef}
             >
-                <CalendarPicker
+                <DayPicker
                     closeCalendarPicker={closeCalendarPicker}
+                    bottom={scaleHeight(5)}
                 />
             </Modalize>
         </View>

@@ -20,6 +20,29 @@ import treedot from './home/treedot.png';
 import buttonAddMore from './home/buttonAddMore.png';
 import rightButton from './home/rightButton.png';
 import leftButton from './home/leftButton.png';
+import search from './home/search.png';
+import defaultService from './home/defaultService.png';
+import icon_appointment from './home/icon_appointment.png';
+import icon_sales from './home/icon_sales.png';
+import checked from './home/checked.png';
+import icon_close from './home/icon_close.png';
+import pincode_success from './home/pincode_success.png';
+import information_home from './information/information_home.png';
+import information_review from './information/information_review.png';
+import information_payment from './information/information_payment.png';
+import information_service from './information/information_service.png';
+import information_hardware from './information/information_hardware.png';
+import emoji1 from './feedback/emoji1.png';
+import emoji2 from './feedback/emoji2.png';
+import emoji3 from './feedback/emoji3.png';
+import emoji4 from './feedback/emoji4.png';
+import emoji5 from './feedback/emoji5.png';
+import emoji_1 from './feedback/emoji_1.png';
+import emoji_2 from './feedback/emoji_2.png';
+import emoji_3 from './feedback/emoji_3.png';
+import emoji_4 from './feedback/emoji_4.png';
+import emoji_5 from './feedback/emoji_5.png';
+import camera from './home/camera.png';
 
 module.exports = {
     logoHarmony,
@@ -44,4 +67,27 @@ module.exports = {
     buttonAddMore,
     rightButton,
     leftButton,
+    search,
+    defaultService,
+    icon_appointment,
+    icon_sales,
+    icon_close,
+    information_home,
+    information_review,
+    information_service,
+    information_payment,
+    information_hardware,
+    checked,
+    pincode_success,
+    emoji1,
+    emoji2,
+    emoji3,
+    emoji4,
+    emoji5,
+    emoji_1,
+    emoji_2,
+    emoji_3,
+    emoji_4,
+    emoji_5,
+    camera,
 }

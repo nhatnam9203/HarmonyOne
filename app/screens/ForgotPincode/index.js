@@ -7,7 +7,7 @@ import { animatedHook, logic } from './customHook'
 import NavigationService from '@navigation/NavigationService'
 import styles from './styles'
 
-const index = () => {
+const index = (props) => {
     const [isOpenInput, setOpenInput] = React.useState(false);
 
     const [
@@ -18,6 +18,8 @@ const index = () => {
     ] = animatedHook();
 
     const [valueMID, onChangeMID, onPressContinue] = logic();
+
+    const isMain = props?.route?.params?.isMain;
 
     const openInput = () => {
         setOpenInput(true);
@@ -55,7 +57,7 @@ const index = () => {
                 isActive={valueMID.toString().length > 0}
                 onPress={onPressContinue}
             />
-            <TextLink onPress={back} />
+            {!isMain && <TextLink onPress={back} />}
         </View>
     )
 }

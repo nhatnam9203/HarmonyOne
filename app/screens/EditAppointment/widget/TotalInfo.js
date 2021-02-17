@@ -3,14 +3,20 @@ import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Text } from '@components'
 import { scaleWidth, scaleHeight } from '@utils'
 import { buttonAddMore } from '@assets'
+import NavigationService from '@navigation/NavigationService'
 
 const TotalInfo = () => {
+
+     const addService = () =>{
+         NavigationService.navigate('AddService');
+     }
+
     return (
         <View style={{ paddingHorizontal : scaleWidth(5) }}>
             <Text style={styles.totalDuration}>
                 Total Duration : 90 min
             </Text>
-            <ButtonAddMore />
+            <ButtonAddMore onPress={addService} />
             <View style={[styles.row, { marginTop: scaleHeight(2) }]}>
                 <Text
                     fontFamily='bold'

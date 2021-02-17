@@ -4,14 +4,33 @@ import { Text } from '@components'
 import { scaleWidth, scaleHeight, slop } from '@utils'
 import { treedot } from '@assets'
 
-const BottomButton = ({ openModal }) => {
+const BottomButton = ({ openModal, status, onPressConfirm }) => {
+    let textStatus = 'unconfirm';
+    switch (status) {
+        case 'unconfirm':
+            textStatus = 'Confirm'
+            break;
+        case 'confirm':
+            textStatus = 'Check-in'
+            break;
+        case 'checkin':
+            textStatus = 'Check-out'
+            break;
+
+        default:
+            break;
+    }
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={openModal} hitSlop={slop} style={styles.btnTreedot}>
                 <Image source={treedot} style={styles.treedot} resizeMode='contain' />
             </TouchableOpacity>
-            <TouchableOpacity hitSlop={slop} style={styles.btnConfirm}>
-                <Text fontFamily='medium' style={styles.txtConfirm}>Confirm</Text>
+            
+            <TouchableOpacity
+                onPress={onPressConfirm}
+                hitSlop={slop} style={styles.btnConfirm}
+            >
+                <Text fontFamily='medium' style={styles.txtConfirm}>{textStatus}</Text>
             </TouchableOpacity>
         </View>
     )

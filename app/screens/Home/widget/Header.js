@@ -47,9 +47,9 @@ export default Header;
 const styles = StyleSheet.create({
     header: {
         width: scaleWidth(100),
-        height: scaleHeight(16),
+        height: scaleHeight(14),
         marginTop: -6,
-        paddingTop: scaleHeight(8)
+        paddingTop: scaleHeight(6.5)
     },
     rowHeader: {
         flexDirection: 'row',

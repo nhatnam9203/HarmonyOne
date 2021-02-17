@@ -1,19 +1,19 @@
 import React from 'react'
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { Text } from '@components'
+import Text from './Text'
 import { scaleWidth, scaleHeight } from '@utils'
-import { Calendar } from '@components/react-native-calendars'
+import { Calendar } from './react-native-calendars'
 import { rightButton, leftButton } from '@assets'
 import moment from 'moment'
 
-const CalendarPicker = ({ onPress, closeCalendarPicker }) => {
+const WeekPicker = ({ onPress, closeCalendarPicker , bottom = 0 }) => {
 
     const cancel = () => {
         closeCalendarPicker();
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container(bottom)}>
             <Calendar
                 style={{ padding: 0 }}
                 current={moment().format("YYYY-MM-DD")}
@@ -47,13 +47,15 @@ const CalendarPicker = ({ onPress, closeCalendarPicker }) => {
     )
 }
 
-export default CalendarPicker;
+export default WeekPicker;
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: 'white',
-        width: scaleWidth(100),
-        paddingBottom: scaleHeight(5)
+    container:  (bottom) => {
+        return{
+            backgroundColor: 'white',
+            width: scaleWidth(100),
+            paddingBottom: bottom
+        }
     },
     iconButton: {
         width: scaleWidth(4),

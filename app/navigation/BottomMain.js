@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Image, View, TouchableOpacity, Animated, StyleSheet } from 'react-native';
-import { Home } from '@screens';
+import { Home, Statistic , Information , Setting } from '@screens';
 import { scaleWidth, scaleHeight } from '@utils';
 import { Text } from '@components';
 import { TouchableRipple } from 'react-native-paper';
@@ -40,7 +40,7 @@ const IconAnimated = React.memo(({ source, focused }) => {
         <ImageAnimated animation={'zoomIn'} duration={300}
             source={source}
             resizeMode="contain"
-            style={styles.imgAnimated(scale,focused)}
+            style={styles.imgAnimated(scale, focused)}
         />
     )
 });
@@ -104,7 +104,7 @@ function MyTabBar({ state, descriptors, navigation }) {
     }
 
     return (
-        <View style={{ flexDirection: 'row' , backgroundColor : 'white' }}>
+        <View style={{ flexDirection: 'row', backgroundColor: 'white' }}>
             {state.routes.map((route, index) => {
                 const { options } = descriptors[route.key];
                 const label = route.name;
@@ -169,7 +169,7 @@ const Bottom = () => {
             />
             <BottomStack.Screen
                 name="Statistic"
-                component={Main}
+                component={Statistic}
                 options={{
                     tabBarIcon: ({ focused }) => <IconTab source={statistic_bottom} focused={focused} />,
                     tabBarLabel: ({ focused, color }) => (
@@ -179,7 +179,7 @@ const Bottom = () => {
             />
             <BottomStack.Screen
                 name="Informations"
-                component={Main}
+                component={Information}
                 options={{
                     tabBarIcon: ({ focused }) => <IconTab source={information_bottom} focused={focused} />,
                     tabBarLabel: ({ focused, color }) => (
@@ -189,7 +189,7 @@ const Bottom = () => {
             />
             <BottomStack.Screen
                 name="Settings"
-                component={Main}
+                component={Setting}
                 options={{
                     tabBarIcon: ({ focused }) => <IconTab source={setting_bottom} focused={focused} />,
                     tabBarLabel: ({ focused, color }) => (
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
         paddingTop: scaleWidth(3),
         backgroundColor: 'white'
     },
-    imgAnimated: (scale,focused) => {
+    imgAnimated: (scale, focused) => {
         return {
             width: scaleWidth(5.2),
             height: scaleWidth(5.2),
