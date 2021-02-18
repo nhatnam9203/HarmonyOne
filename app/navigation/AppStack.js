@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {
     Notification, AppointmentDetail, EditAppointment, EditService, AddService,
     Checkout, SelectPayment, EditProfile, ChangePincode, ForgotPincode, FeedBack,
-    Services, NewCategory, NewService,
+    Services, NewCategory, NewService, Reviews
 } from '@screens';
 import BottomMain from './BottomMain';
 
@@ -77,6 +77,10 @@ const AppStack = () => {
             <App.Screen
                 name="NewService"
                 component={NewService}
+            />
+            <App.Screen
+                name="Reviews"
+                component={Reviews}
             />
 
         </App.Navigator>

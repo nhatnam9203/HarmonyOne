@@ -58,7 +58,8 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        fontSize: scaleWidth(4)
+        fontSize: scaleWidth(4),
+        color : '#404040'
     },
     close: {
         width: scaleWidth(5),

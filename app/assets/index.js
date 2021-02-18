@@ -43,6 +43,8 @@ import emoji_3 from './feedback/emoji_3.png';
 import emoji_4 from './feedback/emoji_4.png';
 import emoji_5 from './feedback/emoji_5.png';
 import camera from './home/camera.png';
+import icon_addImage from './home/icon_addImage.png';
+import triAngle from './home/triAngle.png';
 
 module.exports = {
     logoHarmony,
@@ -90,4 +92,6 @@ module.exports = {
     emoji_4,
     emoji_5,
     camera,
+    icon_addImage,
+    triAngle,
 }

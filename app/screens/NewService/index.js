@@ -1,13 +1,14 @@
 import React from 'react'
-import { View , ScrollView} from 'react-native'
+import { View, ScrollView } from 'react-native'
 import { Text } from '@components'
 import { scaleHeight, scaleWidth } from '@utils'
-import { Header, Input, InputDescription, InputDuration , ImageUpload } from './widget'
+import { Header, Input, InputDescription, InputDuration, ButtonUpload, InputSelect } from './widget'
 import styles from './styles'
 
 const index = () => {
 
-    const [categoryName, setCategoryName] = React.useState("");
+    const [categoryName, setCategoryName] = React.useState("Manicure");
+    const [status, setStatus] = React.useState("Active");
     const [serviceName, setServiceName] = React.useState("");
     const [description, setDescription] = React.useState("");
     const [minutes, setMinutes] = React.useState("");
@@ -26,11 +27,10 @@ const index = () => {
                     onChange={setServiceName}
                     placeholder='Service name'
                 />
-                <Input
+                <InputSelect
                     title='Category'
                     value={categoryName}
                     onChange={setCategoryName}
-                    placeholder='Category name'
                 />
                 <InputDescription
                     title='Service description'
@@ -52,13 +52,22 @@ const index = () => {
                     value={price}
                     onChange={setPrice}
                     placeholder='0.00'
+                    keyboardType='numeric'
                 />
                 <Input
                     title='Supply fee'
                     value={supplyFee}
                     onChange={setSupplyFee}
                     placeholder='0.00'
+                    keyboardType='numeric'
                 />
+                <InputSelect
+                    title='Status'
+                    value={status}
+                    onChange={setStatus}
+                />
+                <ButtonUpload />
+                <View style={{ height: scaleHeight(30) }} />
             </ScrollView>
         </View>
     )

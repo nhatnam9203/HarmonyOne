@@ -17,13 +17,17 @@ const index = () => {
         NavigationService.navigate('Services');
     }
 
+    const gotoReviewPage = () =>{
+        NavigationService.navigate('Reviews')
+    }
+
     return (
         <View style={styles.container}>
             <Header />
             <View style={styles.body}>
                 <Item content={'Bussiness Informations'} icon={information_home} />
                 <Item onPress={goToServicePage} content={'Services'} icon={information_service} />
-                <Item content={'Reviews'} icon={information_review}  />
+                <Item onPress={gotoReviewPage} content={'Reviews'} icon={information_review}  />
                 <Item content={'Payment'} icon={information_payment}  />
                 <Item content={'Hardware'} icon={information_hardware}  />
             </View>

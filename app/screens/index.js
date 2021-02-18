@@ -21,6 +21,7 @@ import FeedBack from './FeedBack';
 import Services from './Services';
 import NewCategory from './NewCategory';
 import NewService from './NewService';
+import Reviews from './Reviews';
 
 module.exports = {
     LoginMID,
@@ -46,4 +47,5 @@ module.exports = {
     Services,
     NewCategory,
     NewService,
+    Reviews,
 }
