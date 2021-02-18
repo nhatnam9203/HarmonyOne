@@ -45,6 +45,8 @@ import emoji_5 from './feedback/emoji_5.png';
 import camera from './home/camera.png';
 import icon_addImage from './home/icon_addImage.png';
 import triAngle from './home/triAngle.png';
+import check_box from './home/check_box.png';
+import check_box_empty from './home/check_box_empty.png';
 
 module.exports = {
     logoHarmony,
@@ -94,4 +96,6 @@ module.exports = {
     camera,
     icon_addImage,
     triAngle,
+    check_box,
+    check_box_empty,
 }

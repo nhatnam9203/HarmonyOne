@@ -1,12 +1,12 @@
 import React from 'react'
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { scaleWidth, scaleHeight } from '@utils'
+import { scaleWidth, scaleHeight, slop } from '@utils'
 import { Text } from '@components'
 import { avatarUser, treedot } from '@assets'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-const ItemReview = ({ item }) => {
+const ItemReview = ({ item, openButtonReview, openButtonReply }) => {
     return (
         <View style={styles.item}>
             <View style={styles.row}>
@@ -38,6 +38,7 @@ const ItemReview = ({ item }) => {
                         </Text>
                     </View>
                 </View>
+
                 <View style={{ flexDirection: 'row' }}>
                     <View style={styles.status}>
                         <Text
@@ -47,13 +48,16 @@ const ItemReview = ({ item }) => {
                             Hidden
                         </Text>
                     </View>
-                    <Image
-                        source={treedot}
-                        resizeMode='contain'
-                        style={styles.iconDot}
-                    />
+                    <TouchableOpacity hitSlop={slop} onPress={openButtonReview}>
+                        <Image
+                            source={treedot}
+                            resizeMode='contain'
+                            style={styles.iconDot}
+                        />
+                    </TouchableOpacity>
                 </View>
             </View>
+
             <Text
                 fontSize={scaleWidth(4)}
                 color='#404040'
@@ -68,28 +72,35 @@ const ItemReview = ({ item }) => {
                 style={styles.iconReply}
             />
 
-            <Reply />
+            <Reply openButtonReply={openButtonReply} />
         </View>
     )
 }
 
-const Reply = () => {
+const Reply = ({ openButtonReply }) => {
     return (
         <View style={styles.itemReply}>
             <View style={styles.row}>
-                <Text 
+                <Text
                     fontSize={scaleWidth(4.3)}
                     color='#0764B0'
                     fontFamily='medium'
                 >
-                Owner's reply:
+                    Owner's reply:
                 </Text>
-                <Image
-                    source={treedot}
-                    resizeMode='contain'
-                    style={[styles.iconDot,{ transform: [{ rotate : '90deg' }] }]}
-                />
+
+                <TouchableOpacity
+                    hitSlop={slop}
+                    onPress={openButtonReply}
+                >
+                    <Image
+                        source={treedot}
+                        resizeMode='contain'
+                        style={[styles.iconDot, { transform: [{ rotate: '90deg' }] }]}
+                    />
+                </TouchableOpacity>
             </View>
+
             <Text style={styles.txtReply}>
                 hhjghjkfhjfghjfghfhjgjhgjkhjkhjklhkljhjklhjkghghghjkghjkghjghjgjkhgjgh
             </Text>
@@ -141,10 +152,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#FAFAFA',
         padding: scaleWidth(3),
     },
-    txtReply : {
+    txtReply: {
         fontSize: scaleWidth(4),
         color: '#666666',
         marginTop: scaleHeight(0.8),
-        fontWeight : '300'
+        fontWeight: '300'
     }
 })

@@ -5,14 +5,14 @@ import { scaleWidth, scaleHeight, slop } from '@utils'
 import { back, clear } from '@assets'
 import NavigationService from '@navigation/NavigationService';
 
-const Header = ({ status = 'checkin', openPopupDelete }) => {
+const Header = ({ status = 'checkin', openPopupFilter }) => {
 
     const back = () => {
         NavigationService.back();
     }
 
-    const clear = () => {
-        openPopupDelete();
+    const openFilter = () => {
+        openPopupFilter();
     }
 
     return (
@@ -21,7 +21,7 @@ const Header = ({ status = 'checkin', openPopupDelete }) => {
                 Reviews
             </Text>
             <ButtonBack onPress={back} />
-            <ButtonClear onPress={clear} />
+            <ButtonClear onPress={openFilter} />
         </View>
     )
 }
@@ -33,7 +33,9 @@ const ButtonBack = ({ onPress = () => { } }) => (
 )
 const ButtonClear = ({ onPress = () => { } }) => (
     <TouchableOpacity activeOpacity={1} onPress={onPress} style={styles.btnClear}>
-        <Image source={clear} style={styles.iconBack} resizeMode='contain' />
+        <View style={styles.align} />
+        <View style={[styles.align,{ width : scaleWidth(3.5) }]} />
+        <View style={[styles.align,{ width : scaleWidth(1.5) }]} />
     </TouchableOpacity>
 )
 
@@ -78,5 +80,13 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: scaleHeight(8.2),
         right: scaleWidth(5),
+        justifyContent : 'center',
+        alignItems : 'center'
+    },
+    align : {
+        height : 2.4,
+        width : scaleWidth(5),
+        backgroundColor : '#000000',
+        marginBottom : scaleHeight(0.4)
     }
 })
