@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
     },
     body : {
         flex : 1,
+        // paddingHorizontal : scaleWidth(5)
     }
 });
 

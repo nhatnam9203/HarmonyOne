@@ -5,7 +5,7 @@ import { Text } from '@components'
 import { backgroundHeader, avatarUser, bell, email } from '@assets'
 import NavigationService from '@navigation/NavigationService'
 
-const Header = () => {
+const Header = ({ txtHeader }) => {
 
     const navigateNotification = () => {
         NavigationService.navigate('Notification');

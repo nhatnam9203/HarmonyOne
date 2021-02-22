@@ -33,7 +33,7 @@ const Header = () => {
     )
 }
 
-const DayPicked = ({ onPress, isSchedule }) => {
+const DayPicked = ({ onPress, isSchedule = false }) => {
     return (
         <TouchableOpacity
             hitSlop={slop}

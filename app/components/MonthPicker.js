@@ -87,6 +87,7 @@ const ListMonth = React.memo(({ monthSelected, selectMonth }) => {
         const isActive = m == monthSelected ? true : false;
         return (
             <TouchableOpacity
+                activeOpacity={1}
                 onPress={() => selectMonth(m)}
                 style={styles.button(isActive)}
                 key={m.toString()}

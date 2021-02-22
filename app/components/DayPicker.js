@@ -6,9 +6,23 @@ import { Calendar } from './react-native-calendars'
 import { rightButton, leftButton } from '@assets'
 import moment from 'moment'
 
-const DayPicker = ({ onPress, closeCalendarPicker , bottom = 0 }) => {
+const DayPicker = ({
+    onPress,
+    closeCalendarPicker,
+    bottom = 0,
+    onDayPress = () => { },
+}) => {
+
+    const [daySelected,selectDay] = React.useState(moment().clone());
+
+    const selectedDay = moment(daySelected).format("YYYY-MM-DD").toString();
 
     const cancel = () => {
+        closeCalendarPicker();
+    }
+
+    const apply = () =>{
+        onDayPress(daySelected);
         closeCalendarPicker();
     }
 
@@ -17,12 +31,30 @@ const DayPicker = ({ onPress, closeCalendarPicker , bottom = 0 }) => {
             <Calendar
                 style={{ padding: 0 }}
                 current={moment().format("YYYY-MM-DD")}
-                onDayPress={() => { }}
+                onDayPress={(date)=>selectDay(moment(date.dateString,['YYYY-MM-DD']))}
                 monthFormat={"MMMM yyyy"}
                 firstDay={1}
                 onPressArrowLeft={(substractMonth) => substractMonth()}
                 onPressArrowRight={(addMonth) => addMonth()}
                 theme={theme}
+                markedDates={{
+                    [selectedDay]: {
+                        startingDay: true,
+                        selected: true,
+                        customStyles: {
+                            container: {
+                                backgroundColor: "#0764B0",
+                                borderRadius: 0,
+                                zIndex: 1,
+                                borderRadius: 300,
+                            },
+                            text: {
+                                color: "white",
+                            },
+                        },
+                    },
+                }}
+                markingType={"custom"}
                 renderArrow={(direction) =>
                     direction === "left" ? (
                         <Image source={leftButton} style={styles.iconButton} resizeMode='contain' />
@@ -39,8 +71,8 @@ const DayPicker = ({ onPress, closeCalendarPicker , bottom = 0 }) => {
                 >
                     <Text fontFamily='regular' style={styles.txtButton}>Cancel</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
-                    <Text fontFamily='medium' style={[styles.txtButton, { color: '#1366AE', fontWeight : '600' }]}>Apply</Text>
+                <TouchableOpacity onPress={apply} style={styles.button}>
+                    <Text fontFamily='medium' style={[styles.txtButton, { color: '#1366AE', fontWeight: '600' }]}>Apply</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -50,8 +82,8 @@ const DayPicker = ({ onPress, closeCalendarPicker , bottom = 0 }) => {
 export default DayPicker;
 
 const styles = StyleSheet.create({
-    container:  (bottom) => {
-        return{
+    container: (bottom) => {
+        return {
             backgroundColor: 'white',
             width: scaleWidth(100),
             paddingBottom: bottom
@@ -114,8 +146,8 @@ const theme = {
     },
     backgroundColor: "#2B2E33",
     calendarBackground: "white",
-    selectedDayBackgroundColor: "#0764B0",
-    selectedDayTextColor: "#fff",
+    selectedDayBackgroundColor: "blue",
+    selectedDayTextColor: "red",
     todayTextColor: "#00adf5",
     dayTextColor: "#404040",
     textDisabledColor: "#666666",
