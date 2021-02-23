@@ -30,11 +30,8 @@ const index = () => {
 
     const signOut = () => {
         setPopupSignOut(false);
-        setTimeout(() => {
-            const body = {};
-            console.log('log outttt')
-            dispatch(logout(body,token));
-        }, 300);
+        const body = {};
+        dispatch(logout(body,token));
     }
 
     return (

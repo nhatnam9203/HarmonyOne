@@ -1,4 +1,4 @@
-import { put, takeLatest, all, select } from "redux-saga/effects";
+import { put, takeLatest, all, select , delay } from "redux-saga/effects";
 import { requestAPI } from "@utils";
 import NavigationService from "@navigation/NavigationService";
 
@@ -47,13 +47,13 @@ function* loginPincode(action) {
 
 function* logout(action) {
     try {
+        yield delay(500);
         yield put({ type: "START_LOADING_ROOT" });
         const response = yield requestAPI(action);
         switch (parseInt(response.codeNumber)) {
             case 200:
                 yield put({
                     type: 'LOGOUT_SUCCESS',
-                    payload: response.data
                 })
                 break;
             default:

@@ -3,18 +3,22 @@ import { View, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import { Text } from '@components'
 import { avatarUser } from '@assets'
 import { scaleWidth, scaleHeight, slop } from '@utils'
+import { useSelector } from 'react-redux'
 
 const UserInfo = ({ onEdit = () => { } }) => {
+    const { staffInfo } = useSelector(state => state.authReducer);
+    const avatar = staffInfo.imageUrl ? { uri : staffInfo.imageUrl } : avatarUser;
+    
     return (
-        <View style={styles.container}> 
+        <View style={styles.container}>
             <View style={styles.wrapAvatar}>
                 <Image
-                    source={avatarUser}
+                    source={avatar}
                     style={styles.avatar}
                 />
             </View>
             <Text fontFamily='medium' style={styles.userName}>
-                Medirith Hendricks
+                {`${staffInfo?.displayName || ''}`}
             </Text>
             <TouchableOpacity
                 onPress={onEdit}
