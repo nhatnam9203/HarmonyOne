@@ -28,6 +28,7 @@ const Input = ({
                 cellStyleFocused={null}
                 value={value}
                 onTextChange={onChange}
+                autoFocus={true}
             />
         </View>
     )

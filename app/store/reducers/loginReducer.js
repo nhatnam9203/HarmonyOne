@@ -11,7 +11,7 @@ export const loginReducer = createReducer(initialState, {
       isLogin: true,
     };
   },
-  ['LOGOUT'](state) {
+  ['LOGOUT_SUCCESS'](state) {
     return {
       ...state,
       isLogin: false,

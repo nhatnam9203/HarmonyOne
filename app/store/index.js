@@ -10,7 +10,7 @@ import sagas from 'app/store/sagas';
 const config = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['authReducer'],
+  whitelist: ['authReducer','loginReducer'],
   debug: true, //to get useful logging
 };
 

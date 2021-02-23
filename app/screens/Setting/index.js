@@ -6,8 +6,12 @@ import { Text } from '@components'
 import styles from './style'
 import { Switch } from 'react-native-paper';
 import NavigationService from '@navigation/NavigationService'
+import { logout } from '@actions/authAction'
+import { useDispatch, useSelector } from 'react-redux'
 
 const index = () => {
+    const dispatch = useDispatch();
+    const { token } = useSelector(state => state.authReducer.staffInfo);
 
     const [isSwitch, setSwitch] = React.useState(false);
     const [isPopupSignOut, setPopupSignOut] = React.useState(false);
@@ -24,8 +28,13 @@ const index = () => {
         NavigationService.navigate('FeedBack');
     }
 
-    const signOut = () =>{
-
+    const signOut = () => {
+        setPopupSignOut(false);
+        setTimeout(() => {
+            const body = {};
+            console.log('log outttt')
+            dispatch(logout(body,token));
+        }, 300);
     }
 
     return (
@@ -52,7 +61,7 @@ const index = () => {
             <View style={styles.line} />
 
             <Title text='Account' />
-            <Link text='Sign out' onPress={()=>setPopupSignOut(true)} />
+            <Link text='Sign out' onPress={() => setPopupSignOut(true)} />
             <PopupSignOut
                 isPopupSignOut={isPopupSignOut}
                 close={() => setPopupSignOut(false)}

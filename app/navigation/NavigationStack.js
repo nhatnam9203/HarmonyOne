@@ -16,6 +16,8 @@ const Stack = createStackNavigator();
 const App = (props) => {
   const { theme } = props;
   const { isLogin } = useSelector(state => state.loginReducer);
+
+  console.log({isLogin})
   return (
     <RootComponent>
       <NavigationContainer ref={navigationRef}>
@@ -27,7 +29,7 @@ const App = (props) => {
           }}
         >
           {
-            isLogin ?
+            !isLogin ?
               <Stack.Screen
                 name="Auth"
                 component={Auth}

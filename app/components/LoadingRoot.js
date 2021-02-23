@@ -20,9 +20,13 @@ const LoadingRoot = () => {
 
 const styles = StyleSheet.create({
     wrapLoading: {
-        padding: scaleWidth(7),
+        width : scaleWidth(20),
+        height : scaleWidth(20),
+        justifyContent : 'center',
+        alignSelf: 'center',
+        alignItems : 'center',
         borderRadius: 8,
-        backgroundColor : 'rgba(0,0,0,0.5)'
+        backgroundColor : 'rgba(0,0,0,0.6)'
     }
 })
 

@@ -11,5 +11,11 @@ export const authReducer = createReducer(initialState, {
             staffInfo: action.payload,
         };
     },
+    ['LOGOUT_SUCCESS'](state, action) {
+        return {
+            ...state,
+            staffInfo: '',
+        };
+    },
 });
 

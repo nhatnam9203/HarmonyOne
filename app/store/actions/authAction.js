@@ -15,3 +15,14 @@ export function loginPincode(body) {
         body
     };
 }
+
+
+export function logout(body,token) {
+    return {
+        type: "LOGOUT",
+        method: "PUT",
+        route : `staff/logout`,
+        body,
+        token
+    };
+}

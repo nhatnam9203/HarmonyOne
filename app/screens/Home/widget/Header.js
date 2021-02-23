@@ -4,26 +4,31 @@ import { scaleWidth, scaleHeight } from '@utils'
 import { Text } from '@components'
 import { backgroundHeader, avatarUser, bell, email } from '@assets'
 import NavigationService from '@navigation/NavigationService'
+import { useSelector } from 'react-redux'
 
 const Header = ({ txtHeader }) => {
+
+    const { staffInfo } = useSelector(state => state.authReducer);
 
     const navigateNotification = () => {
         NavigationService.navigate('Notification');
     }
 
+    const avatar = staffInfo.imageUrl ? { uri : staffInfo.imageUrl } : avatarUser;
+
     return (
         <ImageBackground source={backgroundHeader} style={styles.header}>
             <View style={styles.rowHeader}>
                 <View style={styles.rowLeft}>
-                    <Image source={avatarUser} style={styles.avatar} />
+                    <Image source={avatar} style={styles.avatar} />
                     <View style={{ marginLeft: scaleWidth(3) }}>
                         <Text fontFamily='medium' style={styles.txtUser}>
-                            Welcome Meredith !
+                            {`Welcome ${staffInfo?.displayName || ''}!`}
                         </Text>
                         <View style={[styles.rowLeft, { marginTop: scaleWidth(1) }]}>
                             <Image source={email} style={styles.email} />
                             <Text style={styles.txtEmail}>
-                                Meredith85@gmail.com
+                                {`${staffInfo?.email || ''}!`}
                             </Text>
                         </View>
                     </View>
