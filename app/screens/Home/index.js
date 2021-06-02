@@ -7,13 +7,22 @@ import { scaleWidth, scaleHeight } from '@utils'
 import NavigationService from '@navigation/NavigationService'
 import { DayPicker, Modalize } from '@components'
 import moment from 'moment';
+import actions from '@actions';
+import { useDispatch, useSelector } from 'react-redux'
+import { StatusBar } from '@components'
 
 const index = () => {
-
+    const dispatch = useDispatch();
+    const { staffId, token } = useSelector(state => state.authReducer.staffInfo);
     const modalizeRef = React.useRef(null);
     const refCalendarHorizontal = React.useRef(null);
 
     const [daySelected, selectDay] = React.useState(moment().clone());
+
+    React.useEffect(() => {
+        const date = moment().format('YYYY-MM-DD');
+        dispatch(actions.appointmentAction.getAppointmentList(token, staffId, date));
+    }, []);
 
     const openModal = () => {
         modalizeRef.current?.open();
@@ -37,6 +46,8 @@ const index = () => {
 
     return (
         <View style={styles.container}>
+            <StatusBar barStyle="light-content" />
+
             <Header />
             <View style={styles.body}>
                 <CalendarHorizontal

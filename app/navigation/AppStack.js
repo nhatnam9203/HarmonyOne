@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator , CardStyleInterpolators } from '@react-navigation/stack';
 import {
     Notification, AppointmentDetail, EditAppointment, EditService, AddService,
     Checkout, SelectPayment, EditProfile, ChangePincode, ForgotPincode, FeedBack,
@@ -14,7 +14,8 @@ const AppStack = () => {
         <App.Navigator
             screenOptions={{
                 headerShown: false,
-                gestureEnabled: false
+                gestureEnabled: false,
+                cardStyleInterpolator : CardStyleInterpolators.forHorizontalIOS
             }}
             initialRouteName='BottomMain'
         >

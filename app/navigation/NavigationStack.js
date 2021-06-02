@@ -17,7 +17,6 @@ const App = (props) => {
   const { theme } = props;
   const { isLogin } = useSelector(state => state.loginReducer);
 
-  console.log({isLogin})
   return (
     <RootComponent>
       <NavigationContainer ref={navigationRef}>

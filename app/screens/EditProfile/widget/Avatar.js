@@ -1,14 +1,18 @@
 import React from 'react'
-import { View, StyleSheet, Image , TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Text } from '@components'
 import { scaleWidth, scaleHeight, slop } from '@utils'
 import { avatarUser, camera } from '@assets'
+import { useSelector } from 'react-redux'
 
 const Avatar = () => {
+
+    const { staffInfo } = useSelector(state => state.authReducer);
+    const avatar = staffInfo.imageUrl ? { uri: staffInfo.imageUrl } : avatarUser;
     return (
         <TouchableOpacity style={styles.wrapAvatar}>
             <View style={{ position: 'relative' }}>
-                <Image source={avatarUser} style={styles.avatar} />
+                <Image source={avatar} style={styles.avatar} />
                 <Image source={camera} style={styles.camera} resizeMode='contain' />
             </View>
         </TouchableOpacity>
@@ -43,11 +47,11 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
     },
-    camera : {
-        width : scaleWidth(7),
-        height : scaleWidth(7),
+    camera: {
+        width: scaleWidth(7),
+        height: scaleWidth(7),
         position: 'absolute',
-        bottom : scaleWidth(3),
-        left : scaleWidth(11.5)
+        bottom: scaleWidth(3),
+        left: scaleWidth(11.5)
     }
 })
