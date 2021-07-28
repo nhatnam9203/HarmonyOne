@@ -15,30 +15,24 @@ const Stack = createStackNavigator();
 
 const App = (props) => {
   const { theme } = props;
-  const { isLogin } = useSelector(state => state.loginReducer);
+  const { isLogin } = useSelector((state) => state.loginReducer);
 
   return (
     <RootComponent>
       <NavigationContainer ref={navigationRef}>
-        <StatusBar barStyle={theme && theme.dark ? 'light-content' : 'dark-content'} />
+        <StatusBar
+          barStyle={theme && theme.dark ? 'light-content' : 'dark-content'}
+        />
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
             gestureEnabled: false,
-          }}
-        >
-          {
-            !isLogin ?
-              <Stack.Screen
-                name="Auth"
-                component={Auth}
-              />
-              :
-              <Stack.Screen
-                name="AppStack"
-                component={AppStack}
-              />
-          }
+          }}>
+          {!isLogin ? (
+            <Stack.Screen name="Auth" component={Auth} />
+          ) : (
+            <Stack.Screen name="AppStack" component={AppStack} />
+          )}
         </Stack.Navigator>
       </NavigationContainer>
     </RootComponent>

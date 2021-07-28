@@ -3,7 +3,7 @@
  * Everything starts from the entrypoint
  */
 import React from 'react';
-import { ActivityIndicator , StatusBar } from 'react-native';
+import { ActivityIndicator, StatusBar } from 'react-native';
 import { Provider, useSelector } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import {
@@ -23,16 +23,16 @@ const PaperThemeDefault = {
   ...PaperDefaultTheme,
   colors: {
     ...PaperDefaultTheme.colors,
-    primary: '#3498db'
-  }
+    primary: '#3498db',
+  },
 };
 
 const PaperThemeDark = {
   ...PaperDarkTheme,
   colors: {
     ...PaperDarkTheme.colors,
-    primary: '#3498db'
-  }
+    primary: '#3498db',
+  },
 };
 
 const CombinedDefaultTheme = {
@@ -47,16 +47,21 @@ const CombinedDarkTheme = {
     ...NavigationDarkTheme.colors,
     background: '#303030',
     card: '#222222',
-    text: '#ffffff'
-  }
+    text: '#ffffff',
+  },
 };
 
 const { persistor, store } = configureStore();
 
+if (__DEV__) {
+  import('../ReactotronConfig.js').then(() =>
+    console.log('Reactotron Configured'),
+  );
+}
 
 const RootNavigation = () => {
   return (
-    <PaperProvider >
+    <PaperProvider>
       <Navigator />
     </PaperProvider>
   );
@@ -65,14 +70,17 @@ const RootNavigation = () => {
 const Entrypoint = () => {
   return (
     <React.Fragment>
-      <StatusBar backgroundColor="transparent" translucent={true} barStyle="light-content" />
+      <StatusBar
+        backgroundColor="transparent"
+        translucent={true}
+        barStyle="light-content"
+      />
       <Provider store={store}>
         <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
           <RootNavigation />
         </PersistGate>
       </Provider>
     </React.Fragment>
-
   );
 };
 
