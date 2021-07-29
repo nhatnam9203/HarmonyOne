@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Image, View, TouchableOpacity, Animated, StyleSheet } from 'react-native';
 import { Home, Statistic , Information , Setting } from '@screens';
-import { scaleWidth, scaleHeight } from '@utils';
+
 import { Text } from '@components';
 import { TouchableRipple } from 'react-native-paper';
 import {

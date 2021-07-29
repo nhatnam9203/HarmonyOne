@@ -3,7 +3,7 @@ import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Text } from '@components';
 import { pincode_success } from '@assets';
 import InputPincode from './InputPincode';
-import { scaleWidth, scaleHeight } from '@utils';
+
 
 const NewPincode = () => {
 
@@ -23,7 +23,7 @@ const NewPincode = () => {
             setSuccess(true);
         }
     }
-    
+
     if(isSuccess) return(
         <ChangePincodeSuccuess />
     )

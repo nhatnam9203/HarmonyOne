@@ -51,6 +51,24 @@ export const textStyles = StyleSheet.create({
     textAlign: 'center',
     color: colors.white,
   },
+  sf_pt_medium_17_500: {
+    fontFamily: fonts.MEDIUM,
+    fontSize: scaleFont(17),
+    fontWeight: '500',
+    fontStyle: 'normal',
+    letterSpacing: -0.41,
+    textAlign: 'center',
+    color: colors.black,
+  },
+  sf_pt_medium_500: {
+    fontFamily: fonts.MEDIUM,
+    fontSize: scaleFont(17),
+    fontWeight: '500',
+    fontStyle: 'normal',
+    letterSpacing: 0,
+    textAlign: 'center',
+    color: colors.black,
+  },
 });
 
 export const layouts = StyleSheet.create({

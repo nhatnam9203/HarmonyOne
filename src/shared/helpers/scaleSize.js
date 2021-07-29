@@ -8,18 +8,20 @@ import {
 
 const scaleText = (size) => wp(size);
 
-const screenWidth = () => (width >= height ? width : height);
+const screenHeight = () => (width >= height ? width : height);
 
-const screenHeight = () => (height >= width ? width : height);
+const screenWidth = () => (height >= width ? width : height);
 
 const scaleWidth = (size) => {
   const widthScale = Math.round(screenWidth() * (size / 375));
-  return Math.round(PixelRatio.roundToNearestPixel(widthScale));
+  // return Math.round(PixelRatio.roundToNearestPixel(widthScale));
+  return widthScale;
 };
 
 const scaleHeight = (size) => {
   const heightScale = Math.round(screenHeight() * (size / 812));
-  return Math.round(PixelRatio.roundToNearestPixel(heightScale));
+  // return Math.round(PixelRatio.roundToNearestPixel(heightScale));
+  return heightScale;
 };
 
 const scale = width / 375;

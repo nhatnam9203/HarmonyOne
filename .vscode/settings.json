@@ -1,6 +1,7 @@
 {
     "i18next.i18nPaths": "/Volumes/DATA/work/2021/Hamony/Project/HarmonyOne/ios/Pods/Flipper-Folly/folly/lang,/Volumes/DATA/work/2021/Hamony/Project/HarmonyOne/ios/Pods/RCT-Folly/folly/lang,/Volumes/DATA/work/2021/Hamony/Project/HarmonyOne/ios/Pods/boost-for-react-native/boost/locale,/Volumes/DATA/work/2021/Hamony/Project/HarmonyOne/ios/Pods/Headers/Public/Flipper-Folly/folly/lang,/Volumes/DATA/work/2021/Hamony/Project/HarmonyOne/ios/Pods/Headers/Public/RCT-Folly/folly/lang,/Volumes/DATA/work/2021/Hamony/Project/HarmonyOne/ios/Pods/Headers/Private/Flipper-Folly/folly/lang,/Volumes/DATA/work/2021/Hamony/Project/HarmonyOne/ios/Pods/Headers/Private/RCT-Folly/folly/lang",
     "cSpell.words": [
+        "Pressable",
         "Reactotron"
     ]
 }

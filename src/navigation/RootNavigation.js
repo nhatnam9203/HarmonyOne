@@ -7,7 +7,7 @@ import { SplashScreen, ScreenName } from '../screens';
 import { isReadyRef, navigationRef } from './NavigationService';
 
 import { StatusBar } from 'react-native';
-import Auth from './Auth';
+import AuthStack from './AuthStack';
 import Main from './Main';
 import AppStack from './AppStack';
 
@@ -54,7 +54,7 @@ export const RootNavigation = (props) => {
 
       <Navigator headerMode="none">
         <Screen {...SplashScreen} />
-        <Screen name="AuthStack" component={Auth} />
+        <Screen name="AuthStack" component={AuthStack} />
         <Screen name="HpOneStack" component={AppStack} />
       </Navigator>
     </NavigationContainer>

@@ -25,6 +25,7 @@ import Reviews from './Reviews';
 
 import { ScreenName } from './ScreenName';
 import { SplashScreen } from './SplashScreen';
+import { LoginScreen } from './LoginScreen';
 
 module.exports = {
   LoginMID,
@@ -51,6 +52,7 @@ module.exports = {
   NewCategory,
   NewService,
   Reviews,
-  SplashScreen,
   ScreenName,
+  SplashScreen,
+  LoginScreen,
 };

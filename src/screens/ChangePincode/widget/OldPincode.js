@@ -3,7 +3,7 @@ import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { icon_signin } from '@assets';
 import { Text } from '@components';
 import InputPincode from './InputPincode';
-import { scaleWidth, scaleHeight } from '@utils';
+
 import NavigationService from '@navigation/NavigationService';
 
 const OldPincode = () => {
