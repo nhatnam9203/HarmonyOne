@@ -1,9 +1,9 @@
-window.Logger = require('./app/shared/helpers/logger');
+window.Logger = require('./src/shared/helpers/logger');
 const {
   scaleFont,
   scaleWidth,
   scaleHeight,
-} = require('./app/shared/helpers/scaleSize');
+} = require('./src/shared/helpers/scaleSize');
 window.scaleFont = scaleFont;
 window.scaleWidth = scaleWidth;
 window.scaleHeight = scaleHeight;

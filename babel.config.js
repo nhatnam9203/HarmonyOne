@@ -6,11 +6,11 @@ module.exports = {
       {
         paths: [
           {
-            rootPathSuffix: './app',
+            rootPathSuffix: './src',
             rootPathPrefix: '@app',
           },
           {
-            rootPathSuffix: './app/utils',
+            rootPathSuffix: './src/utils',
             rootPathPrefix: '!/',
           },
         ],

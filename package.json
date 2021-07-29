@@ -24,7 +24,8 @@
     "run:android-production": "npx react-native run-android --variant=release",
     "run:ios-staging-device": "npx react-native run-ios --scheme='Staging' --device 'iPhone'",
     "run:ios-staging": "npx react-native run-ios --scheme='Staging' --simulator='iPhone 11 Pro'",
-    "pod": "npx pod-install"
+    "pod": "npx pod-install",
+    "new:screen": "npx ts-node ./scripts/createScreen.js"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
