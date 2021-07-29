@@ -1,4 +1,4 @@
-import LoginMID from './LoginMID'
+import LoginMID from './LoginMID';
 import LoginPincode from './LoginPincode';
 import ForgotPincode from './ForgotPincode';
 import ForgotPincodeSuccess from './ForgotPincodeSuccess';
@@ -23,29 +23,34 @@ import NewCategory from './NewCategory';
 import NewService from './NewService';
 import Reviews from './Reviews';
 
+import { ScreenName } from './ScreenName';
+import { SplashScreen } from './SplashScreen';
+
 module.exports = {
-    LoginMID,
-    LoginPincode,
-    ForgotPincode,
-    ForgotPincodeSuccess,
-    WhatIsMerchant,
-    Home,
-    Schedule,
-    AppointmentDetail,
-    Notification,
-    EditAppointment,
-    EditService,
-    AddService,
-    Checkout,
-    SelectPayment,
-    Statistic,
-    Information,
-    Setting,
-    EditProfile,
-    ChangePincode,
-    FeedBack,
-    Services,
-    NewCategory,
-    NewService,
-    Reviews,
-}
+  LoginMID,
+  LoginPincode,
+  ForgotPincode,
+  ForgotPincodeSuccess,
+  WhatIsMerchant,
+  Home,
+  Schedule,
+  AppointmentDetail,
+  Notification,
+  EditAppointment,
+  EditService,
+  AddService,
+  Checkout,
+  SelectPayment,
+  Statistic,
+  Information,
+  Setting,
+  EditProfile,
+  ChangePincode,
+  FeedBack,
+  Services,
+  NewCategory,
+  NewService,
+  Reviews,
+  SplashScreen,
+  ScreenName,
+};

@@ -1,11 +1,20 @@
+import { StackActions } from '@react-navigation/native';
 import * as React from 'react';
-import { NavigationContainerRef } from '@react-navigation/native';
 
 // NavigationContainer is referred here - Check NavigationStack
 export const navigationRef = React.createRef();
+export const isReadyRef = React.createRef();
 
 function navigate(name, params = null) {
-  navigationRef.current?.navigate(name, params);
+  if (isReadyRef.current) {
+    navigationRef.current?.navigate(name, params);
+  }
+}
+
+function replace(name) {
+  if (isReadyRef.current) {
+    navigationRef.current?.dispatch(StackActions.replace(name));
+  }
 }
 
 function back() {
@@ -15,4 +24,5 @@ function back() {
 export default {
   navigate,
   back,
+  replace,
 };

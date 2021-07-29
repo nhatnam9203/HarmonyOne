@@ -13,14 +13,16 @@ const screenWidth = () => (width >= height ? width : height);
 const screenHeight = () => (height >= width ? width : height);
 
 const scaleWidth = (size) => {
-  return Math.round(screenWidth() * (size / 375));
+  const widthScale = Math.round(screenWidth() * (size / 375));
+  return Math.round(PixelRatio.roundToNearestPixel(widthScale));
 };
 
 const scaleHeight = (size) => {
-  return Math.round(screenHeight() * (size / 812));
+  const heightScale = Math.round(screenHeight() * (size / 812));
+  return Math.round(PixelRatio.roundToNearestPixel(heightScale));
 };
 
-const scale = width / 1024;
+const scale = width / 375;
 function scaleFont(size) {
   const newSize = size * scale;
   return Math.round(PixelRatio.roundToNearestPixel(newSize));

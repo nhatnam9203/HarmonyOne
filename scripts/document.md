@@ -4,6 +4,8 @@
 
 yarn new:screen [1] [2] [3]
 
+=> yarn new:screen screens SplashScreen hpo.splash
+
 ### Create Page
 
 yarn new:page [path] [name]

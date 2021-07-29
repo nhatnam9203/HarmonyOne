@@ -16,10 +16,9 @@ import { useProps } from './useProps';
 
 export const ${screenName} = createScreenComponent(
   '${routeName}',
-  (props) => (<Layout {...useProps(props)} />,
-  {}
-  ));
-`;
+  (props) => <Layout {...useProps(props)} />,
+  {},
+  );`;
 
 const layout = `import React from 'react';
 import { View, StyleSheet } from 'react-native';

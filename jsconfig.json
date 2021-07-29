@@ -4,7 +4,7 @@
     "module": "commonjs",
     "baseUrl": ".", // Đặt base url là thư mục gốc
     "paths": {
-      "@app/*": ["./src/*"] // Đặt alias cho thư mục src
+      "@src/*": ["./src/*"] // Đặt alias cho thư mục src
     }
   },
   "exclude": [

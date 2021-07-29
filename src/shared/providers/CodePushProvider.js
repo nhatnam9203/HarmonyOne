@@ -1,0 +1,143 @@
+import React, { createContext } from 'react';
+import codePush from 'react-native-code-push';
+
+const log = (obj, message = '') => {
+  // Logger.log(`[CodePushProvider] ${message}`, obj);
+};
+
+export const CodePushContext = createContext({});
+
+export const CodePushProvider = ({ children }) => {
+  const [progress, setProgress] = React.useState(0);
+  const [codePushSyncStatus, setCodePushStatus] = React.useState(null);
+  const [progressComplete, setProgressComplete] = React.useState([]); //object: <id:string, callback: void>
+
+  // React useEffect
+  React.useEffect(() => {
+    codePush.disallowRestart();
+    codePushCheck();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  React.useEffect(() => {
+    if (
+      codePushSyncStatus === codePush.SyncStatus.UP_TO_DATE ||
+      codePushSyncStatus === codePush.SyncStatus.UPDATE_IGNORED ||
+      codePushSyncStatus === codePush.SyncStatus.UNKNOWN_ERROR
+    ) {
+      codePushProcessComplete();
+    }
+  }, [codePushSyncStatus]);
+
+  // CodePush callback
+  const codePushDownloadProgress = ({ receivedBytes, totalBytes }) => {
+    setProgress(Math.round((receivedBytes / totalBytes).toFixed(2) * 100));
+  };
+
+  const codePushProcessComplete = async () => {
+    // await dispatch(app.loadingSuccess());
+    progressComplete?.forEach(
+      (x) => x && typeof x?.delegate === 'function' && x?.delegate(),
+    );
+  };
+
+  const codePushStatusChange = (status) => {
+    if (status === codePush.SyncStatus.UPDATE_INSTALLED) {
+      log(status, 'CodePush Update Installed');
+
+      codePush.allowRestart();
+      setTimeout(() => {
+        codePush.restartApp();
+        codePush.disallowRestart();
+      }, 300);
+
+      return;
+    }
+
+    setCodePushStatus(status);
+  };
+
+  const codePushSync = async () => {
+    const defaultOption = {
+      updateDialog: {
+        appendReleaseDescription: true,
+        descriptionPrefix: '\nChange log:\n',
+      },
+      // installMode: codePush.InstallMode.IMMEDIATE,
+    };
+
+    await codePush.sync(
+      defaultOption,
+      codePushStatusChange,
+      codePushDownloadProgress,
+    );
+  };
+
+  // Processing
+  const codePushCheck = async () => {
+    const timeOutNetWork = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve('NET_WORK_TIME_OUT');
+      }, 10000);
+    });
+    try {
+      const update = await new Promise.race([
+        codePush.checkForUpdate(),
+        timeOutNetWork,
+      ]);
+      log(update, 'checkUpdateCodePush');
+
+      if (update && update !== 'NET_WORK_TIME_OUT') {
+        // Trường hợp có update
+        if (update.isFirstRun && update.description) {
+          // Display a "what's new?" modal
+          log(update, 'CodePush Show Dialog AWAITING_USER_ACTION isFirstRun');
+          setCodePushStatus(codePush.SyncStatus.AWAITING_USER_ACTION);
+        } else if (update.failedInstall) {
+          /* đã update failed */
+          log(update, 'CodePush Show Dialog UPDATE_INSTALLED failed');
+          setCodePushStatus(codePush.SyncStatus.UPDATE_IGNORED);
+        } else {
+          log(update, 'CodePush Show Dialog AWAITING_USER_ACTION ');
+          setCodePushStatus(codePush.SyncStatus.AWAITING_USER_ACTION);
+          await codePushSync();
+        }
+      } else {
+        // not update
+        log(null, 'CodePush Show Dialog UP_TO_DATE ');
+        setCodePushStatus(codePush.SyncStatus.UP_TO_DATE);
+      }
+    } catch (err) {
+      console.log('==========> CodePush error:' + err);
+    }
+  };
+
+  const addPushCodeCompleteCallback = (id, delegate) => {
+    if (!id || !delegate) {
+      return;
+    }
+    setProgressComplete([...progressComplete, { id, delegate }]);
+  };
+
+  const removePushCodeCompleteCallback = (id) => {
+    if (!id) {
+      return;
+    }
+    let clone = [...progressComplete];
+    setProgressComplete(clone?.filter((x) => x?.id !== id));
+  };
+
+  // React render
+  return (
+    <CodePushContext.Provider
+      value={{
+        progress,
+        addPushCodeCompleteCallback,
+        removePushCodeCompleteCallback,
+        codePushCheck,
+      }}>
+      {children}
+    </CodePushContext.Provider>
+  );
+};
