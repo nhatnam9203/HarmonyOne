@@ -1,7 +1,6 @@
 import { format } from 'date-fns';
 import Configs from 'react-native-config';
 import Reactotron from 'reactotron-react-native';
-import { isDevelopmentMode } from '@shared/utils/app';
 
 /**
  * Log grouped messages to the console
@@ -67,7 +66,7 @@ function logOnConsole(title, content) {
 }
 
 function logReactotron(fileName, message, content) {
-  if (isDevelopmentMode) {
+  if (__DEV__) {
     Reactotron.log({
       name: fileName,
       message: message,

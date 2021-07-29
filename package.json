@@ -22,7 +22,9 @@
     "build-android": "rm -rf ~/.gradle/caches && cd android && ./gradlew --stop && ./gradlew cleanBuildCache && ./gradlew bundleRelease && cd ..",
     "run:android-staging": "npx react-native run-android --variant=staging",
     "run:android-production": "npx react-native run-android --variant=release",
-    "run:ios-staging-device": "npx react-native run-ios --scheme='staging' --device 'iPhone'"
+    "run:ios-staging-device": "npx react-native run-ios --scheme='Staging' --device 'iPhone'",
+    "run:ios-staging": "npx react-native run-ios --scheme='Staging' --simulator='iPhone 11 Pro'",
+    "pod": "npx pod-install"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
@@ -32,6 +34,7 @@
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.5",
     "axios": "^0.21.1",
+    "date-fns": "^2.23.0",
     "moment": "^2.29.1",
     "react": "17.0.2",
     "react-native": "0.64.2",
@@ -49,6 +52,7 @@
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.4.0",
     "react-native-smooth-pincode-input": "^1.0.9",
+    "react-native-splash-screen": "^3.2.0",
     "react-native-tab-view": "^3.0.1",
     "react-native-vector-icons": "^8.1.0",
     "react-query": "^3.19.1",
@@ -75,6 +79,7 @@
     "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.5",
     "babel-jest": "^27.0.6",
+    "babel-plugin-root-import": "^6.6.0",
     "eslint": "^7.31.0",
     "flow-bin": "^0.113.0",
     "jest": "^27.0.6",
@@ -94,6 +99,15 @@
       "jsx",
       "json",
       "node"
-    ]
+    ],
+    "moduleNameMapper": {
+      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "identity-obj-proxy"
+    },
+    "setupFiles": [
+      "./jest.setup.js",
+      "./node_modules/react-native-gesture-handler/jestSetup.js"
+    ],
+    "timers": "fake",
+    "testEnvironment": "jsdom"
   }
 }

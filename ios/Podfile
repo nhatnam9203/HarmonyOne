@@ -21,4 +21,8 @@ target 'HarmonyOne' do
   post_install do |installer|
     flipper_post_install(installer)
   end
+
+  target 'Staging' do
+    inherit! :complete
+  end
 end

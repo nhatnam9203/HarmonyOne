@@ -13,11 +13,11 @@ const screenWidth = () => (width >= height ? width : height);
 const screenHeight = () => (height >= width ? width : height);
 
 const scaleWidth = (size) => {
-  return Math.round(screenWidth() * (size / 1024));
+  return Math.round(screenWidth() * (size / 375));
 };
 
 const scaleHeight = (size) => {
-  return Math.round(screenHeight() * (size / 768));
+  return Math.round(screenHeight() * (size / 812));
 };
 
 const scale = width / 1024;
