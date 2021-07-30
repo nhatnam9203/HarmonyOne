@@ -3,8 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 import { SplashScreen, ScreenName } from '../screens';
-
 import { isReadyRef, navigationRef } from './NavigationService';
+import LaunchScreen from 'react-native-splash-screen';
 
 import { StatusBar } from 'react-native';
 import AuthStack from './AuthStack';
@@ -18,6 +18,8 @@ export const RootNavigation = (props) => {
   const { isLogin } = useSelector((state) => state.loginReducer);
 
   React.useEffect(() => {
+    LaunchScreen.hide();
+
     return () => {
       isReadyRef.current = false;
     };
@@ -38,7 +40,7 @@ export const RootNavigation = (props) => {
           overlayStyle: {
             opacity: progress.interpolate({
               inputRange: [0, 1],
-              outputRange: [0, 0.5],
+              outputRange: [0, 1],
               extrapolate: 'clamp',
             }),
           },

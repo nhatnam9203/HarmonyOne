@@ -21,9 +21,9 @@ if (__DEV__) {
 const { persistor, store } = configureStore();
 
 const App = () => {
-  React.useEffect(() => {
-    SplashScreen.hide();
-  }, []);
+  // React.useEffect(() => {
+  //   SplashScreen.hide();
+  // }, []);
 
   return (
     <Provider store={store}>

@@ -60,7 +60,7 @@ export const InputMerchantID = ({ onChangeMID }) => {
 
   return (
     <View style={styles.containerInput}>
-      <Image source={icon_mid} style={styles.inputIcon} />
+      <Image source={icon_mid} style={styles.inputIcon} resizeMode="contain" />
       {isOpenInput && (
         <TextInput
           value={valueMID}
@@ -97,7 +97,7 @@ export const InputMerchantID = ({ onChangeMID }) => {
 const styles = StyleSheet.create({
   containerInput: {
     width: '100%',
-    height: scaleHeight(80),
+    minHeight: scaleHeight(80),
     flexDirection: 'row',
     alignItems: 'flex-end',
     borderBottomWidth: scaleHeight(1),
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   btnEnterYourMID: {
     flex: 1,
     width: '100%',
-    height: scaleHeight(24),
+    // height: scaleHeight(24),
     justifyContent: 'center',
   },
 });

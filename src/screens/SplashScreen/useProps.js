@@ -3,6 +3,7 @@ import { CodePushContext } from '@shared/providers/CodePushProvider';
 import { sleep } from '@shared/utils/app';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import SplashScreen from 'react-native-splash-screen';
 
 export const useProps = (_params) => {
   const dispatch = useDispatch();
@@ -25,6 +26,8 @@ export const useProps = (_params) => {
 
   // React useEffect
   React.useEffect(() => {
+    // SplashScreen.hide();
+
     addPushCodeCompleteCallback('splashscreen', () => {
       console.log('finishedLoadCodePush');
       setFinishedLoadCodePush(true);
