@@ -11,6 +11,7 @@ export const Layout = ({
   isLoading,
   whatMerchantID,
   loginMerchant,
+  textMessage,
 }) => {
   const [t] = useTranslation();
 
@@ -22,6 +23,8 @@ export const Layout = ({
         <Image source={images.logo} style={styles.logo} resizeMode="contain" />
         <View style={styles.marginHeight} />
         <InputMerchantID onChangeMID={onChangeMID} isLoading={isLoading} />
+        <View style={layouts.marginVertical} />
+        {textMessage && <Text style={styles.msgError}>{textMessage}</Text>}
         <View style={styles.marginHeight} />
         <Button
           width="100%"
@@ -66,7 +69,7 @@ const styles = StyleSheet.create({
   },
 
   marginHeight: {
-    height: scaleHeight(40),
+    height: scaleHeight(30),
   },
 
   btnWhatIsMerchant: {
@@ -78,11 +81,21 @@ const styles = StyleSheet.create({
 
   txtWhatIsMerchant: {
     fontFamily: fonts.REGULAR,
-    fontSize: scaleFont(12),
+    fontSize: scaleFont(13),
     fontWeight: 'normal',
     fontStyle: 'normal',
     letterSpacing: -0.29,
     textAlign: 'center',
     color: '#27aae1',
+  },
+
+  msgError: {
+    fontFamily: fonts.LIGHT,
+    fontSize: scaleFont(12),
+    fontWeight: '300',
+    fontStyle: 'normal',
+    letterSpacing: 0,
+    textAlign: 'center',
+    color: '#e12727',
   },
 });

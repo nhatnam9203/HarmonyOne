@@ -1,16 +1,14 @@
-import * as React from 'react';
-import { NavigationContainer, Theme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useSelector } from 'react-redux';
-import { navigationRef } from './NavigationService';
 import {
-  LoginMID,
-  LoginPincode,
   ForgotPincode,
   ForgotPincodeSuccess,
-  WhatIsMerchant,
+  LoginMID,
+  LoginPincode,
   LoginScreen,
+  PinCodeScreen,
+  WhatIsMerchant,
 } from '@screens';
+import * as React from 'react';
 import { ScreenName } from '../screens/ScreenName';
 
 const { Screen, Navigator } = createStackNavigator();
@@ -25,8 +23,11 @@ const AuthStack = () => {
         gestureEnabled: false,
       }}>
       <Screen {...LoginScreen} />
+      <Screen {...PinCodeScreen} />
+
       <Screen name="LoginMID" component={LoginMID} />
       <Screen name="LoginPincode" component={LoginPincode} />
+
       <Screen name="ForgotPincode" component={ForgotPincode} />
       <Screen name="ForgotPincodeSuccess" component={ForgotPincodeSuccess} />
       <Screen name="WhatIsMerchant" component={WhatIsMerchant} />

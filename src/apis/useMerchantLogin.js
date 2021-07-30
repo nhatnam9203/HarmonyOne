@@ -1,17 +1,16 @@
 // import { appMerchant } from '@redux/slices';
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import {
-  useQuery,
-  useMutation,
-  useQueryCache,
-  QueryCache,
-  ReactQueryCacheProvider,
-} from 'react-query';
 import { axios } from '@shared/services/axiosClient';
-import actions from '@src/redux/slices';
+import * as actions from '@src/redux/slices';
+import React from 'react';
+import { useMutation } from 'react-query';
+import { useDispatch } from 'react-redux';
 
-export const useMerchantLogin = ({ isUseAppLoading = true, merchantID }) => {
+export const useMerchantLogin = ({
+  isUseAppLoading = true,
+  merchantID,
+  onLoginSuccess,
+  onLoginError,
+}) => {
   const dispatch = useDispatch();
 
   const merchantRequestLogin = async () => {
@@ -32,12 +31,33 @@ export const useMerchantLogin = ({ isUseAppLoading = true, merchantID }) => {
     merchantRequestLogin,
     {
       onSuccess: (response) => {
-        if (response.data) {
-          dispatch(actions.auth.loginMerchant(response.data));
+        console.log(response);
+
+        if (response.data?.code) {
+          dispatch(actions.auth.loginMerchant(response.data?.code));
+
+          if (onLoginSuccess && typeof onLoginSuccess === 'function') {
+            onLoginSuccess();
+          }
+        } else {
+          if (
+            response?.message &&
+            onLoginError &&
+            typeof onLoginError === 'function'
+          ) {
+            onLoginError(response?.message);
+          }
         }
       },
       onError: (err) => {
         console.log(err);
+        if (
+          err?.message &&
+          onLoginError &&
+          typeof onLoginError === 'function'
+        ) {
+          onLoginError(err?.message);
+        }
       },
     }, // disable fetch auto
   );

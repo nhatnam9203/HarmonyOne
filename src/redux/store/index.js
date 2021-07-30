@@ -17,6 +17,7 @@ import Reactotron from '../../../ReactotronConfig';
 // import { authMiddleware } from '../middlewares';
 import sagaRoot from '../saga';
 import { rootReducers } from '../slices'; // where reducers is a object of reducers
+import Configs from '@src/config';
 
 const middleware = [];
 
@@ -28,7 +29,7 @@ if (__DEV__) {
 
 // middleware.push(authMiddleware);
 middleware.push(sagaMiddleware);
-if (__DEV__) {
+if (__DEV__ && Configs.REDUX_LOGGER) {
   middleware.push(createLogger());
 }
 
@@ -36,7 +37,7 @@ const persistConfig = {
   key: 'root',
   version: 1.0,
   storage: AsyncStorage,
-  blacklist: ['app'],
+  blacklist: ['app', 'auth'],
   debug: __DEV__, //to get useful logging
 };
 

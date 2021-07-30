@@ -11,6 +11,6 @@ const rootReducers = Object.assign(
 
 module.exports = {
   rootReducers,
-  account: authSlice.actions,
+  auth: authSlice.actions,
   app: appSlice.actions,
 };

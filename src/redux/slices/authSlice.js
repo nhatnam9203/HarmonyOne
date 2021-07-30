@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { persistReducer } from 'redux-persist';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const reducerName = 'hpo.auth';
 const initialState = { merchantID: null, staff: null };
@@ -6,7 +8,7 @@ const authSlice = createSlice({
   name: reducerName,
   initialState: initialState,
   reducers: {
-    logInMerchant: {
+    loginMerchant: {
       reducer: (state, action) => {
         state.merchantID = action.payload;
       },
@@ -32,7 +34,16 @@ const authSlice = createSlice({
 
 const { actions, reducer } = authSlice;
 
-module.exports = {
+let authMerchantReducer = persistReducer(
+  {
+    key: 'auth',
+    storage: AsyncStorage,
+    whitelist: ['staff'],
+  },
   reducer,
+);
+
+module.exports = {
+  reducer: authMerchantReducer,
   actions: { ...actions },
 };
