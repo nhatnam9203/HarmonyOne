@@ -8,7 +8,7 @@ import SplashScreen from 'react-native-splash-screen';
 export const useProps = (_params) => {
   const dispatch = useDispatch();
 
-  const { isLogin } = useSelector((state) => state.loginReducer);
+  const { staff } = useSelector((state) => state.auth);
 
   const init = async () => {
     await sleep(1500);
@@ -47,7 +47,7 @@ export const useProps = (_params) => {
     if (finishedLoadCodePush && finishedLoadApp) {
       // splash complete here !
       // if not sign in -> go to sign in screen
-      if (isLogin) {
+      if (staff) {
         NavigationService.replace('HpOneStack');
       }
       // if sign in -> go to home
@@ -55,7 +55,7 @@ export const useProps = (_params) => {
         NavigationService.replace('AuthStack');
       }
     }
-  }, [finishedLoadCodePush, finishedLoadApp, isLogin]);
+  }, [finishedLoadCodePush, finishedLoadApp, staff]);
 
   return { progress };
 };

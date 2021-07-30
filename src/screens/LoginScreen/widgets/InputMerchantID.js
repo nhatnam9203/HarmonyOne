@@ -13,7 +13,7 @@ import { slop } from '@utils';
 import * as Animatable from 'react-native-animatable';
 import { colors, fonts } from '@shared/themes';
 
-export const InputMerchantID = ({ onChangeMID }) => {
+export const InputMerchantID = ({ onChangeMID, isLoading }) => {
   const AnimatedButton = Animated.createAnimatedComponent(TouchableOpacity);
   const bottomAnimated = React.useRef(
     new Animated.Value(scaleHeight(0)),
@@ -68,6 +68,8 @@ export const InputMerchantID = ({ onChangeMID }) => {
           onChangeText={onHandleChangeMID}
           style={styles.textInput}
           keyboardType="numeric"
+          clearTextOnFocus={true}
+          editable={!isLoading}
         />
       )}
       <AnimatedButton

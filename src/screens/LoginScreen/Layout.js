@@ -21,7 +21,7 @@ export const Layout = ({
         <Text style={textStyles.sf_pt_medium_17_500}>{t('Sign In')}</Text>
         <Image source={images.logo} style={styles.logo} resizeMode="contain" />
         <View style={styles.marginHeight} />
-        <InputMerchantID onChangeMID={onChangeMID} />
+        <InputMerchantID onChangeMID={onChangeMID} isLoading={isLoading} />
         <View style={styles.marginHeight} />
         <Button
           width="100%"

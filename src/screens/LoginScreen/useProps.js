@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
 import NavigationService from '@navigation/NavigationService';
 import { useMerchantLogin } from '@src/apis';
+import React from 'react';
 
 export const useProps = (_params) => {
   const [merchantID, setMerchantID] = React.useState(null);
 
-  const [{ isLoading, data }, merchantLogin] = useMerchantLogin({
+  const [{ isLoading }, merchantLogin] = useMerchantLogin({
     merchantID,
   });
 
@@ -14,7 +14,7 @@ export const useProps = (_params) => {
     onChangeMID: (mid) => {
       setMerchantID(mid);
     },
-    isLoading: false,
+    isLoading: isLoading,
     whatMerchantID: () => {
       NavigationService.navigate('WhatIsMerchant');
     },

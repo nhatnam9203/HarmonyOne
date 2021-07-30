@@ -8,7 +8,7 @@ import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { RootNavigation } from './navigation';
-import configureStore from './store';
+import configureStore from '@src/redux/store';
 import { CodePushProvider } from '@shared/providers/CodePushProvider';
 import { AxiosApiProvider } from '@shared/providers/AxiosApiProvider';
 

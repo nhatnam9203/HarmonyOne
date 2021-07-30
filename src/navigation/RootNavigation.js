@@ -15,7 +15,6 @@ const { Screen, Navigator } = createStackNavigator();
 
 export const RootNavigation = (props) => {
   const { theme } = props;
-  const { isLogin } = useSelector((state) => state.loginReducer);
 
   React.useEffect(() => {
     LaunchScreen.hide();

@@ -9,6 +9,7 @@ import {
   ReactQueryCacheProvider,
 } from 'react-query';
 import { axios } from '@shared/services/axiosClient';
+import actions from '@src/redux/slices';
 
 export const useMerchantLogin = ({ isUseAppLoading = true, merchantID }) => {
   const dispatch = useDispatch();
@@ -31,8 +32,9 @@ export const useMerchantLogin = ({ isUseAppLoading = true, merchantID }) => {
     merchantRequestLogin,
     {
       onSuccess: (response) => {
-        console.log('response');
-        console.log(response);
+        if (response.data) {
+          dispatch(actions.auth.loginMerchant(response.data));
+        }
       },
       onError: (err) => {
         console.log(err);
@@ -47,7 +49,7 @@ export const useMerchantLogin = ({ isUseAppLoading = true, merchantID }) => {
 
     if (isLoading) {
       // show app loading hereF
-      //   dispatch(appMerchant.showLoading());F
+      //   dispatch(appMerchant.showLoading());
     }
 
     if (!isLoading && (data || isError)) {
