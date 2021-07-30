@@ -9,8 +9,8 @@ export const CodePushContext = createContext({});
 
 export const CodePushProvider = ({ children }) => {
   const [progress, setProgress] = React.useState(0);
-  const [codePushSyncStatus, setCodePushStatus] = React.useState(null);
   const [progressComplete, setProgressComplete] = React.useState([]); //object: <id:string, callback: void>
+  const [codePushSyncStatus, setCodePushStatus] = React.useState(0);
 
   // React useEffect
   React.useEffect(() => {
@@ -28,6 +28,7 @@ export const CodePushProvider = ({ children }) => {
     ) {
       codePushProcessComplete();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [codePushSyncStatus]);
 
   // CodePush callback
@@ -117,7 +118,25 @@ export const CodePushProvider = ({ children }) => {
     if (!id || !delegate) {
       return;
     }
-    setProgressComplete([...progressComplete, { id, delegate }]);
+
+    const isExistedIndex = progressComplete?.findIndex((x) => x.id === id);
+    if (isExistedIndex >= 0) {
+      let clones = [...progressComplete];
+      clones[isExistedIndex] = { id, delegate };
+      setProgressComplete(clones);
+    } else {
+      setProgressComplete([...progressComplete, { id, delegate }]);
+    }
+
+    if (
+      codePushSyncStatus === codePush.SyncStatus.UP_TO_DATE ||
+      codePushSyncStatus === codePush.SyncStatus.UPDATE_IGNORED ||
+      codePushSyncStatus === codePush.SyncStatus.UNKNOWN_ERROR
+    ) {
+      if (typeof delegate === 'function') {
+        delegate();
+      }
+    }
   };
 
   const removePushCodeCompleteCallback = (id) => {

@@ -112,10 +112,10 @@ export const layouts = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   marginVertical: {
-    height: scaleHeight(16),
+    height: scaleHeight(8),
   },
   marginHorizontal: {
-    width: scaleWidth(8),
+    width: scaleWidth(16),
   },
 
   formRow: {

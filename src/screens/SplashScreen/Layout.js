@@ -26,8 +26,8 @@ export const Layout = ({ progress = 0 }) => {
           <View style={layouts.marginVertical} />
           <Bar
             progress={progress}
-            width={scaleWidth(120)}
-            height={scaleHeight(14)}
+            width={scaleWidth(200)}
+            height={scaleHeight(8)}
             indeterminate={true}
             indeterminateAnimationDuration={1500}
             color="#fffd"
@@ -38,9 +38,6 @@ export const Layout = ({ progress = 0 }) => {
           <View style={layouts.marginVertical} />
           <Text style={styles.textPercent}>{`${progress}%`}</Text>
         </View>
-        {/* <Text style={textStyles.sf_pt_regular_15}>
-            Copyright © 2019 Harmony Inc,.
-          </Text> */}
         <Text style={textStyles.sf_pt_light_14}>Version for staff</Text>
       </View>
     </View>
@@ -58,7 +55,7 @@ const styles = StyleSheet.create({
   logoContent: {
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 3,
+    flex: 2,
   },
 
   stepIndicator: {
@@ -68,14 +65,13 @@ const styles = StyleSheet.create({
   textContent: {
     flex: 1,
     justifyContent: 'space-between',
-    paddingBottom: scaleHeight(40),
+    paddingBottom: scaleHeight(20),
   },
 
   loadingBarContent: {
-    marginVertical: scaleHeight(100),
+    marginVertical: scaleHeight(20),
     flex: 0,
     alignItems: 'center',
-    // width: scaleWidth(360),
   },
 
   textLabel: {

@@ -20,12 +20,15 @@ export const useProps = (_params) => {
     removePushCodeCompleteCallback,
   } = React.useContext(CodePushContext);
 
-  const [finishedLoadCodePush, setLoadCodePush] = React.useState(false);
+  const [finishedLoadCodePush, setFinishedLoadCodePush] = React.useState(false);
   const [finishedLoadApp, setLoadApp] = React.useState(false);
 
   // React useEffect
   React.useEffect(() => {
-    addPushCodeCompleteCallback('splashscreen', onPushCodeComplete);
+    addPushCodeCompleteCallback('splashscreen', () => {
+      console.log('finishedLoadCodePush');
+      setFinishedLoadCodePush(true);
+    });
 
     init().finally(() => {
       return setLoadApp(true);
@@ -49,11 +52,7 @@ export const useProps = (_params) => {
         NavigationService.replace('AuthStack');
       }
     }
-  }, [dispatch, finishedLoadCodePush, finishedLoadApp, isLogin]);
-
-  const onPushCodeComplete = () => {
-    setLoadCodePush(true);
-  };
+  }, [finishedLoadCodePush, finishedLoadApp, isLogin]);
 
   return { progress };
 };

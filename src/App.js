@@ -10,6 +10,7 @@ import { PersistGate } from 'redux-persist/es/integration/react';
 import { RootNavigation } from './navigation';
 import configureStore from './store';
 import { CodePushProvider } from '@shared/providers/CodePushProvider';
+import { AxiosApiProvider } from '@shared/providers/AxiosApiProvider';
 
 if (__DEV__) {
   import('../ReactotronConfig.js').then(() =>
@@ -29,7 +30,9 @@ const App = () => {
       <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
         <CodePushProvider>
           <PaperProvider>
-            <RootNavigation />
+            <AxiosApiProvider>
+              <RootNavigation />
+            </AxiosApiProvider>
           </PaperProvider>
         </CodePushProvider>
       </PersistGate>

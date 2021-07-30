@@ -10,6 +10,7 @@ export const Layout = ({
   merchantID,
   isLoading,
   whatMerchantID,
+  loginMerchant,
 }) => {
   const [t] = useTranslation();
 
@@ -27,6 +28,7 @@ export const Layout = ({
           highlight={merchantID?.length === 4}
           disabled={merchantID?.length !== 4}
           isLoading={isLoading}
+          onPress={loginMerchant}
         />
         <TouchableOpacity
           onPress={whatMerchantID}
