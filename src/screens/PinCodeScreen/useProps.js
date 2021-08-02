@@ -1,7 +1,6 @@
 import React from 'react';
 import NavigationService from '@navigation/NavigationService';
 import { useStaffLogin } from '@src/apis';
-import { ScreenNames } from '@src/screens';
 import { useSelector } from 'react-redux';
 
 export const useProps = (_params) => {
@@ -16,7 +15,6 @@ export const useProps = (_params) => {
       // setTextMessage(msg);
     },
     onLoginSuccess: () => {
-      console.log('Login Staff Success');
       NavigationService.replace('HpOneStack');
     },
   });

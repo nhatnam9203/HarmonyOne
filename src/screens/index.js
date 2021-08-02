@@ -27,6 +27,10 @@ import { ScreenNames } from './ScreenName';
 import { SplashScreen } from './SplashScreen';
 import { LoginScreen } from './LoginScreen';
 import { PinCodeScreen } from './PinCodeScreen';
+import { AppointmentScreen } from './AppointmentScreen';
+import { ReportsScreen } from './ReportsScreen';
+import { CustomersScreen } from './CustomersScreen';
+import { MoreScreen } from './MoreScreen';
 
 module.exports = {
   LoginMID,
@@ -57,4 +61,8 @@ module.exports = {
   SplashScreen,
   LoginScreen,
   PinCodeScreen,
+  AppointmentScreen,
+  ReportsScreen,
+  CustomersScreen,
+  MoreScreen,
 };

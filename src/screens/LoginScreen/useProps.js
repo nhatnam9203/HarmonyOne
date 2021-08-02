@@ -13,7 +13,6 @@ export const useProps = (_params) => {
       setTextMessage(msg);
     },
     onLoginSuccess: () => {
-      console.log('Login Merchant Success');
       NavigationService.navigate(ScreenNames.PinScreen);
     },
   });

@@ -21,35 +21,36 @@ import {
   Reviews,
 } from '@screens';
 import BottomMain from './BottomMain';
+import { HPOBottomTabStack } from './HPOBottomTabStack';
 
-const App = createStackNavigator();
+const { Screen, Navigator } = createStackNavigator();
 
 const AppStack = () => {
   return (
-    <App.Navigator
+    <Navigator
       screenOptions={{
         headerShown: false,
         gestureEnabled: false,
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
-      initialRouteName="BottomMain">
-      <App.Screen name="BottomMain" component={BottomMain} />
-      <App.Screen name="Notification" component={Notification} />
-      <App.Screen name="AppointmentDetail" component={AppointmentDetail} />
-      <App.Screen name="EditAppointment" component={EditAppointment} />
-      <App.Screen name="EditService" component={EditService} />
-      <App.Screen name="AddService" component={AddService} />
-      <App.Screen name="Checkout" component={Checkout} />
-      <App.Screen name="SelectPayment" component={SelectPayment} />
-      <App.Screen name="EditProfile" component={EditProfile} />
-      <App.Screen name="ChangePincode" component={ChangePincode} />
-      <App.Screen name="ForgotPincode" component={ForgotPincode} />
-      <App.Screen name="FeedBack" component={FeedBack} />
-      <App.Screen name="Services" component={Services} />
-      <App.Screen name="NewCategory" component={NewCategory} />
-      <App.Screen name="NewService" component={NewService} />
-      <App.Screen name="Reviews" component={Reviews} />
-    </App.Navigator>
+      initialRouteName="HpOneHomeStack">
+      <Screen name="HpOneHomeStack" component={HPOBottomTabStack} />
+      <Screen name="Notification" component={Notification} />
+      <Screen name="AppointmentDetail" component={AppointmentDetail} />
+      <Screen name="EditAppointment" component={EditAppointment} />
+      <Screen name="EditService" component={EditService} />
+      <Screen name="AddService" component={AddService} />
+      <Screen name="Checkout" component={Checkout} />
+      <Screen name="SelectPayment" component={SelectPayment} />
+      <Screen name="EditProfile" component={EditProfile} />
+      <Screen name="ChangePincode" component={ChangePincode} />
+      <Screen name="ForgotPincode" component={ForgotPincode} />
+      <Screen name="FeedBack" component={FeedBack} />
+      <Screen name="Services" component={Services} />
+      <Screen name="NewCategory" component={NewCategory} />
+      <Screen name="NewService" component={NewService} />
+      <Screen name="Reviews" component={Reviews} />
+    </Navigator>
   );
 };
 

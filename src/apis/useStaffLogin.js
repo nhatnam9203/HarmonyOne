@@ -3,7 +3,6 @@ import * as actions from '@src/redux/slices';
 import React from 'react';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
-import qs from 'qs';
 
 export const useStaffLogin = ({
   isUseAppLoading = true,
