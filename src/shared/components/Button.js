@@ -16,6 +16,7 @@ export const Button = ({
   disabled,
   height = scaleHeight(48),
   width = scaleWidth(100),
+  label,
 }) => {
   const [t] = useTranslation();
   return (
@@ -33,7 +34,7 @@ export const Button = ({
         <Text
           fontFamily="medium"
           style={[styles.text, highlight && { color: colors.white }]}>
-          {t('Continue')}
+          {label ?? t('Continue')}
         </Text>
       )}
     </Pressable>

@@ -38,7 +38,7 @@ export const Layout = ({ progress = 0 }) => {
           <View style={layouts.marginVertical} />
           <Text style={styles.textPercent}>{`${progress}%`}</Text>
         </View>
-        <Text style={textStyles.sf_pt_light_14}>Version for staff</Text>
+        <Text style={textStyles.sf_pt_light_14}>{t('Version for staff')}</Text>
       </View>
     </View>
   );

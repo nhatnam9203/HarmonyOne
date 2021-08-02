@@ -2,14 +2,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {
   ForgotPincode,
   ForgotPincodeSuccess,
-  LoginMID,
-  LoginPincode,
   LoginScreen,
   PinCodeScreen,
+  ScreenNames,
   WhatIsMerchant,
 } from '@screens';
 import * as React from 'react';
-import { ScreenName } from '../screens/ScreenName';
 
 const { Screen, Navigator } = createStackNavigator();
 
@@ -17,7 +15,7 @@ const AuthStack = () => {
   return (
     <Navigator
       headerMode="none"
-      initialRouteName={ScreenName.LoginScreen}
+      initialRouteName={ScreenNames.LoginScreen}
       screenOptions={{
         headerShown: false,
         gestureEnabled: false,
@@ -25,8 +23,8 @@ const AuthStack = () => {
       <Screen {...LoginScreen} />
       <Screen {...PinCodeScreen} />
 
-      <Screen name="LoginMID" component={LoginMID} />
-      <Screen name="LoginPincode" component={LoginPincode} />
+      {/* <Screen name="LoginMID" component={LoginMID} /> */}
+      {/* <Screen name="LoginPincode" component={LoginPincode} /> */}
 
       <Screen name="ForgotPincode" component={ForgotPincode} />
       <Screen name="ForgotPincodeSuccess" component={ForgotPincodeSuccess} />

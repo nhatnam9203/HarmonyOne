@@ -23,7 +23,7 @@ import NewCategory from './NewCategory';
 import NewService from './NewService';
 import Reviews from './Reviews';
 
-import { ScreenName } from './ScreenName';
+import { ScreenNames } from './ScreenName';
 import { SplashScreen } from './SplashScreen';
 import { LoginScreen } from './LoginScreen';
 import { PinCodeScreen } from './PinCodeScreen';
@@ -53,7 +53,7 @@ module.exports = {
   NewCategory,
   NewService,
   Reviews,
-  ScreenName,
+  ScreenNames,
   SplashScreen,
   LoginScreen,
   PinCodeScreen,

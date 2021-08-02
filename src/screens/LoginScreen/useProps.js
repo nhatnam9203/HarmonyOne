@@ -1,7 +1,7 @@
 import NavigationService from '@navigation/NavigationService';
 import { useMerchantLogin } from '@src/apis';
 import React from 'react';
-import { ScreenName } from '@src/screens';
+import { ScreenNames } from '../ScreenName';
 
 export const useProps = (_params) => {
   const [merchantID, setMerchantID] = React.useState(null);
@@ -13,7 +13,8 @@ export const useProps = (_params) => {
       setTextMessage(msg);
     },
     onLoginSuccess: () => {
-      NavigationService.navigate('hpo.pin');
+      console.log('Login Merchant Success');
+      NavigationService.navigate(ScreenNames.PinScreen);
     },
   });
 

@@ -16,7 +16,7 @@ const authSlice = createSlice({
       //   console.log(params);
       // },
     },
-    staffSignIn: {
+    loginStaff: {
       reducer: (state, action) => {
         state.staff = action.payload;
       },

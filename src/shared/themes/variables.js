@@ -56,7 +56,7 @@ export const textStyles = StyleSheet.create({
     fontSize: scaleFont(17),
     fontWeight: '500',
     fontStyle: 'normal',
-    letterSpacing: -0.41,
+    letterSpacing: 0,
     textAlign: 'center',
     color: colors.black,
   },

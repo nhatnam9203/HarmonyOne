@@ -1,5 +1,7 @@
-export const ScreenName = {
+const ScreenNames = {
   SplashScreen: 'hpo.splash',
   LoginScreen: 'hpo.login',
-  PinCodeScreen: 'hpo.pin',
+  PinScreen: 'hpo.pin',
 };
+
+module.exports = { ScreenNames };

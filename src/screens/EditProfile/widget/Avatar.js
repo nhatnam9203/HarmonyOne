@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 
 const Avatar = () => {
 
-    const { staffInfo } = useSelector(state => state.authReducer);
+    const staffInfo = useSelector(state => state.auth.staff);
     const avatar = staffInfo.imageUrl ? { uri: staffInfo.imageUrl } : avatarUser;
     return (
         <TouchableOpacity style={styles.wrapAvatar}>

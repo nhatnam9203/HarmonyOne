@@ -6,9 +6,9 @@ import { scaleWidth, scaleHeight, slop } from '@utils'
 import { useSelector } from 'react-redux'
 
 const UserInfo = ({ onEdit = () => { } }) => {
-    const { staffInfo } = useSelector(state => state.authReducer);
+    const staffInfo = useSelector(state => state.auth.staff);
     const avatar = staffInfo.imageUrl ? { uri : staffInfo.imageUrl } : avatarUser;
-    
+
     return (
         <View style={styles.container}>
             <View style={styles.wrapAvatar}>

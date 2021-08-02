@@ -1,5 +1,6 @@
 export const images = {
   logo: require('@src/assets/images/logo.png'),
+  iconSignIn: require('@src/assets/images/icon_signin.png'),
 };
 
 export const svg = {
