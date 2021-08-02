@@ -49,9 +49,7 @@ export const RootNavigation = (props) => {
       onReady={() => {
         isReadyRef.current = true;
       }}>
-      <StatusBar
-        barStyle={theme && theme.dark ? 'light-content' : 'dark-content'}
-      />
+      <StatusBar barStyle="light-content" />
 
       <Navigator headerMode="none">
         <Screen {...SplashScreen} />

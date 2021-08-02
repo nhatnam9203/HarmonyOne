@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { View, StyleSheet, Text, StatusBar } from 'react-native';
 import { textStyles, colors, svg, layouts, images } from '@shared/themes';
 import LottieView from 'lottie-react-native';
 import { Bar } from 'react-native-progress';
@@ -10,6 +10,8 @@ export const Layout = ({ progress = 0 }) => {
 
   return (
     <View style={styles.container}>
+      {/* <StatusBar barStyle="light-content" /> */}
+
       <View style={styles.logoContent}>
         <LottieView
           source={svg.logo_fade}
