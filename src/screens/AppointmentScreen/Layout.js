@@ -1,15 +1,34 @@
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { images, layouts } from '@shared/themes';
 import React from 'react';
-import { View, StyleSheet, StatusBar } from 'react-native';
-import { HeaderStaffInfo, HeaderTabPage } from './widgets';
-import { layouts } from '@shared/themes';
+import { StyleSheet, View } from 'react-native';
+import { AppointmentsPage, SchedulePage } from './pages';
+import { AppointmentHeaderTab, HeaderStaffInfo } from './widgets';
+
+const { Navigator, Screen } = createMaterialTopTabNavigator();
 
 export const Layout = () => {
   return (
     <View style={layouts.fill}>
       {/* <StatusBar barStyle="light-content" /> */}
       <HeaderStaffInfo />
-      <HeaderTabPage />
-      <View style={styles.container}></View>
+      <View style={styles.container}>
+        <Navigator
+          tabBar={(props) => <AppointmentHeaderTab {...props} />}
+          initialRouteName={screenNames.AppointmentsPage}>
+          <Screen
+            {...AppointmentsPage}
+            options={{ tabBarLabel: ' ', tabBarIcon: images.iconDate }}
+          />
+          <Screen
+            {...SchedulePage}
+            options={{
+              tabBarLabel: 'Schedule',
+              tabBarIcon: images.iconSchedule,
+            }}
+          />
+        </Navigator>
+      </View>
     </View>
   );
 };

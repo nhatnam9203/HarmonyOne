@@ -1,7 +1,6 @@
+import { colors, fonts, images } from '@shared/themes';
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity, Image, Text } from 'react-native';
-import { colors } from '@shared/themes';
-import { images, fonts } from '@shared/themes';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export const HeaderTabPage = ({ isSchedule = false }) => {
   return (

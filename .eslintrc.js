@@ -6,6 +6,7 @@ module.exports = {
     scaleWidth: true,
     scaleHeight: true,
     scaleFont: true,
+    screenNames: true,
   },
   plugins: [
     // ...

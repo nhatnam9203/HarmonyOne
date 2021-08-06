@@ -6,6 +6,8 @@ const ScreenNames = {
   ReportsScreen: 'hpo.reports',
   CustomersScreen: 'hpo.customers',
   MoreScreen: 'hpo.more',
+  AppointmentsPage: 'hpo.appointment.list',
+  SchedulePage: 'hpo.appointment.schedule',
 };
 
 module.exports = { ScreenNames };

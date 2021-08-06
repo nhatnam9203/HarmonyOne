@@ -7,3 +7,4 @@ const {
 window.scaleFont = scaleFont;
 window.scaleWidth = scaleWidth;
 window.scaleHeight = scaleHeight;
+window.screenNames = require('./src/screens/ScreenName');

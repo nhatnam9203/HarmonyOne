@@ -1,2 +1,2 @@
 export * from './HeaderStaffInfo';
-export * from './HeaderTabPage';
+export * from './AppointmentHeaderTab';
