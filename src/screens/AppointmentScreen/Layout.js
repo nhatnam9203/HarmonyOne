@@ -15,7 +15,8 @@ export const Layout = () => {
       <View style={styles.container}>
         <Navigator
           tabBar={(props) => <AppointmentHeaderTab {...props} />}
-          initialRouteName={screenNames.AppointmentsPage}>
+          initialRouteName={screenNames.AppointmentsPage}
+          swipeEnabled={false}>
           <Screen
             {...AppointmentsPage}
             options={{ tabBarLabel: ' ', tabBarIcon: images.iconDate }}

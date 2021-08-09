@@ -86,7 +86,7 @@ export const AppointmentHeaderTab = ({
 
 const styles = StyleSheet.create({
   container: {
-    height: scaleHeight(56),
+    height: scaleHeight(52),
     width: '100%',
     backgroundColor: colors.white,
     flexDirection: 'row',

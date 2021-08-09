@@ -1,3 +1,9 @@
-export const useProps = (props) => {
-  return {};
+export const useProps = ({ navigation }) => {
+  return {
+    onChangeWeekText: (text) => {
+      navigation.setOptions({
+        tabBarLabel: text,
+      });
+    },
+  };
 };
