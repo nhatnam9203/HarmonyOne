@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { SplashScreen, ScreenName } from '../screens';
 import { isReadyRef, navigationRef } from './NavigationService';
 import LaunchScreen from 'react-native-splash-screen';
+import 'react-native-gesture-handler';
 
 import { StatusBar } from 'react-native';
 import AuthStack from './AuthStack';
@@ -27,6 +28,7 @@ export const RootNavigation = (props) => {
   return (
     <NavigationContainer
       ref={navigationRef}
+      headerMode="none"
       screenOptions={{
         cardOverlayEnabled: true,
         cardStyleInterpolator: ({ current: { progress } }) => ({

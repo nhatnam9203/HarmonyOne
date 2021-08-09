@@ -7,5 +7,5 @@ import { images } from '@shared/themes';
 export const AppointmentScreen = createScreenComponent(
   'hpo.appointment',
   (props) => <Layout {...useProps(props)} />,
-  { tabBarIcon: images.iconTabAppointment, tabBarLabel: 'Appointment' },
+  {},
 );

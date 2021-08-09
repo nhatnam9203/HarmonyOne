@@ -8,7 +8,7 @@ export function CustomBottomBar({ state, descriptors, navigation }) {
 
   return (
     <View style={styles.bottomContainer}>
-      {state.routes.map((route, index) => {
+      {state.routes?.map((route, index) => {
         const { options } = descriptors[route.key];
         const label = options.tabBarLabel ?? options.title ?? route.name;
         const icon = options.tabBarIcon;
@@ -36,6 +36,7 @@ export function CustomBottomBar({ state, descriptors, navigation }) {
 
         return (
           <TouchableOpacity
+            key={route.key}
             accessibilityRole="button"
             accessibilityState={isFocused ? { selected: true } : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}

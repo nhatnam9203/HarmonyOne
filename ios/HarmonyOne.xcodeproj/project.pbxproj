@@ -10,8 +10,6 @@
 		0050E39540F74B1ABFB02276 /* SFProDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0EBF5F92765E43A99CC2B63B /* SFProDisplay-Bold.ttf */; };
 		00E356F31AD99517003FC87E /* HarmonyOneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* HarmonyOneTests.m */; };
 		08771BA6DA2C40F7A1BF4CCE /* SF Pro Text RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B811B94564C4D63A897FD16 /* SF Pro Text RegularItalic.ttf */; };
-		089A4AF6C7174EE0205BD014 /* libPods-HarmonyOne.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B32E30124374EF66F22F144 /* libPods-HarmonyOne.a */; };
-		08D918961E41F4BE76668032 /* libPods-HarmonyOne-Staging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B9AB80E392CD83E3F9294B /* libPods-HarmonyOne-Staging.a */; };
 		11B11B7ABC584158B415EF01 /* SFProDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76CE450F62014179BB93BB88 /* SFProDisplay-Regular.ttf */; };
 		12F22A6FFD2242FC92BA3B94 /* SF Pro Text Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DE5ABF6A5296435981187F38 /* SF Pro Text Bold.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -48,14 +46,15 @@
 		36BD5C6A26B2BF12007A91F0 /* SF Pro Text LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62921B42E61C41FDA9CA6F47 /* SF Pro Text LightItalic.ttf */; };
 		4B946B66A715420E87C8AEC0 /* SFProDisplay-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F1F668B16E94BA9AEDFB75A /* SFProDisplay-Light.ttf */; };
 		52F3853803564CD6AFA1F543 /* SF Pro Text SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A522A122DD124720AB90C23E /* SF Pro Text SemiBoldItalic.ttf */; };
+		52F71D5EE930CE99956CF3D2 /* libPods-HarmonyOne-Staging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D738DF3FAB79FC9E31CD04 /* libPods-HarmonyOne-Staging.a */; };
 		5D0B36B7CCB64A1BA827584E /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6AACA0D074D45279AB59577 /* SFProDisplay-Semibold.ttf */; };
-		6DE1035BF7DE317FE9E328C2 /* libPods-HarmonyOne.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B32E30124374EF66F22F144 /* libPods-HarmonyOne.a */; };
 		76B126674CCB4AAF8D5D8537 /* SF Pro Text Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B2429A003E24354B9166F4D /* SF Pro Text Regular.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8478560867464D71A4FA78BD /* SF Pro Text LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62921B42E61C41FDA9CA6F47 /* SF Pro Text LightItalic.ttf */; };
 		8F2D6A000DED404F935DDC61 /* SF Pro Text SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F5E367F689A4D76B723907D /* SF Pro Text SemiBold.ttf */; };
+		98DE5756B9EB62DF225DB762 /* libPods-HarmonyOne-HarmonyOneTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0001915413A42BFD05F7B103 /* libPods-HarmonyOne-HarmonyOneTests.a */; };
+		A94FCB88851714D44502A9E5 /* libPods-HarmonyOne.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E408FDB0CE70A9715A067AB5 /* libPods-HarmonyOne.a */; };
 		BCBE66D0A68C4E91A37B6617 /* SF Pro Text Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68F5395D88A346A18E02662C /* SF Pro Text Heavy.ttf */; };
-		C5A2E9E15985BB9A5A338FCD /* libPods-HarmonyOne-HarmonyOneTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F36FD6641BD6D81442298FE /* libPods-HarmonyOne-HarmonyOneTests.a */; };
 		C7A07B29EF21406485A30503 /* SFProDisplay-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E462B3C9A96D4289AFE4DD1E /* SFProDisplay-Medium.ttf */; };
 		DB0DB8DA437B4D139745074B /* SF Pro Text HeavyItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1698CD426A0242F596DC5286 /* SF Pro Text HeavyItalic.ttf */; };
 		FCA607EEA8DA4EFABBE12212 /* SF Pro Text Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7895431B8DC546E69E5B8D30 /* SF Pro Text Medium.ttf */; };
@@ -80,13 +79,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0001915413A42BFD05F7B103 /* libPods-HarmonyOne-HarmonyOneTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HarmonyOne-HarmonyOneTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356EE1AD99517003FC87E /* HarmonyOneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HarmonyOneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* HarmonyOneTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HarmonyOneTests.m; sourceTree = "<group>"; };
-		0B32E30124374EF66F22F144 /* libPods-HarmonyOne.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HarmonyOne.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EBF5F92765E43A99CC2B63B /* SFProDisplay-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Bold.ttf"; path = "../src/assets/fonts/SFProDisplay-Bold.ttf"; sourceTree = "<group>"; };
 		0F1F668B16E94BA9AEDFB75A /* SFProDisplay-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Light.ttf"; path = "../src/assets/fonts/SFProDisplay-Light.ttf"; sourceTree = "<group>"; };
-		0F36FD6641BD6D81442298FE /* libPods-HarmonyOne-HarmonyOneTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HarmonyOne-HarmonyOneTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* HarmonyOne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HarmonyOne.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = HarmonyOne/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = HarmonyOne/AppDelegate.m; sourceTree = "<group>"; };
@@ -106,14 +104,14 @@
 		368DE93D26B26AD50095C324 /* HarmonyOne-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HarmonyOne-Bridging-Header.h"; sourceTree = "<group>"; };
 		368DE93E26B26AD50095C324 /* Staging-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Staging-Bridging-Header.h"; sourceTree = "<group>"; };
 		368DE93F26B26AD50095C324 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		36D856B1268AAA42175073E1 /* Pods-HarmonyOne.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyOne.release.xcconfig"; path = "Target Support Files/Pods-HarmonyOne/Pods-HarmonyOne.release.xcconfig"; sourceTree = "<group>"; };
+		38D9BE189BDC661F5498C83E /* Pods-HarmonyOne.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyOne.release.xcconfig"; path = "Target Support Files/Pods-HarmonyOne/Pods-HarmonyOne.release.xcconfig"; sourceTree = "<group>"; };
 		3B811B94564C4D63A897FD16 /* SF Pro Text RegularItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF Pro Text RegularItalic.ttf"; path = "../src/assets/fonts/SF Pro Text RegularItalic.ttf"; sourceTree = "<group>"; };
-		42F2739ABC4C7A542F086649 /* Pods-HarmonyOne-Staging.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyOne-Staging.debug.xcconfig"; path = "Target Support Files/Pods-HarmonyOne-Staging/Pods-HarmonyOne-Staging.debug.xcconfig"; sourceTree = "<group>"; };
+		4E5E9897EA821B1C401E6E8A /* Pods-HarmonyOne-Staging.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyOne-Staging.debug.xcconfig"; path = "Target Support Files/Pods-HarmonyOne-Staging/Pods-HarmonyOne-Staging.debug.xcconfig"; sourceTree = "<group>"; };
 		4EFE9830C4CE4A6791368E9A /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		51A860A8EA1D44A7A3C35C87 /* SF Pro Text BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF Pro Text BoldItalic.ttf"; path = "../src/assets/fonts/SF Pro Text BoldItalic.ttf"; sourceTree = "<group>"; };
 		52CDC51710F74612B957A76F /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		5507EF7BCD464D2988033438 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
-		58A87586DECC9AAA223D916D /* Pods-HarmonyOne-Staging.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyOne-Staging.release.xcconfig"; path = "Target Support Files/Pods-HarmonyOne-Staging/Pods-HarmonyOne-Staging.release.xcconfig"; sourceTree = "<group>"; };
+		55D738DF3FAB79FC9E31CD04 /* libPods-HarmonyOne-Staging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HarmonyOne-Staging.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B2429A003E24354B9166F4D /* SF Pro Text Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF Pro Text Regular.ttf"; path = "../src/assets/fonts/SF Pro Text Regular.ttf"; sourceTree = "<group>"; };
 		62921B42E61C41FDA9CA6F47 /* SF Pro Text LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF Pro Text LightItalic.ttf"; path = "../src/assets/fonts/SF Pro Text LightItalic.ttf"; sourceTree = "<group>"; };
 		68F5395D88A346A18E02662C /* SF Pro Text Heavy.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF Pro Text Heavy.ttf"; path = "../src/assets/fonts/SF Pro Text Heavy.ttf"; sourceTree = "<group>"; };
@@ -122,20 +120,21 @@
 		7F33D17B0C444AB2BDF0A45F /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = HarmonyOne/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A61D5C5E9BC419F8B460D98 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
-		920AE01196CF291853BA329C /* Pods-HarmonyOne-HarmonyOneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyOne-HarmonyOneTests.release.xcconfig"; path = "Target Support Files/Pods-HarmonyOne-HarmonyOneTests/Pods-HarmonyOne-HarmonyOneTests.release.xcconfig"; sourceTree = "<group>"; };
+		911DFFCE065599F41DEACAC6 /* Pods-HarmonyOne-Staging.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyOne-Staging.release.xcconfig"; path = "Target Support Files/Pods-HarmonyOne-Staging/Pods-HarmonyOne-Staging.release.xcconfig"; sourceTree = "<group>"; };
 		970F8C1C7B444E2B9D6010CB /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		98DDB29850FC47E9B1393D14 /* SF Pro Text Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF Pro Text Light.ttf"; path = "../src/assets/fonts/SF Pro Text Light.ttf"; sourceTree = "<group>"; };
 		9ADABE20CF3341B39852A82B /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		9BFF240C342F4C9DBEA3CC9D /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		A522A122DD124720AB90C23E /* SF Pro Text SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF Pro Text SemiBoldItalic.ttf"; path = "../src/assets/fonts/SF Pro Text SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		A590C5AC6BFC53FDDD05FAED /* Pods-HarmonyOne.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyOne.debug.xcconfig"; path = "Target Support Files/Pods-HarmonyOne/Pods-HarmonyOne.debug.xcconfig"; sourceTree = "<group>"; };
 		A75AD7713E8C452BA0D9FA12 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
-		A9B9AB80E392CD83E3F9294B /* libPods-HarmonyOne-Staging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HarmonyOne-Staging.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFD3E39456544C178AD0B089 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		CCC03B85172241B58D8EAB5E /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
-		D5B2C53165757B8DB1E88994 /* Pods-HarmonyOne-HarmonyOneTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyOne-HarmonyOneTests.debug.xcconfig"; path = "Target Support Files/Pods-HarmonyOne-HarmonyOneTests/Pods-HarmonyOne-HarmonyOneTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D73A89A3A5694E82D02C741B /* Pods-HarmonyOne.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyOne.debug.xcconfig"; path = "Target Support Files/Pods-HarmonyOne/Pods-HarmonyOne.debug.xcconfig"; sourceTree = "<group>"; };
+		D5350938A6BAD4D6F498A052 /* Pods-HarmonyOne-HarmonyOneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyOne-HarmonyOneTests.release.xcconfig"; path = "Target Support Files/Pods-HarmonyOne-HarmonyOneTests/Pods-HarmonyOne-HarmonyOneTests.release.xcconfig"; sourceTree = "<group>"; };
 		DE5ABF6A5296435981187F38 /* SF Pro Text Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF Pro Text Bold.ttf"; path = "../src/assets/fonts/SF Pro Text Bold.ttf"; sourceTree = "<group>"; };
+		E408FDB0CE70A9715A067AB5 /* libPods-HarmonyOne.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HarmonyOne.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E462B3C9A96D4289AFE4DD1E /* SFProDisplay-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Medium.ttf"; path = "../src/assets/fonts/SFProDisplay-Medium.ttf"; sourceTree = "<group>"; };
+		E7E04723725C43D68342942B /* Pods-HarmonyOne-HarmonyOneTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyOne-HarmonyOneTests.debug.xcconfig"; path = "Target Support Files/Pods-HarmonyOne-HarmonyOneTests/Pods-HarmonyOne-HarmonyOneTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EF9B806DB4AD4E9B87675AEF /* SF Pro Text MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF Pro Text MediumItalic.ttf"; path = "../src/assets/fonts/SF Pro Text MediumItalic.ttf"; sourceTree = "<group>"; };
@@ -148,7 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5A2E9E15985BB9A5A338FCD /* libPods-HarmonyOne-HarmonyOneTests.a in Frameworks */,
+				98DE5756B9EB62DF225DB762 /* libPods-HarmonyOne-HarmonyOneTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,8 +155,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DE1035BF7DE317FE9E328C2 /* libPods-HarmonyOne.a in Frameworks */,
-				089A4AF6C7174EE0205BD014 /* libPods-HarmonyOne.a in Frameworks */,
+				A94FCB88851714D44502A9E5 /* libPods-HarmonyOne.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,7 +177,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08D918961E41F4BE76668032 /* libPods-HarmonyOne-Staging.a in Frameworks */,
+				52F71D5EE930CE99956CF3D2 /* libPods-HarmonyOne-Staging.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,9 +219,9 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				0B32E30124374EF66F22F144 /* libPods-HarmonyOne.a */,
-				0F36FD6641BD6D81442298FE /* libPods-HarmonyOne-HarmonyOneTests.a */,
-				A9B9AB80E392CD83E3F9294B /* libPods-HarmonyOne-Staging.a */,
+				E408FDB0CE70A9715A067AB5 /* libPods-HarmonyOne.a */,
+				0001915413A42BFD05F7B103 /* libPods-HarmonyOne-HarmonyOneTests.a */,
+				55D738DF3FAB79FC9E31CD04 /* libPods-HarmonyOne-Staging.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -278,12 +276,12 @@
 		896751923113820FB4EA36BE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D5B2C53165757B8DB1E88994 /* Pods-HarmonyOne-HarmonyOneTests.debug.xcconfig */,
-				920AE01196CF291853BA329C /* Pods-HarmonyOne-HarmonyOneTests.release.xcconfig */,
-				D73A89A3A5694E82D02C741B /* Pods-HarmonyOne.debug.xcconfig */,
-				36D856B1268AAA42175073E1 /* Pods-HarmonyOne.release.xcconfig */,
-				42F2739ABC4C7A542F086649 /* Pods-HarmonyOne-Staging.debug.xcconfig */,
-				58A87586DECC9AAA223D916D /* Pods-HarmonyOne-Staging.release.xcconfig */,
+				A590C5AC6BFC53FDDD05FAED /* Pods-HarmonyOne.debug.xcconfig */,
+				38D9BE189BDC661F5498C83E /* Pods-HarmonyOne.release.xcconfig */,
+				E7E04723725C43D68342942B /* Pods-HarmonyOne-HarmonyOneTests.debug.xcconfig */,
+				D5350938A6BAD4D6F498A052 /* Pods-HarmonyOne-HarmonyOneTests.release.xcconfig */,
+				4E5E9897EA821B1C401E6E8A /* Pods-HarmonyOne-Staging.debug.xcconfig */,
+				911DFFCE065599F41DEACAC6 /* Pods-HarmonyOne-Staging.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -335,12 +333,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "HarmonyOneTests" */;
 			buildPhases = (
-				99B57772D4E3BBB71ECEB08D /* [CP] Check Pods Manifest.lock */,
+				7D13CCFE404E5AFB9F78FA90 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				4DF74E02309D0674CD39F2F6 /* [CP] Copy Pods Resources */,
-				89C140FB43A246464D48770C /* [CP] Embed Pods Frameworks */,
+				D191A806E6920317E6845CA9 /* [CP] Embed Pods Frameworks */,
+				C28C73C133D2A5475C24E545 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -356,14 +354,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "HarmonyOne" */;
 			buildPhases = (
-				0420A8CB575674623975BAD1 /* [CP] Check Pods Manifest.lock */,
+				192F1B1C8C0C97A24AE30B91 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				7673B7292A47C1F4F6B8C9E4 /* [CP] Copy Pods Resources */,
-				F50B0905001447154841CA9A /* [CP] Embed Pods Frameworks */,
+				E440C9C9929872E8AE343E1D /* [CP] Embed Pods Frameworks */,
+				8A3313EB6A13EDE2AE6717DF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -415,14 +413,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 362C8D5526B247FD00CB63F0 /* Build configuration list for PBXNativeTarget "Staging" */;
 			buildPhases = (
-				7489230B571873805380CE72 /* [CP] Check Pods Manifest.lock */,
+				9F78A2995923153A8EC8690F /* [CP] Check Pods Manifest.lock */,
 				362C8D4426B247FD00CB63F0 /* Start Packager */,
 				362C8D4526B247FD00CB63F0 /* Sources */,
 				362C8D4826B247FD00CB63F0 /* Frameworks */,
 				362C8D4A26B247FD00CB63F0 /* Resources */,
 				362C8D5226B247FD00CB63F0 /* Bundle React Native code and images */,
-				5F9DCFBF980923F08018BF7E /* [CP] Embed Pods Frameworks */,
-				DD6A221551170F44B63F99E6 /* [CP] Copy Pods Resources */,
+				67FBF68927A9EE943C32A49C /* [CP] Embed Pods Frameworks */,
+				916AA6ED99DA3090A64B07F5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -580,7 +578,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		0420A8CB575674623975BAD1 /* [CP] Check Pods Manifest.lock */ = {
+		192F1B1C8C0C97A24AE30B91 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -649,57 +647,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		4DF74E02309D0674CD39F2F6 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-HarmonyOne-HarmonyOneTests/Pods-HarmonyOne-HarmonyOneTests-resources.sh",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
-				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HarmonyOne-HarmonyOneTests/Pods-HarmonyOne-HarmonyOneTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5F9DCFBF980923F08018BF7E /* [CP] Embed Pods Frameworks */ = {
+		67FBF68927A9EE943C32A49C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -717,7 +665,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HarmonyOne-Staging/Pods-HarmonyOne-Staging-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7489230B571873805380CE72 /* [CP] Check Pods Manifest.lock */ = {
+		7D13CCFE404E5AFB9F78FA90 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -732,14 +680,14 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-HarmonyOne-Staging-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-HarmonyOne-HarmonyOneTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7673B7292A47C1F4F6B8C9E4 /* [CP] Copy Pods Resources */ = {
+		8A3313EB6A13EDE2AE6717DF /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -789,47 +737,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HarmonyOne/Pods-HarmonyOne-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		89C140FB43A246464D48770C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-HarmonyOne-HarmonyOneTests/Pods-HarmonyOne-HarmonyOneTests-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HarmonyOne-HarmonyOneTests/Pods-HarmonyOne-HarmonyOneTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		99B57772D4E3BBB71ECEB08D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-HarmonyOne-HarmonyOneTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DD6A221551170F44B63F99E6 /* [CP] Copy Pods Resources */ = {
+		916AA6ED99DA3090A64B07F5 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -879,7 +787,97 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HarmonyOne-Staging/Pods-HarmonyOne-Staging-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F50B0905001447154841CA9A /* [CP] Embed Pods Frameworks */ = {
+		9F78A2995923153A8EC8690F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HarmonyOne-Staging-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C28C73C133D2A5475C24E545 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HarmonyOne-HarmonyOneTests/Pods-HarmonyOne-HarmonyOneTests-resources.sh",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HarmonyOne-HarmonyOneTests/Pods-HarmonyOne-HarmonyOneTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D191A806E6920317E6845CA9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HarmonyOne-HarmonyOneTests/Pods-HarmonyOne-HarmonyOneTests-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HarmonyOne-HarmonyOneTests/Pods-HarmonyOne-HarmonyOneTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E440C9C9929872E8AE343E1D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1001,7 +999,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D5B2C53165757B8DB1E88994 /* Pods-HarmonyOne-HarmonyOneTests.debug.xcconfig */;
+			baseConfigurationReference = E7E04723725C43D68342942B /* Pods-HarmonyOne-HarmonyOneTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1025,7 +1023,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 920AE01196CF291853BA329C /* Pods-HarmonyOne-HarmonyOneTests.release.xcconfig */;
+			baseConfigurationReference = D5350938A6BAD4D6F498A052 /* Pods-HarmonyOne-HarmonyOneTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1046,7 +1044,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D73A89A3A5694E82D02C741B /* Pods-HarmonyOne.debug.xcconfig */;
+			baseConfigurationReference = A590C5AC6BFC53FDDD05FAED /* Pods-HarmonyOne.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1075,7 +1073,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 36D856B1268AAA42175073E1 /* Pods-HarmonyOne.release.xcconfig */;
+			baseConfigurationReference = 38D9BE189BDC661F5498C83E /* Pods-HarmonyOne.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1207,7 +1205,7 @@
 		};
 		362C8D5626B247FD00CB63F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 42F2739ABC4C7A542F086649 /* Pods-HarmonyOne-Staging.debug.xcconfig */;
+			baseConfigurationReference = 4E5E9897EA821B1C401E6E8A /* Pods-HarmonyOne-Staging.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Staging";
 				CLANG_ENABLE_MODULES = YES;
@@ -1236,7 +1234,7 @@
 		};
 		362C8D5726B247FD00CB63F0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 58A87586DECC9AAA223D916D /* Pods-HarmonyOne-Staging.release.xcconfig */;
+			baseConfigurationReference = 911DFFCE065599F41DEACAC6 /* Pods-HarmonyOne-Staging.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Staging";
 				CLANG_ENABLE_MODULES = YES;

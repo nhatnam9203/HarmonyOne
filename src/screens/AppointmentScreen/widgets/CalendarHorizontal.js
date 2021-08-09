@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingBottom: scaleHeight(14),
-    height: scaleHeight(48),
+    height: scaleHeight(50),
   },
 
   dateNameStyle: {

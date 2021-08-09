@@ -28,6 +28,7 @@ const { Screen, Navigator } = createStackNavigator();
 const AppStack = () => {
   return (
     <Navigator
+      headerMode="none"
       screenOptions={{
         headerShown: false,
         gestureEnabled: false,
