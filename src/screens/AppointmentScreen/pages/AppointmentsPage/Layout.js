@@ -7,6 +7,7 @@ import {
   CalendarHorizontal,
 } from '../../widgets';
 import { AppointmentItem } from './AppointmentItem';
+import { appointments } from '@shared/mocks';
 
 export const Layout = ({ onChangeWeekText, items = [] }) => {
   const onRenderItemComponent = ({ item, index }) => {
@@ -43,7 +44,7 @@ export const Layout = ({ onChangeWeekText, items = [] }) => {
         <FlatList
           style={styles.flatList}
           contentContainerStyle={styles.flatListContainer}
-          data={items}
+          data={appointments}
           renderItem={onRenderItemComponent}
           keyExtractor={(item) => item?.attributeId}
           ListHeaderComponent={onRenderHeaderComponent}
@@ -64,6 +65,7 @@ export const Layout = ({ onChangeWeekText, items = [] }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
   },
 
   content: {
@@ -75,7 +77,7 @@ const styles = StyleSheet.create({
   },
 
   flatListContainer: {
-    flex: 1,
+    backgroundColor: '#fff',
   },
 
   emptyContent: {

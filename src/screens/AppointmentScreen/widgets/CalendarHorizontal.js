@@ -22,38 +22,49 @@ export const CalendarHorizontal = ({ onChangeWeekText }) => {
 
   return (
     <View style={styles.container}>
-      <CalendarStrip
-        style={styles.calendar}
-        calendarHeaderContainerStyle={styles.calendarHeaderStyle}
-        calendarHeaderStyle={styles.calendarHeaderStyle}
-        dayContainerStyle={styles.dayContainerStyle}
-        dateNameStyle={styles.dateNameStyle}
-        highlightDateNameStyle={styles.dateNameStyle}
-        dateNumberStyle={styles.dateNumberStyle}
-        highlightDateNumberStyle={[styles.dateNumberStyle, { color: 'white' }]}
-        highlightDateNumberContainerStyle={
-          styles.highlightDateNumberContainerStyle
-        }
-        daySelectionAnimation={{
-          type: 'background',
-          duration: 200,
-        }}
-        scrollable={true}
-        scrollerPaging={true}
-        // calendarHeaderPosition="below"
-        onWeekChanged={onWeekChanged}
-        onDateSelected={onDateSelected}
-      />
+      <View style={styles.content}>
+        <CalendarStrip
+          style={styles.calendar}
+          calendarHeaderContainerStyle={styles.calendarHeaderStyle}
+          calendarHeaderStyle={styles.calendarHeaderStyle}
+          dayContainerStyle={styles.dayContainerStyle}
+          dateNameStyle={styles.dateNameStyle}
+          highlightDateNameStyle={styles.dateNameStyle}
+          dateNumberStyle={styles.dateNumberStyle}
+          highlightDateNumberStyle={[
+            styles.dateNumberStyle,
+            { color: 'white' },
+          ]}
+          highlightDateNumberContainerStyle={
+            styles.highlightDateNumberContainerStyle
+          }
+          daySelectionAnimation={{
+            type: 'background',
+            duration: 200,
+          }}
+          scrollable={true}
+          scrollerPaging={true}
+          // calendarHeaderPosition="below"
+          onWeekChanged={onWeekChanged}
+          onDateSelected={onDateSelected}
+        />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: scaleHeight(60),
     width: '100%',
     backgroundColor: colors.white,
-    shadowColor: 'rgba(0, 0, 0, 0.05)',
+    flex: 0,
+    paddingBottom: scaleHeight(2),
+  },
+
+  content: {
+    flex: 0,
+    backgroundColor: colors.white,
+    shadowColor: 'rgba(0, 0, 0, 0.1)',
     shadowOffset: {
       width: 0,
       height: 3,

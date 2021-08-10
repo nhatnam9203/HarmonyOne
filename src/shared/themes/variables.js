@@ -112,7 +112,7 @@ export const layouts = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   marginVertical: {
-    height: scaleHeight(8),
+    height: scaleHeight(16),
   },
   marginHorizontal: {
     width: scaleWidth(16),
