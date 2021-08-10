@@ -47,6 +47,7 @@ export const AppointmentHeaderTab = ({
 
     return (
       <TouchableOpacity
+        key={route.key + index}
         style={styles.btnStyle}
         accessibilityRole="button"
         accessibilityState={isFocused ? { selected: true } : {}}
@@ -69,7 +70,7 @@ export const AppointmentHeaderTab = ({
     const { options } = descriptors[route.key];
 
     return (
-      <TouchableOpacity style={styles.textContent}>
+      <TouchableOpacity style={styles.textContent} key={route.key + 'label'}>
         <Text style={styles.textStyle}>{options.tabBarLabel ?? ' '}</Text>
       </TouchableOpacity>
     );

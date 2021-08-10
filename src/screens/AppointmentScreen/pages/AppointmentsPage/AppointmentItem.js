@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, Pressable, Text } from 'react-native';
 import { getColorForStatus } from '@shared/utils';
 import { colors, fonts, layouts } from '@shared/themes';
 
 export const AppointmentItem = ({ item }) => {
   const [backgroundColor, setBackgroundColor] = React.useState(null);
   const [textColor, setTextColor] = React.useState('#fff');
+  const [onPressed, setOnPressed] = React.useState(false);
 
   React.useEffect(() => {
     if (item) {
@@ -23,10 +24,24 @@ export const AppointmentItem = ({ item }) => {
     }
   }, [item]);
 
+  const onPressIn = (pressEvt) => {
+    setOnPressed(true);
+  };
+
+  const onPressOut = (pressEvt) => {
+    setOnPressed(false);
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={[styles.content, backgroundColor && { backgroundColor }]}>
+      <Pressable
+        onPressIn={onPressIn}
+        onPressOut={onPressOut}
+        style={[
+          styles.content,
+          backgroundColor && { backgroundColor },
+          !onPressed && styles.contentShadow,
+        ]}>
         <View style={styles.rowContent}>
           <Text
             style={[
@@ -53,7 +68,7 @@ export const AppointmentItem = ({ item }) => {
               </Text>
             ))}
         </View>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };
@@ -69,6 +84,9 @@ const styles = StyleSheet.create({
     flex: 0,
     padding: scaleWidth(16),
     borderRadius: scaleWidth(5),
+  },
+
+  contentShadow: {
     shadowColor: '#40404040',
     shadowOffset: {
       width: 0,

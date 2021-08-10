@@ -1,23 +1,21 @@
-import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { Text } from '@components';
-import CalendarStrip from 'react-native-calendar-strip';
-import { calendar } from '@assets';
-import NavigationService from '@navigation/NavigationService';
 import { colors, fonts } from '@shared/themes';
 import { dateToFormat } from '@shared/utils';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import CalendarStrip from 'react-native-calendar-strip';
 
-export const CalendarHorizontal = ({ onChangeWeekText }) => {
+export const CalendarHorizontal = ({ onChangeWeekText, onDateSelected }) => {
   const onWeekChanged = (start, end) => {
     const textFormat = dateToFormat(start, 'MMMM YYYY');
-    console.log(textFormat);
     if (onChangeWeekText && typeof onChangeWeekText === 'function') {
       onChangeWeekText(textFormat);
     }
   };
-  const onDateSelected = (start, end) => {
-    console.log(start);
-    console.log(end);
+
+  const onHandleDateSelected = (date) => {
+    if (onDateSelected && typeof onDateSelected === 'function') {
+      onDateSelected(date);
+    }
   };
 
   return (
@@ -46,7 +44,8 @@ export const CalendarHorizontal = ({ onChangeWeekText }) => {
           scrollerPaging={true}
           // calendarHeaderPosition="below"
           onWeekChanged={onWeekChanged}
-          onDateSelected={onDateSelected}
+          onDateSelected={onHandleDateSelected}
+          selectedDate={new Date()}
         />
       </View>
     </View>

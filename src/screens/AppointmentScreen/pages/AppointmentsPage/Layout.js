@@ -9,7 +9,7 @@ import {
 import { AppointmentItem } from './AppointmentItem';
 import { appointments } from '@shared/mocks';
 
-export const Layout = ({ onChangeWeekText, items = [] }) => {
+export const Layout = ({ onChangeWeekText, items = [], onDateSelected }) => {
   const onRenderItemComponent = ({ item, index }) => {
     if (!item) {
       return null;
@@ -39,14 +39,17 @@ export const Layout = ({ onChangeWeekText, items = [] }) => {
 
   return (
     <View style={styles.container}>
-      <CalendarHorizontal onChangeWeekText={onChangeWeekText} />
+      <CalendarHorizontal
+        onChangeWeekText={onChangeWeekText}
+        onDateSelected={onDateSelected}
+      />
       <View style={styles.content}>
         <FlatList
           style={styles.flatList}
           contentContainerStyle={styles.flatListContainer}
           data={appointments}
           renderItem={onRenderItemComponent}
-          keyExtractor={(item) => item?.attributeId}
+          keyExtractor={(item) => item?.id}
           ListHeaderComponent={onRenderHeaderComponent}
           ListFooterComponent={onRenderFooterComponent}
           ItemSeparatorComponent={onRenderSeparatorComponent}
