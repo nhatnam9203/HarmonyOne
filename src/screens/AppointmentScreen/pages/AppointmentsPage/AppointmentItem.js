@@ -1,7 +1,12 @@
-import React from 'react';
-import { View, StyleSheet, Pressable, Text } from 'react-native';
-import { getColorForStatus } from '@shared/utils';
 import { colors, fonts, layouts } from '@shared/themes';
+import {
+  dateToFormat,
+  getColorForStatus,
+  TIME_APPOINTMENT_FORMAT,
+  formatPhoneNumber,
+} from '@shared/utils';
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 export const AppointmentItem = ({ item }) => {
   const [backgroundColor, setBackgroundColor] = React.useState(null);
@@ -44,27 +49,29 @@ export const AppointmentItem = ({ item }) => {
         ]}>
         <View style={styles.rowContent}>
           <Text
-            style={[
-              styles.textTime,
-              { color: textColor },
-            ]}>{`${item.fromTime} : ${item.toTime}`}</Text>
+            style={[styles.textTime, { color: textColor }]}>{`${dateToFormat(
+            item?.fromTime,
+            TIME_APPOINTMENT_FORMAT,
+          )} - ${dateToFormat(item?.toTime, TIME_APPOINTMENT_FORMAT)}`}</Text>
         </View>
         <View style={styles.marginVertical} />
         <View style={styles.rowContent}>
           <Text style={[styles.textName, { color: textColor }]}>
-            {item?.name}
+            {`${item?.firstName} ${item?.lastName}`}
           </Text>
           <View style={styles.marginVertical} />
           <Text style={[styles.textPhone, { color: textColor }]}>
-            {item?.phone}
+            {`${formatPhoneNumber(item?.phoneNumber)}`}
           </Text>
         </View>
         <View style={layouts.marginVertical} />
         <View style={styles.rowContent}>
           {item?.services?.length > 0 &&
             item.services.map((x) => (
-              <Text key={x.id} style={[styles.textPhone, { color: textColor }]}>
-                {x.name}
+              <Text
+                key={x?.bookingServiceId}
+                style={[styles.textPhone, { color: textColor }]}>
+                {x?.serviceName}
               </Text>
             ))}
         </View>

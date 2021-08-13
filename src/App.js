@@ -1,16 +1,16 @@
 /**
  * React Native App
  */
+import { AxiosApiProvider } from '@shared/providers/AxiosApiProvider';
+import { CodePushProvider } from '@shared/providers/CodePushProvider';
+import '@shared/services/translation';
+import configureStore from '@src/redux/store';
 import React from 'react';
-import { ActivityIndicator, StatusBar } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
-import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { RootNavigation } from './navigation';
-import configureStore from '@src/redux/store';
-import { CodePushProvider } from '@shared/providers/CodePushProvider';
-import { AxiosApiProvider } from '@shared/providers/AxiosApiProvider';
 
 if (__DEV__) {
   import('../ReactotronConfig.js').then(() =>
@@ -21,10 +21,6 @@ if (__DEV__) {
 const { persistor, store } = configureStore();
 
 const App = () => {
-  // React.useEffect(() => {
-  //   SplashScreen.hide();
-  // }, []);
-
   return (
     <Provider store={store}>
       <PersistGate loading={<ActivityIndicator />} persistor={persistor}>

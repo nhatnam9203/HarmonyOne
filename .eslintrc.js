@@ -7,6 +7,7 @@ module.exports = {
     scaleHeight: true,
     scaleFont: true,
     screenNames: true,
+    translate: true,
   },
   plugins: [
     // ...

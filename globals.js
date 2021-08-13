@@ -10,4 +10,3 @@ window.scaleHeight = scaleHeight;
 
 const { ScreenNames } = require('./src/screens/ScreenName');
 window.screenNames = ScreenNames;
-window.translate = require('./src/shared/services/translation');

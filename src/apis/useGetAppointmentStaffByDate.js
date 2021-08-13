@@ -35,8 +35,6 @@ export const useGetAppointmentStaffByDate = ({
       enabled: false,
       retry: false,
       onSuccess: (response) => {
-        console.log(response);
-
         if (response.data) {
           if (onLoginSuccess && typeof onLoginSuccess === 'function') {
             onLoginSuccess(response.data);

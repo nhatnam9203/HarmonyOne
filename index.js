@@ -8,9 +8,8 @@ import { name as appName } from './app.json';
 import './globals';
 import App from './src/App';
 
-enableScreens();
-
 LogBox.ignoreLogs(['Warning: ...']); //Hide warnings
 LogBox.ignoreAllLogs();
+enableScreens();
 
 AppRegistry.registerComponent(appName, () => App);

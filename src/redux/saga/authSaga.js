@@ -1,6 +1,8 @@
-import { put, takeLatest, all, select, delay } from 'redux-saga/effects';
+import { put, takeLatest, all, select, delay, call } from 'redux-saga/effects';
 import { requestAPI } from '@utils';
 import NavigationService from '@navigation/NavigationService';
+import { app, auth } from '@redux/slices';
+import { saveAuthToken } from '@shared/storages/authToken';
 
 function* loginMID(action) {
   try {
@@ -69,11 +71,21 @@ function* logout(action) {
   }
 }
 
-function* mySaga() {
+function* staffLogin(action) {
+  try {
+    let { payload } = action;
+    yield call(saveAuthToken, payload?.token);
+    delete payload.token;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export default function* saga() {
   yield all([
+    takeLatest(auth.loginStaff().type, staffLogin),
     takeLatest('LOGIN_MID', loginMID),
     takeLatest('LOGIN_PINCODE', loginPincode),
     takeLatest('LOGOUT', logout),
   ]);
 }
-export default mySaga;

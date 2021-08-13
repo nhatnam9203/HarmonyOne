@@ -7,14 +7,13 @@ import {
   CalendarHorizontal,
 } from '../../widgets';
 import { AppointmentItem } from './AppointmentItem';
-import { appointments } from '@shared/mocks';
+import { ListEmptyComponent } from '@shared/components';
 
-export const Layout = ({ onChangeWeekText, items = [], onDateSelected }) => {
+export const Layout = ({ onChangeWeekText, items, onDateSelected }) => {
+  const [t] = useTranslation();
+
   const onRenderItemComponent = ({ item, index }) => {
-    if (!item) {
-      return null;
-    }
-    return <AppointmentItem key={item.id} item={item} />;
+    return <AppointmentItem key={item?.appointmentId + ''} item={item} />;
   };
 
   const onRenderHeaderComponent = () => {
@@ -26,11 +25,7 @@ export const Layout = ({ onChangeWeekText, items = [], onDateSelected }) => {
   };
 
   const onRenderListEmptyComponent = () => {
-    return (
-      <View style={styles.emptyContent}>
-        <Text>Appointments empty</Text>
-      </View>
-    );
+    return <ListEmptyComponent description={t('No Appointments')} />;
   };
 
   const onRenderFooterComponent = () => {
@@ -47,9 +42,9 @@ export const Layout = ({ onChangeWeekText, items = [], onDateSelected }) => {
         <FlatList
           style={styles.flatList}
           contentContainerStyle={styles.flatListContainer}
-          data={appointments}
+          data={items}
           renderItem={onRenderItemComponent}
-          keyExtractor={(item) => item?.id}
+          keyExtractor={(item) => item?.appointmentId + ''}
           ListHeaderComponent={onRenderHeaderComponent}
           ListFooterComponent={onRenderFooterComponent}
           ItemSeparatorComponent={onRenderSeparatorComponent}

@@ -18,11 +18,23 @@ export const CalendarHorizontal = ({ onChangeWeekText, onDateSelected }) => {
     }
   };
 
+  const customDatesStylesFunc = (date) => {
+    if (date.isoWeekday() === 5) {
+      // Fridays
+      return {
+        dateNameStyle: { color: colors.ocean_blue },
+        dateNumberStyle: { color: colors.ocean_blue },
+        // dateContainerStyle: { color: 'yellow' },
+      };
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <CalendarStrip
           style={styles.calendar}
+          customDatesStyles={customDatesStylesFunc}
           calendarHeaderContainerStyle={styles.calendarHeaderStyle}
           calendarHeaderStyle={styles.calendarHeaderStyle}
           dayContainerStyle={styles.dayContainerStyle}

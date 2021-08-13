@@ -11,6 +11,7 @@ export const images = {
   iconBell: require('@src/assets/images/icon_bell.png'),
   iconDate: require('@src/assets/images/icon_date.png'),
   iconSchedule: require('@src/assets/images/icon_schedule.png'),
+  EmptyList: require('@src/assets/images/emptyList.png'),
 };
 
 export const svg = {

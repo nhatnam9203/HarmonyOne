@@ -19,6 +19,6 @@ export const getColorForStatus = (status) => {
     case 'confirm':
       return '#d4f8fc';
     default:
-      return '#fff';
+      return '#5C5C5C';
   }
 };
