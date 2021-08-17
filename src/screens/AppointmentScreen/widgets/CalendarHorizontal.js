@@ -1,10 +1,12 @@
 import { colors, fonts } from '@shared/themes';
-import { dateToFormat } from '@shared/utils';
+import { dateToFormat, isToday } from '@shared/utils';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
 
 export const CalendarHorizontal = ({ onChangeWeekText, onDateSelected }) => {
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
+
   const onWeekChanged = (start, end) => {
     const textFormat = dateToFormat(start, 'MMMM YYYY');
     if (onChangeWeekText && typeof onChangeWeekText === 'function') {
@@ -13,13 +15,14 @@ export const CalendarHorizontal = ({ onChangeWeekText, onDateSelected }) => {
   };
 
   const onHandleDateSelected = (date) => {
+    setSelectedDate(date);
     if (onDateSelected && typeof onDateSelected === 'function') {
       onDateSelected(date);
     }
   };
 
   const customDatesStylesFunc = (date) => {
-    if (date.isoWeekday() === 5) {
+    if (isToday(date)) {
       // Fridays
       return {
         dateNameStyle: { color: colors.ocean_blue },
@@ -43,21 +46,21 @@ export const CalendarHorizontal = ({ onChangeWeekText, onDateSelected }) => {
           dateNumberStyle={styles.dateNumberStyle}
           highlightDateNumberStyle={[
             styles.dateNumberStyle,
-            { color: 'white' },
+            { color: colors.white },
           ]}
           highlightDateNumberContainerStyle={
             styles.highlightDateNumberContainerStyle
           }
           daySelectionAnimation={{
             type: 'background',
-            duration: 200,
+            duration: 1,
           }}
           scrollable={true}
           scrollerPaging={true}
           // calendarHeaderPosition="below"
           onWeekChanged={onWeekChanged}
           onDateSelected={onHandleDateSelected}
-          selectedDate={new Date()}
+          selectedDate={selectedDate}
         />
       </View>
     </View>

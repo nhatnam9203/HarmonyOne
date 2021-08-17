@@ -20,8 +20,8 @@ target 'HarmonyOne' do
   use_flipper!({ 'Flipper-Folly' => '2.5.3', 'Flipper' => '0.87.0', 'Flipper-RSocket' => '1.3.1' })
   post_install do |installer|
     flipper_post_install(installer)
-    find_and_replace("../node_modules/react-navigation-shared-element/build/v4/createSharedElementStackNavigator.js",
-    "react-navigation-stack", "@react-navigation/stack")
+    # find_and_replace("../node_modules/react-navigation-shared-element/build/v4/createSharedElementStackNavigator.js",
+    # "react-navigation-stack", "@react-navigation/stack")
   end
 
   target 'Staging' do

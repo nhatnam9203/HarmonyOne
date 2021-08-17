@@ -7,8 +7,11 @@ import {
 } from '@shared/utils';
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-
+import NavigationService from '@navigation/NavigationService';
+import { useNavigation } from '@react-navigation/core';
 export const AppointmentItem = ({ item }) => {
+  const navigation = useNavigation();
+
   const [backgroundColor, setBackgroundColor] = React.useState(null);
   const [textColor, setTextColor] = React.useState('#fff');
   const [onPressed, setOnPressed] = React.useState(false);
@@ -37,11 +40,17 @@ export const AppointmentItem = ({ item }) => {
     setOnPressed(false);
   };
 
+  const onPress = (pressEvt) => {
+    // NavigationService.navigate(screenNames.AppointmentDetailScreen, { item });
+    navigation.push(screenNames.AppointmentDetailScreen, { item });
+  };
+
   return (
     <View style={styles.container}>
       <Pressable
         onPressIn={onPressIn}
         onPressOut={onPressOut}
+        onPress={onPress}
         style={[
           styles.content,
           backgroundColor && { backgroundColor },

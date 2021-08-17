@@ -32,4 +32,13 @@ export const formatPhoneNumber = (phoneNumberString) => {
       matchUS[4],
     ].join('');
   }
+
+  // Format Phone Vietnamese
+  var matchVN = cleaned.match(/^(84|)?(\d{3})(\d{3})(\d{3})$/);
+  if (matchVN) {
+    var intlVNCode = matchVN[1] ? '+84 ' : '';
+    return [intlVNCode, matchVN[2], '-', matchVN[3], '-', matchVN[4]].join('');
+  }
+
+  return null;
 };

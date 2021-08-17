@@ -6,7 +6,6 @@ import { useProps } from './useProps';
 export const AppointmentDetailScreen = createScreenComponent(
   'hpo.appointment.detail',
   (props) => <Layout {...useProps(props)} />,
-  {},
 );
 
 AppointmentDetailScreen.sharedElements = (
@@ -14,6 +13,11 @@ AppointmentDetailScreen.sharedElements = (
   otherNavigation,
   showing,
 ) => {
-  const item = navigation.getParam('item');
-  return [`item.${item.id}.photo`];
+  const {
+    route: {
+      params: { item },
+    },
+  } = navigation || {};
+
+  return [`item.${item?.appointmentId}.headerColor`];
 };
