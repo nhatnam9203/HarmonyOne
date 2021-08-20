@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">HarmonyOne</string>
+
+    <string name="default_notification_channel_id">hp_one</string>
+
+    <string name="app_name_release">Harmony One</string>
+    <string name="app_name_development">HPO Development</string>
+    <string name="app_name_staging">HPO Staging</string>
 </resources>

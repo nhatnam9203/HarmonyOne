@@ -19,6 +19,7 @@ import {
   NewCategory,
   NewService,
   Reviews,
+  AppointmentDetailScreen,
 } from '@screens';
 import BottomMain from './BottomMain';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
@@ -31,11 +32,14 @@ const AppStack = () => {
       headerMode="none"
       screenOptions={{
         headerShown: false,
+
         gestureEnabled: false,
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
       initialRouteName="HpOneHomeStack">
       <Screen name="HpOneHomeStack" component={HPOBottomTabStack} />
+      <Screen {...AppointmentDetailScreen} />
+
       <Screen name="Notification" component={Notification} />
       <Screen name="AppointmentDetail" component={AppointmentDetail} />
       <Screen name="EditAppointment" component={EditAppointment} />

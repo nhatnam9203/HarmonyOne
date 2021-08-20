@@ -22,6 +22,7 @@ export const colors = {
   greyish_teal: '#809596',
   black: '#000000',
   red: '#db0000',
+  white_fa: '#fafafa',
 };
 
 export const fonts = {

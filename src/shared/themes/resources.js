@@ -13,6 +13,8 @@ export const images = {
   iconSchedule: require('@src/assets/images/icon_schedule.png'),
   iconBack: require('@src/assets/images/back.png'),
   iconMore: require('@src/assets/images/more.png'),
+  iconArrow: require('@src/assets/images/arrow.png'),
+  iconAtHome: require('@src/assets/images/mask_group_116.png'),
 
   EmptyList: require('@src/assets/images/emptyList.png'),
 };
