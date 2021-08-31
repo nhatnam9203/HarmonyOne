@@ -12,6 +12,7 @@ export const SingleScreenLayout = ({
   bounces = false,
   headerColor = colors.white,
   headerTintColor = colors.black,
+  headerRightComponent = null,
 }) => {
   const [t] = useTranslation();
   const insets = useSafeAreaInsets();
@@ -43,13 +44,7 @@ export const SingleScreenLayout = ({
           </Text>
         </View>
         <View style={styles.headerRightContent}>
-          <TouchableOpacity style={styles.button}>
-            <Image
-              source={images.iconMore}
-              style={[styles.iconSize, { tintColor: headerTintColor }]}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
+          {headerRightComponent && headerRightComponent()}
         </View>
       </View>
 

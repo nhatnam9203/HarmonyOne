@@ -2,21 +2,36 @@ export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
+export const APPOINTMENT_STATUS = {
+  COMPLETE: 'complete',
+  PROCESS: 'processing',
+  SHIP: 'shipped',
+  PENDING: 'pending',
+  CANCEL: 'cancel',
+  CLOSED: 'closed',
+  RETURN: 'return',
+  NOT_PAY: 'did not pay',
+  CONFIRM: 'confirm',
+  UN_CONFIRM: 'unconfirm',
+  CHECK_IN: 'checkin',
+  PAID: 'paid',
+};
+
 export const getColorForStatus = (status) => {
   switch (`${status}`.toLowerCase()) {
-    case 'paid':
+    case APPOINTMENT_STATUS.PAID:
       return '#4AD100';
-    case 'pending':
+    case APPOINTMENT_STATUS.PENDING:
       return '#0764B0';
-    case 'complete':
+    case APPOINTMENT_STATUS.COMPLETE:
       return '#0035FF';
-    case 'cancel':
+    case APPOINTMENT_STATUS.CANCEL:
       return '#C5C5C5';
-    case 'checkin':
+    case APPOINTMENT_STATUS.CHECK_IN:
       return '#19a9ec';
-    case 'unconfirm':
+    case APPOINTMENT_STATUS.UN_CONFIRM:
       return '#ffff80';
-    case 'confirm':
+    case APPOINTMENT_STATUS.CONFIRM:
       return '#d4f8fc';
     default:
       return '#5C5C5C';

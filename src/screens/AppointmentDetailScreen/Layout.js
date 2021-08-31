@@ -1,15 +1,35 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import { SingleScreenLayout } from '@shared/layouts';
 import { useTranslation } from 'react-i18next';
 import { CustomerInfoView } from './CustomerInfoView';
 import { AppointmentTimeView } from './AppointmentTimeView';
 import { CustomerAtHomeView } from './CustomerAtHomeView';
-import { colors, fonts } from '@shared/themes';
 import { AppointmentServiceList } from './AppointmentServiceList';
 import { formatMoneyWithUnit } from '@shared/utils';
+import { colors, fonts, layouts, images } from '@shared/themes';
+import { WithPopupActionSheet } from '@shared/HOC';
 
-export const Layout = ({ appointmentItem, headerColor }) => {
+let EditButton = ({ headerTintColor, ...props }) => {
+  return (
+    <TouchableOpacity style={styles.button} {...props}>
+      <Image
+        source={images.iconMore}
+        style={[styles.iconSize, { tintColor: headerTintColor }]}
+        resizeMode="contain"
+      />
+    </TouchableOpacity>
+  );
+};
+
+EditButton = WithPopupActionSheet(EditButton);
+
+export const Layout = ({
+  appointmentItem,
+  headerColor,
+  canEdit,
+  getActionSheets,
+}) => {
   const [t] = useTranslation();
 
   const getDuration = (duration) => {
@@ -22,7 +42,17 @@ export const Layout = ({ appointmentItem, headerColor }) => {
 
   return (
     <View style={styles.container}>
-      <SingleScreenLayout pageTitle={t('Appointment details')} {...headerColor}>
+      <SingleScreenLayout
+        pageTitle={t('Appointment details')}
+        {...headerColor}
+        headerRightComponent={() =>
+          canEdit && (
+            <EditButton
+              headerTintColor={headerColor?.headerTintColor}
+              actions={getActionSheets()}
+            />
+          )
+        }>
         <View style={styles.content}>
           <CustomerInfoView
             customerId={appointmentItem?.customerId}
@@ -117,5 +147,17 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
     textAlign: 'right',
     color: colors.frog_green,
+  },
+
+  iconSize: {
+    width: scaleWidth(24),
+    height: scaleHeight(24),
+  },
+
+  button: {
+    height: '100%',
+    width: scaleWidth(35),
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
