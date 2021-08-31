@@ -15,7 +15,7 @@ export const axios = Axios.create({
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'User-Agent': `HarmonyStaff/${Configs.APP_VERSION}.${Configs.CODE_PUSH_VERSION}/${Platform.OS}`,
+    'User-Agent': `HarmonyMerchant/${Configs.APP_VERSION}.${Configs.CODE_PUSH_VERSION}/${Platform.OS}`,
     // DeviceID: `${encodeURIComponent(deviceName)}_${deviceId}`,
   },
 });
