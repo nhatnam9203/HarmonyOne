@@ -1,14 +1,17 @@
-export const getAppointmentStaffByDate = (staffId, date) => ({
-  queryId: 'appointmentByStaffDate',
+export const merchantLogin = (merchantID) => ({
   params: {
-    url: `/appointment/staffByDate/${staffId}?date=${date}`,
-    method: 'GET',
+    url: `/merchant/login/${merchantID}`,
+    method: 'POST',
   },
 });
 
+/**
+ * STAFF
+ */
+
 export const staffLoginRequest = (merchantID, pinCode) => ({
   params: {
-    url: 'staff/login',
+    url: '/staff/login',
     method: 'POST',
     data: {
       merchantCode: merchantID,
@@ -17,9 +20,45 @@ export const staffLoginRequest = (merchantID, pinCode) => ({
   },
 });
 
-export const merchantLogin = (merchantID) => ({
+export const staffLogoutRequest = () => ({
   params: {
-    url: `merchant/login/${merchantID}`,
+    url: '/staff/logout',
     method: 'POST',
+  },
+});
+
+/**
+ * APPOINTMENTS
+ */
+
+export const appointmentStaffByDateRequest = (staffId, date) => ({
+  queryId: 'appointmentStaffByDateRequest',
+  params: {
+    url: `/appointment/staffByDate/${staffId}?date=${date}`,
+    method: 'GET',
+  },
+});
+
+export const appointmentByIDRequest = (appointmentId) => ({
+  queryId: 'appointmentByIDRequest',
+  params: {
+    url: `/appointment/${appointmentId}`,
+    method: 'GET',
+  },
+});
+
+export const updateAppointmentByIDRequest = (appointmentId) => ({
+  queryId: 'updateAppointmentByIDRequest',
+  params: {
+    url: `/appointment/${appointmentId}`,
+    method: 'PUT',
+  },
+});
+
+export const updateAppointmentStatusRequest = (appointmentId) => ({
+  queryId: 'updateAppointmentStatusRequest',
+  params: {
+    url: `appointment/updatestatus/${appointmentId}`,
+    method: 'PUT',
   },
 });

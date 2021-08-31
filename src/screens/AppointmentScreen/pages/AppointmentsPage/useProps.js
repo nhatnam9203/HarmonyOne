@@ -1,4 +1,4 @@
-import { useAxiosQuery, getAppointmentStaffByDate } from '@src/apis';
+import { useAxiosQuery, appointmentStaffByDateRequest } from '@src/apis';
 import { useSelector } from 'react-redux';
 import React from 'react';
 import { dateToFormat, DATE_TIME_REQUEST_FORMAT_STRING } from '@shared/utils';
@@ -12,8 +12,8 @@ export const useProps = ({ navigation }) => {
     dateToFormat(new Date(), DATE_TIME_REQUEST_FORMAT_STRING),
   );
 
-  const [, appointmentStaffByDate] = useAxiosQuery({
-    ...getAppointmentStaffByDate(staffId, selectDate),
+  const [, getAppointmentStaffByDate] = useAxiosQuery({
+    ...appointmentStaffByDateRequest(staffId, selectDate),
     onLoginSuccess: (data) => {
       setItems(data);
     },
@@ -21,9 +21,9 @@ export const useProps = ({ navigation }) => {
 
   React.useEffect(() => {
     if (selectDate) {
-      appointmentStaffByDate();
+      getAppointmentStaffByDate();
     }
-  }, [appointmentStaffByDate, selectDate]);
+  }, [getAppointmentStaffByDate, selectDate]);
 
   return {
     items,
