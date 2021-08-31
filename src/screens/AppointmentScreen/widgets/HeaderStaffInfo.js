@@ -80,15 +80,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  content: { flexDirection: 'row' },
-  staffContent: { flex: 1, flexDirection: 'row' },
+  content: { flexDirection: 'row', flex: 1, alignItems: 'center' },
+  staffContent: {
+    flex: 1,
+    flexDirection: 'row',
+    height: '80%',
+    alignItems: 'center',
+  },
   avatar: {
-    width: scaleWidth(40),
+    width: scaleHeight(40),
     height: scaleHeight(40),
     borderRadius: scaleHeight(20),
   },
   staff: { flex: 1, marginLeft: scaleWidth(8) },
-  staffMailBox: { flex: 1, flexDirection: 'row', alignItems: 'center' },
+  staffMailBox: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   nameStyle: {
     ...textStyles.sf_pt_medium_17_500,
     color: colors.white,
@@ -112,14 +121,14 @@ const styles = StyleSheet.create({
   },
 
   btnBell: {
-    width: scaleWidth(40),
+    width: scaleHeight(40),
     height: scaleHeight(40),
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
 
   iconBell: {
-    width: scaleWidth(24),
+    width: scaleHeight(24),
     height: scaleHeight(24),
   },
 });

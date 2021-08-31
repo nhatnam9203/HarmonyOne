@@ -3,10 +3,10 @@ import _ from 'lodash';
 
 export const DATE_FORMAT_STRING = 'MM/DD/YYYY';
 export const BIRTH_DAY_DATE_FORMAT_STRING = 'MM/DD/YYYY';
-export const DATE_SHOW_FORMAT_STRING = 'LL';
-export const DATE_TIME_SHOW_FORMAT_STRING = 'LLL';
+export const DATE_SHOW_FORMAT_STRING = 'LL'; // August 30, 2021
+export const DATE_TIME_SHOW_FORMAT_STRING = 'LLL'; // August 30, 2021 4:14 PM
 export const DATE_TIME_REQUEST_FORMAT_STRING = 'YYYY-MM-DD';
-export const TIME_APPOINTMENT_FORMAT = 'LT';
+export const TIME_APPOINTMENT_FORMAT = 'LT'; // 4:14 PM
 
 export const dateToFormat = (
   d = new Date(),
@@ -41,4 +41,54 @@ export const formatPhoneNumber = (phoneNumberString) => {
   }
 
   return null;
+};
+
+export const formatNumberFromCurrency = (currency) => {
+  return Number(`${currency}`.replace(/[^0-9.-]+/g, ''));
+};
+
+export const formatMoney = (
+  number,
+  decimalCount = 2,
+  decimal = '.',
+  thousands = ',',
+) => {
+  let amount = formatNumberFromCurrency(number) || 0;
+  try {
+    decimalCount = Math.abs(decimalCount);
+    decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+
+    const negativeSign = amount < 0 ? '-' : '';
+
+    let i = parseInt(
+      (amount = Math.abs(Number(amount)).toFixed(decimalCount)),
+    ).toString();
+    let j = i.length > 3 ? i.length % 3 : 0;
+
+    return (
+      negativeSign +
+      (j ? i.substr(0, j) + thousands : '') +
+      i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousands) +
+      (decimalCount
+        ? decimal +
+          Math.abs(amount - i)
+            .toFixed(decimalCount)
+            .slice(2)
+        : '')
+    );
+  } catch (e) {}
+};
+
+export const formatMoneyWithUnit = (amount, unit = '$') => {
+  if (unit === '$') {
+    if (!amount) return unit + ' 0.00';
+    return unit + ' ' + formatMoney(amount);
+  }
+
+  if (unit === 'VND') {
+    if (!amount) return '0.00 ' + unit;
+    return formatMoney(amount) + ' ' + unit;
+  }
+
+  return formatMoney(amount || 0);
 };

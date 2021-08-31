@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
-import { Header, HeaderCalendar, AppointmentList } from './widget'
+import { Header, HeaderCalendar } from './widget'
 import MaterialTab from './materialTab';
 import styles from './styles'
 

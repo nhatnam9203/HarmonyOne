@@ -85,6 +85,8 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     backgroundColor: colors.white,
+    borderTopWidth: 1,
+    borderTopColor: '#efefef',
   },
 
   textStyle: {

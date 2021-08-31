@@ -5,12 +5,7 @@ import {
   Text,
   TouchableOpacityComponent,
 } from 'react-native';
-import {
-  Header,
-  HeaderCalendar,
-  AppointmentList,
-  CalendarHorizontal,
-} from './widget';
+import { Header, HeaderCalendar, CalendarHorizontal } from './widget';
 import HomeStack from './HomeStack';
 import styles from './styles';
 import { scaleWidth, scaleHeight } from '@utils';
