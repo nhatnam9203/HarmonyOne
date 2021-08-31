@@ -39,12 +39,6 @@ export const AppointmentHeaderTab = ({
       });
     };
 
-    const inputRange = state.routes.map((_, i) => i);
-    const opacity = position.interpolate({
-      inputRange,
-      outputRange: inputRange.map((i) => (i === index ? 1 : 0)),
-    });
-
     return (
       <TouchableOpacity
         key={route.key + index}

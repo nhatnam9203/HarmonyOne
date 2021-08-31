@@ -17,6 +17,7 @@ export const images = {
   iconAtHome: require('@src/assets/images/mask_group_116.png'),
 
   EmptyList: require('@src/assets/images/emptyList.png'),
+  barTimeLine: require('@src/assets/images/barTimeLine.png'),
 };
 
 export const svg = {
