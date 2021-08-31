@@ -1,18 +1,27 @@
 import NavigationService from '@navigation/NavigationService';
-import { useMerchantLogin } from '@src/apis';
+import { merchantLogin, useAxiosMutation } from '@src/apis';
 import React from 'react';
 import { ScreenNames } from '../ScreenName';
+import { auth } from '@redux/slices';
+import { useDispatch } from 'react-redux';
 
 export const useProps = (_params) => {
+  const dispatch = useDispatch();
+
   const [merchantID, setMerchantID] = React.useState(null);
   const [textMessage, setTextMessage] = React.useState(null);
 
-  const [{ isLoading }, merchantLogin] = useMerchantLogin({
-    merchantID,
+  const [{ isLoading }, login] = useAxiosMutation({
+    ...merchantLogin(merchantID),
+    isLoadingDefault: false,
     onLoginError: (msg) => {
       setTextMessage(msg);
     },
-    onLoginSuccess: () => {
+    onLoginSuccess: (data) => {
+      if (data?.code) {
+        dispatch(auth.loginMerchant(data?.code));
+      }
+
       NavigationService.navigate(ScreenNames.PinScreen);
     },
   });
@@ -32,7 +41,7 @@ export const useProps = (_params) => {
     },
     loginMerchant: () => {
       setTextMessage(null);
-      merchantLogin();
+      login();
     },
     textMessage,
   };

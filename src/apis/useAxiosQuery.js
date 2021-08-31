@@ -1,36 +1,28 @@
 // import { appMerchant } from '@redux/slices';
 import { axios } from '@shared/services/axiosClient';
-import * as actions from '@src/redux/slices';
+import { app } from '@src/redux/slices';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 
-export const useGetAppointmentStaffByDate = ({
-  isUseAppLoading = false,
-  staffId,
-  date,
+export const useAxiosQuery = ({
+  params,
+  queryId,
   onLoginSuccess,
   onLoginError,
+  isLoadingDefault = true,
 }) => {
   const dispatch = useDispatch();
 
-  const getAppointmentStaffByDate = async () => {
-    const response = await axios({
-      url: `/appointment/staffByDate/${staffId}?date=${date}`,
-      method: 'GET',
-    });
+  const requestGet = async () => {
+    const response = await axios(params);
 
     return response?.data;
   };
 
-  const {
-    refetch: appointmentStaffByDate,
-    isLoading,
-    isError,
-    data,
-  } = useQuery(
-    'appointment_staff_by_date',
-    getAppointmentStaffByDate,
+  const { refetch, status, isError, isFetching, data } = useQuery(
+    queryId,
+    requestGet,
     {
       enabled: false,
       retry: false,
@@ -63,20 +55,20 @@ export const useGetAppointmentStaffByDate = ({
   );
 
   React.useEffect(() => {
-    if (!isUseAppLoading) {
+    if (!isLoadingDefault) {
       return;
     }
 
-    if (isLoading) {
-      // show app loading hereF
-      //   dispatch(appMerchant.showLoading());
+    if (isFetching) {
+      // show app loading here
+      dispatch(app.showLoading());
     }
 
-    if (!isLoading && (data || isError)) {
+    if (!isFetching) {
       // hide app loading here
-      //   dispatch(appMerchant.hideLoading());
+      dispatch(app.hideLoading());
     }
-  }, [data, dispatch, isLoading, isUseAppLoading, isError]);
+  }, [data, dispatch, isLoadingDefault, isError, isFetching]);
 
-  return [{ isLoading, data }, appointmentStaffByDate];
+  return [{ isLoading: isFetching, data }, refetch];
 };

@@ -1,20 +1,25 @@
-import React from 'react';
 import NavigationService from '@navigation/NavigationService';
-import { useStaffLogin } from '@src/apis';
-import { useSelector } from 'react-redux';
+import { auth } from '@redux/slices';
+import { staffLoginRequest, useAxiosMutation } from '@src/apis';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const useProps = (_params) => {
-  const [pinCode, setPinCode] = React.useState('');
+  const dispatch = useDispatch();
 
   const merchantID = useSelector((state) => state.auth.merchantID);
 
-  const [{ isLoading }, staffLogin] = useStaffLogin({
-    merchantID,
-    pinCode,
+  const [pinCode, setPinCode] = React.useState('');
+
+  const [{ isLoading }, staffLogin] = useAxiosMutation({
+    ...staffLoginRequest(merchantID, pinCode),
     onLoginError: (msg) => {
       // setTextMessage(msg);
     },
-    onLoginSuccess: () => {
+    onLoginSuccess: (data) => {
+      if (data) {
+        dispatch(auth.loginStaff(data));
+      }
       NavigationService.replace('HpOneStack');
     },
   });

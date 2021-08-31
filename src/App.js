@@ -11,6 +11,7 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { RootNavigation } from './navigation';
+import { AppStateProvider } from '@shared/providers/AppStateProvider';
 
 if (__DEV__) {
   import('../ReactotronConfig.js').then(() =>
@@ -25,11 +26,13 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
         <CodePushProvider>
-          <PaperProvider>
-            <AxiosApiProvider>
-              <RootNavigation />
-            </AxiosApiProvider>
-          </PaperProvider>
+          <AppStateProvider>
+            <PaperProvider>
+              <AxiosApiProvider>
+                <RootNavigation />
+              </AxiosApiProvider>
+            </PaperProvider>
+          </AppStateProvider>
         </CodePushProvider>
       </PersistGate>
     </Provider>

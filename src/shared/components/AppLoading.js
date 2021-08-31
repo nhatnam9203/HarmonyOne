@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Spinner from 'react-native-spinkit';
 
-const LOADING_TIME_OUT = 10000;
+const LOADING_TIME_OUT = 15000;
 export const AppLoading = ({
   loading = false,
   onCancelLoading,

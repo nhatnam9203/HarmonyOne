@@ -1,40 +1,28 @@
-// import { appMerchant } from '@redux/slices';
 import { axios } from '@shared/services/axiosClient';
-import * as actions from '@src/redux/slices';
 import React from 'react';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
+import { app } from '@src/redux/slices';
 
-export const useMerchantLogin = ({
-  isUseAppLoading = true,
-  merchantID,
+export const useAxiosMutation = ({
+  params,
   onLoginSuccess,
   onLoginError,
+  isLoadingDefault = true,
 }) => {
   const dispatch = useDispatch();
 
-  const merchantRequestLogin = async () => {
-    const response = await axios({
-      url: `merchant/login/${merchantID}`,
-      method: 'POST',
-    });
-
+  const postRequest = async () => {
+    const response = await axios(params);
     return response?.data;
   };
 
-  const {
-    mutate: merchantLogin,
-    isLoading,
-    isError,
-    data,
-  } = useMutation(
-    merchantRequestLogin,
+  const { mutate, isLoading, isError, data } = useMutation(
+    postRequest,
     {
       onSuccess: (response) => {
-        console.log(response);
-
-        if (response.data?.code) {
-          dispatch(actions.auth.loginMerchant(response.data?.code));
+        if (response.data) {
+          //   dispatch(actions.auth.loginStaff(response.data));
 
           if (onLoginSuccess && typeof onLoginSuccess === 'function') {
             onLoginSuccess();
@@ -63,20 +51,20 @@ export const useMerchantLogin = ({
   );
 
   React.useEffect(() => {
-    if (!isUseAppLoading) {
+    if (!isLoadingDefault) {
       return;
     }
 
     if (isLoading) {
       // show app loading hereF
-      //   dispatch(appMerchant.showLoading());
+      dispatch(app.showLoading());
     }
 
     if (!isLoading && (data || isError)) {
       // hide app loading here
-      //   dispatch(appMerchant.hideLoading());
+      dispatch(app.hideLoading());
     }
-  }, [data, dispatch, isLoading, isUseAppLoading, isError]);
+  }, [data, dispatch, isLoading, isLoadingDefault, isError]);
 
-  return [{ isLoading, data }, merchantLogin];
+  return [{ isLoading, data }, mutate];
 };
