@@ -39,6 +39,14 @@ export const appointmentStaffByDateRequest = (staffId, date) => ({
   },
 });
 
+export const appointmentStaffByTypeRequest = (staffId) => ({
+  queryId: 'appointmentStaffByTypeRequest',
+  params: {
+    url: `/appointment/staff/${staffId}`,
+    method: 'GET',
+  },
+});
+
 export const appointmentByIDRequest = (appointmentId) => ({
   queryId: 'appointmentByIDRequest',
   params: {

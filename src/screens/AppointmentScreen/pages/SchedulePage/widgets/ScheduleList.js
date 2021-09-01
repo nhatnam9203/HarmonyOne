@@ -43,21 +43,22 @@ export const ScheduleList = ({ sections }) => {
   const renderSectionHeader = ({ section }) => {
     return (
       <View style={styles.headerContent}>
-        <Text style={styles.textHeader}>{section?.title}</Text>
+        <Text style={styles.textHeader}>{section?.key}</Text>
       </View>
     );
   };
 
   const renderItem = ({ item }) => {
-    return <ScheduleListItem item={item} />;
+    return <ScheduleListItem key={item.appointmentId} item={item} />;
   };
 
   return (
     <SectionList
-      sections={data}
+      sections={sections}
       stickySectionHeadersEnabled={false}
       renderSectionHeader={renderSectionHeader}
       renderItem={renderItem}
+      keyExtractor={(item) => item?.appointmentId}
     />
   );
 };

@@ -1,14 +1,13 @@
+import { useNavigation } from '@react-navigation/core';
 import { colors, fonts, layouts } from '@shared/themes';
 import {
   dateToFormat,
+  formatPhoneNumber,
   getColorForStatus,
   TIME_APPOINTMENT_FORMAT,
-  formatPhoneNumber,
 } from '@shared/utils';
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import NavigationService from '@navigation/NavigationService';
-import { useNavigation } from '@react-navigation/core';
 export const AppointmentItem = ({ item }) => {
   const navigation = useNavigation();
 
@@ -41,7 +40,6 @@ export const AppointmentItem = ({ item }) => {
   };
 
   const onPress = (pressEvt) => {
-    // NavigationService.navigate(screenNames.AppointmentDetailScreen, { item });
     navigation.push(screenNames.AppointmentDetailScreen, { item });
   };
 

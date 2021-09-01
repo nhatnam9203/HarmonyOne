@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
@@ -36,4 +38,27 @@ export const getColorForStatus = (status) => {
     default:
       return '#5C5C5C';
   }
+};
+
+export const appointmentGroupByFromTime = (appointments) => {
+  if (appointments?.length <= 0) {
+    return null;
+  }
+
+  return appointments?.reduce((previous, x) => {
+    let groups = previous ?? [];
+    const keyUnique = moment(x['fromTime']).format('dddd - MMM DD, YYYY');
+    const isExitIdx = groups.findIndex((g) => g.key === keyUnique);
+
+    if (isExitIdx >= 0) {
+      const existItem = groups[isExitIdx];
+      groups[isExitIdx] = Object.assign({}, existItem, {
+        data: [...existItem.data, x],
+      });
+    } else {
+      groups.push({ key: keyUnique, data: [x] });
+    }
+
+    return groups;
+  }, []);
 };
