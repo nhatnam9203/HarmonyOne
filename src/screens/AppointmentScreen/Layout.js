@@ -7,6 +7,7 @@ import { AppointmentHeaderTab, HeaderStaffInfo } from './widgets';
 
 const { Navigator, Screen } = createMaterialTopTabNavigator();
 
+
 export const Layout = () => {
   return (
     <View style={layouts.fill}>

@@ -28,7 +28,7 @@ const index = () => {
     <View style={styles.container}>
       <Text fontFamily="medium" style={styles.title}>
         {' '}
-        Sign In{' '}
+        Sign In {' '}
       </Text>
       <Image source={logoHarmony} style={styles.logo} resizeMode="contain" />
 

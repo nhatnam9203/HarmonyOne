@@ -13,6 +13,7 @@ export const SingleScreenLayout = ({
   headerColor = colors.white,
   headerTintColor = colors.black,
   headerRightComponent = null,
+  isLeft = true,
 }) => {
   const [t] = useTranslation();
   const insets = useSafeAreaInsets();
@@ -29,15 +30,20 @@ export const SingleScreenLayout = ({
           { paddingTop: Math.max(insets.top, scaleHeight(20)) },
           { backgroundColor: headerColor },
         ]}>
-        <View style={styles.headerLeftContent}>
-          <TouchableOpacity style={styles.button} onPress={onGoBack}>
-            <Image
-              source={images.iconBack}
-              style={[styles.iconSize, { tintColor: headerTintColor }]}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-        </View>
+        {
+          isLeft ? <View style={styles.headerLeftContent}>
+            <TouchableOpacity style={styles.button} onPress={onGoBack}>
+              <Image
+                source={images.iconBack}
+                style={[styles.iconSize, { tintColor: headerTintColor }]}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+          </View> :
+            <View style={styles.headerLeftContent}>
+              <View style={styles.button} />
+            </View>
+        }
         <View style={styles.headerCenterContent}>
           <Text style={[styles.headTitle, { color: headerTintColor }]}>
             {pageTitle}

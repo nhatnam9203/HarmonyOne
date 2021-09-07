@@ -32,6 +32,7 @@ import { ReportsScreen } from './ReportsScreen';
 import { CustomersScreen } from './CustomersScreen';
 import { MoreScreen } from './MoreScreen';
 import { AppointmentDetailScreen } from './AppointmentDetailScreen';
+import { AppointmentNewScreen } from './AppointmentNewScreen';
 
 module.exports = {
   LoginMID,
@@ -67,4 +68,5 @@ module.exports = {
   CustomersScreen,
   MoreScreen,
   AppointmentDetailScreen,
+  AppointmentNewScreen,
 };

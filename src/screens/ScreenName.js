@@ -9,6 +9,8 @@ const ScreenNames = {
   AppointmentsPage: 'hpo.appointment.list',
   SchedulePage: 'hpo.appointment.schedule',
   AppointmentDetailScreen: 'hpo.appointment.detail',
+  AppointmentNewScreen: 'hpo.appointment.new',
+  CustomerListPage: 'hpo.appointment.new.customerList',
 };
 
 module.exports = { ScreenNames };

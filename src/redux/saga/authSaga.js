@@ -8,6 +8,7 @@ function* loginMID(action) {
   try {
     yield put({ type: 'START_LOADING_BUTTON' });
     const response = yield requestAPI(action);
+    console.log({ action, response })
     switch (parseInt(response.codeNumber)) {
       case 200:
         NavigationService.navigate('LoginPincode', {

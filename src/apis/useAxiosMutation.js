@@ -25,7 +25,7 @@ export const useAxiosMutation = ({
           //   dispatch(actions.auth.loginStaff(response.data));
 
           if (onLoginSuccess && typeof onLoginSuccess === 'function') {
-            onLoginSuccess();
+            onLoginSuccess(response?.data);
           }
         } else {
           if (

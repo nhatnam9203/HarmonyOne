@@ -20,6 +20,7 @@ import {
   NewService,
   Reviews,
   AppointmentDetailScreen,
+  AppointmentNewScreen,
 } from '@screens';
 import BottomMain from './BottomMain';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
@@ -39,6 +40,11 @@ const AppStack = () => {
       initialRouteName="HpOneHomeStack">
       <Screen name="HpOneHomeStack" component={HPOBottomTabStack} />
       <Screen {...AppointmentDetailScreen} />
+      <Screen {...AppointmentNewScreen}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+        }}
+      />
 
       <Screen name="Notification" component={Notification} />
       <Screen name="AppointmentDetail" component={AppointmentDetail} />

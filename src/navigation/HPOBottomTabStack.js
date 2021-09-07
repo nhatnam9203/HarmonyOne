@@ -7,8 +7,6 @@ import {
   MoreScreen,
 } from '@src/screens';
 import { CustomBottomBar } from '@shared/components';
-// import { AppointmentTabStack } from './AppointmentTabStack';
-// import { images } from '@shared/themes';
 
 const { Screen, Navigator } = createBottomTabNavigator();
 
@@ -17,15 +15,8 @@ export const HPOBottomTabStack = () => {
     <Navigator
       headerMode="none"
       initialRouteName={screenNames.AppointmentScreen}
-      tabBar={(props) => <CustomBottomBar {...props} />}>
-      {/* <Screen
-        name={screenNames.AppointmentStack}
-        component={AppointmentTabStack}
-        options={{
-          tabBarIcon: images.iconTabAppointment,
-          tabBarLabel: 'Appointment',
-        }}
-      /> */}
+      tabBar={(props) => <CustomBottomBar {...props} />}
+    >
       <Screen {...AppointmentScreen} />
       <Screen {...ReportsScreen} />
       <Screen {...CustomersScreen} />

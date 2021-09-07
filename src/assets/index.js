@@ -26,6 +26,8 @@ import icon_appointment from './home/icon_appointment.png';
 import icon_sales from './home/icon_sales.png';
 import checked from './home/checked.png';
 import icon_close from './home/icon_close.png';
+import icon_close_grey from './home/icon_close_grey.png';
+import icon_search_blue from './home/icon_search_blue.png';
 import pincode_success from './home/pincode_success.png';
 import information_home from './information/information_home.png';
 import information_review from './information/information_review.png';
@@ -47,6 +49,7 @@ import icon_addImage from './home/icon_addImage.png';
 import triAngle from './home/triAngle.png';
 import check_box from './home/check_box.png';
 import check_box_empty from './home/check_box_empty.png';
+import add_icon from "./home/add_icon.png";
 
 module.exports = {
   logoHarmony,
@@ -76,6 +79,8 @@ module.exports = {
   icon_appointment,
   icon_sales,
   icon_close,
+  icon_close_grey,
+  icon_search_blue,
   information_home,
   information_review,
   information_service,
@@ -98,4 +103,5 @@ module.exports = {
   triAngle,
   check_box,
   check_box_empty,
+  add_icon,
 };
