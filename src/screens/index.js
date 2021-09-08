@@ -30,6 +30,7 @@ import { PinCodeScreen } from './PinCodeScreen';
 import { AppointmentScreen } from './AppointmentScreen';
 import { ReportsScreen } from './ReportsScreen';
 import { CustomersScreen } from './CustomersScreen';
+import { CustomerNewScreen } from './CustomerNewScreen';
 import { MoreScreen } from './MoreScreen';
 import { AppointmentDetailScreen } from './AppointmentDetailScreen';
 import { AppointmentNewScreen } from './AppointmentNewScreen';
@@ -66,6 +67,7 @@ module.exports = {
   AppointmentScreen,
   ReportsScreen,
   CustomersScreen,
+  CustomerNewScreen,
   MoreScreen,
   AppointmentDetailScreen,
   AppointmentNewScreen,

@@ -15,9 +15,11 @@ export const images = {
   iconMore: require('@src/assets/images/more.png'),
   iconArrow: require('@src/assets/images/arrow.png'),
   iconAtHome: require('@src/assets/images/mask_group_116.png'),
+  iconClose: require('@src/assets/home/icon_close.png'),
 
   EmptyList: require('@src/assets/images/emptyList.png'),
   barTimeLine: require('@src/assets/images/barTimeLine.png'),
+  dropdown : require('@src/assets/images/dropdown.png'),
 };
 
 export const svg = {

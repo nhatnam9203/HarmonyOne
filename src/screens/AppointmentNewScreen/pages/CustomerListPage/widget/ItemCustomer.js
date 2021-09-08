@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { fonts } from "@shared/themes";
 
 const ItemCustomer = ({ item }) => {
     return (
@@ -45,15 +46,18 @@ const styles = StyleSheet.create({
     firstLetter: {
         fontSize: scaleWidth(30),
         fontWeight: "bold",
-        color: "#1366AE"
+        color: "#1366AE",
+        fontFamily : fonts.MEDIUM
     },
     customerName : {
-        fontSize : scaleWidth(22),
-        color : "#404040"
+        fontSize : scaleWidth(19),
+        color : "#404040",
+        fontFamily : fonts.MEDIUM
     },
     phone : {
         color: '#7A98BB',
-        fontSize : scaleWidth(16)
+        fontSize : scaleWidth(16),
+        fontFamily : fonts.MEDIUM
     },
 })
 

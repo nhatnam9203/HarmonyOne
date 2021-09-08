@@ -14,6 +14,7 @@ export const SingleScreenLayout = ({
   headerTintColor = colors.black,
   headerRightComponent = null,
   isLeft = true,
+  isRight = true,
 }) => {
   const [t] = useTranslation();
   const insets = useSafeAreaInsets();
@@ -44,14 +45,22 @@ export const SingleScreenLayout = ({
               <View style={styles.button} />
             </View>
         }
+
         <View style={styles.headerCenterContent}>
           <Text style={[styles.headTitle, { color: headerTintColor }]}>
             {pageTitle}
           </Text>
         </View>
-        <View style={styles.headerRightContent}>
-          {headerRightComponent && headerRightComponent()}
-        </View>
+        
+        {
+          isRight ?
+            <View style={styles.headerRightContent}>
+              {headerRightComponent && headerRightComponent()}
+            </View> :
+            <View style={styles.headerRightContent}>
+              <View style={styles.button} />
+            </View>
+        }
       </View>
 
       <KeyboardAwareScrollView bounces={bounces}>

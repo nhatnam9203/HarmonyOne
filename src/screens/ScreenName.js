@@ -5,6 +5,7 @@ const ScreenNames = {
   AppointmentScreen: 'hpo.appointment',
   ReportsScreen: 'hpo.reports',
   CustomersScreen: 'hpo.customers',
+  CustomerNewScreen: 'hpo.customers.new',
   MoreScreen: 'hpo.more',
   AppointmentsPage: 'hpo.appointment.list',
   SchedulePage: 'hpo.appointment.schedule',

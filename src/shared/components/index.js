@@ -4,3 +4,4 @@ export * from './CustomBottomBar';
 export * from './List';
 export * from './CustomImage';
 export * from './CustomModal';
+export * from "./DropdownMenu";

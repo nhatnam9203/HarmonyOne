@@ -2,8 +2,9 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, FlatList } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { icon_close } from "@assets";
+import { icon_close, button_plus } from "@assets";
 import { SearchInput, ItemCustomer } from "./widget";
+import { fonts } from "@shared/themes";
 
 const dataCustomerList = [
     {
@@ -40,6 +41,7 @@ export const Layout = ({
     valueSearch,
     onChangeSearch,
     close,
+    newCustomer,
 }) => {
 
     const [t] = useTranslation();
@@ -70,6 +72,17 @@ export const Layout = ({
                         keyExtractor={(item) => Math.random().toString()}
                         ItemSeparatorComponent={() => <View style={styles.seperateLine} />}
                     />
+                    <TouchableOpacity
+                        onPress={newCustomer}
+                        style={styles.button_plus}
+                        hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}
+                    >
+                        <Image
+                            source={button_plus}
+                            style={styles.icon_plus}
+                        />
+                        <Text style={styles.txtNew}>Make new customer</Text>
+                    </TouchableOpacity>
                 </View>
             </SingleScreenLayout>
         </View>
@@ -101,9 +114,24 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    seperateLine : {
+    seperateLine: {
         width: '100%',
         height: 1,
-        backgroundColor : "#eeeeee"
+        backgroundColor: "#eeeeee"
+    },
+    button_plus: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: scaleHeight(20)
+    },
+    icon_plus: {
+        width: scaleWidth(24),
+        height: scaleWidth(24),
+    },
+    txtNew: {
+        fontSize: scaleFont(20),
+        color: '#1366AE',
+        marginLeft: scaleWidth(15),
+        fontFamily : fonts.MEDIUM
     }
 });

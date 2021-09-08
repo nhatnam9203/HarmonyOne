@@ -50,6 +50,7 @@ import triAngle from './home/triAngle.png';
 import check_box from './home/check_box.png';
 import check_box_empty from './home/check_box_empty.png';
 import add_icon from "./home/add_icon.png";
+import button_plus from "./home/button_plus.png";
 
 module.exports = {
   logoHarmony,
@@ -104,4 +105,5 @@ module.exports = {
   check_box,
   check_box_empty,
   add_icon,
+  button_plus,
 };
