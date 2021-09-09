@@ -14,6 +14,13 @@ export const Layout = ({
 
 }) => {
 
+    const inputFirstNameRef = React.useRef();
+    const inputLastNameRef = React.useRef();
+    const inputPhoneRef = React.useRef();
+    const inputEmailRef = React.useRef();
+    const inputAddressRef = React.useRef();
+    const inputReferrerPhoneRef = React.useRef();
+    const inputNoteRef = React.useRef();
     const [t] = useTranslation();
 
     return (
@@ -26,30 +33,37 @@ export const Layout = ({
                     <InputText
                         label='First name'
                         isRequired
+                        ref={inputFirstNameRef}
                     />
                     <InputText
                         label='Last name'
                         isRequired
+                        ref={inputLastNameRef}
                     />
                     <InputDropDown
                         label='Phone number'
                         isRequired
                         items={headerPhoneGroup}
+                        ref={inputPhoneRef}
                     />
                     <InputText
                         label='Contact email'
+                        ref={inputEmailRef}
                     />
                     <InputText
                         label='Address'
+                        ref={inputAddressRef}
                     />
                     <InputDropDown
                         label='Referrer phone number'
                         items={headerPhoneGroup}
+                        ref={inputReferrerPhoneRef}
                     />
-                     <InputText
+                    <InputText
                         label='Customer note'
                         multiline={true}
-                        style={{ height : scaleHeight(69) }}
+                        style={{ height: scaleHeight(69) }}
+                        ref={inputNoteRef}
                     />
                     <TouchableOpacity style={styles.buttonConfirm}>
                         <Text style={styles.textConfirm}>Save</Text>
@@ -105,17 +119,17 @@ const styles = StyleSheet.create({
         color: '#1366AE',
         marginLeft: scaleWidth(15)
     },
-    buttonConfirm : {
+    buttonConfirm: {
         width: '100%',
-        justifyContent : 'center',
-        alignItems : 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
         borderRadius: 5,
         backgroundColor: '#0764B0',
-        paddingVertical : scaleHeight(12)
+        paddingVertical: scaleHeight(12)
     },
-    textConfirm : {
-        fontSize : scaleFont(18),
-        color : "white",
-        fontFamily : fonts.MEDIUM
+    textConfirm: {
+        fontSize: scaleFont(18),
+        color: "white",
+        fontFamily: fonts.MEDIUM
     }
 });

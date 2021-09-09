@@ -4,6 +4,7 @@ import { fonts } from '@shared/themes';
 import { DropdownMenu } from "@shared/components";
 import { icon_close_grey } from "@assets";
 import { images } from "@shared/themes/resources";
+import { slop } from "@shared/utils";
 
 export default class InputDropDown extends Component {
 
@@ -59,7 +60,7 @@ export default class InputDropDown extends Component {
                         {
                             value.length > 0 &&
                             <TouchableOpacity
-                                hitSlop={{ top: 20, left: 20, right: 20, bottom: 20 }}
+                                hitSlop={slop(20)}
                                 onPress={() => this.setState({ value: '' })}
                             >
                                 <Image
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.MEDIUM
     },
     wrapInput: {
-        width: '70%',
+        width: scaleWidth(250),
         height: scaleWidth(42),
         borderWidth: 1,
         borderColor: '#dddddd',

@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
-import { icon_close_grey, icon_search_blue } from "@assets";
+import { iconCloseGrey, iconSearchBlue } from "@shared/themes/resources";
 
 const SearchInput = ({
     placeholder = "",
     value = "",
     onChangeText = () => { },
+    removeText = () => { },
 }) => {
     return (
         <View style={styles.wrapInput}>
@@ -15,8 +16,14 @@ const SearchInput = ({
                 value={value}
                 onChangeText={onChangeText}
             />
-            <TouchableOpacity>
-                <Image source={icon_search_blue} style={styles.iconClose} />
+            <TouchableOpacity
+                onPress={removeText}
+                activeOpacity={1}
+            >
+                <Image
+                    source={value.length > 0 ? iconCloseGrey : iconSearchBlue}
+                    style={styles.iconClose}
+                />
             </TouchableOpacity>
         </View>
     )
@@ -34,7 +41,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: scaleWidth(10),
-        marginBottom : scaleHeight(16)
+        marginBottom: scaleHeight(16)
     },
     input: {
         flex: 1,

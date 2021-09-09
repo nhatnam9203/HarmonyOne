@@ -16,6 +16,9 @@ export const images = {
   iconArrow: require('@src/assets/images/arrow.png'),
   iconAtHome: require('@src/assets/images/mask_group_116.png'),
   iconClose: require('@src/assets/home/icon_close.png'),
+  iconCloseGrey: require('@src/assets/home/icon_close_grey.png'),
+  iconSearchBlue: require('@src/assets/home/icon_search_blue.png'),
+  iconAdd: require('@src/assets/home/add_icon.png'),
 
   EmptyList: require('@src/assets/images/emptyList.png'),
   barTimeLine: require('@src/assets/images/barTimeLine.png'),

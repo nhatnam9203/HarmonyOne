@@ -62,3 +62,10 @@ export const appointmentGroupByFromTime = (appointments) => {
     return groups;
   }, []);
 };
+
+export const slop = (size = 10) => ({
+  top: size,
+  left: size,
+  right: size,
+  bottom: size,
+})

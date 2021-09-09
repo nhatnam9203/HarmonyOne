@@ -9,7 +9,7 @@ import {
 import { AppointmentItem } from './AppointmentItem';
 import { ListEmptyComponent } from '@shared/components';
 import { useNavigation } from '@react-navigation/core';
-import { add_icon } from "@assets";
+import { images } from "@shared/themes/resources";
 
 export const Layout = ({ onChangeWeekText, items, onDateSelected }) => {
 
@@ -73,7 +73,7 @@ export const Layout = ({ onChangeWeekText, items, onDateSelected }) => {
       >
         <Image
           style={styles.addIcon}
-          source={add_icon}
+          source={images.iconAdd}
           resizeMode='contain'
         />
       </TouchableOpacity>

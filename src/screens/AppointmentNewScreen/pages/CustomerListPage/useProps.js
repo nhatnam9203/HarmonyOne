@@ -17,7 +17,7 @@ export const useProps = (props) => {
             NavigationService.back();
         },
         newCustomer: () => {
-            navigation.push(screenNames.CustomerNewScreen);
+            navigation.navigate(screenNames.CustomerNewScreen);
         }
 
     }

@@ -3,8 +3,10 @@ import { View, StyleSheet, Text, TouchableOpacity, Image, FlatList } from 'react
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { icon_close, button_plus } from "@assets";
-import { SearchInput, ItemCustomer } from "./widget";
 import { fonts } from "@shared/themes";
+import { slop } from "@shared/utils";
+import SearchInput from "./SearchInput";
+import ItemCustomer from "./ItemCustomer";
 
 const dataCustomerList = [
     {
@@ -64,6 +66,7 @@ export const Layout = ({
                     <SearchInput
                         value={valueSearch}
                         onChangeText={onChangeSearch}
+                        removeText={valueSearch.length > 0 ? onChangeSearch("") : () => { }}
                     />
                     <FlatList
                         style={styles.flatList}
@@ -75,7 +78,7 @@ export const Layout = ({
                     <TouchableOpacity
                         onPress={newCustomer}
                         style={styles.button_plus}
-                        hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}
+                        hitSlop={slop(15)}
                     >
                         <Image
                             source={button_plus}
@@ -132,6 +135,6 @@ const styles = StyleSheet.create({
         fontSize: scaleFont(20),
         color: '#1366AE',
         marginLeft: scaleWidth(15),
-        fontFamily : fonts.MEDIUM
+        fontFamily: fonts.MEDIUM
     }
 });

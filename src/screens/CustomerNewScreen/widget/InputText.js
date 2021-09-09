@@ -1,60 +1,61 @@
-import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, TouchableOpacityComponent } from 'react-native'
+import React from 'react'
+import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native'
 import { fonts } from '@shared/themes';
-import { icon_close_grey } from "@assets";
+import { slop } from "@shared/utils";
+import { iconClose } from "@shared/themes/resources";
 
+const InputText = React.forwardRef(({
+    placeholder = '',
+    style,
+    label = '',
+    isRequired = false,
+    multiline = false,
+    inputStyle
+}, ref) => {
 
-export default class Input extends Component {
+    const [value, setValue] = React.useState("");
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: '',
-        }
-    }
+    React.useImperativeHandle(ref, () => ({
+        getValue: () => value,
+        changeValue: (vl) => setValue(vl),
+    }));
 
-    render() {
-        const {
-            placeholder = '',
-            style,
-            label = '',
-            isRequired = false,
-            multiline = false,
-            inputStyle,
-        } = this.props;
+    return (
+        <View style={styles.containerInput}>
 
-        const { value } = this.state;
-
-        return (
-            <View style={styles.containerInput}>
-                <View style={{ flexDirection: 'row' }}>
-                    <Text style={styles.label}>
-                        {label}
-                    </Text>
-                    {isRequired && <Text style={styles.required}>*</Text>}
-                </View>
-                <View style={[styles.wrapInput,style]}>
-                    <TextInput
-                        onChangeText={(value) => this.setState({ value })}
-                        placeholder={placeholder}
-                        value={value}
-                        style={[styles.input, inputStyle]}
-                        multiline={multiline}
-                    />
-                    {
-                        value.length > 0 &&
-                        <TouchableOpacity onPress={() => this.setState({ value: '' })}>
-                            <Image
-                                source={icon_close_grey}
-                                style={styles.iconClose}
-                            />
-                        </TouchableOpacity>
-                    }
-                </View>
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={styles.label}>
+                    {label}
+                </Text>
+                {isRequired && <Text style={styles.required}>*</Text>}
             </View>
-        )
-    }
-}
+
+            <View style={[styles.wrapInput, style]}>
+                <TextInput
+                    onChangeText={(vl) => setValue(vl)}
+                    placeholder={placeholder}
+                    value={value}
+                    style={[styles.input, inputStyle]}
+                    multiline={multiline}
+                />
+                {
+                    value.length > 0 &&
+                    <TouchableOpacity
+                        hitSlop={slop(15)}
+                        onPress={() => setValue('')}
+                    >
+                        <Image
+                            source={iconClose}
+                            style={styles.iconClose}
+                        />
+                    </TouchableOpacity>
+                }
+            </View>
+        </View>
+    )
+});
+
+
 
 const styles = StyleSheet.create({
     containerInput: {
@@ -91,3 +92,5 @@ const styles = StyleSheet.create({
         fontSize: scaleFont(18)
     }
 });
+
+export default InputText;
