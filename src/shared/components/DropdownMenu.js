@@ -151,6 +151,7 @@ export const DropdownMenu = React.forwardRef(
                 styles.imageStyle,
                 open && { transform: [{ rotate: "180deg" }] },
               ]}
+              resizeMode='contain'
             />
           </View>
         </ModalDropdown>
@@ -242,6 +243,6 @@ const styles = StyleSheet.create({
   imageStyle: {
     width: scaleWidth(20),
     height: scaleHeight(8),
-    resizeMode: "center",
+    resizeMode: "contain",
   },
 });

@@ -3,22 +3,33 @@ import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'reac
 import { fonts, colors } from '@shared/themes';
 import { slop } from "@shared/utils";
 import { images } from "@shared/themes/resources";
-import { IconButton } from "@shared/components";
+import { CustomActionSheet } from "./CustomActionSheet";
 
-const InputText = React.forwardRef(({
+/**
+ * @deaultActiveKey : value
+ */
+
+const InputActionSheet = React.forwardRef(({
     placeholder = '',
     style,
     label = '',
     isRequired = false,
-    multiline = false,
-    inputStyle
+    textStyle,
+    items = [],
+    defaultActiveKey = '',
 }, ref) => {
 
-    const [value, setValue] = React.useState("");
+    const actionsheetRef = React.useRef();
+    const [item, setItem] = React.useState({});
+    const [open, setOpen] = React.useState(false);
+
+    const openActionSheet = () => {
+        actionsheetRef?.current?.show();
+        setOpen(true)
+    }
 
     React.useImperativeHandle(ref, () => ({
-        getValue: () => value,
-        changeValue: (vl) => setValue(vl),
+        getItem: () => item,
     }));
 
     return (
@@ -31,23 +42,31 @@ const InputText = React.forwardRef(({
                 {isRequired && <Text style={styles.required}>*</Text>}
             </View>
 
-            <View style={[styles.wrapInput, style]}>
-                <TextInput
-                    onChangeText={(vl) => setValue(vl)}
+            <TouchableOpacity onPress={openActionSheet} style={[styles.wrapInput, style]}>
+                <Text
                     placeholder={placeholder}
-                    value={value}
-                    style={[styles.input, inputStyle]}
-                    multiline={multiline}
+                    style={[styles.input, textStyle]}
+                >
+                    {item?.label || "Select"}
+                </Text>
+                <Image
+                    source={images.dropdown}
+                    style={[styles.iconClose, open && { transform: [{ rotate: "180deg" }] }]}
+                    resizeMode='contain'
                 />
-                {
-                    value.length > 0 &&
-                    <IconButton
-                        icon={images.iconClose}
-                        iconStyle={styles.iconClose}
-                        onPress={() => setValue('')}
-                    />
-                }
-            </View>
+
+            </TouchableOpacity>
+
+            <CustomActionSheet
+                ref={actionsheetRef}
+                items={items}
+                title={label}
+                defaultActiveKey={defaultActiveKey}
+                onChangeItem={item => {
+                    item && setItem(item);
+                    setOpen(false)
+                }}
+            />
         </View>
     )
 });
@@ -77,12 +96,13 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         fontSize: scaleFont(16),
-        fontFamily: fonts.REGULAR,
-        color : colors.greyish_brown_40
+        fontFamily: fonts.REGULAR
     },
     iconClose: {
-        width: scaleWidth(24),
-        height: scaleWidth(24),
+        width: scaleWidth(12),
+        height: scaleWidth(12),
+        resizeMode: 'contain',
+        tintColor: colors.greyish_brown_40
     },
     required: {
         color: "red",
@@ -91,4 +111,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default InputText;
+export default InputActionSheet;

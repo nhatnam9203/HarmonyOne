@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, FlatList } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { InputText, InputDropDown } from "./widget";
+import { InputText, InputDropDown, InputActionSheet } from "./widget";
 import { fonts } from '@shared/themes';
 
 const headerPhoneGroup = [
@@ -10,17 +10,29 @@ const headerPhoneGroup = [
     { label: "+84", value: 84 },
 ];
 
-export const Layout = ({
+const genders = [
+    { label: "Male", value: "male" },
+    { label: "Female", value: "female" },
+    { label: "Other", value: "other" },
+];
 
+const customerGroup = [
+    { label: "Normal", value: "0" },
+    { label: "Vip", value: "1" },
+];
+
+export const Layout = ({
+    inputFirstNameRef,
+    inputLastNameRef,
+    inputPhoneRef,
+    inputEmailRef,
+    inputAddressRef,
+    inputReferrerPhoneRef,
+    inputNoteRef,
+    inputCustomerGroupRef,
+    inputGenderRef,
 }) => {
 
-    const inputFirstNameRef = React.useRef();
-    const inputLastNameRef = React.useRef();
-    const inputPhoneRef = React.useRef();
-    const inputEmailRef = React.useRef();
-    const inputAddressRef = React.useRef();
-    const inputReferrerPhoneRef = React.useRef();
-    const inputNoteRef = React.useRef();
     const [t] = useTranslation();
 
     return (
@@ -46,9 +58,21 @@ export const Layout = ({
                         items={headerPhoneGroup}
                         ref={inputPhoneRef}
                     />
+                    <InputActionSheet
+                        label='Customer group'
+                        items={customerGroup}
+                        defaultActiveKey={'0'}
+                        ref={inputCustomerGroupRef}
+                    />
                     <InputText
                         label='Contact email'
                         ref={inputEmailRef}
+                    />
+                    <InputActionSheet
+                        label='Gender'
+                        items={genders}
+                        defaultActiveKey={'female'}
+                        ref={inputGenderRef}
                     />
                     <InputText
                         label='Address'
@@ -88,36 +112,6 @@ const styles = StyleSheet.create({
     },
     flatList: {
         flex: 1,
-    },
-    iconClose: {
-        tintColor: "#333",
-        width: scaleWidth(30),
-        height: scaleHeight(30),
-    },
-    buttonClose: {
-        height: '100%',
-        width: scaleWidth(35),
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    seperateLine: {
-        width: '100%',
-        height: 1,
-        backgroundColor: "#eeeeee"
-    },
-    button_plus: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginTop: scaleHeight(20)
-    },
-    icon_plus: {
-        width: scaleWidth(24),
-        height: scaleWidth(24),
-    },
-    txtNew: {
-        fontSize: scaleFont(20),
-        color: '#1366AE',
-        marginLeft: scaleWidth(15)
     },
     buttonConfirm: {
         width: '100%',

@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, TouchableOpacityComponent } from 'react-native'
 import { fonts } from '@shared/themes';
 import { DropdownMenu } from "@shared/components";
-import { icon_close_grey } from "@assets";
 import { images } from "@shared/themes/resources";
-import { slop } from "@shared/utils";
+import { IconButton } from "@shared/components";
 
 export default class InputDropDown extends Component {
 
@@ -59,15 +58,11 @@ export default class InputDropDown extends Component {
                         />
                         {
                             value.length > 0 &&
-                            <TouchableOpacity
-                                hitSlop={slop(20)}
+                            <IconButton
+                                icon={images.iconClose}
+                                style={styles.iconClose}
                                 onPress={() => this.setState({ value: '' })}
-                            >
-                                <Image
-                                    source={images.iconClose}
-                                    style={styles.iconClose}
-                                />
-                            </TouchableOpacity>
+                            />
                         }
                     </View>
                 </View>

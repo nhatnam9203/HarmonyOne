@@ -23,6 +23,7 @@ export const images = {
   EmptyList: require('@src/assets/images/emptyList.png'),
   barTimeLine: require('@src/assets/images/barTimeLine.png'),
   dropdown : require('@src/assets/images/dropdown.png'),
+  buttonPlus : require('@src/assets/home/button_plus.png'),
 };
 
 export const svg = {

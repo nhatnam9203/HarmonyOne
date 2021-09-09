@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, Text, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import {
   AppointmentHeaderTab,
@@ -7,9 +7,10 @@ import {
   CalendarHorizontal,
 } from '../../widgets';
 import { AppointmentItem } from './AppointmentItem';
-import { ListEmptyComponent } from '@shared/components';
+import { ListEmptyComponent, IconButton } from '@shared/components';
 import { useNavigation } from '@react-navigation/core';
 import { images } from "@shared/themes/resources";
+import { slop } from "@shared/utils";
 
 export const Layout = ({ onChangeWeekText, items, onDateSelected }) => {
 
@@ -66,17 +67,12 @@ export const Layout = ({ onChangeWeekText, items, onDateSelected }) => {
         />
       </View>
 
-      <TouchableOpacity
+      <IconButton
+        icon={images.iconAdd}
+        iconStyle={styles.addIcon}
         onPress={addAppointment}
         style={styles.btnAddAppointment}
-        hitSlop={{ top : 10, left : 10, right : 10, bottom : 10 }}
-      >
-        <Image
-          style={styles.addIcon}
-          source={images.iconAdd}
-          resizeMode='contain'
-        />
-      </TouchableOpacity>
+      />
     </View>
   );
 };

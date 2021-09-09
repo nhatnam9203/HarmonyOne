@@ -2,8 +2,9 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, FlatList } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { icon_close, button_plus } from "@assets";
+import { IconButton } from "@shared/components";
 import { fonts } from "@shared/themes";
+import { images } from "@shared/themes/resources";
 import { slop } from "@shared/utils";
 import SearchInput from "./SearchInput";
 import ItemCustomer from "./ItemCustomer";
@@ -57,7 +58,7 @@ export const Layout = ({
                     <TouchableOpacity onPress={close} style={styles.buttonClose}>
                         <Image
                             style={styles.iconClose}
-                            source={icon_close}
+                            source={images.iconClose}
                         />
                     </TouchableOpacity>
                 }
@@ -75,17 +76,13 @@ export const Layout = ({
                         keyExtractor={(item) => Math.random().toString()}
                         ItemSeparatorComponent={() => <View style={styles.seperateLine} />}
                     />
-                    <TouchableOpacity
+                    <IconButton
+                        icon={images.buttonPlus}
+                        iconStyle={styles.iconPlus}
                         onPress={newCustomer}
-                        style={styles.button_plus}
-                        hitSlop={slop(15)}
-                    >
-                        <Image
-                            source={button_plus}
-                            style={styles.icon_plus}
-                        />
-                        <Text style={styles.txtNew}>Make new customer</Text>
-                    </TouchableOpacity>
+                        style={styles.buttonPlus}
+                        renderText={() => <Text style={styles.txtNew}>Make new customer</Text>}
+                    />
                 </View>
             </SingleScreenLayout>
         </View>
@@ -122,12 +119,12 @@ const styles = StyleSheet.create({
         height: 1,
         backgroundColor: "#eeeeee"
     },
-    button_plus: {
+    buttonPlus: {
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: scaleHeight(20)
     },
-    icon_plus: {
+    iconPlus: {
         width: scaleWidth(24),
         height: scaleWidth(24),
     },
