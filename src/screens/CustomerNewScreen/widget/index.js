@@ -1,10 +1,10 @@
 
 import InputText from "./InputText";
-import InputDropDown from "./InputDropDown";
-import InputActionSheet from "./InputActionSheet";
+import Input from "./Input";
+import InputDate from "./InputDate";
 
 module.exports = {
     InputText,
-    InputDropDown,
-    InputActionSheet,
+    InputDate,
+    Input,
 }

@@ -38,6 +38,7 @@ const dataCustomerList = [
         customerName: "Ozawa Mikami",
         phone: "123-456-789"
     },
+
 ];
 
 export const Layout = ({
@@ -54,6 +55,7 @@ export const Layout = ({
             <SingleScreenLayout
                 pageTitle={t('New apppoinment')}
                 isLeft={false}
+                isScrollLayout={false}
                 headerRightComponent={() =>
                     <TouchableOpacity onPress={close} style={styles.buttonClose}>
                         <Image
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        paddingHorizontal: scaleWidth(15)
+        paddingHorizontal: scaleWidth(15),
     },
     flatList: {
         flex: 1,
@@ -122,7 +124,7 @@ const styles = StyleSheet.create({
     buttonPlus: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: scaleHeight(20)
+        marginTop: scaleHeight(20),
     },
     iconPlus: {
         width: scaleWidth(24),

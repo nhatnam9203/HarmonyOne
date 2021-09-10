@@ -7,7 +7,6 @@ import WeekPicker from './WeekPicker'
 import MonthPicker from './MonthPicker'
 import Modalize from './Modalize'
 import StatusBar from './StatusBar'
-import TextInput from "./TextInput";
 
 module.exports = {
     Text,
@@ -19,5 +18,4 @@ module.exports = {
     MonthPicker,
     Modalize,
     StatusBar,
-    TextInput,
 }

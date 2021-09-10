@@ -15,6 +15,7 @@ export const SingleScreenLayout = ({
   headerRightComponent = null,
   isLeft = true,
   isRight = true,
+  isScrollLayout = true,
 }) => {
   const [t] = useTranslation();
   const insets = useSafeAreaInsets();
@@ -51,7 +52,7 @@ export const SingleScreenLayout = ({
             {pageTitle}
           </Text>
         </View>
-        
+
         {
           isRight ?
             <View style={styles.headerRightContent}>
@@ -63,9 +64,14 @@ export const SingleScreenLayout = ({
         }
       </View>
 
-      <KeyboardAwareScrollView bounces={bounces}>
-        <View style={[styles.container]}>{children}</View>
-      </KeyboardAwareScrollView>
+      {
+        isScrollLayout ?
+          <KeyboardAwareScrollView bounces={bounces}>
+            <View style={[styles.container]}>{children}</View>
+          </KeyboardAwareScrollView>
+          :
+          <View style={[styles.container]}>{children}</View>
+      }
     </View>
   );
 };

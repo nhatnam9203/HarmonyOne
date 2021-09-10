@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
-import { iconCloseGrey, iconSearchBlue } from "@shared/themes/resources";
+import React from 'react'
+import { View, StyleSheet, TextInput } from 'react-native';
+import { images } from "@shared/themes/resources";
+import { IconButton } from "@shared/components";
 
 const SearchInput = ({
     placeholder = "",
@@ -16,15 +17,12 @@ const SearchInput = ({
                 value={value}
                 onChangeText={onChangeText}
             />
-            <TouchableOpacity
+
+            <IconButton
+                icon={value.length > 0 ? images.iconCloseGrey : images.iconSearchBlue}
+                iconStyle={styles.iconClose}
                 onPress={removeText}
-                activeOpacity={1}
-            >
-                <Image
-                    source={value.length > 0 ? iconCloseGrey : iconSearchBlue}
-                    style={styles.iconClose}
-                />
-            </TouchableOpacity>
+            />
         </View>
     )
 }

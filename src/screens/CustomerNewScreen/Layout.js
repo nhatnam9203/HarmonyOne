@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image, FlatList } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { InputText, InputDropDown, InputActionSheet } from "./widget";
+import { DropdownMenu, Button } from "@shared/components";
+import { InputText, Input, InputDate } from "./widget";
 import { fonts } from '@shared/themes';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const headerPhoneGroup = [
     { label: "+1", value: 1 },
@@ -31,6 +33,10 @@ export const Layout = ({
     inputNoteRef,
     inputCustomerGroupRef,
     inputGenderRef,
+    inputReferrerPhoneHeadRef,
+    inputPhoneHeadRef,
+    inputDateRef,
+    onSubmit,
 }) => {
 
     const [t] = useTranslation();
@@ -40,58 +46,111 @@ export const Layout = ({
             <SingleScreenLayout
                 pageTitle={t('New customer')}
                 isRight={false}
+                isScrollLayout={false}
             >
-                <View style={styles.content}>
-                    <InputText
+                <KeyboardAwareScrollView style={styles.content}>
+                    <Input
                         label='First name'
                         isRequired
-                        ref={inputFirstNameRef}
+                        renderInput={() => <InputText ref={inputFirstNameRef} />}
                     />
-                    <InputText
+                    <Input
                         label='Last name'
                         isRequired
-                        ref={inputLastNameRef}
+                        renderInput={() => <InputText ref={inputLastNameRef} />}
                     />
-                    <InputDropDown
+                    <Input
                         label='Phone number'
-                        isRequired
-                        items={headerPhoneGroup}
-                        ref={inputPhoneRef}
+                        renderInput={() =>
+                            <View style={styles.row}>
+                                <DropdownMenu
+                                    ref={inputPhoneHeadRef}
+                                    items={headerPhoneGroup}
+                                    onChangeValue={() => { }}
+                                    defaultIndex={0}
+                                    width={scaleWidth(95)}
+                                    height={scaleWidth(42)}
+                                    styleDropDown={styles.styleDropDown}
+                                />
+                                <InputText
+                                    ref={inputPhoneRef}
+                                    style={styles.inputPhone}
+                                />
+                            </View>
+                        }
                     />
-                    <InputActionSheet
+                    <Input
                         label='Customer group'
-                        items={customerGroup}
-                        defaultActiveKey={'0'}
-                        ref={inputCustomerGroupRef}
+                        renderInput={() =>
+                            <DropdownMenu
+                                ref={inputCustomerGroupRef}
+                                items={customerGroup}
+                                onChangeValue={() => { }}
+                                defaultIndex={0}
+                                width={scaleWidth(345)}
+                                height={scaleWidth(42)}
+                            />
+                        }
                     />
-                    <InputText
+                    <Input
                         label='Contact email'
-                        ref={inputEmailRef}
+                        renderInput={() => <InputText ref={inputEmailRef} />}
                     />
-                    <InputActionSheet
+                    <Input
                         label='Gender'
-                        items={genders}
-                        defaultActiveKey={'female'}
-                        ref={inputGenderRef}
+                        renderInput={() =>
+                            <DropdownMenu
+                                ref={inputGenderRef}
+                                items={genders}
+                                onChangeValue={() => { }}
+                                defaultIndex={0}
+                                width={scaleWidth(345)}
+                                height={scaleWidth(42)}
+                            />
+                        }
                     />
-                    <InputText
+                    <Input
+                        label='Birthday'
+                        renderInput={() => <InputDate ref={inputDateRef} />}
+                    />
+                    <Input
                         label='Address'
-                        ref={inputAddressRef}
+                        renderInput={() => <InputText ref={inputAddressRef} />}
                     />
-                    <InputDropDown
+                    <Input
                         label='Referrer phone number'
-                        items={headerPhoneGroup}
-                        ref={inputReferrerPhoneRef}
+                        renderInput={() =>
+                            <View style={styles.row}>
+                                <DropdownMenu
+                                    ref={inputReferrerPhoneHeadRef}
+                                    items={headerPhoneGroup}
+                                    onChangeValue={() => { }}
+                                    defaultIndex={0}
+                                    width={scaleWidth(95)}
+                                    height={scaleWidth(42)}
+                                    styleDropDown={styles.styleDropDown}
+                                />
+                                <InputText
+                                    ref={inputReferrerPhoneRef}
+                                    style={styles.inputPhone}
+                                />
+                            </View>
+                        }
                     />
-                    <InputText
+                    <Input
                         label='Customer note'
                         multiline={true}
-                        style={{ height: scaleHeight(69) }}
-                        ref={inputNoteRef}
+                        renderInput={() => <InputText ref={inputNoteRef} style={{ height: scaleHeight(69) }} />}
                     />
-                    <TouchableOpacity style={styles.buttonConfirm}>
-                        <Text style={styles.textConfirm}>Save</Text>
-                    </TouchableOpacity>
+                </KeyboardAwareScrollView>
+                <View style={styles.bottom}>
+                    <Button
+                        label="Save"
+                        onPress={() => { }}
+                        highlight={true}
+                        width={'100%'}
+                        onPress={onSubmit}
+                    />
                 </View>
             </SingleScreenLayout>
         </View>
@@ -110,20 +169,29 @@ const styles = StyleSheet.create({
         paddingHorizontal: scaleWidth(15),
         position: 'relative',
     },
-    flatList: {
-        flex: 1,
-    },
-    buttonConfirm: {
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
+    inputPhone: {
+        width: scaleWidth(250),
+        height: scaleWidth(42),
+        borderWidth: 1,
+        borderColor: '#dddddd',
+        flexDirection: 'row',
         borderRadius: 5,
-        backgroundColor: '#0764B0',
-        paddingVertical: scaleHeight(12)
+        borderTopLeftRadius: 0,
+        borderBottomLeftRadius: 0,
+        paddingHorizontal: scaleWidth(10),
+        alignItems: 'center'
     },
-    textConfirm: {
-        fontSize: scaleFont(18),
-        color: "white",
-        fontFamily: fonts.MEDIUM
+    styleDropDown: {
+        backgroundColor: "#fafafa",
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 0,
+        borderRightWidth: 0,
+    },
+    row: {
+        flexDirection: 'row'
+    },
+    bottom: {
+        padding: scaleWidth(16),
+        width: scaleWidth(375),
     }
 });

@@ -27,16 +27,18 @@ export const Button = ({
         { height: height, width: width },
         highlight && { backgroundColor: colors.ocean_blue },
       ]}
-      disabled={disabled}>
-      {isLoading ? (
-        <ActivityIndicator size={'small'} color="white" />
-      ) : (
-        <Text
-          fontFamily="medium"
-          style={[styles.text, highlight && { color: colors.white }]}>
-          {label ?? t('Continue')}
-        </Text>
-      )}
+      disabled={disabled}
+    >
+      {
+        isLoading ? (
+          <ActivityIndicator size={'small'} color="white" />
+        ) : (
+            <Text
+              fontFamily="medium"
+              style={[styles.text, highlight && { color: colors.white }]}>
+              {label ?? t('Continue')}
+            </Text>
+          )}
     </Pressable>
   );
 };

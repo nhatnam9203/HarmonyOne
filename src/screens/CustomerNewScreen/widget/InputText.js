@@ -8,13 +8,12 @@ import { IconButton } from "@shared/components";
 const InputText = React.forwardRef(({
     placeholder = '',
     style,
-    label = '',
-    isRequired = false,
     multiline = false,
     inputStyle
 }, ref) => {
 
     const [value, setValue] = React.useState("");
+    const [isFocus, setFocus] = React.useState(false);
 
     React.useImperativeHandle(ref, () => ({
         getValue: () => value,
@@ -22,22 +21,17 @@ const InputText = React.forwardRef(({
     }));
 
     return (
-        <View style={styles.containerInput}>
-
-            <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.label}>
-                    {label}
-                </Text>
-                {isRequired && <Text style={styles.required}>*</Text>}
-            </View>
-
-            <View style={[styles.wrapInput, style]}>
+        <View style={[styles.containerInput]}>
+            <View style={[styles.wrapInput, style,{ borderColor : isFocus ? colors.ocean_blue : '#cccccc' }]}>
                 <TextInput
                     onChangeText={(vl) => setValue(vl)}
                     placeholder={placeholder}
                     value={value}
                     style={[styles.input, inputStyle]}
                     multiline={multiline}
+                    textAlignVertical="top"
+                    onFocus={() => setFocus(true)}
+                    onBlur={() => setFocus(false)}
                 />
                 {
                     value.length > 0 &&
@@ -56,29 +50,27 @@ const InputText = React.forwardRef(({
 
 const styles = StyleSheet.create({
     containerInput: {
-        marginBottom: scaleHeight(15)
     },
     label: {
         fontSize: scaleFont(16),
         color: '#7A98BB',
         marginBottom: scaleHeight(10),
-        fontFamily: fonts.MEDIUM
+        fontFamily: fonts.REGULAR
     },
     wrapInput: {
         width: '100%',
         height: scaleWidth(42),
         borderWidth: 1,
-        borderColor: '#dddddd',
+        borderColor: '#cccccc',
         flexDirection: 'row',
         borderRadius: 5,
         paddingHorizontal: scaleWidth(10),
-        alignItems: 'center'
     },
     input: {
         flex: 1,
         fontSize: scaleFont(16),
         fontFamily: fonts.REGULAR,
-        color : colors.greyish_brown_40
+        color: colors.greyish_brown_40
     },
     iconClose: {
         width: scaleWidth(24),
