@@ -9,43 +9,15 @@ import { slop } from "@shared/utils";
 import SearchInput from "./SearchInput";
 import ItemCustomer from "./ItemCustomer";
 
-const dataCustomerList = [
-    {
-        customerName: "Ozawa Mikami",
-        phone: "123-456-789"
-    },
-    {
-        customerName: "Ozawa Mikami",
-        phone: "123-456-789"
-    },
-    {
-        customerName: "Ozawa Mikami",
-        phone: "123-456-789"
-    },
-    {
-        customerName: "Ozawa Mikami",
-        phone: "123-456-789"
-    },
-    {
-        customerName: "Ozawa Mikami",
-        phone: "123-456-789"
-    },
-    {
-        customerName: "Ozawa Mikami",
-        phone: "123-456-789"
-    },
-    {
-        customerName: "Ozawa Mikami",
-        phone: "123-456-789"
-    },
-
-];
-
 export const Layout = ({
     valueSearch,
+    customerList,
+    isRefresh,
     onChangeSearch,
     close,
     newCustomer,
+    loadMoreCustomerList,
+    onRefreshCustomer,
 }) => {
 
     const [t] = useTranslation();
@@ -69,13 +41,20 @@ export const Layout = ({
                     <SearchInput
                         value={valueSearch}
                         onChangeText={onChangeSearch}
-                        removeText={valueSearch.length > 0 ? onChangeSearch("") : () => { }}
+                        removeText={valueSearch.length > 0 ? () => onChangeSearch("") : () => { }}
                     />
                     <FlatList
                         style={styles.flatList}
-                        data={dataCustomerList}
+                        data={customerList}
                         renderItem={({ item }) => <ItemCustomer item={item} />}
-                        keyExtractor={(item) => Math.random().toString()}
+                        keyExtractor={(item) => item.customerId.toString()}
+                        onEndReached={loadMoreCustomerList}
+                        onEndReachedThreshold={0.1}
+                        refreshing={isRefresh}
+                        onRefresh={onRefreshCustomer}
+                        removeClippedSubviews={true}
+                        initialNumToRender={20}
+                        maxToRenderPerBatch={5}
                         ItemSeparatorComponent={() => <View style={styles.seperateLine} />}
                     />
                     <IconButton
@@ -100,10 +79,10 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        paddingHorizontal: scaleWidth(15),
     },
     flatList: {
         flex: 1,
+        paddingHorizontal: scaleWidth(15),
     },
     iconClose: {
         tintColor: "#333",
@@ -125,6 +104,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: scaleHeight(20),
+        marginHorizontal: scaleWidth(15)
     },
     iconPlus: {
         width: scaleWidth(24),

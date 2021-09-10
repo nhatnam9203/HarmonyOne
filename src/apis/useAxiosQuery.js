@@ -29,7 +29,7 @@ export const useAxiosQuery = ({
       onSuccess: (response) => {
         if (response.data) {
           if (onLoginSuccess && typeof onLoginSuccess === 'function') {
-            onLoginSuccess(response.data);
+            onLoginSuccess(response.data, response);
           }
         } else {
           if (

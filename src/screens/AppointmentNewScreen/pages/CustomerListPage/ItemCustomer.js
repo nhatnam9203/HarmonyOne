@@ -7,16 +7,16 @@ const ItemCustomer = ({ item }) => {
         <TouchableOpacity style={styles.item}>
             <View style={styles.letter}>
                 <Text style={styles.firstLetter}>
-                    {item?.customerName?.toString().charAt(0)}
+                    {item?.firstName?.toString().charAt(0).toUpperCase()}
                 </Text>
             </View>
 
             <View style={styles.rightItem}>
                 <Text style={styles.customerName}>
-                    {item?.customerName}
+                    {`${item?.firstName} ${item?.lastName}`}
                 </Text>
                 <Text style={styles.phone}>
-                    {item?.phone}
+                    {`${item?.phone}`}
                 </Text>
             </View>
         </TouchableOpacity>

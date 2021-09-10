@@ -70,3 +70,15 @@ export const updateAppointmentStatusRequest = (appointmentId) => ({
     method: 'PUT',
   },
 });
+
+
+/**
+ * CUSTOMER
+ */
+export const getListCustomer = (key = '', page = 1) => ({
+  queryId: 'getListCustomer',
+  params: {
+    url: `customer/search?key=${key}&page=${page}`,
+    method: 'GET',
+  },
+});

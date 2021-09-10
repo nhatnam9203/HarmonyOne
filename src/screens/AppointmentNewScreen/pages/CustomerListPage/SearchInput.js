@@ -31,7 +31,7 @@ export default SearchInput;
 
 const styles = StyleSheet.create({
     wrapInput: {
-        width: '100%',
+        width: scaleWidth(345),
         borderWidth: 2,
         borderColor: '#eeeeee',
         borderRadius: 5,
@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: scaleWidth(10),
-        marginBottom: scaleHeight(16)
+        marginBottom: scaleHeight(16),
+        marginHorizontal : scaleWidth(15)
     },
     input: {
         flex: 1,

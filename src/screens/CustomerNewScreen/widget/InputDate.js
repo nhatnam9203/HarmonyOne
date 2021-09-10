@@ -4,23 +4,41 @@ import { fonts, colors } from '@shared/themes';
 import { slop } from "@shared/utils";
 import { images } from "@shared/themes/resources";
 import { IconButton } from "@shared/components";
+import moment from "moment";
+import DatePicker from 'react-native-date-picker'
 
 const InputDate = React.forwardRef(({
     style,
 }, ref) => {
-    
-    const actionSheetRef = React.useRef();
-    
+
+    const [date, setDate] = React.useState(new Date())
+    const [open, setOpen] = React.useState(false)
+
     return (
         <View style={[styles.containerInput]}>
-            <TouchableOpacity style={[styles.wrapInput, style]}>
-                <Text style={styles.txtDate}>20/9/1992</Text>
+            <TouchableOpacity onPress={()=>setOpen(true)} style={[styles.wrapInput, style]}>
+                <Text style={styles.txtDate}>{moment(date).format("MM/DD/YYYY")}</Text>
                 <Image
                     source={images.iconCalendar}
                     style={styles.icon}
                     resizeMode='contain'
                 />
             </TouchableOpacity>
+
+            <DatePicker
+                modal
+                open={open}
+                date={date}
+                mode="date"
+                onConfirm={(date) => {
+                    setOpen(false)
+                    setDate(date)
+                }}
+                onCancel={() => {
+                    setOpen(false)
+                }}
+            />
+
         </View>
     )
 });
@@ -44,8 +62,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderRadius: 5,
         paddingHorizontal: scaleWidth(10),
-        alignItems : 'center',
-        justifyContent : 'space-between'
+        alignItems: 'center',
+        justifyContent: 'space-between'
     },
     input: {
         flex: 1,

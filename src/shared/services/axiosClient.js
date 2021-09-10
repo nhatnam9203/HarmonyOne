@@ -29,6 +29,7 @@ axios.interceptors.request.use(
         authorization: `Bearer ${token}`,
       });
     }
+    console.log({ config })
     return config;
   },
   (error) => Promise.reject(error),
