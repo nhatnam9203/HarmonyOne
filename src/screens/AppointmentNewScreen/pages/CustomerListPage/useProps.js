@@ -13,7 +13,7 @@ export const useProps = (props) => {
 
     const navigation = useNavigation();
 
-    const [, refetch] = useAxiosQuery({
+    const [{ isLoading }, refetch] = useAxiosQuery({
         ...getListCustomer(valueSearch, currentPage),
         isLoadingDefault : (!isRefresh && currentPage === 1) || currentPage < 2,
         onLoginSuccess: (data, response) => {
@@ -44,6 +44,8 @@ export const useProps = (props) => {
         valueSearch,
         customerList,
         isRefresh,
+        isLoading,
+        currentPage,
 
         onChangeSearch: (value) => {
             setValueSearch(value);

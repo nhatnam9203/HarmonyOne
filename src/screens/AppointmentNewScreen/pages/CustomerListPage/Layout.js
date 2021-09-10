@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image, FlatList } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image, FlatList, ActivityIndicator } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton } from "@shared/components";
@@ -13,6 +13,8 @@ export const Layout = ({
     valueSearch,
     customerList,
     isRefresh,
+    isLoading,
+    currentPage,
     onChangeSearch,
     close,
     newCustomer,
@@ -56,6 +58,16 @@ export const Layout = ({
                         initialNumToRender={20}
                         maxToRenderPerBatch={5}
                         ItemSeparatorComponent={() => <View style={styles.seperateLine} />}
+                        ListFooterComponent={() =>
+                            <View style={styles.itemLoadMore}>
+                                {
+                                    (isLoading && currentPage > 1) ?
+                                        <ActivityIndicator
+                                            size="small"
+                                            color="#0764B0"
+                                        /> : null
+                                }
+                            </View>}
                     />
                     <IconButton
                         icon={images.buttonPlus}
@@ -115,5 +127,11 @@ const styles = StyleSheet.create({
         color: '#1366AE',
         marginLeft: scaleWidth(15),
         fontFamily: fonts.MEDIUM
+    },
+    itemLoadMore: {
+        height: scaleWidth(30),
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: scaleHeight(10)
     }
 });
