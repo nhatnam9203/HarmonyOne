@@ -7,7 +7,7 @@ import NavigationService from '@navigation/NavigationService';
 export const AddService = () => {
 
     const addService = () => {
-
+        NavigationService.navigate("Services");
     }
 
     return (

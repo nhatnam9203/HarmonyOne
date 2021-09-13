@@ -1,6 +1,8 @@
 import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
-import { fonts } from "@shared/themes";
+import { fonts, images } from "@shared/themes";
+import { IconButton } from "@shared/components";
+import { slop } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 
 const CustomerInfo = ({ item }) => {
@@ -17,13 +19,20 @@ const CustomerInfo = ({ item }) => {
                 </Text>
             </View>
 
-            <View style={styles.rightItem}>
-                <Text style={styles.customerName}>
-                    {`Nam Nhat`}
-                </Text>
-                <Text style={styles.phone}>
-                    {`0123-456-789`}
-                </Text>
+            <View style={styles.containerRight}>
+                <View style={styles.rightItem}>
+                    <Text style={styles.customerName}>
+                        {`Nam Nhat`}
+                    </Text>
+                    <Text style={styles.phone}>
+                        {`0123-456-789`}
+                    </Text>
+                </View>
+                <IconButton
+                    icon={images.arrowRight}
+                    iconStyle={styles.iconRight}
+                    slop={slop(36)}
+                />
             </View>
         </View>
     )
@@ -66,6 +75,15 @@ const styles = StyleSheet.create({
         fontSize: scaleWidth(14),
         fontFamily: fonts.REGULAR
     },
+    iconRight : {
+        width: scaleWidth(15), 
+        height: scaleWidth(15)
+    },
+    containerRight : {
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        width: scaleWidth(375 - 45 - 28)
+    }
 })
 
 export default CustomerInfo;

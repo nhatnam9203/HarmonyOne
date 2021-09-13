@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { images } from "@shared/themes/resources";
-import { slop } from "@shared/utils";
 
 export const IconButton = ({
     icon = images.iconClose,
@@ -9,12 +8,13 @@ export const IconButton = ({
     style,
     iconStyle,
     renderText = null,
+    slop = { top: 20, left: 20, right: 20, bottom: 20 }
 }) => {
     return (
         <TouchableOpacity
             onPress={onPress}
             style={[styles.button, style]}
-            hitSlop={slop(20)}
+            hitSlop={slop}
         >
             <Image
                 source={icon}

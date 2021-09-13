@@ -1,5 +1,7 @@
 export const images = {
   logo: require('@src/assets/images/logo.png'),
+  serviceDefault: require('@src/assets/images/serviceDefault.png'),
+  productDefault: require('@src/assets/images/productDefault.png'),
   iconSignIn: require('@src/assets/images/icon_signin.png'),
   iconTabAppointment: require('@src/assets/images/icon_tab_appointment.png'),
   iconTabReports: require('@src/assets/images/icon_tab_reports.png'),
@@ -21,11 +23,13 @@ export const images = {
   iconAdd: require('@src/assets/home/add_icon.png'),
   iconCalendar: require('@src/assets/images/iconCalendar.png'),
   iconClock: require('@src/assets/images/iconClock.png'),
+  iconPlus: require('@src/assets/images/iconPlus.png'),
 
   EmptyList: require('@src/assets/images/emptyList.png'),
   barTimeLine: require('@src/assets/images/barTimeLine.png'),
   dropdown : require('@src/assets/images/dropdown.png'),
   buttonPlus : require('@src/assets/home/button_plus.png'),
+  arrowRight: require('@src/assets/images/arrowRight.png'),
 };
 
 export const svg = {

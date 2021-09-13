@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet , ScrollView } from 'react-native';
 import { colors } from "@shared/themes";
-import { CustomerInfo, AddService } from "../widget";
+import { CustomerInfo, AddService , ServiceList, ButtonConfirm , Total, FromTime } from "../widget";
 import HeaderBooking from "../HeaderBooking";
 
 export const Layout = ({
@@ -13,14 +13,22 @@ export const Layout = ({
         step={1}
         title={'Select Services'}
       />
-      <View style={styles.content}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
         <CustomerInfo ref={customerInfoRef} />
         <View style={styles.line} />
+        <FromTime />
+      <View style={styles.line} />
 
+        <ServiceList />
+{/* 
         <AddService />
-        <View style={styles.line} />
+        <View style={styles.line} /> */}
+        <Total />
+        <View style={{ height : scaleHeight(150) }} />
 
-      </View>
+      </ScrollView>
+      <ButtonConfirm />
+
     </View>
   );
 };
@@ -28,6 +36,7 @@ export const Layout = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: 'relative',
   },
   content: {
     flex: 1,
