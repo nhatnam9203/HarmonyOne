@@ -1,31 +1,31 @@
 import React from 'react'
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet } from 'react-native'
 import { fonts } from "@shared/themes";
 import NavigationService from '@navigation/NavigationService';
 
-const ItemCustomer = ({ item }) => {
+const CustomerInfo = ({ item }) => {
 
-    const selectItem = () => {
-        NavigationService.navigate(screenNames.BookingPage);
+    const selectCustomer = () => {
+        NavigationService.navigate(screenNames.CustomerListPage);
     }
 
     return (
-        <TouchableOpacity onPress={selectItem} style={styles.item}>
+        <View style={styles.item}>
             <View style={styles.letter}>
                 <Text style={styles.firstLetter}>
-                    {item?.firstName?.toString().charAt(0).toUpperCase()}
+                    {"Nam".toString().charAt(0).toUpperCase()}
                 </Text>
             </View>
 
             <View style={styles.rightItem}>
                 <Text style={styles.customerName}>
-                    {`${item?.firstName} ${item?.lastName}`}
+                    {`Nam Nhat`}
                 </Text>
                 <Text style={styles.phone}>
-                    {`${item?.phone}`}
+                    {`0123-456-789`}
                 </Text>
             </View>
-        </TouchableOpacity>
+        </View>
     )
 }
 
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     item: {
         width: '100%',
         flexDirection: 'row',
-        marginVertical: scaleHeight(10),
+        marginTop: scaleHeight(10),
         marginHorizontal: scaleWidth(15)
     },
     rightItem: {
@@ -45,13 +45,13 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        width: scaleWidth(60),
-        height: scaleWidth(60),
+        width: scaleWidth(45),
+        height: scaleWidth(45),
         borderRadius: 500,
         backgroundColor: '#FAFAFA'
     },
     firstLetter: {
-        fontSize: scaleWidth(30),
+        fontSize: scaleFont(22),
         fontWeight: "bold",
         color: "#1366AE",
         fontFamily: fonts.MEDIUM
@@ -63,9 +63,9 @@ const styles = StyleSheet.create({
     },
     phone: {
         color: '#7A98BB',
-        fontSize: scaleWidth(16),
-        fontFamily: fonts.MEDIUM
+        fontSize: scaleWidth(14),
+        fontFamily: fonts.REGULAR
     },
 })
 
-export default ItemCustomer;
+export default CustomerInfo;

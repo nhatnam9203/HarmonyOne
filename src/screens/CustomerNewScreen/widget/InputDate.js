@@ -12,7 +12,12 @@ const InputDate = React.forwardRef(({
 }, ref) => {
 
     const [date, setDate] = React.useState(new Date())
-    const [open, setOpen] = React.useState(false)
+    const [open, setOpen] = React.useState(false);
+
+    React.useImperativeHandle(ref, () => ({
+        getValue: () => date,
+        changeValue: (vl) => setDate(vl),
+    }));
 
     return (
         <View style={[styles.containerInput]}>
@@ -55,12 +60,12 @@ const styles = StyleSheet.create({
         fontFamily: fonts.REGULAR
     },
     wrapInput: {
-        width: '50%',
+        width: scaleWidth(165),
         height: scaleWidth(42),
         borderWidth: 1,
         borderColor: '#cccccc',
         flexDirection: 'row',
-        borderRadius: 5,
+        borderRadius: 3,
         paddingHorizontal: scaleWidth(10),
         alignItems: 'center',
         justifyContent: 'space-between'
@@ -76,9 +81,9 @@ const styles = StyleSheet.create({
         height: scaleWidth(24),
     },
     txtDate: {
-        fontSize: scaleFont(16),
+        fontSize: scaleFont(17),
         fontFamily: fonts.REGULAR,
-        color: colors.greyish_brown_40
+        color: colors.black
     }
 });
 

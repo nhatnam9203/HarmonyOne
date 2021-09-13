@@ -78,7 +78,15 @@ export const updateAppointmentStatusRequest = (appointmentId) => ({
 export const getListCustomer = (key = '', page = 1) => ({
   queryId: 'getListCustomer',
   params: {
-    url: `customer/search?key=${key}&page=${page}`,
+    url: `/customer/search?key=${key}&page=${page}`,
     method: 'GET',
+  },
+});
+
+export const addNewCustomer = (data) => ({
+  params: {
+    url: '/customer',
+    method: 'POST',
+    data,
   },
 });

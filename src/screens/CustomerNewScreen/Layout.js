@@ -8,14 +8,14 @@ import { fonts } from '@shared/themes';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const headerPhoneGroup = [
-    { label: "+1", value: 1 },
-    { label: "+84", value: 84 },
+    { label: "+1", value: "+1" },
+    { label: "+84", value: "+84" },
 ];
 
 const genders = [
-    { label: "Male", value: "male" },
-    { label: "Female", value: "female" },
-    { label: "Other", value: "other" },
+    { label: "Male", value: "Male" },
+    { label: "Female", value: "Female" },
+    { label: "Other", value: "Other" },
 ];
 
 const customerGroup = [
@@ -24,19 +24,14 @@ const customerGroup = [
 ];
 
 export const Layout = ({
-    inputFirstNameRef,
-    inputLastNameRef,
-    inputPhoneRef,
-    inputEmailRef,
-    inputAddressRef,
-    inputReferrerPhoneRef,
-    inputNoteRef,
-    inputCustomerGroupRef,
-    inputGenderRef,
-    inputReferrerPhoneHeadRef,
-    inputPhoneHeadRef,
     inputDateRef,
     onSubmit,
+    form,
+    errors,
+    inputCustomerGroupRef,
+    inputGenderRef,
+    inputPhoneHeadRef,
+    inputReferrerPhoneHeadRef,
 }) => {
 
     const [t] = useTranslation();
@@ -52,15 +47,32 @@ export const Layout = ({
                     <Input
                         label='First name'
                         isRequired
-                        renderInput={() => <InputText ref={inputFirstNameRef} />}
+                        error={errors?.firstName}
+                        renderInput={() =>
+                            <InputText
+                                form={form}
+                                name="firstName"
+                                placeholder="First name"
+                                error={errors?.firstName}
+                            />}
                     />
                     <Input
                         label='Last name'
                         isRequired
-                        renderInput={() => <InputText ref={inputLastNameRef} />}
+                        error={errors?.lastName}
+                        renderInput={() =>
+                            <InputText
+                                form={form}
+                                name="lastName"
+                                placeholder="Last name"
+                                error={errors?.lastName}
+                            />}
                     />
                     <Input
                         label='Phone number'
+                        name="phone"
+                        isRequired
+                        error={errors?.phone}
                         renderInput={() =>
                             <View style={styles.row}>
                                 <DropdownMenu
@@ -73,8 +85,13 @@ export const Layout = ({
                                     styleDropDown={styles.styleDropDown}
                                 />
                                 <InputText
-                                    ref={inputPhoneRef}
                                     style={styles.inputPhone}
+                                    options={{ mask: "999-999-9999" }}
+                                    keyboardType='numeric'
+                                    form={form}
+                                    name="phone"
+                                    placeholder="012-3456-789"
+                                    error={errors?.phone}
                                 />
                             </View>
                         }
@@ -94,7 +111,15 @@ export const Layout = ({
                     />
                     <Input
                         label='Contact email'
-                        renderInput={() => <InputText ref={inputEmailRef} />}
+                        error={errors?.email}
+                        renderInput={() =>
+                            <InputText
+                                form={form}
+                                name="email"
+                                placeholder="Email address"
+                                error={errors?.email}
+                            />
+                        }
                     />
                     <Input
                         label='Gender'
@@ -115,7 +140,51 @@ export const Layout = ({
                     />
                     <Input
                         label='Address'
-                        renderInput={() => <InputText ref={inputAddressRef} />}
+                        renderInput={() =>
+                            <View>
+                                <InputText
+                                    form={form}
+                                    name="street"
+                                    placeholder="Street"
+                                />
+                                <View style={{ flexDirection: "row", justifyContent: 'space-between', marginVertical: scaleHeight(15) }}>
+                                    <InputText
+                                        form={form}
+                                        name="city"
+                                        placeholder="City"
+                                        style={{ width: scaleWidth(165) }}
+                                    />
+                                    <InputText
+                                        form={form}
+                                        name="zip"
+                                        placeholder="Zip"
+                                        options={{
+                                            mask: "99999999999"
+                                        }}
+                                        keyboardType='numeric'
+                                        style={{ width: scaleWidth(165) }}
+                                    />
+                                </View>
+                                <View>
+                                    <InputText
+                                        form={form}
+                                        name="state"
+                                        placeholder="State"
+                                        style={{ width: scaleWidth(165) }}
+                                    />
+                                </View>
+                            </View>
+                        }
+                    />
+                    <Input
+                        label='Referrer by'
+                        renderInput={() =>
+                            <InputText
+                                form={form}
+                                name="referrerBy"
+                                placeholder="Referrer by"
+                            />
+                        }
                     />
                     <Input
                         label='Referrer phone number'
@@ -131,25 +200,32 @@ export const Layout = ({
                                     styleDropDown={styles.styleDropDown}
                                 />
                                 <InputText
-                                    ref={inputReferrerPhoneRef}
                                     style={styles.inputPhone}
+                                    options={{ mask: "999-999-9999" }}
+                                    form={form}
+                                    name="referrerPhone"
+                                    keyboardType='numeric'
+                                    placeholder="012-3456-789"
                                 />
                             </View>
                         }
                     />
                     <Input
                         label='Customer note'
-                        multiline={true}
-                        renderInput={() => <InputText ref={inputNoteRef} style={{ height: scaleHeight(69) }} />}
+                        renderInput={() =>
+                            <InputText
+                                style={{ height: scaleHeight(69) }}
+                                form={form}
+                                multiline={true}
+                                name="note" />}
                     />
                 </KeyboardAwareScrollView>
                 <View style={styles.bottom}>
                     <Button
                         label="Save"
-                        onPress={() => { }}
+                        onPress={form.handleSubmit(onSubmit)}
                         highlight={true}
                         width={'100%'}
-                        onPress={onSubmit}
                     />
                 </View>
             </SingleScreenLayout>

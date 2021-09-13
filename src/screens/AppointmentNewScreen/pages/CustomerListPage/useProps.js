@@ -1,43 +1,50 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { useAxiosQuery, getListCustomer } from '@src/apis';
+import { useDispatch } from "react-redux";
+import { useScrollToTop } from '@react-navigation/native';
 import NavigationService from '@navigation/NavigationService';
 
 export const useProps = (props) => {
+
+    const dispatch = useDispatch();
 
     const [valueSearch, setValueSearch] = React.useState("");
     const [customerList, setCustomerList] = React.useState([]);
     const [currentPage, setCurrentPage] = React.useState(1);
     const [totalPage, setTotalPage] = React.useState(1);
     const [isRefresh, setRefresh] = React.useState(false);
+    const [isLoadingDefault, setLoadingDefault] = React.useState(true);
 
     const navigation = useNavigation();
 
     const [{ isLoading }, refetch] = useAxiosQuery({
         ...getListCustomer(valueSearch, currentPage),
-        isLoadingDefault : (!isRefresh && currentPage === 1) || currentPage < 2,
+        isLoadingDefault,
+        enabled: true,
         onLoginSuccess: (data, response) => {
             if (currentPage === 1) {
                 setCustomerList(data);
             } else {
                 setCustomerList(customerList.concat(data));
             }
+            setLoadingDefault(false);
             setTotalPage(response.pages);
         },
     });
 
-    React.useEffect(async () => {
-        await refetch();
-        if (isRefresh) {
-            setRefresh(false);
-        }
-    }, [currentPage]);
+    const refreshFromScreen = () => {
+        setLoadingDefault(true);
+        setRefresh(true);
+        setCurrentPage(1);
+        setValueSearch("");
+    }
 
     React.useEffect(async () => {
-        if (isRefresh && currentPage === 1) {
+        if (isRefresh) {
             await refetch();
-            setRefresh(false);
         }
+        setRefresh(false);
     }, [isRefresh, currentPage]);
 
     return {
@@ -49,6 +56,7 @@ export const useProps = (props) => {
 
         onChangeSearch: (value) => {
             setValueSearch(value);
+            setCurrentPage(1);
         },
 
         close: () => {
@@ -56,7 +64,9 @@ export const useProps = (props) => {
         },
 
         newCustomer: () => {
-            navigation.navigate(screenNames.CustomerNewScreen);
+            navigation.push(screenNames.CustomerNewScreen, {
+                refreshFromScreen
+            });
         },
 
         loadMoreCustomerList: () => {
@@ -68,6 +78,6 @@ export const useProps = (props) => {
         onRefreshCustomer: () => {
             setRefresh(true);
             setCurrentPage(1);
-        },
+        }
     }
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View , Platform } from 'react-native';
 import Spinner from 'react-native-spinkit';
 
 const LOADING_TIME_OUT = 15000;
@@ -47,7 +47,7 @@ export const AppLoading = ({
         {/* <ActivityIndicator color="#fff" size="large" /> */}
         <Spinner
           style={styles.spinner}
-          type={'FadingCircle'}
+          type={Platform.OS === 'ios' ? 'FadingCircle' : 'FadingCircleAlt'}
           size={scaleWidth(40)}
           color="#fff"
         />

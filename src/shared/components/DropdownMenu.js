@@ -40,6 +40,7 @@ export const DropdownMenu = React.forwardRef(
         setItem(options[index]);
         modalRef.current?.select(index);
       },
+      getValue : () => item,
     }));
 
     React.useEffect(() => {

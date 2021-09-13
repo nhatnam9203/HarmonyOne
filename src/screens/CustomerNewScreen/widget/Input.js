@@ -7,17 +7,23 @@ const Input = React.forwardRef(({
     label = '',
     isRequired = false,
     renderInput = null,
+    error = null,
 }, ref) => {
 
     return (
         <View style={styles.containerInput}>
-            <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.label}>
-                    {label}
-                </Text>
-                {isRequired && <Text style={styles.required}>*</Text>}
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <View style={{ flexDirection: 'row' }}>
+                    <Text style={styles.label}>
+                        {label}
+                    </Text>
+                    {isRequired && <Text style={styles.required}>*</Text>}
+                </View>
+                {
+                    error && error?.message && <Text style={styles.errorMessage}>{error?.message}</Text>
+                }
             </View>
-            { renderInput && renderInput() }
+            { renderInput && renderInput()}
         </View>
     )
 });
@@ -29,7 +35,7 @@ const styles = StyleSheet.create({
         marginBottom: scaleHeight(20)
     },
     label: {
-        fontSize: scaleFont(16),
+        fontSize: scaleFont(17),
         color: '#7A98BB',
         marginBottom: scaleHeight(10),
         fontFamily: fonts.REGULAR
@@ -38,6 +44,12 @@ const styles = StyleSheet.create({
         color: "red",
         marginLeft: scaleWidth(8),
         fontSize: scaleFont(18)
+    },
+    errorMessage: {
+        fontSize: scaleFont(14),
+        color: "red",
+        marginBottom: scaleHeight(10),
+        fontFamily: fonts.REGULAR
     }
 });
 

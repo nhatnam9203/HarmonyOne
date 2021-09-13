@@ -1,44 +1,59 @@
 import React from 'react'
-import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { fonts, colors } from '@shared/themes';
 import { slop } from "@shared/utils";
 import { images } from "@shared/themes/resources";
 import { IconButton } from "@shared/components";
+import { TextInputMask } from "react-native-masked-text"
+import { useController } from "react-hook-form";
 
 const InputText = React.forwardRef(({
     placeholder = '',
     style,
+    inputStyle,
     multiline = false,
-    inputStyle
+    type = "custom",
+    options = {
+        mask: "**************************************************"
+    },
+    name,
+    form,
+    error,
+    keyboardType='default'
 }, ref) => {
 
-    const [value, setValue] = React.useState("");
     const [isFocus, setFocus] = React.useState(false);
 
-    React.useImperativeHandle(ref, () => ({
-        getValue: () => value,
-        changeValue: (vl) => setValue(vl),
-    }));
+    const { field } = useController({
+        control: form.control,
+        defaultValue: "",
+        name,
+    })
 
     return (
         <View style={[styles.containerInput]}>
-            <View style={[styles.wrapInput, style,{ borderColor : isFocus ? colors.ocean_blue : '#cccccc' }]}>
-                <TextInput
-                    onChangeText={(vl) => setValue(vl)}
+            <View style={[styles.wrapInput, style, {
+                borderColor: isFocus ? colors.ocean_blue : error ? "red" : '#cccccc'
+            }]}>
+                <TextInputMask
+                    type={type}
+                    options={options}
+                    onChangeText={field.onChange}
                     placeholder={placeholder}
-                    value={value}
+                    value={field.value}
                     style={[styles.input, inputStyle]}
                     multiline={multiline}
                     textAlignVertical="top"
+                    keyboardType={keyboardType}
                     onFocus={() => setFocus(true)}
                     onBlur={() => setFocus(false)}
                 />
                 {
-                    value.length > 0 &&
+                    field.value.length > 0 &&
                     <IconButton
                         icon={images.iconClose}
                         iconStyle={styles.iconClose}
-                        onPress={() => setValue('')}
+                        onPress={() => field.onChange('')}
                     />
                 }
             </View>
@@ -63,14 +78,14 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#cccccc',
         flexDirection: 'row',
-        borderRadius: 5,
+        borderRadius: 3,
         paddingHorizontal: scaleWidth(10),
     },
     input: {
         flex: 1,
-        fontSize: scaleFont(16),
+        fontSize: scaleFont(17),
         fontFamily: fonts.REGULAR,
-        color: colors.greyish_brown_40
+        color: colors.black,
     },
     iconClose: {
         width: scaleWidth(24),

@@ -12,6 +12,11 @@ const ScreenNames = {
   AppointmentDetailScreen: 'hpo.appointment.detail',
   AppointmentNewScreen: 'hpo.appointment.new',
   CustomerListPage: 'hpo.appointment.new.customerList',
+  BookingPage: 'hpo.appointment.new.booking',
+  SelectDatePage: 'hpo.appointment.new.booking.selectDate',
+  SelectServicepPage: 'hpo.appointment.new.booking.selectService',
+  ReviewPage: 'hpo.appointment.new.booking.review',
+
 };
 
 module.exports = { ScreenNames };

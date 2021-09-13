@@ -5,12 +5,16 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 
+let cancelToken;
+
 export const useAxiosQuery = ({
   params,
   queryId,
   onLoginSuccess,
   onLoginError,
   isLoadingDefault = true,
+  enabled = false,
+  isCancelToken = false,
 }) => {
   const dispatch = useDispatch();
 
@@ -21,12 +25,13 @@ export const useAxiosQuery = ({
   };
 
   const { refetch, status, isError, isFetching, data } = useQuery(
-    queryId,
-    requestGet,
+    [queryId, params],
+    (body) => requestGet(body),
     {
-      enabled: false,
+      enabled,
       retry: false,
       onSuccess: (response) => {
+        dispatch(app?.hideLoading());
         if (response.data) {
           if (onLoginSuccess && typeof onLoginSuccess === 'function') {
             onLoginSuccess(response.data, response);
@@ -42,7 +47,7 @@ export const useAxiosQuery = ({
         }
       },
       onError: (err) => {
-        console.log(err);
+        dispatch(app?.hideLoading());
         if (
           err?.message &&
           onLoginError &&
@@ -58,15 +63,14 @@ export const useAxiosQuery = ({
     if (!isLoadingDefault) {
       return;
     }
-
     if (isFetching) {
       // show app loading here
-      dispatch(app.showLoading());
+      dispatch(app?.showLoading());
     }
 
     if (!isFetching) {
       // hide app loading here
-      dispatch(app.hideLoading());
+      dispatch(app?.hideLoading());
     }
   }, [data, dispatch, isLoadingDefault, isError, isFetching]);
 

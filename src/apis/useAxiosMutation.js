@@ -12,20 +12,20 @@ export const useAxiosMutation = ({
 }) => {
   const dispatch = useDispatch();
 
-  const postRequest = async () => {
-    const response = await axios(params);
+  const postRequest = async (body = null) => {
+    const response = body ? await axios(body) : await axios(params);
     return response?.data;
   };
 
-  const { mutate, isLoading, isError, data } = useMutation(
-    postRequest,
+  const { mutate, isLoading, isError, data } = useMutation((body) => postRequest(body),
     {
       onSuccess: (response) => {
+        dispatch(app.hideLoading());
         if (response.data) {
           //   dispatch(actions.auth.loginStaff(response.data));
 
           if (onLoginSuccess && typeof onLoginSuccess === 'function') {
-            onLoginSuccess(response?.data);
+            onLoginSuccess(response?.data, response);
           }
         } else {
           if (
@@ -38,6 +38,7 @@ export const useAxiosMutation = ({
         }
       },
       onError: (err) => {
+        dispatch(app.hideLoading());
         console.log(err);
         if (
           err?.message &&
@@ -60,7 +61,7 @@ export const useAxiosMutation = ({
       dispatch(app.showLoading());
     }
 
-    if (!isLoading && (data || isError)) {
+    if (!isLoading) {
       // hide app loading here
       dispatch(app.hideLoading());
     }

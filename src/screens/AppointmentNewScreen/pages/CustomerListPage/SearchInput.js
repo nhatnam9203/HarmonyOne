@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, TextInput } from 'react-native';
+import { View, StyleSheet, TextInput , Platform } from 'react-native';
 import { images } from "@shared/themes/resources";
 import { IconButton } from "@shared/components";
 
@@ -32,19 +32,20 @@ export default SearchInput;
 const styles = StyleSheet.create({
     wrapInput: {
         width: scaleWidth(345),
-        borderWidth: 2,
-        borderColor: '#eeeeee',
+        borderWidth: 1,
+        borderColor: '#dddddd',
         borderRadius: 5,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: scaleWidth(10),
+        paddingHorizontal : scaleWidth(10),
+        paddingVertical : Platform.OS === "android" ? 0 : scaleHeight(10),
         marginBottom: scaleHeight(16),
         marginHorizontal : scaleWidth(15)
     },
     input: {
         flex: 1,
-        fontSize: scaleFont(16)
+        fontSize: scaleFont(17)
     },
     iconClose: {
         width: scaleWidth(22),

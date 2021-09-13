@@ -1,7 +1,7 @@
 import { colors, fonts, layouts, images } from '@shared/themes';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import NavigationService from '@navigation/NavigationService';
@@ -95,13 +95,14 @@ const styles = StyleSheet.create({
     width: '100%',
     height: scaleHeight(100),
     backgroundColor: colors.white,
-    shadowColor: '#0000000c',
+    shadowColor: '#383434',
     shadowOffset: {
       width: 0,
       height: 3,
     },
     shadowRadius: 5,
-    shadowOpacity: 1,
+    shadowOpacity: 0.2,
+    elevation: 5,
     paddingTop: scaleHeight(20),
     paddingBottom: scaleHeight(4),
     flexDirection: 'row',
@@ -111,8 +112,6 @@ const styles = StyleSheet.create({
   headTitle: {
     fontFamily: fonts.MEDIUM,
     fontSize: scaleFont(20),
-    fontWeight: '500',
-    fontStyle: 'normal',
     letterSpacing: 0,
     textAlign: 'center',
     color: colors.black,
