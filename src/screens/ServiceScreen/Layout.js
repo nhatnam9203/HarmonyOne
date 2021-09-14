@@ -2,13 +2,16 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView, SectionList } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { Button, IconButton } from "@shared/components";
+import { Button, IconButton, SearchInput } from "@shared/components";
 import { fonts, colors, images } from '@shared/themes';
+import { slop } from "@shared/utils";
 import { ItemService, GroupButtonAdd } from "./widget";
 import { useSelector } from "react-redux";
 
 export const Layout = ({
+  valueSearch,
   getDataList,
+  onChangeSearch,
 }) => {
 
   const [t] = useTranslation();
@@ -23,6 +26,12 @@ export const Layout = ({
         isScrollLayout={false}
       >
         <View style={styles.content}>
+          <SearchInput
+            placeholder="Search by service name"
+            value={valueSearch}
+            onChangeText={onChangeSearch}
+            removeText={() => onChangeSearch("")}
+          />
           <SectionList
             sections={data}
             keyExtractor={(item, index) => item.serviceId.toString()}
@@ -38,9 +47,11 @@ export const Layout = ({
                     {section?.category?.name}
                   </Text>
 
-                  {/* <TouchableOpacity onPress={openModal} hitSlop={slop}>
-                  <Image source={treedot} style={styles.treedot} resizeMode='contain' />
-                </TouchableOpacity> */}
+                  <IconButton
+                    icon={images.treedot}
+                    iconStyle={styles.treedot}
+                    onPress={() => { }}
+                  />
                 </View>
               )
             }
@@ -76,13 +87,16 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   treedot: {
-    width: scaleWidth(5),
-    height: scaleWidth(5)
+    width: scaleWidth(24),
+    height: scaleWidth(24),
+    color: '#404040',
+    marginTop: scaleHeight(5)
   },
   categoryName: {
     color: "#404040",
     marginVertical: scaleHeight(16),
-    fontFamily: fonts.BOLD,
+    marginTop: scaleHeight(24),
+    fontFamily: fonts.MEDIUM,
     fontSize: scaleFont(20)
   },
 });

@@ -2,12 +2,11 @@ import React from 'react';
 import { View, StyleSheet, Text, FlatList, ActivityIndicator } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { IconButton } from "@shared/components";
+import { IconButton, SearchInput } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { slop } from "@shared/utils";
 import { isEmpty } from "lodash";
-import SearchInput from "./SearchInput";
 import ItemCustomer from "./ItemCustomer";
 
 export const Layout = ({

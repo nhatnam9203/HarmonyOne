@@ -3,7 +3,7 @@ import { View, StyleSheet, TextInput , Platform } from 'react-native';
 import { images } from "@shared/themes/resources";
 import { IconButton } from "@shared/components";
 
-const SearchInput = ({
+export const SearchInput = ({
     placeholder = "",
     value = "",
     onChangeText = () => { },
@@ -27,8 +27,6 @@ const SearchInput = ({
     )
 }
 
-export default SearchInput;
-
 const styles = StyleSheet.create({
     wrapInput: {
         width: scaleWidth(345),
@@ -41,7 +39,7 @@ const styles = StyleSheet.create({
         paddingHorizontal : scaleWidth(10),
         paddingVertical : Platform.OS === "android" ? 0 : scaleHeight(10),
         marginBottom: scaleHeight(16),
-        marginHorizontal : scaleWidth(15)
+        marginHorizontal : scaleWidth(16)
     },
     input: {
         flex: 1,

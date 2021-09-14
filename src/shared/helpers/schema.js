@@ -6,3 +6,7 @@ export const customerSchema = yup.object().shape({
     phone: yup.string().required("required"),
     email: yup.string().email("Invalid email")
 });
+
+export const categorySchema = yup.object().shape({
+    categoryName: yup.string().required("required"),
+});

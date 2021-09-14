@@ -30,6 +30,7 @@ export const images = {
   dropdown : require('@src/assets/images/dropdown.png'),
   buttonPlus : require('@src/assets/home/button_plus.png'),
   arrowRight: require('@src/assets/images/arrowRight.png'),
+  treedot: require('@src/assets/home/treedot.png'),
 };
 
 export const svg = {

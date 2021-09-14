@@ -6,3 +6,6 @@ export * from './CustomImage';
 export * from './CustomModal';
 export * from "./DropdownMenu";
 export * from "./IconButton";
+export * from "./SearchInput";
+export * from "./CustomInput";
+export * from "./InputText";

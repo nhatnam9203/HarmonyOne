@@ -17,6 +17,7 @@ const ScreenNames = {
   SelectServicePage: 'hpo.appointment.new.booking.selectService',
   ReviewPage: 'hpo.appointment.new.booking.review',
   ServiceScreen : 'hpo.service',
+  CategoryNewScreen : 'hpo.category.new',
 };
 
 module.exports = { ScreenNames };

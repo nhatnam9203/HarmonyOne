@@ -28,7 +28,7 @@ const GroupButtonAdd = ({ onPressAdd = () => { } }) => {
     }
 
     const newCategory = () => {
-        NavigationService.navigate('NewCategory');
+        NavigationService.navigate(screenNames.CategoryNewScreen);
     }
 
     const newService = () => {

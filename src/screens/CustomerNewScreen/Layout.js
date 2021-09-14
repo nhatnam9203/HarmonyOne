@@ -2,8 +2,8 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { DropdownMenu, Button } from "@shared/components";
-import { InputText, Input, InputDate } from "./widget";
+import { DropdownMenu, Button, CustomInput, InputText } from "@shared/components";
+import { InputDate } from "./widget";
 import { fonts } from '@shared/themes';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -44,7 +44,7 @@ export const Layout = ({
                 isScrollLayout={false}
             >
                 <KeyboardAwareScrollView style={styles.content}>
-                    <Input
+                    <CustomInput
                         label='First name'
                         isRequired
                         error={errors?.firstName}
@@ -56,7 +56,7 @@ export const Layout = ({
                                 error={errors?.firstName}
                             />}
                     />
-                    <Input
+                    <CustomInput
                         label='Last name'
                         isRequired
                         error={errors?.lastName}
@@ -68,7 +68,7 @@ export const Layout = ({
                                 error={errors?.lastName}
                             />}
                     />
-                    <Input
+                    <CustomInput
                         label='Phone number'
                         name="phone"
                         isRequired
@@ -96,7 +96,7 @@ export const Layout = ({
                             </View>
                         }
                     />
-                    <Input
+                    <CustomInput
                         label='Customer group'
                         renderInput={() =>
                             <DropdownMenu
@@ -109,7 +109,7 @@ export const Layout = ({
                             />
                         }
                     />
-                    <Input
+                    <CustomInput
                         label='Contact email'
                         error={errors?.email}
                         renderInput={() =>
@@ -121,7 +121,7 @@ export const Layout = ({
                             />
                         }
                     />
-                    <Input
+                    <CustomInput
                         label='Gender'
                         renderInput={() =>
                             <DropdownMenu
@@ -134,11 +134,11 @@ export const Layout = ({
                             />
                         }
                     />
-                    <Input
+                    <CustomInput
                         label='Birthday'
                         renderInput={() => <InputDate ref={inputDateRef} />}
                     />
-                    <Input
+                    <CustomInput
                         label='Address'
                         renderInput={() =>
                             <View>
@@ -176,7 +176,7 @@ export const Layout = ({
                             </View>
                         }
                     />
-                    <Input
+                    <CustomInput
                         label='Referrer by'
                         renderInput={() =>
                             <InputText
@@ -186,7 +186,7 @@ export const Layout = ({
                             />
                         }
                     />
-                    <Input
+                    <CustomInput
                         label='Referrer phone number'
                         renderInput={() =>
                             <View style={styles.row}>
@@ -210,7 +210,7 @@ export const Layout = ({
                             </View>
                         }
                     />
-                    <Input
+                    <CustomInput
                         label='Customer note'
                         renderInput={() =>
                             <InputText

@@ -23,6 +23,7 @@ import {
   AppointmentNewScreen,
   CustomerNewScreen,
   ServiceScreen,
+  CategoryNewScreen,
 } from '@screens';
 import BottomMain from './BottomMain';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
@@ -49,6 +50,7 @@ const AppStack = () => {
       />
       <Screen {...CustomerNewScreen} />
       <Screen {...ServiceScreen} />
+      <Screen {...CategoryNewScreen} />
 
       <Screen name="Notification" component={Notification} />
       <Screen name="AppointmentDetail" component={AppointmentDetail} />
