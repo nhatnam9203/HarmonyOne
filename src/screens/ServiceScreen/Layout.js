@@ -12,6 +12,7 @@ export const Layout = ({
   valueSearch,
   getDataList,
   onChangeSearch,
+  newCategory,
 }) => {
 
   const [t] = useTranslation();
@@ -49,7 +50,7 @@ export const Layout = ({
 
                   <IconButton
                     icon={images.treedot}
-                    iconStyle={styles.treedot}
+                    iconStyle={styles.treedot} 
                     onPress={() => { }}
                   />
                 </View>
@@ -59,7 +60,7 @@ export const Layout = ({
             }
           />
 
-          <GroupButtonAdd />
+          <GroupButtonAdd newCategory={newCategory} />
         </View>
       </SingleScreenLayout>
     </View>
@@ -89,7 +90,6 @@ const styles = StyleSheet.create({
   treedot: {
     width: scaleWidth(24),
     height: scaleWidth(24),
-    color: '#404040',
     marginTop: scaleHeight(5)
   },
   categoryName: {

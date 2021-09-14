@@ -67,8 +67,6 @@ export const useProps = (props) => {
                 birthDate: moment(inputDateRef?.current?.getValue()?.value).format("YYYY-MM-DD"),
             }
 
-            console.log({ data });
-
             const body = await addNewCustomer(data);
             mutate(body.params);
         },

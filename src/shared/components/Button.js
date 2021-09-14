@@ -13,7 +13,7 @@ export const Button = ({
   onPress,
   highlight = false,
   isLoading,
-  disabled,
+  disabled = false,
   height = scaleHeight(48),
   width = scaleWidth(100),
   label,
@@ -26,6 +26,7 @@ export const Button = ({
         styles.button,
         { height: height, width: width },
         highlight && { backgroundColor: colors.ocean_blue },
+        disabled && { backgroundColor: "#EEEEEE", borderColor: "#EEEEEE" },
       ]}
       disabled={disabled}
     >
@@ -35,7 +36,11 @@ export const Button = ({
         ) : (
             <Text
               fontFamily="medium"
-              style={[styles.text, highlight && { color: colors.white }]}>
+              style={[
+                styles.text, highlight && { color: colors.white },
+                disabled && { color: "#CCCCCC"},
+              ]}
+            >
               {label ?? t('Continue')}
             </Text>
           )}

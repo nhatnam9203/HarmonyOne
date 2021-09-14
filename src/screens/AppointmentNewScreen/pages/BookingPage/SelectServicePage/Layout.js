@@ -14,7 +14,7 @@ export const Layout = ({
         title={'Select Services'}
       />
       <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
-        <CustomerInfo ref={customerInfoRef} />
+        <CustomerInfo />
         <View style={styles.line} />
 
         <AddService />

@@ -117,10 +117,19 @@ export const getServiceByCategory = () => ({
  * CATEGORY
  */
 export const getCategoryByMerchant = (merchantId) => ({
-  queryId: 'getCategory',
+  queryId: 'getCategoryByMerchant',
   params: {
     url: `/category/getbymerchant/${merchantId}`,
     method: 'GET',
+  },
+});
+
+export const addCategory = (data) => ({
+  queryId: 'getCategory',
+  params: {
+    url: `/category`,
+    method: 'POST',
+    data
   },
 });
 

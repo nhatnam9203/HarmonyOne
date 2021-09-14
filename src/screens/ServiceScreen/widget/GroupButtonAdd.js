@@ -3,7 +3,7 @@ import { View, StyleSheet, Image, TouchableOpacity, Animated, Text } from 'react
 import { images } from "@shared/themes"
 import NavigationService from '@navigation/NavigationService'
 
-const GroupButtonAdd = ({ onPressAdd = () => { } }) => {
+const GroupButtonAdd = ({ onPressAdd = () => { }, newCategory }) => {
 
     const animatedStatus = React.useRef(new Animated.Value(0)).current;
     const ImageAnimated = Animated.createAnimatedComponent(Image);
@@ -25,10 +25,6 @@ const GroupButtonAdd = ({ onPressAdd = () => { } }) => {
 
     const onPressPlus = () => {
 
-    }
-
-    const newCategory = () => {
-        NavigationService.navigate(screenNames.CategoryNewScreen);
     }
 
     const newService = () => {
@@ -59,7 +55,10 @@ const GroupButtonAdd = ({ onPressAdd = () => { } }) => {
         <View style={styles.group}>
 
             <ButtonAnimated
-                onPress={newCategory}
+                onPress={() => {
+                    newCategory();
+                    toggleButtonGroup();
+                }}
                 style={[
                     styles.btnAdd,
                     { transform: [{ translateY }, { scale }] }
@@ -69,7 +68,10 @@ const GroupButtonAdd = ({ onPressAdd = () => { } }) => {
             </ButtonAnimated>
 
             <ButtonAnimated
-                onPress={newService}
+                onPress={() => {
+                    newService();
+                    toggleButtonGroup();
+                }}
                 style={[
                     styles.btnAdd,
                     { transform: [{ translateY: translateY2 }, { scale }] }
@@ -141,6 +143,6 @@ const styles = StyleSheet.create({
     txtAdd: {
         color: 'white',
         fontSize: scaleFont(17),
-        fontFamily : fonts.MEDIUM
+        fontFamily: fonts.MEDIUM
     }
 })
