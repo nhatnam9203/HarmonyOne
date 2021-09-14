@@ -47,6 +47,7 @@ export const useAxiosQuery = ({
         }
       },
       onError: (err) => {
+        console.log({ err })
         dispatch(app?.hideLoading());
         if (
           err?.message &&

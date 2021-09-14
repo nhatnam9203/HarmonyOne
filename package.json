@@ -32,6 +32,7 @@
     "pod:clean": "cd ios && pod deintegrate && rm -rf ~/Library/Caches/CocoaPods && rm -rf Pods && rm -rf ~/Library/Developer/Xcode/DerivedData/* && rm -rf Podfile.lock"
   },
   "dependencies": {
+    "@breeffy/react-native-calendar": "^0.4.1",
     "@hookform/resolvers": "^2.8.0",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.11",

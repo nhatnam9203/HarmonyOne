@@ -90,3 +90,62 @@ export const addNewCustomer = (data) => ({
     data,
   },
 });
+
+
+
+/**
+ * SERVICE
+ */
+export const getService = () => ({
+  queryId: 'getService',
+  params: {
+    url: `/service`,
+    method: 'GET',
+  },
+});
+
+export const getServiceByCategory = () => ({
+  queryId: 'getServiceByCategory',
+  params: {
+    url: `/service/getbycategory`,
+    method: 'GET',
+  },
+});
+
+
+/**
+ * CATEGORY
+ */
+export const getCategoryByMerchant = (merchantId) => ({
+  queryId: 'getCategory',
+  params: {
+    url: `/category/getbymerchant/${merchantId}`,
+    method: 'GET',
+  },
+});
+
+
+/**
+ * PRODUCT
+ */
+export const getProduct = () => ({
+  queryId: 'getProduct',
+  params: {
+    url: `/product`,
+    method: 'GET',
+  },
+});
+
+
+
+/**
+ * EXTRA
+ */
+export const getExtra = () => ({
+  queryId: 'getExtra',
+  params: {
+    url: `/extra`,
+    method: 'GET',
+  },
+});
+

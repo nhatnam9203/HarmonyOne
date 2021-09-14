@@ -16,15 +16,9 @@ export const Layout = ({
       <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
         <CustomerInfo ref={customerInfoRef} />
         <View style={styles.line} />
-        <FromTime />
-      <View style={styles.line} />
 
-        <ServiceList />
-{/* 
         <AddService />
-        <View style={styles.line} /> */}
-        <Total />
-        <View style={{ height : scaleHeight(150) }} />
+        <View style={styles.line} />
 
       </ScrollView>
       <ButtonConfirm />

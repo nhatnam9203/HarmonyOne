@@ -2,6 +2,10 @@ import appSlice from './appSlice';
 import authSlice from './authSlice';
 import customerSlice from "./customerSlice";
 import bookAppointmentSlice from "./bookAppoinentmentSlice";
+import serviceSlice from "./serviceSlice";
+import categorySlice from "./categorySlice";
+import productSlice from "./productSlice";
+import extraSlice from "./extraSlice";
 
 const rootReducers = Object.assign(
   {},
@@ -10,6 +14,10 @@ const rootReducers = Object.assign(
     auth: authSlice.reducer,
     customer : customerSlice.reducer,
     bookAppointment : bookAppointmentSlice.reducer,
+    service : serviceSlice.reducer,
+    category : categorySlice.reducer,
+    product : productSlice.reducer,
+    extra : extraSlice.reducer,
   },
 );
 
@@ -19,4 +27,8 @@ module.exports = {
   app: appSlice.actions,
   customer : customerSlice.actions,
   bookAppointment : bookAppointmentSlice.actions,
+  service : serviceSlice.actions,
+  category : categorySlice.actions,
+  product : productSlice.actions,
+  extra : extraSlice.actions,
 };
