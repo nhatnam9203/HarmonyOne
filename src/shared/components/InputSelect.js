@@ -67,7 +67,7 @@ export const InputSelect = React.forwardRef(({
                         <ScrollView style={styles.scrollView}>
                             {
                                 items.map((it) => (
-                                    <TouchableOpacity onPress={() => selectValue(it)} style={[styles.row]}>
+                                    <TouchableOpacity key={it.value} onPress={() => selectValue(it)} style={[styles.row]}>
                                         <Text style={[
                                             styles.itemText, {
                                                 color: item?.value === it.value ? "#0764B0" : "#333"

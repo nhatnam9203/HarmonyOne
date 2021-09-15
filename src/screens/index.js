@@ -9,7 +9,6 @@ import AppointmentDetail from './AppointmentDetail';
 import Notification from './Notification';
 import EditAppointment from './EditAppointment';
 import EditService from './EditService';
-import AddService from './AddService';
 import Checkout from './Checkout';
 import SelectPayment from './SelectPayment';
 import Statistic from './Statistic';
@@ -18,9 +17,6 @@ import Setting from './Setting';
 import EditProfile from './EditProfile';
 import ChangePincode from './ChangePincode';
 import FeedBack from './FeedBack';
-import Services from './Services';
-import NewCategory from './NewCategory';
-import NewService from './NewService';
 import Reviews from './Reviews';
 
 import { ScreenNames } from './ScreenName';
@@ -50,7 +46,6 @@ module.exports = {
   Notification,
   EditAppointment,
   EditService,
-  AddService,
   Checkout,
   SelectPayment,
   Statistic,
@@ -59,9 +54,6 @@ module.exports = {
   EditProfile,
   ChangePincode,
   FeedBack,
-  Services,
-  NewCategory,
-  NewService,
   Reviews,
   ScreenNames,
   SplashScreen,

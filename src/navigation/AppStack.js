@@ -8,16 +8,12 @@ import {
   AppointmentDetail,
   EditAppointment,
   EditService,
-  AddService,
   Checkout,
   SelectPayment,
   EditProfile,
   ChangePincode,
   ForgotPincode,
   FeedBack,
-  Services,
-  NewCategory,
-  NewService,
   Reviews,
   AppointmentDetailScreen,
   AppointmentNewScreen,
@@ -58,16 +54,12 @@ const AppStack = () => {
       <Screen name="AppointmentDetail" component={AppointmentDetail} />
       <Screen name="EditAppointment" component={EditAppointment} />
       <Screen name="EditService" component={EditService} />
-      <Screen name="AddService" component={AddService} />
       <Screen name="Checkout" component={Checkout} />
       <Screen name="SelectPayment" component={SelectPayment} />
       <Screen name="EditProfile" component={EditProfile} />
       <Screen name="ChangePincode" component={ChangePincode} />
       <Screen name="ForgotPincode" component={ForgotPincode} />
       <Screen name="FeedBack" component={FeedBack} />
-      <Screen name="Services" component={Services} />
-      <Screen name="NewCategory" component={NewCategory} />
-      <Screen name="NewService" component={NewService} />
       <Screen name="Reviews" component={Reviews} />
     </Navigator>
   );

@@ -21,7 +21,7 @@ export const useProps = (props) => {
     statusRef,
 
     getDataSelectCategory : () =>{
-      return categoryList.map((cate) => ({
+      return categoryList.filter(cate=>cate.isDisabled == 0).map((cate) => ({
         ...cate,
         label : cate.name,
         value : cate.categoryId,
