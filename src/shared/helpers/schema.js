@@ -12,5 +12,7 @@ export const categorySchema = yup.object().shape({
 });
 
 export const serviceSchema = yup.object().shape({
-
+    name: yup.string().required("required"),
+    price: yup.string().required("required"),
+    duration: yup.string().required("required"),
 });

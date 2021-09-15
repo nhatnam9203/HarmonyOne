@@ -16,16 +16,14 @@ export const Layout = ({
   form,
   errors,
   statusRef,
+  categoryRef,
   getDataSelectCategory,
   onSubmit,
+  back
 }) => {
 
   const [t] = useTranslation();
-
-  const back = () => {
-    NavigationService.back();
-  }
-
+  
   const dataCategory = getDataSelectCategory();
 
   return (
@@ -48,6 +46,7 @@ export const Layout = ({
           <CustomInput
             label='Service name'
             isRequired
+            error={errors?.name}
             renderInput={() =>
               <InputText
                 form={form}
@@ -63,6 +62,7 @@ export const Layout = ({
             isRequired
             renderInput={() =>
               <InputSelect
+                ref={categoryRef}
                 items={dataCategory}
                 title="Select category"
                 defaultValue={'Select category'}
@@ -77,7 +77,7 @@ export const Layout = ({
                 form={form}
                 name="description"
                 placeholder="Description"
-                style={{ height: scaleHeight(69) }}
+                style={{ height: scaleHeight(69), alignItems: 'flex-start', paddingTop: scaleHeight(8) }}
                 multiline={true}
               />
             }
@@ -94,11 +94,12 @@ export const Layout = ({
                   style={{ width: scaleWidth(102), alignItems: 'center' }}
                   inputStyle={styles.duration}
                   form={form}
-                  name="minutes"
+                  name="duration"
                   placeholder="0"
                   options={{
                     mask: "9999"
                   }}
+                  error={errors?.duration}
                   renderRight={() => <Text style={styles.duration}>min</Text>}
                 />
               }
@@ -142,6 +143,7 @@ export const Layout = ({
           <CustomInput
             label='Price'
             isRequired
+            error={errors?.price}
             renderInput={() =>
               <InputText
                 form={form}
@@ -150,6 +152,7 @@ export const Layout = ({
                 type="money"
                 style={{ alignItems: 'center' }}
                 options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
+                error={errors?.price}
                 renderLeft={() =>
                   <Text style={styles.dollar}>$</Text>
                 }
@@ -183,7 +186,7 @@ export const Layout = ({
               style={styles.iconUpload}
               resizeMode='contain'
             />
-            <Text style={{ color: "#CCCCCC", fontSize: scaleFont(16) }}>
+            <Text style={{ color: "#CCCCCC", fontSize: scaleFont(14) }}>
               Add image
             </Text>
           </View>
@@ -193,6 +196,7 @@ export const Layout = ({
             isRequired
             renderInput={() =>
               <InputSelect
+                ref={statusRef}
                 title="Status"
                 items={statusData}
                 defaultValue={'0'}

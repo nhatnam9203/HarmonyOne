@@ -112,6 +112,14 @@ export const getServiceByCategory = () => ({
   },
 });
 
+export const addNewService = (data) => ({
+  params: {
+    url: '/service',
+    method: 'POST',
+    data,
+  },
+});
+
 
 /**
  * CATEGORY

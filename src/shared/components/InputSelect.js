@@ -26,6 +26,10 @@ export const InputSelect = React.forwardRef(({
         }
     }, []);
 
+    React.useImperativeHandle(ref, () => ({
+        getValue: () => item?.value,
+    }));
+
     const openActionSheet = () => {
         actionSheetRef?.current?.show();
     }
@@ -108,8 +112,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center'
     },
-    scrollView : {
-        maxHeight : scaleHeight(600)
+    scrollView: {
+        maxHeight: scaleHeight(600)
     },
     input: {
         flex: 1,
@@ -142,10 +146,10 @@ const styles = StyleSheet.create({
 
     },
     row: {
-        flexDirection: 'row', 
-        alignItems: 'center', 
+        flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'space-between',
-        marginHorizontal : scaleWidth(16),
+        marginHorizontal: scaleWidth(16),
     },
     title: {
         fontSize: scaleFont(18),
