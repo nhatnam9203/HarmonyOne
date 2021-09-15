@@ -26,9 +26,22 @@ export const useProps = (props) => {
     },
   });
 
+  const [{ }, getServiceList] = useAxiosQuery({
+    ...getService(staff.merchantId),
+    isLoadingDefault: true,
+    enabled: false,
+    onLoginSuccess: (data, response) => {
+      dispatch(category.setCategoryList(data));
+    },
+  });
+
 
   const refreshCategory = () => {
     getCategoryList();
+  }
+
+  const refreshService = () => {
+    getServiceList();
   }
 
   return {
@@ -48,6 +61,10 @@ export const useProps = (props) => {
 
     newCategory : () => {
       NavigationService.navigate(screenNames.CategoryNewScreen, { refreshCategory });
+    },
+
+    newService : () => {
+      NavigationService.navigate(screenNames.ServiceNewScreen, { refreshService });
     }
   };
 };

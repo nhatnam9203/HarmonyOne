@@ -13,6 +13,7 @@ export const Layout = ({
   getDataList,
   onChangeSearch,
   newCategory,
+  newService,
 }) => {
 
   const [t] = useTranslation();
@@ -22,7 +23,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Add services')}
+        pageTitle={t('Services')}
         isRight={false}
         isScrollLayout={false}
       >
@@ -50,7 +51,7 @@ export const Layout = ({
 
                   <IconButton
                     icon={images.treedot}
-                    iconStyle={styles.treedot} 
+                    iconStyle={styles.treedot}
                     onPress={() => { }}
                   />
                 </View>
@@ -60,7 +61,10 @@ export const Layout = ({
             }
           />
 
-          <GroupButtonAdd newCategory={newCategory} />
+          <GroupButtonAdd
+            newCategory={newCategory}
+            newService={newService}
+          />
         </View>
       </SingleScreenLayout>
     </View>

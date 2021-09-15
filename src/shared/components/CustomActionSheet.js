@@ -1,0 +1,79 @@
+import React from 'react';
+import { CustomModal } from '@shared/components';
+import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
+import { colors, fonts } from '@shared/themes';
+
+export const CustomActionSheet = React.forwardRef(
+    ({ children }, ref) => {
+
+        const [open, setOpen] = React.useState(false);
+
+        const onModalHide = () => {
+            setOpen(false);
+        };
+
+        React.useImperativeHandle(ref, () => ({
+            show: () => {
+                setOpen(true);
+            },
+            hide : () =>{
+                setOpen(false);
+            }
+        }));
+
+        return (
+            <CustomModal
+                isVisible={open}
+                onRequestClose={onModalHide}
+                onBackdropPress={onModalHide}
+                style={styles.modal}
+            >
+                <View style={styles.container}>
+                    {children}
+                </View>
+            </CustomModal>
+        );
+    },
+);
+
+const styles = StyleSheet.create({
+    modal: {
+        margin: 0,
+        justifyContent: 'flex-end',
+        paddingBottom: scaleHeight(16),
+    },
+
+    container: {
+        flex: 0,
+        width: '100%',
+    },
+
+    content: {
+        borderRadius: scaleHeight(5),
+        backgroundColor: colors.white,
+        marginVertical: scaleHeight(8),
+        paddingHorizontal: scaleWidth(16),
+    },
+
+    bottomBorder: {
+        borderBottomColor: '#eee',
+        borderBottomWidth: scaleHeight(1),
+    },
+
+    itemContent: {
+        height: scaleHeight(44),
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    textItem: {
+        fontFamily: fonts.MEDIUM,
+        fontSize: scaleFont(17),
+        fontWeight: '500',
+        fontStyle: 'normal',
+        letterSpacing: -0.41,
+        textAlign: 'center',
+        color: colors.greyish_brown_40,
+    },
+});

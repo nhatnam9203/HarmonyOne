@@ -35,6 +35,7 @@ import { MoreScreen } from './MoreScreen';
 import { AppointmentDetailScreen } from './AppointmentDetailScreen';
 import { AppointmentNewScreen } from './AppointmentNewScreen';
 import { ServiceScreen } from './ServiceScreen';
+import { ServiceNewScreen } from "./ServiceNewScreen";
 import { CategoryNewScreen } from "./CategoryNewScreen";
 
 module.exports = {
@@ -74,5 +75,6 @@ module.exports = {
   AppointmentDetailScreen,
   AppointmentNewScreen,
   ServiceScreen,
+  ServiceNewScreen,
   CategoryNewScreen
 };

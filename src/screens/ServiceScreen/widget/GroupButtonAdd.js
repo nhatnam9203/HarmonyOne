@@ -1,9 +1,8 @@
 import React from 'react'
 import { View, StyleSheet, Image, TouchableOpacity, Animated, Text } from 'react-native'
 import { images } from "@shared/themes"
-import NavigationService from '@navigation/NavigationService'
 
-const GroupButtonAdd = ({ onPressAdd = () => { }, newCategory }) => {
+const GroupButtonAdd = ({ onPressAdd = () => { }, newCategory, newService }) => {
 
     const animatedStatus = React.useRef(new Animated.Value(0)).current;
     const ImageAnimated = Animated.createAnimatedComponent(Image);
@@ -25,10 +24,6 @@ const GroupButtonAdd = ({ onPressAdd = () => { }, newCategory }) => {
 
     const onPressPlus = () => {
 
-    }
-
-    const newService = () => {
-        NavigationService.navigate('NewService');
     }
 
     const rotate = animatedStatus.interpolate({

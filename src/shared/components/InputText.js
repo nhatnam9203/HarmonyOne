@@ -19,7 +19,9 @@ export const InputText = React.forwardRef(({
     name,
     form,
     error,
-    keyboardType='default'
+    keyboardType='default',
+    renderLeft = null,
+    renderRight = null,
 }, ref) => {
 
     const [isFocus, setFocus] = React.useState(false);
@@ -35,6 +37,9 @@ export const InputText = React.forwardRef(({
             <View style={[styles.wrapInput, style, {
                 borderColor: isFocus ? colors.ocean_blue : error ? "red" : '#cccccc'
             }]}>
+            {
+                renderLeft && renderLeft()
+            }
                 <TextInputMask
                     type={type}
                     options={options}
@@ -49,6 +54,7 @@ export const InputText = React.forwardRef(({
                     onBlur={() => setFocus(false)}
                 />
                 {
+                    renderRight ? renderRight() :
                     field.value.length > 0 &&
                     <IconButton
                         icon={images.iconClose}

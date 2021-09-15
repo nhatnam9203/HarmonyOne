@@ -10,3 +10,7 @@ export const customerSchema = yup.object().shape({
 export const categorySchema = yup.object().shape({
     categoryName: yup.string().required("required"),
 });
+
+export const serviceSchema = yup.object().shape({
+
+});

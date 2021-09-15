@@ -17,6 +17,7 @@ const ScreenNames = {
   SelectServicePage: 'hpo.appointment.new.booking.selectService',
   ReviewPage: 'hpo.appointment.new.booking.review',
   ServiceScreen : 'hpo.service',
+  ServiceNewScreen : 'hpo.service.new',
   CategoryNewScreen : 'hpo.category.new',
 };
 

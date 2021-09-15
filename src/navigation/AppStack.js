@@ -23,6 +23,7 @@ import {
   AppointmentNewScreen,
   CustomerNewScreen,
   ServiceScreen,
+  ServiceNewScreen,
   CategoryNewScreen,
 } from '@screens';
 import BottomMain from './BottomMain';
@@ -51,6 +52,7 @@ const AppStack = () => {
       <Screen {...CustomerNewScreen} />
       <Screen {...ServiceScreen} />
       <Screen {...CategoryNewScreen} />
+      <Screen {...ServiceNewScreen} />
 
       <Screen name="Notification" component={Notification} />
       <Screen name="AppointmentDetail" component={AppointmentDetail} />

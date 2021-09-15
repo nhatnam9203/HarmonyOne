@@ -7,8 +7,8 @@ import { fonts, colors, images } from '@shared/themes';
 import NavigationService from '@navigation/NavigationService';
 
 const categoryType = [
-  { label: "Product", value: "Product" },
   { label: "Service", value: "Service" },
+  { label: "Product", value: "Product" },
 ];
 
 
