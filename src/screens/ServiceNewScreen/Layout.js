@@ -60,6 +60,7 @@ export const Layout = ({
 
           <CustomInput
             label='Category'
+            isRequired
             renderInput={() =>
               <InputSelect
                 items={dataCategory}
@@ -82,12 +83,11 @@ export const Layout = ({
             }
           />
 
-          <Text style={styles.titleDuration}>
-            Duration
-          </Text>
+          <Text style={styles.titleDuration}> Duration </Text>
           <View style={styles.durationRow}>
             <CustomInput
               label='Minutes'
+              isRequired
               labelStyle={styles.labelDuration}
               renderInput={() =>
                 <InputText
@@ -141,6 +141,7 @@ export const Layout = ({
 
           <CustomInput
             label='Price'
+            isRequired
             renderInput={() =>
               <InputText
                 form={form}
@@ -148,13 +149,7 @@ export const Layout = ({
                 placeholder="0.00"
                 type="money"
                 style={{ alignItems: 'center' }}
-                options={{
-                  precision: 2,
-                  separator: '.',
-                  delimiter: ',',
-                  unit: '',
-                  suffixUnit: ''
-                }}
+                options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
                 renderLeft={() =>
                   <Text style={styles.dollar}>$</Text>
                 }
@@ -171,13 +166,7 @@ export const Layout = ({
                 placeholder="0.00"
                 type="money"
                 style={{ alignItems: 'center' }}
-                options={{
-                  precision: 2,
-                  separator: '.',
-                  delimiter: ',',
-                  unit: '',
-                  suffixUnit: ''
-                }}
+                options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
                 renderLeft={() =>
                   <Text style={styles.dollar}>$</Text>
                 }
@@ -185,8 +174,23 @@ export const Layout = ({
             }
           />
 
+          <Text style={styles.titleDuration}>
+            Image
+          </Text>
+          <View style={styles.wrapIconUpload}>
+            <Image
+              source={images.iconUpload}
+              style={styles.iconUpload}
+              resizeMode='contain'
+            />
+            <Text style={{ color: "#CCCCCC", fontSize: scaleFont(16) }}>
+              Add image
+            </Text>
+          </View>
+
           <CustomInput
             label='Status'
+            isRequired
             renderInput={() =>
               <InputSelect
                 title="Status"
@@ -267,6 +271,22 @@ const styles = StyleSheet.create({
   bottom: {
     padding: scaleWidth(16),
     width: scaleWidth(375),
-}
+  },
+
+  iconUpload: {
+    width: scaleWidth(50),
+    height: scaleWidth(50),
+    marginBottom: 5
+  },
+
+  wrapIconUpload: {
+    padding: scaleWidth(15),
+    backgroundColor: '#FAFAFA',
+    width: scaleWidth(120),
+    height: scaleWidth(120),
+    marginBottom: scaleHeight(20),
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 
 });

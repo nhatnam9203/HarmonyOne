@@ -24,6 +24,7 @@ export const images = {
   iconCalendar: require('@src/assets/images/iconCalendar.png'),
   iconClock: require('@src/assets/images/iconClock.png'),
   iconPlus: require('@src/assets/images/iconPlus.png'),
+  iconUpload: require('@src/assets/home/icon_addImage.png'),
 
   EmptyList: require('@src/assets/images/emptyList.png'),
   barTimeLine: require('@src/assets/images/barTimeLine.png'),

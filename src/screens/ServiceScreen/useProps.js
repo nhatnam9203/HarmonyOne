@@ -31,7 +31,7 @@ export const useProps = (props) => {
     isLoadingDefault: true,
     enabled: false,
     onLoginSuccess: (data, response) => {
-      dispatch(category.setCategoryList(data));
+      dispatch(service.setServiceList(data));
     },
   });
 
