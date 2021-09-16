@@ -41,7 +41,7 @@ export const DropdownMenu = React.forwardRef(
         modalRef.current?.select(index);
       },
       getValue : () => item,
-      // changeValue : (it) => setItem(it),
+      changeValue : (it) => setItem(it),
     }));
 
     React.useEffect(() => {

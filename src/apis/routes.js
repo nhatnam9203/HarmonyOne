@@ -158,6 +158,24 @@ export const editCategory = (data,categoryId) => ({
   },
 });
 
+export const archiveCategory = (data,categoryId) => ({
+  queryId: 'archiveCategory',
+  params: {
+    url: `/category/archive/${categoryId}`,
+    method: 'PUT',
+    data
+  },
+});
+
+export const restoreCategory = (data,categoryId) => ({
+  queryId: 'restoreCategory',
+  params: {
+    url: `/category/restore/${categoryId}`,
+    method: 'PUT',
+    data
+  },
+});
+
 
 /**
  * PRODUCT
