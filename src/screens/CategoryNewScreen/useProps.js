@@ -21,7 +21,6 @@ export const useProps = (props) => {
   const categoryEdit = props?.route?.params?.categoryEdit;
   const inputCategoryRef = React.useRef();
 
-
   const [{ }, submitAddCategory] = useAxiosMutation({
     ...addCategory(),
     isLoadingDefault: true,

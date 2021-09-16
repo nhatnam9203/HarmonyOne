@@ -53,7 +53,7 @@ export const PopupActionSheet = React.forwardRef(
             </View>
           )}
           <View style={styles.content}>
-            <ActionSheetItem key={closeAction.id} item={closeAction} />
+            <ActionSheetItem key={closeAction.id} item={closeAction} onModalHide={onModalHide} />
           </View>
         </View>
       </CustomModal>

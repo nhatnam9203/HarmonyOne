@@ -11,3 +11,4 @@ export * from "./CustomInput";
 export * from "./InputText";
 export * from "./CustomActionSheet";
 export * from "./InputSelect";
+export * from "./DialogConfirm";

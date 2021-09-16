@@ -1,5 +1,14 @@
 import React from "react";
-import { useAxiosQuery, getService, getCategoryByMerchant, getProduct, getExtra } from '@src/apis';
+import {
+  useAxiosQuery,
+  useAxiosMutation,
+  getService,
+  getCategoryByMerchant,
+  getProduct,
+  getExtra,
+  archiveCategory,
+  restoreCategory
+} from '@src/apis';
 import { service, product, category, extra } from '@redux/slices';
 import { useSelector, useDispatch } from "react-redux";
 import { colors } from "@shared/themes";
@@ -9,17 +18,19 @@ import NavigationService from '@navigation/NavigationService'
 export const useProps = (props) => {
   const dispatch = useDispatch();
 
+  const dialogDeleteCategoryRef = React.useRef();
   const [valueSearch, setSearchValue] = React.useState("");
+  const [tempCategoryId, setTempCategoryId] = React.useState("");
 
   const { services } = useSelector(state => state.service);
   const { products } = useSelector(state => state.product);
   const { extras } = useSelector(state => state.extra);
   const categoryList = useSelector(state => state.category.category);
-
   const staff = useSelector(state => state.auth.staff);
+
   const [t] = useTranslation();
 
-  const [{ }, getCategoryList] = useAxiosQuery({
+  const [, getCategoryList] = useAxiosQuery({
     ...getCategoryByMerchant(staff.merchantId),
     isLoadingDefault: true,
     enabled: false,
@@ -28,12 +39,33 @@ export const useProps = (props) => {
     },
   });
 
-  const [{ }, getServiceList] = useAxiosQuery({
+  const [, getServiceList] = useAxiosQuery({
     ...getService(staff.merchantId),
     isLoadingDefault: true,
     enabled: false,
     onLoginSuccess: (data, response) => {
       dispatch(service.setServiceList(data));
+    },
+  });
+
+
+  const [, submitArchiveCategory] = useAxiosMutation({
+    ...archiveCategory(),
+    isLoadingDefault: true,
+    onLoginSuccess: (data, response) => {
+      if (response?.codeNumber == 200) {
+        getCategoryList();
+      }
+    },
+  });
+
+  const [, submitRestoreCategory] = useAxiosMutation({
+    ...restoreCategory(),
+    isLoadingDefault: true,
+    onLoginSuccess: (data, response) => {
+      if (response?.codeNumber == 200) {
+        getCategoryList();
+      }
     },
   });
 
@@ -53,6 +85,7 @@ export const useProps = (props) => {
   return {
 
     valueSearch,
+    dialogDeleteCategoryRef,
 
     getDataList: () => {
       return categoryList.filter(cate => cate.isDisabled == 0).map((cate) => ({
@@ -66,6 +99,7 @@ export const useProps = (props) => {
     },
 
     newCategory,
+    setTempCategoryId,
 
     newService: () => {
       NavigationService.navigate(screenNames.ServiceNewScreen, { refreshService });
@@ -92,8 +126,24 @@ export const useProps = (props) => {
         id: 'delete-category',
         label: t('Delete category'),
         textColor: colors.red,
-        func: () => { },
+        func: () => {
+          setTimeout(() => {
+            setTempCategoryId(category.categoryId)
+            dialogDeleteCategoryRef?.current?.show();
+          }, 500);
+        },
       },
     ],
+
+    handleArchiveCategory: async () => {
+      const data = {}
+      const body = await archiveCategory(data, tempCategoryId);
+      submitArchiveCategory(body.params);
+    },
+
+    handleRestoreCategory: async () => {
+
+    },
+
   };
 };

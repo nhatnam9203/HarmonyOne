@@ -17,6 +17,8 @@ export const Button = ({
   height = scaleHeight(48),
   width = scaleWidth(100),
   label,
+  styleButton,
+  styleText,
 }) => {
   const [t] = useTranslation();
   return (
@@ -24,6 +26,7 @@ export const Button = ({
       onPress={onPress}
       style={[
         styles.button,
+        styleButton,
         { height: height, width: width },
         highlight && { backgroundColor: colors.ocean_blue },
         disabled && { backgroundColor: "#EEEEEE", borderColor: "#EEEEEE" },
@@ -39,6 +42,7 @@ export const Button = ({
               style={[
                 styles.text, highlight && { color: colors.white },
                 disabled && { color: "#CCCCCC"},
+                styleText,
               ]}
             >
               {label ?? t('Continue')}

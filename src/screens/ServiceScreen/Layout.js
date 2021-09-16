@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView, SectionList } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { Button, IconButton, SearchInput } from "@shared/components";
+import { Button, IconButton, SearchInput, DialogConfirm } from "@shared/components";
 import { fonts, colors, images } from '@shared/themes';
 import { slop } from "@shared/utils";
 import { ItemService, GroupButtonAdd } from "./widget";
@@ -31,6 +31,10 @@ export const Layout = ({
   newService,
   editService,
   getActionSheets,
+  dialogDeleteCategoryRef,
+  handleArchiveCategory,
+  handleRestoreCategory,
+  setTempCategoryId
 }) => {
 
   const [t] = useTranslation();
@@ -80,6 +84,13 @@ export const Layout = ({
             newService={newService}
           />
         </View>
+        <DialogConfirm
+          ref={dialogDeleteCategoryRef}
+          title={t("Delete category")}
+          titleContent={t("Are you sure you want to delete this category?")}
+          onConfirmYes={handleArchiveCategory}
+          onModalHide={() => setTempCategoryId("")}
+        />
       </SingleScreenLayout>
     </View>
   );
