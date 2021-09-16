@@ -292,6 +292,8 @@ PODS:
     - React-Core
   - react-native-date-picker (4.0.0):
     - React-Core
+  - react-native-image-picker (4.0.6):
+    - React-Core
   - react-native-pager-view (5.4.1):
     - React-Core
   - react-native-safe-area-context (3.3.2):
@@ -468,6 +470,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-config (from `../node_modules/react-native-config`)
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
+  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-spinkit (from `../node_modules/react-native-spinkit`)
@@ -560,6 +563,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-config"
   react-native-date-picker:
     :path: "../node_modules/react-native-date-picker"
+  react-native-image-picker:
+    :path: "../node_modules/react-native-image-picker"
   react-native-pager-view:
     :path: "../node_modules/react-native-pager-view"
   react-native-safe-area-context:
@@ -651,6 +656,7 @@ SPEC CHECKSUMS:
   React-jsinspector: cc614ec18a9ca96fd275100c16d74d62ee11f0ae
   react-native-config: 72d948053a442779b3178fddd571e37f118ef606
   react-native-date-picker: da6c4f85945a2c087c569c7ac52851819ed24218
+  react-native-image-picker: 7bda3c7297c3ea16f4f504ad6174aa7e548192ef
   react-native-pager-view: 6de50b2df6d330a1116bde90519761912c060311
   react-native-safe-area-context: 5cf05f49df9d17261e40e518481f2e334c6cd4b5
   react-native-spinkit: da294fd828216ad211fe36a5c14c1e09f09e62db

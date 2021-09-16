@@ -5,7 +5,17 @@ import { SingleScreenLayout } from '@shared/layouts';
 import { DropdownMenu, Button, CustomInput, InputText, InputSelect, IconButton } from "@shared/components";
 import { fonts, images } from '@shared/themes';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import NavigationService from '@navigation/NavigationService'
+import ImagePicker from "react-native-image-picker";
+import NavigationService from '@navigation/NavigationService';
+
+const options = {
+  title: "Select Image",
+  customButtons: [],
+  storageOptions: {
+    skipBackup: true,
+    path: "images",
+  },
+};
 
 const statusData = [
   { label: "Active", value: "0" },
@@ -15,21 +25,64 @@ const statusData = [
 export const Layout = ({
   form,
   errors,
-  statusRef,
-  categoryRef,
+  isEdit,
   getDataSelectCategory,
   onSubmit,
-  back
+  back,
+  categoryRef,
+  statusRef,
 }) => {
 
   const [t] = useTranslation();
-  
+
   const dataCategory = getDataSelectCategory();
+
+  const responseCamera = (response) => {
+    if (response.didCancel) {
+    } else if (response.error) {
+    } else {
+      console.log({ response })
+      // setImgList([...imgList, response.uri]);
+
+      // onSubmitImage(response);
+    }
+  };
+
+  const onSubmitImage = (response) => {
+    // let fileName = response.fileName;
+    // if (fileName) {
+    //   if (Platform.OS === "ios" && (fileName.endsWith(".heic") || fileName.endsWith(".HEIC"))) {
+    //     fileName = `${fileName.split(".")[0]}.JPG`;
+    //   }
+    // }
+    // const body = {
+    //   uri: response.uri,
+    //   fileName: fileName ? fileName : "photo",
+    //   type: response.type,
+    // };
+
+    // const data = [];
+    // data.push(body);
+
+    // dispatch(actions.authAction.uploadAvatar(data, afterSubmitImage));
+  };
+
+  const pickGallery = () => {
+    ImagePicker.launchImageLibrary(options, (response) => {
+      responseCamera(response);
+    });
+  };
+
+  const launchCamera = () => {
+    ImagePicker.launchCamera(options, (response) => {
+      responseCamera(response);
+    });
+  };
 
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('New service')}
+        pageTitle={isEdit ? t('Edit service') : t('New service')}
         isRight={true}
         isLeft={false}
         isScrollLayout={false}
@@ -60,9 +113,13 @@ export const Layout = ({
           <CustomInput
             label='Category'
             isRequired
+            error={errors?.category}
             renderInput={() =>
               <InputSelect
                 ref={categoryRef}
+                form={form}
+                name="category"
+                error={errors?.category}
                 items={dataCategory}
                 title="Select category"
                 defaultValue={'Select category'}
@@ -180,7 +237,7 @@ export const Layout = ({
           <Text style={styles.titleDuration}>
             Image
           </Text>
-          <View style={styles.wrapIconUpload}>
+          <TouchableOpacity onPress={pickGallery} style={styles.wrapIconUpload}>
             <Image
               source={images.iconUpload}
               style={styles.iconUpload}
@@ -189,14 +246,18 @@ export const Layout = ({
             <Text style={{ color: "#CCCCCC", fontSize: scaleFont(14) }}>
               Add image
             </Text>
-          </View>
+          </TouchableOpacity>
 
           <CustomInput
             label='Status'
             isRequired
+            error={errors?.status}
             renderInput={() =>
               <InputSelect
                 ref={statusRef}
+                form={form}
+                name="status"
+                error={errors?.status}
                 title="Status"
                 items={statusData}
                 defaultValue={'0'}

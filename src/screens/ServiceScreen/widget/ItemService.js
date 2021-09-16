@@ -1,13 +1,20 @@
 import React from 'react'
-import { View, StyleSheet, Image, TouchableOpacity , Text } from 'react-native'
+import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native'
 import { convertMinsToHrsMins } from '@utils'
-import { fonts, colors , images } from "@shared/themes";
+import { fonts, colors, images } from "@shared/themes";
+import NavigationService from '@navigation/NavigationService'
 
-const ItemService = ({ item }) => {
+const ItemService = ({ item , editService }) => {
 
-    const img = item?.imageUrl ? { uri : item?.imageUrl } : images.serviceDefault
+    const img = item?.imageUrl ? { uri: item?.imageUrl } : images.serviceDefault;
+
+    const onPressItem = () =>{
+        editService(item);
+    }
+
     return (
         <TouchableOpacity
+            onPress={onPressItem}
             activeOpacity={1}
             style={[styles.row, styles.item]}
         >
@@ -44,7 +51,7 @@ const styles = StyleSheet.create({
         marginTop: scaleHeight(16),
         borderBottomWidth: 1,
         borderBottomColor: '#eeeeee',
-        paddingBottom : scaleHeight(16)
+        paddingBottom: scaleHeight(16)
     },
     row: {
         flexDirection: 'row',
@@ -65,16 +72,16 @@ const styles = StyleSheet.create({
     serviceName: {
         fontSize: scaleWidth(19),
         color: '#1366AE',
-        fontFamily : fonts.MEDIUM,
+        fontFamily: fonts.MEDIUM,
     },
     duration: {
         color: '#6A6A6A',
         fontSize: scaleWidth(16),
-        fontFamily : fonts.REGULAR,
+        fontFamily: fonts.REGULAR,
     },
     price: {
         fontSize: scaleWidth(16),
         color: '#404040',
-        fontFamily : fonts.MEDIUM,
+        fontFamily: fonts.MEDIUM,
     },
 })

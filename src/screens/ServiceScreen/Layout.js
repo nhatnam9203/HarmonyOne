@@ -14,6 +14,7 @@ export const Layout = ({
   onChangeSearch,
   newCategory,
   newService,
+  editService
 }) => {
 
   const [t] = useTranslation();
@@ -40,7 +41,10 @@ export const Layout = ({
             stickySectionHeadersEnabled={false}
             style={styles.flatList}
             renderItem={({ item }) =>
-              <ItemService item={item} />
+              <ItemService
+                item={item}
+                editService={editService}
+              />
             }
             renderSectionHeader={({ section }) => {
               return (
@@ -56,9 +60,7 @@ export const Layout = ({
                   />
                 </View>
               )
-            }
-
-            }
+            }}
           />
 
           <GroupButtonAdd

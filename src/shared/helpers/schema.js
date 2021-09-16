@@ -15,4 +15,10 @@ export const serviceSchema = yup.object().shape({
     name: yup.string().required("required"),
     price: yup.string().required("required"),
     duration: yup.string().required("required"),
+    category: yup.object().shape({
+        value: yup.string(),
+        label: yup.string(),
+    })
+    .nullable()
+    .required('required')  
 });

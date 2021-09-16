@@ -58,7 +58,7 @@ export const Layout = ({
             }
           />
           <CustomInput
-            label='First name'
+            label='Category name'
             isRequired
             error={errors?.categoryName}
             renderInput={() =>

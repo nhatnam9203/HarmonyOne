@@ -47,8 +47,16 @@ const AppStack = () => {
       />
       <Screen {...CustomerNewScreen} />
       <Screen {...ServiceScreen} />
-      <Screen {...CategoryNewScreen} />
-      <Screen {...ServiceNewScreen} />
+      <Screen {...CategoryNewScreen}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+        }}
+      />
+      <Screen {...ServiceNewScreen}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+        }}
+      />
 
       <Screen name="Notification" component={Notification} />
       <Screen name="AppointmentDetail" component={AppointmentDetail} />

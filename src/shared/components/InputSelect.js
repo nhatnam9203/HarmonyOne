@@ -12,23 +12,36 @@ export const InputSelect = React.forwardRef(({
     style,
     items = [],
     title = "Status",
-    defaultValue = ''
+    defaultValue = '',
+    form,
+    name,
+    error,
 }, ref) => {
 
     const [isFocus, setFocus] = React.useState(false);
-    const [item, setItem] = React.useState("");
     const actionSheetRef = React.useRef();
+
+    const { field } = useController({
+        control: form.control,
+        defaultValue: "",
+        name,
+    })
 
     React.useEffect(() => {
         const obj = items.find(item => item.value == defaultValue);
         if (obj) {
-            setItem(obj);
+            field.onChange(obj)
         }
     }, []);
 
     React.useImperativeHandle(ref, () => ({
-        getValue: () => item?.value,
-    }));
+        changeItem : (value) =>{
+            const obj = items.find(item => item.value == value);
+            if (obj) {
+                field.onChange(obj)
+            }
+        }
+      }));
 
     const openActionSheet = () => {
         actionSheetRef?.current?.show();
@@ -38,18 +51,18 @@ export const InputSelect = React.forwardRef(({
         actionSheetRef?.current?.hide();
     }
 
-    const selectValue = (vl) => {
-        setItem(vl);
+    const selectValue = (it) => {
+        field.onChange(it);
         closeActionSheet();
     }
 
     return (
         <TouchableOpacity onPress={openActionSheet} style={[styles.containerInput]}>
             <View style={[styles.wrapInput, style, {
-                borderColor: isFocus ? colors.ocean_blue : '#cccccc'
+                borderColor: isFocus ? colors.ocean_blue : error ? "red" : '#cccccc'
             }]}>
                 <Text style={styles.value}>
-                    {item?.label || defaultValue}
+                    {field?.value?.label || defaultValue}
                 </Text>
                 <Image
                     style={[styles.icon]}
@@ -74,7 +87,7 @@ export const InputSelect = React.forwardRef(({
                                     <TouchableOpacity key={it.value} onPress={() => selectValue(it)} style={[styles.row]}>
                                         <Text style={[
                                             styles.itemText, {
-                                                color: item?.value === it.value ? "#0764B0" : "#333"
+                                                color: field?.value?.value === it.value ? "#0764B0" : "#333"
                                             }
                                         ]}>
                                             {it?.label}

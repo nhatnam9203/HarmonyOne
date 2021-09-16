@@ -59,12 +59,16 @@ export const useProps = (props) => {
       setSearchValue(vl);
     },
 
-    newCategory : () => {
+    newCategory: () => {
       NavigationService.navigate(screenNames.CategoryNewScreen, { refreshCategory });
     },
 
-    newService : () => {
+    newService: () => {
       NavigationService.navigate(screenNames.ServiceNewScreen, { refreshService });
+    },
+
+    editService: (item) => {
+      NavigationService.navigate(screenNames.ServiceNewScreen, { isEdit: true, serviceEdit: item, refreshService });
     }
   };
 };

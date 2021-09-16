@@ -120,6 +120,14 @@ export const addNewService = (data) => ({
   },
 });
 
+export const editService = (data, serviceId) => ({
+  params: {
+    url: `/service/${serviceId}`,
+    method: 'PUT',
+    data,
+  },
+});
+
 
 /**
  * CATEGORY
