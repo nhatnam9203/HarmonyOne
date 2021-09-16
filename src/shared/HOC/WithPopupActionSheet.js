@@ -5,6 +5,7 @@ import { View } from 'react-native';
 export const WithPopupActionSheet = (WrappedComponent) => {
   return function WithDialogConfirmComponent({ onPress, actions, ...props }) {
     const popupRef = React.useRef(null);
+
     const showConfirmDialog = () => {
       popupRef.current?.show();
     };

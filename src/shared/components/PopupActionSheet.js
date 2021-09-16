@@ -9,7 +9,7 @@ import { colors, fonts } from '@shared/themes';
  */
 
 export const PopupActionSheet = React.forwardRef(
-  ({ actions, onClose = () => {} }, ref) => {
+  ({ actions, onClose = () => { } }, ref) => {
     const [closeAction] = React.useState({
       id: 'close-action',
       label: 'Close',
@@ -28,6 +28,9 @@ export const PopupActionSheet = React.forwardRef(
       show: () => {
         setOpen(true);
       },
+      hide: () => {
+        setOpen(false);
+      }
     }));
 
     return (
@@ -44,6 +47,7 @@ export const PopupActionSheet = React.forwardRef(
                   key={x.id}
                   item={x}
                   bottomBorder={index >= 0 && index < actions?.length - 1}
+                  onModalHide={onModalHide}
                 />
               ))}
             </View>
@@ -57,11 +61,14 @@ export const PopupActionSheet = React.forwardRef(
   },
 );
 
-const ActionSheetItem = ({ item, bottomBorder }) => {
+const ActionSheetItem = ({ item, bottomBorder, onModalHide, }) => {
   return (
     <TouchableOpacity
       style={[styles.itemContent, bottomBorder && styles.bottomBorder]}
-      onPress={item.func}>
+      onPress={() => {
+        item.func();
+        onModalHide();
+      }}>
       <Text
         style={[styles.textItem, item.textColor && { color: item.textColor }]}>
         {item?.label}

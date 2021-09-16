@@ -7,6 +7,21 @@ import { fonts, colors, images } from '@shared/themes';
 import { slop } from "@shared/utils";
 import { ItemService, GroupButtonAdd } from "./widget";
 import { useSelector } from "react-redux";
+import { WithPopupActionSheet } from '@shared/HOC';
+
+let EditButton = ({ ...props }) => {
+  return (
+    <TouchableOpacity {...props}>
+      <Image
+        source={images.iconMore}
+        style={styles.treedot}
+        resizeMode="contain"
+      />
+    </TouchableOpacity>
+  );
+};
+
+EditButton = WithPopupActionSheet(EditButton);
 
 export const Layout = ({
   valueSearch,
@@ -14,7 +29,8 @@ export const Layout = ({
   onChangeSearch,
   newCategory,
   newService,
-  editService
+  editService,
+  getActionSheets,
 }) => {
 
   const [t] = useTranslation();
@@ -53,11 +69,7 @@ export const Layout = ({
                     {section?.category?.name}
                   </Text>
 
-                  <IconButton
-                    icon={images.treedot}
-                    iconStyle={styles.treedot}
-                    onPress={() => { }}
-                  />
+                  <EditButton actions={getActionSheets(section?.category)} />
                 </View>
               )
             }}

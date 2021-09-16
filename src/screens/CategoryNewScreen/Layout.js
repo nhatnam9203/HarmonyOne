@@ -6,18 +6,18 @@ import { Button, CustomInput, InputText, IconButton, DropdownMenu } from "@share
 import { fonts, colors, images } from '@shared/themes';
 import NavigationService from '@navigation/NavigationService';
 
-const categoryType = [
-  { label: "Service", value: "Service" },
-  { label: "Product", value: "Product" },
-];
-
 
 export const Layout = ({
   form,
   errors,
   onSubmit,
   inputCategoryRef,
+  isEdit,
+  categoryEdit,
+  categoryTypeList,
 }) => {
+
+  console.log({ categoryTypeList })
 
   const [t] = useTranslation();
 
@@ -28,7 +28,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('New Category')}
+        pageTitle={isEdit ? t('Edit category') : t('New Category')}
         isRight={true}
         isLeft={false}
         isScrollLayout={false}
@@ -49,7 +49,7 @@ export const Layout = ({
             renderInput={() =>
               <DropdownMenu
                 ref={inputCategoryRef}
-                items={categoryType}
+                items={categoryTypeList}
                 onChangeValue={() => { }}
                 defaultIndex={0}
                 width={scaleWidth(345)}

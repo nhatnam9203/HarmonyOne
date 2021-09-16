@@ -149,6 +149,15 @@ export const addCategory = (data) => ({
   },
 });
 
+export const editCategory = (data,categoryId) => ({
+  queryId: 'editCategory',
+  params: {
+    url: `/category/${categoryId}`,
+    method: 'PUT',
+    data
+  },
+});
+
 
 /**
  * PRODUCT

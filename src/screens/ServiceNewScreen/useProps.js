@@ -10,6 +10,7 @@ export const useProps = (props) => {
 
   const categoryRef = React.useRef();
   const statusRef = React.useRef();
+  const [fileId, setFileId] = React.useState("0");
 
   const form = useForm({
     resolver: yupResolver(serviceSchema)
@@ -91,11 +92,11 @@ export const useProps = (props) => {
         isDisabled: values.status.value,
         supplyFee: values.supplyFee ? values.supplyFee : "0",
         extras: [],
-        fileId: 0,
+        fileId,
       }
 
       if (isEdit) {
-        const body = await editService(data,serviceEdit.serviceId);
+        const body = await editService(data, serviceEdit.serviceId);
         submitEditService(body.params);
       } else {
         const body = await addNewService(data);

@@ -2,6 +2,8 @@ import React from "react";
 import { useAxiosQuery, getService, getCategoryByMerchant, getProduct, getExtra } from '@src/apis';
 import { service, product, category, extra } from '@redux/slices';
 import { useSelector, useDispatch } from "react-redux";
+import { colors } from "@shared/themes";
+import { useTranslation } from "react-i18next";
 import NavigationService from '@navigation/NavigationService'
 
 export const useProps = (props) => {
@@ -15,7 +17,7 @@ export const useProps = (props) => {
   const categoryList = useSelector(state => state.category.category);
 
   const staff = useSelector(state => state.auth.staff);
-
+  const [t] = useTranslation();
 
   const [{ }, getCategoryList] = useAxiosQuery({
     ...getCategoryByMerchant(staff.merchantId),
@@ -44,6 +46,10 @@ export const useProps = (props) => {
     getServiceList();
   }
 
+  const newCategory = () => {
+    NavigationService.navigate(screenNames.CategoryNewScreen, { refreshCategory });
+  }
+
   return {
 
     valueSearch,
@@ -59,9 +65,7 @@ export const useProps = (props) => {
       setSearchValue(vl);
     },
 
-    newCategory: () => {
-      NavigationService.navigate(screenNames.CategoryNewScreen, { refreshCategory });
-    },
+    newCategory,
 
     newService: () => {
       NavigationService.navigate(screenNames.ServiceNewScreen, { refreshService });
@@ -69,6 +73,27 @@ export const useProps = (props) => {
 
     editService: (item) => {
       NavigationService.navigate(screenNames.ServiceNewScreen, { isEdit: true, serviceEdit: item, refreshService });
-    }
+    },
+
+    getActionSheets: (category) => [
+      {
+        id: 'new-category',
+        label: t('New category'),
+        func: () => newCategory(),
+      },
+      {
+        id: 'edit-category',
+        label: t('Edit category'),
+        func: () => {
+          NavigationService.navigate(screenNames.CategoryNewScreen, { refreshCategory, isEdit: true, categoryEdit: category });
+        }
+      },
+      {
+        id: 'delete-category',
+        label: t('Delete category'),
+        textColor: colors.red,
+        func: () => { },
+      },
+    ],
   };
 };

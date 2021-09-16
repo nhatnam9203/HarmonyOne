@@ -5,7 +5,7 @@ import { SingleScreenLayout } from '@shared/layouts';
 import { DropdownMenu, Button, CustomInput, InputText, InputSelect, IconButton } from "@shared/components";
 import { fonts, images } from '@shared/themes';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import ImagePicker from "react-native-image-picker";
+import * as ImagePicker from "react-native-image-picker";
 import NavigationService from '@navigation/NavigationService';
 
 const options = {
@@ -41,10 +41,8 @@ export const Layout = ({
     if (response.didCancel) {
     } else if (response.error) {
     } else {
-      console.log({ response })
-      // setImgList([...imgList, response.uri]);
-
-      // onSubmitImage(response);
+      const { assets = [] } = response;
+   
     }
   };
 
