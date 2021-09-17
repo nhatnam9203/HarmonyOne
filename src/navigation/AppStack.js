@@ -5,7 +5,6 @@ import {
 } from '@react-navigation/stack';
 import {
   Notification,
-  AppointmentDetail,
   EditAppointment,
   EditService,
   Checkout,
@@ -59,7 +58,6 @@ const AppStack = () => {
       />
 
       <Screen name="Notification" component={Notification} />
-      <Screen name="AppointmentDetail" component={AppointmentDetail} />
       <Screen name="EditAppointment" component={EditAppointment} />
       <Screen name="EditService" component={EditService} />
       <Screen name="Checkout" component={Checkout} />

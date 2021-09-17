@@ -24,6 +24,10 @@ export const images = {
   iconCalendar: require('@src/assets/images/iconCalendar.png'),
   iconClock: require('@src/assets/images/iconClock.png'),
   iconPlus: require('@src/assets/images/iconPlus.png'),
+  iconSales: require('@src/assets/images/iconSales.png'),
+  iconService: require('@src/assets/images/iconService.png'),
+  iconMarketing: require('@src/assets/images/iconMarketing.png'),
+  iconPayment: require('@src/assets/images/iconPayment.png'),
   iconUpload: require('@src/assets/home/icon_addImage.png'),
 
   EmptyList: require('@src/assets/images/emptyList.png'),

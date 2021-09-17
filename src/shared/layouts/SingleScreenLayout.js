@@ -17,6 +17,7 @@ export const SingleScreenLayout = ({
   isRight = true,
   isScrollLayout = true,
   imageBackground = null,
+  containerStyle,
 }) => {
   const [t] = useTranslation();
   const insets = useSafeAreaInsets();
@@ -72,7 +73,7 @@ export const SingleScreenLayout = ({
             <View style={[styles.container]}>{children}</View>
           </KeyboardAwareScrollView>
           :
-          <View style={[styles.container]}>{children}</View>
+          <View style={[styles.container, containerStyle]}>{children}</View>
       }
     </View>
   );

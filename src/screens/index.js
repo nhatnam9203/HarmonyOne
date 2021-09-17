@@ -5,7 +5,6 @@ import ForgotPincodeSuccess from './ForgotPincodeSuccess';
 import WhatIsMerchant from './WhatIsMerchant';
 import Home from './Home';
 import Schedule from './Schedule';
-import AppointmentDetail from './AppointmentDetail';
 import Notification from './Notification';
 import EditAppointment from './EditAppointment';
 import EditService from './EditService';

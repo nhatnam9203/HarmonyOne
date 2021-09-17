@@ -8,13 +8,15 @@ export const IconButton = ({
     style,
     iconStyle,
     renderText = null,
-    slop = { top: 20, left: 20, right: 20, bottom: 20 }
+    slop = { top: 20, left: 20, right: 20, bottom: 20 },
+    activeOpacity = 1
 }) => {
     return (
         <TouchableOpacity
             onPress={onPress}
             style={[styles.button, style]}
             hitSlop={slop}
+            activeOpacity={activeOpacity}
         >
             <Image
                 source={icon}
