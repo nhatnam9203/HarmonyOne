@@ -21,7 +21,6 @@ import {
   ServiceNewScreen,
   CategoryNewScreen,
 } from '@screens';
-import BottomMain from './BottomMain';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
 
 const { Screen, Navigator } = createStackNavigator();

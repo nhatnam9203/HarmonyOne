@@ -23,9 +23,6 @@ const AuthStack = () => {
       <Screen {...LoginScreen} />
       <Screen {...PinCodeScreen} />
 
-      {/* <Screen name="LoginMID" component={LoginMID} /> */}
-      {/* <Screen name="LoginPincode" component={LoginPincode} /> */}
-
       <Screen name="ForgotPincode" component={ForgotPincode} />
       <Screen name="ForgotPincodeSuccess" component={ForgotPincodeSuccess} />
       <Screen name="WhatIsMerchant" component={WhatIsMerchant} />

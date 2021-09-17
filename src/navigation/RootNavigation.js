@@ -9,7 +9,6 @@ import 'react-native-gesture-handler';
 
 import { StatusBar } from 'react-native';
 import AuthStack from './AuthStack';
-import Main from './Main';
 import AppStack from './AppStack';
 
 const { Screen, Navigator } = createStackNavigator();
