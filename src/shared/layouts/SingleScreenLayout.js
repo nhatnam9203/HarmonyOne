@@ -1,7 +1,7 @@
 import { colors, fonts, layouts, images } from '@shared/themes';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, Text, View, TouchableOpacity, Image, Platform } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, Platform, ImageBackground } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import NavigationService from '@navigation/NavigationService';
@@ -16,6 +16,7 @@ export const SingleScreenLayout = ({
   isLeft = true,
   isRight = true,
   isScrollLayout = true,
+  imageBackground = null,
 }) => {
   const [t] = useTranslation();
   const insets = useSafeAreaInsets();
@@ -26,7 +27,8 @@ export const SingleScreenLayout = ({
 
   return (
     <View style={layouts.fill}>
-      <View
+      <ImageBackground
+        source={imageBackground}
         style={[
           styles.headContent,
           { paddingTop: Math.max(insets.top, scaleHeight(20)) },
@@ -62,7 +64,7 @@ export const SingleScreenLayout = ({
               <View style={styles.button} />
             </View>
         }
-      </View>
+      </ImageBackground>
 
       {
         isScrollLayout ?

@@ -20,7 +20,7 @@ export const HPOBottomTabStack = () => {
     >
       <Screen {...AppointmentScreen} />
       <Screen {...ReportsScreen} />
-      <Screen {...ServiceScreen} />
+      <Screen {...CustomersScreen} />
       <Screen {...MoreScreen} />
     </Navigator>
   );

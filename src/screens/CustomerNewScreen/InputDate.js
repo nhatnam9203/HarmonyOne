@@ -7,7 +7,7 @@ import { IconButton } from "@shared/components";
 import moment from "moment";
 import DatePicker from 'react-native-date-picker'
 
-const InputDate = React.forwardRef(({
+export const InputDate = React.forwardRef(({
     style,
 }, ref) => {
 
@@ -87,4 +87,3 @@ const styles = StyleSheet.create({
     }
 });
 
-export default InputDate;

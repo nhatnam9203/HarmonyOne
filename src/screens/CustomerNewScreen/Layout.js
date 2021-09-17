@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView } from 'rea
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { DropdownMenu, Button, CustomInput, InputText } from "@shared/components";
-import { InputDate } from "./InputDate";
+import { InputDate } from "./InputDate"
 import { fonts } from '@shared/themes';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
