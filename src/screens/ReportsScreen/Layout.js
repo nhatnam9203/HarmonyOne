@@ -5,34 +5,7 @@ import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, ItemSelect } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
-
-const itemsReport = [
-  {
-    title: "Sales",
-    icon: images.iconSales,
-    onPress: () => { }
-  },
-  {
-    title: "Customer",
-    icon: images.iconTabCustomer,
-    onPress: () => { }
-  },
-  {
-    title: "Services",
-    icon: images.iconService,
-    onPress: () => { }
-  },
-  {
-    title: "Payment method",
-    icon: images.iconPayment,
-    onPress: () => { }
-  },
-  {
-    title: "Marketing",
-    icon: images.iconMarketing,
-    onPress: () => { }
-  }
-]
+import { items } from "./Items";
 
 export const Layout = ({
 
@@ -60,7 +33,7 @@ export const Layout = ({
       >
         <View style={styles.content}>
           {
-            itemsReport.map((item) => (
+            items.map((item) => (
               <ItemSelect
                 key={item.title}
                 title={item.title}
