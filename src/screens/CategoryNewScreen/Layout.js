@@ -17,8 +17,6 @@ export const Layout = ({
   categoryTypeList,
 }) => {
 
-  console.log({ categoryTypeList })
-
   const [t] = useTranslation();
 
   const back = () => {

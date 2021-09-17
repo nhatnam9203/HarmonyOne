@@ -34,7 +34,8 @@ export const Layout = ({
   dialogDeleteCategoryRef,
   handleArchiveCategory,
   handleRestoreCategory,
-  setTempCategoryId
+  setTempCategory,
+  tempCategory,
 }) => {
 
   const [t] = useTranslation();
@@ -86,10 +87,14 @@ export const Layout = ({
         </View>
         <DialogConfirm
           ref={dialogDeleteCategoryRef}
-          title={t("Delete category")}
-          titleContent={t("Are you sure you want to delete this category?")}
-          onConfirmYes={handleArchiveCategory}
-          onModalHide={() => setTempCategoryId("")}
+          title={tempCategory.isDisabled == 0 ? t("Archive category") : t("Restore category")}
+          titleContent={
+            tempCategory.isDisabled == 0 ?
+              t("Are you sure you want to archive this category?") :
+              t("Are you sure you want to restore this category?")
+          }
+          onConfirmYes={tempCategory.isDisabled == 0 ? handleArchiveCategory : handleRestoreCategory}
+          onModalHide={() => setTempCategory("")}
         />
       </SingleScreenLayout>
     </View>

@@ -20,7 +20,7 @@ export const useProps = (props) => {
 
   const dialogDeleteCategoryRef = React.useRef();
   const [valueSearch, setSearchValue] = React.useState("");
-  const [tempCategoryId, setTempCategoryId] = React.useState("");
+  const [tempCategory, setTempCategory] = React.useState("");
 
   const { services } = useSelector(state => state.service);
   const { products } = useSelector(state => state.product);
@@ -86,20 +86,20 @@ export const useProps = (props) => {
 
     valueSearch,
     dialogDeleteCategoryRef,
-
+    tempCategory,
+    newCategory,
+    setTempCategory, 
+    
     getDataList: () => {
-      return categoryList.filter(cate => cate.isDisabled == 0).map((cate) => ({
+      return categoryList.map((cate) => ({
         category: cate,
-        data: services.filter((sv) => (sv.categoryId == cate.categoryId) && (sv.isDisabled == 0)),
+        data: services.filter((sv) => (sv.categoryId == cate.categoryId)),
       }))
     },
 
     onChangeSearch: (vl) => {
       setSearchValue(vl);
     },
-
-    newCategory,
-    setTempCategoryId,
 
     newService: () => {
       NavigationService.navigate(screenNames.ServiceNewScreen, { refreshService });
@@ -124,11 +124,11 @@ export const useProps = (props) => {
       },
       {
         id: 'delete-category',
-        label: t('Delete category'),
+        label: category.isDisabled == 0 ? t('Archive category') : t("Restore category"),
         textColor: colors.red,
         func: () => {
           setTimeout(() => {
-            setTempCategoryId(category.categoryId)
+            setTempCategory(category)
             dialogDeleteCategoryRef?.current?.show();
           }, 500);
         },
@@ -137,12 +137,14 @@ export const useProps = (props) => {
 
     handleArchiveCategory: async () => {
       const data = {}
-      const body = await archiveCategory(data, tempCategoryId);
+      const body = await archiveCategory(data, tempCategory.categoryId);
       submitArchiveCategory(body.params);
     },
 
     handleRestoreCategory: async () => {
-
+      const data = {}
+      const body = await restoreCategory(data, tempCategory.categoryId);
+      submitRestoreCategory(body.params);
     },
 
   };

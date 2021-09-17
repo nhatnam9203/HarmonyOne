@@ -1,14 +1,15 @@
 import React from 'react'
-import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import { convertMinsToHrsMins } from '@utils'
 import { fonts, colors, images } from "@shared/themes";
+import { CustomImage } from "@shared/components";
 import NavigationService from '@navigation/NavigationService'
 
-const ItemService = ({ item , editService }) => {
+const ItemService = ({ item, editService }) => {
 
     const img = item?.imageUrl ? { uri: item?.imageUrl } : images.serviceDefault;
 
-    const onPressItem = () =>{
+    const onPressItem = () => {
         editService(item);
     }
 
@@ -18,7 +19,7 @@ const ItemService = ({ item , editService }) => {
             activeOpacity={1}
             style={[styles.row, styles.item]}
         >
-            <Image
+            <CustomImage
                 style={styles.iconService}
                 source={img}
             />
