@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { IconButton } from "@shared/components";
+import { IconButton, ItemSelect } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 
@@ -61,7 +61,7 @@ export const Layout = ({
         <View style={styles.content}>
           {
             itemsReport.map((item) => (
-              <ItemReport
+              <ItemSelect
                 key={item.title}
                 title={item.title}
                 icon={item.icon}
@@ -74,22 +74,6 @@ export const Layout = ({
     </View>
   );
 };
-
-
-const ItemReport = ({ title = '', icon }) => (
-  <TouchableOpacity activeOpacity={1} style={styles.item}>
-    <IconButton
-      icon={icon}
-      iconStyle={styles.iconReport}
-      onPress={() => { }}
-      renderText={() => <Text style={styles.text}>{title}</Text>}
-    />
-    <Image
-      source={images.iconArrow}
-      style={styles.arrow}
-    />
-  </TouchableOpacity>
-)
 
 const styles = StyleSheet.create({
   container: {
@@ -112,32 +96,5 @@ const styles = StyleSheet.create({
     width: scaleWidth(35),
     justifyContent: 'center',
     alignItems: 'center',
-  },
-
-  item: {
-    width: '100%',
-    padding: scaleWidth(20),
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: "#dddddd"
-  },
-
-  iconReport: {
-    width: scaleHeight(24),
-    height: scaleHeight(24),
-  },
-
-  text: {
-    fontSize: scaleFont(16),
-    fontFamily: fonts.MEDIUM,
-    marginLeft: scaleWidth(16),
-    color: colors.greyish_brown_40,
-  },
-
-  arrow: {
-    width: scaleWidth(6),
-    height: scaleHeight(10),
   },
 });
