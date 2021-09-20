@@ -17,7 +17,7 @@ export const useProps = (_params) => {
     onLoginError: (msg) => {
       setTextMessage(msg);
     },
-    onLoginSuccess: (data) => {
+    onSuccess: (data) => {
       if (data?.code) {
         dispatch(auth.loginMerchant(data?.code));
       }

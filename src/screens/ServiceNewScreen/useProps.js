@@ -30,7 +30,7 @@ export const useProps = (props) => {
   const [{ }, submitAddService] = useAxiosMutation({
     ...addNewService(),
     isLoadingDefault: true,
-    onLoginSuccess: (data, response) => {
+    onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         props?.route?.params?.refreshService();
         back();
@@ -41,7 +41,7 @@ export const useProps = (props) => {
   const [{ }, submitEditService] = useAxiosMutation({
     ...editService(),
     isLoadingDefault: true,
-    onLoginSuccess: (data, response) => {
+    onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         props?.route?.params?.refreshService();
         back();

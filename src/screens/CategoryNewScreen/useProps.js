@@ -24,7 +24,7 @@ export const useProps = (props) => {
   const [{ }, submitAddCategory] = useAxiosMutation({
     ...addCategory(),
     isLoadingDefault: true,
-    onLoginSuccess: (data, response) => {
+    onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         props?.route?.params?.refreshCategory();
         NavigationService.back();
@@ -35,7 +35,7 @@ export const useProps = (props) => {
   const [{ }, submitEditCategory] = useAxiosMutation({
     ...editCategory(),
     isLoadingDefault: true,
-    onLoginSuccess: (data, response) => {
+    onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         props?.route?.params?.refreshCategory();
         NavigationService.back();

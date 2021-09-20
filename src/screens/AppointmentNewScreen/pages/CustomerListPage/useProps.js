@@ -22,7 +22,7 @@ export const useProps = (props) => {
         ...getListCustomer(valueSearch, currentPage),
         isLoadingDefault,
         enabled: true,
-        onLoginSuccess: (data, response) => {
+        onSuccess: (data, response) => {
             if (currentPage === 1) {
                 setCustomerList(data);
             } else {

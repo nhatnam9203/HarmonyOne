@@ -34,7 +34,7 @@ export const useProps = (props) => {
     ...getCategoryByMerchant(staff.merchantId),
     isLoadingDefault: true,
     enabled: false,
-    onLoginSuccess: (data, response) => {
+    onSuccess: (data, response) => {
       dispatch(category.setCategoryList(data));
     },
   });
@@ -43,7 +43,7 @@ export const useProps = (props) => {
     ...getService(staff.merchantId),
     isLoadingDefault: true,
     enabled: false,
-    onLoginSuccess: (data, response) => {
+    onSuccess: (data, response) => {
       dispatch(service.setServiceList(data));
     },
   });
@@ -52,7 +52,7 @@ export const useProps = (props) => {
   const [, submitArchiveCategory] = useAxiosMutation({
     ...archiveCategory(),
     isLoadingDefault: true,
-    onLoginSuccess: (data, response) => {
+    onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         getCategoryList();
       }
@@ -62,7 +62,7 @@ export const useProps = (props) => {
   const [, submitRestoreCategory] = useAxiosMutation({
     ...restoreCategory(),
     isLoadingDefault: true,
-    onLoginSuccess: (data, response) => {
+    onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         getCategoryList();
       }

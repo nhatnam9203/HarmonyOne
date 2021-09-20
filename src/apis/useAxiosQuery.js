@@ -10,7 +10,7 @@ let cancelToken;
 export const useAxiosQuery = ({
   params,
   queryId,
-  onLoginSuccess,
+  onSuccess,
   onLoginError,
   isLoadingDefault = true,
   enabled = false,
@@ -18,9 +18,8 @@ export const useAxiosQuery = ({
 }) => {
   const dispatch = useDispatch();
 
-  const requestGet = async () => {
+  const requestGet = async (body) => {
     const response = await axios(params);
-
     return response?.data;
   };
 
@@ -30,11 +29,12 @@ export const useAxiosQuery = ({
     {
       enabled,
       retry: false,
+      refetchOnMount : true,
       onSuccess: (response) => {
         dispatch(app?.hideLoading());
         if (response.data) {
-          if (onLoginSuccess && typeof onLoginSuccess === 'function') {
-            onLoginSuccess(response.data, response);
+          if (onSuccess && typeof onSuccess === 'function') {
+            onSuccess(response.data, response);
           }
         } else {
           if (

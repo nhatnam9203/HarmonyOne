@@ -6,6 +6,7 @@ import { IconButton, ItemSelect } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { dateToFormat, DATE_SHOW_FORMAT_STRING } from '@shared/utils';
+import Collapsible from 'react-native-collapsible';
 
 const CustomerInfo = ({
     firstName = '',
@@ -20,7 +21,11 @@ const CustomerInfo = ({
     isVip = '',
 }) => {
 
-    console.log({ addressPost })
+    const [isHideDetail, showFullDetail] = React.useState(true);
+
+    const toggleFullDetail = () => {
+        showFullDetail(isVisible => !isVisible);
+    }
 
     return (
         <View style={styles.container}>
@@ -57,37 +62,52 @@ const CustomerInfo = ({
                 icon={images.iconEmail}
                 iconStyle={styles.icon}
                 style={styles.rowIcon}
-                renderText={() => <Text style={styles.txtIcon}>{email}</Text>}
+                renderText={() =>
+                    <Text
+                        numberOfLine={1}
+                        ellipsizeMode='tail'
+                        style={[styles.txtIcon, { width: scaleWidth(270) }]}
+                    >
+                        {email}
+                    </Text>
+                }
             />
-            <IconButton
-                icon={images.iconGender}
-                iconStyle={styles.icon}
-                style={styles.rowIcon}
-                renderText={() => <Text style={styles.txtIcon}>{gender}</Text>}
-            />
-            <IconButton
-                icon={images.iconBirthdate}
-                iconStyle={styles.icon}
-                style={styles.rowIcon}
-                renderText={() => <Text style={styles.txtIcon}>{dateToFormat(birthdate, DATE_SHOW_FORMAT_STRING)}</Text>}
-            />
-            <IconButton
-                icon={images.iconLocation}
-                iconStyle={styles.icon}
-                style={styles.rowIcon}
-                renderText={() => <Text style={styles.txtIcon}>
-                    {`${addressPost.street || ''} ${addressPost?.city || ''} ${addressPost?.zip || ''} ${addressPost?.state || ''}`}
-                </Text>}
-            />
-            <IconButton
-                icon={images.iconReferer}
-                iconStyle={styles.icon}
-                style={styles.rowIcon}
-                renderText={() => <Text style={styles.txtIcon}>{referrerPhone}</Text>}
-            />
+            <Collapsible collapsed={isHideDetail} duration={200}>
+                <IconButton
+                    icon={images.iconGender}
+                    iconStyle={styles.icon}
+                    style={styles.rowIcon}
+                    renderText={() => <Text style={styles.txtIcon}>{gender}</Text>}
+                />
+                <IconButton
+                    icon={images.iconBirthdate}
+                    iconStyle={styles.icon}
+                    style={styles.rowIcon}
+                    renderText={() => <Text style={styles.txtIcon}>
+                        {birthdate ? dateToFormat(birthdate, "MM/DD/YYYY") : ""}
+                    </Text>
+                    }
+                />
+                <IconButton
+                    icon={images.iconLocation}
+                    iconStyle={styles.icon}
+                    style={styles.rowIcon}
+                    renderText={() => <Text style={styles.txtIcon}>
+                        {`${addressPost.street || ''} ${addressPost?.city || ''} ${addressPost?.zip || ''} ${addressPost?.state || ''}`}
+                    </Text>}
+                />
+                <IconButton
+                    icon={images.iconReferer}
+                    iconStyle={styles.icon}
+                    style={styles.rowIcon}
+                    renderText={() => <Text style={styles.txtIcon}>{referrerPhone}</Text>}
+                />
+            </Collapsible>
 
-            <TouchableOpacity>
-                <Text style={styles.txtHide}>Hide details</Text>
+            <TouchableOpacity activeOpacity={1} onPress={toggleFullDetail}>
+                <Text style={styles.txtHide}>
+                    {isHideDetail ? `Full details` : `Hide details`}
+                </Text>
             </TouchableOpacity>
         </View>
     );
@@ -98,7 +118,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: scaleWidth(16),
         shadowColor: "#000",
-        backgroundColor : "white",
+        backgroundColor: "white",
         shadowOffset: {
             width: 0,
             height: 0,
@@ -146,11 +166,11 @@ const styles = StyleSheet.create({
         color: colors.white,
     },
     rowIcon: {
-        marginTop: scaleHeight(16),
+        marginTop: scaleHeight(12),
     },
     icon: {
-        width: scaleWidth(25),
-        height: scaleWidth(25),
+        width: scaleWidth(23),
+        height: scaleWidth(23),
         resizeMode: 'contain',
         tintColor: '#888888'
     },
@@ -163,7 +183,7 @@ const styles = StyleSheet.create({
     txtHide: {
         marginTop: scaleHeight(16),
         fontSize: scaleFont(17),
-        fontFamily: fonts.MEDIUM,
+        fontFamily: fonts.REGULAR,
         color: colors.ocean_blue,
     }
 });

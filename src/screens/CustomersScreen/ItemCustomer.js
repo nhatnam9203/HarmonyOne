@@ -4,31 +4,33 @@ import { fonts } from "@shared/themes";
 import { useAxiosQuery, getCustomerInfoById } from '@src/apis';
 import { useDispatch } from "react-redux";
 import { customer } from "@redux/slices";
+import { guid } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 
 const ItemCustomer = ({ item }) => {
     const dispatch = useDispatch();
 
     const [customerId, setCustomerId] = React.useState(null);
+    const [uid, setUID] = React.useState(null);
 
     const [, getCustomerById] = useAxiosQuery({
         ...getCustomerInfoById(customerId),
         isLoadingDefault: true,
         enabled: false,
-        onLoginSuccess: (data, response) => {
+        onSuccess: (data, response) => {
             dispatch(customer.setCustomerDetail(data));
             NavigationService.navigate(screenNames.CustomerDetailScreen);
         },
     });
 
     React.useEffect(() => {
-        if (customerId) {
+        if (customerId)
             getCustomerById();
-        }
-    }, [customerId]);
+    }, [customerId, setCustomerId, uid]);
 
     const selectItem = () => {
         setCustomerId(item.customerId);
+        setUID(guid())
     }
 
     return (

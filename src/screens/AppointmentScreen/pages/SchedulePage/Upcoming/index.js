@@ -14,7 +14,7 @@ export const UpcomingPage = ({ services }) => {
 
   const [, getAppointmentStaffByType] = useAxiosQuery({
     ...appointmentStaffByTypeRequest(staffId),
-    onLoginSuccess: (data) => {
+    onSuccess: (data) => {
       const groupAppointments = appointmentGroupByFromTime(data);
       setItems(groupAppointments);
     },

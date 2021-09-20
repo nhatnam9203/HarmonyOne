@@ -2,13 +2,28 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { IconButton, ItemSelect } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
-import { CustomerInfo } from "./widget";
+import { CustomerInfo, CustomerSales, CustomerAppointments } from "./widget";
+import { WithPopupActionSheet } from "@shared/HOC";
+
+let EditButton = ({ ...props }) => {
+  return (
+    <TouchableOpacity style={styles.button} {...props}>
+      <Image
+        source={images.iconMore}
+        style={styles.treedot}
+        resizeMode="contain"
+      />
+    </TouchableOpacity>
+  );
+};
+
+EditButton = WithPopupActionSheet(EditButton);
 
 export const Layout = ({
-  customerDetail
+  customerDetail,
+  getActionSheets,
 }) => {
 
   const [t] = useTranslation();
@@ -16,20 +31,15 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={'Customer details'}
+        pageTitle={t('Customer details')}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
         headerRightComponent={() =>
-          <IconButton
-            icon={images.treedot}
-            iconStyle={styles.iconBell}
-            style={styles.buttonBell}
-            onPress={() => { }}
-          />
+            <EditButton actions={getActionSheets()} />
         }
       >
-        <View style={styles.content}>
-          <CustomerInfo 
+        <ScrollView style={styles.content}>
+          <CustomerInfo
             firstName={customerDetail?.firstName}
             lastName={customerDetail?.lastName}
             note={customerDetail?.note}
@@ -41,7 +51,19 @@ export const Layout = ({
             birthdate={customerDetail?.birthdate}
             isVip={customerDetail?.isVip}
           />
-        </View>
+          <CustomerSales
+            totalSales={customerDetail?.customerHistory?.totalSales || ""}
+            lastVisitSale={customerDetail?.customerHistory?.lastVisitSale || ""}
+            lastVisitDate={customerDetail?.customerHistory?.lastVisitDate || ""}
+          />
+          <CustomerAppointments
+            allBooking={customerDetail?.customerHistory?.allBooking || "0"}
+            completed={customerDetail?.customerHistory?.completed || "0"}
+            cancelled={customerDetail?.customerHistory?.cancelled || "0"}
+            upcomming={customerDetail?.customerHistory?.upcomming || "0"}
+          />
+          <View style={{ height: scaleHeight(100) }} />
+        </ScrollView>
       </SingleScreenLayout>
     </View>
   );
@@ -52,26 +74,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-
   content: {
     flex: 1,
-    padding : scaleWidth(16)
+    padding: scaleWidth(16)
   },
-
-  containerItem: {
-    transform: [{ translateY: -scaleWidth(375 / 3.5 / 2 - 15) }],
-    flex : 1,
-  },
-  iconBell: {
-    tintColor: colors.black,
-    width: scaleHeight(18),
-    height: scaleHeight(18),
-  },
-
-  buttonBell: {
+  button: {
     height: '100%',
     width: scaleWidth(35),
     justifyContent: 'center',
     alignItems: 'center',
-  },
+  }
 });

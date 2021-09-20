@@ -1,3 +1,5 @@
+import { guid } from "@shared/utils";
+
 export const merchantLogin = (merchantID) => ({
   params: {
     url: `/merchant/login/${merchantID}`,
@@ -84,6 +86,7 @@ export const getListCustomer = (key = '', page = 1) => ({
 });
 
 export const addNewCustomer = (data) => ({
+  queryId: `addNewCustomer`,
   params: {
     url: '/customer',
     method: 'POST',
@@ -92,6 +95,7 @@ export const addNewCustomer = (data) => ({
 });
 
 export const getCustomerInfoById = (customerId) => ({
+  queryId: `getCustomerInfoById`,
   params: {
     url: `/customer/${customerId}`,
     method: 'GET',
@@ -156,7 +160,7 @@ export const addCategory = (data) => ({
   },
 });
 
-export const editCategory = (data,categoryId) => ({
+export const editCategory = (data, categoryId) => ({
   queryId: 'editCategory',
   params: {
     url: `/category/${categoryId}`,
@@ -165,7 +169,7 @@ export const editCategory = (data,categoryId) => ({
   },
 });
 
-export const archiveCategory = (data,categoryId) => ({
+export const archiveCategory = (data, categoryId) => ({
   queryId: 'archiveCategory',
   params: {
     url: `/category/archive/${categoryId}`,
@@ -174,7 +178,7 @@ export const archiveCategory = (data,categoryId) => ({
   },
 });
 
-export const restoreCategory = (data,categoryId) => ({
+export const restoreCategory = (data, categoryId) => ({
   queryId: 'restoreCategory',
   params: {
     url: `/category/restore/${categoryId}`,

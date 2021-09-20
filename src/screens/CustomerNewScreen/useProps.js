@@ -26,7 +26,7 @@ export const useProps = (props) => {
     const [{ isLoading }, mutate] = useAxiosMutation({
         ...addNewCustomer(),
         isLoadingDefault: true,
-        onLoginSuccess: (data, response) => {
+        onSuccess: (data, response) => {
             if (response?.codeNumber == 200) {
                 props?.route?.params?.refreshFromScreen();
                 NavigationService.back();

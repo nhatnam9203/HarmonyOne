@@ -14,7 +14,7 @@ export const useProps = ({ navigation }) => {
 
   const [, getAppointmentStaffByDate] = useAxiosQuery({
     ...appointmentStaffByDateRequest(staffId, selectDate),
-    onLoginSuccess: (data) => {
+    onSuccess: (data) => {
       setItems(data);
     },
   });

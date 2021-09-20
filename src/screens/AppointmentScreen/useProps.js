@@ -15,7 +15,7 @@ export const useProps = (_params) => {
     ...getService(),
     isLoadingDefault: false,
     enabled: false,
-    onLoginSuccess: (data, response) => {
+    onSuccess: (data, response) => {
       dispatch(service.setServiceList(data));
     },
   });
@@ -24,7 +24,7 @@ export const useProps = (_params) => {
     ...getProduct(),
     isLoadingDefault: false,
     enabled: false,
-    onLoginSuccess: (data, response) => {
+    onSuccess: (data, response) => {
       dispatch(product.setProductList(data));
     },
   });
@@ -33,7 +33,7 @@ export const useProps = (_params) => {
     ...getExtra(),
     isLoadingDefault: false,
     enabled: false,
-    onLoginSuccess: (data, response) => {
+    onSuccess: (data, response) => {
       dispatch(extra.setExtraList(data));
     },
   });
@@ -42,7 +42,7 @@ export const useProps = (_params) => {
     ...getCategoryByMerchant(staff.merchantId),
     isLoadingDefault: false,
     enabled: false,
-    onLoginSuccess: (data, response) => {
+    onSuccess: (data, response) => {
       dispatch(category.setCategoryList(data));
     },
   });

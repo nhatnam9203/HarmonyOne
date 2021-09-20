@@ -6,7 +6,7 @@ import { app } from '@src/redux/slices';
 
 export const useAxiosMutation = ({
   params,
-  onLoginSuccess,
+  onSuccess,
   onLoginError,
   isLoadingDefault = true,
 }) => {
@@ -24,8 +24,8 @@ export const useAxiosMutation = ({
         if (response.data) {
           //   dispatch(actions.auth.loginStaff(response.data));
 
-          if (onLoginSuccess && typeof onLoginSuccess === 'function') {
-            onLoginSuccess(response?.data, response);
+          if (onSuccess && typeof onSuccess === 'function') {
+            onSuccess(response?.data, response);
           }
         } else {
           if (
