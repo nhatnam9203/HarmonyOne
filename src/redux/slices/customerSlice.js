@@ -6,14 +6,15 @@ import AsyncStorage from '@react-native-community/async-storage';
 const reducerName = 'hpo.customer';
 const initialState = {
     customerList: [],
+    customerDetail: {},
 };
 
 const customerSlice = createSlice({
     name: reducerName,
     initialState: initialState,
     reducers: {
-        testaction: (state, action) => {
-            console.log({ action })
+        setCustomerDetail: (state, action) => {
+            state.customerDetail = action.payload;
         }
     },
 });

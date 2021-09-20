@@ -1,12 +1,34 @@
 import React from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { fonts } from "@shared/themes";
+import { useAxiosQuery, getCustomerInfoById } from '@src/apis';
+import { useDispatch } from "react-redux";
+import { customer } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 
 const ItemCustomer = ({ item }) => {
+    const dispatch = useDispatch();
+
+    const [customerId, setCustomerId] = React.useState(null);
+
+    const [, getCustomerById] = useAxiosQuery({
+        ...getCustomerInfoById(customerId),
+        isLoadingDefault: true,
+        enabled: false,
+        onLoginSuccess: (data, response) => {
+            dispatch(customer.setCustomerDetail(data));
+            NavigationService.navigate(screenNames.CustomerDetailScreen);
+        },
+    });
+
+    React.useEffect(() => {
+        if (customerId) {
+            getCustomerById();
+        }
+    }, [customerId]);
 
     const selectItem = () => {
-        NavigationService.navigate(screenNames.BookingPage);
+        setCustomerId(item.customerId);
     }
 
     return (
@@ -33,7 +55,7 @@ const styles = StyleSheet.create({
     item: {
         width: '100%',
         flexDirection: 'row',
-        marginVertical: scaleHeight(10),
+        marginVertical: scaleHeight(16),
         marginHorizontal: scaleWidth(15)
     },
     rightItem: {
@@ -63,7 +85,7 @@ const styles = StyleSheet.create({
     },
     phone: {
         color: '#7A98BB',
-        fontSize: scaleWidth(15),
+        fontSize: scaleWidth(14),
         fontFamily: fonts.REGULAR
     },
 })

@@ -11,8 +11,6 @@ export const StaffInfo = () => {
 
     const { staff } = useSelector((state) => state.auth);
 
-    console.log({ staff })
-
     return (
         <View style={styles.container}>
             <View style={styles.wrapAvatar}>

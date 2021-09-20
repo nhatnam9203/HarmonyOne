@@ -33,6 +33,13 @@ export const images = {
   iconHardware: require('@src/assets/images/iconHardware.png'),
   iconInvoice: require('@src/assets/images/iconInvoice.png'),
   iconBusiness: require('@src/assets/images/iconBusiness.png'),
+  iconNote: require('@src/assets/images/iconNote.png'),
+  iconPhone: require('@src/assets/images/iconPhone.png'),
+  iconEmail: require('@src/assets/images/iconEmail.png'),
+  iconGender: require('@src/assets/images/iconGender.png'),
+  iconBirthdate: require('@src/assets/images/iconBirthdate.png'),
+  iconLocation: require('@src/assets/images/iconLocation.png'),
+  iconReferer: require('@src/assets/images/iconReferer.png'),
   iconUpload: require('@src/assets/home/icon_addImage.png'),
 
   EmptyList: require('@src/assets/images/emptyList.png'),

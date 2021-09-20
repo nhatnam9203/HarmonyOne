@@ -21,6 +21,7 @@ export const Layout = ({
     loadMoreCustomerList,
     onRefreshCustomer,
     addCustomer,
+    
 }) => {
 
     const [t] = useTranslation();

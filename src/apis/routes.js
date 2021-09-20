@@ -91,6 +91,13 @@ export const addNewCustomer = (data) => ({
   },
 });
 
+export const getCustomerInfoById = (customerId) => ({
+  params: {
+    url: `/customer/${customerId}`,
+    method: 'GET',
+  },
+});
+
 
 
 /**
