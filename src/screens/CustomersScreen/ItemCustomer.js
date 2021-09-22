@@ -7,7 +7,7 @@ import { customer } from "@redux/slices";
 import { guid } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 
-const ItemCustomer = ({ item }) => {
+const ItemCustomer = ({ item, refreshFromScreen }) => {
     const dispatch = useDispatch();
 
     const [customerId, setCustomerId] = React.useState(null);
@@ -19,7 +19,7 @@ const ItemCustomer = ({ item }) => {
         enabled: false,
         onSuccess: (data, response) => {
             dispatch(customer.setCustomerDetail(data));
-            NavigationService.navigate(screenNames.CustomerDetailScreen);
+            NavigationService.navigate(screenNames.CustomerDetailScreen, { refreshFromScreen });
         },
     });
 

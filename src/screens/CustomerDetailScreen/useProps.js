@@ -2,12 +2,25 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { colors } from "@shared/themes";
+import { useAxiosQuery, useAxiosMutation, deleteCustomer, editCustomer } from '@src/apis';
+import NavigationService from '@navigation/NavigationService';
 
-export const useProps = (_params) => {
+export const useProps = (props) => {
 
   const { customerDetail } = useSelector(state => state.customer);
+  const [customerIdDelete, setCustomerIdDelete] = React.useState(false);
 
   const [t] = useTranslation();
+
+  const [, submitDeleteCustomer] = useAxiosQuery({
+    ...deleteCustomer(customerDetail?.customerId),
+    isLoadingDefault: true,
+    enabled: false,
+    onSuccess: (data, response) => {
+      props?.route?.params?.refreshFromScreen();
+      NavigationService.navigate(screenNames.CustomersScreen);
+    },
+  });
 
   return {
     customerDetail,
@@ -15,13 +28,17 @@ export const useProps = (_params) => {
       {
         id: 'edit-customer',
         label: t('Edit'),
-        func: () => { },
+        func: () => {
+          NavigationService.navigate(screenNames.CustomerNewScreen, { isEdit: true, customerDetail });
+        },
       },
       {
         id: 'delete-customer',
         label: t('Delete'),
         textColor: colors.red,
-        func: () => { }
+        func: () => {
+          submitDeleteCustomer();
+        }
       },
     ],
   };

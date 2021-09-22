@@ -1,5 +1,6 @@
 import moment from 'moment';
 import _ from 'lodash';
+import { colors } from "../themes/variables";
 
 export const DATE_FORMAT_STRING = 'MM/DD/YYYY';
 export const BIRTH_DAY_DATE_FORMAT_STRING = 'MM/DD/YYYY';
@@ -71,12 +72,12 @@ export const formatMoney = (
       i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousands) +
       (decimalCount
         ? decimal +
-          Math.abs(amount - i)
-            .toFixed(decimalCount)
-            .slice(2)
+        Math.abs(amount - i)
+          .toFixed(decimalCount)
+          .slice(2)
         : '')
     );
-  } catch (e) {}
+  } catch (e) { }
 };
 
 export const formatMoneyWithUnit = (amount, unit = '$') => {
@@ -92,3 +93,56 @@ export const formatMoneyWithUnit = (amount, unit = '$') => {
 
   return formatMoney(amount || 0);
 };
+
+export const convertStatus = {
+  "checkin": "CHECK-IN",
+  "waiting": "WAITING",
+  "paid": "PAID",
+  "void": "VOID",
+  "refund": "REFUND",
+  "cancel": "CANCELLED",
+  "confirm": "CONFIRMED",
+  "unconfirm": "UNCONFIRM",
+}
+
+export const convertColorByStatus = (status) => {
+  let color = colors.ocean_blue;
+
+  switch (status) {
+    case "checkin":
+      color = colors.ocean_blue;
+      break;
+
+    case "waiting":
+      color = "#dddddd";
+      break;
+
+    case "void":
+      color = "#dddddd";
+      break;
+
+    case "refund":
+      color = "#dddddd";
+      break;
+
+    case "cancel":
+      color = "red";
+      break;
+
+    case "paid":
+      color = "#50CF25";
+      break;
+
+    case "confirm":
+      color = "#404040";
+      break;
+
+    case "unconfirm":
+      color = "#404040";
+      break;
+
+    default:
+      break;
+  }
+  return color;
+}

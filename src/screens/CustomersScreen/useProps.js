@@ -54,6 +54,8 @@ export const useProps = (props) => {
     isLoading,
     currentPage,
 
+    refreshFromScreen,
+
     addCustomer: () => {
       navigation.push(screenNames.CustomerNewScreen, {
         refreshFromScreen

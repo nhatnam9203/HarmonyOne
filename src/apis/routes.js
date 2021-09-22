@@ -94,6 +94,15 @@ export const addNewCustomer = (data) => ({
   },
 });
 
+export const editCustomer = (data, customerId) => ({
+  queryId: `editCustomer`,
+  params: {
+    url: `/customer/${customerId}`,
+    method: 'PUT',
+    data,
+  },
+});
+
 export const getCustomerInfoById = (customerId) => ({
   queryId: `getCustomerInfoById`,
   params: {
@@ -102,6 +111,21 @@ export const getCustomerInfoById = (customerId) => ({
   },
 });
 
+export const deleteCustomer = (customerId) => ({
+  queryId: `deleteCustomer`,
+  params: {
+    url: `/customer/${customerId}`,
+    method: 'DELETE',
+  },
+});
+
+export const getPastAppointmentByCustomer = (customerId, page) => ({
+  queryId: `getPastAppointmentByCustomer`,
+  params: {
+    url: `appointment/getPastByCustomer/${customerId}?page=${page}`,
+    method: 'GET',
+  },
+});
 
 
 /**

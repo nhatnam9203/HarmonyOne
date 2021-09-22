@@ -18,12 +18,17 @@ export const SingleScreenLayout = ({
   isScrollLayout = true,
   imageBackground = null,
   containerStyle,
+  onPressLeft,
 }) => {
   const [t] = useTranslation();
   const insets = useSafeAreaInsets();
 
   const onGoBack = () => {
-    NavigationService.back();
+    if (onPressLeft) {
+      onPressLeft();
+    } else {
+      NavigationService.back();
+    }
   };
 
   return (

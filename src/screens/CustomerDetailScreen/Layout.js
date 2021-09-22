@@ -4,8 +4,9 @@ import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
-import { CustomerInfo, CustomerSales, CustomerAppointments } from "./widget";
+import { CustomerInfo, CustomerSales, CustomerAppointmentNumber, CustomerAppointments } from "./widget";
 import { WithPopupActionSheet } from "@shared/HOC";
+import NavigationService from '@navigation/NavigationService';
 
 let EditButton = ({ ...props }) => {
   return (
@@ -34,11 +35,12 @@ export const Layout = ({
         pageTitle={t('Customer details')}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
+        onPressLeft={() => NavigationService.navigate(screenNames.CustomersScreen)}
         headerRightComponent={() =>
-            <EditButton actions={getActionSheets()} />
+          <EditButton actions={getActionSheets()} />
         }
       >
-        <ScrollView style={styles.content}>
+        <ScrollView bounces={false} style={styles.content}>
           <CustomerInfo
             firstName={customerDetail?.firstName}
             lastName={customerDetail?.lastName}
@@ -56,12 +58,16 @@ export const Layout = ({
             lastVisitSale={customerDetail?.customerHistory?.lastVisitSale || ""}
             lastVisitDate={customerDetail?.customerHistory?.lastVisitDate || ""}
           />
-          <CustomerAppointments
+          <CustomerAppointmentNumber
             allBooking={customerDetail?.customerHistory?.allBooking || "0"}
             completed={customerDetail?.customerHistory?.completed || "0"}
             cancelled={customerDetail?.customerHistory?.cancelled || "0"}
             upcomming={customerDetail?.customerHistory?.upcomming || "0"}
           />
+          <CustomerAppointments
+            upcomings={customerDetail?.customerHistory?.upcomings || []}
+          />
+
           <View style={{ height: scaleHeight(100) }} />
         </ScrollView>
       </SingleScreenLayout>

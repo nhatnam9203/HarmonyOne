@@ -39,9 +39,16 @@ const CustomerInfo = ({
                     {`${firstName} ${lastName}`}
                 </Text>
 
-                <View style={styles.group}>
+                <View style={styles.group(isVip)}>
+                    {
+                        isVip == 1 && 
+                        <Image
+                            source={images.iconVip}
+                            style={styles.iconVip}
+                        />
+                    }
                     <Text style={styles.textGroup}>
-                        {isVip == 0 ? 'Normal' : 'Vip'}
+                        {isVip == 0 ? 'Normal' : 'VIP'}
                     </Text>
                 </View>
             </View>
@@ -151,14 +158,17 @@ const styles = StyleSheet.create({
         color: colors.greyish_brown_40,
         marginTop: scaleHeight(12)
     },
-    group: {
-        marginTop: scaleHeight(12),
-        width: scaleWidth(120),
-        height: scaleWidth(30),
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: colors.ocean_blue,
-        borderRadius: 30,
+    group: isVip => {
+        return {
+            marginTop: scaleHeight(12),
+            width: scaleWidth(120),
+            height: scaleWidth(30),
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+            backgroundColor: isVip == 0 ? colors.ocean_blue : "#50CF25",
+            borderRadius: 30,
+        }
     },
     textGroup: {
         fontSize: scaleFont(16),
@@ -185,6 +195,12 @@ const styles = StyleSheet.create({
         fontSize: scaleFont(17),
         fontFamily: fonts.REGULAR,
         color: colors.ocean_blue,
+    },
+    iconVip: {
+        width: scaleWidth(19),
+        height: scaleWidth(19),
+        resizeMode: 'contain',
+        marginRight: 5
     }
 });
 

@@ -28,6 +28,8 @@ export const Layout = ({
     onSubmit,
     form,
     errors,
+    isEdit,
+    customerDetail,
     inputCustomerGroupRef,
     inputGenderRef,
     inputPhoneHeadRef,
@@ -39,7 +41,7 @@ export const Layout = ({
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={t('New customer')}
+                pageTitle={isEdit ? t('Edit customer') :t('New customer')}
                 isRight={false}
                 isScrollLayout={false}
             >

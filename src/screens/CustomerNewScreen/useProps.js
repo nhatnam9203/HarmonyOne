@@ -12,7 +12,11 @@ export const useProps = (props) => {
     const form = useForm({
         resolver: yupResolver(customerSchema)
     });
+    const { setValue } = form;
     const errors = form.formState.errors;
+
+    const isEdit = props?.route?.params?.isEdit;
+    const customerDetail = props?.route?.params?.customerDetail;
 
     const navigation = useNavigation();
 
@@ -34,6 +38,19 @@ export const useProps = (props) => {
         },
     });
 
+    React.useEffect(() => {
+        if (isEdit) {
+            setValue("firstName", customerDetail?.firstName);
+            setValue("lastName", customerDetail?.lastName);
+            setValue("email", customerDetail?.email);
+            setValue("note", customerDetail?.note);
+            setValue("street", customerDetail?.street?.toString());
+            setValue("city", customerDetail?.city?.toString());
+            setValue("zip", customerDetail?.zip?.toString());
+            setValue("state", customerDetail?.state?.toString());
+        }
+    }, []);
+
     return {
         inputDateRef,
         inputCustomerGroupRef,
@@ -43,6 +60,8 @@ export const useProps = (props) => {
 
         form,
         errors,
+        isEdit,
+        customerDetail,
 
         onSubmit: async (values) => {
             const referrerPhoneHead = inputReferrerPhoneHeadRef?.current?.getValue().value;

@@ -55,7 +55,7 @@ export const InputText = React.forwardRef(({
                 />
                 {
                     renderRight ? renderRight() :
-                    field.value.length > 0 &&
+                    field?.value?.length > 0 &&
                     <IconButton
                         icon={images.iconClose}
                         iconStyle={styles.iconClose}

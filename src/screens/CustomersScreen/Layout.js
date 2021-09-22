@@ -21,7 +21,7 @@ export const Layout = ({
     loadMoreCustomerList,
     onRefreshCustomer,
     addCustomer,
-    
+    refreshFromScreen,
 }) => {
 
     const [t] = useTranslation();
@@ -67,7 +67,7 @@ export const Layout = ({
                             <FlatList
                                 style={styles.flatList}
                                 data={customerList}
-                                renderItem={({ item }) => <ItemCustomer item={item} />}
+                                renderItem={({ item }) => <ItemCustomer item={item} refreshFromScreen={refreshFromScreen} />}
                                 keyExtractor={(item) => item.customerId.toString()}
                                 onEndReached={loadMoreCustomerList}
                                 onEndReachedThreshold={0.1}
