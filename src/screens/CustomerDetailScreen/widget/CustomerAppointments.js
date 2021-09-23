@@ -29,7 +29,7 @@ const CustomerAppointments = ({
                     options={{ tabBarLabel: 'Upcoming' }}
                 />
                 <Screen
-                    component={() => <PastAppointment upcomings={upcomings} />}
+                    component={() => <PastAppointment />}
                     name="PastAppointment"
                     options={{ tabBarLabel: 'Past' }}
                 />

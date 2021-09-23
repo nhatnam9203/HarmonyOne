@@ -3,24 +3,24 @@ import { View, StyleSheet, Text } from 'react-native';
 import { fonts, colors } from "@shared/themes";
 import { dateToFormat, convertStatus, convertColorByStatus } from "@shared/utils";
 
-const ItemAppointment = ({ item }) => {
+const ItemAppointment = ({ item, isPast }) => {
     return (
         <View style={styles.item}>
             <View style={styles.itemLeft}>
 
                 <View style={{ alignItems: 'center' }}>
-                    <Text style={styles.fromTime}>
+                    <Text style={[styles.fromTime, { color: isPast ? colors.greyish_brown_40 : colors.ocean_blue, }]}>
                         {dateToFormat(item.fromTime, "DD")}
                     </Text>
-                    <Text style={[styles.fromTime, { marginTop: scaleHeight(8) }]}>
+                    <Text style={[styles.fromTime, { color: isPast ? colors.greyish_brown_40 : colors.ocean_blue, marginTop: scaleHeight(8) }]}>
                         {dateToFormat(item.fromTime, "MMM")}
                     </Text>
-                    <Text style={[styles.fromTime, { marginTop: scaleHeight(8) }]}>
+                    <Text style={[styles.fromTime, { color: isPast ? colors.greyish_brown_40 : colors.ocean_blue, marginTop: scaleHeight(8) }]}>
                         {dateToFormat(item.fromTime, "YYYY")}
                     </Text>
                 </View>
 
-                <View style={{ marginLeft  : scaleWidth(16) }}>
+                <View style={{ marginLeft: scaleWidth(16) }}>
                     <Text style={[styles.fromTime, { color: colors.black, fontFamily: fonts.MEDIUM }]}>
                         {dateToFormat(item.fromTime, "dddd - hh:mm A")}
                     </Text>
@@ -41,7 +41,7 @@ const ItemAppointment = ({ item }) => {
 
             </View>
 
-            <View style={{ alignItems : 'flex-end'}}>
+            <View style={{ alignItems: 'flex-end' }}>
                 <Text style={styles.status(item?.status)}>
                     {convertStatus[item?.status]}
                 </Text>
@@ -79,13 +79,13 @@ const styles = StyleSheet.create({
         color: '#404040',
         fontFamily: fonts.REGULAR,
         fontSize: scaleFont(15),
-        marginBottom : scaleHeight(8)
+        marginBottom: scaleHeight(8)
     },
     status: status => {
         return {
             color: convertColorByStatus(status),
             fontFamily: fonts.REGULAR,
-            fontSize: scaleFont(17),
+            fontSize: scaleFont(16),
         }
     },
     total: status => {

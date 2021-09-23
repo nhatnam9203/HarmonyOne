@@ -17,7 +17,7 @@ const PastAppointment = ({ }) => {
 
     const [, refetch] = useAxiosQuery({
         ...getPastAppointmentByCustomer(customerDetail?.customerId, currentPage),
-        isLoadingDefault: false,
+        isLoadingDefault: currentPage === 1 ? true : false,
         enabled: true,
         onSuccess: (data, response) => {
             if (currentPage === 1) {
@@ -43,7 +43,7 @@ const PastAppointment = ({ }) => {
                 showsVerticalScrollIndicator={false}
                 style={styles.flatList}
                 data={appointmentList}
-                renderItem={({ item }) => <ItemAppointment item={item} />}
+                renderItem={({ item }) => <ItemAppointment item={item} isPast={true} />}
                 keyExtractor={(item) => item.appointmentId.toString()}
                 ItemSeparatorComponent={() => <View style={styles.seperateLine} />}
                 onEndReached={loadMore}

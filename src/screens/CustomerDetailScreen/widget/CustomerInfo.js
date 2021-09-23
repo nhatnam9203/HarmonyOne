@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     group: isVip => {
         return {
             marginTop: scaleHeight(12),
-            width: scaleWidth(120),
+            width: scaleWidth(100),
             height: scaleWidth(30),
             justifyContent: 'center',
             alignItems: 'center',

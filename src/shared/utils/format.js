@@ -100,7 +100,7 @@ export const convertStatus = {
   "paid": "PAID",
   "void": "VOID",
   "refund": "REFUND",
-  "cancel": "CANCELLED",
+  "cancel": "CANCEL",
   "confirm": "CONFIRMED",
   "unconfirm": "UNCONFIRM",
 }
