@@ -4,7 +4,7 @@ import { useAxiosQuery, useAxiosMutation, addNewCustomer, editCustomer, getCusto
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import { customerSchema } from "@shared/helpers/schema";
-import { headerPhoneGroup, genders } from "@shared/utils"
+import { headerPhoneGroup, genders, customerGroup } from "@shared/utils"
 import NavigationService from '@navigation/NavigationService';
 import moment from "moment";
 
