@@ -19,6 +19,7 @@ export const SingleScreenLayout = ({
   imageBackground = null,
   containerStyle,
   onPressLeft,
+  headerStyle,
 }) => {
   const [t] = useTranslation();
   const insets = useSafeAreaInsets();
@@ -39,6 +40,7 @@ export const SingleScreenLayout = ({
           styles.headContent,
           { paddingTop: Math.max(insets.top, scaleHeight(20)) },
           { backgroundColor: headerColor },
+          headerStyle,
         ]}>
         {
           isLeft ? <View style={styles.headerLeftContent}>

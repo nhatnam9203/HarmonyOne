@@ -5,23 +5,9 @@ import { SingleScreenLayout } from '@shared/layouts';
 import { DropdownMenu, Button, CustomInput, InputText } from "@shared/components";
 import { InputDate } from "./InputDate"
 import { fonts } from '@shared/themes';
+import { headerPhoneGroup, genders, customerGroup } from "@shared/utils"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-const headerPhoneGroup = [
-    { label: "+1", value: "+1" },
-    { label: "+84", value: "+84" },
-];
-
-const genders = [
-    { label: "Male", value: "Male" },
-    { label: "Female", value: "Female" },
-    { label: "Other", value: "Other" },
-];
-
-const customerGroup = [
-    { label: "Normal", value: "0" },
-    { label: "Vip", value: "1" },
-];
 
 export const Layout = ({
     inputDateRef,

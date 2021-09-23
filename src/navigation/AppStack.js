@@ -9,7 +9,6 @@ import {
   EditService,
   Checkout,
   SelectPayment,
-  EditProfile,
   ChangePincode,
   ForgotPincode,
   FeedBack,
@@ -21,6 +20,7 @@ import {
   ServiceScreen,
   ServiceNewScreen,
   CategoryNewScreen,
+  EditProfileScreen,
 } from '@screens';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
 
@@ -57,13 +57,13 @@ const AppStack = () => {
           cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
         }}
       />
+       <Screen {...EditProfileScreen} />
 
       <Screen name="Notification" component={Notification} />
       <Screen name="EditAppointment" component={EditAppointment} />
       <Screen name="EditService" component={EditService} />
       <Screen name="Checkout" component={Checkout} />
       <Screen name="SelectPayment" component={SelectPayment} />
-      <Screen name="EditProfile" component={EditProfile} />
       <Screen name="ChangePincode" component={ChangePincode} />
       <Screen name="ForgotPincode" component={ForgotPincode} />
       <Screen name="FeedBack" component={FeedBack} />

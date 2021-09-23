@@ -41,6 +41,7 @@ export const images = {
   iconLocation: require('@src/assets/images/iconLocation.png'),
   iconReferer: require('@src/assets/images/iconReferer.png'),
   iconVip: require('@src/assets/images/vip_icon.png'),
+  iconCamera: require('@src/assets/images/icon_camera.png'),
   iconUpload: require('@src/assets/home/icon_addImage.png'),
 
   EmptyList: require('@src/assets/images/emptyList.png'),

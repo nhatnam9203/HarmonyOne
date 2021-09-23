@@ -20,6 +20,7 @@ const ScreenNames = {
   ServiceScreen : 'hpo.service',
   ServiceNewScreen : 'hpo.service.new',
   CategoryNewScreen : 'hpo.category.new',
+  EditProfileScreen : 'hpo.profile.edit',
 };
 
 module.exports = { ScreenNames };

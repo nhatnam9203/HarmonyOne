@@ -78,3 +78,19 @@ export const guid = () => {
   }
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
+
+export const headerPhoneGroup = [
+  { label: "+1", value: "+1" },
+  { label: "+84", value: "+84" },
+];
+
+export const genders = [
+  { label: "Male", value: "Male" },
+  { label: "Female", value: "Female" },
+  { label: "Other", value: "Other" },
+];
+
+export const customerGroup = [
+  { label: "Normal", value: "0" },
+  { label: "Vip", value: "1" },
+];

@@ -22,3 +22,7 @@ export const serviceSchema = yup.object().shape({
     .nullable()
     .required('required')  
 });
+
+export const profileStaffLoginSchema = yup.object().shape({
+
+});

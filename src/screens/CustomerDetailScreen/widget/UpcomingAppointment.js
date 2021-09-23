@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text, FlatList, SafeAreaView } from 'react-native';
 import { fonts, colors } from "@shared/themes";
-import { ListEmptyComponent, IconButton } from '@shared/components';
+import { ListEmptyComponent } from '@shared/components';
 import { useTranslation } from "react-i18next";
 import ItemAppointment from "./ItemAppointment";
 

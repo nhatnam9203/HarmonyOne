@@ -2,7 +2,9 @@ import React from 'react';
 import { View, StyleSheet, Text, FlatList, ActivityIndicator } from 'react-native';
 import { fonts, colors } from "@shared/themes";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { useAxiosQuery, getPastAppointmentByCustomer } from '@src/apis';
+import { ListEmptyComponent } from '@shared/components';
 import ItemAppointment from "./ItemAppointment";
 
 const PastAppointment = ({ }) => {
@@ -37,6 +39,8 @@ const PastAppointment = ({ }) => {
         }
     }
 
+    const [t] = useTranslation();
+
     return (
         <View style={styles.container}>
             <FlatList
@@ -51,6 +55,7 @@ const PastAppointment = ({ }) => {
                 removeClippedSubviews={true}
                 initialNumToRender={20}
                 maxToRenderPerBatch={5}
+                ListEmptyComponent={() => <ListEmptyComponent description={t('No Appointments')} />}
                 ListFooterComponent={() =>
                     <View style={styles.itemLoadMore}>
                         {

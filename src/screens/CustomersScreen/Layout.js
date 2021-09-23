@@ -34,6 +34,7 @@ export const Layout = ({
                 isScrollLayout={false}
                 imageBackground={images.imageHeaderBg}
                 headerTintColor="white"
+                containerStyle={{ paddingVertical : 0 }}
                 headerRightComponent={() =>
                     <IconButton
                         icon={images.iconBell}
@@ -111,6 +112,7 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
+        paddingTop: scaleWidth(16)
     },
     flatList: {
         flex: 1,
@@ -171,7 +173,7 @@ const styles = StyleSheet.create({
 
     btnAddAppointment: {
         position: 'absolute',
-        bottom: 50,
+        bottom: 16,
         right: 20,
         paddingHorizontal: 15,
         paddingVertical: 15,
