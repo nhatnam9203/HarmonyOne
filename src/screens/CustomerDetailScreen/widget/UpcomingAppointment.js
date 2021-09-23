@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, FlatList } from 'react-native';
+import { View, StyleSheet, Text, FlatList, SafeAreaView } from 'react-native';
 import { fonts, colors } from "@shared/themes";
 import ItemAppointment from "./ItemAppointment";
 
@@ -7,7 +7,7 @@ const UpcomingAppointment = ({
     upcomings = []
 }) => {
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <FlatList
                 style={styles.flatList}
                 data={upcomings}
@@ -15,7 +15,7 @@ const UpcomingAppointment = ({
                 keyExtractor={(item) => item.appointmentId.toString()}
                 ItemSeparatorComponent={() => <View style={styles.seperateLine} />}
             />
-        </View>
+        </SafeAreaView>
     );
 };
 

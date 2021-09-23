@@ -1,4 +1,4 @@
-
+import NavigationService from '@navigation/NavigationService';
 import { images } from "@shared/themes/resources";
 export const items = [
     {
@@ -19,7 +19,9 @@ export const items = [
     {
       title: "Services",
       icon: images.iconService,
-      onPress: () => { }
+      onPress: () => { 
+        NavigationService.navigate(screenNames.ServiceScreen)
+      }
     },
     {
       title: "Reviews",

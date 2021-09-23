@@ -41,7 +41,7 @@ export const Layout = ({
                   key={item.title}
                   title={item.title}
                   icon={item.icon}
-                  onPress={item.onPress}
+                  onPress={()=>item.onPress()}
                 />
               ))
             }

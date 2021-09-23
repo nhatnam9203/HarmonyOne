@@ -6,7 +6,7 @@ import { CodePushProvider } from '@shared/providers/CodePushProvider';
 import '@shared/services/translation';
 import configureStore from '@src/redux/store';
 import React from 'react';
-import { ActivityIndicator , YellowBox } from 'react-native';
+import { ActivityIndicator , YellowBox ,LogBox } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';

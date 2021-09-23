@@ -6,6 +6,7 @@ import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { CustomerInfo, CustomerSales, CustomerAppointmentNumber, CustomerAppointments } from "./widget";
 import { WithPopupActionSheet } from "@shared/HOC";
+import { DialogConfirm } from "@shared/components";
 import NavigationService from '@navigation/NavigationService';
 
 let EditButton = ({ ...props }) => {
@@ -25,6 +26,8 @@ EditButton = WithPopupActionSheet(EditButton);
 export const Layout = ({
   customerDetail,
   getActionSheets,
+  dialogDeleteCustomer,
+  submitDeleteCustomer,
 }) => {
 
   const [t] = useTranslation();
@@ -66,6 +69,13 @@ export const Layout = ({
           />
           <CustomerAppointments
             upcomings={customerDetail?.customerHistory?.upcomings || []}
+          />
+          <DialogConfirm
+            ref={dialogDeleteCustomer}
+            title={t('Delete customer')}
+            titleContent={t("Are you sure you want to delete this customer?")}
+            onConfirmYes={() => submitDeleteCustomer()}
+            onModalHide={() => { }}
           />
 
           <View style={{ height: scaleHeight(100) }} />

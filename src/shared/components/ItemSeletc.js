@@ -3,21 +3,23 @@ import { StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { IconButton } from "@shared/components";
 import { fonts, colors, images } from "@shared/themes";
 
-export const ItemSelect = ({ title = '', icon }) => (
-    <TouchableOpacity activeOpacity={1} style={styles.item}>
-        <IconButton
-            icon={icon}
-            iconStyle={styles.iconReport}
-            onPress={() => { }}
-            renderText={() => <Text style={styles.text}>{title}</Text>}
-        />
-        <Image
-            source={images.iconArrow}
-            style={styles.arrow}
-            resizeMode='contain'
-        />
-    </TouchableOpacity>
-)
+export const ItemSelect = ({ title = '', icon, onPress }) => {
+    return (
+        <TouchableOpacity onPress={() => onPress( )} activeOpacity={1} style={styles.item}>
+            <IconButton
+                icon={icon}
+                iconStyle={styles.iconReport}
+                onPress={() => onPress()}
+                renderText={() => <Text style={styles.text}>{title}</Text>}
+            />
+            <Image
+                source={images.iconArrow}
+                style={styles.arrow}
+                resizeMode='contain'
+            />
+        </TouchableOpacity>
+    )
+}
 
 const styles = StyleSheet.create({
     item: {

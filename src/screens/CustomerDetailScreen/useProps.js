@@ -9,6 +9,9 @@ export const useProps = (props) => {
 
   const { customerDetail } = useSelector(state => state.customer);
   const [customerIdDelete, setCustomerIdDelete] = React.useState(false);
+  const [isPopupDeleteCustomer, showPopupDeleteCustomer] = React.useState(false);
+
+  const dialogDeleteCustomer = React.useRef();
 
   const [t] = useTranslation();
 
@@ -24,6 +27,8 @@ export const useProps = (props) => {
 
   return {
     customerDetail,
+    dialogDeleteCustomer,
+    submitDeleteCustomer,
     getActionSheets: () => [
       {
         id: 'edit-customer',
@@ -37,7 +42,9 @@ export const useProps = (props) => {
         label: t('Delete'),
         textColor: colors.red,
         func: () => {
-          submitDeleteCustomer();
+          setTimeout(() => {
+            dialogDeleteCustomer?.current?.show();
+          }, 500);
         }
       },
     ],

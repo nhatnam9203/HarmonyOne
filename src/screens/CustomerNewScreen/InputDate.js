@@ -15,7 +15,9 @@ export const InputDate = React.forwardRef(({
     const [open, setOpen] = React.useState(false);
 
     React.useImperativeHandle(ref, () => ({
-        getValue: () => date,
+        getValue: () => {
+            return date;
+        },
         changeValue: (vl) => setDate(vl),
     }));
 
