@@ -29,6 +29,31 @@ export const staffLogoutRequest = () => ({
   },
 });
 
+export const getStaffById = (staffId) => ({
+  params: {
+    url: `/staff/${staffId}`,
+    method: 'GET',
+  },
+});
+
+export const updateStaff = (data,staffId) => ({
+  queryId: 'updateStaff',
+  params: {
+    url: `/staff/${staffId}`,
+    method: 'PUT',
+    data,
+  },
+});
+
+export const uploadAvatarStaff = (data) => ({
+  queryId: 'uploadAvatarStaff',
+  params: {
+    url: `/file?category=avatar`,
+    method: 'POST',
+    data,
+  },
+});
+
 /**
  * APPOINTMENTS
  */

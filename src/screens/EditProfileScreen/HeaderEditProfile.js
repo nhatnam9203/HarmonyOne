@@ -36,7 +36,7 @@ export const HeaderEditProfile = ({
                     <View style={styles.headerCenterContent}>
                         <Text style={[styles.headTitle]}>
                             Edit profile
-                    </Text>
+                        </Text>
                     </View>
 
 

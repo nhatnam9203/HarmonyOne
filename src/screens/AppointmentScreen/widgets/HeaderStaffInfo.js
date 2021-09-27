@@ -34,7 +34,7 @@ export const HeaderStaffInfo = () => {
           <View style={styles.staffContent}>
             <Image
               source={
-                staff.imageUrl
+                staff?.imageUrl
                   ? { uri: staff.imageUrl }
                   : images.imageAvatarDefault
               }

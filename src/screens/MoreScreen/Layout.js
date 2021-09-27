@@ -9,7 +9,7 @@ import { items } from "./Items";
 import { StaffInfo } from "./StaffInfo";
 
 export const Layout = ({
-
+  onEditProfile
 }) => {
 
   const [t] = useTranslation();
@@ -33,7 +33,7 @@ export const Layout = ({
         }
       >
         <View style={styles.content}>
-          <StaffInfo />
+          <StaffInfo onEditProfile={onEditProfile} />
           <ScrollView style={styles.containerItem}>
             {
               items.map((item) => (
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
   },
   iconBell: {
     tintColor: colors.white,
-    width: scaleHeight(24),
-    height: scaleHeight(24),
+    width: scaleHeight(20),
+    height: scaleHeight(20),
   },
 
   buttonBell: {

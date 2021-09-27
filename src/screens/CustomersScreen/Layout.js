@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
     },
     iconBell: {
         tintColor: colors.white,
-        width: scaleHeight(24),
-        height: scaleHeight(24),
+        width: scaleHeight(20),
+        height: scaleHeight(20),
     },
     buttonClose: {
         height: '100%',

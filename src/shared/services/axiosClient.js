@@ -11,7 +11,7 @@ const log = (obj, message = '') => {
 log(Configs, 'Configs');
 export const axios = Axios.create({
   baseURL: Configs.API_URL,
-  timeout: 10000,
+  timeout: 30000,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',

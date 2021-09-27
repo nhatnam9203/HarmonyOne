@@ -63,7 +63,19 @@ export const appointmentGroupByFromTime = (appointments) => {
   }, []);
 };
 
-export const slop = (size = 10) => ({
+export const createFormData = (media) => {
+  const data = new FormData();
+  for (let i = 0; i < media.length; i++) {
+    data.append("files[]", {
+      uri: Platform.OS === "android" ? media[i].uri : media[i].uri.replace("file://", ""),
+      name: media[i].fileName ? media[i].fileName : `media-${i}.jpg`,
+      type: media[i].type ? media[i].type : "image/jpeg",
+    });
+  }
+  return data;
+};
+
+export const slop = (size = 10) => ({ 
   top: size,
   left: size,
   right: size,
@@ -72,9 +84,9 @@ export const slop = (size = 10) => ({
 
 export const guid = () => {
   const s4 = () => {
-      return Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1);
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
   }
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }

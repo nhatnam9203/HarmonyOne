@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
 
   btnAddAppointment: {
     position: 'absolute',
-    bottom: 50,
+    bottom: 16,
     right: 20,
     paddingHorizontal: 15,
     paddingVertical: 15,

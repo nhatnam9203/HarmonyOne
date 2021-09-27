@@ -35,6 +35,7 @@ export const useProps = (props) => {
     isLoadingDefault: true,
     enabled: false,
     onSuccess: (data, response) => {
+      console.log({ data, response })
       dispatch(category.setCategoryList(data));
     },
   });
@@ -68,7 +69,6 @@ export const useProps = (props) => {
       }
     },
   });
-
 
   const refreshCategory = () => {
     getCategoryList();

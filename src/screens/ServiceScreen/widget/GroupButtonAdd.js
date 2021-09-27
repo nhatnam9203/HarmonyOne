@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Image, TouchableOpacity, Animated, Text } from 'react-native'
-import { images } from "@shared/themes"
+import { images, fonts } from "@shared/themes"
 
 const GroupButtonAdd = ({ onPressAdd = () => { }, newCategory, newService }) => {
 

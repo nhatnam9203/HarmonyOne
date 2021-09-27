@@ -11,7 +11,6 @@ import Checkout from './Checkout';
 import SelectPayment from './SelectPayment';
 import Statistic from './Statistic';
 import Information from './Information';
-import Setting from './Setting';
 import ChangePincode from './ChangePincode';
 import FeedBack from './FeedBack';
 import Reviews from './Reviews';
@@ -32,6 +31,7 @@ import { ServiceScreen } from './ServiceScreen';
 import { ServiceNewScreen } from "./ServiceNewScreen";
 import { CategoryNewScreen } from "./CategoryNewScreen";
 import { EditProfileScreen } from "./EditProfileScreen";
+import { SettingScreen } from "./SettingScreen";
 
 module.exports = {
   ForgotPincode,
@@ -46,7 +46,6 @@ module.exports = {
   SelectPayment,
   Statistic,
   Information,
-  Setting,
   ChangePincode,
   FeedBack,
   Reviews,
@@ -66,4 +65,5 @@ module.exports = {
   ServiceNewScreen,
   CategoryNewScreen,
   EditProfileScreen,
+  SettingScreen,
 };

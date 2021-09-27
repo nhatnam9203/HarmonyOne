@@ -8,7 +8,6 @@ function* loginMID(action) {
   try {
     yield put({ type: 'START_LOADING_BUTTON' });
     const response = yield requestAPI(action);
-    console.log({ action, response })
     switch (parseInt(response.codeNumber)) {
       case 200:
         NavigationService.navigate('LoginPincode', {
@@ -75,8 +74,10 @@ function* logout(action) {
 function* staffLogin(action) {
   try {
     let { payload } = action;
-    yield call(saveAuthToken, payload?.token);
-    delete payload.token;
+    if(payload?.token){
+      yield call(saveAuthToken, payload?.token);
+      delete payload.token; 
+    }
   } catch (e) {
     console.log(e);
   }

@@ -39,7 +39,7 @@ export const useProps = (_params) => {
   });
 
   const [{ }, getCategoryList] = useAxiosQuery({
-    ...getCategoryByMerchant(staff.merchantId),
+    ...getCategoryByMerchant(staff?.merchantId),
     isLoadingDefault: false,
     enabled: false,
     onSuccess: (data, response) => {

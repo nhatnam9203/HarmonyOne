@@ -6,15 +6,12 @@ import { images } from "@shared/themes/resources";
 import { CustomImage } from "@shared/components";
 import { items } from "./Items";
 import { useSelector } from "react-redux";
-import NavigationService from '@navigation/NavigationService';
 
-export const StaffInfo = () => {
+export const StaffInfo = ({
+    onEditProfile,
+}) => {
 
     const { staff } = useSelector((state) => state.auth);
-
-    const editProfile = () =>{
-        NavigationService.navigate(screenNames.EditProfileScreen);
-    }
 
     return (
         <View style={styles.container}>
@@ -26,7 +23,7 @@ export const StaffInfo = () => {
             </View>
             <Text style={styles.txtStaff}>{staff?.displayName}</Text>
             <TouchableOpacity 
-                onPress={editProfile}
+                onPress={onEditProfile}
                 hitSlop={slop(30)}
             >
                 <Text style={styles.txtEdit}>Edit profile</Text>

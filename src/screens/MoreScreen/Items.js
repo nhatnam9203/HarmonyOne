@@ -36,6 +36,8 @@ export const items = [
     {
       title: "Settings",
       icon: images.iconSetting,
-      onPress: () => { }
+      onPress: () => { 
+        NavigationService.navigate(screenNames.SettingScreen)
+      }
     },
   ]

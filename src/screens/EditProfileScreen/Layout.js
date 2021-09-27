@@ -6,48 +6,92 @@ import { colors, fonts, layouts, images } from '@shared/themes';
 import { Button, CustomInput, InputText, DropdownMenu, CustomImage } from "@shared/components";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { HeaderEditProfile } from "./HeaderEditProfile";
-import { useSelector } from "react-redux";
-import { headerPhoneGroup } from "@shared/utils";
+import { headerPhoneGroup, createFormData } from "@shared/utils";
+import { WithPopupUpload } from '@shared/HOC';
+
+let AvatarProfile = ({ staff, imageUrl, onResponseImagePicker, ...props }) => {
+  return (
+    <TouchableOpacity
+      style={styles.containerAvatar}
+      onResponseImagePicker={onResponseImagePicker}
+      {...props}
+    >
+      <View style={styles.wrapAvatar}>
+        <CustomImage
+          style={styles.avatar}
+          source={{ uri: imageUrl }}
+        >
+          <Image
+            style={styles.iconCamera}
+            source={images.iconCamera}
+            resizeMode={'contain'}
+          />
+        </CustomImage>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+AvatarProfile = WithPopupUpload(AvatarProfile);
 
 export const Layout = ({
   form,
   errors,
   inputPhoneHeadRef,
   onSubmit,
+  staff,
+  imageUrl,
+  onHandleChangeAvatar,
 }) => {
 
   const [t] = useTranslation();
-  const { staff } = useSelector((state) => state.auth);
 
   return (
     <View style={layouts.fill}>
       <HeaderEditProfile />
       <View style={styles.content}>
-        <TouchableOpacity style={styles.containerAvatar}>
-          <View style={styles.wrapAvatar}>
-            <CustomImage
-              style={styles.avatar}
-              source={{ uri: staff?.imageUrl }}
-            >
-              <Image
-                style={styles.iconCamera}
-                source={images.iconCamera}
-                resizeMode={'contain'}
-              />
-            </CustomImage>
-          </View>
-        </TouchableOpacity>
+        <AvatarProfile
+          staff={staff}
+          imageUrl={imageUrl}
+          onResponseImagePicker={onHandleChangeAvatar}
+        />
 
         <KeyboardAwareScrollView style={styles.contentInput}>
           <CustomInput
-            label='Full name'
-            error={errors?.name}
+            label='First name'
+            error={errors?.firstName}
             renderInput={() =>
               <InputText
                 form={form}
-                name="name"
-                placeholder="Full name"
-                error={errors?.name}
+                name="firstName"
+                placeholder="First name"
+                error={errors?.firstName}
+              />
+            }
+          />
+
+          <CustomInput
+            label='Last name'
+            error={errors?.lastName}
+            renderInput={() =>
+              <InputText
+                form={form}
+                name="lastName"
+                placeholder="Last name"
+                error={errors?.lastName}
+              />
+            }
+          />
+
+          <CustomInput
+            label='Display name'
+            error={errors?.displayName}
+            renderInput={() =>
+              <InputText
+                form={form}
+                name="displayName"
+                placeholder="Display name"
+                error={errors?.displayName}
               />
             }
           />
@@ -81,19 +125,6 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Display name'
-            error={errors?.displayName}
-            renderInput={() =>
-              <InputText
-                form={form}
-                name="displayName"
-                placeholder="Display name"
-                error={errors?.displayName}
-              />
-            }
-          />
-
-          <CustomInput
             label='Email'
             error={errors?.email}
             renderInput={() =>
@@ -107,19 +138,32 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Address'
-            error={errors?.address}
+            label='Street'
+            error={errors?.street}
             renderInput={() =>
               <InputText
                 form={form}
-                name="address"
-                placeholder="Address"
-                error={errors?.address}
+                name="street"
+                placeholder="Street"
+                error={errors?.street}
               />
             }
           />
 
-          <View style={{ height : scaleHeight(100) }} />
+          <CustomInput
+            label='City'
+            error={errors?.city}
+            renderInput={() =>
+              <InputText
+                form={form}
+                name="city"
+                placeholder="City"
+                error={errors?.city}
+              />
+            }
+          />
+
+          <View style={{ height: scaleHeight(100) }} />
         </KeyboardAwareScrollView>
 
         <View style={styles.bottom}>

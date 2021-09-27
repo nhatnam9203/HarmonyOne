@@ -4,6 +4,7 @@ import { images } from "@shared/themes/resources";
 
 export const IconButton = ({
     icon = images.iconClose,
+    iconComponent = null,
     onPress = () => { },
     style,
     iconStyle,
@@ -18,11 +19,13 @@ export const IconButton = ({
             hitSlop={slop}
             activeOpacity={activeOpacity}
         >
-            <Image
-                source={icon}
-                style={[styles.icon, iconStyle]}
-                resizeMode='contain'
-            />
+            {
+                iconComponent ? iconComponent() : <Image
+                    source={icon}
+                    style={[styles.icon, iconStyle]}
+                    resizeMode='contain'
+                />
+            }
             {renderText && renderText()}
         </TouchableOpacity>
     )

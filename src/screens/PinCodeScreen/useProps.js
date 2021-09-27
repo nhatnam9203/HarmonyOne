@@ -24,6 +24,8 @@ export const useProps = (_params) => {
     },
   });
 
+
+
   return {
     onChangeInputCode: (val) => {
       setPinCode(val);
