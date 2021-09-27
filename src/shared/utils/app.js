@@ -106,3 +106,15 @@ export const customerGroup = [
   { label: "Normal", value: "0" },
   { label: "Vip", value: "1" },
 ];
+
+export const reviewTypeGroup = [
+  { label: "All reviews", value: "all" },
+  { label: "Bad reviews", value: "bad" },
+  { label: "Good reviews", value: "good" },
+];
+
+export const statusGroup = [
+  { label: "All Status", value: "all" },
+  { label: "Show", value: "show" },
+  { label: "Hidden", value: "hidden" },
+];

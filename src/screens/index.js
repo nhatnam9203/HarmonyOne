@@ -33,6 +33,7 @@ import { CategoryNewScreen } from "./CategoryNewScreen";
 import { EditProfileScreen } from "./EditProfileScreen";
 import { SettingScreen } from "./SettingScreen";
 import { NotificationScreen } from "./NotificationScreen";
+import { ReviewScreen } from "./ReviewScreen";
 
 module.exports = {
   ForgotPincode,
@@ -68,4 +69,5 @@ module.exports = {
   EditProfileScreen,
   SettingScreen,
   NotificationScreen,
+  ReviewScreen,
 };

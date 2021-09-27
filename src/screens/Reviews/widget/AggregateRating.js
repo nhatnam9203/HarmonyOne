@@ -2,7 +2,6 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { scaleWidth, scaleHeight } from '@utils'
 import { Text } from '@components'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const AggregateRating = () => {
     return (
@@ -20,8 +19,8 @@ const AggregateRating = () => {
                 <Text style={styles.content}>
                     All time statictis
                 </Text>
-                <View style={{ flexDirection: 'row' }}>
-                    {
+                <View style={{ flexDirection: 'row' }}> 
+                    {/* {
                         new Array(4).fill().map(() => (
                             <Ionicons
                                 key={Math.random()}
@@ -35,7 +34,7 @@ const AggregateRating = () => {
                         name='md-star-half-sharp'
                         color='#F5C750'
                         size={scaleWidth(5)}
-                    />
+                    /> */}
                 </View>
             </View>
             <Text style={[styles.content, { textAlign: 'right', marginTop: scaleHeight(0.7) }]}>

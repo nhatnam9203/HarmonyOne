@@ -26,7 +26,9 @@ export const items = [
     {
       title: "Reviews",
       icon: images.iconReview,
-      onPress: () => { }
+      onPress: () => { 
+        NavigationService.navigate(screenNames.ReviewScreen)
+      }
     },
     {
       title: "Hardware",

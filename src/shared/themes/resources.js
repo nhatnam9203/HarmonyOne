@@ -43,6 +43,9 @@ export const images = {
   iconVip: require('@src/assets/images/vip_icon.png'),
   iconCamera: require('@src/assets/images/icon_camera.png'),
   iconUpload: require('@src/assets/home/icon_addImage.png'),
+  iconFilter: require('@src/assets/images/iconFilter.png'),
+  iconStar: require('@src/assets/images/iconStar.png'),
+  iconStarHalf: require('@src/assets/images/iconStarHalf.png'),
 
   EmptyList: require('@src/assets/images/emptyList.png'),
   barTimeLine: require('@src/assets/images/barTimeLine.png'),
