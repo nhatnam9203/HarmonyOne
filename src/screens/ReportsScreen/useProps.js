@@ -1,3 +1,10 @@
+
+import NavigationService from '@navigation/NavigationService';
+
 export const useProps = (_params) => {
-  return {};
+  return {
+    goToNotification: () => {
+      NavigationService.navigate(screenNames.NotificationScreen)
+    },
+  };
 };

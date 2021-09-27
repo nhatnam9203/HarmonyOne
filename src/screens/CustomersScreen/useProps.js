@@ -18,7 +18,7 @@ export const useProps = (props) => {
 
   const navigation = useNavigation();
 
-  const [{ isLoading }, refetch] = useAxiosQuery({
+  const [isLoading, refetch] = useAxiosQuery({
     ...getListCustomer(valueSearch, currentPage),
     isLoadingDefault,
     enabled: true,
@@ -55,6 +55,9 @@ export const useProps = (props) => {
     currentPage,
 
     refreshFromScreen,
+    goToNotification: () => {
+      NavigationService.navigate(screenNames.NotificationScreen)
+    },
 
     addCustomer: () => {
       navigation.push(screenNames.CustomerNewScreen, {
@@ -65,10 +68,6 @@ export const useProps = (props) => {
     onChangeSearch: (value) => {
       setValueSearch(value);
       setCurrentPage(1);
-    },
-
-    close: () => {
-      NavigationService.back();
     },
 
     newCustomer: () => {

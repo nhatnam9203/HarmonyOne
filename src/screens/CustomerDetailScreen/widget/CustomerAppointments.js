@@ -24,15 +24,21 @@ const CustomerAppointments = ({
                 }}
             >
                 <Screen
-                    component={() => <UpcomingAppointment upcomings={upcomings} />}
                     name="UpcomingAppointment"
                     options={{ tabBarLabel: 'Upcoming' }}
-                />
+                >
+                {
+                    props => <UpcomingAppointment {...props} upcomings={upcomings} />
+                }
+                </Screen>
                 <Screen
-                    component={() => <PastAppointment />}
                     name="PastAppointment"
                     options={{ tabBarLabel: 'Past' }}
-                />
+                >
+                {
+                    props => <PastAppointment />
+                }
+                </Screen>
             </Navigator>
         </View>
     );

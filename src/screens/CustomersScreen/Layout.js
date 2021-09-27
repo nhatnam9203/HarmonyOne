@@ -16,12 +16,12 @@ export const Layout = ({
     isLoading,
     currentPage,
     onChangeSearch,
-    close,
     newCustomer,
     loadMoreCustomerList,
     onRefreshCustomer,
     addCustomer,
     refreshFromScreen,
+    goToNotification,
 }) => {
 
     const [t] = useTranslation();
@@ -40,7 +40,7 @@ export const Layout = ({
                         icon={images.iconBell}
                         iconStyle={styles.iconBell}
                         style={styles.buttonClose}
-                        onPress={close}
+                        onPress={goToNotification}
                     />
                 }
             >

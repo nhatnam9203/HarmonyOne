@@ -22,6 +22,7 @@ import {
   CategoryNewScreen,
   EditProfileScreen,
   SettingScreen,
+  NotificationScreen,
 } from '@screens';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
 import { useSelector } from "react-redux";
@@ -65,6 +66,7 @@ const AppStack = () => {
         />
         <Screen {...EditProfileScreen} />
         <Screen {...SettingScreen} />
+        <Screen {...NotificationScreen} />
   
         <Screen name="Notification" component={Notification} />
         <Screen name="EditAppointment" component={EditAppointment} />

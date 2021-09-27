@@ -9,7 +9,8 @@ import { items } from "./Items";
 import { StaffInfo } from "./StaffInfo";
 
 export const Layout = ({
-  onEditProfile
+  onEditProfile,
+  goToNotification
 }) => {
 
   const [t] = useTranslation();
@@ -28,7 +29,7 @@ export const Layout = ({
             icon={images.iconBell}
             iconStyle={styles.iconBell}
             style={styles.buttonBell}
-            onPress={() => { }}
+            onPress={goToNotification}
           />
         }
       >

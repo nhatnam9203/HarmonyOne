@@ -102,8 +102,8 @@ export const useProps = (props) => {
         address: {
           street: values.street,
           city: values.city,
-          state: 0,
-          zip: ""
+          state: staff?.stateId ?? 0,
+          zip: staff?.zip
         },
         email: values.email,
         cellphone: values.phone ? `${phoneHeader}${values.phone}` : "",

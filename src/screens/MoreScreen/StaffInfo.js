@@ -21,13 +21,15 @@ export const StaffInfo = ({
                     source={{ uri: staff?.imageUrl }}
                 />
             </View>
-            <Text style={styles.txtStaff}>{staff?.displayName}</Text>
-            <TouchableOpacity 
-                onPress={onEditProfile}
-                hitSlop={slop(30)}
-            >
-                <Text style={styles.txtEdit}>Edit profile</Text>
-            </TouchableOpacity>
+            <View style={styles.containerInfo}>
+                <Text style={styles.txtStaff}>{staff?.displayName}</Text>
+                <TouchableOpacity
+                    onPress={onEditProfile}
+                    hitSlop={slop(30)}
+                >
+                    <Text style={styles.txtEdit}>Edit profile</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
@@ -36,9 +38,9 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         justifyContent: 'center',
-        transform: [{ translateY: -scaleWidth(375 / 3.5 / 2) }]
+        zIndex: -1
     },
-    wrapAvatar : {
+    wrapAvatar: {
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -52,11 +54,17 @@ const styles = StyleSheet.create({
         width: scaleWidth(375 / 3.5),
         height: scaleWidth(375 / 3.5),
         borderRadius: 1000,
+        transform: [{ translateY: -scaleWidth(375 / 3.5 / 2) }],
     },
     avatar: {
         width: '100%',
         height: '100%',
         borderRadius: 1000,
+    },
+    containerInfo : {
+        transform: [{ translateY: -scaleWidth(375 / 3.5 / 2) }],
+        justifyContent : 'center',
+        alignItems : 'center'
     },
     txtStaff: {
         marginTop: scaleHeight(24),
@@ -68,6 +76,6 @@ const styles = StyleSheet.create({
         color: "#0764B0",
         marginTop: scaleHeight(10),
         fontSize: scaleFont(14),
-        fontFamily : fonts.REGULAR
+        fontFamily: fonts.REGULAR
     }
 });

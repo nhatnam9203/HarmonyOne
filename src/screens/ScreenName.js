@@ -22,6 +22,7 @@ const ScreenNames = {
   CategoryNewScreen : 'hpo.category.new',
   EditProfileScreen : 'hpo.profile.edit',
   SettingScreen : 'hpo.setting',
+  NotificationScreen : 'hpo.notification',
 };
 
 module.exports = { ScreenNames };

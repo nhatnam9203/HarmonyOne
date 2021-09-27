@@ -19,6 +19,9 @@ export const useProps = (_params) => {
   return {
     onEditProfile: () => {
       NavigationService.navigate(screenNames.EditProfileScreen);
-    }
+    },
+    goToNotification: () => {
+      NavigationService.navigate(screenNames.NotificationScreen)
+    },
   };
 };

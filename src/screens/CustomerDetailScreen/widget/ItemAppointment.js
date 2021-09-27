@@ -28,7 +28,10 @@ const ItemAppointment = ({ item, isPast }) => {
                     <View style={styles.itemServices}>
                         {
                             item.services.map((sv) => (
-                                <Text style={styles.serviceName}>
+                                <Text
+                                    key={sv.bookingServiceId}
+                                    style={styles.serviceName}
+                                >
                                     {sv.serviceName}
                                     <Text style={[styles.serviceName, { fontFamily: fonts.LIGHT }]}>
                                         {`- ${sv?.staff?.displayName}`}

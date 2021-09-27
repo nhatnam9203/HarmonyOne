@@ -13,6 +13,10 @@ import { PersistGate } from 'redux-persist/es/integration/react';
 import { RootNavigation } from './navigation';
 import { AppStateProvider } from '@shared/providers/AppStateProvider';
 YellowBox.ignoreWarnings(["Setting a timer"]);
+YellowBox.ignoreWarnings([
+  'Non-serializable values were found in the navigation state',
+]);
+
 
 
 if (__DEV__) {

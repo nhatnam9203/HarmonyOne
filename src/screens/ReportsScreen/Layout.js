@@ -8,7 +8,7 @@ import { images } from "@shared/themes/resources";
 import { items } from "./Items";
 
 export const Layout = ({
-
+  goToNotification,
 }) => {
 
   const [t] = useTranslation();
@@ -27,7 +27,7 @@ export const Layout = ({
             icon={images.iconBell}
             iconStyle={styles.iconBell}
             style={styles.buttonBell}
-            onPress={() => { }}
+            onPress={goToNotification}
           />
         }
       >
