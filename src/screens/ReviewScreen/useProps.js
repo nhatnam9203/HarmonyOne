@@ -15,7 +15,7 @@ export const useProps = (_params) => {
   const reviewTypeRef = React.useRef();
   const statusRef = React.useRef();
 
-  const [currentPage, setCurrentPage ] = React.useState(1);
+  const [currentPage, setCurrentPage] = React.useState(1);
 
   const [t] = useTranslation();
 
@@ -36,7 +36,10 @@ export const useProps = (_params) => {
     onSuccess: (data, response) => {
       console.log({ response });
       if (response.codeNumber == 200) {
-        dispatch(review.setListReview(response));
+        dispatch(review.setListReview({
+          ...response,
+          currentPage
+        }));
       }
     }
   });
@@ -80,7 +83,7 @@ export const useProps = (_params) => {
     ],
 
     loadMore: () => {
-      console.log('load more ', { currentPage , pages })
+      console.log('load more ', { currentPage, pages })
       if (currentPage < pages) {
         setCurrentPage(currentPage + 1);
       }

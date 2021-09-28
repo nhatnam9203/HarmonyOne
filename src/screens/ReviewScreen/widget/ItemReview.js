@@ -1,9 +1,8 @@
 import React from 'react'
 import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native'
-import { slop } from '@utils';
 import { avatarUser, treedot } from '@assets';
 import { fonts, colors } from "@shared/themes";
-import { dateToFormat } from "@shared/utils";
+import { dateToFormat , slop } from "@shared/utils";
 import { images } from "@shared/themes/resources";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -12,7 +11,7 @@ import { isEmpty } from "lodash";
 
 let EditReview = ({ ...props }) => {
     return (
-        <TouchableOpacity {...props}>
+        <TouchableOpacity hitSlop={slop(20)} {...props}>
             <Image
                 source={images.iconMore}
                 style={styles.iconBigDot}
@@ -44,7 +43,6 @@ const ItemReview = ({
     getActionSheetReview,
     getActionSheetReply,
 }) => {
-
     return (
         <View style={styles.item}>
             <View style={styles.row}>

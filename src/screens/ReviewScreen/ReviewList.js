@@ -19,7 +19,7 @@ export const ReviewList = ({
     const [t] = useTranslation();
 
     const {
-        review: { listReviews = [], count = 0 }
+        review: { listReviews = [], count = 0, pages }
     } = useSelector(state => state);
 
     return (
@@ -45,18 +45,18 @@ export const ReviewList = ({
                 removeClippedSubviews={true}
                 initialNumToRender={20}
                 maxToRenderPerBatch={5}
-                ListFooterComponent={() =>
-                    <View style={styles.itemLoadMore}>
-                        {
-                            (isLoading && currentPage > 1) ?
-                                <ActivityIndicator
-                                    size="small"
-                                    color="#0764B0"
-                                /> : null
-                        }
-                    </View>
+                ListFooterComponent={() => 
+                    currentPage < pages &&
+                        <View style={styles.itemLoadMore}>
+                            {
+                                (isLoading && currentPage > 1) ?
+                                    <ActivityIndicator
+                                        size="small"
+                                        color="#0764B0"
+                                    /> : null
+                            }
+                        </View>
                 }
-            // ListFooterComponent={() => <View style={{ height: scaleHeight(300) }} />}
             />
         </View>
     )

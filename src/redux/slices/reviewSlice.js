@@ -4,10 +4,10 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const reducerName = 'hpo.review';
 const initialState = {
-    summary : {},
-    listReviews : [],
-    pages : 0,
-    count : 0
+    summary: {},
+    listReviews: [],
+    pages: 0,
+    count: 0
 };
 
 const reviewSlice = createSlice({
@@ -17,8 +17,12 @@ const reviewSlice = createSlice({
         setSummaryReview: (state, action) => {
             state.summary = action.payload;
         },
-        setListReview : (state, action) =>{
-            state.listReviews = action?.payload?.data;
+        setListReview: (state, action) => {
+            if (action?.payload?.current == 1) {
+                state.listReviews = action?.payload?.data;
+            } else {
+                state.listReviews = state.listReviews.concat(action?.payload?.data);
+            }
             state.pages = action?.payload?.pages;
             state.count = action?.payload?.count;
         },
