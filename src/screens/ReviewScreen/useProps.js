@@ -91,20 +91,24 @@ export const useProps = (_params) => {
       {
         id: 'show-review',
         label: t('Show'),
-        func: async () => {
-          setRatingItem({ ...item, status: "show" });
-          const body = await showRating(item?.staffRatingId);
-          submitShowRating(body.params);
+        func: () => {
+          setTimeout(async() => {
+            setRatingItem({ ...item, status: "show" });
+            const body = await showRating(item?.staffRatingId);
+            submitShowRating(body.params);
+          }, 150);
         },
       },
       {
         id: 'delete-review',
         label: t('Delete'),
         textColor: "red",
-        func: async () => {
-          setRatingItem({ ...item, status: "hidden" });
-          const body = await hideRating(item?.staffRatingId);
-          submitHideRating(body.params);
+        func: () => {
+          setTimeout(async() => {
+            setRatingItem({ ...item, status: "hidden" });
+            const body = await hideRating(item?.staffRatingId);
+            submitHideRating(body.params);
+          }, 150);
         },
       },
     ],

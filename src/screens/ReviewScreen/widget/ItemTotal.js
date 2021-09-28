@@ -29,16 +29,25 @@ const ItemTotal = ({
                         count && new Array(parseInt(number)).fill().map(() => (
                             <Image
                                 key={Math.random()}
-                                source={images.iconStar}
+                                source={images.fullStar}
                                 style={styles.iconStar}
                                 resizeMode='contain'
                             />
                         ))
                     }
+                    {
+                        !Number.isInteger(number) &&
+                        <Image
+                            key={Math.random()}
+                            source={images.halfStar}
+                            style={styles.iconStar}
+                            resizeMode='contain'
+                        />
+                    }
                 </View>
             </View>
             {
-                count && 
+                count &&
                 <Text style={[styles.content, { textAlign: 'right', marginTop: scaleHeight(8) }]}>
                     {count} {t('reviews')}
                 </Text>

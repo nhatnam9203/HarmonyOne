@@ -24,8 +24,6 @@ export const Layout = ({
   summary,
 }) => {
 
-  console.log({ summary });
-
   const [t] = useTranslation();
 
   return (
@@ -71,7 +69,7 @@ export const Layout = ({
                   <DropdownMenu
                     ref={reviewTypeRef}
                     items={reviewTypeGroup}
-                    onChangeValue={(item) => { console.log({ item }) }}
+                    onChangeValue={()=>{}}
                     defaultIndex={0}
                     width={scaleWidth(280)}
                     height={scaleWidth(42)}

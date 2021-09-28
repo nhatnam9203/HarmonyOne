@@ -4,10 +4,11 @@ import { avatarUser, treedot } from '@assets';
 import { fonts, colors } from "@shared/themes";
 import { dateToFormat, slop, guid } from "@shared/utils";
 import { images } from "@shared/themes/resources";
+import { WithPopupActionSheet } from "@shared/HOC";
+import { isEmpty, isInteger } from "lodash";
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { WithPopupActionSheet } from "@shared/HOC";
-import { isEmpty } from "lodash";
 
 let EditReview = ({ ...props }) => {
     return (
@@ -50,24 +51,22 @@ const ItemReview = ({
                     {
                         item?.user?.imageUrl ?
                             <Image
-                                source={avatarUser}
+                                source={{ uri: item?.user?.imageUrl }}
                                 style={styles.avatar}
                             /> :
                             <FirstLetterName name={item?.user?.name?.charAt(0)?.toUpperCase()} />
                     }
 
                     <View style={styles.wrapContent}>
-                        <Text
-                            style={styles.name}
-                        >
+                        <Text style={styles.name}>
                             {item?.user?.name}
                         </Text>
                         <View style={{ flexDirection: 'row' }}>
                             {
-                                new Array(5).fill().map(() => (
+                                new Array(parseInt(parseInt(item?.rating))).fill().map(() => (
                                     <Ionicons
                                         key={guid()}
-                                        name='star'
+                                        name='star-sharp'
                                         color='#F5C750'
                                         size={scaleWidth(13)}
                                     />

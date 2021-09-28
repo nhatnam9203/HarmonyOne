@@ -20,7 +20,7 @@ export const ReviewList = ({
     const [t] = useTranslation();
 
     const {
-        review: { listReviews = [], count = 0 , pages }
+        review: { listReviews = [], count = 0, pages }
     } = useSelector(state => state);
 
     return (
@@ -35,7 +35,7 @@ export const ReviewList = ({
                         item={item}
                         openButtonReview={() => { }}
                         openButtonReply={() => { }}
-                        getActionSheetReview={()=>getActionSheetReview(item)}
+                        getActionSheetReview={() => getActionSheetReview(item)}
                         getActionSheetReply={getActionSheetReply}
                     />}
 
@@ -46,17 +46,19 @@ export const ReviewList = ({
                 initialNumToRender={20}
                 maxToRenderPerBatch={5}
                 ListFooterComponent={() =>
-                    <View style={styles.itemLoadMore}>
-                        {
-                            (isLoading && currentPage > 1) ?
-                                <ActivityIndicator
-                                    size="small"
-                                    color="#0764B0"
-                                /> : null
-                        }
-                    </View>
+                    <>
+                        <View style={styles.itemLoadMore}>
+                            {
+                                (isLoading && currentPage > 1) ?
+                                    <ActivityIndicator
+                                        size="small"
+                                        color="#0764B0"
+                                    /> : null
+                            }
+                        </View>
+                        <View style={{ height: scaleHeight(400) }} />
+                    </>
                 }
-            // ListFooterComponent={() => <View style={{ height: scaleHeight(300) }} />}
             />
         </View>
     )
