@@ -5,17 +5,28 @@ import { IconButton } from "./IconButton";
 import { Button } from "./Button";
 import { images, colors, fonts } from "@shared/themes";
 
-export const ButtonFilter = ({ children, onApply ,...props }) => {
+export const ButtonFilter = ({
+    children,
+    onApply = () => { },
+    onReset = () => { },
+    onOpen = () => { },
+    ...props
+}) => {
 
     const [open, setOpen] = React.useState(false);
 
     const toggleButton = () => {
+        if(!open) onOpen();
         setOpen(isOpen => !isOpen);
     }
 
-    const apply = () =>{
+    const apply = () => {
         onApply();
         setOpen(false);
+    }
+
+    const reset = () => {
+        onReset();
     }
 
     return (
@@ -57,12 +68,12 @@ export const ButtonFilter = ({ children, onApply ,...props }) => {
 
                     <View style={styles.bottom}>
                         <Button
-                            onPress={() => { }}
+                            onPress={reset}
                             height={scaleHeight(40)}
                             width={scaleWidth(132)}
                             label="Reset"
                         />
-                          <Button
+                        <Button
                             onPress={apply}
                             highlight={true}
                             height={scaleHeight(40)}

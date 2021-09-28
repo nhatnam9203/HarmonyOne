@@ -17,6 +17,9 @@ export const Layout = ({
   loadMore,
   isLoading,
   currentPage,
+  onChangeFilter,
+  status,
+  reviewType,
 }) => {
 
   const [t] = useTranslation();
@@ -31,7 +34,32 @@ export const Layout = ({
         containerStyle={{ paddingVertical: 0 }}
         headerRightComponent={() =>
           <View style={styles.button}>
-            <ButtonFilter>
+            <ButtonFilter
+              onApply={() => {
+                const status = statusRef?.current?.getValue()?.value;
+                const reviewTypeGroup = reviewTypeRef?.current?.getValue()?.value;
+                onChangeFilter(status, reviewTypeGroup);
+              }}
+
+              onReset={() => {
+                statusRef?.current?.changeValue(
+                  { label: "All Status", value: "all" },
+                );
+                reviewTypeRef?.current?.changeValue(
+                  { label: "All reviews", value: "all" },
+                );
+              }}
+
+              onOpen={() => {
+                const statusObj = statusGroup.find(obj => obj.value == status);
+                const reviewObj = reviewTypeGroup.find(obj => obj.value == reviewType);
+                console.log({ statusObj, reviewObj })
+                setTimeout(() => {
+                  statusObj && statusRef?.current?.changeValue(statusObj);
+                  reviewObj && reviewTypeRef?.current?.changeValue(reviewObj);
+                }, 200)
+              }}
+            >
               <CustomInput
                 label='Review type'
                 name="reviewType"
@@ -40,7 +68,7 @@ export const Layout = ({
                   <DropdownMenu
                     ref={reviewTypeRef}
                     items={reviewTypeGroup}
-                    onChangeValue={() => { }}
+                    onChangeValue={(item) => { console.log({ item }) }}
                     defaultIndex={0}
                     width={scaleWidth(280)}
                     height={scaleWidth(42)}

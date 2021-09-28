@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { review } from "@redux/slices";
 
 export const useProps = (_params) => {
+  const [t] = useTranslation();
   const dispatch = useDispatch();
 
   const {
@@ -27,7 +28,6 @@ export const useProps = (_params) => {
   const [reviewType, setReviewType] = React.useState("all");
   const [ratingItem, setRatingItem] = React.useState(null);
 
-  const [t] = useTranslation();
 
   const [, fetchSummaryReview] = useAxiosQuery({
     ...getSummaryReview(staff?.merchantId),
@@ -40,9 +40,9 @@ export const useProps = (_params) => {
   });
 
   const [{ isLoading }, fetchListReview] = useAxiosQuery({
-    ...getListReview("all", "all", currentPage),
+    ...getListReview(status, reviewType, currentPage),
     enabled: true,
-    isLoadingDefault: false,
+    isLoadingDefault: currentPage == 1,
     onSuccess: (data, response) => {
       if (response.codeNumber == 200) {
         dispatch(review.setListReview({
@@ -58,6 +58,7 @@ export const useProps = (_params) => {
     onSuccess: (dt, response) => {
       if (response.codeNumber == 200) {
         dispatch(review.updateStatusReview(ratingItem));
+        fetchSummaryReview();
       }
     }
   });
@@ -67,9 +68,11 @@ export const useProps = (_params) => {
     onSuccess: (data, response) => {
       if (response.codeNumber == 200) {
         dispatch(review.updateStatusReview(ratingItem));
+        fetchSummaryReview();
       }
     }
   });
+
 
   React.useEffect(() => {
     fetchSummaryReview();
@@ -80,6 +83,8 @@ export const useProps = (_params) => {
     statusRef,
     isLoading,
     currentPage,
+    status,
+    reviewType,
 
     getActionSheetReview: (item) => [
       {
@@ -123,5 +128,11 @@ export const useProps = (_params) => {
         setCurrentPage(currentPage + 1);
       }
     },
+
+    onChangeFilter: (filterStatus, filterType) =>{
+      setCurrentPage(1);
+      setStatus(filterStatus);
+      setReviewType(filterType);
+    }
   };
 };
