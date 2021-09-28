@@ -53,7 +53,6 @@ export const Layout = ({
               onOpen={() => {
                 const statusObj = statusGroup.find(obj => obj.value == status);
                 const reviewObj = reviewTypeGroup.find(obj => obj.value == reviewType);
-                console.log({ statusObj, reviewObj })
                 setTimeout(() => {
                   statusObj && statusRef?.current?.changeValue(statusObj);
                   reviewObj && reviewTypeRef?.current?.changeValue(reviewObj);
