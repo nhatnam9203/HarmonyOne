@@ -36,7 +36,7 @@ export const getStaffById = (staffId) => ({
   },
 });
 
-export const updateStaff = (data,staffId) => ({
+export const updateStaff = (data, staffId) => ({
   queryId: 'updateStaff',
   params: {
     url: `/staff/${staffId}`,
@@ -260,4 +260,43 @@ export const getExtra = () => ({
     method: 'GET',
   },
 });
+
+
+/**
+ * REVIEW
+ */
+
+export const getSummaryReview = (merchantId) => ({
+  queryId: 'getSummaryReview',
+  params: {
+    url: `Rating/merchant/summary/${merchantId}`,
+    method: 'GET',
+  }
+});
+
+export const getListReview = (status = "all", review = "all", page = 1) => ({
+  queryId: 'getListReview',
+  params: {
+    url: `rating/merchant/filters?status=${status}&review=${review}&page=${page}`,
+    method: 'GET',
+  }
+});
+
+export const showRating = (id) => ({
+  queryId: 'showRating',
+  params: {
+    url: `rating/restore/${id}`,
+    method: 'PUT',
+  },
+  data: {}
+})
+
+export const hideRating = (id) => ({
+  queryId: 'hideRating',
+  params: {
+    url: `rating/archive/${id}`,
+    method: 'PUT',
+  },
+  data: {}
+})
 

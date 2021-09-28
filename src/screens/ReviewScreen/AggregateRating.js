@@ -3,24 +3,29 @@ import { View, StyleSheet, Text, Image } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
+import { useSelector } from "react-redux";
 import Ionicons from "react-native-vector-icons/Ionicons"
+import { sum } from 'lodash';
 
 export const AggregateRating = () => {
 
     const [t] = useTranslation();
+    const {
+        review: { summary }
+    } = useSelector(state => state);
 
     return (
         <View style={styles.wrap}>
             <View style={styles.row}>
-                <Text style={styles.title}>Aggregate Rating</Text>
-                <Text style={styles.number}>4.7</Text>
+                <Text style={styles.title}>{t('Aggregate Rating')}</Text>
+                <Text style={styles.number}>{summary?.rating}</Text>
             </View>
 
             <View style={[styles.row, { marginTop: scaleHeight(8) }]}>
-                <Text style={styles.content}>All time statictis</Text>
+                <Text style={styles.content}>{t('All time statictis')}</Text>
                 <View style={{ flexDirection: 'row' }}>
                     {
-                        new Array(4).fill().map(() => (
+                        new Array(parseInt(summary.rating)).fill().map(() => (
                             <Image
                                 key={Math.random()}
                                 source={images.iconStar}
@@ -32,13 +37,11 @@ export const AggregateRating = () => {
                 </View>
             </View>
             <Text style={[styles.content, { textAlign: 'right', marginTop: scaleHeight(8) }]}>
-                122 reviews
+                {summary?.count || "0"} {t('reviews')}
             </Text>
         </View>
     )
 }
-
-export default AggregateRating;
 
 const styles = StyleSheet.create({
     wrap: {
@@ -53,6 +56,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.12,
         shadowRadius: 3.34,
         elevation: 3,
+        margin: scaleWidth(16),
+        marginTop: scaleHeight(30),
     },
     row: {
         flexDirection: 'row',
@@ -60,7 +65,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title: {
-        fontSize: scaleFont(20),
+        fontSize: scaleFont(18),
         color: colors.ocean_blue,
         fontFamily: fonts.MEDIUM
     },
@@ -70,7 +75,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.BOLD
     },
     content: {
-        fontSize: scaleFont(16),
+        fontSize: scaleFont(15),
         color: '#585858',
         fontFamily: fonts.REGULAR
     },

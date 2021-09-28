@@ -20,13 +20,16 @@ export const useProps = (props) => {
 
   const dialogDeleteCategoryRef = React.useRef();
   const [valueSearch, setSearchValue] = React.useState("");
-  const [tempCategory, setTempCategory] = React.useState("");
+  const [tempCategory, setTempCategory] = React.useState("");2
 
-  const { services } = useSelector(state => state.service);
-  const { products } = useSelector(state => state.product);
-  const { extras } = useSelector(state => state.extra);
+  const {
+    service: { services },
+    product: { products },
+    extra: { extras },
+    au: { staff }
+  } = useSelector(state => state)
+
   const categoryList = useSelector(state => state.category.category);
-  const staff = useSelector(state => state.auth.staff);
 
   const [t] = useTranslation();
 
@@ -35,7 +38,6 @@ export const useProps = (props) => {
     isLoadingDefault: true,
     enabled: false,
     onSuccess: (data, response) => {
-      console.log({ data, response })
       dispatch(category.setCategoryList(data));
     },
   });
@@ -88,8 +90,8 @@ export const useProps = (props) => {
     dialogDeleteCategoryRef,
     tempCategory,
     newCategory,
-    setTempCategory, 
-    
+    setTempCategory,
+
     getDataList: () => {
       return categoryList.map((cate) => ({
         category: cate,

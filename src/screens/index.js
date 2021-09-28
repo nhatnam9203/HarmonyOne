@@ -13,7 +13,6 @@ import Statistic from './Statistic';
 import Information from './Information';
 import ChangePincode from './ChangePincode';
 import FeedBack from './FeedBack';
-import Reviews from './Reviews';
 
 import { ScreenNames } from './ScreenName';
 import { SplashScreen } from './SplashScreen';
@@ -50,7 +49,6 @@ module.exports = {
   Information,
   ChangePincode,
   FeedBack,
-  Reviews,
   ScreenNames,
   SplashScreen,
   LoginScreen,

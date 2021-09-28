@@ -29,7 +29,6 @@ export const useAxiosQuery = ({
     {
       enabled,
       retry: false,
-      refetchOnMount : true,
       onSuccess: (response) => {
         dispatch(app?.hideLoading());
         if (response.data) {

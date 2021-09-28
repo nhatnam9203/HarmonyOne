@@ -8,7 +8,6 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "format": "prettier --write ./src && prettier --check ./src",
     "clean": "rm -rf node_modules && rm -rf yarn.lock && rm -rf $TMPDIR/react-* && watchman watch-del-all",
     "clean:ios": "cd ios && rm -rf ~/Library/Caches/CocoaPods && rm -rf Pods && rm -rf ~/Library/Developer/Xcode/DerivedData/* && rm -rf Podfile.lock",
     "push:ios-production": "appcenter codepush release-react -a HarmonyPayment/HPOne-iOS -d Production -t 1.0.0 --description fix-bug",

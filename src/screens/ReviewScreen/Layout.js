@@ -5,12 +5,18 @@ import { SingleScreenLayout } from '@shared/layouts';
 import { reviewTypeGroup, statusGroup } from "@shared/utils";
 import { fonts, colors } from "@shared/themes";
 import { ButtonFilter, CustomInput, DropdownMenu } from "@shared/components";
-import { AggregateRating } from "./AggregateRating"
+import { AggregateRating } from "./AggregateRating";
+import { ReviewList } from "./ReviewList";
 import { images } from "@shared/themes/resources";
 
 export const Layout = ({
   reviewTypeRef,
   statusRef,
+  getActionSheetReview,
+  getActionSheetReply,
+  loadMore,
+  isLoading,
+  currentPage,
 }) => {
 
   const [t] = useTranslation();
@@ -64,6 +70,13 @@ export const Layout = ({
       >
         <View style={styles.content}>
           <AggregateRating />
+          <ReviewList
+            getActionSheetReview={getActionSheetReview}
+            getActionSheetReply={getActionSheetReply}
+            loadMore={loadMore}
+            isLoading={isLoading}
+            currentPage={currentPage}
+          />
         </View>
       </SingleScreenLayout>
     </View>
@@ -78,7 +91,6 @@ const styles = StyleSheet.create({
 
   content: {
     flex: 1,
-    padding : scaleWidth(16)
   },
 
   button: {

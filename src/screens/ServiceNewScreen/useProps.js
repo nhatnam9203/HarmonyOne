@@ -12,15 +12,12 @@ export const useProps = (props) => {
   const statusRef = React.useRef();
   const [fileId, setFileId] = React.useState("0");
 
-  const form = useForm({
-    resolver: yupResolver(serviceSchema)
-  });
-  const errors = form.formState.errors;
+  const form = useForm({ resolver: yupResolver(serviceSchema) });
   const { setValue } = form;
+  const { errors } = form.formState;
 
   const isEdit = props?.route?.params?.isEdit;
   const serviceEdit = props?.route?.params?.serviceEdit;
-
   const categoryList = useSelector(state => state.category.category);
 
   const back = () => {
