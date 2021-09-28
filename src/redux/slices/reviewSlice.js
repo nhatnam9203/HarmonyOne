@@ -18,7 +18,7 @@ const reviewSlice = createSlice({
             state.summary = action.payload;
         },
         setListReview: (state, action) => {
-            if (action?.payload?.current == 1) {
+            if (action?.payload?.currentPage == 1) {
                 state.listReviews = action?.payload?.data;
             } else {
                 state.listReviews = state.listReviews.concat(action?.payload?.data);
@@ -26,6 +26,16 @@ const reviewSlice = createSlice({
             state.pages = action?.payload?.pages;
             state.count = action?.payload?.count;
         },
+        updateStatusReview : (state,action) =>{
+            let ratingIndex = state.listReviews.findIndex(item => item.staffRatingId == action.payload?.staffRatingId);
+            if(ratingIndex !== -1){
+                if(action.payload.status == "hidden"){
+                    state.listReviews[ratingIndex].isDisabled = 1;
+                }else{
+                    state.listReviews[ratingIndex].isDisabled = 0;
+                }
+            }
+        }
     },
 });
 

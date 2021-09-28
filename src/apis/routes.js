@@ -287,8 +287,8 @@ export const showRating = (id) => ({
   params: {
     url: `rating/restore/${id}`,
     method: 'PUT',
+    data: {},
   },
-  data: {}
 })
 
 export const hideRating = (id) => ({
@@ -296,7 +296,7 @@ export const hideRating = (id) => ({
   params: {
     url: `rating/archive/${id}`,
     method: 'PUT',
+    data: {}
   },
-  data: {}
 })
 

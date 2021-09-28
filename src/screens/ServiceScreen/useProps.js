@@ -26,7 +26,7 @@ export const useProps = (props) => {
     service: { services },
     product: { products },
     extra: { extras },
-    au: { staff }
+    auth: { staff }
   } = useSelector(state => state)
 
   const categoryList = useSelector(state => state.category.category);

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, FlatList, ActivityIndicator } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { fonts, colors } from "@shared/themes";
+import { guid } from "@shared/utils";
 import { images } from "@shared/themes/resources";
 import { ItemReview } from "./widget";
 import { useSelector } from "react-redux";
@@ -19,7 +20,7 @@ export const ReviewList = ({
     const [t] = useTranslation();
 
     const {
-        review: { listReviews = [], count = 0, pages }
+        review: { listReviews = [], count = 0 , pages }
     } = useSelector(state => state);
 
     return (
@@ -34,7 +35,7 @@ export const ReviewList = ({
                         item={item}
                         openButtonReview={() => { }}
                         openButtonReply={() => { }}
-                        getActionSheetReview={getActionSheetReview}
+                        getActionSheetReview={()=>getActionSheetReview(item)}
                         getActionSheetReply={getActionSheetReply}
                     />}
 
@@ -45,18 +46,18 @@ export const ReviewList = ({
                 removeClippedSubviews={true}
                 initialNumToRender={20}
                 maxToRenderPerBatch={5}
-                ListFooterComponent={() => 
-                    currentPage < pages &&
-                        <View style={styles.itemLoadMore}>
-                            {
-                                (isLoading && currentPage > 1) ?
-                                    <ActivityIndicator
-                                        size="small"
-                                        color="#0764B0"
-                                    /> : null
-                            }
-                        </View>
+                ListFooterComponent={() =>
+                    <View style={styles.itemLoadMore}>
+                        {
+                            (isLoading && currentPage > 1) ?
+                                <ActivityIndicator
+                                    size="small"
+                                    color="#0764B0"
+                                /> : null
+                        }
+                    </View>
                 }
+            // ListFooterComponent={() => <View style={{ height: scaleHeight(300) }} />}
             />
         </View>
     )

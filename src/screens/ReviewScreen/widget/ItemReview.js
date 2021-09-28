@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native'
 import { avatarUser, treedot } from '@assets';
 import { fonts, colors } from "@shared/themes";
-import { dateToFormat , slop } from "@shared/utils";
+import { dateToFormat, slop, guid } from "@shared/utils";
 import { images } from "@shared/themes/resources";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -48,12 +48,12 @@ const ItemReview = ({
             <View style={styles.row}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     {
-                        item?.user?.imageUrl ? 
-                        <Image
-                            source={avatarUser}
-                            style={styles.avatar}
-                        /> : 
-                        <FirstLetterName name={item?.user?.name?.charAt(0)?.toUpperCase()} />
+                        item?.user?.imageUrl ?
+                            <Image
+                                source={avatarUser}
+                                style={styles.avatar}
+                            /> :
+                            <FirstLetterName name={item?.user?.name?.charAt(0)?.toUpperCase()} />
                     }
 
                     <View style={styles.wrapContent}>
@@ -65,7 +65,12 @@ const ItemReview = ({
                         <View style={{ flexDirection: 'row' }}>
                             {
                                 new Array(5).fill().map(() => (
-                                    <Ionicons name='star' color='#F5C750' size={scaleWidth(13)} />
+                                    <Ionicons
+                                        key={guid()}
+                                        name='star'
+                                        color='#F5C750'
+                                        size={scaleWidth(13)}
+                                    />
                                 ))
                             }
                         </View>
@@ -183,7 +188,7 @@ const styles = StyleSheet.create({
         height: scaleWidth(50),
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor : "#D4F8FC"
+        backgroundColor: "#D4F8FC"
     },
     letter: {
         fontSize: scaleFont(20),

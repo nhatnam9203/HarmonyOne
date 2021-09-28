@@ -22,8 +22,6 @@ export const useAxiosMutation = ({
       onSuccess: (response) => {
         dispatch(app.hideLoading());
         if (response.data) {
-          //   dispatch(actions.auth.loginStaff(response.data));
-
           if (onSuccess && typeof onSuccess === 'function') {
             onSuccess(response?.data, response);
           }

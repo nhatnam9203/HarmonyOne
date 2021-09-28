@@ -1,6 +1,13 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { getSummaryReview, getListReview, useAxiosQuery } from "@src/apis";
+import {
+  getSummaryReview,
+  getListReview,
+  useAxiosQuery,
+  useAxiosMutation,
+  showRating,
+  hideRating,
+} from "@src/apis";
 import { useDispatch, useSelector } from "react-redux";
 import { review } from "@redux/slices";
 
@@ -16,6 +23,9 @@ export const useProps = (_params) => {
   const statusRef = React.useRef();
 
   const [currentPage, setCurrentPage] = React.useState(1);
+  const [status, setStatus] = React.useState("all");
+  const [reviewType, setReviewType] = React.useState("all");
+  const [ratingItem, setRatingItem] = React.useState(null);
 
   const [t] = useTranslation();
 
@@ -34,12 +44,29 @@ export const useProps = (_params) => {
     enabled: true,
     isLoadingDefault: false,
     onSuccess: (data, response) => {
-      console.log({ response });
       if (response.codeNumber == 200) {
         dispatch(review.setListReview({
           ...response,
           currentPage
         }));
+      }
+    }
+  });
+
+  const [{ data }, submitShowRating] = useAxiosMutation({
+    ...showRating(),
+    onSuccess: (dt, response) => {
+      if (response.codeNumber == 200) {
+        dispatch(review.updateStatusReview(ratingItem));
+      }
+    }
+  });
+
+  const [, submitHideRating] = useAxiosMutation({
+    ...hideRating(),
+    onSuccess: (data, response) => {
+      if (response.codeNumber == 200) {
+        dispatch(review.updateStatusReview(ratingItem));
       }
     }
   });
@@ -54,31 +81,39 @@ export const useProps = (_params) => {
     isLoading,
     currentPage,
 
-    getActionSheetReview: () => [
+    getActionSheetReview: (item) => [
       {
         id: 'show-review',
         label: t('Show'),
-        func: () => { },
+        func: async () => {
+          setRatingItem({ ...item, status: "show" });
+          const body = await showRating(item?.staffRatingId);
+          submitShowRating(body.params);
+        },
       },
       {
         id: 'delete-review',
         label: t('Delete'),
         textColor: "red",
-        func: () => { },
+        func: async () => {
+          setRatingItem({ ...item, status: "hidden" });
+          const body = await hideRating(item?.staffRatingId);
+          submitHideRating(body.params);
+        },
       },
     ],
 
-    getActionSheetReply: () => [
+    getActionSheetReply: (staffRatingId) => [
       {
         id: 'edit-reply',
         label: t('Edit'),
-        func: () => { },
+        func: (staffRatingId) => { },
       },
       {
         id: 'delete-reply',
         label: t('Delete'),
         textColor: "red",
-        func: () => { },
+        func: (staffRatingId) => { },
       },
     ],
 
