@@ -7,25 +7,26 @@ import { useSelector } from "react-redux";
 import Ionicons from "react-native-vector-icons/Ionicons"
 import { sum } from 'lodash';
 
-export const AggregateRating = () => {
+const ItemTotal = ({
+    title,
+    number,
+    count,
+}) => {
 
     const [t] = useTranslation();
-    const {
-        review: { summary }
-    } = useSelector(state => state);
 
     return (
         <View style={styles.wrap}>
             <View style={styles.row}>
-                <Text style={styles.title}>{t('Aggregate Rating')}</Text>
-                <Text style={styles.number}>{summary?.rating}</Text>
+                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.number}>{number}</Text>
             </View>
 
             <View style={[styles.row, { marginTop: scaleHeight(8) }]}>
                 <Text style={styles.content}>{t('All time statictis')}</Text>
                 <View style={{ flexDirection: 'row' }}>
                     {
-                        new Array(parseInt(summary.rating)).fill().map(() => (
+                        count && new Array(parseInt(number)).fill().map(() => (
                             <Image
                                 key={Math.random()}
                                 source={images.iconStar}
@@ -36,12 +37,17 @@ export const AggregateRating = () => {
                     }
                 </View>
             </View>
-            <Text style={[styles.content, { textAlign: 'right', marginTop: scaleHeight(8) }]}>
-                {summary?.count || "0"} {t('reviews')}
-            </Text>
+            {
+                count && 
+                <Text style={[styles.content, { textAlign: 'right', marginTop: scaleHeight(8) }]}>
+                    {count} {t('reviews')}
+                </Text>
+            }
         </View>
     )
 }
+
+export default ItemTotal;
 
 const styles = StyleSheet.create({
     wrap: {
@@ -58,6 +64,8 @@ const styles = StyleSheet.create({
         elevation: 3,
         margin: scaleWidth(16),
         marginTop: scaleHeight(30),
+        width: scaleWidth(375 - 32),
+        height: 120
     },
     row: {
         flexDirection: 'row',

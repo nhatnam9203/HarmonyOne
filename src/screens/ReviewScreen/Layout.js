@@ -1,13 +1,14 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, ScrollView } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { reviewTypeGroup, statusGroup } from "@shared/utils";
 import { fonts, colors } from "@shared/themes";
 import { ButtonFilter, CustomInput, DropdownMenu } from "@shared/components";
-import { AggregateRating } from "./AggregateRating";
 import { ReviewList } from "./ReviewList";
 import { images } from "@shared/themes/resources";
+import { ItemTotal } from "./widget"
+import Swiper from 'react-native-swiper'
 
 export const Layout = ({
   reviewTypeRef,
@@ -20,7 +21,10 @@ export const Layout = ({
   onChangeFilter,
   status,
   reviewType,
+  summary,
 }) => {
+
+  console.log({ summary });
 
   const [t] = useTranslation();
 
@@ -96,7 +100,32 @@ export const Layout = ({
         }
       >
         <View style={styles.content}>
-          <AggregateRating />
+
+          <View>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              pagingEnabled={true}
+              style={styles.wrapper}
+            >
+              <ItemTotal
+                title={t('Aggregate Rating')}
+                number={summary?.rating}
+                count={summary?.count}
+              />
+
+              <ItemTotal
+                title={t('Good Reviews')}
+                number={summary?.goodCount}
+              />
+
+              <ItemTotal
+                title={t('Bad Reviews')}
+                number={summary?.badCount}
+              />
+
+            </ScrollView>
+          </View>
           <ReviewList
             getActionSheetReview={getActionSheetReview}
             getActionSheetReply={getActionSheetReply}
@@ -111,13 +140,17 @@ export const Layout = ({
 };
 
 const styles = StyleSheet.create({
+
+  wrapper: {
+    padding: 0,
+  },
+
   container: {
     flex: 1,
     backgroundColor: "white",
   },
 
   content: {
-    flex: 1,
   },
 
   button: {

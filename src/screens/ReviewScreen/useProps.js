@@ -17,7 +17,7 @@ export const useProps = (_params) => {
 
   const {
     auth: { staff },
-    review: { pages = 0, count = 0 }
+    review: { pages = 0, count = 0, summary }
   } = useSelector(state => state);
 
   const reviewTypeRef = React.useRef();
@@ -85,6 +85,7 @@ export const useProps = (_params) => {
     currentPage,
     status,
     reviewType,
+    summary,
 
     getActionSheetReview: (item) => [
       {
@@ -123,13 +124,12 @@ export const useProps = (_params) => {
     ],
 
     loadMore: () => {
-      console.log('load more ', { currentPage, pages })
       if (currentPage < pages) {
         setCurrentPage(currentPage + 1);
       }
     },
 
-    onChangeFilter: (filterStatus, filterType) =>{
+    onChangeFilter: (filterStatus, filterType) => {
       setCurrentPage(1);
       setStatus(filterStatus);
       setReviewType(filterType);

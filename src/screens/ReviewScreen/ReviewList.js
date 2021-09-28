@@ -43,7 +43,6 @@ export const ReviewList = ({
                 onEndReachedThreshold={0.1}
                 // refreshing={isRefresh}
                 // onRefresh={onRefreshCustomer}
-                removeClippedSubviews={true}
                 initialNumToRender={20}
                 maxToRenderPerBatch={5}
                 ListFooterComponent={() =>
