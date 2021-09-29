@@ -8,7 +8,7 @@ export const ListEmptyComponent = ({
 }) => {
   return (
     <View style={styles.container}>
-      {image && <Image style={styles.imageStyle} source={image} />}
+      {image && <Image style={styles.imageStyle} source={image} resizeMode='contain' />}
       {!!description && <Text style={styles.textStyle}>{description}</Text>}
     </View>
   );
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 
   textStyle: {
     fontFamily: fonts.REGULAR,
-    fontSize: scaleFont(15),
+    fontSize: scaleFont(17),
     fontWeight: 'normal',
     fontStyle: 'normal',
     letterSpacing: 0,
@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
   },
 
   imageStyle: {
-    width: scaleWidth(66),
-    height: scaleHeight(80),
+    width: scaleWidth(80),
+    height: scaleWidth(80),
     marginVertical: scaleHeight(14),
   },
 });

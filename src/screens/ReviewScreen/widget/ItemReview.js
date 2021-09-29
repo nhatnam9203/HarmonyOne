@@ -3,6 +3,7 @@ import { View, StyleSheet, Image, TouchableOpacity, Text, ScrollView, FlatList }
 import { avatarUser, treedot } from '@assets';
 import { fonts, colors } from "@shared/themes";
 import { dateToFormat, slop, guid } from "@shared/utils";
+import { SliderImage } from "@shared/components";
 import { images } from "@shared/themes/resources";
 import { WithPopupActionSheet } from "@shared/HOC";
 import { isEmpty, isInteger } from "lodash";
@@ -106,14 +107,19 @@ const ItemReview = ({
             }
 
             {/******************************** RATING IMAGE *********************************/}
-            <View style={{ flexDirection: 'row', marginTop: scaleHeight(8) }}>
-                <FlatList
-                    data={item?.ratingImages || []}
-                    keyExtractor={(ratingImage) => ratingImage?.staffRatingId?.toString() + "staffRatingImageId"}
-                    renderItem={({ item }) => <ImageRating item={item} />}
-                    horizontal={true}
-                />
-            </View>
+            {
+                item?.ratingImages?.length > 0 &&
+                <View style={{ flexDirection: 'row', marginTop: scaleHeight(8) }}>
+                    <FlatList
+                        data={item?.ratingImages || []}
+                        keyExtractor={(ratingImage) => ratingImage?.staffRatingId?.toString() + "staffRatingImageId"}
+                        renderItem={(props) => <ImageRating item={props.item} ratingImages={item.ratingImages} />}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        bounces={false}
+                    />
+                </View>
+            }
 
             {/* <MaterialCommunityIcons
                 name='message-text'
@@ -155,15 +161,31 @@ const Reply = ({ openButtonReply, getActionSheetReply }) => {
     )
 }
 
-const ImageRating = ({ item }) => {
-    if (item?.imageUrl !== "" || item?.imageUrl !== null || item?.imageUrl !== undefined || item?.imageUrl !== "undefined")
-        (
-            <CustomImage
-                source={{ uri: item.imageUrl }}
-                style={styles.ratingImage}
-                resizeMode='cover'
-            />
+const ImageRating = ({ item, ratingImages = [] }) => {
+
+    const sliderRef = React.useRef();
+
+    const showSliderImage = () => {
+        sliderRef?.current?.show();
+        sliderRef?.current?.setImages(ratingImages)
+
+    }
+
+    if (item.imageUrl !== "") {
+        return (
+            <>
+                <TouchableOpacity onPress={showSliderImage}>
+                    <CustomImage
+                        source={{ uri: item.imageUrl }}
+                        style={styles.ratingImage}
+                        resizeMode='cover'
+                    />
+                </TouchableOpacity>
+                <SliderImage ref={sliderRef} />
+            </>
+
         );
+    }
     return null;
 }
 

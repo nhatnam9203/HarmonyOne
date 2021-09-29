@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, FlatList, ActivityIndicator } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { IconButton, SearchInput } from "@shared/components";
+import { IconButton, SearchInput, ListEmptyComponent } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { slop } from "@shared/utils";
@@ -34,7 +34,7 @@ export const Layout = ({
                 isScrollLayout={false}
                 imageBackground={images.imageHeaderBg}
                 headerTintColor="white"
-                containerStyle={{ paddingVertical : 0 }}
+                containerStyle={{ paddingVertical: 0 }}
                 headerRightComponent={() =>
                     <IconButton
                         icon={images.iconBell}
@@ -51,45 +51,31 @@ export const Layout = ({
                         removeText={valueSearch.length > 0 ? () => onChangeSearch("") : () => { }}
                         placeholder="Search customer by phone or name"
                     />
-                    {
-                        (!isEmpty(valueSearch) && customerList.length === 0) ?
-                            <>
-                                <Text style={styles.noResult}>No result</Text>
-                                <IconButton
-                                    icon={images.buttonPlus}
-                                    iconStyle={styles.iconPlus}
-                                    onPress={newCustomer}
-                                    style={styles.buttonPlus}
-                                    renderText={() => <Text style={styles.txtNew}>Make new customer</Text>}
-                                />
-                                <View style={styles.seperateLine} />
-                            </>
-                            :
-                            <FlatList
-                                style={styles.flatList}
-                                data={customerList}
-                                renderItem={({ item }) => <ItemCustomer item={item} refreshFromScreen={refreshFromScreen} />}
-                                keyExtractor={(item) => item.customerId.toString()}
-                                onEndReached={loadMoreCustomerList}
-                                onEndReachedThreshold={0.1}
-                                refreshing={isRefresh}
-                                onRefresh={onRefreshCustomer}
-                                removeClippedSubviews={true}
-                                initialNumToRender={20}
-                                maxToRenderPerBatch={5}
-                                ItemSeparatorComponent={() => <View style={styles.seperateLine} />}
-                                ListFooterComponent={() =>
-                                    <View style={styles.itemLoadMore}>
-                                        {
-                                            (isLoading && currentPage > 1) ?
-                                                <ActivityIndicator
-                                                    size="small"
-                                                    color="#0764B0"
-                                                /> : null
-                                        }
-                                    </View>}
-                            />
-                    }
+                    <FlatList
+                        style={styles.flatList}
+                        data={customerList}
+                        renderItem={({ item }) => <ItemCustomer item={item} refreshFromScreen={refreshFromScreen} />}
+                        keyExtractor={(item) => item.customerId.toString()}
+                        onEndReached={loadMoreCustomerList}
+                        onEndReachedThreshold={0.1}
+                        refreshing={isRefresh}
+                        onRefresh={onRefreshCustomer}
+                        removeClippedSubviews={true}
+                        initialNumToRender={20}
+                        maxToRenderPerBatch={5}
+                        ItemSeparatorComponent={() => <View style={styles.seperateLine} />}
+                        ListEmptyComponent={()=><ListEmptyComponent image={images.iconNotFound} description={t('Not found customer')} />}
+                        ListFooterComponent={() =>
+                            <View style={styles.itemLoadMore}>
+                                {
+                                    (isLoading && currentPage > 1) ?
+                                        <ActivityIndicator
+                                            size="small"
+                                            color="#0764B0"
+                                        /> : null
+                                }
+                            </View>}
+                    />
                 </View>
 
                 <IconButton
