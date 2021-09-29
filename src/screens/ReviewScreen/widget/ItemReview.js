@@ -166,9 +166,10 @@ const ImageRating = ({ item, ratingImages = [] }) => {
     const sliderRef = React.useRef();
 
     const showSliderImage = () => {
+        const index = ratingImages.findIndex(obj => obj?.fileId == item?.fileId);
         sliderRef?.current?.show();
-        sliderRef?.current?.setImages(ratingImages)
-
+        sliderRef?.current?.setImages(ratingImages);
+        sliderRef?.current?.setIndexActive(index);
     }
 
     if (item.imageUrl !== "") {

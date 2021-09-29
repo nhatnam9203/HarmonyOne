@@ -13,8 +13,7 @@ export const SliderImage = React.forwardRef(({
 
     const [open, setOpen] = React.useState(false);
     const [imagesRating, setImages] = React.useState([]);
-
-    console.log({ imagesRating });
+    const [indexActive, setIndexActive] = React.useState(0);
 
     React.useImperativeHandle(ref, () => ({
         show: () => {
@@ -29,6 +28,13 @@ export const SliderImage = React.forwardRef(({
                 tempArrImage.push(img.imageUrl);
             }
             setImages(tempArrImage);
+        },
+        setIndexActive: (index) => {
+            if (index !== -1) {
+                setIndexActive(index);
+            } else {
+                setIndexActive(0);
+            }
         }
     }));
 
@@ -53,11 +59,13 @@ export const SliderImage = React.forwardRef(({
                         style={styles.btnClose}
                         onPress={close}
                     />
-                    <SliderBox 
+                    <SliderBox
                         images={imagesRating}
                         sliderBoxHeight={scaleHeight(270)}
                         ImageComponent={FastImage}
                         disableOnPress={true}
+                        fontVariantPosition
+                        firstItem={indexActive}
                     />
                 </View>
             </View>
