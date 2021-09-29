@@ -15,6 +15,8 @@ export const ReviewList = ({
     loadMore,
     isLoading,
     currentPage,
+    isRefresh,
+    onRefresh,
 }) => {
 
     const [t] = useTranslation();
@@ -30,6 +32,8 @@ export const ReviewList = ({
                 data={listReviews}
                 keyExtractor={(item) => item?.staffRatingId?.toString()}
                 style={styles.flatList}
+                refreshing={isRefresh}
+                onRefresh={onRefresh}
                 renderItem={({ item }) =>
                     <ItemReview
                         item={item}

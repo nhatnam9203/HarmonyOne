@@ -38,6 +38,7 @@ export const PopupActionSheet = React.forwardRef(
         isVisible={open}
         onRequestClose={onModalHide}
         onBackdropPress={onModalHide}
+        useNativeDriver={true}
         style={styles.modal}>
         <View style={styles.container}>
           {actions?.length > 0 && (

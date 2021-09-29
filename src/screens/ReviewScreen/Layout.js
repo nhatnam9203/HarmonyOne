@@ -21,6 +21,8 @@ export const Layout = ({
   status,
   reviewType,
   summary,
+  isRefresh,
+  onRefresh,
 }) => {
 
   const [t] = useTranslation();
@@ -68,7 +70,7 @@ export const Layout = ({
                   <DropdownMenu
                     ref={reviewTypeRef}
                     items={reviewTypeGroup}
-                    onChangeValue={()=>{}}
+                    onChangeValue={() => { }}
                     defaultIndex={0}
                     width={scaleWidth(280)}
                     height={scaleWidth(42)}
@@ -129,6 +131,8 @@ export const Layout = ({
             loadMore={loadMore}
             isLoading={isLoading}
             currentPage={currentPage}
+            isRefresh={isRefresh}
+            onRefresh={onRefresh}
           />
         </View>
       </SingleScreenLayout>

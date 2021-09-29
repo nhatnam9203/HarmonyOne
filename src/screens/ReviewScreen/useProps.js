@@ -24,6 +24,7 @@ export const useProps = (_params) => {
   const statusRef = React.useRef();
 
   const [currentPage, setCurrentPage] = React.useState(1);
+  const [isRefresh, setRefresh] = React.useState(false);
   const [status, setStatus] = React.useState("all");
   const [reviewType, setReviewType] = React.useState("all");
   const [ratingItem, setRatingItem] = React.useState(null);
@@ -73,6 +74,12 @@ export const useProps = (_params) => {
     }
   });
 
+  React.useEffect(async () => {
+    if (isRefresh) {
+      await fetchListReview();
+    }
+    setRefresh(false);
+  }, [isRefresh, currentPage]);
 
   React.useEffect(() => {
     fetchSummaryReview();
@@ -86,6 +93,7 @@ export const useProps = (_params) => {
     status,
     reviewType,
     summary,
+    isRefresh,
 
     getActionSheetReview: (item) => [
       {
@@ -137,6 +145,11 @@ export const useProps = (_params) => {
       setCurrentPage(1);
       setStatus(filterStatus);
       setReviewType(filterType);
+    },
+
+    onRefresh: () => {
+      setRefresh(true);
+      setCurrentPage(1);
     }
   };
 };
