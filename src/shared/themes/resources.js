@@ -48,6 +48,7 @@ export const images = {
   iconStarHalf: require('@src/assets/images/iconStarHalf.png'),
   fullStar: require('@src/assets/images/fullstar.png'),
   halfStar: require('@src/assets/images/halfStar.png'),
+  iconNotFound: require('@src/assets/images/iconNotFound.png'),
 
   EmptyList: require('@src/assets/images/emptyList.png'),
   barTimeLine: require('@src/assets/images/barTimeLine.png'),

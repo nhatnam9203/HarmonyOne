@@ -1,8 +1,9 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { useAxiosQuery, getListCustomer } from '@src/apis';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useScrollToTop } from '@react-navigation/native';
+import { customer } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 
 export const useProps = (props) => {
@@ -10,11 +11,13 @@ export const useProps = (props) => {
   const dispatch = useDispatch();
 
   const [valueSearch, setValueSearch] = React.useState("");
-  const [customerList, setCustomerList] = React.useState([]);
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [totalPage, setTotalPage] = React.useState(1);
   const [isRefresh, setRefresh] = React.useState(false);
   const [isLoadingDefault, setLoadingDefault] = React.useState(true);
+
+  const {
+    customer: { customerList = [], pages }
+  } = useSelector(state => state);
 
   const navigation = useNavigation();
 
@@ -23,13 +26,11 @@ export const useProps = (props) => {
     isLoadingDefault,
     enabled: true,
     onSuccess: (data, response) => {
-      if (currentPage === 1) {
-        setCustomerList(data);
-      } else {
-        setCustomerList(customerList.concat(data));
-      }
+      dispatch(customer.setCustomerList({
+        ...response,
+        currentPage
+      }))
       setLoadingDefault(false);
-      setTotalPage(response.pages);
     },
   });
 
@@ -77,7 +78,7 @@ export const useProps = (props) => {
     },
 
     loadMoreCustomerList: () => {
-      if (currentPage < totalPage) {
+      if (currentPage < pages) {
         setCurrentPage(currentPage + 1);
       }
     },

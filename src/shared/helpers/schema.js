@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { isEmpty } from "lodash";
 
 export const customerSchema = yup.object().shape({
     firstName: yup.string().required("required"),
@@ -19,8 +20,8 @@ export const serviceSchema = yup.object().shape({
         value: yup.string(),
         label: yup.string(),
     })
-    .nullable()
-    .required('required')  
+        .nullable()
+        .required('required')
 });
 
 export const profileStaffLoginSchema = yup.object().shape({

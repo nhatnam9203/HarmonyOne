@@ -5,7 +5,6 @@ import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { useSelector } from "react-redux";
 import Ionicons from "react-native-vector-icons/Ionicons"
-import { sum } from 'lodash';
 
 const ItemTotal = ({
     title,

@@ -140,13 +140,17 @@ export const useProps = (props) => {
     handleArchiveCategory: async () => {
       const data = {}
       const body = await archiveCategory(data, tempCategory.categoryId);
-      submitArchiveCategory(body.params);
+      setTimeout(() => {
+        submitArchiveCategory(body.params);
+      }, 200);
     },
 
     handleRestoreCategory: async () => {
       const data = {}
       const body = await restoreCategory(data, tempCategory.categoryId);
-      submitRestoreCategory(body.params);
+      setTimeout(() => {
+        submitRestoreCategory(body.params);
+      }, 200);
     },
 
   };

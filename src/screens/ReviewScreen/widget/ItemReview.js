@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native'
+import { View, StyleSheet, Image, TouchableOpacity, Text, ScrollView, FlatList } from 'react-native'
 import { avatarUser, treedot } from '@assets';
 import { fonts, colors } from "@shared/themes";
 import { dateToFormat, slop, guid } from "@shared/utils";
@@ -9,6 +9,8 @@ import { isEmpty, isInteger } from "lodash";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { CustomImage } from '@shared/components';
+
 
 let EditReview = ({ ...props }) => {
     return (
@@ -44,9 +46,12 @@ const ItemReview = ({
     getActionSheetReview,
     getActionSheetReply,
 }) => {
+
     return (
         <View style={styles.item}>
             <View style={styles.row}>
+
+                {/******************************** CUSTOMER NAME, STAR, DATE, AVATAR *********************************/}
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     {
                         item?.user?.imageUrl ?
@@ -79,6 +84,7 @@ const ItemReview = ({
                     </View>
                 </View>
 
+                {/******************************** HIDDEN *********************************/}
                 <View style={{ flexDirection: 'row', }}>
                     {
                         item?.isDisabled == 1 &&
@@ -92,10 +98,22 @@ const ItemReview = ({
                 </View>
             </View>
 
-            {item?.message !== "" && <Text style={styles.message}>
-                {item?.message}
-            </Text>}
+            {/******************************** MESSAGE *********************************/}
+            {
+                item?.message !== "" && <Text style={styles.message}>
+                    {item?.message}
+                </Text>
+            }
 
+            {/******************************** RATING IMAGE *********************************/}
+            <View style={{ flexDirection: 'row', marginTop: scaleHeight(8) }}>
+                <FlatList
+                    data={item?.ratingImages || []}
+                    keyExtractor={(ratingImage) => ratingImage?.staffRatingId?.toString() + "staffRatingImageId"}
+                    renderItem={({ item }) => <ImageRating item={item} />}
+                    horizontal={true}
+                />
+            </View>
 
             {/* <MaterialCommunityIcons
                 name='message-text'
@@ -135,6 +153,18 @@ const Reply = ({ openButtonReply, getActionSheetReply }) => {
             </Text>
         </View>
     )
+}
+
+const ImageRating = ({ item }) => {
+    if (item?.imageUrl !== "" || item?.imageUrl !== null || item?.imageUrl !== undefined || item?.imageUrl !== "undefined")
+        (
+            <CustomImage
+                source={{ uri: item.imageUrl }}
+                style={styles.ratingImage}
+                resizeMode='cover'
+            />
+        );
+    return null;
 }
 
 export default ItemReview;
@@ -233,5 +263,11 @@ const styles = StyleSheet.create({
         color: '#666666',
         fontFamily: fonts.LIGHT,
         marginTop: scaleHeight(8),
+    },
+    ratingImage: {
+        width: scaleWidth(50),
+        height: scaleWidth(50),
+        resizeMode: 'contain',
+        marginRight: scaleWidth(8)
     }
 })

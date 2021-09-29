@@ -7,6 +7,8 @@ const reducerName = 'hpo.customer';
 const initialState = {
     customerList: [],
     customerDetail: {},
+    pages : 0,
+    count : 0,
 };
 
 const customerSlice = createSlice({
@@ -15,6 +17,15 @@ const customerSlice = createSlice({
     reducers: {
         setCustomerDetail: (state, action) => {
             state.customerDetail = action.payload;
+        },
+        setCustomerList : (state,action) =>{
+            if (action?.payload?.currentPage == 1) {
+                state.customerList = action?.payload?.data;
+            } else {
+                state.customerList = state.customerList.concat(action?.payload?.data);
+            }
+            state.pages = action?.payload?.pages;
+            state.count = action?.payload?.count;
         }
     },
 });

@@ -8,7 +8,6 @@ import { ButtonFilter, CustomInput, DropdownMenu } from "@shared/components";
 import { ReviewList } from "./ReviewList";
 import { images } from "@shared/themes/resources";
 import { ItemTotal } from "./widget"
-import Swiper from 'react-native-swiper'
 
 export const Layout = ({
   reviewTypeRef,

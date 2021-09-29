@@ -2,11 +2,13 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { DropdownMenu, Button, CustomInput, InputText, InputSelect, IconButton } from "@shared/components";
+import { DropdownMenu, Button, CustomInput, InputText, InputSelect, IconButton, CustomImage } from "@shared/components";
 import { fonts, images } from '@shared/themes';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import * as ImagePicker from "react-native-image-picker";
+import { isEmpty } from "lodash";
 import NavigationService from '@navigation/NavigationService';
+import ImageButton from "./ImageButton";
+
 
 const options = {
   title: "Select Image",
@@ -31,51 +33,13 @@ export const Layout = ({
   back,
   categoryRef,
   statusRef,
+  onUploadImage,
+  imageUrl,
 }) => {
 
   const [t] = useTranslation();
 
   const dataCategory = getDataSelectCategory();
-
-  const responseCamera = (response) => {
-    if (response.didCancel) {
-    } else if (response.error) {
-    } else {
-      const { assets = [] } = response;
-   
-    }
-  };
-
-  const onSubmitImage = (response) => {
-    // let fileName = response.fileName;
-    // if (fileName) {
-    //   if (Platform.OS === "ios" && (fileName.endsWith(".heic") || fileName.endsWith(".HEIC"))) {
-    //     fileName = `${fileName.split(".")[0]}.JPG`;
-    //   }
-    // }
-    // const body = {
-    //   uri: response.uri,
-    //   fileName: fileName ? fileName : "photo",
-    //   type: response.type,
-    // };
-
-    // const data = [];
-    // data.push(body);
-
-    // dispatch(actions.authAction.uploadAvatar(data, afterSubmitImage));
-  };
-
-  const pickGallery = () => {
-    ImagePicker.launchImageLibrary(options, (response) => {
-      responseCamera(response);
-    });
-  };
-
-  const launchCamera = () => {
-    ImagePicker.launchCamera(options, (response) => {
-      responseCamera(response);
-    });
-  };
 
   return (
     <View style={styles.container}>
@@ -132,7 +96,7 @@ export const Layout = ({
                 form={form}
                 name="description"
                 placeholder="Description"
-                style={{ height: scaleHeight(69), alignItems: 'flex-start', paddingTop: scaleHeight(8) }}
+                style={{ height: scaleHeight(79), alignItems: 'flex-start', paddingTop: scaleHeight(8) }}
                 multiline={true}
               />
             }
@@ -151,9 +115,7 @@ export const Layout = ({
                   form={form}
                   name="duration"
                   placeholder="0"
-                  options={{
-                    mask: "9999"
-                  }}
+                  options={{ mask: "9999" }}
                   error={errors?.duration}
                   renderRight={() => <Text style={styles.duration}>min</Text>}
                 />
@@ -169,9 +131,7 @@ export const Layout = ({
                   form={form}
                   name="openTime"
                   placeholder="0"
-                  options={{
-                    mask: "9999"
-                  }}
+                  options={{ mask: "9999" }}
                   renderRight={() => <Text style={styles.duration}>min</Text>}
                 />
               }
@@ -186,9 +146,7 @@ export const Layout = ({
                   form={form}
                   name="secondTime"
                   placeholder="0"
-                  options={{
-                    mask: "9999"
-                  }}
+                  options={{ mask: "9999" }}
                   renderRight={() => <Text style={styles.duration}>min</Text>}
                 />
               }
@@ -235,16 +193,10 @@ export const Layout = ({
           <Text style={styles.titleDuration}>
             Image
           </Text>
-          <TouchableOpacity onPress={pickGallery} style={styles.wrapIconUpload}>
-            <Image
-              source={images.iconUpload}
-              style={styles.iconUpload}
-              resizeMode='contain'
-            />
-            <Text style={{ color: "#CCCCCC", fontSize: scaleFont(14) }}>
-              Add image
-            </Text>
-          </TouchableOpacity>
+          <ImageButton
+            onResponseImagePicker={onUploadImage}
+            imageUrl={imageUrl}
+          />
 
           <CustomInput
             label='Status'
@@ -269,6 +221,7 @@ export const Layout = ({
           label="Save"
           onPress={form.handleSubmit(onSubmit)}
           highlight={true}
+          disabled={!isEmpty(errors)}
           width={'100%'}
         />
       </View>
@@ -350,6 +303,11 @@ const styles = StyleSheet.create({
     marginBottom: scaleHeight(20),
     justifyContent: 'center',
     alignItems: 'center'
+  },
+
+  imageUpload: {
+    width: '100%',
+    height: '100%'
   }
 
 });
