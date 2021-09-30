@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, ScrollView } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
-import { IconButton } from "@shared/components";
+import { IconButton, CustomInput, InputText, InputSelect } from "@shared/components";
 import { WithPopupActionSheet } from "@shared/HOC";
 
 let EditButton = ({ ...props }) => {
@@ -21,7 +21,11 @@ let EditButton = ({ ...props }) => {
 
 EditButton = WithPopupActionSheet(EditButton);
 
-export const Layout = ({ getActionSheets }) => {
+export const Layout = ({
+  form,
+  errors,
+  getActionSheets
+}) => {
 
   const [t] = useTranslation();
 
@@ -37,9 +41,21 @@ export const Layout = ({ getActionSheets }) => {
           <EditButton actions={getActionSheets()} />
         }
       >
-        <View style={styles.content}>
-
-        </View>
+        <ScrollView style={styles.content}>
+          <CustomInput
+            label='Campaign name'
+            isRequired
+            error={errors?.campaignName}
+            renderInput={() =>
+              <InputText
+                form={form}
+                name="campaignName"
+                placeholder="Campaign name"
+                error={errors?.campaignName}
+              />
+            }
+          />
+        </ScrollView>
       </SingleScreenLayout>
     </View>
   );
@@ -53,6 +69,7 @@ const styles = StyleSheet.create({
 
   content: {
     flex: 1,
+    padding : scaleWidth(16),
   },
 
   buttonTreedot: {

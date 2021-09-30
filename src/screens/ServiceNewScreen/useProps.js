@@ -111,7 +111,7 @@ export const useProps = (props) => {
     },
 
     getDataSelectCategory: () => {
-      return categoryList.filter(cate => (cate.isDisabled == 0) && (cate.categoryType === "Service")).map((cate) => ({
+      return categoryList.filter(cate => (cate.categoryType === "Service")).map((cate) => ({
         ...cate,
         label: cate.name,
         value: cate.categoryId,
