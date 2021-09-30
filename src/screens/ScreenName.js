@@ -24,6 +24,10 @@ const ScreenNames = {
   SettingScreen : 'hpo.setting',
   NotificationScreen : 'hpo.notification',
   ReviewScreen : 'hpo.review',
+  MarketingScreen : 'hpo.marketing',
+  MarketingNewScreen : 'hpo.marketing.new',
+  Campaigns : 'hpo.campaigns',
+MarketPlace : 'hpo.marketplace',
 };
 
 module.exports = { ScreenNames };

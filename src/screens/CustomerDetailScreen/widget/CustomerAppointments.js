@@ -10,17 +10,24 @@ const { Navigator, Screen } = createMaterialTopTabNavigator();
 const CustomerAppointments = ({
     upcomings,
 }) => {
-    console.log({  })
     return (
         <View style={styles.container}>
             <Navigator
                 initialRouteName="UpcomingAppointment"
                 swipeEnabled={false}
                 tabBarOptions={{
+                    indicatorStyle : {
+                        height: 3,
+                        backgroundColor : colors.ocean_blue
+                    },
+                    labelStyle : {
+                        fontFamily : fonts.REGULAR,
+                        fontSize : scaleFont(16)
+                    },
                     style: {
                         backgroundColor: colors.white,
-                        width: 300
-                    }
+                        width: 250
+                    },
                 }}
             >
                 <Screen

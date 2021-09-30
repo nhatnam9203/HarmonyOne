@@ -112,7 +112,7 @@ const ItemReview = ({
                 <View style={{ flexDirection: 'row', marginTop: scaleHeight(8) }}>
                     <FlatList
                         data={item?.ratingImages || []}
-                        keyExtractor={(ratingImage) => ratingImage?.staffRatingId?.toString() + "staffRatingImageId"}
+                        keyExtractor={(ratingImage) => ratingImage?.staffRatingId?.toString() + "staffRatingImageId" + guid().toString()}
                         renderItem={(props) => <ImageRating item={props.item} ratingImages={item.ratingImages} />}
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}

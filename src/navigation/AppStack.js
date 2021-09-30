@@ -21,6 +21,8 @@ import {
   SettingScreen,
   NotificationScreen,
   ReviewScreen,
+  MarketingScreen,
+  MarketingNewScreen,
 } from '@screens';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
 import { useSelector } from "react-redux";
@@ -56,7 +58,7 @@ const AppStack = () => {
           options={{
             cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
           }}
-        />
+        /> 
         <Screen {...ServiceNewScreen}
           options={{
             cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
@@ -66,6 +68,8 @@ const AppStack = () => {
         <Screen {...SettingScreen} />
         <Screen {...NotificationScreen} />
         <Screen {...ReviewScreen} />
+        <Screen {...MarketingScreen} />
+        <Screen {...MarketingNewScreen} />
   
         <Screen name="EditAppointment" component={EditAppointment} />
         <Screen name="Checkout" component={Checkout} />

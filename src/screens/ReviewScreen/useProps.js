@@ -74,9 +74,10 @@ export const useProps = (_params) => {
     }
   });
 
-  React.useEffect(async () => {
+  React.useEffect(() => {
     if (isRefresh) {
-      await fetchListReview();
+      fetchListReview();
+      fetchListReview();
     }
     setRefresh(false);
   }, [isRefresh, currentPage]);
@@ -100,11 +101,11 @@ export const useProps = (_params) => {
         id: 'show-review',
         label: t('Show'),
         func: () => {
-          setTimeout(async() => {
+          setTimeout(async () => {
             setRatingItem({ ...item, status: "show" });
             const body = await showRating(item?.staffRatingId);
             submitShowRating(body.params);
-          }, 150);
+          }, 30);
         },
       },
       {
@@ -112,11 +113,11 @@ export const useProps = (_params) => {
         label: t('Delete'),
         textColor: "red",
         func: () => {
-          setTimeout(async() => {
+          setTimeout(async () => {
             setRatingItem({ ...item, status: "hidden" });
             const body = await hideRating(item?.staffRatingId);
             submitHideRating(body.params);
-          }, 150);
+          }, 30);
         },
       },
     ],

@@ -7,6 +7,7 @@ import categorySlice from "./categorySlice";
 import productSlice from "./productSlice";
 import extraSlice from "./extraSlice";
 import reviewSlice from "./reviewSlice";
+import marketingSlice from "./marketingSlice";
 
 const rootReducers = Object.assign(
   {},
@@ -19,7 +20,8 @@ const rootReducers = Object.assign(
     category: categorySlice.reducer,
     product: productSlice.reducer,
     extra: extraSlice.reducer,
-    review: reviewSlice.reducer
+    review: reviewSlice.reducer,
+    marketing: marketingSlice.reducer,
   },
 );
 
@@ -34,4 +36,5 @@ module.exports = {
   product: productSlice.actions,
   extra: extraSlice.actions,
   review: reviewSlice.actions,
+  marketing: marketingSlice.actions,
 };

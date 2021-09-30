@@ -300,3 +300,14 @@ export const hideRating = (id) => ({
   },
 })
 
+
+/**
+ * MARKETING
+ */
+export const getPromotionMerchant = () => ({
+  queryId: 'getPromotionMerchant',
+  params: {
+    url: `/MerchantPromotion?api-version=1.2`,
+    method: 'GET',
+  }
+});

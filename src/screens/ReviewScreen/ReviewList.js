@@ -45,8 +45,6 @@ export const ReviewList = ({
 
                 onEndReached={loadMore}
                 onEndReachedThreshold={0.1}
-                // refreshing={isRefresh}
-                // onRefresh={onRefreshCustomer}
                 initialNumToRender={20}
                 maxToRenderPerBatch={5}
                 ListFooterComponent={() =>

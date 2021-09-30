@@ -1,0 +1,72 @@
+import React from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import { useTranslation } from "react-i18next";
+import { SingleScreenLayout } from '@shared/layouts';
+import { fonts, colors } from "@shared/themes";
+import { images } from "@shared/themes/resources";
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { Campaigns, MarketPlace } from "./pages";
+import NavigationService from '@navigation/NavigationService'
+
+const { Screen, Navigator } = createMaterialTopTabNavigator();
+
+export const Layout = ({
+
+}) => {
+
+  const [t] = useTranslation();
+
+  return (
+    <View style={styles.container}>
+      <SingleScreenLayout
+        pageTitle={t("Marketing")}
+        isLeft={true}
+        isRight={false}
+        isScrollLayout={false}
+        containerStyle={{ paddingVertical: 0 }}
+        onPressLeft={() => NavigationService.navigate(screenNames.MoreScreen)}
+      >
+        <View style={styles.content}>
+          <Navigator
+            headerMode="none"
+            initialRouteName={screenNames.Campaigns}
+            tabBarOptions={{
+              activeTintColor: colors.ocean_blue,
+              inactiveTintColor: colors.greyish_brown_40,
+              indicatorStyle: {
+                height: 3,
+                backgroundColor: colors.ocean_blue
+              },
+              labelStyle: {
+                fontFamily: fonts.REGULAR,
+                fontSize: scaleFont(17),
+              }
+            }}
+            swipeEnabled={false}
+          >
+            <Screen
+              {...Campaigns}
+              options={{ tabBarLabel: 'Campaigns' }}
+            />
+            <Screen
+              {...MarketPlace}
+              options={{ tabBarLabel: 'Market place' }}
+            />
+          </Navigator>
+        </View>
+      </SingleScreenLayout>
+    </View>
+  );
+};
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+
+  content: {
+    flex: 1,
+  },
+});

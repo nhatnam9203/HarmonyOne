@@ -14,7 +14,9 @@ export const items = [
     {
       title: "Marketing",
       icon: images.iconMarketing,
-      onPress: () => { }
+      onPress: () => { 
+        NavigationService.navigate(screenNames.MarketingScreen)
+      }
     },
     {
       title: "Services",
