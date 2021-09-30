@@ -21,7 +21,7 @@ export const useAxiosMutation = ({
     {
       onSuccess: (response) => {
         dispatch(app.hideLoading());
-        if (response.data) {
+        if (response?.codeNumber == 200) {
           if (onSuccess && typeof onSuccess === 'function') {
             onSuccess(response?.data, response);
           }

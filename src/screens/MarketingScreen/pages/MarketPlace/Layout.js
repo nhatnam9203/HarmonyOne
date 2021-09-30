@@ -28,6 +28,7 @@ export const Layout = ({
         onEndReachedThreshold={0.1}
         initialNumToRender={20}
         maxToRenderPerBatch={5}
+        bounces={false}
         ListFooterComponent={() =>
           <>
             <View style={styles.itemLoadMore}>
@@ -91,13 +92,13 @@ const styles = StyleSheet.create({
     width: scaleWidth(375 - 32),
     minHeight: scaleHeight(120),
     resizeMode: 'contain',
-    shadowColor: "#000",
+    shadowColor: "#403F3F",
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    shadowOpacity: 0.15,
+    shadowRadius: 2.84,
     elevation: 5,
     backgroundColor: colors.white,
     marginBottom: scaleWidth(16),
