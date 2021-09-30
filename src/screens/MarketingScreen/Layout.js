@@ -31,11 +31,17 @@ export const Layout = ({
             headerMode="none"
             initialRouteName={screenNames.Campaigns}
             tabBarOptions={{
+              tabStyle : {
+                borderBottomColor : "#eeeeee",
+                borderBottomWidth : 1,
+              },
               activeTintColor: colors.ocean_blue,
               inactiveTintColor: colors.greyish_brown_40,
               indicatorStyle: {
-                height: 3,
-                backgroundColor: colors.ocean_blue
+                height: 5,
+                backgroundColor: colors.ocean_blue,
+                width: scaleWidth(375/2 - 32),
+                marginLeft : scaleWidth(16)
               },
               labelStyle: {
                 fontFamily: fonts.REGULAR,

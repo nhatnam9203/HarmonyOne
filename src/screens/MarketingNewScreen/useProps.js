@@ -18,7 +18,7 @@ export const useProps = (_params) => {
         id: 'delete-campaign',
         label: t('Delete'),
         textColor: colors.red,
-        func: () => { }
+        func: () => { alert('chưa có api delete campaign') }
       },
     ],
   };

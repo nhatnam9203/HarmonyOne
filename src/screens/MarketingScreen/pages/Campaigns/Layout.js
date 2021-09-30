@@ -19,7 +19,7 @@ export const Layout = ({
       <FlatList
         data={promotion}
         style={styles.flatList}
-        keyExtractor={(item) => "promotion" + item.id.toString()}
+        keyExtractor={(item) => "promotion" + item?.id?.toString()}
         renderItem={({ item }) =>
           <IconButton
             icon={item?.isDisabled == 1 ? images.circleGrey : images.circleGreen}

@@ -5,6 +5,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 const reducerName = 'hpo.marketing';
 const initialState = {
     promotion: [],
+    marketPlaces: [],
+    pagesMarketPace: 0,
 };
 
 const marketingSlice = createSlice({
@@ -13,6 +15,14 @@ const marketingSlice = createSlice({
     reducers: {
         setPromotion: (state, action) => {
             state.promotion = action.payload;
+        },
+        setMarketPlaces: (state, action) => {
+            if (action?.payload?.currentPage == 1) {
+                state.pagesMarketPace = action?.payload?.data;
+            } else {
+                state.pagesMarketPace = state.pagesMarketPace.concat(action?.payload?.data);
+            }
+            state.pagesMarketPace = action?.payload?.pages;
         }
     },
 });

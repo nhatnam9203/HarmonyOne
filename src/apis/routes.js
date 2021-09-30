@@ -311,3 +311,12 @@ export const getPromotionMerchant = () => ({
     method: 'GET',
   }
 });
+
+export const getMarketPlaces = (page = 1) => ({
+  queryId: 'getMarketPlaces',
+  params: {
+    url: `/MarketPlace?page=${page}`,
+    method: 'GET',
+  }
+});
+
