@@ -49,6 +49,7 @@ export const InputText = React.forwardRef(({
                     style={[styles.input, inputStyle]}
                     multiline={multiline}
                     textAlignVertical="top"
+                    maxLength={1600}
                     keyboardType={keyboardType}
                     onFocus={() => setFocus(true)}
                     onBlur={() => setFocus(false)}

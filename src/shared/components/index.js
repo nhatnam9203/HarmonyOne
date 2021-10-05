@@ -15,3 +15,5 @@ export * from "./DialogConfirm";
 export * from "./ItemSeletc";
 export * from "./ButtonFilter";
 export * from "./SliderImage";
+export * from "./InputDate";
+export * from "./ButtonUpload";

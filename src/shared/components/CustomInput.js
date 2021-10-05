@@ -9,22 +9,25 @@ export const CustomInput = React.forwardRef(({
     renderInput = null,
     error = null,
     labelStyle,
+    style,
+    renderRight = null,
 }, ref) => {
 
     return (
         <View style={styles.containerInput}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <View style={{ flexDirection: 'row' }}>
+                <View style={[{ flexDirection: 'row' }, style]}>
                     <Text style={[styles.label, labelStyle]}>
                         {label}
                     </Text>
                     {isRequired && <Text style={styles.required}>*</Text>}
+                    {renderRight && renderRight()}
                 </View>
                 {
                     error && error?.message && <Text style={styles.errorMessage}>{error?.message}</Text>
                 }
             </View>
-            { renderInput && renderInput()}
+            {renderInput && renderInput()}
         </View>
     )
 });

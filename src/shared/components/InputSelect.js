@@ -61,7 +61,7 @@ export const InputSelect = React.forwardRef(({
             <View style={[styles.wrapInput, style, {
                 borderColor: isFocus ? colors.ocean_blue : error ? "red" : '#cccccc'
             }]}>
-                <Text style={styles.value}>
+                <Text style={[styles.value,{ fontSize : scaleFont(15) }]}>
                     {field?.value?.label || defaultValue}
                 </Text>
                 <Image
@@ -87,7 +87,8 @@ export const InputSelect = React.forwardRef(({
                                     <TouchableOpacity key={it.value} onPress={() => selectValue(it)} style={[styles.row]}>
                                         <Text style={[
                                             styles.itemText, {
-                                                color: field?.value?.value === it.value ? "#0764B0" : "#333"
+                                                color: field?.value?.value === it.value ? "#0764B0" : "#333",
+                                                fontFamily :  field?.value?.value === it.value ? fonts.MEDIUM : fonts.REGULAR,
                                             }
                                         ]}>
                                             {it?.label}
@@ -169,7 +170,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.MEDIUM
     },
     itemText: {
-        fontSize: scaleFont(16),
+        fontSize: scaleFont(17),
         fontFamily: fonts.REGULAR,
         marginTop: scaleHeight(16)
     },

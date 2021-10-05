@@ -49,6 +49,7 @@
     "lottie-react-native": "^4.0.3",
     "moment": "^2.29.1",
     "path": "^0.12.7",
+    "radio-buttons-react-native": "^1.0.4",
     "react": "17.0.2",
     "react-hook-form": "^7.15.2",
     "react-i18next": "^11.11.4",

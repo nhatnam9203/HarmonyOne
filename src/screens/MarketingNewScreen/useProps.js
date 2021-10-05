@@ -9,15 +9,28 @@ export const useProps = (_params) => {
   const [t] = useTranslation();
 
   const form = useForm({
- 
+
   });
   const { setValue } = form;
   const errors = form.formState.errors;
 
+  const conditionRef = React.useRef();
+  const actionRef = React.useRef();
+
+  const [checked, setChecked] = React.useState(false);
+  const [imageUrl, setImageUrl] = React.useState("");
+
+  const [visibleEndDate, setVisibleEndDate] = React.useState(true);
 
   return {
     form,
     errors,
+
+    conditionRef,
+    actionRef,
+    checked,
+    visibleEndDate,
+    setChecked,
     getActionSheets: (category) => [
       {
         id: 'edit-campaign',
@@ -31,5 +44,13 @@ export const useProps = (_params) => {
         func: () => { alert('chưa có api delete campaign') }
       },
     ],
+
+    onUploadImage : () => {
+
+    },
+
+    onChangeEndDate : isVisible =>{
+      setVisibleEndDate(isVisible);
+    }
   };
 };

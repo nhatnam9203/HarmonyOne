@@ -28,6 +28,7 @@ export const Layout = ({
             renderText={() => <Text style={styles.name}>{item?.name}</Text>}
           />
         }
+        ListFooterComponent={()=><View style={{ height : scaleHeight(300) }} />}
       />
 
       <IconButton

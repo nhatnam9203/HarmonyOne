@@ -46,6 +46,7 @@ export const images = {
   iconFilter: require('@src/assets/images/iconFilter.png'),
   iconStar: require('@src/assets/images/iconStar.png'),
   iconStarHalf: require('@src/assets/images/iconStarHalf.png'),
+  iconSync: require('@src/assets/images/sync.png'),
   fullStar: require('@src/assets/images/fullstar.png'),
   halfStar: require('@src/assets/images/halfStar.png'),
   iconNotFound: require('@src/assets/images/iconNotFound.png'),

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
-import { CustomImage } from "@shared/components";
+import { CustomImage } from "./CustomImage";
 import { WithPopupUpload } from '@shared/HOC';
 import { images } from '@shared/themes';
 
@@ -39,9 +39,7 @@ let ImageButton = ({ onResponseImagePicker, imageUrl, ...props }) => {
     }
 };
 
-ImageButton = WithPopupUpload(ImageButton);
-
-export default ImageButton;
+export let ButtonUpload = WithPopupUpload(ImageButton);
 
 const styles = StyleSheet.create({
     iconUpload: {
