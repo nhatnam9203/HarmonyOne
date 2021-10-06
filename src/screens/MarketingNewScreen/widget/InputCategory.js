@@ -13,6 +13,7 @@ const InputCategory = ({
     apply = () => { },
     cancel = () => { },
     serviceSelected,
+    categorySelected = []
 }) => {
     const {
         service: { services },
@@ -20,20 +21,15 @@ const InputCategory = ({
     } = useSelector(state => state);
 
     const [condition, setCondition] = React.useState("No condition");
-    const [dataServices, setDataServices] = React.useState([]);
+    const [dataCategory, setDataCategory] = React.useState([]);
+
     const serviceRef = React.useRef();
 
     const getDataList = () => {
-        return category.filter(cate => {
-            return services.filter((sv) => (sv.categoryId == cate.categoryId)).length > 0
-        }).map((cate) => ({
-            category: cate,
-            data: services.filter((sv) =>
-                (sv.categoryId == cate.categoryId)).map(sv => ({
-                    ...sv,
-                    checked: checkSerice(sv) ? true : false
-                })),
-        }))
+        return category.map(obj => ({
+            ...obj,
+            checked: false
+        }));
     };
 
     const checkSerice = (service) => {
@@ -49,9 +45,6 @@ const InputCategory = ({
     }
 
     const form = useForm();
-    // const { setValue } = form;
-    // const errors = form.formState.errors;
-
     const [isFocus, setFocus] = React.useState(false);
     const actionSheetRef = React.useRef();
 
@@ -61,25 +54,9 @@ const InputCategory = ({
         name,
     })
 
-    // React.useEffect(() => {
-    //     const obj = items.find(item => item.value == defaultValue);
-    //     if (obj) {
-    //         field.onChange(obj)
-    //     }
-    // }, []);
-
-    // React.useImperativeHandle(ref, () => ({
-    //     changeItem: (value) => {
-    //         const obj = items.find(item => item.value == value);
-    //         if (obj) {
-    //             field.onChange(obj)
-    //         }
-    //     }
-    // }));
-
     const openActionSheet = () => {
         const data = getDataList();
-        setDataServices(data);
+        setDataCategory(data);
         actionSheetRef?.current?.show();
     }
 
@@ -92,41 +69,34 @@ const InputCategory = ({
         closeActionSheet();
     }
 
-    const selectService = (service) => {
-        let tempData = [...dataServices];
+    const selectCategory = (category) => {
+        let tempData = [...dataCategory];
         for (let i = 0; i < tempData.length; i++) {
-            if (tempData[i].category.categoryId == service.categoryId) {
-                let datas = tempData[i].data;
-                for (let j = 0; j < tempData[i].data.length; j++) {
-                    if (tempData[i].data[j].serviceId == service.serviceId) {
-                        tempData[i].data[j].checked = !tempData[i].data[j].checked;
-                    }
-                }
+            if (tempData[i].categoryId == category.categoryId) {
+                tempData[i].checked = !tempData[i].checked;
             }
         }
-        setDataServices(tempData);
+        setDataCategory(tempData);
     }
 
     const onApply = () => {
-        const services = [];
-        for (let i = 0; i < dataServices.length; i++) {
-            for (let j = 0; j < dataServices[i].data.length; j++) {
-                if (dataServices[i].data[j].checked) {
-                    services.push(dataServices[i].data[j]);
-                }
+        const categories = [];
+        for (let i = 0; i < dataCategory.length; i++) {
+            if (dataCategory[i].checked) {
+                categories.push(dataCategory[i])
             }
         }
-        apply(services);
+        apply(categories);
         closeActionSheet();
     }
 
     return (
         <>
-            <Text style={styles.titleService}>Select service</Text>
+            <Text style={styles.titleService}>Select category</Text>
             <TouchableOpacity onPress={openActionSheet} style={[styles.containerInput]}>
                 <View style={styles.wrapInput}>
                     <Text style={[styles.value, { fontSize: scaleFont(15) }]}>
-                        {`${serviceSelected.length} items picked`}
+                        {`${categorySelected?.length} items picked`}
                     </Text>
                     <Image
                         style={[styles.icon]}
@@ -149,13 +119,11 @@ const InputCategory = ({
 
                             <ScrollView style={styles.scrollView}>
                                 {
-                                    dataServices.map((it) =>
+                                    dataCategory.map((it) =>
                                         <ItemService
                                             item={it}
-                                            key={it?.category?.categoryId + "categoryItem"}
-                                            onPress={(serviceItem) => {
-                                                selectService(serviceItem)
-                                            }}
+                                            key={it?.categoryId + "categoryInputItem"}
+                                            onPress={() => { selectCategory(it) }}
                                         />)
                                 }
                                 <View style={{ height: scaleHeight(100) }} />
@@ -199,57 +167,24 @@ const InputCategory = ({
 
 const ItemService = ({ item, onPress }) => {
 
-    const [visible, setVisible] = React.useState(false);
-
     return (
-        <>
-            <TouchableOpacity key={item.categoryId + "category"}>
-                <IconButton
-                    style={styles.rowReverse}
-                    icon={images.dropdown}
-                    slop={slop(5)}
-                    iconStyle={[
-                        styles.iconDropdown, {
-                            transform: [{ rotate: visible ? "180deg" : "0deg" }]
-                        }]}
-                    renderText={() =>
-                        <Text style={styles.categoryName}>
-                            {item?.category?.name?.toString()?.toUpperCase()}
-                        </Text>
-                    }
-                    onPress={() => setVisible(!visible)}
+        <TouchableOpacity
+            style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+            onPress={onPress}
+        >
+            <Text style={styles.serviceName}>
+                {item?.name}
+            </Text>
+            {
+                item.checked &&
+                <AntDesign
+                    name="check"
+                    color={colors.ocean_blue}
+                    style={{ marginTop: -10 }}
+                    size={scaleWidth(18)}
                 />
-            </TouchableOpacity>
-
-            <Collapsible collapsed={visible} duration={200}>
-                {
-                    item.data.map(service => (
-                        <TouchableOpacity
-                            style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
-                            onPress={() => onPress(service)}
-                            activeOpacity={1}
-                        >
-                            <Text
-                                key={"service" + service.serviceId}
-                                style={styles.serviceName}
-                            >
-                                {service?.name}
-                            </Text>
-
-                            {
-                                service.checked &&
-                                <AntDesign
-                                    name="check"
-                                    color={colors.ocean_blue}
-                                    style={{ marginTop: -10 }}
-                                    size={scaleWidth(22)}
-                                />
-                            }
-                        </TouchableOpacity>
-                    ))
-                }
-            </Collapsible>
-        </>
+            }
+        </TouchableOpacity>
     )
 }
 

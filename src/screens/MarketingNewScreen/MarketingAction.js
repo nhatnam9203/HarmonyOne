@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { CustomInput, InputSelect } from "@shared/components";
 import { InputService, InputCategory } from "./widget";
-import { TextInputMask } from "react-native-masked-text";
 import AntDesign from "react-native-vector-icons/AntDesign"
 import Collapsible from "react-native-collapsible";
 
@@ -20,13 +19,20 @@ const MarketingAction = ({
     errors,
 }) => {
 
-    const [condition, setCondition] = React.useState("No condition");
+    const [condition, setAction] = React.useState("Discount for whole cart");
     const conditionRef = React.useRef();
+
     const [serviceSelected, setServiceSelected] = React.useState([]);
+    const [categorySelected, setCategorySelected] = React.useState([]);
 
     const removeService = (service) => {
         let tepmServices = serviceSelected.filter(s => s.serviceId !== service.serviceId);
         setServiceSelected(tepmServices);
+    }
+
+    const removeCategory = (category) => {
+        let tempCategory = categorySelected.filter(c => c.categoryId !== category.categoryId);
+        setCategorySelected(tempCategory);
     }
 
     return (
@@ -42,7 +48,7 @@ const MarketingAction = ({
                         items={actionList}
                         defaultValue={'0'}
                         onSelect={(item) => {
-                            setCondition(item.label)
+                            setAction(item.label)
                         }}
                     />
 
@@ -82,18 +88,20 @@ const MarketingAction = ({
             {
                 <Collapsible collapsed={!(condition == "Discount for category")} duration={200}>
                     <InputCategory
-                        apply={(services) => setServiceSelected(services)}
-                        serviceSelected={serviceSelected}
+                        apply={(categories) => setCategorySelected(categories)}
+                        categorySelected={categorySelected}
                     />
                     <View style={styles.containerServices}>
                         {
-                            serviceSelected.map((service) => (
+                            categorySelected.map((category) => (
                                 <View
                                     style={styles.wrapService}
-                                    key={"serviceSelected" + service.serviceId}
+                                    key={"categorySelected" + category.categoryId}
                                 >
-                                    <Text style={styles.service}>{service.name}</Text>
-                                    <TouchableOpacity onPress={() => removeService(service)}>
+                                    <Text style={styles.service}>
+                                        {category.name}
+                                    </Text>
+                                    <TouchableOpacity onPress={() => removeCategory(category)}>
                                         <AntDesign
                                             style={{ marginLeft: scaleWidth(16) }}
                                             name="closecircle"
