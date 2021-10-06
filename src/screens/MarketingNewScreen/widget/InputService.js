@@ -5,7 +5,7 @@ import { images } from "@shared/themes/resources";
 import { CustomInput, InputSelect, CustomActionSheet, IconButton, Button } from "@shared/components";
 import { useForm, useController } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { slop } from "@shared/utils";
+import { slop, guid } from "@shared/utils";
 import Collapsible from "react-native-collapsible";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
@@ -152,7 +152,7 @@ const InputService = ({
                                     dataServices.map((it) =>
                                         <ItemService
                                             item={it}
-                                            key={it?.category?.categoryId + "categoryItem"}
+                                            key={it?.category?.categoryId + "categoryItem" + guid()}
                                             onPress={(serviceItem) => {
                                                 selectService(serviceItem)
                                             }}
@@ -225,12 +225,12 @@ const ItemService = ({ item, onPress }) => {
                 {
                     item.data.map(service => (
                         <TouchableOpacity
+                            key={"service" + service.serviceId + guid()}
                             style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
                             onPress={() => onPress(service)}
                             activeOpacity={1}
                         >
                             <Text
-                                key={"service" + service.serviceId}
                                 style={styles.serviceName}
                             >
                                 {service?.name}

@@ -28,14 +28,14 @@ const InputCategory = ({
     const getDataList = () => {
         return category.map(obj => ({
             ...obj,
-            checked: false
+            checked: checkCategory(obj)
         }));
     };
 
-    const checkSerice = (service) => {
+    const checkCategory = (category) => {
         let check = false;
-        for (let i = 0; i < serviceSelected.length; i++) {
-            if (service.serviceId == serviceSelected[i].serviceId) {
+        for (let i = 0; i < categorySelected.length; i++) {
+            if (category.categoryId == categorySelected[i].categoryId) {
                 check = true;
                 break;
             }
