@@ -66,5 +66,6 @@ const styles = StyleSheet.create({
   text: {
     ...textStyles.sf_pt_medium_500,
     color: colors.ocean_blue,
+    fontFamily : fonts.MEDIUM
   },
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { fonts, colors } from "@shared/themes";
-import Slider from "./Slider";
+import { Slider } from "./widget";
 
 const MessageNumber = ({
     form,
@@ -72,10 +72,10 @@ const styles = StyleSheet.create({
         fontSize: scaleFont(15),
         fontFamily: fonts.LIGHT,
     },
-    title : {
-        fontSize : scaleFont(17),
+    title: {
+        fontSize: scaleFont(17),
         fontFamily: fonts.REGULAR,
-        marginBottom : scaleHeight(16),
-        color : "#404040"
+        marginBottom: scaleHeight(16),
+        color: "#404040"
     }
 });

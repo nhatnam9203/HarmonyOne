@@ -16,6 +16,7 @@ export const InputSelect = React.forwardRef(({
     form,
     name,
     error,
+    onSelect = () =>{},
 }, ref) => {
 
     const [isFocus, setFocus] = React.useState(false);
@@ -53,6 +54,7 @@ export const InputSelect = React.forwardRef(({
 
     const selectValue = (it) => {
         field.onChange(it);
+        onSelect(it);
         closeActionSheet();
     }
 

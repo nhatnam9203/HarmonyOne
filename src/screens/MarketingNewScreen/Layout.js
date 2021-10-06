@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
-import { IconButton, CustomInput, InputText, InputSelect, InputDate, ButtonUpload } from "@shared/components";
+import { IconButton, CustomInput, InputText, InputSelect, InputDate, ButtonUpload, Button } from "@shared/components";
 import { WithPopupActionSheet } from "@shared/HOC";
 import { Switch } from "react-native-paper";
 import { RadioButton } from 'react-native-paper';
@@ -14,15 +14,8 @@ import RadioButtonRN from 'radio-buttons-react-native';
 import NumberMessage from "./NumberMessage";
 import PickerDateTime from './PickerDateTime';
 import SmsConfiguration from "./SmsConfiguration";
-
-const dataRadioButton = [
-  {
-    label: 'SMS'
-  },
-  {
-    label: 'MMS'
-  }
-];
+import Condition from "./Condition";
+import MarketingAction from "./MarketingAction";
 
 
 let EditButton = ({ ...props }) => {
@@ -39,25 +32,11 @@ let EditButton = ({ ...props }) => {
 
 EditButton = WithPopupActionSheet(EditButton);
 
-const conditionList = [
-  { label: "No condition", value: "0" },
-  { label: "Using specific services", value: "1" },
-  { label: "Customer birthday is within the week", value: "2" },
-  { label: "Time using the service reacthed the quality", value: "3" },
-  { label: "The customer is the referral", value: "4" },
-];
-
-const actionList = [
-  { label: "Discount for whole cart", value: "0" },
-  { label: "Discount for specific services", value: "1" },
-]
-
 
 export const Layout = ({
   form,
   errors,
   getActionSheets,
-  conditionRef,
   actionRef,
   checked,
   setChecked,
@@ -95,34 +74,16 @@ export const Layout = ({
             }
           />
 
-         <PickerDateTime />
+          <PickerDateTime />
 
-          <CustomInput
-            label='Condition'
-            renderInput={() =>
-              <InputSelect
-                ref={conditionRef}
-                form={form}
-                name="condition"
-                title="Condition"
-                items={conditionList}
-                defaultValue={'0'}
-              />
-            }
+          <Condition
+            form={form}
+            errors={errors}
           />
 
-          <CustomInput
-            label='Action'
-            renderInput={() =>
-              <InputSelect
-                ref={conditionRef}
-                form={form}
-                name="action"
-                title="Action"
-                items={actionList}
-                defaultValue={'0'}
-              />
-            }
+          <MarketingAction
+            form={form}
+            errors={errors}
           />
 
           <DiscountType
@@ -152,9 +113,18 @@ export const Layout = ({
             style={styles.rowReverse}
             renderText={() => <Text style={styles.txtItem}>{t('Manually')}</Text>}
           />
-          <View style={{ height: scaleHeight(400) }} />
+          <View style={{ height: scaleHeight(200) }} />
         </ScrollView>
       </SingleScreenLayout>
+
+      <View style={styles.bottom}>
+        <Button
+          label="Save"
+          onPress={() => { }}
+          highlight={true}
+          width={'100%'}
+        />
+      </View>
     </View>
   );
 };
@@ -226,5 +196,11 @@ const styles = StyleSheet.create({
 
   iconTime: {
     width: scaleWidth(12), height: scaleWidth(12)
-  }
+  },
+
+  bottom: {
+    padding: scaleWidth(16),
+    width: scaleWidth(375),
+  },
+
 });

@@ -14,22 +14,21 @@ export const useProps = (_params) => {
   const { setValue } = form;
   const errors = form.formState.errors;
 
-  const conditionRef = React.useRef();
   const actionRef = React.useRef();
 
   const [checked, setChecked] = React.useState(false);
   const [imageUrl, setImageUrl] = React.useState("");
 
   const [visibleEndDate, setVisibleEndDate] = React.useState(true);
-
+ 
   return {
     form,
     errors,
 
-    conditionRef,
     actionRef,
     checked,
     visibleEndDate,
+
     setChecked,
     getActionSheets: (category) => [
       {

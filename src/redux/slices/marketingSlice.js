@@ -18,9 +18,9 @@ const marketingSlice = createSlice({
         },
         setMarketPlaces: (state, action) => {
             if (action?.payload?.currentPage == 1) {
-                state.pagesMarketPace = action?.payload?.data;
+                state.marketPlaces = action?.payload?.data;
             } else {
-                state.pagesMarketPace = state.pagesMarketPace.concat(action?.payload?.data);
+                state.marketPlaces = state.marketPlaces.concat(action?.payload?.data);
             }
             state.pagesMarketPace = action?.payload?.pages;
         }
