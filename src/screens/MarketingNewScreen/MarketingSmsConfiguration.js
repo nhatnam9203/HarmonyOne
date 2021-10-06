@@ -33,7 +33,7 @@ let EditButton = ({ ...props }) => {
 
 EditButton = WithPopupActionSheet(EditButton);
 
-const SmsConfiguration = ({
+const MarketingSmsConfiguration = ({
     onUploadImage,
     imageUrl,
 }) => {
@@ -74,7 +74,7 @@ const SmsConfiguration = ({
     );
 };
 
-export default SmsConfiguration;
+export default MarketingSmsConfiguration;
 
 
 const styles = StyleSheet.create({

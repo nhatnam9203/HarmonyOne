@@ -3,7 +3,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import { fonts, colors } from "@shared/themes";
 import { Slider } from "./widget";
 
-const MessageNumber = ({
+const MarketingMessageNumber = ({
     form,
     errors,
 }) => {
@@ -55,7 +55,7 @@ const MessageNumber = ({
         </View>
     )
 };
-export default MessageNumber;
+export default MarketingMessageNumber;
 
 
 const styles = StyleSheet.create({

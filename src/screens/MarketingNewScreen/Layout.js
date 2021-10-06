@@ -8,13 +8,13 @@ import { IconButton, CustomInput, InputText, InputSelect, InputDate, ButtonUploa
 import { WithPopupActionSheet } from "@shared/HOC";
 import { Switch } from "react-native-paper";
 import { RadioButton } from 'react-native-paper';
-import DiscountType from "./DiscountType";
-import Content from "./Content";
+import MarketingDiscount from "./MarketingDiscount";
+import MarketingContent from "./MarketingContent";
 import RadioButtonRN from 'radio-buttons-react-native';
-import NumberMessage from "./NumberMessage";
-import PickerDateTime from './PickerDateTime';
-import SmsConfiguration from "./SmsConfiguration";
-import Condition from "./Condition";
+import MarketingNumberMessage from "./MarketingNumberMessage";
+import MarketingDatePicker from './MarketingDatePicker';
+import SmsConfiguration from "./MarketingSmsConfiguration";
+import MarketingCondition from "./MarketingCondition";
 import MarketingAction from "./MarketingAction";
 
 
@@ -74,9 +74,9 @@ export const Layout = ({
             }
           />
 
-          <PickerDateTime />
+          <MarketingDatePicker />
 
-          <Condition
+          <MarketingCondition
             form={form}
             errors={errors}
           />
@@ -86,19 +86,19 @@ export const Layout = ({
             errors={errors}
           />
 
-          <DiscountType
+          <MarketingDiscount
             form={form}
             errors={errors}
           />
 
           <SmsConfiguration onUploadImage={onUploadImage} imageUrl={imageUrl} />
 
-          <Content
+          <MarketingContent
             form={form}
             errors={errors}
           />
 
-          <NumberMessage />
+          <MarketingNumberMessage />
 
           <IconButton
             iconComponent={() => <SwitchButton />}

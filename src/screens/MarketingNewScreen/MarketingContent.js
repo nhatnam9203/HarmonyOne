@@ -13,7 +13,7 @@ const numberLength = () => {
     return ch;
 }
 
-const Content = ({
+const MarketingContent = ({
     form,
     errors,
 }) => {
@@ -56,7 +56,7 @@ const Content = ({
     );
 };
 
-export default Content;
+export default MarketingContent;
 
 const styles = StyleSheet.create({
     txtDefault: {

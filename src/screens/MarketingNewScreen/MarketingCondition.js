@@ -17,7 +17,7 @@ const conditionList = [
 ];
 
 
-const Condition = ({
+const MarketingCondition = ({
     form,
     errors,
 }) => {
@@ -103,7 +103,7 @@ const Condition = ({
     );
 };
 
-export default Condition;
+export default MarketingCondition;
 
 
 const styles = StyleSheet.create({
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     service: {
         color: colors.ocean_blue,
         fontFamily: fonts.REGULAR,
-        fontSize: scaleFont(16)
+        fontSize: scaleFont(16),
     },
 
     wrapService: {
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
         borderColor: colors.ocean_blue,
         borderRadius: 300,
         marginRight: scaleWidth(8),
-        marginBottom: scaleHeight(8)
+        marginBottom: scaleHeight(8),
     },
 
     container: {

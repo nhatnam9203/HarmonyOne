@@ -23,8 +23,6 @@ const InputCategory = ({
     const [condition, setCondition] = React.useState("No condition");
     const [dataCategory, setDataCategory] = React.useState([]);
 
-    const serviceRef = React.useRef();
-
     const getDataList = () => {
         return category.map(obj => ({
             ...obj,
@@ -120,7 +118,7 @@ const InputCategory = ({
                             <ScrollView style={styles.scrollView}>
                                 {
                                     dataCategory.map((it) =>
-                                        <ItemService
+                                        <ItemCategory
                                             item={it}
                                             key={it?.categoryId + "categoryInputItem"}
                                             onPress={() => { selectCategory(it) }}
@@ -165,7 +163,7 @@ const InputCategory = ({
     );
 };
 
-const ItemService = ({ item, onPress }) => {
+const ItemCategory = ({ item, onPress }) => {
 
     return (
         <TouchableOpacity

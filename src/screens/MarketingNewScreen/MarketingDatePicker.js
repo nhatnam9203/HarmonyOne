@@ -5,7 +5,7 @@ import { images } from "@shared/themes/resources";
 import { IconButton, CustomInput, InputText, InputSelect, InputDate, ButtonUpload } from "@shared/components";
 import { Switch } from "react-native-paper";
 
-const PickerDateTime = ({
+const MarketingDatePicker = ({
 
 }) => {
 
@@ -67,7 +67,7 @@ const PickerDateTime = ({
     );
 };
 
-export default PickerDateTime;
+export default MarketingDatePicker;
 
 
 const SwitchButton = ({

@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { fonts, colors } from "@shared/themes";
 import { CustomInput, InputText } from "@shared/components";
 
-const DiscountType = ({
+const MarketingDiscount = ({
     form,
     errors,
 }) => {
@@ -49,7 +49,7 @@ const DiscountType = ({
         />
     )
 };
-export default DiscountType;
+export default MarketingDiscount;
 
 
 const styles = StyleSheet.create({

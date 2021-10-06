@@ -131,7 +131,8 @@ const styles = StyleSheet.create({
     service: {
         color: colors.ocean_blue,
         fontFamily: fonts.REGULAR,
-        fontSize: scaleFont(16)
+        fontSize: scaleFont(16),
+        flexShrink : 1
     },
 
     wrapService: {
