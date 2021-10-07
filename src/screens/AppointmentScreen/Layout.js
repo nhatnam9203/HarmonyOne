@@ -7,7 +7,7 @@ import { IconButton, ListEmptyComponent } from "@shared/components";
 import { AppointmentItem } from "./widgets";
 import { useTranslation } from "react-i18next";
 import { WithPopupActionSheet, WithPopupDatePicker } from '@shared/HOC';
-import { StaffList, AppointmentList } from "./widgets";
+import { StaffList, AppointmentList, IconCalendar } from "./widgets";
 import { dateToFormat } from "@shared/utils"
 
 export const Layout = ({
@@ -32,7 +32,7 @@ export const Layout = ({
         {...props}
       >
         <Text style={styles.date}>
-          {dateToFormat(date, "MM DD, YYYY")}
+          {dateToFormat(date, "MMM DD, YYYY")}
         </Text>
         <Image
           resizeMode='contain'
@@ -52,6 +52,7 @@ export const Layout = ({
         isLeft={true}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
+        headerLeftComponent={()=><IconCalendar date={date} />}
         headerCenterComponent={() =>
           <HeaderCenter
             onConfirm={datePicker => {
