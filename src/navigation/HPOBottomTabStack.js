@@ -5,7 +5,8 @@ import {
   ReportsScreen,
   CustomersScreen,
   MoreScreen,
-  ServiceScreen
+  ServiceScreen,
+  CheckoutScreen
 } from '@src/screens';
 import { CustomBottomBar } from '@shared/components';
 
@@ -20,7 +21,7 @@ export const HPOBottomTabStack = () => {
     >
       <Screen {...AppointmentScreen} />
       <Screen {...ReportsScreen} />
-      <Screen {...CustomersScreen} />
+      <Screen {...CheckoutScreen} />
       <Screen {...MoreScreen} />
     </Navigator>
   );

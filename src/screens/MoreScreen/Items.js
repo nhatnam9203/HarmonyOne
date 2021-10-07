@@ -19,6 +19,13 @@ export const items = [
       }
     },
     {
+      title: "Customer",
+      icon: images.iconTabCustomer,
+      onPress: () => { 
+        NavigationService.navigate(screenNames.CustomersScreen)
+      }
+    },
+    {
       title: "Services",
       icon: images.iconService,
       onPress: () => { 

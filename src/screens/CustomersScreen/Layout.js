@@ -7,6 +7,7 @@ import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { slop } from "@shared/utils";
 import { isEmpty } from "lodash";
+import NavigationService from '@navigation/NavigationService';
 import ItemCustomer from "./ItemCustomer";
 
 export const Layout = ({
@@ -15,6 +16,7 @@ export const Layout = ({
     isRefresh,
     isLoading,
     currentPage,
+    isBookAppointment,
     onChangeSearch,
     newCustomer,
     loadMoreCustomerList,
@@ -28,9 +30,21 @@ export const Layout = ({
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={t('Customers')}
-                isLeft={true}
-                isRight={false}
+                pageTitle={isBookAppointment ? t('New Appointment') : t('Customers')}
+                isLeft={!isBookAppointment}
+                isRight={isBookAppointment}
+                headerRightComponent={() =>
+                    isBookAppointment ?
+                        <IconButton
+                            icon={images.iconClose}
+                            iconStyle={styles.icon}
+                            style={styles.button}
+                            onPress={() => NavigationService.back()}
+                        /> :
+                        <View style={styles.button}>
+                            <View style={styles.icon} />
+                        </View>
+                }
                 isScrollLayout={false}
                 containerStyle={{ paddingVertical: 0 }}
             >
@@ -54,7 +68,7 @@ export const Layout = ({
                         initialNumToRender={20}
                         maxToRenderPerBatch={5}
                         ItemSeparatorComponent={() => <View style={styles.seperateLine} />}
-                        ListEmptyComponent={()=><ListEmptyComponent image={images.iconNotFound} description={t('Not found customer')} />}
+                        ListEmptyComponent={() => <ListEmptyComponent image={images.iconNotFound} description={t('Not found customer')} />}
                         ListFooterComponent={() =>
                             <View style={styles.itemLoadMore}>
                                 {
@@ -149,7 +163,7 @@ const styles = StyleSheet.create({
 
     btnAddAppointment: {
         position: 'absolute',
-        bottom: 16,
+        bottom: scaleHeight(32),
         right: 20,
         paddingHorizontal: 15,
         paddingVertical: 15,
@@ -163,5 +177,15 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
-    }
+    },
+
+    icon: {
+        width: scaleWidth(30),
+        height: scaleWidth(30),
+        tintColor: "#333"
+    },
+    button: {
+        height: '100%',
+        alignItems: 'center'
+    },
 });

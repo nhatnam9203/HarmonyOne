@@ -13,6 +13,7 @@ export function CustomBottomBar({ state, descriptors, navigation }) {
         const label = options.tabBarLabel ?? options.title ?? route.name;
         const icon = options.tabBarIcon;
 
+
         const isFocused = state.index === index;
 
         const onPress = () => {

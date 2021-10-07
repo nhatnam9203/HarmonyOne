@@ -27,7 +27,8 @@ const ScreenNames = {
   MarketingScreen : 'hpo.marketing',
   MarketingNewScreen : 'hpo.marketing.new',
   Campaigns : 'hpo.campaigns',
-MarketPlace : 'hpo.marketplace',
+  MarketPlace : 'hpo.marketplace',
+  CheckoutScreen : 'hpo.checkout',
 };
 
 module.exports = { ScreenNames };

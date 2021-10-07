@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { WithPopupActionSheet, WithPopupDatePicker } from '@shared/HOC';
 import { StaffList, AppointmentList, IconCalendar } from "./widgets";
 import { dateToFormat } from "@shared/utils";
+import NavigationService from '@navigation/NavigationService';
 import moment from "moment";
 
 export const Layout = ({
@@ -93,7 +94,9 @@ export const Layout = ({
         <IconButton
           icon={images.iconAdd}
           iconStyle={styles.addIcon}
-          onPress={() => { }}
+          onPress={() => { 
+            NavigationService.navigate(screenNames.CustomersScreen,{ isBookAppointment : true })
+          }}
           style={styles.btnAddAppointment}
         />
       </SingleScreenLayout>

@@ -35,6 +35,8 @@ import { NotificationScreen } from "./NotificationScreen";
 import { ReviewScreen } from "./ReviewScreen";
 import { MarketingScreen } from "./MarketingScreen";
 import { MarketingNewScreen } from "./MarketingNewScreen";
+import { CheckoutScreen } from "./CheckoutScreen";
+
 
 module.exports = {
   ForgotPincode,
@@ -72,4 +74,5 @@ module.exports = {
   ReviewScreen,
   MarketingScreen,
   MarketingNewScreen,
+  CheckoutScreen,
 };

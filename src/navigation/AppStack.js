@@ -14,6 +14,7 @@ import {
   AppointmentNewScreen,
   CustomerNewScreen,
   CustomerDetailScreen,
+  CustomersScreen,
   ServiceScreen,
   ServiceNewScreen,
   CategoryNewScreen,
@@ -53,6 +54,7 @@ const AppStack = () => {
         />
         <Screen {...CustomerNewScreen} />
         <Screen {...CustomerDetailScreen} />
+        <Screen {...CustomersScreen} />
         <Screen {...ServiceScreen} />
         <Screen {...CategoryNewScreen}
           options={{

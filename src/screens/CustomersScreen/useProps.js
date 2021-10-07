@@ -10,6 +10,8 @@ export const useProps = (props) => {
 
   const dispatch = useDispatch();
 
+  const isBookAppointment = props?.route?.params?.isBookAppointment;
+
   const [valueSearch, setValueSearch] = React.useState("");
   const [currentPage, setCurrentPage] = React.useState(1);
   const [isRefresh, setRefresh] = React.useState(false);
@@ -54,6 +56,7 @@ export const useProps = (props) => {
     isRefresh,
     isLoading,
     currentPage,
+    isBookAppointment,
 
     refreshFromScreen,
 

@@ -52,7 +52,6 @@ export const useProps = ({
     ...getAppointmentById(item?.appointmentId),
     enabled: false,
     onSuccess: (data, response) => {
-      console.log({ response })
       if (response?.codeNumber == 200) {
         dispatch(appointment.setAppointmentDetail(data));
       }

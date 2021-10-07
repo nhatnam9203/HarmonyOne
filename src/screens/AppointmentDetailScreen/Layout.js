@@ -33,11 +33,11 @@ const titleNextStatus = (status) => {
       break;
 
     case "confirm":
-      text = "Check-In";
+      text = "Check-in";
       break;
 
     case "checkin":
-      text = "Check-Out";
+      text = "Check-out";
       break
 
     default:
