@@ -21,7 +21,7 @@ export const useProps = (props) => {
   const categoryEdit = props?.route?.params?.categoryEdit;
   const inputCategoryRef = React.useRef();
 
-  const [{ }, submitAddCategory] = useAxiosMutation({
+  const [, submitAddCategory] = useAxiosMutation({
     ...addCategory(),
     isLoadingDefault: true,
     onSuccess: (data, response) => {
@@ -32,7 +32,7 @@ export const useProps = (props) => {
     },
   });
 
-  const [{ }, submitEditCategory] = useAxiosMutation({
+  const [, submitEditCategory] = useAxiosMutation({
     ...editCategory(),
     isLoadingDefault: true,
     onSuccess: (data, response) => {

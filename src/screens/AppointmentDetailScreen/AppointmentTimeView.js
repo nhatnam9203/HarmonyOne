@@ -1,13 +1,15 @@
+
+import React from 'react';
 import { colors, fonts, images } from '@shared/themes';
 import { dateToFormat } from '@shared/utils';
-import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const DATE_FORMAT = 'dddd, DD MMM YYYY'; // Monday, August 30 2021
 const TIME_FORMAT = 'LT'; // 4:20 PM
+
 export const AppointmentTimeView = ({ fromTime = '', toTime = '' }) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity activeOpacity={1} style={styles.container}>
       <View style={styles.customerContent}>
         <Text style={styles.textDate}>
           {dateToFormat(fromTime, DATE_FORMAT)}

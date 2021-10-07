@@ -4,24 +4,17 @@ import { useTranslation } from 'react-i18next';
 import { colors, fonts, layouts } from '@shared/themes';
 import { AppointmentServiceItem } from './AppointmentServiceItem';
 
-export const AppointmentServiceList = ({ services }) => {
+export const AppointmentServiceList = ({ services = [] }) => {
   const { t } = useTranslation();
-
-  const onRenderItem = ({ item }) => {
-    return (
-      <AppointmentServiceItem key={item?.bookingServiceId} service={item} />
-    );
-  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.textTitle}>{t('Sevices')}</Text>
-      <FlatList
-        styles={styles.flatList}
-        data={services}
-        renderItem={onRenderItem}
-        keyExtractor={(item) => item?.bookingServiceId}
-      />
+      {
+        services?.map((item) => (
+          <AppointmentServiceItem key={item?.bookingServiceId+"serviceItem"} service={item} />
+        ))
+      }
     </View>
   );
 };

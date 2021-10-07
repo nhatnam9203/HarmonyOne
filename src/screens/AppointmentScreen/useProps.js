@@ -28,10 +28,11 @@ export const useProps = (_params) => {
   const [staffSelected, setStaffSelected] = React.useState("");
   const [blockTimesVisibile, setBlockTimesVisible] = React.useState([]);
   const [appointmentDetailId, setAppointmentDetailId] = React.useState("");
+  const [isRefresh, setRefresh] = React.useState(false);
 
   const {
     staff: { staffsByDate = [] },
-    appointment: { appointmentsByDate = [], blockTimes = [] , appointmentDetail },
+    appointment: { appointmentsByDate = [], blockTimes = [], appointmentDetail },
   } = useSelector(state => state);
 
 
@@ -43,15 +44,6 @@ export const useProps = (_params) => {
         dispatch(appointment.setAppointmentDetail(data));
         NavigationService.navigate(screenNames.AppointmentDetailScreen);
       }
-    },
-  });
-
-  const [, getAppointmentStaffByDate] = useAxiosQuery({
-    ...appointmentStaffByDateRequest(staffInfo?.staffId, moment().format("MM/DD/YYYY")),
-    enabled: true,
-    onSuccess: (data) => {
-      dispatch(appointment.setAppointmentsByDate(data));
-      NavigationService.navigate(screenNames.AppointmentDetailScreen);
     },
   });
 
@@ -99,11 +91,12 @@ export const useProps = (_params) => {
     },
   });
 
-  const [,] = useAxiosQuery({
+  const [, fetchBlockTimes] = useAxiosQuery({
     ...getBlockTimeByDate(dateToFormat(date, "MM/DD/YYYY")),
     enabled: true,
     onSuccess: (data, response) => {
       dispatch(appointment.setBlockTimeBydate(data));
+      setRefresh(false);
     },
   });
 
@@ -117,6 +110,14 @@ export const useProps = (_params) => {
       setBlockTimesVisible(blockTimes);
     }
   }, [staffSelected, date, blockTimes]);
+
+
+  /************************************** REFRESH BLOCK TIMES  ***************************************/
+  React.useEffect(() => {
+    if (isRefresh) {
+      fetchBlockTimes();
+    }
+  }, [isRefresh]);
 
 
   /************************************** GET APPOINTMENT DETAIL  ***************************************/
@@ -144,6 +145,11 @@ export const useProps = (_params) => {
     visibleDatePicker,
     setVisibleDatePicker,
     staffSelected,
+    isRefresh,
+
+    onRefresh: () => {
+      setRefresh(true);
+    },
 
     selectStaff: (staffId) => {
       if (staffId == staffSelected) {
@@ -152,12 +158,12 @@ export const useProps = (_params) => {
         setStaffSelected(staffId)
     },
 
-    onChangeAppointmentId :(appointmentId) =>{
-      if(appointmentId == appointmentDetailId){
+    onChangeAppointmentId: (appointmentId) => {
+      if (appointmentId == appointmentDetailId) {
         fetchAppointmentById();
-      }else{
+      } else {
         setAppointmentDetailId(appointmentId);
       }
-    }
+    },
   };
 };

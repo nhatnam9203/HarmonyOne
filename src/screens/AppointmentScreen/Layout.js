@@ -21,6 +21,8 @@ export const Layout = ({
   selectStaff,
   staffSelected,
   onChangeAppointmentId,
+  isRefresh,
+  onRefresh,
 }) => {
 
   const [t] = useTranslation();
@@ -78,6 +80,8 @@ export const Layout = ({
           <AppointmentList
             blockTimes={blockTimesVisibile}
             onChangeAppointmentId={onChangeAppointmentId}
+            isRefresh={isRefresh}
+            onRefresh={onRefresh}
           />
         </View>
 

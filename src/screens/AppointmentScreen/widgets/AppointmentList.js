@@ -9,7 +9,9 @@ import { guid } from "@shared/utils";
 
 const AppointmentList = ({
     blockTimes = [],
-    onChangeAppointmentId
+    onChangeAppointmentId,
+    isRefresh,
+    onRefresh,
 }) => {
 
     const [t] = useTranslation();
@@ -19,6 +21,8 @@ const AppointmentList = ({
             style={styles.flatList}
             data={blockTimes}
             renderItem={({ item }) => <AppointmentItem item={item} onChangeAppointmentId={onChangeAppointmentId} />}
+            refreshing={isRefresh}
+            onRefresh={onRefresh}
             keyExtractor={(item) => item?.appointmentId?.toString() + guid() + 'appointment'}
             ListEmptyComponent={() => <ListEmptyComponent description={t('No Appointments')} />}
         />
@@ -31,6 +35,6 @@ export default AppointmentList;
 const styles = StyleSheet.create({
     flatList: {
         flex: 1,
-        paddingTop : scaleHeight(12)
+        paddingTop: scaleHeight(12)
     },
 });

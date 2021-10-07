@@ -1,8 +1,10 @@
-import { colors } from '@shared/themes';
-import { APPOINTMENT_STATUS, getColorForStatus } from '@shared/utils';
 import React from 'react';
+import { colors } from '@shared/themes';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from "react-redux";
+import { updateAppointmentStatusRequest, useAxiosMutation } from "@src/apis";
+import { APPOINTMENT_STATUS, getColorForStatus } from '@shared/utils';
+import NavigationService from '@navigation/NavigationService';
 
 const NoNeedEdit = [
   APPOINTMENT_STATUS.PAID,
@@ -31,6 +33,17 @@ export const useProps = ({
   });
   const [canEdit, setCanEdit] = React.useState(false);
 
+
+  const [, submitUpdateAppointmentStatus] = useAxiosMutation({
+    ...updateAppointmentStatusRequest(),
+    isLoadingDefault: true,
+    onSuccess: (data, response) => {
+      if (response?.codeNumber == 200) {
+        NavigationService.navigate(screenNames.AppointmentScreen);
+      }
+    },
+  });
+
   React.useEffect(() => {
     if (item) {
       setAppointmentItem(item);
@@ -56,6 +69,7 @@ export const useProps = ({
     }
   }, [item]);
 
+
   return {
     appointmentItem,
     headerColor,
@@ -70,7 +84,13 @@ export const useProps = ({
         id: 'cancel-appointment',
         label: t('Cancel Appointment'),
         textColor: colors.red,
-        func: () => { },
+        func: async () => {
+          const data = {
+            status: 'cancel'
+          }
+          const body = await updateAppointmentStatusRequest(appointmentItem?.appointmentId, data);
+          submitUpdateAppointmentStatus(body.params);
+        },
       },
     ],
   };

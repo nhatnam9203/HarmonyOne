@@ -99,11 +99,12 @@ export const updateAppointmentByIDRequest = (appointmentId) => ({
   },
 });
 
-export const updateAppointmentStatusRequest = (appointmentId) => ({
+export const updateAppointmentStatusRequest = (appointmentId, data) => ({
   queryId: 'updateAppointmentStatusRequest',
   params: {
     url: `appointment/updatestatus/${appointmentId}`,
     method: 'PUT',
+    data
   },
 });
 

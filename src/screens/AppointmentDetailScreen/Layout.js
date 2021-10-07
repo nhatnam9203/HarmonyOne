@@ -61,7 +61,7 @@ export const Layout = ({
             lastName={appointmentItem?.lastName}
             phoneNumber={appointmentItem?.phoneNumber}
           />
-          <CustomerAtHomeView />
+          {/* <CustomerAtHomeView /> */}
           <View style={styles.line} />
         </View>
         <View style={styles.content}>
