@@ -20,8 +20,7 @@ export const AppointmentServiceList = ({ services = [] }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 0, paddingVertical: scaleHeight(10) },
-  flatList: { flex: 1, backgroundColor: 'red' },
+  container: { paddingVertical: scaleHeight(10) },
   textTitle: {
     fontFamily: fonts.BOLD,
     fontSize: scaleFont(17),

@@ -70,6 +70,10 @@ export const useProps = ({
     }
   }, [item]);
 
+  const checkOut = () =>{
+
+  }
+
 
   return {
     appointmentItem,
@@ -94,5 +98,22 @@ export const useProps = ({
         },
       },
     ],
+
+    updateNextStatus : async() => {
+      if(appointmentItem.status == "checkin"){
+        checkOut();
+      }else{
+        const data = {
+          status: nextStatus[appointmentItem?.status]
+        }
+        const body = await updateAppointmentStatusRequest(appointmentItem?.appointmentId, data);
+        submitUpdateAppointmentStatus(body.params);
+      }
+    }
   };
+};
+
+const nextStatus = {
+  unconfirm: 'confirm',
+  confirm: 'checkin',
 };

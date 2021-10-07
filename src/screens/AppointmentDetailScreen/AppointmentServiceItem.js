@@ -43,14 +43,13 @@ export const AppointmentServiceItem = ({ service }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     height: scaleHeight(90),
     flexDirection: 'row',
     paddingVertical: scaleHeight(16),
     borderBottomColor: '#eeeeee',
     borderBottomWidth: scaleHeight(1),
   },
-  content: { flex: 1, marginLeft: scaleWidth(16) },
+  content: { flex: 1, marginLeft: scaleWidth(16), justifyContent : 'space-between' },
   textTitle: {
     fontFamily: fonts.BOLD,
     fontSize: scaleFont(17),
@@ -76,7 +75,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bottomContent: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
