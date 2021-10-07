@@ -1,15 +1,16 @@
 
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { fonts, colors } from '@shared/themes';
 import { dateToFormat } from "@shared/utils";
+import moment from "moment";
 
 const IconCalendar = ({
-    date
+    onPress = () =>{}
 }) => {
 
     return (
-        <View style={styles.wrap}>
+        <TouchableOpacity onPress={onPress} style={styles.wrap}>
             <View style={styles.container}>
                 <View style={styles.header}>
                     <View style={styles.headerDot}>
@@ -19,10 +20,10 @@ const IconCalendar = ({
                 </View>
 
                 <View style={styles.body}>
-                    <Text style={styles.txtDate}>{dateToFormat(date,"DD")}</Text>
+                    <Text style={styles.txtDate}>{moment().format("DD")}</Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 

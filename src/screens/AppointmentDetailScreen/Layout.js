@@ -180,10 +180,8 @@ const styles = StyleSheet.create({
   },
 
   textTotalPrice: {
-    fontFamily: fonts.MEDIUM,
+    fontFamily: fonts.BOLD,
     fontSize: scaleFont(15),
-    fontWeight: '500',
-    fontStyle: 'normal',
     letterSpacing: 0,
     textAlign: 'right',
     color: colors.frog_green,

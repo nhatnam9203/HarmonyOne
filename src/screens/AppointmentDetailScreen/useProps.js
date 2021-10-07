@@ -1,9 +1,10 @@
 import React from 'react';
 import { colors } from '@shared/themes';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from "react-redux";
-import { updateAppointmentStatusRequest, useAxiosMutation } from "@src/apis";
-import { APPOINTMENT_STATUS, getColorForStatus } from '@shared/utils';
+import { useSelector, useDispatch } from "react-redux";
+import { updateAppointmentStatusRequest, getBlockTimeByDate, useAxiosMutation, useAxiosQuery, getAppointmentById } from "@src/apis";
+import { APPOINTMENT_STATUS, getColorForStatus, dateToFormat } from '@shared/utils';
+import { appointment } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 
 const NoNeedEdit = [
@@ -18,10 +19,11 @@ const NoNeedEdit = [
 export const useProps = ({
   route
 }) => {
+  const dispatch = useDispatch();
   const [t] = useTranslation();
 
   const {
-    appointment: { appointmentDetail }
+    appointment: { appointmentDetail, appointmentDate }
   } = useSelector(state => state);
 
   const item = appointmentDetail;
@@ -39,9 +41,30 @@ export const useProps = ({
     isLoadingDefault: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
-        route?.params?.refreshFromScreen();
-        NavigationService.navigate(screenNames.AppointmentScreen);
+        fetchBlockTimes();
+        fetchAppointmentById();
       }
+    },
+  });
+
+  
+  const [, fetchAppointmentById] = useAxiosQuery({
+    ...getAppointmentById(item?.appointmentId),
+    enabled: false,
+    onSuccess: (data, response) => {
+      console.log({ response })
+      if (response?.codeNumber == 200) {
+        dispatch(appointment.setAppointmentDetail(data));
+      }
+    },
+  });
+
+
+  const [, fetchBlockTimes] = useAxiosQuery({
+    ...getBlockTimeByDate(dateToFormat(appointmentDate, "MM/DD/YYYY")),
+    enabled: false,
+    onSuccess: (data, response) => {
+      dispatch(appointment.setBlockTimeBydate(data));
     },
   });
 
@@ -55,6 +78,8 @@ export const useProps = ({
       switch (`${item?.status}`.toLowerCase()) {
         case 'confirm':
         case 'unconfirm':
+        case 'waiting':
+        case 'no show':
           setHeaderColor({
             headerColor: tempColor,
             headerTintColor: colors.greyish_brown_40,
@@ -70,7 +95,7 @@ export const useProps = ({
     }
   }, [item]);
 
-  const checkOut = () =>{
+  const checkOut = () => {
 
   }
 
@@ -99,10 +124,10 @@ export const useProps = ({
       },
     ],
 
-    updateNextStatus : async() => {
-      if(appointmentItem.status == "checkin"){
+    updateNextStatus: async () => {
+      if (appointmentItem.status == "checkin") {
         checkOut();
-      }else{
+      } else {
         const data = {
           status: nextStatus[appointmentItem?.status]
         }

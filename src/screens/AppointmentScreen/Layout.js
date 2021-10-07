@@ -8,7 +8,8 @@ import { AppointmentItem } from "./widgets";
 import { useTranslation } from "react-i18next";
 import { WithPopupActionSheet, WithPopupDatePicker } from '@shared/HOC';
 import { StaffList, AppointmentList, IconCalendar } from "./widgets";
-import { dateToFormat } from "@shared/utils"
+import { dateToFormat } from "@shared/utils";
+import moment from "moment";
 
 export const Layout = ({
   staffsByDate,
@@ -55,7 +56,11 @@ export const Layout = ({
         isLeft={true}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
-        headerLeftComponent={() => <IconCalendar date={date} />}
+        headerLeftComponent={() =>
+          <IconCalendar
+            onPress={() => setDate(moment().format("MM/DD/YYYY"))}
+          />
+        }
         headerCenterComponent={() =>
           <HeaderCenter
             onConfirm={datePicker => {

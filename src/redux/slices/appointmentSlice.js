@@ -1,10 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
+import moment from "moment";
 
 const reducerName = 'hpo.appointment';
 const initialState = {
     appointmentsByDate: [],
+    appointmentDate : moment(),
     appointmentDetail: {},
     blockTimes: [],
 };
@@ -21,6 +23,9 @@ const appointmentSlice = createSlice({
         },
         setBlockTimeBydate: (state, action) => {
             state.blockTimes = action.payload;
+        },
+        setAppointmentDate : (state, action) =>{
+            state.appointmentDate = action.payload;
         }
     },
 });

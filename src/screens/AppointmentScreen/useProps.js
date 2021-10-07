@@ -23,16 +23,23 @@ export const useProps = (_params) => {
   const dispatch = useDispatch();
   const staffInfo = useSelector(state => state.auth.staff);
 
-  const [date, setDate] = React.useState(new Date);
   const [visibleDatePicker, setVisibleDatePicker] = React.useState(false);
   const [staffSelected, setStaffSelected] = React.useState("");
   const [blockTimesVisibile, setBlockTimesVisible] = React.useState([]);
   const [appointmentDetailId, setAppointmentDetailId] = React.useState("");
   const [isRefresh, setRefresh] = React.useState(false);
 
+  const setDate = (date) => {
+    if (dateToFormat(date, "MM/DD/YYYY") == dateToFormat(appointmentDate, "MM/DD/YYYY")) {
+      fetchBlockTimes();
+    } else {
+      dispatch(appointment.setAppointmentDate(date));
+    }
+  }
+
   const {
     staff: { staffsByDate = [] },
-    appointment: { appointmentsByDate = [], blockTimes = [], appointmentDetail },
+    appointment: { appointmentsByDate = [], blockTimes = [], appointmentDetail, appointmentDate },
   } = useSelector(state => state);
 
 
@@ -84,7 +91,7 @@ export const useProps = (_params) => {
   });
 
   const [,] = useAxiosQuery({
-    ...getStaffByDate(staffInfo?.merchantId, dateToFormat(date, "MM/DD/YYYY")),
+    ...getStaffByDate(staffInfo?.merchantId, dateToFormat(appointmentDate, "MM/DD/YYYY")),
     enabled: true,
     onSuccess: (data, response) => {
       dispatch(staff.setStaffByDate(data));
@@ -92,7 +99,7 @@ export const useProps = (_params) => {
   });
 
   const [, fetchBlockTimes] = useAxiosQuery({
-    ...getBlockTimeByDate(dateToFormat(date, "MM/DD/YYYY")),
+    ...getBlockTimeByDate(dateToFormat(appointmentDate, "MM/DD/YYYY")),
     enabled: true,
     onSuccess: (data, response) => {
       dispatch(appointment.setBlockTimeBydate(data));
@@ -113,7 +120,7 @@ export const useProps = (_params) => {
     } else {
       setBlockTimesVisible(blockTimes);
     }
-  }, [staffSelected, date, blockTimes]);
+  }, [staffSelected, appointmentDate, blockTimes]);
 
 
   /************************************** REFRESH BLOCK TIMES  ***************************************/
@@ -144,7 +151,7 @@ export const useProps = (_params) => {
     staffsByDate,
     appointmentsByDate,
     blockTimesVisibile,
-    date,
+    date: appointmentDate,
     setDate,
     visibleDatePicker,
     setVisibleDatePicker,
