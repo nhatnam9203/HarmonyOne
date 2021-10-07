@@ -16,7 +16,7 @@ const NoNeedEdit = [
 ];
 
 export const useProps = ({
-
+  route
 }) => {
   const [t] = useTranslation();
 
@@ -39,6 +39,7 @@ export const useProps = ({
     isLoadingDefault: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
+        route?.params?.refreshFromScreen();
         NavigationService.navigate(screenNames.AppointmentScreen);
       }
     },

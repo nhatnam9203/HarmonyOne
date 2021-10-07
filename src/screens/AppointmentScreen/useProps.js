@@ -42,7 +42,7 @@ export const useProps = (_params) => {
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(appointment.setAppointmentDetail(data));
-        NavigationService.navigate(screenNames.AppointmentDetailScreen);
+        NavigationService.navigate(screenNames.AppointmentDetailScreen, { refreshFromScreen });
       }
     },
   });
@@ -99,6 +99,10 @@ export const useProps = (_params) => {
       setRefresh(false);
     },
   });
+
+  const refreshFromScreen = () => {
+    fetchBlockTimes();
+  }
 
 
   /************************************** GET LIST BLOCK TIMES  ***************************************/
