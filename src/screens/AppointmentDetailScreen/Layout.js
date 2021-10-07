@@ -45,6 +45,7 @@ export const Layout = ({
       <SingleScreenLayout
         pageTitle={t('Appointment details')}
         {...headerColor}
+        isRight={canEdit}
         headerRightComponent={() =>
           canEdit && (
             <EditButton

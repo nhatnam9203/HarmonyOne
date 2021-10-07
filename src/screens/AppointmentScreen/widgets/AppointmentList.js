@@ -9,6 +9,7 @@ import { guid } from "@shared/utils";
 
 const AppointmentList = ({
     blockTimes = [],
+    onChangeAppointmentId
 }) => {
 
     const [t] = useTranslation();
@@ -17,7 +18,7 @@ const AppointmentList = ({
         <FlatList
             style={styles.flatList}
             data={blockTimes}
-            renderItem={({ item }) => <AppointmentItem item={item} />}
+            renderItem={({ item }) => <AppointmentItem item={item} onChangeAppointmentId={onChangeAppointmentId} />}
             keyExtractor={(item) => item?.appointmentId?.toString() + guid() + 'appointment'}
             ListEmptyComponent={() => <ListEmptyComponent description={t('No Appointments')} />}
         />

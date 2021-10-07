@@ -2,19 +2,27 @@ import { colors } from '@shared/themes';
 import { APPOINTMENT_STATUS, getColorForStatus } from '@shared/utils';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from "react-redux";
 
 const NoNeedEdit = [
   APPOINTMENT_STATUS.PAID,
   APPOINTMENT_STATUS.COMPLETE,
   APPOINTMENT_STATUS.CANCEL,
+  APPOINTMENT_STATUS.VOID,
+  APPOINTMENT_STATUS.REFUND,
+  APPOINTMENT_STATUS.NOSHOW,
 ];
 
 export const useProps = ({
-  route: {
-    params: { item },
-  },
+
 }) => {
   const [t] = useTranslation();
+
+  const {
+    appointment: { appointmentDetail }
+  } = useSelector(state => state);
+
+  const item = appointmentDetail;
 
   const [appointmentItem, setAppointmentItem] = React.useState(null);
   const [headerColor, setHeaderColor] = React.useState({
@@ -56,13 +64,13 @@ export const useProps = ({
       {
         id: 'edit-appointment',
         label: t('Edit Appointment'),
-        func: () => {},
+        func: () => { },
       },
       {
         id: 'cancel-appointment',
         label: t('Cancel Appointment'),
         textColor: colors.red,
-        func: () => {},
+        func: () => { },
       },
     ],
   };

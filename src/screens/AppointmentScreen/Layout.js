@@ -20,6 +20,7 @@ export const Layout = ({
   setVisibleDatePicker,
   selectStaff,
   staffSelected,
+  onChangeAppointmentId,
 }) => {
 
   const [t] = useTranslation();
@@ -52,7 +53,7 @@ export const Layout = ({
         isLeft={true}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
-        headerLeftComponent={()=><IconCalendar date={date} />}
+        headerLeftComponent={() => <IconCalendar date={date} />}
         headerCenterComponent={() =>
           <HeaderCenter
             onConfirm={datePicker => {
@@ -76,6 +77,7 @@ export const Layout = ({
           />
           <AppointmentList
             blockTimes={blockTimesVisibile}
+            onChangeAppointmentId={onChangeAppointmentId}
           />
         </View>
 

@@ -107,6 +107,14 @@ export const updateAppointmentStatusRequest = (appointmentId) => ({
   },
 });
 
+export const getAppointmentById = (appointmentId) => ({
+  queryId: 'getAppointmentById',
+  params: {
+    url: `/appointment/${appointmentId}`,
+    method: 'GET',
+  },
+});
+
 /**
  * BLOCK TIMES
  */

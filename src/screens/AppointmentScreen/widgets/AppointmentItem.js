@@ -10,7 +10,7 @@ import {
 } from '@shared/utils';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-export const AppointmentItem = ({ item }) => {
+export const AppointmentItem = ({ item, onChangeAppointmentId }) => {
 
     const navigation = useNavigation();
 
@@ -40,7 +40,7 @@ export const AppointmentItem = ({ item }) => {
     }
 
     const onPress = (pressEvt) => {
-        navigation.push(screenNames.AppointmentDetailScreen, { item });
+        onChangeAppointmentId(item?.appointmentId);
     };
 
     const notesServices = (notes = []) => {
