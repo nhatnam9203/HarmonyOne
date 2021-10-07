@@ -13,6 +13,8 @@ export const SingleScreenLayout = ({
   headerColor = colors.white,
   headerTintColor = colors.black,
   headerRightComponent = null,
+  headerCenterComponent = null,
+  headerLeftComponent = null,
   isLeft = true,
   isRight = true,
   isScrollLayout = true,
@@ -43,24 +45,30 @@ export const SingleScreenLayout = ({
           headerStyle,
         ]}>
         {
-          isLeft ? <View style={styles.headerLeftContent}>
-            <TouchableOpacity style={styles.button} onPress={onGoBack}>
-              <Image
-                source={images.iconBack}
-                style={[styles.iconSize, { tintColor: headerTintColor }]}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
-          </View> :
+          isLeft ?
+            headerLeftComponent ? headerLeftComponent() :
+              <View style={styles.headerLeftContent}>
+                <TouchableOpacity style={styles.button} onPress={onGoBack}>
+                  <Image
+                    source={images.iconBack}
+                    style={[styles.iconSize, { tintColor: headerTintColor }]}
+                    resizeMode="contain"
+                  />
+                </TouchableOpacity>
+              </View>
+            :
             <View style={styles.headerLeftContent}>
               <View style={styles.button} />
             </View>
         }
 
         <View style={styles.headerCenterContent}>
-          <Text style={[styles.headTitle, { color: headerTintColor }]}>
-            {pageTitle}
-          </Text>
+          {
+            headerCenterComponent ? headerCenterComponent() :
+              <Text style={[styles.headTitle, { color: headerTintColor }]}>
+                {pageTitle}
+              </Text>
+          }
         </View>
 
         {

@@ -21,9 +21,7 @@ export const Layout = ({
         pageTitle={''}
         isLeft={false}
         isScrollLayout={false}
-        imageBackground={images.imageHeaderBg}
         containerStyle={{ paddingVertical: 0 }}
-        headerTintColor="white"
         headerRightComponent={() =>
           <IconButton
             icon={images.iconBell}
@@ -69,7 +67,7 @@ const styles = StyleSheet.create({
     flex : 1,
   },
   iconBell: {
-    tintColor: colors.white,
+    tintColor: "#7B99BA",
     width: scaleHeight(20),
     height: scaleHeight(20),
   },

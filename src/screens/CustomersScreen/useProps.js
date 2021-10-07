@@ -56,9 +56,6 @@ export const useProps = (props) => {
     currentPage,
 
     refreshFromScreen,
-    goToNotification: () => {
-      NavigationService.navigate(screenNames.NotificationScreen)
-    },
 
     addCustomer: () => {
       navigation.push(screenNames.CustomerNewScreen, {

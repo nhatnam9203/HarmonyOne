@@ -21,7 +21,6 @@ export const Layout = ({
     onRefreshCustomer,
     addCustomer,
     refreshFromScreen,
-    goToNotification,
 }) => {
 
     const [t] = useTranslation();
@@ -30,19 +29,10 @@ export const Layout = ({
         <View style={styles.container}>
             <SingleScreenLayout
                 pageTitle={t('Customers')}
-                isLeft={false}
+                isLeft={true}
+                isRight={false}
                 isScrollLayout={false}
-                imageBackground={images.imageHeaderBg}
-                headerTintColor="white"
                 containerStyle={{ paddingVertical: 0 }}
-                headerRightComponent={() =>
-                    <IconButton
-                        icon={images.iconBell}
-                        iconStyle={styles.iconBell}
-                        style={styles.buttonClose}
-                        onPress={goToNotification}
-                    />
-                }
             >
                 <View style={styles.content}>
                     <SearchInput

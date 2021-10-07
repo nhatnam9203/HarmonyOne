@@ -26,7 +26,7 @@ export const staffLogoutRequest = () => ({
   params: {
     url: '/staff/logout',
     method: 'PUT',
-    data : {}
+    data: {}
   },
 });
 
@@ -52,6 +52,14 @@ export const uploadAvatarStaff = (data) => ({
     url: `/file?category=avatar`,
     method: 'POST',
     data,
+  },
+});
+
+export const getStaffByDate = (merchantId, date) => ({
+  queryId: 'getStaffByDate',
+  params: {
+    url: `staff/getbydate/${merchantId}?date=${date}`,
+    method: 'GET',
   },
 });
 
@@ -96,6 +104,18 @@ export const updateAppointmentStatusRequest = (appointmentId) => ({
   params: {
     url: `appointment/updatestatus/${appointmentId}`,
     method: 'PUT',
+  },
+});
+
+/**
+ * BLOCK TIMES
+ */
+
+export const getBlockTimeByDate = (date) => ({
+  queryId: 'getBlockTimeByDate',
+  params: {
+    url: `blocktime?workingdate=${date}`,
+    method: 'GET',
   },
 });
 

@@ -17,6 +17,10 @@ export const APPOINTMENT_STATUS = {
   UN_CONFIRM: 'unconfirm',
   CHECK_IN: 'checkin',
   PAID: 'paid',
+  VOID: 'void',
+  REFUND: 'refund',
+  WAITING: 'waiting',
+  NOSHOW: 'no show'
 };
 
 export const getColorForStatus = (status) => {
@@ -35,8 +39,16 @@ export const getColorForStatus = (status) => {
       return '#ffff80';
     case APPOINTMENT_STATUS.CONFIRM:
       return '#d4f8fc';
+    case APPOINTMENT_STATUS.VOID:
+      return '#F95D59';
+    case APPOINTMENT_STATUS.REFUND:
+      return '#F95D59';
+    case APPOINTMENT_STATUS.WAITING:
+      return '#F4F4F5';
+    case APPOINTMENT_STATUS.NOSHOW:
+      return '#F4F4F5';
     default:
-      return '#5C5C5C';
+      return '#FAFAFA';
   }
 };
 
@@ -75,7 +87,7 @@ export const createFormData = (media) => {
   return data;
 };
 
-export const slop = (size = 10) => ({ 
+export const slop = (size = 10) => ({
   top: size,
   left: size,
   right: size,

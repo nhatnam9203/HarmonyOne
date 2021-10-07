@@ -1,3 +1,8 @@
-export * from './HeaderStaffInfo';
-export * from './AppointmentHeaderTab';
-export * from './CalendarHorizontal';
+
+import StaffList from "./StaffList";
+import AppointmentList from "./AppointmentList";
+
+module.exports={
+    StaffList,
+    AppointmentList,
+}

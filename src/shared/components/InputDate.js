@@ -50,8 +50,6 @@ export const InputDate = React.forwardRef(({
                 is24hourSource="device"
                 androidVariant="iosClone"
                 onConfirm={(date) => {
-                    console.log('on chanfe date');
-                    console.log({ date });
                     setOpen(false)
                     setDate(date)
                 }}

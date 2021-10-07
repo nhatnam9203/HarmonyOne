@@ -26,6 +26,8 @@ export const useProps = (_params) => {
     onLogout: async () => {
       const body = await staffLogoutRequest();
       logout(body.params);
+      dispatch(auth.signOutApp());
+
     },
   };
 };
