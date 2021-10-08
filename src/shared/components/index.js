@@ -17,3 +17,6 @@ export * from "./ButtonFilter";
 export * from "./SliderImage";
 export * from "./InputDate";
 export * from "./ButtonUpload";
+export * from "./TotalView";
+export * from "./AppointmentTimeView";
+export * from "./CustomerInfoView";

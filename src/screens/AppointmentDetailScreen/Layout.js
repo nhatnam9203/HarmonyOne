@@ -2,14 +2,13 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { SingleScreenLayout } from '@shared/layouts';
 import { useTranslation } from 'react-i18next';
-import { CustomerInfoView } from './CustomerInfoView';
-import { AppointmentTimeView } from './AppointmentTimeView';
-import { CustomerAtHomeView } from './CustomerAtHomeView';
-import { AppointmentServiceList } from './AppointmentServiceList';
 import { formatMoneyWithUnit } from '@shared/utils';
 import { Button } from "@shared/components";
 import { colors, fonts, layouts, images } from '@shared/themes';
 import { WithPopupActionSheet } from '@shared/HOC';
+import { TotalView, AppointmentTimeView, CustomerInfoView } from "@shared/components";
+import { CustomerAtHomeView } from './CustomerAtHomeView';
+import { AppointmentServiceList } from './AppointmentServiceList';
 
 let EditButton = ({ headerTintColor, ...props }) => {
   return (
@@ -95,24 +94,10 @@ export const Layout = ({
           <View style={styles.line} />
           <AppointmentServiceList services={appointmentItem?.services} />
 
-          <View style={styles.totalContent}>
-            <View style={styles.totalInfoContent}>
-              <Text style={styles.textTotalInfo}>
-                {t('Total duration')}
-              </Text>
-              <Text style={styles.textTotalInfo}>
-                {getDuration(appointmentItem?.duration)}
-              </Text>
-            </View>
-            <View style={styles.totalInfoContent}>
-              <Text style={styles.textTotal}>
-                {t('Total')}
-              </Text>
-              <Text style={styles.textTotalPrice}>
-                {getPrice(appointmentItem?.total)}
-              </Text>
-            </View>
-          </View>
+          <TotalView
+            duration={`${getDuration(appointmentItem?.duration)}`}
+            price={getPrice(appointmentItem?.total)}
+          />
         </ScrollView>
 
         {
@@ -151,40 +136,6 @@ const styles = StyleSheet.create({
 
   totalContent: {
     flex: 0,
-  },
-
-  totalInfoContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    height: scaleHeight(30),
-  },
-
-  textTotalInfo: {
-    fontFamily: fonts.REGULAR,
-    fontSize: scaleFont(15),
-    fontWeight: 'normal',
-    fontStyle: 'normal',
-    letterSpacing: -0.36,
-    textAlign: 'left',
-    color: colors.bluegrey,
-  },
-
-  textTotal: {
-    fontFamily: fonts.MEDIUM,
-    fontSize: scaleFont(15),
-    fontWeight: '500',
-    fontStyle: 'normal',
-    letterSpacing: 0,
-    textAlign: 'left',
-    color: colors.bluegrey,
-  },
-
-  textTotalPrice: {
-    fontFamily: fonts.BOLD,
-    fontSize: scaleFont(15),
-    letterSpacing: 0,
-    textAlign: 'right',
-    color: colors.frog_green,
   },
 
   iconSize: {
