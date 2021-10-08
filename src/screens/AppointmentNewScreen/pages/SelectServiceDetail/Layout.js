@@ -6,14 +6,13 @@ import { ExtraOfService } from './ExtraOfService';
 import NavigationService from '@navigation/NavigationService';
 
 export const Layout = ({
-  item
+  item,
+  goToSelectStaff
 }) => {
 
   const back = () => {
     NavigationService.back();
   }
-
-  console.log({ item })
 
   return (
     <View style={styles.container}>
@@ -73,7 +72,7 @@ export const Layout = ({
       <View style={styles.bottom}>
         <Button
           label="Save"
-          onPress={() => { }}
+          onPress={goToSelectStaff}
           highlight={true}
           width={'100%'}
         />
@@ -135,12 +134,19 @@ const styles = StyleSheet.create({
   iconBack: {
     width: scaleWidth(30),
     height: scaleWidth(30),
-    tintColor: "white"
+    tintColor: "#585858"
   },
   wrapIconBack: {
     position: 'absolute',
     top: scaleHeight(25),
-    left: scaleWidth(16)
+    left: scaleWidth(16),
+    borderRadius: 1000,
+    backgroundColor : "#dddddd",
+    width: scaleWidth(45),
+    height: scaleWidth(45),
+    justifyContent : 'center',
+    alignItems: 'center'
+
   },
   servivceName: {
     fontFamily: fonts.MEDIUM,
@@ -156,6 +162,6 @@ const styles = StyleSheet.create({
   bottom: {
     padding: scaleWidth(16),
     width: scaleWidth(375),
-    backgroundColor : "white"
+    backgroundColor: "white"
   },
 });

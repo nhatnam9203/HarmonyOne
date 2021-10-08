@@ -63,6 +63,14 @@ export const getStaffByDate = (merchantId, date) => ({
   },
 });
 
+export const getStaffOfService = (serviceId, date) => ({
+  queryId: 'getStaffOfService',
+  params: {
+    url: `/staff/byService/${serviceId}`,
+    method: 'GET',
+  },
+});
+
 /**
  * APPOINTMENTS
  */

@@ -3,15 +3,15 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const reducerName = 'hpo.customer';
 const initialState = {
-    customerList: [],
+    staffsOfService: [],
 };
 
 const bookAppointmentSlice = createSlice({
     name: reducerName,
     initialState: initialState,
     reducers: {
-        testaction: (state, action) => {
-            console.log({ action })
+        setStafsfOfService: (state, action) => {
+            state.staffsOfService = action.payload;
         }
     },
 });
