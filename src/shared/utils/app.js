@@ -130,3 +130,36 @@ export const statusGroup = [
   { label: "Show", value: "show" },
   { label: "Hidden", value: "hidden" },
 ];
+
+
+export function getTimeAvaible(staff_available_time) {
+  const time12PM = `${moment().format("YYYY-MM-DD")}T12:00:00`;
+  const time05PM = `${moment().format("YYYY-MM-DD")}T17:00:00`;
+
+  const morning = staff_available_time.filter((obj) => {
+    const timeFilter = `${moment().format("YYYY-MM-DD")}T${moment(obj.time, ["h:mm A"]).format(
+      "HH:mm:ss",
+    )}`;
+    return moment(timeFilter).isSameOrBefore(time12PM) && !(obj.isBooked);
+  });
+
+  const afternoon = staff_available_time.filter((obj) => {
+    const timeFilter = `${moment().format("YYYY-MM-DD")}T${moment(obj.time, ["h:mm A"]).format(
+      "HH:mm:ss",
+    )}`;
+    return moment(timeFilter).isAfter(time12PM) && moment(timeFilter).isBefore(time05PM) && !(obj.isBooked);
+  });
+
+  const evening = staff_available_time.filter((obj) => {
+    const timeFilter = `${moment().format("YYYY-MM-DD")}T${moment(obj.time, ["h:mm A"]).format(
+      "HH:mm:ss",
+    )}`;
+    return moment(timeFilter).isSameOrAfter(time05PM) && !(obj.isBooked);
+  });
+
+  return {
+    morning,
+    afternoon,
+    evening,
+  };
+}

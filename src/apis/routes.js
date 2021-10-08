@@ -71,6 +71,15 @@ export const getStaffOfService = (serviceId, date) => ({
   },
 });
 
+export const staffGetAvaiableTime = (staffId, data) => ({
+  queryId: 'staffGetAvaiableTime',
+  params: {
+    url: `staff/getavailabletime/${staffId}`,
+    method: 'PUT',
+    data,
+  },
+});
+
 /**
  * APPOINTMENTS
  */

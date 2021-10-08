@@ -53,7 +53,7 @@ const HeaderBooking = ({
                 </View>
             </View>
             <Text style={styles.txtStep}>
-                {`Step ${step} of 3`}
+                {`Step ${step} of 4`}
             </Text>
             <Text style={styles.title}>
                 {`${title}`}

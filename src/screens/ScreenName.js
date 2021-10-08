@@ -32,6 +32,7 @@ const ScreenNames = {
   SelectService : 'hpo.appointment.booking.selectService',
   SelectServiceDetail : 'hpo.appointment.booking.selectService.detail',
   SelectStaff : 'hpo.appointment.booking.selectStaff',
+  SelectDateTime : 'hpo.appointment.booking.selectDateTime',
 };
 
 module.exports = { ScreenNames };

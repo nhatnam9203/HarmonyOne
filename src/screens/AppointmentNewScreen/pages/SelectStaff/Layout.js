@@ -7,7 +7,8 @@ import { StaffItem } from "./StaffItem";
 import CheckBox from "@react-native-community/checkbox"
 
 export const Layout = ({
-  staffsOfService
+  staffsOfService,
+  goToDateTime,
 }) => {
   return (
     <View style={styles.container}>
@@ -24,7 +25,7 @@ export const Layout = ({
         <View style={styles.bottom}>
           <Button
             label="Next"
-            onPress={()=>{}}
+            onPress={goToDateTime}
             highlight={true}
             width={'100%'}
           />
