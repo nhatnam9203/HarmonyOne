@@ -8,14 +8,16 @@ export const TimePicker = ({
     title = "Morning",
     data = []
 }) => {
-     return (
+    return (
         <View style={styles.container}>
-            <Text style={styles.title}>{title}</Text>
+            <View style={styles.itemTitle}>
+                <Text style={styles.title}>{title}</Text>
+            </View>
             {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {
                         data.map((item) => (
-                            <TouchableOpacity key={item?.id?.toString()+"itemTime"} style={styles.item}>
+                            <TouchableOpacity key={item?.id?.toString() + "itemTime"} style={styles.item}>
                                 <Text style={styles.txtItem}>{item?.time}</Text>
                             </TouchableOpacity>
                         ))
@@ -33,18 +35,22 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: fonts.MEDIUM,
         fontSize: scaleFont(15),
-        marginBottom : scaleWidth(22),
-        textAlign: 'center'
+    },
+    itemTitle : {
+        width: scaleWidth(100),
+        height: scaleHeight(37),
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     item: {
-        width : scaleWidth(100),
+        width: scaleWidth(100),
         height: scaleHeight(37),
-        justifyContent : 'center',
-        alignItems:'center',
-        borderWidth : 1,
-        borderColor : "#dddddd",
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: "#dddddd",
         borderRadius: 3,
-        marginBottom : scaleWidth(13)
+        marginBottom: scaleWidth(13)
     },
     txtItem: {
 
