@@ -12,7 +12,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 export const Layout = ({
   staffsOfService,
   timesAvailable,
-
+  goToReview,
 }) => {
 
   return (
@@ -36,7 +36,7 @@ export const Layout = ({
         <View style={styles.bottom}>
           <Button  
             label="Next"
-            onPress={() => { }}
+            onPress={goToReview}
             highlight={true}
             width={'100%'}
           />
@@ -69,48 +69,3 @@ const styles = StyleSheet.create({
     marginTop: scaleHeight(8)
   }
 });
-
-
-
-const theme = {
-  arrowColor: "#0764B0",
-  "stylesheet.calendar.header": {
-    header: {
-      backgroundColor: "white",
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      paddingVertical: scaleHeight(0.5),
-      borderRadius: scaleWidth(20),
-      paddingHorizontal: scaleWidth(4),
-      marginBottom: scaleHeight(16)
-    },
-    monthText: {
-      color: colors.black,
-      fontSize: scaleFont(18),
-      fontFamily: fonts.REGULAR,
-    },
-    dayHeader: {
-      marginTop: 2,
-      marginBottom: scaleWidth(5),
-      width: scaleWidth(14),
-      textAlign: "center",
-      fontSize: scaleFont(16),
-      color: "#585858",
-      fontFamily: fonts.REGULAR,
-      marginBottom: scaleHeight(8)
-    },
-  },
-  backgroundColor: "#2B2E33",
-  calendarBackground: "white",
-  selectedDayBackgroundColor: "#0764B0",
-  selectedDayTextColor: "#fff",
-  todayTextColor: "#404040",
-  dayTextColor: "#404040",
-  textDisabledColor: "grey",
-  textDayFontWeight: "500",
-  textDayFontSize: scaleFont(15),
-  textDayFontFamily: fonts.REGULAR,
-
-};
-

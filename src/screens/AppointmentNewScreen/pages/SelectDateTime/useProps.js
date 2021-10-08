@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import NavigationService from "@navigation/NavigationService";
 
 export const useProps = (_params) => {
 
@@ -10,6 +11,10 @@ export const useProps = (_params) => {
   } = useSelector(state => state);
 
   return {
-    timesAvailable
+    timesAvailable,
+
+    goToReview : ()=>{
+      NavigationService.navigate(screenNames.ReviewConfirm);
+    }
   };
 };
