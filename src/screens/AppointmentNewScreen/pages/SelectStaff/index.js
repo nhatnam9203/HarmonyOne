@@ -3,7 +3,7 @@ import { createScreenComponent } from '@shared/helpers/createScreenComponent';
 import { Layout } from './Layout';
 import { useProps } from './useProps';
 
-export const SelectServicePage = createScreenComponent(
-  'hpo.appointment.new.booking.selectService',
+export const SelectStaff = createScreenComponent(
+  'hpo.appointment.booking.selectStaff',
   (props) => <Layout {...useProps(props)} />,
 );

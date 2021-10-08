@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
     headTitle: {
         fontFamily: fonts.MEDIUM,
         fontSize: scaleFont(20),
-        letterSpacing: 0,
         textAlign: 'center',
         color: colors.black,
     },
@@ -108,8 +107,8 @@ const styles = StyleSheet.create({
     },
 
     iconSize: {
-        width: scaleWidth(24),
-        height: scaleHeight(24),
+        width: scaleWidth(27),
+        height: scaleHeight(27),
     },
 
     button: {
@@ -125,7 +124,7 @@ const styles = StyleSheet.create({
         marginTop: scaleHeight(15),
     },
     title: {
-        fontSize: scaleFont(18),
+        fontSize: scaleFont(17),
         color: colors.white,
         fontFamily: fonts.MEDIUM,
         marginLeft: scaleWidth(16)

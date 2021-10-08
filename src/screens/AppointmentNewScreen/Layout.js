@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, View } from 'react-native';
-import { CustomerListPage , BookingPage } from './pages';
+import { SelectService, SelectServiceDetail, SelectStaff } from './pages';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -9,12 +9,13 @@ export const Layout = () => {
   return (
     <View style={styles.container}>
       <Navigator
-        initialRouteName={screenNames.CustomerListPage}
+        initialRouteName={screenNames.SelectService}
         swipeEnabled={false}
         headerMode="none"
       >
-        <Screen {...CustomerListPage} />
-        <Screen {...BookingPage} />
+        <Screen {...SelectService} />
+        <Screen {...SelectServiceDetail} />
+        <Screen {...SelectStaff} />
       </Navigator>
     </View>
   );

@@ -58,7 +58,7 @@ export const Layout = ({
                     <FlatList
                         style={styles.flatList}
                         data={customerList}
-                        renderItem={({ item }) => <ItemCustomer item={item} refreshFromScreen={refreshFromScreen} />}
+                        renderItem={({ item }) => <ItemCustomer isBookAppointment={isBookAppointment} item={item} refreshFromScreen={refreshFromScreen} />}
                         keyExtractor={(item) => item.customerId.toString()}
                         onEndReached={loadMoreCustomerList}
                         onEndReachedThreshold={0.1}

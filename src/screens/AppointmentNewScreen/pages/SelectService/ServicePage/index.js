@@ -3,7 +3,8 @@ import { createScreenComponent } from '@shared/helpers/createScreenComponent';
 import { Layout } from './Layout';
 import { useProps } from './useProps';
 
-export const ReviewPage = createScreenComponent(
-  'hpo.appointment.new.booking.review',
+export const ServicePage = createScreenComponent(
+  'ServicePage',
   (props) => <Layout {...useProps(props)} />,
+  { tabBarLabel: 'Services' },
 );

@@ -29,6 +29,9 @@ const ScreenNames = {
   Campaigns : 'hpo.campaigns',
   MarketPlace : 'hpo.marketplace',
   CheckoutScreen : 'hpo.checkout',
+  SelectService : 'hpo.appointment.booking.selectService',
+  SelectServiceDetail : 'hpo.appointment.booking.selectService.detail',
+  SelectStaff : 'hpo.appointment.booking.selectStaff',
 };
 
 module.exports = { ScreenNames };
