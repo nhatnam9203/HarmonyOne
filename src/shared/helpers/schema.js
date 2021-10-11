@@ -24,6 +24,30 @@ export const serviceSchema = yup.object().shape({
         .required('required')
 });
 
+export const productSchema = yup.object().shape({
+    name: yup.string().required("required"),
+    price: yup.string().required("required"),
+    sku: yup.string().required("required"),
+    quantity: yup.string().required("required"),
+    minThreshold: yup.string().required("required"),
+    maxThreshold: yup.string().required("required"),
+    category: yup.object().shape({
+        value: yup.string(),
+        label: yup.string(),
+    })
+        .nullable()
+        .required('required')
+});
+
+
+export const extraSchema = yup.object().shape({
+    name: yup.string().required("required"),
+    price: yup.string().required("required"),
+    duration: yup.string().required("required"),
+    supplyFee: yup.string().required("required"),
+});
+
+
 export const profileStaffLoginSchema = yup.object().shape({
 
 });

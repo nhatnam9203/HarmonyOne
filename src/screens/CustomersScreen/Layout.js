@@ -17,13 +17,16 @@ export const Layout = ({
     isLoading,
     currentPage,
     isBookAppointment,
+    isReviewConfirm,
     onChangeSearch,
     newCustomer,
     loadMoreCustomerList,
     onRefreshCustomer,
     addCustomer,
     refreshFromScreen,
+    closeBookAppointment
 }) => {
+
 
     const [t] = useTranslation();
 
@@ -39,7 +42,7 @@ export const Layout = ({
                             icon={images.iconClose}
                             iconStyle={styles.icon}
                             style={styles.button}
-                            onPress={() => NavigationService.back()}
+                            onPress={closeBookAppointment}
                         /> :
                         <View style={styles.button}>
                             <View style={styles.icon} />
@@ -58,7 +61,14 @@ export const Layout = ({
                     <FlatList
                         style={styles.flatList}
                         data={customerList}
-                        renderItem={({ item }) => <ItemCustomer isBookAppointment={isBookAppointment} item={item} refreshFromScreen={refreshFromScreen} />}
+                        renderItem={({ item }) =>
+                            <ItemCustomer
+                                isBookAppointment={isBookAppointment}
+                                isReviewConfirm={isReviewConfirm}
+                                item={item}
+                                refreshFromScreen={refreshFromScreen}
+                            />
+                        }
                         keyExtractor={(item) => item.customerId.toString()}
                         onEndReached={loadMoreCustomerList}
                         onEndReachedThreshold={0.1}

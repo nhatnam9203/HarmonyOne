@@ -1,22 +1,33 @@
 
 import React from 'react';
-import { colors, fonts, images } from '@shared/themes';
+import { colors, fonts, images, } from '@shared/themes';
 import { dateToFormat } from '@shared/utils';
+import { IconButton } from "./IconButton";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const DATE_FORMAT = 'dddd, DD MMM YYYY'; // Monday, August 30 2021
 const TIME_FORMAT = 'LT'; // 4:20 PM
 
-export const AppointmentTimeView = ({ fromTime = '', toTime = '' }) => {
+export const AppointmentTimeView = ({ fromTime = '', toTime = '', icon = null, onPressIcon = () => { } }) => {
   return (
     <TouchableOpacity activeOpacity={1} style={styles.container}>
       <View style={styles.customerContent}>
         <Text style={styles.textDate}>
           {dateToFormat(fromTime, DATE_FORMAT)}
         </Text>
-        <Text style={styles.textTime}>
-          {dateToFormat(fromTime, TIME_FORMAT)}
-        </Text>
+        <View style={styles.row}>
+          <Text style={styles.textTime}>
+            {dateToFormat(fromTime, TIME_FORMAT)}
+          </Text>
+          {
+            icon &&
+            <IconButton
+              icon={icon}
+              style={styles.icon}
+              onPress={onPressIcon}
+            />
+          }
+        </View>
       </View>
       {/* <Image source={images.iconArrow} style={styles.arrow} /> */}
     </TouchableOpacity>
@@ -38,6 +49,17 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white_fa,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  icon: {
+    width: scaleWidth(25),
+    height: scaleHeight(25),
   },
 
   avatarText: {

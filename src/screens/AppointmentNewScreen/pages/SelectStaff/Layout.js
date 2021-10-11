@@ -7,9 +7,21 @@ import { StaffItem } from "./StaffItem";
 import CheckBox from "@react-native-community/checkbox"
 
 export const Layout = ({
-  staffsOfService,
+  staffList,
   goToDateTime,
+  selectStaff,
 }) => {
+
+  const checkDisabledButton = () => {
+    let check = true;
+    for (const el of staffList) {
+      if (el?.checked) {
+        return false;
+      }
+    }
+    return check
+  }
+
   return (
     <View style={styles.container}>
       <HeaderBooking
@@ -18,13 +30,19 @@ export const Layout = ({
       />
       <View style={styles.content}>
         <FlatList
-          data={staffsOfService}
+          data={staffList}
           keyExtractor={(item) => item?.staffId?.toString() + "staffAvailable "}
-          renderItem={({ item }) => <StaffItem item={item} />}
+          renderItem={({ item }) =>
+            <StaffItem
+              selectStaff={() => selectStaff(item)}
+              item={item}
+            />
+          }
         />
         <View style={styles.bottom}>
           <Button
             label="Next"
+            disabled={checkDisabledButton()}
             onPress={goToDateTime}
             highlight={true}
             width={'100%'}
@@ -43,7 +61,6 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     backgroundColor: colors.white,
-    paddingTop: scaleWidth(8)
   },
   bottom: {
     padding: scaleWidth(16),

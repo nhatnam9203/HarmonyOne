@@ -47,7 +47,7 @@ export const useProps = ({
     },
   });
 
-  
+
   const [, fetchAppointmentById] = useAxiosQuery({
     ...getAppointmentById(item?.appointmentId),
     enabled: false,
@@ -84,6 +84,12 @@ export const useProps = ({
             headerTintColor: colors.greyish_brown_40,
           });
           break;
+        case "cancel":
+          setHeaderColor({
+            headerColor: "red",
+            headerTintColor: colors.white,
+          });
+          break
         default:
           setHeaderColor({
             headerColor: tempColor,
@@ -133,7 +139,8 @@ export const useProps = ({
         const body = await updateAppointmentStatusRequest(appointmentItem?.appointmentId, data);
         submitUpdateAppointmentStatus(body.params);
       }
-    }
+    },
+
   };
 };
 

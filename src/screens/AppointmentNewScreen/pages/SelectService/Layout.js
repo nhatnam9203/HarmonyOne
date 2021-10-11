@@ -9,6 +9,7 @@ import { ProductPage } from "./ProductPage";
 const { Navigator, Screen } = createMaterialTopTabNavigator();
 
 export const Layout = ({
+  isAddMore
 }) => {
   return (
     <View style={styles.container}>

@@ -5,11 +5,13 @@ import { colors, fonts, images } from '@shared/themes';
 export const ListEmptyComponent = ({
   description,
   image = images.EmptyList,
+  containerStyle,
+  textStyle,
 }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,containerStyle]}>
       {image && <Image style={styles.imageStyle} source={image} resizeMode='contain' />}
-      {!!description && <Text style={styles.textStyle}>{description}</Text>}
+      {!!description && <Text style={[styles.textStyle,textStyle]}>{description}</Text>}
     </View>
   );
 };

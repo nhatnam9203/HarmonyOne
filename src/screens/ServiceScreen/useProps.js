@@ -20,7 +20,8 @@ export const useProps = (props) => {
 
   const dialogDeleteCategoryRef = React.useRef();
   const [valueSearch, setSearchValue] = React.useState("");
-  const [tempCategory, setTempCategory] = React.useState("");2
+  const [tempCategory, setTempCategory] = React.useState("");
+  const [isRefresh, setRefresh] = React.useState(false);
 
   const {
     service: { services },
@@ -48,6 +49,7 @@ export const useProps = (props) => {
     enabled: false,
     onSuccess: (data, response) => {
       dispatch(service.setServiceList(data));
+      setRefresh(false)
     },
   });
 
@@ -81,8 +83,22 @@ export const useProps = (props) => {
   }
 
   const newCategory = () => {
-    NavigationService.navigate(screenNames.CategoryNewScreen, { refreshCategory });
+    NavigationService.navigate(
+      screenNames.CategoryNewScreen, { refreshCategory }
+    );
   }
+
+  React.useEffect(()=>{
+    if(isRefresh){
+      getCategoryList();
+      getServiceList();
+    }
+  },[isRefresh]);
+
+  // React.useEffect(() => {
+  //   getCategoryList();
+  //   getServiceList();
+  // }, []);
 
   return {
 
@@ -91,12 +107,34 @@ export const useProps = (props) => {
     tempCategory,
     newCategory,
     setTempCategory,
+    isRefresh,
+    onRefresh: () => {
+      setRefresh(true);
+    },
 
     getDataList: () => {
-      return categoryList.map((cate) => ({
-        category: cate,
-        data: services.filter((sv) => (sv.categoryId == cate.categoryId)),
-      }))
+      let servicesList = services;
+      if (valueSearch) {
+        servicesList = servicesList.filter((e) => {
+          if (e !== null) {
+            return (
+              e.name
+                .trim()
+                .toLowerCase()
+                .indexOf(valueSearch.toLowerCase()) !== -1
+            );
+          }
+          return null;
+        });
+      }
+
+      return categoryList.filter(cate => cate.isDisabled == 0).map((cate) => {
+        const dataList = servicesList.filter((sv) => (sv.categoryId == cate.categoryId));
+        return {
+          category: cate,
+          data: servicesList.filter((sv) => (sv.categoryId == cate.categoryId)),
+        }
+      });
     },
 
     onChangeSearch: (vl) => {
@@ -108,7 +146,10 @@ export const useProps = (props) => {
     },
 
     editService: (item) => {
-      NavigationService.navigate(screenNames.ServiceNewScreen, { isEdit: true, serviceEdit: item, refreshService });
+      NavigationService.navigate(
+        screenNames.ServiceNewScreen,
+        { isEdit: true, serviceEdit: item, refreshService })
+        ;
     },
 
     getActionSheets: (category) => [
@@ -121,12 +162,15 @@ export const useProps = (props) => {
         id: 'edit-category',
         label: t('Edit category'),
         func: () => {
-          NavigationService.navigate(screenNames.CategoryNewScreen, { refreshCategory, isEdit: true, categoryEdit: category });
+          NavigationService.navigate(
+            screenNames.CategoryNewScreen,
+            { refreshCategory, isEdit: true, categoryEdit: category }
+          );
         }
       },
       {
         id: 'delete-category',
-        label: category.isDisabled == 0 ? t('Archive category') : t("Restore category"),
+        label: t('Delete category'),
         textColor: colors.red,
         func: () => {
           setTimeout(() => {

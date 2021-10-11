@@ -2,57 +2,94 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, ScrollView, Pressable } from 'react-native';
 import { colors, fonts, images } from "@shared/themes";
 import { CustomImage, IconButton, Button } from "@shared/components";
+import { convertMinsToHrsMins } from "@shared/utils";
+import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
+import { isEmpty } from "lodash";
 import CheckBox from "@react-native-community/checkbox"
 
-export const ExtraOfService = ({ extras = [] }) => {
+export const ExtraOfService = ({ extras = [], onChangeExtraService, durationService = 0, service }) => {
+
+    const getTotalDuration = () => {
+        let total = 0;
+        total += parseInt(durationService);
+        for (const el of extras) {
+            if (el.checked) {
+                total += parseInt(el.duration);
+            }
+        }
+        return `${convertMinsToHrsMins(total)}`;
+    }
+
+    const getTotalPrice = () => {
+        let total = 0;
+        total += formatNumberFromCurrency(service.price);
+        for (const el of extras) {
+            if (el.checked) {
+                total += formatNumberFromCurrency(el.price);
+            }
+        }
+        return formatMoney(total);
+    }
 
     return (
         <View style={styles.containerExtras}>
             <Text style={styles.titleExtra}>Extra services</Text>
             {
-                extras.map((extra) => (
-                    <Item key={extra?.extraId + "extraService"} extra={extra} />
-                ))
+                extras.map((extra, key) => {
+                    return (
+                        <ItemExtra
+                            key={extra?.extraId + "extraService"}
+                            extra={extra}
+                            onChangeExtraService={onChangeExtraService}
+                        />
+                    )
+                })
             }
             <View style={styles.totalRow}>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={styles.total}>Total:</Text>
-                    <Text style={styles.total}>{`30 min`}</Text>
+                    <Text style={styles.total}>{getTotalDuration()}</Text>
                 </View>
-                <Text style={[styles.total,{ fontFamily: fonts.BOLD }]}>
-                    {`$ 50.00`}
+                <Text style={[styles.total, { fontFamily: fonts.BOLD }]}>
+                    {getTotalPrice()}
                 </Text>
             </View>
         </View>
     );
 };
 
-const Item = ({ extra }) => {
-
-    const [toggleCheckBox, setToggleCheckBox] = React.useState(false)
+const ItemExtra = ({ extra, onChangeExtraService }) => {
+    const changeChecked = (newValue) => {
+        onChangeExtraService({
+            ...extra,
+            checked: newValue,
+        });
+    }
 
     return (
-        <Pressable style={styles.container}>
+        <Pressable style={styles.wrapExtra}>
             <CheckBox
                 disabled={false}
-                value={toggleCheckBox}
-                onValueChange={(newValue) => setToggleCheckBox(newValue)}
+                value={extra?.checked}
+                onValueChange={(newValue) => changeChecked(newValue)}
                 boxType='square'
-                lineWidth={2}
-
-                onFillColor={colors.ocean_blue}
-                onCheckColor={colors.white}
-                onTintColor={"transparent"}
-                style={{ marginRight: scaleWidth(16) }}
                 style={{ width: 24, height: 24, marginRight: scaleWidth(16) }}
             />
 
-            <CustomImage
-                style={styles.serviceImage}
-                source={{ uri: extra?.imageUrl }}
-                resizeMode="cover"
-            />
-            <View style={styles.content}>
+            {
+                isEmpty(extra?.imageUrl) ?
+                    <CustomImage
+                        style={styles.serviceImage}
+                        source={images.serviceDefault}
+                        resizeMode="cover"
+                    /> :
+                    <CustomImage
+                        style={styles.serviceImage}
+                        source={{ uri: extra?.imageUrl }}
+                        resizeMode="cover"
+                    />
+            }
+            <View style={styles.wrapContent}>
                 <Text style={styles.textServiceName}>{extra?.name}</Text>
                 <View style={styles.bottomContent}>
                     <Text style={styles.textServiceDuration}>
@@ -91,7 +128,7 @@ const styles = StyleSheet.create({
         letterSpacing: 0,
         color: colors.ocean_blue,
     },
-    container: {
+    wrapExtra: {
         height: scaleHeight(90),
         flexDirection: 'row',
         paddingVertical: scaleHeight(16),
@@ -99,7 +136,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: scaleHeight(1),
         marginHorizontal: scaleWidth(16)
     },
-    content: { flex: 1, marginLeft: scaleWidth(16), justifyContent: 'space-between' },
+    wrapContent: { flex: 1, marginLeft: scaleWidth(16), justifyContent: 'space-between' },
     textTitle: {
         fontFamily: fonts.BOLD,
         fontSize: scaleFont(17),

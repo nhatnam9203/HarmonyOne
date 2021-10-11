@@ -8,12 +8,13 @@ import {
   getStaffByDate,
   appointmentStaffByDateRequest,
   getBlockTimeByDate,
-  getAppointmentById
+  getAppointmentById,
+  getMerchantById,
 } from '@src/apis';
 
 import { useNavigation } from '@react-navigation/core';
 import { useDispatch, useSelector } from "react-redux";
-import { service, product, category, extra, staff, appointment } from '@redux/slices';
+import { service, product, category, extra, staff, appointment, bookAppointment, merchant } from '@redux/slices';
 import { dateToFormat } from "@shared/utils";
 import moment from "moment";
 import NavigationService from '@navigation/NavigationService';
@@ -29,6 +30,12 @@ export const useProps = (_params) => {
   const [appointmentDetailId, setAppointmentDetailId] = React.useState("");
   const [isRefresh, setRefresh] = React.useState(false);
 
+  const {
+    staff: { staffsByDate = [] },
+    appointment: { appointmentsByDate = [], blockTimes = [], appointmentDetail, appointmentDate },
+  } = useSelector(state => state);
+
+
   const setDate = (date) => {
     if (dateToFormat(date, "MM/DD/YYYY") == dateToFormat(appointmentDate, "MM/DD/YYYY")) {
       fetchBlockTimes();
@@ -36,12 +43,6 @@ export const useProps = (_params) => {
       dispatch(appointment.setAppointmentDate(date));
     }
   }
-
-  const {
-    staff: { staffsByDate = [] },
-    appointment: { appointmentsByDate = [], blockTimes = [], appointmentDetail, appointmentDate },
-  } = useSelector(state => state);
-
 
   const [, fetchAppointmentById] = useAxiosQuery({
     ...getAppointmentById(appointmentDetailId),
@@ -107,6 +108,15 @@ export const useProps = (_params) => {
     },
   });
 
+  const [, fetchMerchantById] = useAxiosQuery({
+    ...getMerchantById(staffInfo?.merchantId),
+    isLoadingDefault: false,
+    enabled: false,
+    onSuccess: (data, response) => {
+      dispatch(merchant.setMerchantDetail(data));
+    },
+  });
+
   const refreshFromScreen = () => {
     fetchBlockTimes();
   }
@@ -144,6 +154,7 @@ export const useProps = (_params) => {
     getServiceList();
     getProductList();
     getExtraList();
+    fetchMerchantById();
   }, []);
 
 
@@ -176,5 +187,10 @@ export const useProps = (_params) => {
         setAppointmentDetailId(appointmentId);
       }
     },
+
+    addAppointment: () => {
+      NavigationService.navigate(screenNames.CustomersScreen, { isBookAppointment: true });
+      dispatch(bookAppointment.resetBooking());
+    }
   };
 };

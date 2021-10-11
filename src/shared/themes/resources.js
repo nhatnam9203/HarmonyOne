@@ -55,6 +55,17 @@ export const images = {
   circleGrey: require('@src/assets/images/circleGrey.png'),
   checkout_customer_icon: require('@src/assets/images/checkout_customer_icon.png'),
   plus: require('@src/assets/images/plus.png'),
+  iconExtra: require('@src/assets/images/iconExtra.png'),
+  iconChangeDate: require('@src/assets/images/iconChangeDate.png'),
+  iconAddMore: require('@src/assets/images/iconAddMore.png'),
+  iconAddNote: require('@src/assets/images/iconAddNote.png'),
+  iconTrash: require('@src/assets/images/trash-can.png'),
+  iconChecked: require('@src/assets/images/checked.png'),
+  iconCloseSettlement: require('@src/assets/images/iconCloseSettlement.png'),
+  iconInventory: require('@src/assets/images/iconInventory.png'),
+  staff_default: require('@src/assets/images/staff_default.png'),
+  iconExport: require('@src/assets/images/export.png'),
+
 
   EmptyList: require('@src/assets/images/emptyList.png'),
   barTimeLine: require('@src/assets/images/barTimeLine.png'),

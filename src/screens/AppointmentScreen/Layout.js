@@ -25,6 +25,7 @@ export const Layout = ({
   onChangeAppointmentId,
   isRefresh,
   onRefresh,
+  addAppointment,
 }) => {
 
   const [t] = useTranslation();
@@ -94,9 +95,7 @@ export const Layout = ({
         <IconButton
           icon={images.iconAdd}
           iconStyle={styles.addIcon}
-          onPress={() => { 
-            NavigationService.navigate(screenNames.CustomersScreen,{ isBookAppointment : true })
-          }}
+          onPress={addAppointment}
           style={styles.btnAddAppointment}
         />
       </SingleScreenLayout>

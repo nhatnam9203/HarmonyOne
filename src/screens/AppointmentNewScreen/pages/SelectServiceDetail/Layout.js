@@ -3,26 +3,40 @@ import { View, StyleSheet, TouchableOpacity, Text, Image, ScrollView } from 'rea
 import { colors, fonts, images } from "@shared/themes";
 import { CustomImage, IconButton, Button } from "@shared/components";
 import { ExtraOfService } from './ExtraOfService';
-import NavigationService from '@navigation/NavigationService';
+import { isEmpty } from "lodash";
+
 
 export const Layout = ({
   item,
-  goToSelectStaff
+  durationService,
+  onChangeDurationService,
+  goToSelectStaff,
+  extraListRef,
+  extrasService,
+  onChangeExtraService,
+  isEditItem,
+  goToReview,
+  back,
 }) => {
-
-  const back = () => {
-    NavigationService.back();
-  }
 
   return (
     <View style={styles.container}>
       <ScrollView style={styles.content}>
         <View style={styles.containerBigImage}>
-          <CustomImage
-            source={{ uri: item?.imageUrl, priority: "high" }}
-            style={{ width: '100%', height: '100%' }}
-            resizeMode='cover'
-          />
+          {
+            !isEmpty(item?.imageUrl) ?
+              <CustomImage
+                source={{ uri: item?.imageUrl, priority: "high" }}
+                style={{ width: '100%', height: '100%' }}
+                resizeMode='cover'
+              /> :
+              <CustomImage
+                source={images.serviceDefault}
+                style={{ width: '100%', height: '100%' }}
+                resizeMode='cover'
+              />
+          }
+
           <IconButton
             icon={images.iconBack}
             iconStyle={styles.iconBack}
@@ -41,17 +55,18 @@ export const Layout = ({
             <Text style={styles.duration}>Duration (min)</Text>
             <View style={styles.row}>
               <Button
-                onPress={() => { }}
+                onPress={() => { onChangeDurationService(durationService - 5) }}
                 highlight={true}
+                disabled={durationService <= 5}
                 height={scaleHeight(30)}
                 width={scaleWidth(50)}
                 label="-5"
               />
               <View style={styles.wrapDurationNumber}>
-                <Text style={[styles.duration, styles.durationNumber]}>{item?.duration}</Text>
+                <Text style={[styles.duration, styles.durationNumber]}>{durationService}</Text>
               </View>
               <Button
-                onPress={() => { }}
+                onPress={() => { onChangeDurationService(durationService + 5) }}
                 highlight={true}
                 height={scaleHeight(30)}
                 width={scaleWidth(50)}
@@ -66,13 +81,21 @@ export const Layout = ({
           </View>
         </View>
 
-        {item?.extras && item?.extras?.length > 0 && <ExtraOfService extras={item?.extras} />}
+        {
+          item?.extras && item?.extras?.length > 0 &&
+          <ExtraOfService
+            extras={extrasService}
+            durationService={durationService}
+            onChangeExtraService={onChangeExtraService}
+            service={item}
+          />
+        }
 
       </ScrollView>
       <View style={styles.bottom}>
         <Button
           label="Save"
-          onPress={goToSelectStaff}
+          onPress={isEditItem ? goToReview : goToSelectStaff}
           highlight={true}
           width={'100%'}
         />
@@ -141,10 +164,10 @@ const styles = StyleSheet.create({
     top: scaleHeight(25),
     left: scaleWidth(16),
     borderRadius: 1000,
-    backgroundColor : "#dddddd",
+    backgroundColor: "#dddddd",
     width: scaleWidth(45),
     height: scaleWidth(45),
-    justifyContent : 'center',
+    justifyContent: 'center',
     alignItems: 'center'
 
   },

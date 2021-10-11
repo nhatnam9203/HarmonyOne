@@ -1,49 +1,48 @@
+import React from 'react';
+import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors, fonts, images, layouts } from '@shared/themes';
 import { formatPhoneNumber } from '@shared/utils';
-import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { getCustomerInfoById, useAxiosQuery } from "@src/apis";
+import { useDispatch } from "react-redux";
+import { customer as customerAction } from "@redux/slices";
+import NavigationService from '@navigation/NavigationService';
 
 export const CustomerInfoView = ({
   customerId,
   firstName = '',
   lastName,
   phoneNumber,
+  onPress,
 }) => {
-  const [customer, setCustomer] = React.useState(null);
+  const dispatch = useDispatch();
 
-  const getFirstCharName = React.useCallback(() => {
-    if (customer) {
-      return customer.firstName?.charAt(0)?.toUpperCase();
-    } else {
-      return firstName?.charAt(0)?.toUpperCase();
-    }
-  }, [customer, firstName]);
+  const [, getCustomerById] = useAxiosQuery({
+    ...getCustomerInfoById(customerId),
+    isLoadingDefault: true,
+    enabled: false,
+    onSuccess: (data, response) => {
+      dispatch(customerAction.setCustomerDetail(data));
+      NavigationService.navigate(screenNames.CustomerDetailScreen);
+    },
+  });
 
-  const getCustomerFullName = React.useCallback(() => {
-    if (customer) {
-      return `${customer.firstName} ${customer.lastName}`;
-    } else {
-      return `${firstName} ${lastName}`;
+  const onPressItem  =() =>{
+    if(onPress){
+      onPress();
+      return;
     }
-  }, [customer, firstName, lastName]);
-
-  const getPhoneNumber = React.useCallback(() => {
-    if (customer) {
-      return `${formatPhoneNumber(customer.phone)}`;
-    } else {
-      return `${formatPhoneNumber(phoneNumber)}`;
-    }
-  }, [customer, phoneNumber]);
+    getCustomerById();
+  }
 
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity onPress={onPressItem} style={styles.container}>
       <View style={styles.avatar}>
-        <Text style={styles.avatarText}>{getFirstCharName()}</Text>
+        <Text style={styles.avatarText}>{firstName?.charAt(0)?.toUpperCase()}</Text>
       </View>
       <View style={layouts.marginHorizontal} />
       <View style={styles.customerContent}>
-        <Text style={styles.textName}>{getCustomerFullName()}</Text>
-        <Text style={styles.textPhone}>{getPhoneNumber()}</Text>
+        <Text style={styles.textName}>{`${firstName} ${lastName}`}</Text>
+        <Text style={styles.textPhone}>{`${formatPhoneNumber(phoneNumber)}`}</Text>
       </View>
       <Image source={images.iconArrow} style={styles.arrow} />
     </TouchableOpacity>

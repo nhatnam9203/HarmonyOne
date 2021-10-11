@@ -38,7 +38,7 @@ export const Layout = ({
         pageTitle={t('Customer details')}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
-        onPressLeft={() => NavigationService.navigate(screenNames.CustomersScreen)}
+        onPressLeft={() => NavigationService.back()}
         headerRightComponent={() =>
           <EditButton actions={getActionSheets()} />
         }

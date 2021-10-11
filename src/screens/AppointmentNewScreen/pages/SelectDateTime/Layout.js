@@ -13,6 +13,9 @@ export const Layout = ({
   staffsOfService,
   timesAvailable,
   goToReview,
+  staffSelected,
+  calendarRef,
+  timePickerRef,
 }) => {
 
   return (
@@ -23,18 +26,19 @@ export const Layout = ({
       />
       <View style={styles.content}>
         <View style={{ flex: 1 }}>
-          <CalendarPicker />
+          <CalendarPicker
+            ref={calendarRef}
+            staffSelected={staffSelected}
+          />
           <View style={styles.line} />
-
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: scaleHeight(20) }}>
-            <TimePicker title="Morning" data={getTimeAvaible(timesAvailable).morning} />
-            <TimePicker title="Afternoon" data={getTimeAvaible(timesAvailable).afternoon} />
-            <TimePicker title="Evening" data={getTimeAvaible(timesAvailable).evening} />
-          </View>
+          <TimePicker
+            ref={timePickerRef}
+            timesAvailable={timesAvailable}
+          />
         </View>
 
         <View style={styles.bottom}>
-          <Button  
+          <Button
             label="Next"
             onPress={goToReview}
             highlight={true}

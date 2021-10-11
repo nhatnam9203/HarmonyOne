@@ -20,3 +20,5 @@ export * from "./ButtonUpload";
 export * from "./TotalView";
 export * from "./AppointmentTimeView";
 export * from "./CustomerInfoView";
+export * from "./AppointmentServiceItem";
+export * from "./ItemService";

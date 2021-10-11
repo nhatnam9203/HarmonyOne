@@ -1,23 +1,43 @@
 import React from 'react';
-import { StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, Image, Pressable } from 'react-native';
 import { IconButton } from "@shared/components";
 import { fonts, colors, images } from "@shared/themes";
+import { View } from 'react-native-animatable';
 
-export const ItemSelect = ({ title = '', icon, onPress, iconRight, iconRightStyle, iconLeftStyle , textStyle}) => {
+export const ItemSelect = ({ title = '', icon, onPress, iconRight, iconRightStyle, iconLeftStyle, textStyle }) => {
     return (
-        <TouchableOpacity onPress={() => onPress()} activeOpacity={1} style={styles.item}>
-            <IconButton
-                icon={icon}
-                iconStyle={[styles.iconReport, iconLeftStyle]}
-                onPress={() => onPress()}
-                renderText={() => <Text style={[styles.text,textStyle]}>{title}</Text>}
-            />
-            <Image
-                source={iconRight ? iconRight : images.iconArrow}
-                style={[styles.arrow, iconRightStyle]}
-                resizeMode='contain'
-            />
-        </TouchableOpacity>
+        <Pressable onPress={() => onPress()}>
+            {
+                ({ pressed }) => (
+                    <View style={[styles.item, { backgroundColor: pressed ? colors.ocean_blue : "transparent" }]}>
+                        <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <Image
+                                resizeMode='contain'
+                                source={icon}
+                                style={[
+                                    styles.iconReport, iconLeftStyle,
+                                    { tintColor: pressed ? colors.white : "#7C9AB9" }
+                                ]}
+                            />
+
+                            <Text style={[styles.text, textStyle, { color: pressed ? colors.white : "#404040" }]}>
+                                {title}
+                            </Text>
+
+                        </View>
+
+                        <Image
+                            source={iconRight ? iconRight : images.iconArrow}
+                            style={[
+                                styles.arrow, iconRightStyle,
+                                { tintColor: pressed ? colors.white : "#404040" }
+                            ]}
+                            resizeMode='contain'
+                        />
+                    </View>
+                )
+            }
+        </Pressable>
     )
 }
 

@@ -24,7 +24,8 @@ const AppointmentList = ({
             refreshing={isRefresh}
             onRefresh={onRefresh}
             keyExtractor={(item) => item?.appointmentId?.toString() + guid() + 'appointment'}
-            ListEmptyComponent={() => <ListEmptyComponent description={t('No Appointments')} />}
+            ListEmptyComponent={() => <ListEmptyComponent description={t('No Appointments')} image={images.iconNotFound} />}
+            ListFooterComponent={()=><View style={{ height : scaleHeight(100) }} />}
         />
     );
 };

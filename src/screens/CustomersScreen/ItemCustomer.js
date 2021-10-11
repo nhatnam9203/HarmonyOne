@@ -5,9 +5,10 @@ import { useAxiosQuery, getCustomerInfoById } from '@src/apis';
 import { useDispatch } from "react-redux";
 import { customer } from "@redux/slices";
 import { guid } from "@shared/utils";
+import { bookAppointment } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 
-const ItemCustomer = ({ item, refreshFromScreen, isBookAppointment }) => {
+const ItemCustomer = ({ item, refreshFromScreen, isBookAppointment, isReviewConfirm }) => {
     const dispatch = useDispatch();
 
     const [customerId, setCustomerId] = React.useState(null);
@@ -29,9 +30,13 @@ const ItemCustomer = ({ item, refreshFromScreen, isBookAppointment }) => {
     }, [customerId, setCustomerId, uid]);
 
     const selectItem = () => {
-        console.log({ screenNames })
         if (isBookAppointment) {
-            NavigationService.navigate(screenNames.AppointmentNewScreen);
+            dispatch(bookAppointment.setCustomerBooking(item));
+            if (isReviewConfirm) {
+                NavigationService.navigate(screenNames.AppointmentNewScreen,{ screen : screenNames.ReviewConfirm });
+            } else {
+                NavigationService.navigate(screenNames.AppointmentNewScreen);
+            }
         } else {
             setCustomerId(item.customerId);
             setUID(guid())

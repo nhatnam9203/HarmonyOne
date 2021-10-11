@@ -3,21 +3,32 @@ import { View, StyleSheet, Text, Image, Pressable } from 'react-native';
 import { colors, fonts, images } from '@shared/themes';
 import { CustomImage } from '@shared/components';
 import { formatMoneyWithUnit } from '@shared/utils';
+import { isEmpty } from "lodash";
 import NavigationService from '@navigation/NavigationService';
 
-const ServiceItem = ({ service }) => {
+const ServiceItem = ({ service, disabled = false }) => {
 
     const navigateDetail = () => {
-        NavigationService.navigate(screenNames.SelectServiceDetail,{ item : service });
+        if (!disabled) {
+            NavigationService.navigate(screenNames.SelectServiceDetail, { item: service });
+        }
     }
 
     return (
-        <Pressable onPress={navigateDetail} style={styles.container}>
-            <CustomImage
-                style={styles.serviceImage}
-                source={{ uri: service?.imageUrl }}
-                resizeMode="cover"
-            />
+        <Pressable onPress={navigateDetail} style={[styles.container, { opacity: disabled ? 0.5 : 1 }]}>
+            {
+                isEmpty(service?.imageUrl) ?
+                    <CustomImage
+                        style={styles.serviceImage}
+                        source={images.serviceDefault}
+                        resizeMode="cover"
+                    /> :
+                    <CustomImage
+                        style={styles.serviceImage}
+                        source={{ uri: service?.imageUrl }}
+                        resizeMode="cover"
+                    />
+            }
             <View style={styles.content}>
                 <Text style={styles.textServiceName}>{service?.name}</Text>
                 <View style={styles.bottomContent}>

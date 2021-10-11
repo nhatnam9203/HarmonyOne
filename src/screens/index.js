@@ -2,15 +2,7 @@
 import ForgotPincode from './ForgotPincode';
 import ForgotPincodeSuccess from './ForgotPincodeSuccess';
 import WhatIsMerchant from './WhatIsMerchant';
-import Home from './Home';
-import Schedule from './Schedule';
-import Notification from './Notification';
-import EditAppointment from './EditAppointment';
-import EditService from './EditService';
-import Checkout from './Checkout';
-import SelectPayment from './SelectPayment';
 import Statistic from './Statistic';
-import Information from './Information';
 import ChangePincode from './ChangePincode';
 import FeedBack from './FeedBack';
 
@@ -36,21 +28,17 @@ import { ReviewScreen } from "./ReviewScreen";
 import { MarketingScreen } from "./MarketingScreen";
 import { MarketingNewScreen } from "./MarketingNewScreen";
 import { CheckoutScreen } from "./CheckoutScreen";
+import { ExtraScreen } from "./ExtraScreen";
+import { ExtraNewScreen } from "./ExtraNewScreen";
+import { ProductScreen } from "./ProductScreen";
+import { ProductNewScreen } from "./ProductNewScreen";
 
 
 module.exports = {
   ForgotPincode,
   ForgotPincodeSuccess,
   WhatIsMerchant,
-  Home,
-  Schedule,
-  Notification,
-  EditAppointment,
-  EditService,
-  Checkout,
-  SelectPayment,
   Statistic,
-  Information,
   ChangePincode,
   FeedBack,
   ScreenNames,
@@ -75,4 +63,8 @@ module.exports = {
   MarketingScreen,
   MarketingNewScreen,
   CheckoutScreen,
+  ExtraScreen,
+  ExtraNewScreen,
+  ProductScreen,
+  ProductNewScreen,
 };

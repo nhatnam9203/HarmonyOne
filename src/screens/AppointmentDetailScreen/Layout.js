@@ -92,7 +92,10 @@ export const Layout = ({
             toTime={appointmentItem?.toTime}
           />
           <View style={styles.line} />
-          <AppointmentServiceList services={appointmentItem?.services} />
+          <AppointmentServiceList
+            services={appointmentItem?.services}
+            extras={appointmentItem?.extras}
+          />
 
           <TotalView
             duration={`${getDuration(appointmentItem?.duration)}`}

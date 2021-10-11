@@ -10,6 +10,7 @@ import reviewSlice from "./reviewSlice";
 import marketingSlice from "./marketingSlice";
 import staffSlice from "./staffSlice";
 import appointmentSlice from "./appointmentSlice";
+import merchantSlice from "./merchantSlice";
 
 const rootReducers = Object.assign(
   {},
@@ -25,7 +26,8 @@ const rootReducers = Object.assign(
     review: reviewSlice.reducer,
     marketing: marketingSlice.reducer,
     staff: staffSlice.reducer,
-    appointment : appointmentSlice.reducer,
+    appointment: appointmentSlice.reducer,
+    merchant: merchantSlice.reducer,
   },
 );
 
@@ -42,5 +44,6 @@ module.exports = {
   review: reviewSlice.actions,
   marketing: marketingSlice.actions,
   staff: staffSlice.actions,
-  appointment : appointmentSlice.actions
+  appointment: appointmentSlice.actions,
+  merchant: merchantSlice.actions,
 };

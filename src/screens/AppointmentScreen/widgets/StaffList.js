@@ -1,14 +1,18 @@
 
 import React from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 import { images, colors, fonts } from '@shared/themes';
 import { IconButton, CustomImage } from "@shared/components";
+import { isElement, isEmpty } from "lodash";
 
 const StaffList = ({
     staffsByDate,
     staffSelected,
     selectStaff = () => { }
 }) => {
+    if (staffsByDate.length === 0) {
+        return <View style={[styles.container, { width: "100%", height: scaleWidth(61) }]} />
+    }
     return (
         <View style={styles.container}>
             <ScrollView
@@ -23,14 +27,24 @@ const StaffList = ({
                             key={staff?.staffId + 'staffList'}
                             style={styles.staff}
                         >
-                            <CustomImage
-                                style={styles.avatar}
-                                source={{ uri: staff?.imageUrl }}
-                            />
-                            <Text style={[styles.staffName,{ 
-                                fontFamily : staffSelected == staff?.staffId ? fonts.BOLD : fonts.REGULAR,
-                                color : staffSelected == staff?.staffId ? colors.ocean_blue : "#404040",
-                            }]}>
+                            {
+                                isEmpty(staff?.imageUrl) ?
+                                    <CustomImage
+                                        style={styles.avatar}
+                                        source={images.staff_default}
+                                    /> :
+                                    <CustomImage
+                                        style={styles.avatar}
+                                        source={{ uri: staff?.imageUrl }}
+                                    />
+                            }
+                            <Text
+                                numberOfLines={1}
+                                ellipsizeMode={'tail'}
+                                style={[styles.staffName, {
+                                    fontFamily: staffSelected == staff?.staffId ? fonts.BOLD : fonts.REGULAR,
+                                    color: staffSelected == staff?.staffId ? colors.ocean_blue : "#404040",
+                                }]}>
                                 {staff?.displayName}
                             </Text>
                         </TouchableOpacity>
@@ -84,7 +98,7 @@ const styles = StyleSheet.create({
     staff: {
         justifyContent: 'center',
         alignItems: 'center',
-        width : scaleWidth((375 - 32) / 5),
+        width: scaleWidth((375 - 32) / 5),
 
     }
 });

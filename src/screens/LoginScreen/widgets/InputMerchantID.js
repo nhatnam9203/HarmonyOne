@@ -105,11 +105,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: scaleHeight(1),
     borderBottomColor: '#c5c5c5',
     paddingVertical: scaleHeight(10),
+    position: 'relative',
   },
 
   inputIcon: {
     width: scaleWidth(24),
     height: scaleHeight(24),
+    position: 'absolute',
+    left : 0,
+    bottom : 12
   },
 
   textInput: {

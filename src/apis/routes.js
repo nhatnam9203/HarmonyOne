@@ -7,9 +7,20 @@ export const merchantLogin = (merchantID) => ({
   },
 });
 
+
+
 /**
  * STAFF
  */
+
+export const forgotPincode = (data) => ({
+  queryId: 'forgotPincode',
+  params: {
+    url: `/staff/forgotpin`,
+    method: 'POST',
+    data
+  },
+});
 
 export const staffLoginRequest = (merchantID, pinCode) => ({
   params: {
@@ -108,11 +119,12 @@ export const appointmentByIDRequest = (appointmentId) => ({
   },
 });
 
-export const updateAppointmentByIDRequest = (appointmentId) => ({
-  queryId: 'updateAppointmentByIDRequest',
+export const updateAppointment = (appointmentId,data) => ({
+  queryId: 'updateAppointment',
   params: {
     url: `/appointment/${appointmentId}`,
     method: 'PUT',
+    data
   },
 });
 
@@ -130,6 +142,24 @@ export const getAppointmentById = (appointmentId) => ({
   params: {
     url: `/appointment/${appointmentId}`,
     method: 'GET',
+  },
+});
+
+export const appointmentUpdateNote = (appointmentId, data) => ({
+  queryId: 'appointmentUpdateNote',
+  params: {
+    url: `/appointment/note/${appointmentId}`,
+    method: 'PUT',
+    data // { notes : example }
+  },
+});
+
+export const addAppointment = (data) => ({
+  queryId: 'addAppointment',
+  params: {
+    url: `/appointment`,
+    method: 'POST',
+    data,
   },
 });
 
@@ -235,7 +265,6 @@ export const editService = (data, serviceId) => ({
   },
 });
 
-
 /**
  * CATEGORY
  */
@@ -295,6 +324,24 @@ export const getProduct = () => ({
   },
 });
 
+export const addProduct = (data) => ({
+  queryId: 'addProduct',
+  params: {
+    url: `/product`,
+    method: 'POST',
+    data
+  },
+});
+
+export const editProduct = (data, productId) => ({
+  queryId: 'editProduct',
+  params: {
+    url: `/product/${productId}`,
+    method: 'PUT',
+    data
+  },
+});
+
 
 
 /**
@@ -305,6 +352,22 @@ export const getExtra = () => ({
   params: {
     url: `/extra`,
     method: 'GET',
+  },
+});
+
+export const addNewExtra = (data) => ({
+  params: {
+    url: '/extra',
+    method: 'POST',
+    data,
+  },
+});
+
+export const editExtra = (data, extraId) => ({
+  params: {
+    url: `/extra/${extraId}`,
+    method: 'PUT',
+    data,
   },
 });
 
@@ -366,4 +429,18 @@ export const getMarketPlaces = (page = 1) => ({
     method: 'GET',
   }
 });
+
+
+/**
+ * MERCHANT
+ */
+
+export const getMerchantById = (merchantId) => ({
+  queryId: 'getMerchantById',
+  params: {
+    url: `merchant/${merchantId}`,
+    method: 'GET',
+  }
+});
+
 

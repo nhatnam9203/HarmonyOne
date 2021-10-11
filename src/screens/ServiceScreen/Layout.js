@@ -2,10 +2,10 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView, SectionList } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { Button, IconButton, SearchInput, DialogConfirm } from "@shared/components";
+import { Button, IconButton, SearchInput, DialogConfirm, ItemService, ListEmptyComponent } from "@shared/components";
+import { GroupButtonAdd } from "./widget";
 import { fonts, colors, images } from '@shared/themes';
 import { slop } from "@shared/utils";
-import { ItemService, GroupButtonAdd } from "./widget";
 import { useSelector } from "react-redux";
 import { WithPopupActionSheet } from '@shared/HOC';
 
@@ -36,6 +36,8 @@ export const Layout = ({
   handleRestoreCategory,
   setTempCategory,
   tempCategory,
+  isRefresh,
+  onRefresh
 }) => {
 
   const [t] = useTranslation();
@@ -58,13 +60,16 @@ export const Layout = ({
           />
           <SectionList
             sections={data}
-            keyExtractor={(item, index) => item.serviceId.toString()}
+            keyExtractor={(item, index) => item?.serviceId?.toString() + "service manage"}
             stickySectionHeadersEnabled={false}
             style={styles.flatList}
+            onRefresh={onRefresh}
+            refreshing={isRefresh}
+            ListEmptyComponent={() => <ListEmptyComponent description={t('No Appointments')} image={images.iconNotFound} />}
             renderItem={({ item }) =>
               <ItemService
                 item={item}
-                editService={editService}
+                onPress={editService}
               />
             }
             renderSectionHeader={({ section }) => {
@@ -87,13 +92,9 @@ export const Layout = ({
         </View>
         <DialogConfirm
           ref={dialogDeleteCategoryRef}
-          title={tempCategory.isDisabled == 0 ? t("Archive category") : t("Restore category")}
-          titleContent={
-            tempCategory.isDisabled == 0 ?
-              t("Are you sure you want to archive this category?") :
-              t("Are you sure you want to restore this category?")
-          }
-          onConfirmYes={tempCategory.isDisabled == 0 ? handleArchiveCategory : handleRestoreCategory}
+          title={t("Delete category")}
+          titleContent={t("Are you sure you want to delete this category?")}
+          onConfirmYes={handleArchiveCategory}
           onModalHide={() => setTempCategory("")}
         />
       </SingleScreenLayout>

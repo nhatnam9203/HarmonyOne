@@ -4,9 +4,6 @@ import {
   CardStyleInterpolators,
 } from '@react-navigation/stack';
 import {
-  EditAppointment,
-  Checkout,
-  SelectPayment,
   ChangePincode,
   ForgotPincode,
   FeedBack,
@@ -24,6 +21,10 @@ import {
   ReviewScreen,
   MarketingScreen,
   MarketingNewScreen,
+  ExtraScreen,
+  ExtraNewScreen,
+  ProductScreen,
+  ProductNewScreen,
 } from '@screens';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
 import { useSelector } from "react-redux";
@@ -72,10 +73,12 @@ const AppStack = () => {
         <Screen {...ReviewScreen} />
         <Screen {...MarketingScreen} />
         <Screen {...MarketingNewScreen} />
+        <Screen {...ExtraScreen} />
+        <Screen {...ExtraNewScreen} />
+        <Screen {...ProductScreen} />
+        <Screen {...ProductNewScreen} />
+
   
-        <Screen name="EditAppointment" component={EditAppointment} />
-        <Screen name="Checkout" component={Checkout} />
-        <Screen name="SelectPayment" component={SelectPayment} />
         <Screen name="ChangePincode" component={ChangePincode} />
         <Screen name="ForgotPincode" component={ForgotPincode} />
         <Screen name="FeedBack" component={FeedBack} />

@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/core';
 import { useAxiosQuery, getListCustomer } from '@src/apis';
 import { useDispatch, useSelector } from "react-redux";
 import { useScrollToTop } from '@react-navigation/native';
-import { customer } from "@redux/slices";
+import { customer, bookAppointment } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 
 export const useProps = (props) => {
@@ -11,6 +11,8 @@ export const useProps = (props) => {
   const dispatch = useDispatch();
 
   const isBookAppointment = props?.route?.params?.isBookAppointment;
+  const isReviewConfirm = props?.route?.params?.isReviewConfirm;
+
 
   const [valueSearch, setValueSearch] = React.useState("");
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -57,6 +59,7 @@ export const useProps = (props) => {
     isLoading,
     currentPage,
     isBookAppointment,
+    isReviewConfirm,
 
     refreshFromScreen,
 
@@ -86,6 +89,15 @@ export const useProps = (props) => {
     onRefreshCustomer: () => {
       setRefresh(true);
       setCurrentPage(1);
+    },
+
+    closeBookAppointment: () => {
+      if (isReviewConfirm) {
+        NavigationService.navigate(screenNames.AppointmentNewScreen, { screen: screenNames.ReviewConfirm });
+      } else {
+        NavigationService.back();
+        dispatch(bookAppointment.resetBooking());
+      }
     }
   }
 };

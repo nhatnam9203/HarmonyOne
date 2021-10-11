@@ -21,7 +21,7 @@ export const colors = {
   greyish_brown_54: '#545454',
   greyish_teal: '#809596',
   black: '#000000',
-  red: '#db0000',
+  red: '#EA212D',
   white_fa: '#fafafa',
 };
 

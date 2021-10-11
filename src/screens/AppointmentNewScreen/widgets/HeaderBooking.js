@@ -4,21 +4,27 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { IconButton } from "@shared/components";
 import { images, colors, fonts } from "@shared/themes";
+import { useDispatch } from "react-redux";
+import { bookAppointment } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 
 const HeaderBooking = ({
     title = "Select service",
-    step = "1"
+    step = "1",
+    onPressBack = null,
 }) => {
+    const dispatch = useDispatch();
 
     const insets = useSafeAreaInsets();
 
     const onGoBack = () => {
-        NavigationService.back();
+        if(onPressBack) onPressBack();
+        else NavigationService.back();
     }
 
     const close = () => {
-        NavigationService.navigate(screenNames.CustomerListPage);
+        NavigationService.navigate(screenNames.AppointmentScreen);
+        dispatch(bookAppointment.resetBooking());
     }
 
     return (

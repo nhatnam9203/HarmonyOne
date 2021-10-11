@@ -10,7 +10,8 @@ export const useProps = (_params) => {
 
     const {
         category: { category = [] },
-        service: { services = [] }
+        service: { services = [] },
+        bookAppointment : { servicesBooking = [] },
     } = useSelector(state => state);
 
     const [categorySelected, setCategorySelected] = React.useState("");
@@ -31,6 +32,7 @@ export const useProps = (_params) => {
         sectionListRef,
         categorySelected,
         categoryList,
+        servicesBooking,
         data,
 
         selectCategory : (categoryId) =>{

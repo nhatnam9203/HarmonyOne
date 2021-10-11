@@ -10,6 +10,7 @@ export const Layout = ({
     categorySelected,
     data,
     categoryList,
+    servicesBooking,
     selectCategory,
 }) => {
 
@@ -52,6 +53,7 @@ export const Layout = ({
                     renderItem={({ item }) =>
                         <ServiceItem
                             service={item}
+                            disabled={servicesBooking.find(s=>s?.serviceId == item?.serviceId)}
                         />
                     }
                     renderSectionHeader={({ section }) => {
