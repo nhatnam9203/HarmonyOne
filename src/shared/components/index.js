@@ -22,3 +22,4 @@ export * from "./AppointmentTimeView";
 export * from "./CustomerInfoView";
 export * from "./AppointmentServiceItem";
 export * from "./ItemService";
+export * from "./GroupButtonAdd";

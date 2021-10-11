@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { formatNumberFromCurrency, formatMoney, convertMinsToHrsMins, updateAppointment } from "@shared/utils";
+import { formatNumberFromCurrency, formatMoney, convertMinsToHrsMins } from "@shared/utils";
 import { bookAppointment, appointment } from "@redux/slices";
-import { addAppointment, useAxiosMutation, getBlockTimeByDate, useAxiosQuery } from "@src/apis";
+import { addAppointment, useAxiosMutation, getBlockTimeByDate, useAxiosQuery, updateAppointment } from "@src/apis";
 import { dateToFormat } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
 

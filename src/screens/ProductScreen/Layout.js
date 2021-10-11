@@ -2,8 +2,8 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView, SectionList } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { Button, IconButton, SearchInput, DialogConfirm, ItemService, ListEmptyComponent } from "@shared/components";
-import { GroupButtonAdd, DiaglogExportProduct } from "./widget";
+import { Button, IconButton, SearchInput, DialogConfirm, ItemService, ListEmptyComponent , GroupButtonAdd} from "@shared/components";
+import { DiaglogExportProduct } from "./widget";
 import { fonts, colors, images } from '@shared/themes';
 import { slop } from "@shared/utils";
 import { useSelector } from "react-redux";
@@ -115,6 +115,7 @@ export const Layout = ({
           <GroupButtonAdd
             newCategory={newCategory}
             newService={newProduct}
+            titleButton2={"New Product"}
           />
         </View>
         <DialogConfirm

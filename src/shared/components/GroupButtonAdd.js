@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet, Image, TouchableOpacity, Animated, Text } from 'react-native'
 import { images, fonts } from "@shared/themes"
 
-const GroupButtonAdd = ({ onPressAdd = () => { }, newCategory, newService }) => {
+export const GroupButtonAdd = ({ onPressAdd = () => { }, newCategory, newService , titleButton2 = "New Service" }) => {
 
     const animatedStatus = React.useRef(new Animated.Value(0)).current;
     const ImageAnimated = Animated.createAnimatedComponent(Image);
@@ -21,11 +21,6 @@ const GroupButtonAdd = ({ onPressAdd = () => { }, newCategory, newService }) => 
     const toggleButtonGroup = () => {
         setButtonGroup(status => !status);
     }
-
-    const onPressPlus = () => {
-
-    }
-
     const rotate = animatedStatus.interpolate({
         inputRange: [0, 1],
         outputRange: ['0deg', '180deg']
@@ -33,8 +28,14 @@ const GroupButtonAdd = ({ onPressAdd = () => { }, newCategory, newService }) => 
 
     const translateY = animatedStatus.interpolate({
         inputRange: [0, 1],
-        outputRange: [0, scaleHeight(10)]
+        outputRange: [0, scaleHeight(100)]
     });
+
+    const translateX = animatedStatus.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, scaleHeight(100)]
+    });
+
 
     const translateY2 = animatedStatus.interpolate({
         inputRange: [0, 1],
@@ -47,56 +48,78 @@ const GroupButtonAdd = ({ onPressAdd = () => { }, newCategory, newService }) => 
     });
 
     return (
-        <View style={styles.group}>
+        <>
+            <Animated.View pointerEvents={isOpenButtonGroup ? "auto" : "none"} style={[styles.group, {
+            }]}>
+                <ButtonAnimated
+                    pointerEvents={isOpenButtonGroup ? "auto" : "none"}
+                    onPress={() => {
+                        if (isOpenButtonGroup) {
+                            newCategory();
+                            setButtonGroup(false);
+                        }
+                    }}
+                    style={[
+                        styles.btnAdd,
+                        { transform: [{ translateY: translateY2 }, { scale }] }
+                    ]}
+                >
+                    <Text fontFamily='medium' style={styles.txtAdd}>New Category</Text>
+                </ButtonAnimated>
 
-            <ButtonAnimated
-                onPress={() => {
-                    newCategory();
-                    toggleButtonGroup();
-                }}
-                style={[
-                    styles.btnAdd,
-                    { transform: [{ translateY }, { scale }] }
-                ]}
-            >
-                <Text fontFamily='medium' style={styles.txtAdd}>New Category</Text>
-            </ButtonAnimated>
+                <ButtonAnimated
+                    pointerEvents={isOpenButtonGroup ? "auto" : "none"}
+                    onPress={() => {
+                        if (isOpenButtonGroup) {
+                            newService();
+                            setButtonGroup(false);
+                        }
+                    }}
+                    style={[
+                        styles.btnAdd,
+                        { transform: [{ translateY: translateY2 }, { scale }] }
+                    ]}
+                >
+                    <Text fontFamily='medium' style={styles.txtAdd}>{titleButton2}</Text>
+                </ButtonAnimated>
 
-            <ButtonAnimated
-                onPress={() => {
-                    newService();
-                    toggleButtonGroup();
-                }}
-                style={[
-                    styles.btnAdd,
-                    { transform: [{ translateY: translateY2 }, { scale }] }
-                ]}
-            >
-                <Text fontFamily='medium' style={styles.txtAdd}>New Service</Text>
-            </ButtonAnimated>
+                <View
+                    activeOpacity={1}
+                    style={[styles.buttonPlus, { opacity: 0, zIndex: -1 }]}
+                >
+                    <ImageAnimated
+                        source={images.iconAdd}
+                        style={[styles.iconPlus, { transform: [{ rotate }] }]}
+                    />
+                </View>
+            </Animated.View>
 
             <TouchableOpacity
                 activeOpacity={1}
                 onPress={toggleButtonGroup}
-                style={styles.buttonPlus}
+                style={[styles.buttonPlus, {
+                    position: 'absolute',
+                    bottom: 50,
+                    right: 20,
+                    zIndex: 99
+                }]}
             >
                 <ImageAnimated
                     source={images.iconAdd}
                     style={[styles.iconPlus, { transform: [{ rotate }] }]}
                 />
             </TouchableOpacity>
-        </View>
+        </>
     )
 }
 
-export default GroupButtonAdd;
 
 const styles = StyleSheet.create({
     group: {
         position: 'absolute',
         bottom: 50,
         right: 20,
-        alignItems: 'flex-end'
+        alignItems: 'flex-end',
     },
     buttonPlus: {
         justifyContent: 'center',
@@ -113,6 +136,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 2.84,
         elevation: 5,
+        width: scaleWidth(55),
+        height: scaleWidth(55)
     },
     iconPlus: {
         width: 25,
