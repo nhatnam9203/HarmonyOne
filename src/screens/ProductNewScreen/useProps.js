@@ -2,12 +2,22 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { productSchema } from "@shared/helpers/schema";
-import { useSelector } from "react-redux";
-import { useAxiosMutation, addNewService, editService, uploadAvatarStaff, addProduct, editProduct } from '@src/apis';
+import { useSelector, useDispatch } from "react-redux";
+import {
+  useAxiosMutation,
+  uploadAvatarStaff,
+  addProduct,
+  editProduct,
+  checkSkuNumber
+} from '@src/apis';
+
+import { app } from "@redux/slices";
+import { axios } from '@shared/services/axiosClient';
 import { createFormData } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService'
 
 export const useProps = (props) => {
+  const dispatch = useDispatch();
 
   const categoryRef = React.useRef();
   const statusRef = React.useRef();
@@ -20,6 +30,7 @@ export const useProps = (props) => {
 
   const isEdit = props?.route?.params?.isEdit;
   const productEdit = props?.route?.params?.productEdit;
+  const isNewWithCategory = props?.route?.params?.isNewWithCategory;
   const categoryList = useSelector(state => state.category.category);
 
   const back = () => NavigationService.back();
@@ -56,6 +67,42 @@ export const useProps = (props) => {
     },
   });
 
+  const checkSkuNumber = async (sku, data) => {
+    dispatch(app.showLoading());
+    const params = {
+      url: `product/checksku?sku=${sku}`,
+      method: "GET",
+    }
+    try {
+      if (isEdit) {
+        if (productEdit.sku !== sku) {
+          const response = await axios(params);
+          if (response?.data?.codeNumber == 200) {
+            const body = await editProduct(data, productEdit.productId);
+            submitEditProduct(body.params);
+          } else {
+            alert(response?.data?.message)
+          }
+        } else {
+          const body = await editProduct(data, productEdit.productId);
+          submitEditProduct(body.params);
+        }
+      } else {
+        const response = await axios(params);
+        if (response?.data?.codeNumber == 200) {
+          const body = await addProduct(data);
+          submitAddProduct(body.params);
+        } else {
+          alert(response?.data?.message)
+        }
+      }
+    } catch (err) {
+
+    } finally {
+      dispatch(app.hideLoading());
+    }
+  }
+
 
   React.useEffect(() => {
     if (isEdit) {
@@ -71,10 +118,14 @@ export const useProps = (props) => {
       categoryRef?.current?.changeItem(productEdit.categoryId.toString());
       statusRef?.current?.changeItem(productEdit.isDisabled.toString());
     }
+    if (isNewWithCategory) {
+      const categoryId = props?.route?.params?.categoryId;
+      categoryRef?.current?.changeItem(categoryId?.toString());
+    }
   }, []);
 
   const checkCondition = (minThreshold, maxThreshold) => {
-    if(parseInt(maxThreshold) < parseInt(minThreshold)){
+    if (parseInt(maxThreshold) < parseInt(minThreshold)) {
       alert("Max Threshold must be greater than Min Threshold !");
       return false;
     }
@@ -110,7 +161,6 @@ export const useProps = (props) => {
 
       if (!checkCondition(values.minThreshold, values.maxThreshold)) return;
 
-
       const data = {
         categoryId: values.category.value,
         name: values.name,
@@ -123,13 +173,7 @@ export const useProps = (props) => {
         isDisabled: values.status.value,
         fileId,
       }
-      if (isEdit) {
-        const body = await editProduct(data, productEdit.productId);
-        submitEditProduct(body.params);
-      } else {
-        const body = await addProduct(data);
-        submitAddProduct(body.params);
-      }
+      checkSkuNumber(data.sku, data);
     }
   };
 };

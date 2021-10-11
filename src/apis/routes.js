@@ -350,6 +350,14 @@ export const exportProduct = (merchantId,isNeedToOrder,exportType) => ({
   },
 });
 
+export const checkSkuNumber = (sku) => ({
+  queryId: 'checkSkuNumber',
+  params: {
+    url: `product/checksku?sku=${sku}`,
+    method: 'GET',
+  },
+});
+
 
 /**
  * EXTRA

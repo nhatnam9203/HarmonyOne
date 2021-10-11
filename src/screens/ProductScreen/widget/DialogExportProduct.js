@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View, Pressable } from "react-native";
 import { colors, fonts, layouts } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { Button, IconButton } from "@shared/components";
@@ -65,31 +65,31 @@ const DiaglogExportProduct = React.forwardRef(
                         {title}
                     </Text>
                     <View style={styles.content}>
-                        <View style={styles.row}>
+                        <Pressable onPress={()=>setNeedToOrder(true)} style={styles.row}>
                             <CheckBox
                                 disabled={false}
                                 value={isNeedToOrder}
-                                onValueChange={()=>setNeedToOrder(true)}
+                                onValueChange={()=>{}}
                                 boxType='square'
                                 style={{ width: 24, height: 24, marginRight: scaleWidth(16) }}
                             />
                             <Text style={styles.txtContent}>
                                 The products need to order more
                             </Text>
-                        </View>
+                        </Pressable>
 
-                        <View style={styles.row}>
+                        <Pressable onPress={()=>setNeedToOrder(false)} style={styles.row}>
                             <CheckBox
                                 disabled={false}
                                 value={!isNeedToOrder}
-                                onValueChange={()=>setNeedToOrder(false)}
+                                onValueChange={()=>{}}
                                 boxType='square'
                                 style={{ width: 24, height: 24, marginRight: scaleWidth(16) }}
                             />
                             <Text style={styles.txtContent}>
                                 All product
                             </Text>
-                        </View>
+                        </Pressable>
                     </View>
 
                     <View style={styles.bottomStyle}>
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: "#fff",
         alignSelf: "center",
-        width: scaleWidth(340),
+        width: scaleWidth(360),
         paddingTop: scaleWidth(20),
         borderRadius: scaleHeight(5),
         shadowColor: "#004080bf",
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom : scaleHeight(16)
+        marginBottom : scaleHeight(18)
     },
 
 

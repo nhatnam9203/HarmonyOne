@@ -214,7 +214,12 @@ export const useProps = (props) => {
       {
         id: 'new-category',
         label: t('New product'),
-        func: () => newCategory(),
+        func: () => {
+          NavigationService.navigate(
+            screenNames.ProductNewScreen,
+            { categoryId : category.categoryId, isNewWithCategory: true }
+          );
+        },
       },
       {
         id: 'edit-category',

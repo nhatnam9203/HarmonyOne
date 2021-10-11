@@ -57,6 +57,7 @@ export const Layout = ({
   isNeedToOrder,
   setNeedToOrder,
   onExport,
+  newProductWithCategory
 }) => {
 
   const [t] = useTranslation();
@@ -90,7 +91,7 @@ export const Layout = ({
               <ItemService
                 item={item}
                 onPress={editProduct}
-                titleStyle={{ color: parseInt(item.quantity) < parseInt(item.minThreshold) ? "#DB0000" : "#404040" }}
+                titleStyle={{ color: parseInt(item.quantity) < parseInt(item.minThreshold) ? "#DB0000" : colors.ocean_blue }}
                 renderDuration={() =>
                   parseInt(item.quantity) < parseInt(item.minThreshold) ?
                     <Text style={styles.needToOrder}>Need to order</Text> :

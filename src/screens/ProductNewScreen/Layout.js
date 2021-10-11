@@ -39,8 +39,6 @@ export const Layout = ({
 
   const dataCategory = getDataSelectCategory();
 
-  console.log({ dataCategory })
-
   return (
     <View style={styles.container}>
       <SingleScreenLayout

@@ -20,6 +20,7 @@ export const useProps = (props) => {
 
   const isEdit = props?.route?.params?.isEdit;
   const serviceEdit = props?.route?.params?.serviceEdit;
+  const isNewWithCategory = props?.route?.params?.isNewWithCategory;
   const categoryList = useSelector(state => state.category.category);
 
   const back = () => NavigationService.back();
@@ -69,6 +70,10 @@ export const useProps = (props) => {
       setImageUrl(serviceEdit?.imageUrl);
       categoryRef?.current?.changeItem(serviceEdit.categoryId.toString());
       statusRef?.current?.changeItem(serviceEdit.isDisabled.toString());
+    }
+    if (isNewWithCategory) {
+      const categoryId = props?.route?.params?.categoryId;
+      categoryRef?.current?.changeItem(categoryId?.toString());
     }
   }, []);
 

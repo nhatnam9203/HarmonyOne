@@ -154,9 +154,14 @@ export const useProps = (props) => {
 
     getActionSheets: (category) => [
       {
-        id: 'new-category',
-        label: t('New category'),
-        func: () => newCategory(),
+        id: 'new-service',
+        label: t('New service'),
+        func: () => {
+          NavigationService.navigate(
+            screenNames.ServiceNewScreen,
+            { categoryId : category.categoryId, isNewWithCategory: true }
+          );
+        },
       },
       {
         id: 'edit-category',
