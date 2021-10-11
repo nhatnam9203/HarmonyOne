@@ -342,6 +342,13 @@ export const editProduct = (data, productId) => ({
   },
 });
 
+export const exportProduct = (merchantId,isNeedToOrder,exportType) => ({
+  queryId: 'exportProduct',
+  params: {
+    url: `product/export?merchantId=${merchantId}&isNeedToOrder=${isNeedToOrder}&type=${exportType}`,
+    method: 'GET',
+  },
+});
 
 
 /**

@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView, SectionLis
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { Button, IconButton, SearchInput, DialogConfirm, ItemService, ListEmptyComponent } from "@shared/components";
-import { GroupButtonAdd } from "./widget";
+import { GroupButtonAdd, DiaglogExportProduct } from "./widget";
 import { fonts, colors, images } from '@shared/themes';
 import { slop } from "@shared/utils";
 import { useSelector } from "react-redux";
@@ -52,7 +52,11 @@ export const Layout = ({
   setTempCategory,
   tempCategory,
   isRefresh,
-  onRefresh
+  onRefresh,
+  diaglogExport,
+  isNeedToOrder,
+  setNeedToOrder,
+  onExport,
 }) => {
 
   const [t] = useTranslation();
@@ -118,6 +122,15 @@ export const Layout = ({
           titleContent={t("Are you sure you want to delete this category?")}
           onConfirmYes={handleArchiveCategory}
           onModalHide={() => setTempCategory("")}
+        />
+        <DiaglogExportProduct
+          ref={diaglogExport}
+          title={t("Export")}
+          titleContent={t("Are you sure you want to delete this category?")}
+          onConfirmYes={onExport}
+          isNeedToOrder={isNeedToOrder}
+          setNeedToOrder={setNeedToOrder}
+          onModalHide={() => { }}
         />
       </SingleScreenLayout>
     </View>
