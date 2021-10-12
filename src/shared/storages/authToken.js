@@ -29,3 +29,9 @@ export const getAuthToken = async () => {
       });
   });
 };
+
+export const clearAuthToken = async() =>{
+  storage.remove({
+    key : StorageKey.authToken
+  })
+}

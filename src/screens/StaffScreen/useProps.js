@@ -2,10 +2,10 @@ import React from "react";
 import {
   useAxiosQuery,
   useAxiosMutation,
-  getExtra,
+  getStaffByMerchant
 } from '@src/apis';
 
-import { service, product, category, extra } from '@redux/slices';
+import { service, product, category, extra , staff as staffAction } from '@redux/slices';
 import { useSelector, useDispatch } from "react-redux";
 import { colors } from "@shared/themes";
 import { useTranslation } from "react-i18next";
@@ -18,34 +18,36 @@ export const useProps = (props) => {
   const [isRefresh, setRefresh] = React.useState(false);
 
   const {
-    extra: { extras },
+    auth : { staff },
+    staff : { staffListByMerchant = [] }
   } = useSelector(state => state)
 
   const [t] = useTranslation();
 
-  const [, getExtraList] = useAxiosQuery({
-    ...getExtra(),
+  const [, fetchStaffList] = useAxiosQuery({
+    ...getStaffByMerchant(staff?.merchantId),
     isLoadingDefault: true,
     enabled: false,
     onSuccess: (data, response) => {
-      dispatch(extra.setExtraList(data));
+      console.log({ response })
+      dispatch(staffAction.setStaffListByMerchant(data));
       setRefresh(false);
     },
   });
 
   const refreshList = () => {
-    getExtraList();
+    fetchStaffList();
     setSearchValue("");
   }
 
   React.useEffect(()=>{
     if(isRefresh){
-      getExtraList();
+      fetchStaffList();
     }
   },[isRefresh])
 
   React.useEffect(() => {
-    getExtraList();
+    fetchStaffList();
   }, [])
 
   return {
@@ -57,13 +59,13 @@ export const useProps = (props) => {
       setSearchValue(vl);
     },
 
-    newExtra: () => {
+    newStaff: () => {
       NavigationService.navigate(
         screenNames.ExtraNewScreen, { refreshList }
       );
     },
 
-    editExtra: (item) => {
+    editStaff: (item) => {
       NavigationService.navigate(
         screenNames.ExtraNewScreen,
         { isEdit: true, extraEdit: item, refreshList }
@@ -75,12 +77,12 @@ export const useProps = (props) => {
     },
 
     getData: () => {
-      let extrasList = extras;
+      let staffList = staffListByMerchant;
       if (valueSearch) {
-        extrasList = extrasList.filter((e) => {
+        staffList = staffList.filter((e) => {
           if (e !== null) {
             return (
-              e.name
+              e.displayName
                 .trim()
                 .toLowerCase()
                 .indexOf(valueSearch.toLowerCase()) !== -1
@@ -90,7 +92,7 @@ export const useProps = (props) => {
         });
       }
 
-      return extrasList;
+      return staffList;
     }
   };
 };

@@ -91,6 +91,14 @@ export const staffGetAvaiableTime = (staffId, data) => ({
   },
 });
 
+export const getStaffByMerchant = (merchantId) => ({
+  queryId: 'getStaffByMerchant',
+  params: {
+    url: `staff/getbymerchant/${merchantId}`,
+    method: 'GET',
+  },
+});
+
 /**
  * APPOINTMENTS
  */
@@ -277,7 +285,7 @@ export const getCategoryByMerchant = (merchantId) => ({
 });
 
 export const addCategory = (data) => ({
-  queryId: 'getCategory',
+  queryId: 'addCategory',
   params: {
     url: `/category`,
     method: 'POST',

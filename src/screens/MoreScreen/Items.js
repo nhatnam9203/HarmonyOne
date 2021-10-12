@@ -45,6 +45,13 @@ export const items = [
     }
   },
   {
+    title: "Staff",
+    icon: images.iconStaff,
+    onPress: () => {
+      NavigationService.navigate(screenNames.StaffScreen)
+    }
+  },
+  {
     title: "Services",
     icon: images.iconService,
     onPress: () => {

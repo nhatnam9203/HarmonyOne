@@ -30,12 +30,27 @@ const StaffList = ({
                             {
                                 isEmpty(staff?.imageUrl) ?
                                     <CustomImage
-                                        style={styles.avatar}
+                                        style={[
+                                            styles.avatar,
+                                            {
+                                                borderColor: staffSelected == staff?.staffId ? colors.ocean_blue : "white",
+                                                borderWidth: staffSelected == staff?.staffId ? 3 : 1,
+                                            }
+
+                                        ]}
                                         source={images.staff_default}
+                                        resizeMode='cover'
                                     /> :
                                     <CustomImage
-                                        style={styles.avatar}
+                                        style={[
+                                            styles.avatar,
+                                            {
+                                                borderColor: staffSelected == staff?.staffId ? colors.ocean_blue : "white",
+                                                borderWidth: staffSelected == staff?.staffId ? 3 : 1,
+                                            }
+                                        ]}
                                         source={{ uri: staff?.imageUrl }}
+                                        resizeMode='cover'
                                     />
                             }
                             <Text
@@ -89,6 +104,7 @@ const styles = StyleSheet.create({
         width: scaleWidth(45),
         height: scaleWidth(45),
         borderRadius: 1000,
+        borderWidth: 3,
     },
     staffName: {
         fontSize: scaleFont(13),

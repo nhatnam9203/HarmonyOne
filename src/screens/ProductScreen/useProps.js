@@ -110,10 +110,10 @@ export const useProps = (props) => {
     const pathFileInventory = await fileDownload.path();
 
     if (Platform.OS === 'ios') {
-      RNFetchBlob.ios.previewDocument(pathFileInventory)
+      await RNFetchBlob.ios.previewDocument(pathFileInventory)
     } else {
-      const android = RNFetchBlob.android;
-      android.actionViewIntent(pathFileInventory, 'application/vnd.android.package-archive')
+      const android = await RNFetchBlob.android;
+      await android.actionViewIntent(pathFileInventory, 'application/vnd.android.package-archive')
     }
     dispatch(app.hideLoading());
   }

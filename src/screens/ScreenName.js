@@ -38,6 +38,8 @@ const ScreenNames = {
   ExtraNewScreen : 'hpo.extra.new',
   ProductScreen : 'hpo.product',
   ProductNewScreen : 'hpo.product.new',
+  StaffScreen : 'hpo.staff',
+
 };
 
 module.exports = { ScreenNames };

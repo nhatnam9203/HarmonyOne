@@ -65,7 +65,7 @@ export const images = {
   iconInventory: require('@src/assets/images/iconInventory.png'),
   staff_default: require('@src/assets/images/staff_default.png'),
   iconExport: require('@src/assets/images/export.png'),
-
+  iconStaff: require('@src/assets/images/iconStaff.png'),
 
   EmptyList: require('@src/assets/images/emptyList.png'),
   barTimeLine: require('@src/assets/images/barTimeLine.png'),

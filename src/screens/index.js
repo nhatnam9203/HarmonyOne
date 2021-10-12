@@ -32,6 +32,7 @@ import { ExtraScreen } from "./ExtraScreen";
 import { ExtraNewScreen } from "./ExtraNewScreen";
 import { ProductScreen } from "./ProductScreen";
 import { ProductNewScreen } from "./ProductNewScreen";
+import { StaffScreen } from "./StaffScreen";
 
 
 module.exports = {
@@ -67,4 +68,5 @@ module.exports = {
   ExtraNewScreen,
   ProductScreen,
   ProductNewScreen,
+  StaffScreen,
 };

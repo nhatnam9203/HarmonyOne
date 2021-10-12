@@ -18,14 +18,14 @@ export const useAxiosQuery = ({
 }) => {
   const dispatch = useDispatch();
 
-  const requestGet = async (body) => {
+  const requestGet = async () => {
     const response = await axios(params);
     return response?.data;
   };
 
   const { refetch, status, isError, isFetching, data } = useQuery(
     [queryId, params],
-    (body) => requestGet(body),
+    () => requestGet(),
     {
       enabled,
       retry: false,

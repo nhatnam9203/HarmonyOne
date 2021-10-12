@@ -7,7 +7,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 
 export const StaffItem = ({
     item,
-    selectStaff,
+    selectStaff = () =>{},
 }) => {
     return (
         <Pressable

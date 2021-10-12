@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         marginLeft: scaleWidth(16)
     },
     serviceName: {
-        fontSize: scaleWidth(17),
+        fontSize: scaleWidth(16),
         color: '#1366AE',
         fontFamily: fonts.MEDIUM,
     },

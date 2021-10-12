@@ -23,3 +23,4 @@ export * from "./CustomerInfoView";
 export * from "./AppointmentServiceItem";
 export * from "./ItemService";
 export * from "./GroupButtonAdd";
+export * from "./ItemStaff";
