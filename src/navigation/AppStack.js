@@ -26,6 +26,7 @@ import {
   ProductScreen,
   ProductNewScreen,
   StaffScreen,
+  StaffNewScreen,
 } from '@screens';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
 import { useSelector } from "react-redux";
@@ -79,6 +80,7 @@ const AppStack = () => {
         <Screen {...ProductScreen} />
         <Screen {...ProductNewScreen} />
         <Screen {...StaffScreen} />
+        <Screen {...StaffNewScreen} />
 
   
         <Screen name="ChangePincode" component={ChangePincode} />

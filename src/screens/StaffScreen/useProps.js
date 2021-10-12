@@ -29,7 +29,6 @@ export const useProps = (props) => {
     isLoadingDefault: true,
     enabled: false,
     onSuccess: (data, response) => {
-      console.log({ response })
       dispatch(staffAction.setStaffListByMerchant(data));
       setRefresh(false);
     },
@@ -61,13 +60,13 @@ export const useProps = (props) => {
 
     newStaff: () => {
       NavigationService.navigate(
-        screenNames.ExtraNewScreen, { refreshList }
+        screenNames.StaffNewScreen, { refreshList }
       );
     },
 
     editStaff: (item) => {
       NavigationService.navigate(
-        screenNames.ExtraNewScreen,
+        screenNames.StaffNewScreen,
         { isEdit: true, extraEdit: item, refreshList }
       );
     },

@@ -39,6 +39,7 @@ const ScreenNames = {
   ProductScreen : 'hpo.product',
   ProductNewScreen : 'hpo.product.new',
   StaffScreen : 'hpo.staff',
+  StaffNewScreen : 'hpo.staff.new',
 
 };
 
