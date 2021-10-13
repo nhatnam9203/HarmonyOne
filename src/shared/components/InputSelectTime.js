@@ -10,13 +10,11 @@ import moment from "moment";
 
 let InputTime = React.forwardRef(({
     style,
+    apply,
+    time = moment().format("hh:mm A")
 }, ref) => {
 
-    console.log('render input select time')
-
     const actionSheetRef = React.useRef();
-
-    const [date, setDate] = React.useState(new Date())
     const [open, setOpen] = React.useState(false);
 
     React.useImperativeHandle(ref, () => ({
@@ -35,14 +33,14 @@ let InputTime = React.forwardRef(({
     }
 
     const onApplyTime = (time) => {
-        setDate(moment(time, ["hh:mm A"]));
+        apply(`${time}`);
         closeActionSheet();
     }
 
     return (
         <View style={[styles.containerInput]}>
             <TouchableOpacity onPress={openActionSheet} style={[styles.wrapInput, style]}>
-                <Text style={styles.txtDate}>{moment(date).format("hh:mm A")}</Text>
+                <Text style={styles.txtDate}>{time}</Text>
                 <Image
                     source={images.dropdown}
                     style={styles.icon}
@@ -52,6 +50,7 @@ let InputTime = React.forwardRef(({
                     <TimePicker
                         onApply={onApplyTime}
                         cancel={closeActionSheet}
+                        startTime={moment(time,["hh:mm A"])}
                     />
                 </CustomActionSheet>
             </TouchableOpacity>
