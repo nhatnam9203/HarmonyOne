@@ -7,6 +7,7 @@ import { useForm, useController } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { slop, guid } from "@shared/utils";
 import { SingleScreenLayout } from '@shared/layouts';
+import Title from "./Title";
 import Collapsible from "react-native-collapsible";
 import CheckBox from "@react-native-community/checkbox"
 
@@ -96,7 +97,8 @@ const AssignServices = ({
 
     return (
         <>
-            <Text style={styles.titleService}>Select service</Text>
+            <Title text="Services" />
+            <Text style={styles.txtAssign}>Assign services this staff can perform</Text>
             <TouchableOpacity onPress={openActionSheet} style={[styles.containerInput]}>
                 <View style={styles.wrapInput}>
                     <Text style={[styles.value, { fontSize: scaleFont(15) }]}>
@@ -345,6 +347,13 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+
+    txtAssign: {
+        fontSize: scaleFont(15),
+        color: '#404040',
+        marginBottom: scaleHeight(16),
+        fontFamily: fonts.LIGHT   
     }
 
 });

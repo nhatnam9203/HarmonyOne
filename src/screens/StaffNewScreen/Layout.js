@@ -7,7 +7,7 @@ import { fonts, images } from '@shared/themes';
 import { headerPhoneGroup } from "@shared/utils"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { isEmpty } from "lodash";
-import { Title, AssignServices, WorkingTime } from "./widget";
+import { Title, AssignServices, WorkingTime, ServiceSalary } from "./widget";
 import NavigationService from '@navigation/NavigationService';
 
 const options = {
@@ -65,7 +65,7 @@ export const Layout = ({
       >
         <KeyboardAwareScrollView style={styles.content}>
 
-        <Title text="Personal Info" />
+          <Title text="Personal Info" />
 
           <CustomInput
             label='First name'
@@ -193,10 +193,6 @@ export const Layout = ({
               />
             }
           />
-          <WorkingTime />
-
-          <AssignServices />
-
 
           <Text style={styles.titleDuration}>
             Image
@@ -205,6 +201,12 @@ export const Layout = ({
             onResponseImagePicker={onUploadImage}
             imageUrl={imageUrl}
           />
+
+          <WorkingTime />
+
+          <AssignServices />
+
+          <ServiceSalary />
 
           <CustomInput
             label='Status'
