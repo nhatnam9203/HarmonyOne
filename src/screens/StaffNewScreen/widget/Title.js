@@ -14,8 +14,8 @@ const styles = StyleSheet.create({
     title : {
         fontFamily: fonts.BOLD,
         color : colors.ocean_blue,
-        fontSize : scaleFont(18),
-        marginBottom : scaleHeight(24)
+        fontSize : scaleFont(19),
+        marginBottom : scaleHeight(8)
     }
 });
 

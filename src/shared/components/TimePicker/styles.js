@@ -1,21 +1,22 @@
 import { StyleSheet, } from 'react-native'
-import { scaleWidth, scaleHeight } from '@utils';
+import { fonts, colors } from "@shared/themes";
 
 const styles = StyleSheet.create({
     container: {
-        width: scaleWidth(100),
+        width: scaleWidth(375),
         backgroundColor: 'white',
-        paddingBottom: scaleHeight(4)
+        paddingBottom: scaleHeight(4),
     },
     header: {
-        paddingVertical: scaleWidth(4),
-        width: scaleWidth(100),
+        paddingVertical: scaleHeight(12),
+        width: scaleWidth(375),
         backgroundColor: '#1366AE'
     },
     txtHeader: {
         color: 'white',
-        fontSize: scaleWidth(5),
-        textAlign: 'center'
+        fontSize: scaleFont(20),
+        textAlign: 'center',
+        fontFamily: fonts.MEDIUM,
     },
     row: {
         flexDirection: 'row',
@@ -23,46 +24,50 @@ const styles = StyleSheet.create({
     },
     body: {
         backgroundColor: 'white',
-        padding: scaleWidth(3)
+        padding: scaleWidth(16)
     },
     btnAM: {
-        paddingVertical: scaleWidth(1.5),
-        paddingHorizontal: scaleWidth(5),
+        paddingVertical: scaleWidth(8),
+        paddingHorizontal: scaleWidth(18),
         backgroundColor: '#28AAE9',
         borderRadius: 300,
     },
     txtAM: {
         color: 'white',
-        fontSize: scaleWidth(4.5)
+        fontSize: scaleFont(16),
+        fontFamily: fonts.MEDIUM,
     },
     txtLocalization: {
         color: 'white',
-        fontSize: scaleWidth(4.2)
+        fontSize: scaleFont(16),
+        fontFamily: fonts.MEDIUM,
     },
 
     hourPickerContainer: {
         width: '50%',
-        paddingTop: scaleHeight(2.5),
+        paddingTop: scaleHeight(16),
         borderRightWidth: 1,
         borderRightColor: '#eeeeee'
     },
     txtSelect: {
-        fontSize: scaleWidth(4),
+        fontSize: scaleFont(15),
         color: '#7B99BA',
         textAlign: 'center',
-        marginBottom: scaleHeight(1)
+        marginBottom: scaleHeight(8),
+        fontFamily: fonts.REGULAR,
     },
     btnPicker: (hour, h) => {
         return {
-            width: scaleWidth(13),
-            height: scaleWidth(13),
+            width: scaleWidth(50),
+            height: scaleWidth(50),
             justifyContent: 'center',
             alignItems: 'center',
         }
     },
     txtPicker: (hour, h) => {
         return {
-            fontSize: scaleWidth(4),
+            fontSize: scaleFont(16),
+            fontFamily: fonts.MEDIUM,
             color: '#000000',
             color: hour == h ? 'white' : '#000000'
         }
@@ -71,27 +76,29 @@ const styles = StyleSheet.create({
         return {
             backgroundColor: hour == h ? '#32ABE6' : 'transparent',
             borderRadius: hour == h ? 300 : 0,
-            width: scaleWidth(10),
-            height: scaleWidth(10),
+            width: scaleWidth(40),
+            height: scaleWidth(40),
             justifyContent: 'center',
             alignItems: 'center',
         }
     },
     btnBottom: {
         width: '50%',
-        height: scaleHeight(5.5),
+        height: scaleHeight(40),
         justifyContent: 'center',
         alignItems: 'center',
+        
     },
     txtBottom: {
-        fontSize: scaleWidth(4.5),
-        color: '#585858'
+        fontSize: scaleFont(17),
+        color: '#585858',
+        fontFamily: fonts.REGULAR,
     },
     containerBottom: {
         borderTopWidth: 1,
         borderTopColor: '#eeeeee',
-        marginTop: scaleHeight(1),
-        paddingTop: scaleHeight(1),
+        marginTop: scaleHeight(8),
+        paddingTop: scaleHeight(8),
     }
 });
 

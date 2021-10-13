@@ -66,6 +66,8 @@ export const images = {
   staff_default: require('@src/assets/images/staff_default.png'),
   iconExport: require('@src/assets/images/export.png'),
   iconStaff: require('@src/assets/images/iconStaff.png'),
+  iconEditPencil: require('@src/assets/images/create-24px.png'),
+
 
   EmptyList: require('@src/assets/images/emptyList.png'),
   barTimeLine: require('@src/assets/images/barTimeLine.png'),

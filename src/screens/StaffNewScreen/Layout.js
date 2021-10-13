@@ -7,7 +7,7 @@ import { fonts, images } from '@shared/themes';
 import { headerPhoneGroup } from "@shared/utils"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { isEmpty } from "lodash";
-import { Title } from "./widget";
+import { Title, AssignServices, WorkingTime } from "./widget";
 import NavigationService from '@navigation/NavigationService';
 
 const options = {
@@ -193,6 +193,9 @@ export const Layout = ({
               />
             }
           />
+          <WorkingTime />
+
+          <AssignServices />
 
 
           <Text style={styles.titleDuration}>

@@ -6,14 +6,13 @@ import { CustomInput, InputSelect, CustomActionSheet, IconButton, Button } from 
 import { useForm, useController } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { slop, guid } from "@shared/utils";
-import { SingleScreenLayout } from '@shared/layouts';
 import Collapsible from "react-native-collapsible";
-import CheckBox from "@react-native-community/checkbox"
+import AntDesign from "react-native-vector-icons/AntDesign";
 
-const AssignServices = ({
+export const ServiceActionSheet = ({
     apply = () => { },
     cancel = () => { },
-    serviceSelected = [],
+    serviceSelected,
 }) => {
     const {
         service: { services },
@@ -49,8 +48,34 @@ const AssignServices = ({
         return check;
     }
 
+    const form = useForm();
+    // const { setValue } = form;
+    // const errors = form.formState.errors;
 
+    const [isFocus, setFocus] = React.useState(false);
     const actionSheetRef = React.useRef();
+
+    const { field } = useController({
+        control: form.control,
+        defaultValue: "",
+        name,
+    })
+
+    // React.useEffect(() => {
+    //     const obj = items.find(item => item.value == defaultValue);
+    //     if (obj) {
+    //         field.onChange(obj)
+    //     }
+    // }, []);
+
+    // React.useImperativeHandle(ref, () => ({
+    //     changeItem: (value) => {
+    //         const obj = items.find(item => item.value == value);
+    //         if (obj) {
+    //             field.onChange(obj)
+    //         }
+    //     }
+    // }));
 
     const openActionSheet = () => {
         const data = getDataList();
@@ -63,6 +88,7 @@ const AssignServices = ({
     }
 
     const selectValue = (it) => {
+        field.onChange(it);
         closeActionSheet();
     }
 
@@ -100,52 +126,69 @@ const AssignServices = ({
             <TouchableOpacity onPress={openActionSheet} style={[styles.containerInput]}>
                 <View style={styles.wrapInput}>
                     <Text style={[styles.value, { fontSize: scaleFont(15) }]}>
-                        {`All services(20)`}
+                        {`${serviceSelected.length} items picked`}
                     </Text>
                     <Image
                         style={[styles.icon]}
-                        source={images.iconEditPencil}
+                        source={images.dropdown}
                         resizeMode='contain'
                     />
                     <CustomActionSheet ref={actionSheetRef}>
                         <View style={styles.contentActionSheet}>
-                            <SingleScreenLayout
-                                pageTitle={"Assign services"}
-                                isLeft={false}
-                                isRight={true}
-                                isScrollLayout={false}
-                                containerStyle={{ paddingVertical: 0 }}
-                                headerRightComponent={() =>
-                                    <TouchableOpacity onPress={closeActionSheet} style={styles.buttonClose}>
-                                        <Image source={images.iconClose} style={styles.iconClose} />
-                                    </TouchableOpacity>
+
+                            <View style={[styles.row, { borderBottomWidth: 1, borderBottomColor: '#dddddd', paddingBottom: scaleHeight(12) }]}>
+                                <Text style={styles.title}>
+                                    {'Select service'}
+                                </Text>
+                                <IconButton
+                                    iconStyle={styles.iconClose}
+                                    icon={images.iconClose}
+                                    onPress={closeActionSheet}
+                                />
+                            </View>
+
+                            <ScrollView style={styles.scrollView}>
+                                {
+                                    dataServices.map((it) =>
+                                        <ItemService
+                                            item={it}
+                                            key={it?.category?.categoryId + "categoryItem" + guid()}
+                                            onPress={(serviceItem) => {
+                                                selectService(serviceItem)
+                                            }}
+                                        />)
                                 }
-                            >
+                                <View style={{ height: scaleHeight(100) }} />
+                            </ScrollView>
 
-                                <ScrollView style={styles.scrollView}>
-                                    {
-                                        dataServices.map((it) =>
-                                            <ItemService
-                                                item={it}
-                                                key={it?.category?.categoryId + "categoryItem" + guid()}
-                                                onPress={(serviceItem) => {
-                                                    selectService(serviceItem)
-                                                }}
-                                            />)
-                                    }
-                                    <View style={{ height: scaleHeight(100) }} />
-                                </ScrollView>
+                            <View style={styles.bottomStyle}>
+                                <Button
+                                    onPress={closeActionSheet}
+                                    highlight={false}
+                                    height={scaleHeight(48)}
+                                    width={scaleWidth(169)}
+                                    label="Cancel"
+                                    styleButton={{
+                                        borderWidth: 0,
+                                        backgroundColor: "transparent"
+                                    }}
+                                    styleText={{ color: "#404040" }}
+                                />
+                                <View style={styles.line} />
+                                <Button
+                                    onPress={onApply}
+                                    highlight={false}
+                                    height={scaleHeight(48)}
+                                    width={scaleWidth(169)}
+                                    label="Apply"
+                                    styleText={{ fontFamily: fonts.MEDIUM }}
+                                    styleButton={{
+                                        borderWidth: 0,
+                                        backgroundColor: "transparent"
+                                    }}
+                                />
+                            </View>
 
-                                <View style={styles.bottomStyle}>
-                                    <Button
-                                        onPress={closeActionSheet}
-                                        highlight={true}
-                                        height={scaleHeight(48)}
-                                        width={"100%"}
-                                        label="Save"
-                                    />
-                                </View>
-                            </SingleScreenLayout>
                         </View>
                     </CustomActionSheet>
                 </View>
@@ -187,23 +230,21 @@ const ItemService = ({ item, onPress }) => {
                             onPress={() => onPress(service)}
                             activeOpacity={1}
                         >
-                            <CheckBox
-                                disabled={false}
-                                value={service.checked}
-                                onValueChange={() => { }}
-                                boxType='square'
-                                onFillColor={colors.ocean_blue}
-                                onCheckColor={colors.white}
-                                onTintColor="transparent"
-                                onAnimationType='one-stroke'
-                                offAnimationType='one-stroke'
-                                style={{ width: 24, height: 24, marginRight: scaleWidth(6), marginTop: -15 }}
-                            />
                             <Text
                                 style={styles.serviceName}
                             >
                                 {service?.name}
                             </Text>
+
+                            {
+                                service.checked &&
+                                <AntDesign
+                                    name="check"
+                                    color={colors.ocean_blue}
+                                    style={{ marginTop: -10 }}
+                                    size={scaleWidth(22)}
+                                />
+                            }
                         </TouchableOpacity>
                     ))
                 }
@@ -211,8 +252,6 @@ const ItemService = ({ item, onPress }) => {
         </>
     )
 }
-
-export default AssignServices;
 
 
 const styles = StyleSheet.create({
@@ -237,6 +276,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     scrollView: {
+        maxHeight: scaleHeight(600),
         padding: scaleWidth(16)
     },
     input: {
@@ -251,15 +291,16 @@ const styles = StyleSheet.create({
         tintColor: '#333'
     },
     icon: {
-        width: scaleWidth(25),
-        height: scaleWidth(25),
+        width: scaleWidth(12),
+        height: scaleWidth(12),
         resizeMode: 'contain'
     },
     contentActionSheet: {
-        height: scaleHeight(835),
-        width: scaleWidth(375),
-        backgroundColor: "white",
-        paddingTop: scaleHeight(25)
+        width: '100%',
+        backgroundColor: colors.white,
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
+        paddingTop: scaleWidth(16),
 
     },
     row: {
@@ -319,7 +360,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         borderTopWidth: 1,
         borderTopColor: "#dddddd",
-        padding : scaleWidth(16)
     },
 
     line: {
@@ -332,19 +372,6 @@ const styles = StyleSheet.create({
         flexDirection: "row-reverse",
         justifyContent: "space-between",
         alignItems: 'center'
-    },
-
-    iconClose: {
-        width: scaleWidth(30),
-        height: scaleWidth(30),
-        tintColor: "#404040"
-    },
-
-    buttonClose: {
-        width: scaleWidth(35),
-        height: '100%',
-        alignItems: 'center',
-        justifyContent: 'center'
     }
 
 });
