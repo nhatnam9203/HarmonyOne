@@ -101,7 +101,7 @@ const AssignServices = ({
             <Text style={styles.txtAssign}>Assign services this staff can perform</Text>
             <TouchableOpacity onPress={openActionSheet} style={[styles.containerInput]}>
                 <View style={styles.wrapInput}>
-                    <Text style={[styles.value, { fontSize: scaleFont(15) }]}>
+                    <Text style={[styles.value, { fontSize: scaleFont(16) }]}>
                         {`All services(20)`}
                     </Text>
                     <Image
@@ -350,7 +350,7 @@ const styles = StyleSheet.create({
     },
 
     txtAssign: {
-        fontSize: scaleFont(15),
+        fontSize: scaleFont(16),
         color: '#404040',
         marginBottom: scaleHeight(16),
         fontFamily: fonts.LIGHT   
