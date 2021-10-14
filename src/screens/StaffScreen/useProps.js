@@ -29,7 +29,6 @@ export const useProps = (props) => {
     isLoadingDefault: true,
     enabled: false,
     onSuccess: (data, response) => {
-      console.log({ data })
       dispatch(staffAction.setStaffListByMerchant(data));
       setRefresh(false);
     },
