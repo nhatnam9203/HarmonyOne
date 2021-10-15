@@ -16,7 +16,7 @@ import CheckBox from "@react-native-community/checkbox"
 const AssignServices = React.forwardRef(({
     cancel = () => { },
     serviceSelected = [],
-},ref) => {
+}, ref) => {
 
     const {
         service: { services },
@@ -28,29 +28,40 @@ const AssignServices = React.forwardRef(({
     const [dataServicesSaved, setDataServicesSaved] = React.useState([]);
     const [activeSections, setActiveSections] = React.useState([]);
     const [valueSearch, onChangeSearch] = React.useState("");
+    const [isEdit, setIsEdit] = React.useState(false);
+    const [categoriesEdit, setCategoriesEdit] = React.useState([]);
     const serviceRef = React.useRef();
 
-    React.useImperativeHandle(ref,()=>({
-        getValue : () =>{
+    React.useImperativeHandle(ref, () => ({
+        getValue: () => {
             return dataServicesSaved;
+        },
+        setValue: (categoriesList) => {
+            setCategoriesEdit(categoriesList);
+            setIsEdit(true)
+            setDataServicesSaved(categoriesList);
         }
     }))
 
     const getDataList = () => {
-        return category.filter(obj => obj.categoryType.toString().toLowerCase() === "service").map((cate) => ({
-            selected: true,
-            categoryId: cate.categoryId,
-            name: cate.name,
-            staffServices:
-                services
-                    .filter(sv => sv.categoryId === cate.categoryId)
-                    .map((sv) => ({
-                        selected: true,
-                        name: sv.name,
-                        serviceId: sv.serviceId,
-                        categoryId: sv.categoryId
-                    }))
-        }));
+        if (isEdit) {
+            return categoriesEdit;
+        } else {
+            return category.filter(obj => obj.categoryType.toString().toLowerCase() === "service").map((cate) => ({
+                selected: true,
+                categoryId: cate.categoryId,
+                name: cate.name,
+                staffServices:
+                    services
+                        .filter(sv => sv.categoryId === cate.categoryId)
+                        .map((sv) => ({
+                            selected: true,
+                            name: sv.name,
+                            serviceId: sv.serviceId,
+                            categoryId: sv.categoryId
+                        }))
+            }));
+        }
     };
 
 
@@ -155,17 +166,19 @@ const AssignServices = React.forwardRef(({
 
     const actionSheetRef = React.useRef();
 
-    React.useEffect(()=>{
-        const data = getDataList();
-        setDataServices(data);
-        setDataServicesSaved(data);
-    },[]);
+    React.useEffect(() => {
+        if(!isEdit){
+            const data = getDataList();
+            setDataServices(data);
+            setDataServicesSaved(data);
+        }
+    }, []);
 
     const openActionSheet = () => {
         const data = getDataList();
-        if(dataServicesSaved.length > 0){
+        if (dataServicesSaved.length > 0) {
             setDataServices(dataServicesSaved)
-        }else{
+        } else {
             setDataServices(data);
         }
         actionSheetRef?.current?.show();
@@ -208,7 +221,7 @@ const AssignServices = React.forwardRef(({
         for (let i = 0; i < dataServicesSaved.length; i++) {
             for (let j = 0; j < dataServicesSaved[i]?.staffServices?.length; j++) {
                 if (dataServicesSaved[i].staffServices[j].selected) {
-                   count += 1;
+                    count += 1;
                 }
             }
         }

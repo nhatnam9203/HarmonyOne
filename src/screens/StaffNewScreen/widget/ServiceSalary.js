@@ -38,6 +38,19 @@ const ServiceSalary = React.forwardRef(({ }, ref) => {
         },
         getIncomeStatus: () => {
             return incomeStatus;
+        },
+
+        setIncomeValue: (value) => {
+            return setValue("serviceSalary",value);
+        },
+        setPerhourValue : (value) =>{
+            return setValue("perHour",value);
+        },
+        setPerhourStatus: (status) => {
+            return setPerHourStatus(status);
+        },
+        setIncomeStatus: (status) => {
+            return setIncomeStatus(status);
         }
     }));
 

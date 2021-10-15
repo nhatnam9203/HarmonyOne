@@ -18,6 +18,14 @@ const ProductSalary = React.forwardRef(({},ref) => {
         },
         getValue : () =>{
             return form.getValues("productValue");
+        },
+
+        setStatus : (tempStatus) =>{
+            setStatus(tempStatus);
+        },
+
+        setValue : (value) =>{
+            form.setValue("productValue",value);
         }
     }))
 

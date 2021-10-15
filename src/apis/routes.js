@@ -41,15 +41,6 @@ export const staffLogoutRequest = () => ({
   },
 });
 
-export const updateStaff = (data, staffId) => ({
-  queryId: 'updateStaff',
-  params: {
-    url: `/staff/${staffId}`,
-    method: 'PUT',
-    data,
-  },
-});
-
 export const uploadAvatarStaff = (data) => ({
   queryId: 'uploadAvatarStaff',
   params: {
@@ -77,6 +68,14 @@ export const getStaffById = (staffId, merchantId) => ({
   },
 });
 
+export const updateStaff = (staffId, data) => ({
+  queryId: 'updateStaff',
+  params: {
+    url: `staff/${staffId}?api-version=1.1`,
+    method: 'PUT',
+    data
+  },
+});
 
 export const getStaffByDate = (merchantId, date) => ({
   queryId: 'getStaffByDate',

@@ -28,6 +28,19 @@ const TipSalary = React.forwardRef(({ }, ref) => {
         getFixedAmountValue: () => {
             return form.getValues("fixedAmountValue");
         },
+
+        setPercentStatus: (status) => {
+            setPercentStatus(status);
+        },
+        setPercentValue: (value) => {
+            form.setValue("percentValue", value);
+        },
+        setFixedAmountStatus: (status) => {
+            setFixedAmountStatus(status);
+        },
+        setFixedAmountValue: (value) => {
+            form.setValue("fixedAmountValue", value);
+        },
     }));
 
     const onChangeStatus = (status, statusType) => {

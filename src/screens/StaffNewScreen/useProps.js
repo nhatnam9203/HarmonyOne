@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { serviceSalarySchema } from "@shared/helpers/schema";
 import { useSelector } from "react-redux";
-import { useAxiosMutation, addNewExtra, editExtra, uploadAvatarStaff, addStaff } from '@src/apis';
+import { useAxiosMutation, addNewExtra, editExtra, uploadAvatarStaff, addStaff, updateStaff } from '@src/apis';
 import { createFormData } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 
@@ -12,9 +12,6 @@ export const useProps = (props) => {
   const statusRef = React.useRef();
   const inputPhoneHeadRef = React.useRef();
   const roleRef = React.useRef();
-
-
-
   const workingTimeRef = React.useRef();
   const productSalaryRef = React.useRef();
   const serviceSalaryRef = React.useRef();
@@ -22,19 +19,21 @@ export const useProps = (props) => {
   const payoutWithCashRef = React.useRef();
   const assignServicesRef = React.useRef();
 
-  const {
-    auth : { staff }
-  } = useSelector(state => state);
-
-
-  const form = useForm({ resolver : yupResolver(serviceSalarySchema) });
-
-  const { setValue } = form;
-  const { errors } = form.formState;
-  const isEdit = props?.route?.params?.isEdit;
 
   const [fileId, setFileId] = React.useState(0);
   const [imageUrl, setImageUrl] = React.useState("");
+
+  const {
+    auth: { staff }
+  } = useSelector(state => state);
+
+
+  const form = useForm({ resolver: yupResolver(serviceSalarySchema) });
+
+  const { setValue } = form;
+  const { errors } = form.formState;
+
+  const { isEdit = null, staffEdit = null } = props?.route?.params;
 
   const back = () => NavigationService.back();
 
@@ -52,15 +51,74 @@ export const useProps = (props) => {
   const [, submitAddStaff] = useAxiosMutation({
     ...addStaff(),
     onSuccess: (data, response) => {
-      console.log({ response });
       if (response.codeNumber == 200) {
-        
+        props?.route?.params?.refreshList();
+        NavigationService.back();
       }
     },
   });
 
+  const [, submitEditStaff] = useAxiosMutation({
+    ...updateStaff(staffEdit?.staffId),
+    onSuccess: (data, response) => {
+      if (response.codeNumber == 200) {
+          props?.route?.params?.refreshList();
+          NavigationService.back();
+      }
+    },
+  });
+
+
   React.useEffect(() => {
     if (isEdit) {
+      setValue("firstName", staffEdit?.firstName);
+      setValue("lastName", staffEdit?.lastName);
+      setValue("displayName", staffEdit?.displayName);
+      setValue("email", staffEdit?.email);
+      setValue("pin", staffEdit?.pin);
+      setValue("confirmPin", staffEdit?.pin);
+
+      setFileId(staffEdit?.fileId || "0");
+      setImageUrl(staffEdit?.imageUrl);
+
+      let staffPhone = staffEdit?.phone;
+      let phone = '';
+
+      if (staffPhone?.toString()?.includes("+84")) {
+        phone = staffPhone.toString().slice(3);
+        setValue("phone", phone);
+        inputPhoneHeadRef?.current?.changeValue({ label: "+84", value: "+84" });
+      } else {
+        phone = staffPhone?.toString()?.slice(2);
+        setValue("phone", phone);
+        inputPhoneHeadRef?.current?.changeValue({ label: "+1", value: "+1" });
+      }
+      roleRef?.current?.changeItem(staffEdit?.roles?.name);
+      statusRef?.current?.changeItem(staffEdit?.isDisabled);
+      workingTimeRef?.current?.setValue(staffEdit?.workingTimes);
+
+      setTimeout(() => {
+        assignServicesRef?.current?.setValue(staffEdit?.categories);
+      }, 500);
+
+      /************************************** SET VALUE EDIT SERVICE SALARY ************************************** */
+      serviceSalaryRef?.current?.setPerhourStatus(staffEdit?.salaries?.perHour?.isCheck);
+      serviceSalaryRef?.current?.setIncomeStatus(staffEdit?.salaries?.commission?.isCheck);
+      serviceSalaryRef?.current?.setPerhourValue(staffEdit?.salaries?.perHour?.value);
+      serviceSalaryRef?.current?.setIncomeValue(staffEdit?.salaries?.commission?.value);
+
+      /************************************** SET VALUE EDIT PRODUCT SALARY ************************************** */
+      productSalaryRef?.current?.setStatus(staffEdit?.productSalaries?.commission?.isCheck);
+      productSalaryRef?.current?.setValue(staffEdit?.productSalaries?.commission?.value);
+
+      /************************************** SET VALUE EDIT TIP FEE ************************************** */
+      tipFeeRef?.current?.setPercentStatus(staffEdit?.tipFees?.percent?.isCheck);
+      tipFeeRef?.current?.setFixedAmountStatus(staffEdit?.tipFees?.fixedAmount?.isCheck);
+      tipFeeRef?.current?.setPercentValue(staffEdit?.tipFees?.percent?.value);
+      tipFeeRef?.current?.setFixedAmountValue(staffEdit?.tipFees?.fixedAmount?.value);
+
+      /************************************** SET VALUE EDIT CASH PERCENT ************************************** */
+      payoutWithCashRef?.current?.setValue(staffEdit?.cashPercent);
 
     }
   }, []);
@@ -138,30 +196,34 @@ export const useProps = (props) => {
         roles: {
           nameRole: values.role.value,
         },
-        isDisabled : values.status.value,
+        isDisabled: values.status.value,
         fileId,
-        displayName : values.displayName,
-        firstName : values.firstName,
-        lastName : values.lastName,
-        email : values.email,
+        displayName: values.displayName,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
         cashPercent,
-        pin : values.pin,
-        confirmPin : values.confirmPin,
+        pin: values.pin,
+        confirmPin: values.confirmPin,
         workingTime,
         categories,
         cashPercent,
         salary,
         productSalary,
         tipFee,
-        cellPhone : values.phone ? values.phone : "",
+        cellPhone: values.phone ? values.phone : "",
         cellPhone: values.phone ? `${phoneHead}${values.phone}` : "",
-        isActive : true,
-        merchantId : staff?.merchantId
+        isActive: true,
+        merchantId: staff?.merchantId
       }
 
-      const body = await addStaff(data);
-      submitAddStaff(body.params);
-
+      if (isEdit) {
+        const body = await updateStaff(staffEdit?.staffId, data);
+        submitEditStaff(body.params);
+      } else {
+        const body = await addStaff(data);
+        submitAddStaff(body.params);
+      }
 
     }
   };

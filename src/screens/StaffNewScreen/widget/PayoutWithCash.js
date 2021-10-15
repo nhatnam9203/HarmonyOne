@@ -14,6 +14,9 @@ const PayoutWithCash = React.forwardRef(({},ref) => {
     React.useImperativeHandle(ref,()=>({
         getValue :() =>{
             return form.getValues("cashPercent")
+        },
+        setValue : (value) =>{
+            form.setValue("cashPercent",value);
         }
     }));
 

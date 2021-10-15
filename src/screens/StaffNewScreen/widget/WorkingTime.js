@@ -12,6 +12,7 @@ const WorkingTime = React.forwardRef(({ }, ref) => {
 
     const [data, setData] = React.useState(workingTimesData);
     const [elRefs, setElRefs] = React.useState([]);
+    const [isEdit, setIsEdit] = React.useState(false);
 
     React.useEffect(() => {
         setElRefs((elRefs) =>
@@ -38,6 +39,10 @@ const WorkingTime = React.forwardRef(({ }, ref) => {
                 }
             };
             return tempValue;
+        },
+        setValue: (dataWorkinigTime) => {
+            setData(dataWorkinigTime);
+            setIsEdit(true);
         }
     }))
 
@@ -60,6 +65,7 @@ const WorkingTime = React.forwardRef(({ }, ref) => {
                         item={item}
                         index={index}
                         key={item[0]}
+                        isEdit={isEdit}
                     />
                 ))
             }
@@ -68,7 +74,7 @@ const WorkingTime = React.forwardRef(({ }, ref) => {
 });
 
 
-const ItemInputTime = React.forwardRef(({ item, index }, ref) => {
+const ItemInputTime = React.forwardRef(({ item, index, isEdit }, ref) => {
 
     const [isCheck, setChecked] = React.useState(true);
     const [fromTime, setFromTime] = React.useState(moment().format("hh:mm A"))
@@ -84,12 +90,18 @@ const ItemInputTime = React.forwardRef(({ item, index }, ref) => {
     }, []);
 
     React.useEffect(() => {
-        const now = moment();
-        let nearestFuturemin = nearestFutureMinutes(30, now);
-        nearestFuturemin = moment(nearestFuturemin).format("hh:mm A");
-        setFromTime(nearestFuturemin);
-        setChecked(item[1]?.isCheck);
-    }, []);
+        if (!isEdit) {
+            const now = moment();
+            let nearestFuturemin = nearestFutureMinutes(30, now);
+            nearestFuturemin = moment(nearestFuturemin).format("hh:mm A");
+            setFromTime(nearestFuturemin);
+            setChecked(item[1]?.isCheck);
+        } else {
+            setFromTime(item[1]?.timeStart);
+            setToTime(item[1]?.timeEnd)
+            setChecked(item[1]?.isCheck);
+        }
+    }, [isEdit]);
 
     React.useImperativeHandle(ref, () => ({
         onChangeChecked,
