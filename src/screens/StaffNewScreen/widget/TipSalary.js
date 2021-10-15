@@ -67,6 +67,7 @@ const TipSalary = React.forwardRef(({ }, ref) => {
                     type="money"
                     placeholder="0.00"
                     defaultValue="0.00"
+                    defaultValueRemove="0.00"
                     style={{ alignItems: 'center' }}
                     options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
                     renderLeft={() => <Text style={styles.dollar}>%</Text>}
@@ -99,6 +100,7 @@ const TipSalary = React.forwardRef(({ }, ref) => {
                     type="money"
                     placeholder="0.00"
                     defaultValue="0.00"
+                    defaultValueRemove="0.00"
                     style={{ alignItems: 'center' }}
                     options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
                     renderLeft={() => <Text style={styles.dollar}>$</Text>}

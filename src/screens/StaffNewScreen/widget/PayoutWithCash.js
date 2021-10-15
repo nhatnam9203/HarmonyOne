@@ -41,6 +41,7 @@ const PayoutWithCash = React.forwardRef(({},ref) => {
                 placeholder=""
                 type="money"
                 defaultValue="0.00"
+                defaultValueRemove="0.00"
                 placeholder="0.00"
                 error={errors?.cashPercent}
                 style={{ alignItems: 'center' }}

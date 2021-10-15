@@ -119,7 +119,6 @@ export const Layout = ({
           <CustomInput
             label='Phone number'
             name="phone"
-            isRequired
             error={errors?.phone}
             renderInput={() =>
               <View style={styles.row}>

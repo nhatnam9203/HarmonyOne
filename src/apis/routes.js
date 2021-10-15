@@ -41,13 +41,6 @@ export const staffLogoutRequest = () => ({
   },
 });
 
-export const getStaffById = (staffId) => ({
-  params: {
-    url: `/staff/${staffId}`,
-    method: 'GET',
-  },
-});
-
 export const updateStaff = (data, staffId) => ({
   queryId: 'updateStaff',
   params: {
@@ -74,6 +67,14 @@ export const addStaff = (data) => ({
     method: 'POST',
     data,
   }
+});
+
+export const getStaffById = (staffId, merchantId) => ({
+  queryId: 'getStaffById',
+  params: {
+    url: `/staff/${staffId}?merchantId=${merchantId}`,
+    method: 'GET',
+  },
 });
 
 

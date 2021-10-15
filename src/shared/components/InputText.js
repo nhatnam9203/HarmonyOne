@@ -24,6 +24,7 @@ export const InputText = React.forwardRef(({
     renderRight = null,
     secureTextEntry = false,
     defaultValue = '',
+    defaultValueRemove = '',
 }, ref) => {
 
     const [isFocus, setFocus] = React.useState(false);
@@ -63,7 +64,7 @@ export const InputText = React.forwardRef(({
                     <IconButton
                         icon={images.iconClose}
                         iconStyle={styles.iconClose}
-                        onPress={() => field.onChange('')}
+                        onPress={() => field.onChange(defaultValueRemove)}
                     />
                 }
             </View>

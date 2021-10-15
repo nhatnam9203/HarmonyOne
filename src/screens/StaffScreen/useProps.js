@@ -2,7 +2,8 @@ import React from "react";
 import {
   useAxiosQuery,
   useAxiosMutation,
-  getStaffByMerchant
+  getStaffByMerchant,
+  getStaffById
 } from '@src/apis';
 
 import { service, product, category, extra , staff as staffAction } from '@redux/slices';
@@ -34,6 +35,16 @@ export const useProps = (props) => {
     },
   });
 
+  const [, fetchStaffbyId] = useAxiosQuery({
+    ...  getStaffById(staff?.merchantId),
+    isLoadingDefault: true,
+    enabled: false,
+    onSuccess: (data, response) => {
+      dispatch(staffAction.setStaffListByMerchant(data));
+      setRefresh(false);
+    },
+  });
+  
   const refreshList = () => {
     fetchStaffList();
     setSearchValue("");
@@ -47,7 +58,7 @@ export const useProps = (props) => {
 
   React.useEffect(() => {
     fetchStaffList();
-  }, [])
+  }, []);
 
   return {
 

@@ -27,7 +27,7 @@ const ProductSalary = React.forwardRef(({},ref) => {
             <View style={styles.row}>
                 <CheckBox
                     disabled={false}
-                    value={true}
+                    value={status}
                     onValueChange={() => { }}
                     boxType='square'
                     onFillColor={colors.ocean_blue}
@@ -43,6 +43,7 @@ const ProductSalary = React.forwardRef(({},ref) => {
                 form={form}
                 name="productValue"
                 defaultValue="0.00"
+                defaultValueRemove="0.00"
                 placeholder=""
                 type="money"
                 placeholder="0.00"

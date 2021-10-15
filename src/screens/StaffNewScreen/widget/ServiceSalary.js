@@ -75,6 +75,7 @@ const ServiceSalary = React.forwardRef(({ }, ref) => {
                     form={form}
                     name="perHour"
                     defaultValue="0.00"
+                    defaultValueRemove="0.00"
                     placeholder=""
                     type="money"
                     placeholder="0.00"
@@ -119,6 +120,7 @@ const ServiceSalary = React.forwardRef(({ }, ref) => {
                                                 form={form}
                                                 name={`serviceSalary.${index}.from`}
                                                 defaultValue="0.00"
+                                                defaultValueRemove="0.00"
                                                 placeholder=""
                                                 type="money"
                                                 placeholder="0.00"
@@ -136,6 +138,7 @@ const ServiceSalary = React.forwardRef(({ }, ref) => {
                                                 form={form}
                                                 name={`serviceSalary.${index}.to`}
                                                 defaultValue="0.00"
+                                                defaultValueRemove="0.00"
                                                 placeholder=""
                                                 type="money"
                                                 placeholder="0.00"
@@ -153,6 +156,7 @@ const ServiceSalary = React.forwardRef(({ }, ref) => {
                                             form={form}
                                             name={`serviceSalary.${index}.commission`}
                                             defaultValue="0.00"
+                                            defaultValueRemove="0.00"
                                             placeholder=""
                                             type="money"
                                             placeholder="0.00"
