@@ -7,7 +7,7 @@ import { fonts, images } from '@shared/themes';
 import { headerPhoneGroup } from "@shared/utils"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { isEmpty } from "lodash";
-import { Title, AssignServices, WorkingTime, ServiceSalary, ProductSalary, TipSalary, PayoutWithCash } from "./widget";
+import { Title, AssignServices, WorkingTime, ServiceSalary, ProductSalary, TipSalary, PayoutWithCash, InputPincode } from "./widget";
 import NavigationService from '@navigation/NavigationService';
 
 const options = {
@@ -20,8 +20,8 @@ const options = {
 };
 
 const statusData = [
-  { label: "Active", value: "0" },
-  { label: "Inactive", value: "1" },
+  { label: "Active", value: 0 },
+  { label: "Inactive", value: 1 },
 ];
 
 const roleData = [
@@ -41,7 +41,14 @@ export const Layout = ({
   imageUrl,
   onUploadImage,
   inputPhoneHeadRef,
-  roleRef
+  roleRef,
+  productSalaryRef,
+  serviceSalaryRef,
+  tipFeeRef,
+  payoutWithCashRef,
+  workingTimeRef,
+  assignServicesRef,
+
 }) => {
 
   const [t] = useTranslation();
@@ -151,32 +158,9 @@ export const Layout = ({
             }
           />
 
-          <CustomInput
-            label='Pin code'
-            isRequired
-            error={errors?.pincode}
-            renderInput={() =>
-              <InputText
-                form={form}
-                name="pincode"
-                placeholder="****"
-                error={errors?.pincode}
-              />
-            }
-          />
-
-          <CustomInput
-            label='Confirm Pin code'
-            isRequired
-            error={errors?.confirmPincode}
-            renderInput={() =>
-              <InputText
-                form={form}
-                name="confirmPincode"
-                placeholder="****"
-                error={errors?.confirmPincode}
-              />
-            }
+          <InputPincode
+            form={form}
+            errors={errors}
           />
 
           <CustomInput
@@ -216,17 +200,29 @@ export const Layout = ({
             }
           />
 
-          <WorkingTime />
+          <WorkingTime 
+            ref={workingTimeRef}
+          />
 
-          <AssignServices />
+          <AssignServices 
+            ref={assignServicesRef}
+          />
 
-          <ServiceSalary />
+          <ServiceSalary
+            ref={serviceSalaryRef}
+          />
 
-          <ProductSalary />
+          <ProductSalary
+            ref={productSalaryRef}
+          />
 
-          <TipSalary />
+          <TipSalary
+            ref={tipFeeRef}
+          />
 
-          <PayoutWithCash />
+          <PayoutWithCash
+            ref={payoutWithCashRef}
+          />
 
         </KeyboardAwareScrollView>
       </SingleScreenLayout>

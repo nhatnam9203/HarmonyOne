@@ -13,11 +13,11 @@ import Accordion from "react-native-collapsible/Accordion";
 import CheckBox from "@react-native-community/checkbox"
 
 
-const AssignServices = ({
-    apply = () => { },
+const AssignServices = React.forwardRef(({
     cancel = () => { },
     serviceSelected = [],
-}) => {
+},ref) => {
+
     const {
         service: { services },
         category: { category },
@@ -25,27 +25,18 @@ const AssignServices = ({
 
     const [condition, setCondition] = React.useState("No condition");
     const [dataServices, setDataServices] = React.useState([]);
+    const [dataServicesSaved, setDataServicesSaved] = React.useState([]);
     const [activeSections, setActiveSections] = React.useState([]);
-
     const [valueSearch, onChangeSearch] = React.useState("");
-
     const serviceRef = React.useRef();
 
+    React.useImperativeHandle(ref,()=>({
+        getValue : () =>{
+            return dataServicesSaved;
+        }
+    }))
+
     const getDataList = () => {
-        // let tempServiceList = staffListByMerchant;
-        // if (valueSearch) {
-        //     staffList = staffList.filter((e) => {
-        //         if (e !== null) {
-        //             return (
-        //                 e.displayName
-        //                     .trim()
-        //                     .toLowerCase()
-        //                     .indexOf(valueSearch.toLowerCase()) !== -1
-        //             );
-        //         }
-        //         return null;
-        //     });
-        // }
         return category.filter(obj => obj.categoryType.toString().toLowerCase() === "service").map((cate) => ({
             selected: true,
             categoryId: cate.categoryId,
@@ -164,9 +155,19 @@ const AssignServices = ({
 
     const actionSheetRef = React.useRef();
 
-    const openActionSheet = () => {
+    React.useEffect(()=>{
         const data = getDataList();
         setDataServices(data);
+        setDataServicesSaved(data);
+    },[]);
+
+    const openActionSheet = () => {
+        const data = getDataList();
+        if(dataServicesSaved.length > 0){
+            setDataServices(dataServicesSaved)
+        }else{
+            setDataServices(data);
+        }
         actionSheetRef?.current?.show();
     }
 
@@ -194,20 +195,25 @@ const AssignServices = ({
     }
 
     const onApply = () => {
-        const services = [];
-        for (let i = 0; i < dataServices.length; i++) {
-            for (let j = 0; j < dataServices[i].data.length; j++) {
-                if (dataServices[i].data[j].selected) {
-                    services.push(dataServices[i].data[j]);
-                }
-            }
-        }
-        apply(services);
+        setDataServicesSaved(dataServices);
         closeActionSheet();
     }
 
     const onChangeSection = (section) => {
         setActiveSections(section)
+    }
+
+    const countServiceSelected = () => {
+        let count = 0;
+        for (let i = 0; i < dataServicesSaved.length; i++) {
+            for (let j = 0; j < dataServicesSaved[i]?.staffServices?.length; j++) {
+                if (dataServicesSaved[i].staffServices[j].selected) {
+                   count += 1;
+                }
+            }
+        }
+
+        return count;
     }
 
 
@@ -286,6 +292,8 @@ const AssignServices = ({
         ))
     };
 
+    let count = countServiceSelected();
+
 
     return (
         <>
@@ -294,7 +302,7 @@ const AssignServices = ({
             <TouchableOpacity onPress={openActionSheet} style={styles.containerInput}>
                 <View style={styles.wrapInput}>
                     <Text style={[styles.value, { fontSize: scaleFont(16) }]}>
-                        {`All services(20)`}
+                        {`Services(${count})`}
                     </Text>
                     <Image
                         style={[styles.icon]}
@@ -341,7 +349,7 @@ const AssignServices = ({
 
                                 <View style={styles.bottomStyle}>
                                     <Button
-                                        onPress={closeActionSheet}
+                                        onPress={onApply}
                                         highlight={true}
                                         height={scaleHeight(48)}
                                         width={"100%"}
@@ -355,7 +363,7 @@ const AssignServices = ({
             </TouchableOpacity>
         </>
     );
-};
+});
 
 
 export default AssignServices;

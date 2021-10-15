@@ -8,7 +8,7 @@ import CheckBox from "@react-native-community/checkbox";
 import Title from "./Title"
 import moment from 'moment';
 
-const WorkingTime = () => {
+const WorkingTime = React.forwardRef(({ }, ref) => {
 
     const [data, setData] = React.useState(workingTimesData);
     const [elRefs, setElRefs] = React.useState([]);
@@ -26,6 +26,21 @@ const WorkingTime = () => {
             elRefs[i]?.current?.onChangeChecked(true);
         }
     }
+
+    React.useImperativeHandle(ref, () => ({
+        getValue: () => {
+            let tempValue = {};
+            for (const items of elRefs) {
+                const el = items?.current?.getItems();
+                tempValue = {
+                    ...tempValue,
+                    [el[0]]: el[1],
+                }
+            };
+            return tempValue;
+        }
+    }))
+
 
     return (
         <View style={{ marginBottom: scaleHeight(16), marginTop: scaleHeight(12) }}>
@@ -50,7 +65,7 @@ const WorkingTime = () => {
             }
         </View>
     )
-}
+});
 
 
 const ItemInputTime = React.forwardRef(({ item, index }, ref) => {
@@ -78,6 +93,17 @@ const ItemInputTime = React.forwardRef(({ item, index }, ref) => {
 
     React.useImperativeHandle(ref, () => ({
         onChangeChecked,
+        getItems: () => {
+            let tempItem = [
+                ...item
+            ];
+            tempItem[1] = {
+                timeStart: fromTime,
+                timeEnd: toTime,
+                isCheck
+            };
+            return tempItem;
+        }
     }));
 
     return (
@@ -90,6 +116,7 @@ const ItemInputTime = React.forwardRef(({ item, index }, ref) => {
                     boxType='square'
                     onFillColor={colors.ocean_blue}
                     onCheckColor={colors.white}
+                    onTintColor="transparent"
                     onAnimationType='one-stroke'
                     offAnimationType='one-stroke'
                     style={{ width: 24, height: 24, marginRight: scaleWidth(12) }}

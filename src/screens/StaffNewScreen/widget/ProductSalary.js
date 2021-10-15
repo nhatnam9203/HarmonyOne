@@ -2,14 +2,24 @@ import React from 'react';
 import { View, StyleSheet, Text, } from 'react-native';
 import { fonts, images, colors } from '@shared/themes';
 import { InputText, CustomInput } from "@shared/components";
-import { useForm } from "react-hook-form";
 import CheckBox from "@react-native-community/checkbox";
+import {useForm} from "react-hook-form";
 import Title from "./Title"
 
-const ProductSalary = () => {
+const ProductSalary = React.forwardRef(({},ref) => {
+
+    const [ status , setStatus ] = React.useState(false);   
 
     const form = useForm();
-    const { errors } = form.formState;
+
+    React.useImperativeHandle(ref,()=>({
+        getStatus : () =>{
+            return status;
+        },
+        getValue : () =>{
+            return form.getValues("productValue");
+        }
+    }))
 
     return (
         <View style={styles.container}>
@@ -31,18 +41,18 @@ const ProductSalary = () => {
             </View>
             <InputText
                 form={form}
-                name="commission"
+                name="productValue"
+                defaultValue="0.00"
                 placeholder=""
                 type="money"
                 placeholder="0.00"
-                error={errors?.commission}
                 style={{ alignItems: 'center' }}
                 options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
                 renderLeft={() => <Text style={styles.dollar}>%</Text>}
             />
         </View>
     )
-}
+});
 
 
 const styles = StyleSheet.create({

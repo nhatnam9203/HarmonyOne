@@ -66,6 +66,17 @@ export const uploadAvatarStaff = (data) => ({
   },
 });
 
+
+export const addStaff = (data) => ({
+  queryId: 'addStaff',
+  params: {
+    url: `staff?api-version=1.1`,
+    method: 'POST',
+    data,
+  }
+});
+
+
 export const getStaffByDate = (merchantId, date) => ({
   queryId: 'getStaffByDate',
   params: {

@@ -22,13 +22,15 @@ export const InputText = React.forwardRef(({
     keyboardType='default',
     renderLeft = null,
     renderRight = null,
+    secureTextEntry = false,
+    defaultValue = '',
 }, ref) => {
 
     const [isFocus, setFocus] = React.useState(false);
 
     const { field } = useController({
         control: form.control,
-        defaultValue: "",
+        defaultValue,
         name,
     })
 
@@ -43,6 +45,7 @@ export const InputText = React.forwardRef(({
                 <TextInputMask
                     type={type}
                     options={options}
+                    secureTextEntry={secureTextEntry}
                     onChangeText={field.onChange}
                     placeholder={placeholder}
                     value={field.value}

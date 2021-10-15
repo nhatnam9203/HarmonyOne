@@ -48,6 +48,18 @@ export const extraSchema = yup.object().shape({
 });
 
 
+export const serviceSalarySchema = yup.object().shape({
+    firstName: yup.string().required("required"),
+    lastName: yup.string().required("required"),
+    displayName: yup.string().required("required"),
+    email: yup.string().email("Invalid email"),
+    pin: yup.string().required("required").test('len', 'Pincode must be 4 characters', val => val.length === 4),
+    confirmPin: yup.string()
+        .oneOf([yup.ref('pin'), null], 'Pin code does not match')
+});
+
+
+
 export const profileStaffLoginSchema = yup.object().shape({
 
 });

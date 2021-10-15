@@ -6,6 +6,7 @@ import ServiceSalary from "./ServiceSalary";
 import ProductSalary from "./ProductSalary";
 import TipSalary from "./TipSalary";
 import PayoutWithCash from "./PayoutWithCash";
+import InputPincode from "./InputPincode";
 
 module.exports={
     Title,
@@ -15,4 +16,5 @@ module.exports={
     ProductSalary,
     TipSalary,
     PayoutWithCash,
+    InputPincode,
 }

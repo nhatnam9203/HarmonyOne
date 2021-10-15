@@ -67,7 +67,9 @@ export const images = {
   iconExport: require('@src/assets/images/export.png'),
   iconStaff: require('@src/assets/images/iconStaff.png'),
   iconEditPencil: require('@src/assets/images/create-24px.png'),
-
+  iconEye: require('@src/assets/images/eye.png'),
+  iconTrash: require('@src/assets/images/trash-bin.png'),
+  iconHidden: require('@src/assets/images/hidden.png'),
 
   EmptyList: require('@src/assets/images/emptyList.png'),
   barTimeLine: require('@src/assets/images/barTimeLine.png'),

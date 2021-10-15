@@ -6,17 +6,23 @@ import { useForm } from "react-hook-form";
 import CheckBox from "@react-native-community/checkbox";
 import Title from "./Title"
 
-const PayoutWithCash = () => {
+const PayoutWithCash = React.forwardRef(({},ref) => {
 
     const form = useForm();
     const { errors } = form.formState;
+
+    React.useImperativeHandle(ref,()=>({
+        getValue :() =>{
+            return form.getValues("cashPercent")
+        }
+    }));
 
     return (
         <View style={styles.container}>
             <Title text="Payout with cash" />
             <View style={styles.row}>
                 <CheckBox
-                    disabled={false}
+                    disabled={true}
                     value={true}
                     onValueChange={() => { }}
                     boxType='square'
@@ -34,6 +40,7 @@ const PayoutWithCash = () => {
                 name="cashPercent"
                 placeholder=""
                 type="money"
+                defaultValue="0.00"
                 placeholder="0.00"
                 error={errors?.cashPercent}
                 style={{ alignItems: 'center' }}
@@ -42,7 +49,7 @@ const PayoutWithCash = () => {
             />
         </View>
     )
-}
+});
 
 
 const styles = StyleSheet.create({

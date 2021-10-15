@@ -6,10 +6,39 @@ import { useForm } from "react-hook-form";
 import CheckBox from "@react-native-community/checkbox";
 import Title from "./Title"
 
-const TipSalary = () => {
+const TipSalary = React.forwardRef(({ }, ref) => {
 
     const form = useForm();
     const { errors } = form.formState;
+
+    const [percentStatus, setPercentStatus] = React.useState(false);
+    const [fixedAmountStatus, setFixedAmountStatus] = React.useState(false);
+
+
+    React.useImperativeHandle(ref, () => ({
+        getPercentStatus: () => {
+            return percentStatus;
+        },
+        getPercentValue: () => {
+            return form.getValues("percentValue");
+        },
+        getFixedAmountStatus: () => {
+            return fixedAmountStatus;
+        },
+        getFixedAmountValue: () => {
+            return form.getValues("fixedAmountValue");
+        },
+    }));
+
+    const onChangeStatus = (status, statusType) => {
+        if (statusType == "percent") {
+            setPercentStatus(status);
+            setFixedAmountStatus(false)
+        } else {
+            setFixedAmountStatus(status);
+            setPercentStatus(false);
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -18,8 +47,8 @@ const TipSalary = () => {
             <View style={styles.row}>
                 <CheckBox
                     disabled={false}
-                    value={true}
-                    onValueChange={() => { }}
+                    value={percentStatus}
+                    onValueChange={status => onChangeStatus(status, "percent")}
                     boxType='square'
                     onFillColor={colors.ocean_blue}
                     onCheckColor={colors.white}
@@ -30,24 +59,28 @@ const TipSalary = () => {
                 />
                 <Text style={styles.txt}>Percent</Text>
             </View>
-            <InputText
-                form={form}
-                name="percent"
-                placeholder=""
-                type="money"
-                placeholder="0.00"
-                error={errors?.percent}
-                style={{ alignItems: 'center' }}
-                options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
-                renderLeft={() => <Text style={styles.dollar}>%</Text>}
-            />
+            <View pointerEvents={percentStatus ? "auto" : "none"}>
+                <InputText
+                    form={form}
+                    name="percentValue"
+                    placeholder=""
+                    type="money"
+                    placeholder="0.00"
+                    defaultValue="0.00"
+                    style={{ alignItems: 'center' }}
+                    options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
+                    renderLeft={() => <Text style={styles.dollar}>%</Text>}
+                />
+
+            </View>
+
 
             {/************************* FIXED AMOUNT *************************/}
             <View style={styles.row}>
                 <CheckBox
                     disabled={false}
-                    value={true}
-                    onValueChange={() => { }}
+                    value={fixedAmountStatus}
+                    onValueChange={status => onChangeStatus(status, "fixedAmount")}
                     boxType='square'
                     onFillColor={colors.ocean_blue}
                     onCheckColor={colors.white}
@@ -58,20 +91,22 @@ const TipSalary = () => {
                 />
                 <Text style={styles.txt}>Fixed amount</Text>
             </View>
-            <InputText
-                form={form}
-                name="amount"
-                placeholder=""
-                type="money"
-                placeholder="0.00"
-                error={errors?.amount}
-                style={{ alignItems: 'center' }}
-                options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
-                renderLeft={() => <Text style={styles.dollar}>$</Text>}
-            />
+            <View pointerEvents={fixedAmountStatus ? "auto" : "none"}>
+                <InputText
+                    form={form}
+                    name="fixedAmountValue"
+                    placeholder=""
+                    type="money"
+                    placeholder="0.00"
+                    defaultValue="0.00"
+                    style={{ alignItems: 'center' }}
+                    options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
+                    renderLeft={() => <Text style={styles.dollar}>$</Text>}
+                />
+            </View>
         </View>
     )
-}
+})
 
 
 const styles = StyleSheet.create({
