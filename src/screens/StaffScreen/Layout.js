@@ -48,7 +48,7 @@ export const Layout = ({
                 onPress={()=>editStaff(item)}
               />
             }
-            ListFooterComponent={() => <View style={{ height: scaleHeight(200) }} />}
+            ListFooterComponent={() => <View style={{ height: scaleHeight(100) }} />}
           />
 
           <IconButton

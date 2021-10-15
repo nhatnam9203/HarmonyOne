@@ -41,6 +41,7 @@ export const useProps = (props) => {
     isLoadingDefault: true,
     enabled: false,
     onSuccess: (data, response) => {
+      console.log({ data })
       NavigationService.navigate(
         screenNames.StaffNewScreen,
         { isEdit: true, staffEdit: data, refreshList }

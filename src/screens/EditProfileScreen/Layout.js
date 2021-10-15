@@ -47,134 +47,135 @@ export const Layout = ({
   const [t] = useTranslation();
 
   return (
-    <View style={layouts.fill}>
-      <HeaderEditProfile />
-      <View style={styles.content}>
-        <AvatarProfile
-          staff={staff}
-          imageUrl={imageUrl}
-          onResponseImagePicker={onHandleChangeAvatar}
-        />
-
-        <KeyboardAwareScrollView style={styles.contentInput}>
-          <CustomInput
-            label='First name'
-            error={errors?.firstName}
-            renderInput={() =>
-              <InputText
-                form={form}
-                name="firstName"
-                placeholder="First name"
-                error={errors?.firstName}
-              />
-            }
+    <View style={styles.container}>
+      <SingleScreenLayout
+        pageTitle={t('Edit Profile')}
+        isRight={false}
+        isScrollLayout={false}
+        containerStyle={{ paddingVertical: 0 }}
+      >
+        <KeyboardAwareScrollView style={styles.content}>
+          <AvatarProfile
+            staff={staff}
+            imageUrl={imageUrl}
+            onResponseImagePicker={onHandleChangeAvatar}
           />
 
-          <CustomInput
-            label='Last name'
-            error={errors?.lastName}
-            renderInput={() =>
-              <InputText
-                form={form}
-                name="lastName"
-                placeholder="Last name"
-                error={errors?.lastName}
-              />
-            }
-          />
-
-          <CustomInput
-            label='Display name'
-            error={errors?.displayName}
-            renderInput={() =>
-              <InputText
-                form={form}
-                name="displayName"
-                placeholder="Display name"
-                error={errors?.displayName}
-              />
-            }
-          />
-
-          <CustomInput
-            label='Phone number'
-            name="phone"
-            error={errors?.phone}
-            renderInput={() =>
-              <View style={styles.row}>
-                <DropdownMenu
-                  ref={inputPhoneHeadRef}
-                  items={headerPhoneGroup}
-                  onChangeValue={() => { }}
-                  defaultIndex={0}
-                  width={scaleWidth(95)}
-                  height={scaleWidth(42)}
-                  styleDropDown={styles.styleDropDown}
-                />
+            <CustomInput
+              label='First name'
+              error={errors?.firstName}
+              renderInput={() =>
                 <InputText
-                  style={styles.inputPhone}
-                  options={{ mask: "999-999-9999" }}
-                  keyboardType='numeric'
                   form={form}
-                  name="phone"
-                  placeholder="012-3456-789"
-                  error={errors?.phone}
+                  name="firstName"
+                  placeholder="First name"
+                  error={errors?.firstName}
                 />
-              </View>
-            }
-          />
+              }
+            />
 
-          <CustomInput
-            label='Email'
-            error={errors?.email}
-            renderInput={() =>
-              <InputText
-                form={form}
-                name="email"
-                placeholder="Email"
-                error={errors?.email}
-              />
-            }
-          />
+            <CustomInput
+              label='Last name'
+              error={errors?.lastName}
+              renderInput={() =>
+                <InputText
+                  form={form}
+                  name="lastName"
+                  placeholder="Last name"
+                  error={errors?.lastName}
+                />
+              }
+            />
 
-          <CustomInput
-            label='Street'
-            error={errors?.street}
-            renderInput={() =>
-              <InputText
-                form={form}
-                name="street"
-                placeholder="Street"
-                error={errors?.street}
-              />
-            }
-          />
+            <CustomInput
+              label='Display name'
+              error={errors?.displayName}
+              renderInput={() =>
+                <InputText
+                  form={form}
+                  name="displayName"
+                  placeholder="Display name"
+                  error={errors?.displayName}
+                />
+              }
+            />
 
-          <CustomInput
-            label='City'
-            error={errors?.city}
-            renderInput={() =>
-              <InputText
-                form={form}
-                name="city"
-                placeholder="City"
-                error={errors?.city}
-              />
-            }
-          />
+            <CustomInput
+              label='Phone number'
+              name="phone"
+              error={errors?.phone}
+              renderInput={() =>
+                <View style={styles.row}>
+                  <DropdownMenu
+                    ref={inputPhoneHeadRef}
+                    items={headerPhoneGroup}
+                    onChangeValue={() => { }}
+                    defaultIndex={0}
+                    width={scaleWidth(95)}
+                    height={scaleWidth(42)}
+                    styleDropDown={styles.styleDropDown}
+                  />
+                  <InputText
+                    style={styles.inputPhone}
+                    options={{ mask: "999-999-9999" }}
+                    keyboardType='numeric'
+                    form={form}
+                    name="phone"
+                    placeholder="012-3456-789"
+                    error={errors?.phone}
+                  />
+                </View>
+              }
+            />
 
-          <View style={{ height: scaleHeight(100) }} />
+            <CustomInput
+              label='Email'
+              error={errors?.email}
+              renderInput={() =>
+                <InputText
+                  form={form}
+                  name="email"
+                  placeholder="Email"
+                  error={errors?.email}
+                />
+              }
+            />
+
+            <CustomInput
+              label='Address'
+              error={errors?.street}
+              renderInput={() =>
+                <InputText
+                  form={form}
+                  name="street"
+                  placeholder="Street"
+                  error={errors?.street}
+                />
+              }
+            />
+
+            {/* <CustomInput
+              label='City'
+              error={errors?.city}
+              renderInput={() =>
+                <InputText
+                  form={form}
+                  name="city"
+                  placeholder="City"
+                  error={errors?.city}
+                />
+              }
+            /> */}
         </KeyboardAwareScrollView>
-
         <View style={styles.bottom}>
-          <Button
-            label="Save"
-            onPress={form.handleSubmit(onSubmit)}
-            highlight={true}
-            width={'100%'}
-          />
-        </View>
-      </View>
+            <Button
+              label="Save"
+              onPress={form.handleSubmit(onSubmit)}
+              highlight={true}
+              width={'100%'}
+            />
+          </View>
+      </SingleScreenLayout>
     </View>
   );
 };
@@ -182,6 +183,7 @@ export const Layout = ({
 
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     backgroundColor: colors.white,
@@ -190,19 +192,20 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     position: 'relative',
-    backgroundColor: colors.white,
+    paddingHorizontal: scaleWidth(16),
+    paddingTop : scaleHeight(16)
   },
 
   contentInput: {
     flex: 1,
-    transform: [{ translateY: -scaleWidth(375 / 3 / 2 - 15) }],
-    paddingHorizontal: scaleWidth(16),
+     paddingHorizontal: scaleWidth(16),
   },
 
   containerAvatar: {
     alignItems: 'center',
     justifyContent: 'center',
-    transform: [{ translateY: -scaleWidth(375 / 3 / 2) }]
+    marginBottom : scaleHeight(16)
+    // transform: [{ translateY: -scaleWidth(375 / 3 / 2) }]
   },
 
   wrapAvatar: {
@@ -249,6 +252,7 @@ const styles = StyleSheet.create({
   bottom: {
     padding: scaleWidth(16),
     width: scaleWidth(375),
+    backgroundColor : "white"
   },
 
   inputPhone: {
