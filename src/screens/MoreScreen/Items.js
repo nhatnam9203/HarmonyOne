@@ -9,12 +9,16 @@ export const items = [
   {
     title: "Business Informations",
     icon: images.iconBusiness,
-    onPress: () => { }
+    onPress: () => { 
+      NavigationService.navigate(screenNames.BusinessInformationScreen)
+    }
   },
   {
     title: "Invoices",
     icon: images.iconInvoice,
-    onPress: () => { }
+    onPress: () => { 
+      // NavigationService.navigate(screenNames.BusinessInformationSreen)
+    }
   },
   {
     title: "Marketing",

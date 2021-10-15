@@ -40,7 +40,7 @@ const ScreenNames = {
   ProductNewScreen : 'hpo.product.new',
   StaffScreen : 'hpo.staff',
   StaffNewScreen : 'hpo.staff.new',
-
+  BusinessInformationScreen : 'hpo.businessInformation',
 };
 
 module.exports = { ScreenNames };
