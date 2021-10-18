@@ -4,11 +4,13 @@ import { View, StyleSheet, ScrollView, TouchableOpacity, Text, ActivityIndicator
 import { images, colors, fonts } from '@shared/themes';
 import { IconButton, CustomImage } from "@shared/components";
 import { isElement, isEmpty } from "lodash";
+import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
 const StaffList = ({
     staffsByDate,
     staffSelected,
-    selectStaff = () => { }
+    selectStaff = () => { },
+    isLoading,
 }) => {
     if (staffsByDate.length === 0) {
         return <View style={[styles.container, { width: "100%", height: scaleWidth(61) }]} />
@@ -21,7 +23,22 @@ const StaffList = ({
                 showsHorizontalScrollIndicator={false}
             >
                 {
-                    staffsByDate.map(staff => (
+                    isLoading && new Array(5).fill().map(() => (
+                        <SkeletonPlaceholder>
+                            <SkeletonPlaceholder.Item marginLeft={20}>
+                                <SkeletonPlaceholder.Item
+                                    width={scaleWidth(48)}
+                                    height={scaleWidth(48)}
+                                    borderRadius={300}
+                                />
+                            </SkeletonPlaceholder.Item>
+                        </SkeletonPlaceholder>
+
+                    ))
+                }
+
+                {
+                    !isLoading && staffsByDate.map(staff => (
                         <TouchableOpacity
                             onPress={() => selectStaff(staff?.staffId)}
                             key={staff?.staffId + 'staffList'}

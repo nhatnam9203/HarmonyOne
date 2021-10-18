@@ -4,7 +4,8 @@ import { images, colors, fonts } from "@shared/themes";
 import { CustomInput } from "@shared/components";
 import { slop } from "@shared/utils";
 import { View } from 'react-native-animatable';
-import { Title } from "./Title";
+import { Title } from "../../Title";
+import NavigationService from '@navigation/NavigationService';
 
 export const Location = ({
     addressFull,
@@ -13,7 +14,7 @@ export const Location = ({
 }) => {
     return (
         <View style={styles.container}>
-            <Title text="Location" />
+            <Title text="Location" onEdit={() => { alert("Api chưa mở role edit location cho token staff ") }} />
             <CustomInput
                 label='Address'
                 style={{ marginTop: scaleHeight(8) }}

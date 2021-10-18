@@ -4,12 +4,13 @@ import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import { colors, fonts } from '@shared/themes';
 
 export const CustomActionSheet = React.forwardRef(
-    ({ children }, ref) => {
+    ({ onHide = () =>{} ,children }, ref) => {
 
         const [open, setOpen] = React.useState(false);
 
         const onModalHide = () => {
             setOpen(false);
+            onHide();
         };
 
         React.useImperativeHandle(ref, () => ({

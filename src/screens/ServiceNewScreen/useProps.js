@@ -8,11 +8,17 @@ import { createFormData } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService'
 
 export const useProps = (props) => {
+  const { extrasSelection = [] } = props?.route?.params;
 
   const categoryRef = React.useRef();
   const statusRef = React.useRef();
   const [fileId, setFileId] = React.useState("0");
   const [imageUrl, setImageUrl] = React.useState("");
+
+  const [
+    extrasListSelected,
+    setExtrasListSelected
+  ] = React.useState([]);
 
   const form = useForm({ resolver: yupResolver(serviceSchema) });
   const { setValue } = form;
@@ -22,6 +28,13 @@ export const useProps = (props) => {
   const serviceEdit = props?.route?.params?.serviceEdit;
   const isNewWithCategory = props?.route?.params?.isNewWithCategory;
   const categoryList = useSelector(state => state.category.category);
+  const extraList = useSelector(state => state.extra.extras);
+
+  React.useEffect(() => {
+    if (isEdit && extrasSelection.length > 0) {
+      setExtrasListSelected(extrasSelection);
+    }
+  }, [extrasSelection]);
 
   const back = () => NavigationService.back();
 
@@ -57,6 +70,7 @@ export const useProps = (props) => {
     },
   });
 
+
   React.useEffect(() => {
     if (isEdit) {
       setValue("name", serviceEdit?.name);
@@ -70,12 +84,26 @@ export const useProps = (props) => {
       setImageUrl(serviceEdit?.imageUrl);
       categoryRef?.current?.changeItem(serviceEdit.categoryId.toString());
       statusRef?.current?.changeItem(serviceEdit.isDisabled.toString());
+      getExtraEdit();
     }
     if (isNewWithCategory) {
       const categoryId = props?.route?.params?.categoryId;
       categoryRef?.current?.changeItem(categoryId?.toString());
     }
   }, []);
+
+  const getExtraEdit = () => {
+    const { extras = [] } = serviceEdit;
+    let tempExtras = [...extraList].map(ex => ({ ...ex, checked: false }));
+    for (let i = 0; i < tempExtras.length; i++) {
+      for (const el of extras) {
+        if (tempExtras[i].extraId == el.extraId) {
+          tempExtras[i].checked = true;
+        }
+      }
+    }
+    setExtrasListSelected(tempExtras)
+  }
 
   const checkSecondTime = (values) => {
     if (values.openTime && !values.secondTime) {
@@ -107,6 +135,8 @@ export const useProps = (props) => {
     categoryRef,
     statusRef,
     imageUrl,
+    extrasSelection,
+    extrasListSelected,
 
     onUploadImage: async (response) => {
       let files = response?.assets ?? [];
@@ -121,6 +151,18 @@ export const useProps = (props) => {
         label: cate.name,
         value: cate.categoryId,
       }))
+    },
+
+    newExtra: () => {
+      NavigationService.navigate(screenNames.ExtraNewScreen);
+    },
+
+    selectExtraExist: () => {
+      NavigationService.navigate(
+        screenNames.ExtraSelectScreen, {
+        extrasSelection: isEdit ? extrasListSelected : extrasSelection
+      }
+      );
     },
 
     onSubmit: async (values) => {
@@ -138,9 +180,14 @@ export const useProps = (props) => {
         price: values.price,
         isDisabled: values.status.value,
         supplyFee: values.supplyFee ? values.supplyFee : "0",
-        extras: [],
+        extras: isEdit ? extrasListSelected.filter(ex => ex.checked) :
+          extrasSelection.filter(ex => ex.checked),
         fileId,
       }
+
+      // api bị lỗi không thêm mới extra từ extralist có sẵn được,
+      // phần này bên pos là tạo mới extra tự nhập tay vô , ko phải chọn từ extra list có sẵn, design chỗ này khác với POS.
+
       if (isEdit) {
         const body = await editService(data, serviceEdit.serviceId);
         submitEditService(body.params);

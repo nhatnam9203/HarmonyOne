@@ -61,7 +61,7 @@ export const Layout = ({
               <InputText
                 form={form}
                 name="name"
-                placeholder="Extra name"
+                placeholder=""
                 error={errors?.name}
               />
             }
@@ -73,7 +73,7 @@ export const Layout = ({
               <InputText
                 form={form}
                 name="description"
-                placeholder="Description"
+                placeholder=""
                 style={{ height: scaleHeight(79), alignItems: 'flex-start', paddingTop: scaleHeight(8) }}
                 multiline={true}
               />
@@ -85,11 +85,11 @@ export const Layout = ({
             <CustomInput
               label='Minutes'
               isRequired
+              error={errors?.duration}
               labelStyle={styles.labelDuration}
               renderInput={() =>
                 <InputText
                   style={{ width: scaleWidth(375 - 32), alignItems: 'center' }}
-                  inputStyle={styles.duration}
                   form={form}
                   name="duration"
                   placeholder="0"

@@ -8,7 +8,7 @@ import { guid } from "@shared/utils";
 import { bookAppointment } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 
-const ItemCustomer = ({ item, refreshFromScreen, isBookAppointment, isReviewConfirm }) => {
+const ItemCustomer = ({ item, refreshFromScreen, isBookAppointment, isReviewConfirm, isQuickCheckout }) => {
     const dispatch = useDispatch();
 
     const [customerId, setCustomerId] = React.useState(null);
@@ -30,12 +30,16 @@ const ItemCustomer = ({ item, refreshFromScreen, isBookAppointment, isReviewConf
     }, [customerId, setCustomerId, uid]);
 
     const selectItem = () => {
-        if (isBookAppointment) {
+        if (isBookAppointment || isQuickCheckout) {
             dispatch(bookAppointment.setCustomerBooking(item));
             if (isReviewConfirm) {
-                NavigationService.navigate(screenNames.AppointmentNewScreen,{ screen : screenNames.ReviewConfirm });
+                NavigationService.navigate(screenNames.AppointmentNewScreen, { screen: screenNames.ReviewConfirm });
             } else {
-                NavigationService.navigate(screenNames.AppointmentNewScreen);
+                if (isQuickCheckout) {
+                    NavigationService.navigate(screenNames.CheckoutTabScreen);
+                } else {
+                    NavigationService.navigate(screenNames.AppointmentNewScreen);
+                }
             }
         } else {
             setCustomerId(item.customerId);

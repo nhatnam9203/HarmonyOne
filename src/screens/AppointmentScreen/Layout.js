@@ -3,7 +3,7 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { images, layouts, fonts } from '@shared/themes';
 import { SingleScreenLayout } from '@shared/layouts';
-import { IconButton, ListEmptyComponent } from "@shared/components";
+import { IconButton, ListEmptyComponent, NotificationIcon, DayPicker } from "@shared/components";
 import { AppointmentItem } from "./widgets";
 import { useTranslation } from "react-i18next";
 import { WithPopupActionSheet, WithPopupDatePicker } from '@shared/HOC';
@@ -11,6 +11,7 @@ import { StaffList, AppointmentList, IconCalendar } from "./widgets";
 import { dateToFormat } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 import moment from "moment";
+
 
 export const Layout = ({
   staffsByDate,
@@ -26,30 +27,10 @@ export const Layout = ({
   isRefresh,
   onRefresh,
   addAppointment,
+  isLoading
 }) => {
 
   const [t] = useTranslation();
-
-  let HeaderCenter = ({ onPress, ...props }) => {
-    return (
-      <TouchableOpacity
-        onPress={onPress}
-        style={styles.row}
-        {...props}
-      >
-        <Text style={styles.date}>
-          {dateToFormat(date, "MMM DD, YYYY")}
-        </Text>
-        <Image
-          resizeMode='contain'
-          source={images.dropdown}
-          style={[styles.dropdown]}
-        />
-      </TouchableOpacity>
-    )
-  }
-
-  HeaderCenter = WithPopupDatePicker(HeaderCenter);
 
   return (
     <View style={styles.container}>
@@ -64,18 +45,13 @@ export const Layout = ({
           />
         }
         headerCenterComponent={() =>
-          <HeaderCenter
-            onConfirm={datePicker => {
-              setDate(datePicker)
-            }}
+          <DayPicker
+            dayPicked={date}
+            onApply={datePicked => setDate(datePicked)}
           />
         }
         headerRightComponent={() =>
-          <IconButton
-            icon={images.iconBell}
-            iconStyle={styles.icon}
-            style={styles.button}
-          />
+          <NotificationIcon />
         }
       >
         <View style={styles.content}>
@@ -83,6 +59,7 @@ export const Layout = ({
             staffsByDate={staffsByDate}
             selectStaff={selectStaff}
             staffSelected={staffSelected}
+            isLoading={isLoading}
           />
           <AppointmentList
             blockTimes={blockTimesVisibile}
@@ -111,17 +88,6 @@ const styles = StyleSheet.create({
     flex: 1,
     position: 'relative',
     backgroundColor: "#FCFCFC"
-  },
-
-  icon: {
-    width: scaleWidth(20),
-    height: scaleWidth(20),
-    tintColor: "#7B99BA"
-  },
-
-  button: {
-    height: '100%',
-    alignItems: 'center'
   },
 
   row: {

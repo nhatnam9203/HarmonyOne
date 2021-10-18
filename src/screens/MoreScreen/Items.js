@@ -35,7 +35,7 @@ export const items = [
     }
   },
   {
-    title: "Extra",
+    title: "Extras",
     icon: images.iconExtra,
     onPress: () => {
       NavigationService.navigate(screenNames.ExtraScreen)

@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView } from 'rea
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { DropdownMenu, Button, CustomInput, InputText, InputSelect, IconButton, CustomImage, ButtonUpload } from "@shared/components";
-import { fonts, images } from '@shared/themes';
+import { fonts, images, colors } from '@shared/themes';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { isEmpty } from "lodash";
 import NavigationService from '@navigation/NavigationService';
@@ -33,11 +33,17 @@ export const Layout = ({
   statusRef,
   onUploadImage,
   imageUrl,
+  newExtra,
+  selectExtraExist,
+  extrasSelection,
+  extrasListSelected
 }) => {
 
   const [t] = useTranslation();
 
   const dataCategory = getDataSelectCategory();
+
+  const extraList = isEdit ? extrasListSelected : extrasSelection;
 
   return (
     <View style={styles.container}>
@@ -64,7 +70,7 @@ export const Layout = ({
               <InputText
                 form={form}
                 name="name"
-                placeholder="Service name"
+                placeholder=""
                 error={errors?.name}
               />
             }
@@ -93,7 +99,7 @@ export const Layout = ({
               <InputText
                 form={form}
                 name="description"
-                placeholder="Description"
+                placeholder=""
                 style={{ height: scaleHeight(79), alignItems: 'flex-start', paddingTop: scaleHeight(8) }}
                 multiline={true}
               />
@@ -212,6 +218,33 @@ export const Layout = ({
               />
             }
           />
+
+          <Text style={styles.txtExtra}>Extra</Text>
+          <CustomInput
+            label='Select exist extras'
+            renderInput={() =>
+              <TouchableOpacity onPress={selectExtraExist} style={styles.wrapInput}>
+                <Text style={styles.valueExtraSelected}>
+                  {extraList.filter(ex=>ex.checked).length == 0 ? 
+                  "No extra selected" : 
+                  `${extraList.filter(ex=>ex.checked).length} extras selected`}
+                </Text>
+                <Image
+                  style={styles.iconDropDown}
+                  source={images.dropdown}
+                  resizeMode='contain'
+                />
+              </TouchableOpacity>
+            }
+          />
+          <IconButton
+            icon={images.iconAddMore}
+            iconStyle={styles.iconAddMore}
+            style={styles.buttonAddMore}
+            renderText={() => <Text style={styles.txtAddNewExtra}>Add new extra</Text>}
+            onPress={newExtra}
+          />
+          <View style={{ height: scaleHeight(100) }} />
         </KeyboardAwareScrollView>
       </SingleScreenLayout>
       <View style={styles.bottom}>
@@ -306,6 +339,49 @@ const styles = StyleSheet.create({
   imageUpload: {
     width: '100%',
     height: '100%'
-  }
+  },
 
+  txtExtra: {
+    fontSize: scaleFont(17),
+    fontFamily: fonts.BOLD,
+    color: colors.ocean_blue,
+    marginBottom: scaleHeight(16)
+  },
+
+  iconAddMore: {
+    width: scaleWidth(18),
+    height: scaleWidth(18),
+    marginRight: scaleWidth(8)
+  },
+
+  buttonAddMore: {
+
+  },
+
+  txtAddNewExtra: {
+    fontSize: scaleFont(17),
+    fontFamily: fonts.REGULAR,
+    color: colors.ocean_blue,
+  },
+
+  wrapInput: {
+    width: '100%',
+    height: scaleWidth(42),
+    borderWidth: 1,
+    borderColor: '#cccccc',
+    borderRadius: 3,
+    paddingHorizontal: scaleWidth(10),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  iconDropDown: {
+    width: scaleWidth(12),
+    height: scaleWidth(12),
+    resizeMode: 'contain'
+  },
+  valueExtraSelected: {
+    fontSize: scaleFont(16),
+    fontFamily: fonts.REGULAR,
+  }
 });

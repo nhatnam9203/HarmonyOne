@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, StyleSheet, Text, TouchableOpacity, View, Pressable } from 'react-native';
 import { colors, fonts, images, layouts } from '@shared/themes';
 import { formatPhoneNumber } from '@shared/utils';
 import { getCustomerInfoById, useAxiosQuery } from "@src/apis";
@@ -13,6 +13,7 @@ export const CustomerInfoView = ({
   lastName,
   phoneNumber,
   onPress,
+  isButtonRight = true,
 }) => {
   const dispatch = useDispatch();
 
@@ -21,8 +22,12 @@ export const CustomerInfoView = ({
     isLoadingDefault: true,
     enabled: false,
     onSuccess: (data, response) => {
-      dispatch(customerAction.setCustomerDetail(data));
-      NavigationService.navigate(screenNames.CustomerDetailScreen);
+      if(response?.codeNumber == 200){
+        dispatch(customerAction.setCustomerDetail(data));
+        NavigationService.navigate(screenNames.CustomerDetailScreen);
+      }else{
+        alert(response?.message)
+      }
     },
   });
 
@@ -35,7 +40,7 @@ export const CustomerInfoView = ({
   }
 
   return (
-    <TouchableOpacity onPress={onPressItem} style={styles.container}>
+    <Pressable onPress={onPressItem} style={styles.container}>
       <View style={styles.avatar}>
         <Text style={styles.avatarText}>{firstName?.charAt(0)?.toUpperCase()}</Text>
       </View>
@@ -44,8 +49,8 @@ export const CustomerInfoView = ({
         <Text style={styles.textName}>{`${firstName} ${lastName}`}</Text>
         <Text style={styles.textPhone}>{`${formatPhoneNumber(phoneNumber)}`}</Text>
       </View>
-      <Image source={images.iconArrow} style={styles.arrow} />
-    </TouchableOpacity>
+      {isButtonRight && <Image source={images.iconArrow} style={styles.arrow} />}
+    </Pressable>
   );
 };
 

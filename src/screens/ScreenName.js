@@ -28,6 +28,7 @@ const ScreenNames = {
   MarketingNewScreen : 'hpo.marketing.new',
   Campaigns : 'hpo.campaigns',
   MarketPlace : 'hpo.marketplace',
+  CheckoutTabScreen : 'hpo.checkoutTab',
   CheckoutScreen : 'hpo.checkout',
   SelectService : 'hpo.appointment.booking.selectService',
   SelectServiceDetail : 'hpo.appointment.booking.selectService.detail',
@@ -41,6 +42,10 @@ const ScreenNames = {
   StaffScreen : 'hpo.staff',
   StaffNewScreen : 'hpo.staff.new',
   BusinessInformationScreen : 'hpo.businessInformation',
+  ExtraSelectScreen : "hpo.extra.select",
+  AddTipPage : "hpo.addTip",
+  ApplyDiscountPage : "hpo.applyDiscount",
+  PaymentPage : "hpo.payment",
 };
 
 module.exports = { ScreenNames };

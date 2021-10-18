@@ -6,13 +6,12 @@ import { addAppointment, useAxiosMutation, getBlockTimeByDate, useAxiosQuery, up
 import { dateToFormat } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
 
-
 export const useProps = (_params) => {
-
   const dispatch = useDispatch();
+  const dialogBookingRef = React.useRef();
 
   const {
-    bookAppointment: { customerBooking = {}, servicesBooking = [], extrasBooking = [], dayBooking, timeBooking },
+    bookAppointment: { customerBooking = {}, servicesBooking = [], extrasBooking = [], dayBooking, timeBooking, isQuickCheckout },
     appointment: { appointmentDate },
     auth: { staff }
   } = useSelector(state => state);
@@ -28,10 +27,12 @@ export const useProps = (_params) => {
 
   const [, submitAddAppointment] = useAxiosMutation({
     ...addAppointment(),
-    onSuccess: (data, response) => {
+    onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
-        fetchBlockTimes();
-        NavigationService.navigate(screenNames.AppointmentScreen);
+        const appointmentId = response?.data;
+        const data = getDataUpdate();
+        const body = await updateAppointment(appointmentId, data);
+        submitUpdateAppointment(body.params);
       }
     }
   });
@@ -40,11 +41,25 @@ export const useProps = (_params) => {
     ...updateAppointment(),
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
-        // fetchBlockTimes();
-        // NavigationService.navigate(screenNames.AppointmentScreen);
+        fetchBlockTimes();
+        dialogBookingRef?.current?.show();
       }
     }
   });
+
+  const getDataUpdate = () => {
+    const data = {
+      staffId: servicesBooking[0].staffId,
+      fromTime: `${dayBooking} ${timeBooking}`,
+      status: isQuickCheckout ? "checkin" : "confirm",
+      categories: [],
+      services: servicesBooking,
+      extras: extrasBooking.map(ex => ({ ...ex, status: 1 })),
+      products: [],
+      giftCards: []
+    };
+    return data;
+  }
 
   return {
     customerBooking,
@@ -52,6 +67,7 @@ export const useProps = (_params) => {
     extrasBooking,
     dayBooking,
     timeBooking,
+    dialogBookingRef,
 
     getTotalItem: (service, itemType) => {
       let total = 0;
@@ -112,26 +128,30 @@ export const useProps = (_params) => {
 
     addMore: () => {
       NavigationService.navigate(screenNames.SelectService, { isAddMore: true });
+      dispatch(bookAppointment.updateStatusAddMore(true));
     },
 
     confirm: async () => {
+
       const data = {
         staffId: servicesBooking[0].staffId,
         merchantId: staff?.merchantId,
         userId: 0,
         customerId: customerBooking?.customerId,
         fromTime: `${dayBooking} ${timeBooking}`,
-        status: "checkin",
+        status: isQuickCheckout ? "checkin" : "confirm",
         categories: [],
-        services: servicesBooking,
-        extras: extrasBooking,
+        services: [],
+        extras: [],
         products: [],
       }
 
-      console.log({ data });
-
       const body = await addAppointment(data);
       submitAddAppointment(body.params);
+    },
+
+    onOK: () => {
+      NavigationService.navigate(screenNames.AppointmentScreen);
     }
   };
 };

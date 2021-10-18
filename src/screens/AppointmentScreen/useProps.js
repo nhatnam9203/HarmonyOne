@@ -10,11 +10,12 @@ import {
   getBlockTimeByDate,
   getAppointmentById,
   getMerchantById,
+  getCountUnReadOfNotification
 } from '@src/apis';
 
 import { useNavigation } from '@react-navigation/core';
 import { useDispatch, useSelector } from "react-redux";
-import { service, product, category, extra, staff, appointment, bookAppointment, merchant } from '@redux/slices';
+import { service, product, category, extra, staff, appointment, bookAppointment, merchant, notification } from '@redux/slices';
 import { dateToFormat } from "@shared/utils";
 import moment from "moment";
 import NavigationService from '@navigation/NavigationService';
@@ -29,6 +30,7 @@ export const useProps = (_params) => {
   const [blockTimesVisibile, setBlockTimesVisible] = React.useState([]);
   const [appointmentDetailId, setAppointmentDetailId] = React.useState("");
   const [isRefresh, setRefresh] = React.useState(false);
+  const [firstLoading, setFirstLoading] = React.useState(true);
 
   const {
     staff: { staffsByDate = [] },
@@ -39,10 +41,20 @@ export const useProps = (_params) => {
   const setDate = (date) => {
     if (dateToFormat(date, "MM/DD/YYYY") == dateToFormat(appointmentDate, "MM/DD/YYYY")) {
       fetchBlockTimes();
+      fetchStaffByDate();
     } else {
       dispatch(appointment.setAppointmentDate(date));
     }
   }
+
+  const [, fetchCountUnread] = useAxiosQuery({
+    ...getCountUnReadOfNotification(),
+    enabled: false,
+    isLoadingDefault: false,
+    onSuccess: (data, response) => {
+      dispatch(notification.setCountUnread(data));
+    },
+  });
 
   const [, fetchAppointmentById] = useAxiosQuery({
     ...getAppointmentById(appointmentDetailId),
@@ -91,15 +103,16 @@ export const useProps = (_params) => {
     },
   });
 
-  const [,] = useAxiosQuery({
+  const [,fetchStaffByDate] = useAxiosQuery({
     ...getStaffByDate(staffInfo?.merchantId, dateToFormat(appointmentDate, "MM/DD/YYYY")),
     enabled: true,
     onSuccess: (data, response) => {
       dispatch(staff.setStaffByDate(data));
+      setFirstLoading(false)
     },
   });
 
-  const [, fetchBlockTimes] = useAxiosQuery({
+  const [{ isLoading }, fetchBlockTimes] = useAxiosQuery({
     ...getBlockTimeByDate(dateToFormat(appointmentDate, "MM/DD/YYYY")),
     enabled: true,
     onSuccess: (data, response) => {
@@ -155,6 +168,7 @@ export const useProps = (_params) => {
     getProductList();
     getExtraList();
     fetchMerchantById();
+    fetchCountUnread();
   }, []);
 
 
@@ -168,6 +182,7 @@ export const useProps = (_params) => {
     setVisibleDatePicker,
     staffSelected,
     isRefresh,
+    isLoading : firstLoading ,
 
     onRefresh: () => {
       setRefresh(true);

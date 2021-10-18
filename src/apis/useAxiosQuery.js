@@ -31,7 +31,7 @@ export const useAxiosQuery = ({
       retry: false,
       onSuccess: (response) => {
         dispatch(app?.hideLoading());
-        if (response.data) {
+        if (response?.codeNumber == 200 || response?.codeNumber == 404 || response?.codeNumber == 201) {
           if (onSuccess && typeof onSuccess === 'function') {
             onSuccess(response.data, response);
           }

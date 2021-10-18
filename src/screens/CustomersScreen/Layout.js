@@ -18,6 +18,8 @@ export const Layout = ({
     currentPage,
     isBookAppointment,
     isReviewConfirm,
+    isQuickCheckout,
+
     onChangeSearch,
     newCustomer,
     loadMoreCustomerList,
@@ -33,7 +35,7 @@ export const Layout = ({
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={isBookAppointment ? t('New Appointment') : t('Customers')}
+                pageTitle={isBookAppointment ? t('New Appointment') : isQuickCheckout ? t("Add customer") : t('Customers')}
                 isLeft={!isBookAppointment}
                 isRight={isBookAppointment}
                 headerRightComponent={() =>
@@ -64,6 +66,7 @@ export const Layout = ({
                         renderItem={({ item }) =>
                             <ItemCustomer
                                 isBookAppointment={isBookAppointment}
+                                isQuickCheckout={isQuickCheckout}
                                 isReviewConfirm={isReviewConfirm}
                                 item={item}
                                 refreshFromScreen={refreshFromScreen}

@@ -19,6 +19,8 @@ export const useProps = ({
   const serviceRef = React.useRef(); // detect go back;
   const extrasRef = React.useRef();
 
+  const inputPriceRef = React.useRef();
+
 
   const { bookAppointment: {
     servicesBooking = [],
@@ -28,10 +30,15 @@ export const useProps = ({
   const [durationService, setDurationService] = React.useState(0);
   const [extrasService, setExtrasService] = React.useState([]);
 
+  const [price, setPrice] = React.useState("");
+  const [isEditPrice, setStatusEditPrice] = React.useState(false);
+
+
 
   React.useEffect(() => {
 
     if (!isEditItem) {
+      setPrice(item?.price);
       let extras = item?.extras || [];
       extras = extras.map(ex => ({ ...ex, checked: false, serviceId: item?.serviceId }))
       setExtrasService(extras);
@@ -55,14 +62,15 @@ export const useProps = ({
 
       setExtrasService(extras);
       setDurationService(item?.duration);
+      setPrice(item?.price);
 
     }
 
     const unsubscribe = navigation.addListener('focus', () => {
       if (serviceRef?.current) {
-        console.log({ durationService, serviceRef: serviceRef.current })
-        console.log('------ 1 ----------')
+        console.log("----- on back ----")
         setDurationService(serviceRef?.current?.duration);
+        setPrice(serviceRef?.current?.price);
       }
     });
 
@@ -71,9 +79,17 @@ export const useProps = ({
 
 
   const editService = () => {
-    const itemServiceEdit = {
+    let itemServiceEdit = {
       service: serviceRef.current,
-      duration: durationService
+      duration: durationService,
+      price,
+    }
+    if (isEditItem) {
+      itemServiceEdit = {
+        service: item,
+        duration: durationService,
+        price,
+      }
     }
     dispatch(bookAppointment.editService(itemServiceEdit));
     dispatch(bookAppointment.updateExtrasBooking(extrasService));
@@ -91,7 +107,8 @@ export const useProps = ({
     let temp = [...servicesBooking];
     const tempItem = {
       ...item,
-      duration: durationService
+      duration: durationService,
+      price
     };
     serviceRef.current = tempItem;
     temp.push(tempItem);
@@ -123,6 +140,11 @@ export const useProps = ({
     extrasService,
     isEditItem,
     servicesBooking,
+    price,
+    isEditPrice,
+    setStatusEditPrice,
+    setPrice,
+    inputPriceRef,
 
     goToSelectStaff: () => {
       fetchStaffAvaiable();

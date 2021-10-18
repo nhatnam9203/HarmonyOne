@@ -11,6 +11,7 @@ export const useProps = (props) => {
   const dispatch = useDispatch();
 
   const isBookAppointment = props?.route?.params?.isBookAppointment;
+  const isQuickCheckout = props?.route?.params?.isQuickCheckout;
   const isReviewConfirm = props?.route?.params?.isReviewConfirm;
 
 
@@ -60,6 +61,7 @@ export const useProps = (props) => {
     currentPage,
     isBookAppointment,
     isReviewConfirm,
+    isQuickCheckout,
 
     refreshFromScreen,
 

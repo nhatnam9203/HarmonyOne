@@ -1,20 +1,21 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { images, colors, fonts } from "@shared/themes";
 import { CustomImage } from "@shared/components";
 import { slop } from "@shared/utils";
 import { View } from 'react-native-animatable';
-import { Title } from "./Title";
+import { Title } from "../../Title";
+import NavigationService from '@navigation/NavigationService';
 
 export const Banners = ({
     banners = [],
 }) => {
     return (
         <View style={styles.container}>
-            <Title text="Photos" />
+            <Title text="Photos" onEdit={()=>{ NavigationService.navigate("PhotoEdit") }} />
             {
                 banners.map((banner) => (
-                    <Image
+                    <CustomImage
                         source={{ uri : banner?.imageUrl }}
                         key={banner?.merchantBannerId + "merchantBannerId"}
                         style={styles.banner}
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
     },
     banner : {
         width : scaleWidth(375-32),
-        height : scaleWidth(375-32-70)
+        height : scaleWidth(375-32-70),
+        marginBottom : scaleHeight(12)
     }
 });

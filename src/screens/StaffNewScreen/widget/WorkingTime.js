@@ -8,7 +8,7 @@ import CheckBox from "@react-native-community/checkbox";
 import Title from "./Title"
 import moment from 'moment';
 
-const WorkingTime = React.forwardRef(({ }, ref) => {
+const WorkingTime = React.forwardRef(({ renderTitle = null }, ref) => {
 
     const [data, setData] = React.useState(workingTimesData);
     const [elRefs, setElRefs] = React.useState([]);
@@ -51,7 +51,7 @@ const WorkingTime = React.forwardRef(({ }, ref) => {
         <View style={{ marginBottom: scaleHeight(16), marginTop: scaleHeight(12) }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <View style={{ marginBottom: scaleHeight(24) }}>
-                    <Title text="Working time" />
+                    {renderTitle ? renderTitle() : <View />}
                 </View>
                 <TouchableOpacity onPress={setAllChecked}>
                     <Text style={styles.applyToAll}>Apply to all</Text>

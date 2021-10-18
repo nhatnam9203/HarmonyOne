@@ -2,7 +2,16 @@ import React from 'react';
 import { colors } from '@shared/themes';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from "react-redux";
-import { updateAppointmentStatusRequest, getBlockTimeByDate, useAxiosMutation, useAxiosQuery, getAppointmentById } from "@src/apis";
+import {
+  updateAppointmentStatusRequest,
+  getBlockTimeByDate,
+  useAxiosMutation,
+  useAxiosQuery,
+  getAppointmentById,
+  getGroupAppointmentById,
+  getPromotionAppointment,
+} from "@src/apis";
+
 import { APPOINTMENT_STATUS, getColorForStatus, dateToFormat } from '@shared/utils';
 import { appointment } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
@@ -59,14 +68,6 @@ export const useProps = ({
   });
 
 
-  const [, fetchBlockTimes] = useAxiosQuery({
-    ...getBlockTimeByDate(dateToFormat(appointmentDate, "MM/DD/YYYY")),
-    enabled: false,
-    onSuccess: (data, response) => {
-      dispatch(appointment.setBlockTimeBydate(data));
-    },
-  });
-
   React.useEffect(() => {
     if (item) {
       setAppointmentItem(item);
@@ -101,9 +102,8 @@ export const useProps = ({
   }, [item]);
 
   const checkOut = () => {
-
+    NavigationService.navigate(screenNames.CheckoutScreen);
   }
-
 
   return {
     appointmentItem,

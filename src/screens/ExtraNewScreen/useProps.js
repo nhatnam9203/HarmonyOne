@@ -27,7 +27,6 @@ export const useProps = (props) => {
     ...addNewExtra(),
     isLoadingDefault: true,
     onSuccess: (data, response) => {
-      console.log({ response });
       if (response?.codeNumber == 200) {
         props?.route?.params?.refreshList();
         back();

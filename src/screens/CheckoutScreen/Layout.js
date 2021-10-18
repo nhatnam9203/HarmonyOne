@@ -1,48 +1,61 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { IconButton, ItemSelect } from "@shared/components";
+import { Button, CustomInput, InputText, IconButton, DropdownMenu, CustomerInfoView } from "@shared/components";
 import { fonts, colors, images } from '@shared/themes';
+import { ItemList } from "./ItemList";
+import { TotalView } from "./TotalView";
+import NavigationService from '@navigation/NavigationService';
 
 export const Layout = ({
-
+  appointmentDetail,
+  selectPayment
 }) => {
 
   const [t] = useTranslation();
 
+  const back = () => {
+    NavigationService.back();
+  }
+
+  //screen này xư lý button back quay ra màn hinh home
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Checkout')}
-        isRight={true}
-        isLeft={false}
+        pageTitle={t('Check out')}
+        isRight={false}
+        isLeft={true}
         isScrollLayout={false}
-        containerStyle={{ paddingVertical: 0 }}
-        headerRightComponent={() =>
-          <IconButton
-            onPress={() => { }}
-            icon={images.iconBell}
-            iconStyle={styles.icon}
-            style={styles.button}
-          />
-        }
       >
         <View style={styles.content}>
-          <ItemSelect
-            title={t('Walking customer')}
-            icon={images.checkout_customer_icon}
-            iconRight={images.plus}
-            iconRightStyle={styles.iconPlus}
-            iconLeftStyle={styles.iconWalking}
-            textStyle={{ fontSize : scaleFont(18) }}
-            onPress={() => { }}
+          <View style={styles.customerInfoView}>
+            <CustomerInfoView
+              customerId={appointmentDetail?.customerId}
+              firstName={appointmentDetail?.firstName}
+              lastName={appointmentDetail?.lastName}
+              phoneNumber={appointmentDetail?.phoneNumber}
+              isButtonRight={false}
+            />
+          </View>
+          <ItemList
+            services={appointmentDetail?.services || []}
+            extras={appointmentDetail?.extras || []}
+            products={appointmentDetail?.products || []}
+            giftCards={appointmentDetail?.giftCards || []}
           />
-          <IconButton 
-            icon={images.plus}
-            style={styles.rowReverse}
-            iconStyle={styles.iconPlus}
-            renderText={()=><Text style={styles.addService}>Add services</Text>}
+          <TotalView
+            appointmentDetail={appointmentDetail}
+          />
+        </View>
+
+        <View style={styles.bottom}>
+          <Button
+            onPress={selectPayment}
+            height={scaleHeight(48)}
+            width='100%'
+            label={t('Select payment')}
+            highlight={true}
           />
         </View>
       </SingleScreenLayout>
@@ -55,48 +68,29 @@ export const Layout = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor : colors.white
+    backgroundColor: colors.white,
   },
-
   content: {
     flex: 1,
+    position: 'relative',
   },
-
   icon: {
-    tintColor: "#7B99BA",
-    width: scaleHeight(20),
-    height: scaleHeight(20),
+    width: scaleWidth(30),
+    height: scaleWidth(30),
+    tintColor: "#333"
   },
-
   button: {
     height: '100%',
-    width: scaleWidth(35),
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
+  },
+  bottom: {
+    paddingHorizontal: scaleWidth(16),
+    paddingBottom: scaleHeight(8)
   },
 
-  iconPlus : {
-    width : scaleWidth(16),
-    height: scaleWidth(16),
-    tintColor : colors.ocean_blue
-  },
-
-  iconWalking : {
-    width : scaleWidth(28),
-    height: scaleWidth(28),
-  },
-
-  addService : {
-    fontSize : scaleFont(17),
-    color : colors.ocean_blue,
-    fontFamily : fonts.MEDIUM,
-  },
-
-  rowReverse : {
-    justifyContent : 'space-between', 
-    flexDirection: 'row-reverse', 
-    padding : scaleWidth(20),
+  customerInfoView: {
     borderBottomWidth: 1,
-    borderBottomColor: '#eeeeee'
+    borderBottomColor: "#eeeeee",
+    paddingHorizontal: scaleWidth(16),
   }
 });

@@ -136,12 +136,12 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 2.84,
         elevation: 5,
-        width: scaleWidth(55),
-        height: scaleWidth(55)
+        width: scaleWidth(48),
+        height: scaleWidth(48)
     },
     iconPlus: {
-        width: 25,
-        height: 25,
+        width: 18,
+        height: 18,
         tintColor: 'white',
     },
     btnAdd: {

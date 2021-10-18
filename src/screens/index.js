@@ -27,6 +27,7 @@ import { NotificationScreen } from "./NotificationScreen";
 import { ReviewScreen } from "./ReviewScreen";
 import { MarketingScreen } from "./MarketingScreen";
 import { MarketingNewScreen } from "./MarketingNewScreen";
+import { CheckoutTabScreen } from "./CheckoutTabScreen";
 import { CheckoutScreen } from "./CheckoutScreen";
 import { ExtraScreen } from "./ExtraScreen";
 import { ExtraNewScreen } from "./ExtraNewScreen";
@@ -35,7 +36,10 @@ import { ProductNewScreen } from "./ProductNewScreen";
 import { StaffScreen } from "./StaffScreen";
 import { StaffNewScreen } from "./StaffNewScreen";
 import { BusinessInformationScreen } from "./BusinessInformationScreen";
-
+import { ExtraSelectScreen } from "./ExtraScreen/pages/ExtraSelectScreen";
+import { AddTipPage } from "./CheckoutScreen/pages";
+import { ApplyDiscountPage } from "./CheckoutScreen/pages";
+import { PaymentPage } from "./CheckoutScreen/pages/PaymentPage";
 
 module.exports = {
   ForgotPincode,
@@ -65,6 +69,7 @@ module.exports = {
   ReviewScreen,
   MarketingScreen,
   MarketingNewScreen,
+  CheckoutTabScreen,
   CheckoutScreen,
   ExtraScreen,
   ExtraNewScreen,
@@ -72,5 +77,9 @@ module.exports = {
   ProductNewScreen,
   StaffScreen,
   StaffNewScreen,
-  BusinessInformationScreen
+  BusinessInformationScreen,
+  ExtraSelectScreen,
+  AddTipPage,
+  ApplyDiscountPage,
+  PaymentPage,
 };

@@ -9,13 +9,15 @@ import { ProductPage } from "./ProductPage";
 const { Navigator, Screen } = createMaterialTopTabNavigator();
 
 export const Layout = ({
-  isAddMore
+  isAddMore,
+  onBack,
 }) => {
   return (
     <View style={styles.container}>
       <HeaderBooking
         step={1}
         title={'Select Services & Product'}
+        onPressBack={onBack}
       />
       <View style={styles.content}>
         <Navigator

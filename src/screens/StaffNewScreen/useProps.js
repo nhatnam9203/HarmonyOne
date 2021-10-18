@@ -213,7 +213,7 @@ export const useProps = (props) => {
         tipFee,
         cellPhone: values.phone ? values.phone : "",
         cellPhone: values.phone ? `${phoneHead}${values.phone}` : "",
-        isActive: true,
+        isActive: isEdit ? staffEdit?.isActive  : true,
         merchantId: staff?.merchantId
       }
 

@@ -2,13 +2,12 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { IconButton, ItemSelect } from "@shared/components";
+import { IconButton, ItemSelect, NotificationIcon } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { items } from "./Items";
 
 export const Layout = ({
-  goToNotification,
 }) => {
 
   const [t] = useTranslation();
@@ -21,12 +20,7 @@ export const Layout = ({
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
         headerRightComponent={() =>
-          <IconButton
-            icon={images.iconBell}
-            iconStyle={styles.iconBell}
-            style={styles.buttonBell}
-            onPress={goToNotification}
-          />
+          <NotificationIcon />
         }
       >
         <View style={styles.content}>

@@ -9,6 +9,8 @@ const initialState = {
     appointmentDate : moment(),
     appointmentDetail: {},
     blockTimes: [],
+    groupAppointments : [],
+    promotionAppointment : [],
 };
 
 const appointmentSlice = createSlice({
@@ -26,6 +28,12 @@ const appointmentSlice = createSlice({
         },
         setAppointmentDate : (state, action) =>{
             state.appointmentDate = action.payload;
+        },
+        setGroupAppointment : (state , action) =>{
+            state.groupAppointments = action.payload;
+        },
+        setPromotionAppointment : (state , action) =>{
+            state.promotionAppointment = action.payload;
         }
     },
 });

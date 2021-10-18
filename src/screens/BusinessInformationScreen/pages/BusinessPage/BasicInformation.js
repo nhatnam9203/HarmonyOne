@@ -4,7 +4,8 @@ import { images, colors, fonts } from "@shared/themes";
 import { CustomInput } from "@shared/components";
 import { slop } from "@shared/utils";
 import { View } from 'react-native-animatable';
-import { Title } from "./Title";
+import { Title } from "../../Title";
+import NavigationService from '@navigation/NavigationService';
 
 export const BasicInformation = ({
     text = "Personal Info",
@@ -16,14 +17,14 @@ export const BasicInformation = ({
 }) => {
 
     const openLinkWebsite = () => {
-        if(webLink){
+        if (webLink) {
             Linking.openURL(webLink)
         }
     }
 
     return (
         <View style={styles.container}>
-            <Title text="Basic Informations" />
+            <Title text="Basic Informations" onEdit={() => { alert("Api chưa mở role edit basic information cho token staff ") }} />
 
             <CustomInput
                 label='Business name'
@@ -48,7 +49,7 @@ export const BasicInformation = ({
                 label='Website'
                 renderInput={() =>
                     <TouchableOpacity onPress={openLinkWebsite}>
-                        <Text style={[styles.txtItem, { color: colors.ocean_blue, marginBottom: scaleHeight(16), fontFamily: fonts.REGULAR, textDecorationLine: 'underline' }]}>
+                        <Text style={[styles.txtItem, { color: "#19A9EC", marginBottom: scaleHeight(16), fontFamily: fonts.REGULAR, textDecorationLine: 'underline' }]}>
                             {webLink}
                         </Text>
                     </TouchableOpacity>
@@ -65,6 +66,6 @@ const styles = StyleSheet.create({
     txtItem: {
         fontSize: scaleFont(17),
         fontFamily: fonts.MEDIUM,
-        color : "#404040"
+        color: "#404040"
     }
 });

@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { IconButton } from "@shared/components";
 import { images, colors, fonts } from "@shared/themes";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector } from "react-redux";
 import { bookAppointment } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 
@@ -16,6 +16,8 @@ const HeaderBooking = ({
     const dispatch = useDispatch();
 
     const insets = useSafeAreaInsets();
+
+    const { bookAppointment: { isQuickCheckout } } = useSelector(state => state);
 
     const onGoBack = () => {
         if(onPressBack) onPressBack();
@@ -46,7 +48,7 @@ const HeaderBooking = ({
 
                 <View style={styles.headerCenterContent}>
                     <Text style={[styles.headTitle, { color: colors.white }]}>
-                        {'New appointment'}
+                        {isQuickCheckout ? 'Check out' : 'New appointment'}
                     </Text>
                 </View>
 

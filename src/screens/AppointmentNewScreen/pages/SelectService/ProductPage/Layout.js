@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, FlatList, Pressable, SectionList } from 'react-native';
 import { colors, fonts } from "@shared/themes";
+import { ListEmptyComponent } from "@shared/components";
 import { useSelector, useDispatch } from "react-redux";
 import { ServiceItem } from "../../../widgets";
 
@@ -21,24 +22,27 @@ export const Layout = ({
     return (
         <View style={styles.container}>
             <View>
-                <FlatList
-                    ref={categoryRef}
-                    style={styles.categoryList}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                    data={categoryList}
-                    keyExtractor={item => item?.categoryId?.toString() + "serviceCategory"}
-                    renderItem={({ item }) =>
-                        <Pressable
-                            onPress={() => selectCategory(item?.categoryId)}
-                            style={styles.itemCategory(categorySelected, item?.categoryId)}
-                        >
-                            <Text style={styles.txtItemCategory(categorySelected, item?.categoryId)}>
-                                {item?.name}
-                            </Text>
-                        </Pressable>
-                    }
-                />
+                {
+                    categoryList.length > 0 &&
+                    <FlatList
+                        ref={categoryRef}
+                        style={styles.categoryList}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        data={categoryList}
+                        keyExtractor={item => item?.categoryId?.toString() + "serviceCategory"}
+                        renderItem={({ item }) =>
+                            <Pressable
+                                onPress={() => selectCategory(item?.categoryId)}
+                                style={styles.itemCategory(categorySelected, item?.categoryId)}
+                            >
+                                <Text style={styles.txtItemCategory(categorySelected, item?.categoryId)}>
+                                    {item?.name}
+                                </Text>
+                            </Pressable>
+                        }
+                    />
+                }
             </View>
 
             <View style={styles.lineHeader} />
@@ -61,6 +65,7 @@ export const Layout = ({
                             </Text>
                         )
                     }}
+                    ListEmptyComponent={() => <ListEmptyComponent description={"No Product"} />}
                     ListFooterComponent={() => <View style={{ height: scaleHeight(300) }} />}
                 />
             </View>

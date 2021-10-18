@@ -37,7 +37,7 @@ const persistConfig = {
   key: 'root',
   version: 1.0,
   storage: AsyncStorage,
-  blacklist: ['app', 'auth', 'bookAppointment', 'appointment'],
+  blacklist: ['app', 'auth', 'bookAppointment', 'appointment', 'notification'],
   debug: __DEV__, //to get useful logging
 };
 

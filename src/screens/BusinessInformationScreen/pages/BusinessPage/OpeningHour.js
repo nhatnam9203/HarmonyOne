@@ -4,16 +4,17 @@ import { images, colors, fonts } from "@shared/themes";
 import { CustomInput } from "@shared/components";
 import { slop } from "@shared/utils";
 import { View } from 'react-native-animatable';
-import { Title } from "./Title";
+import { Title } from "../../Title";
+import NavigationService from '@navigation/NavigationService';
 
 export const OpeningHour = ({
     businessHour
 }) => {
     return (
         <View style={styles.container}>
-            <Title text="Opening hour" />
+            <Title text="Opening hour" onEdit={()=>{ NavigationService.navigate("OpeningHourEdit") }} />
             {
-                Object.entries(businessHour).map((obj,index) => {
+                businessHour && Object.entries(businessHour).map((obj,index) => {
                     return (
                         <View key={obj[0] +"businessHour"} style={styles.row}>
                             <Text style={styles.txt}>{obj[0]}</Text>

@@ -138,7 +138,7 @@ export const appointmentByIDRequest = (appointmentId) => ({
   },
 });
 
-export const updateAppointment = (appointmentId,data) => ({
+export const updateAppointment = (appointmentId, data) => ({
   queryId: 'updateAppointment',
   params: {
     url: `/appointment/${appointmentId}`,
@@ -181,6 +181,15 @@ export const addAppointment = (data) => ({
     data,
   },
 });
+
+export const getGroupAppointmentById = (appointmentId) => ({
+  queryId: 'getGroupAppointmentById',
+  params: {
+    url: `appointment/getGroupById/${appointmentId}`,
+    method: 'GET',
+  },
+});
+
 
 /**
  * BLOCK TIMES
@@ -361,7 +370,7 @@ export const editProduct = (data, productId) => ({
   },
 });
 
-export const exportProduct = (merchantId,isNeedToOrder,exportType) => ({
+export const exportProduct = (merchantId, isNeedToOrder, exportType) => ({
   queryId: 'exportProduct',
   params: {
     url: `product/export?merchantId=${merchantId}&isNeedToOrder=${isNeedToOrder}&type=${exportType}`,
@@ -477,4 +486,51 @@ export const getMerchantById = (merchantId) => ({
   }
 });
 
+
+
+/**
+ * NOTIFICATION
+ */
+
+export const getNotification = (page) => ({
+  queryId: 'getNotification',
+  params: {
+    url: `notification?page=${page}&row=20`,
+    method: 'GET',
+  }
+});
+
+export const getCountUnReadOfNotification = () => ({
+  queryId: 'getCountUnReadOfNotification',
+  params: {
+    url: `notification/countUnRead?api-version=2.0`,
+    method: 'GET',
+  }
+});
+
+export const maskNotiAsReadById = (notiId) => ({
+  queryId: 'maskNotiAsReadById',
+  params: {
+    url: `notification/view/${notiId}`,
+    method: 'PUT',
+    data : {}
+  }
+});
+
+export const readAllNotification = (page) => ({
+  queryId: 'readAllNotification',
+  params: {
+    url: `notification/view/all`,
+    method: 'PUT',
+    data : {}
+  }
+});
+
+export const getPromotionAppointment = (appointmentId) => ({
+  queryId: 'getPromotionAppointment',
+  params: {
+    url: `appointment/promotion/${appointmentId}`,
+    method: 'GET',
+  }
+});
 

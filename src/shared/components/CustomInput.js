@@ -11,10 +11,11 @@ export const CustomInput = React.forwardRef(({
     labelStyle,
     style,
     renderRight = null,
+    containerStyle
 }, ref) => {
 
     return (
-        <View style={styles.containerInput}>
+        <View style={[styles.containerInput,containerStyle]}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <View style={[{ flexDirection: 'row' }, style]}>
                     <Text style={[styles.label, labelStyle]}>

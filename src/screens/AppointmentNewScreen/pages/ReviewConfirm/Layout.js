@@ -3,7 +3,7 @@ import { View, StyleSheet, FlatList, Text, TouchableOpacity, Image } from 'react
 import { colors, fonts, images } from "@shared/themes";
 import { Button, CustomerInfoView } from "@shared/components";
 import { HeaderBooking } from "../../widgets";
-import { AppointmentServiceItem, AppointmentTimeView, TotalView, IconButton } from '@shared/components';
+import { AppointmentServiceItem, AppointmentTimeView, TotalView, IconButton, DialogBookingSuccess } from '@shared/components';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { ButtonAddNote } from "./ButtonAddNote";
 import NavigationService from '@navigation/NavigationService';
@@ -24,6 +24,8 @@ export const Layout = ({
   changeDateTime,
   addMore,
   confirm,
+  dialogBookingRef,
+  onOK
 }) => {
 
 
@@ -129,6 +131,10 @@ export const Layout = ({
           />
         </View>
       </View>
+      <DialogBookingSuccess
+        ref={dialogBookingRef}
+        onConfirmYes={() => onOK()}
+      />
     </View>
   );
 };
@@ -200,6 +206,7 @@ const styles = StyleSheet.create({
   },
   iconTrash: {
     width: scaleWidth(30),
-    height: scaleWidth(30)
+    height: scaleWidth(30),
+    tintColor: "white"
   },
 });

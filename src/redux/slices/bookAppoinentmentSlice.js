@@ -12,6 +12,8 @@ const initialState = {
     dayBooking: moment(),
     timeBooking: "",
     notesBooking : "",
+    isAddMore : false,
+    isQuickCheckout : false
 };
 
 const bookAppointmentSlice = createSlice({
@@ -35,11 +37,13 @@ const bookAppointmentSlice = createSlice({
         },
 
         editService: (state, action) => {
-            const { service, duration } = action.payload;
+            const { service, duration, price } = action.payload;
             let tempServices = [...state.servicesBooking];
             const findIndex = tempServices.findIndex(s => s?.serviceId == service?.serviceId);
             if (findIndex !== -1) {
                 tempServices[findIndex].duration = duration;
+                tempServices[findIndex].price = price;
+                console.log({ temp : tempServices[findIndex].price})
                 state.servicesBooking = tempServices;
             } else {
                 return state;
@@ -97,6 +101,14 @@ const bookAppointmentSlice = createSlice({
             state.notesBooking = action.payload;
         },
 
+        updateStatusAddMore : (state,action) =>{
+            state.isAddMore = action.payload;
+        },
+
+        setQuickCheckout : (state, action) =>{
+            state.isQuickCheckout = action.payload;
+        },
+
         resetBooking: (state, action) => {
             state.staffsOfService = [];
             state.timesAvailable = [];
@@ -106,6 +118,8 @@ const bookAppointmentSlice = createSlice({
             state.dayBooking = moment();
             state.timeBooking = "";
             state.notesBooking = "";
+            state.isAddMore = false;
+            state.isQuickCheckout = false;
         }
     },
 });

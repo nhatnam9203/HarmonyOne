@@ -23,11 +23,16 @@ import {
   MarketingNewScreen,
   ExtraScreen,
   ExtraNewScreen,
+  ExtraSelectScreen,
   ProductScreen,
   ProductNewScreen,
   StaffScreen,
   StaffNewScreen,
-  BusinessInformationScreen
+  BusinessInformationScreen,
+  CheckoutScreen,
+  AddTipPage,
+  ApplyDiscountPage,
+  PaymentPage,
 } from '@screens';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
 import { useSelector } from "react-redux";
@@ -38,24 +43,20 @@ const AppStack = () => {
 
   const { staff } = useSelector(state => state.auth);
 
-  if(staff){
+  if (staff) {
     return (
       <Navigator
         headerMode="none"
         screenOptions={{
           headerShown: false,
-  
+
           gestureEnabled: false,
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
         initialRouteName="HpOneHomeStack">
         <Screen name="HpOneHomeStack" component={HPOBottomTabStack} />
         <Screen {...AppointmentDetailScreen} />
-        <Screen {...AppointmentNewScreen}
-          options={{
-            cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
-          }}
-        />
+        <Screen {...AppointmentNewScreen} />
         <Screen {...CustomerNewScreen} />
         <Screen {...CustomerDetailScreen} />
         <Screen {...CustomersScreen} />
@@ -64,7 +65,7 @@ const AppStack = () => {
           options={{
             cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
           }}
-        /> 
+        />
         <Screen {...ServiceNewScreen}
           options={{
             cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
@@ -83,7 +84,12 @@ const AppStack = () => {
         <Screen {...StaffScreen} />
         <Screen {...StaffNewScreen} />
         <Screen {...BusinessInformationScreen} />
-  
+        <Screen {...ExtraSelectScreen} />
+        <Screen {...CheckoutScreen} />
+        <Screen {...AddTipPage} />
+        <Screen {...ApplyDiscountPage} />
+        <Screen {...PaymentPage} />
+
         <Screen name="ChangePincode" component={ChangePincode} />
         <Screen name="ForgotPincode" component={ForgotPincode} />
         <Screen name="FeedBack" component={FeedBack} />

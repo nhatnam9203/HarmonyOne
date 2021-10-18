@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { IconButton, ItemSelect } from "@shared/components";
+import { IconButton, ItemSelect, NotificationIcon } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { items } from "./Items";
@@ -23,12 +23,7 @@ export const Layout = ({
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
         headerRightComponent={() =>
-          <IconButton
-            icon={images.iconBell}
-            iconStyle={styles.iconBell}
-            style={styles.buttonBell}
-            onPress={goToNotification}
-          />
+          <NotificationIcon />
         }
       >
         <View style={styles.content}>
@@ -65,17 +60,5 @@ const styles = StyleSheet.create({
   containerItem: {
     transform: [{ translateY: -scaleWidth(375 / 3.5 / 2 - 15) }],
     flex : 1,
-  },
-  iconBell: {
-    tintColor: "#7B99BA",
-    width: scaleHeight(20),
-    height: scaleHeight(20),
-  },
-
-  buttonBell: {
-    height: '100%',
-    width: scaleWidth(35),
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });

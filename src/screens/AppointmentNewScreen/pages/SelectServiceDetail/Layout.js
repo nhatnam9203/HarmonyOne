@@ -4,6 +4,7 @@ import { colors, fonts, images } from "@shared/themes";
 import { CustomImage, IconButton, Button } from "@shared/components";
 import { ExtraOfService } from './ExtraOfService';
 import { isEmpty } from "lodash";
+import { TextInputMask } from "react-native-masked-text";
 
 
 export const Layout = ({
@@ -17,11 +18,16 @@ export const Layout = ({
   isEditItem,
   goToReview,
   back,
+
+  price,
+  setPrice,
+  isEditPrice,
+  setStatusEditPrice,
 }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.content}>
+      <ScrollView bounces={false} style={styles.content}>
         <View style={styles.containerBigImage}>
           {
             !isEmpty(item?.imageUrl) ?
@@ -47,10 +53,15 @@ export const Layout = ({
 
         <View style={styles.containerDescription}>
           <Text style={styles.servivceName}>{item?.name}</Text>
-          {item?.description !== "" && <Text style={styles.description}>{item?.description}</Text>}
+          {
+            item?.description !== "" && <Text style={styles.description}>
+              {item?.description}
+            </Text>
+          }
         </View>
 
         <View style={styles.containerDuration}>
+          {/******************************* CỘNG TRỪ DURATION ********************************/}
           <View style={styles.rowBetween}>
             <Text style={styles.duration}>Duration (min)</Text>
             <View style={styles.row}>
@@ -75,9 +86,49 @@ export const Layout = ({
             </View>
           </View>
 
+          {/******************************* EDIT PRICE ********************************/}
           <View style={[styles.rowBetween, { marginTop: scaleHeight(24) }]}>
             <Text style={[styles.duration, { fontFamily: fonts.MEDIUM, fontSize: scaleFont(18) }]}>Price</Text>
-            <Text style={[styles.duration, { fontFamily: fonts.MEDIUM, fontSize: scaleFont(18) }]}>{`$ ${item?.price}`}</Text>
+            <View style={{ flexDirection: "row", alignItems: "center", }}>
+              <View style={[styles.wrapPrice, { borderColor: isEditPrice ? "#dddddd" : "white" }]}>
+                <Text style={[styles.duration, { fontSize: scaleFont(18) }]}>
+                  $
+                </Text>
+                {
+                  isEditPrice && <TextInputMask
+                    value={price}
+                    onChangeText={text => setPrice(text)}
+                    style={[styles.duration, { fontSize: scaleFont(18) }]}
+                    type="money"
+                    editable={isEditPrice}
+                    options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
+                  />
+                }
+                {
+                  !isEditPrice && <Text
+                    style={[styles.duration, { fontSize: scaleFont(18) }]}
+                  >
+                    {price}
+                  </Text>
+                }
+              </View>
+
+              <TouchableOpacity onPress={() => {
+                if (isEditPrice) {
+                  setStatusEditPrice(false);
+
+                } else {
+                  setStatusEditPrice(true);
+                }
+              }}
+              >
+                <Image
+                  source={!isEditPrice ? images.penEdit : images.iconChecked}
+                  resizeMode='contain'
+                  style={[styles.iconEditPencil, { tintColor: !isEditPrice ? "#333" : "#4AD100" }]}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
 
@@ -90,6 +141,8 @@ export const Layout = ({
             service={item}
           />
         }
+
+        <View style={{ height: scaleHeight(100) }} />
 
       </ScrollView>
       <View style={styles.bottom}>
@@ -108,6 +161,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: 'relative',
+  },
+  inputPrice: {
+    fontFamily: fonts.REGULAR,
+    color: "#404040",
+    fontSize: scaleFont(15)
   },
   content: {
     flex: 1,
@@ -187,4 +245,20 @@ const styles = StyleSheet.create({
     width: scaleWidth(375),
     backgroundColor: "white"
   },
+  iconEditPencil: {
+    width: scaleWidth(16),
+    height: scaleWidth(16),
+    tintColor: "#404040"
+  },
+  wrapPrice: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginRight: scaleWidth(8),
+    borderWidth: 1,
+    borderColor: "#dddddd",
+    height: scaleHeight(30),
+    width: scaleWidth(100),
+    justifyContent: 'flex-end',
+    paddingHorizontal: 8
+  }
 });

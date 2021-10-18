@@ -14,7 +14,7 @@ export const useProps = ({
   const serviceSelected = route?.params?.serviceSelected;
 
   const {
-    bookAppointment: { staffsOfService = [] , dayBooking = moment() },
+    bookAppointment: { staffsOfService = [] , dayBooking = moment(), isAddMore },
     auth: { staff },
     merchant : { merchantDetail },
   } = useSelector(state => state);
@@ -55,6 +55,11 @@ export const useProps = ({
     staffList,
 
     goToDateTime: async () => {
+      if(isAddMore){
+        dispatch(bookAppointment.updateStatusAddMore(false));
+        NavigationService.navigate(screenNames.ReviewConfirm);
+        return;
+      }
       /**************************** GET TIME AVAILABLE CHO STAFF DUOC CHON *****************************/
       const staffSelected = getStaffSelected();
       const data = {

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { SingleScreenLayout } from '@shared/layouts';
 import { useTranslation } from 'react-i18next';
-import { formatMoneyWithUnit } from '@shared/utils';
+import { formatMoneyWithUnit, convertMinsToHrsMins } from '@shared/utils';
 import { Button } from "@shared/components";
 import { colors, fonts, layouts, images } from '@shared/themes';
 import { WithPopupActionSheet } from '@shared/HOC';
@@ -55,9 +55,6 @@ export const Layout = ({
 }) => {
   const [t] = useTranslation();
 
-  const getDuration = (duration) => {
-    return duration + ' min';
-  };
 
   const getPrice = (price) => {
     return formatMoneyWithUnit(price);
@@ -98,7 +95,7 @@ export const Layout = ({
           />
 
           <TotalView
-            duration={`${getDuration(appointmentItem?.duration)}`}
+            duration={`${convertMinsToHrsMins(appointmentItem?.duration)}`}
             price={getPrice(appointmentItem?.total)}
           />
         </ScrollView>

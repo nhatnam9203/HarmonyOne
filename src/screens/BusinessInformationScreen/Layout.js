@@ -1,66 +1,37 @@
 import React from 'react';
-import { View, StyleSheet, Text, ScrollView } from 'react-native';
-import { useTranslation } from "react-i18next";
-import { SingleScreenLayout } from '@shared/layouts';
+import { View, StyleSheet, Text } from 'react-native';
 import { fonts, colors } from "@shared/themes";
-import { images } from "@shared/themes/resources";
-import { BasicInformation } from "./BasicInformation";
-import { Location } from "./Location";
-import { OpeningHour } from "./OpeningHour";
-import { Banners } from "./Banners";
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createStackNavigator } from "@react-navigation/stack";
+import { BusinessPage, BasicEdit, OpeningHourEdit, LocationEdit, PhotoEdit } from "./pages"
 
-export const Layout = ({
-  merchantDetail
-}) => {
+const { Navigator, Screen } = createStackNavigator();
 
-  const [t] = useTranslation();
-
+export const Layout = ({ }) => {
   return (
     <View style={styles.container}>
-      <SingleScreenLayout
-        pageTitle={t("Business Information")}
-        isLeft={true}
-        isRight={false}
-        isScrollLayout={false}
-        containerStyle={{ paddingVertical: 0 }}
+      <Navigator
+        initialRouteName="BusinessPage"
+        swipeEnabled={false}
+        headerMode="none"
+        screenOptions={{
+          headerShown: false,
+          gestureEnabled: false,
+        }}
       >
-        <ScrollView style={styles.content}>
-          <BasicInformation
-            webLink={merchantDetail?.webLink || ""}
-            businessName={merchantDetail?.businessName || ""}
-            cellphone={merchantDetail?.cellPhone || ""}
-            email={merchantDetail?.email || ""}
-          />
-          <Location
-            addressFull={merchantDetail?.addressFull}
-            longitude={merchantDetail?.longitude}
-            latitude={merchantDetail?.latitude}
-          />
-          <OpeningHour
-            addressFull={merchantDetail?.addressFull}
-            longitude={merchantDetail?.longitude}
-            latitude={merchantDetail?.latitude}
-            businessHour={merchantDetail?.businessHour}
-          />
-          <Banners
-            banners = {merchantDetail?.banners}
-          />
-          <View style={{ height: scaleHeight(100) }} />
-        </ScrollView>
-      </SingleScreenLayout>
+        <Screen {...BusinessPage} />
+        <Screen {...BasicEdit} />
+        <Screen {...OpeningHourEdit} />
+        <Screen {...LocationEdit} />
+        <Screen {...PhotoEdit} />
+      </Navigator>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "white",
+    flex: 1
   },
-
-  content: {
-    flex: 1,
-    padding: scaleWidth(16)
-  },
-
 });
+
