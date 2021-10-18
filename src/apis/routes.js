@@ -552,3 +552,34 @@ export const addPromotionNote = (appointmentId, data) => ({
     data
   }
 });
+
+export const changeStylist = (appointmentId, data) => ({
+  queryId: 'changeStylist',
+  method : "POST",
+  params: {
+    url: `appointment/tip/${appointmentId}`,
+    method: 'PUT',
+    data
+  }
+});
+
+
+// export function changeStylist(staffId, bookingServiceId, tipAmount, appointmentId, price,extras = null, tipPercent = 0, note = "", isGroup = false) {
+//   return {
+//       type: 'CHANGE_STYLIST',
+//       method: 'PUT',
+//       token: true,
+//       body: {
+//           staffId: staffId ? staffId : 0,
+//           bookingServiceId,
+//           tipAmount,
+//           price,
+//           tipPercent,
+//           note,
+//           extras:extras,
+//       },
+//       api: `appointment/tip/${appointmentId}`,
+//       appointmentId,
+//       isGroup
+//   }
+// }

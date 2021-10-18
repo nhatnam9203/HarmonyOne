@@ -114,9 +114,8 @@ const styles = StyleSheet.create({
   },
 
   iconPlus: {
-    width: scaleWidth(16),
-    height: scaleWidth(16),
-    tintColor: colors.ocean_blue
+    width: scaleWidth(18),
+    height: scaleWidth(18),
   },
 
   iconWalking: {

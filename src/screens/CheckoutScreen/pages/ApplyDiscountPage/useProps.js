@@ -107,16 +107,14 @@ export const useProps = (props) => {
         discountFixtom: moneyDiscountFixedAmout,
         discountPercent: moneyDiscountCustom,
       };
-      console.log({ dataCustomDiscount })
+
       const bodyDiscount = await customPromotion(appointmentDetail?.appointmentId, dataCustomDiscount);
-      console.log({ bodyDiscount })
       submitCustomPromotion(bodyDiscount.params);
 
       const dataPromotionNote = {
         notes: form.getValues("note")
       }
       const bodyPromotionNote = await addPromotionNote(appointmentDetail?.appointmentId, dataPromotionNote);
-      console.log({ bodyPromotionNote })
       submitAddPromotionNote(bodyPromotionNote.params);
 
 

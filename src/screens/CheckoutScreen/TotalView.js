@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { Button, IconButton } from "@shared/components";
@@ -40,7 +40,6 @@ export const TotalView = ({
         }
     })
 
-
     const addTip = () => {
         NavigationService.navigate(screenNames.AddTipPage);
     }
@@ -50,6 +49,13 @@ export const TotalView = ({
         fetchPromotionAppointment();
     }
 
+    const customDiscount =
+        (appointmentDetail?.customDiscountFixed && parseFloat(appointmentDetail?.customDiscountFixed) > 0) ?
+            appointmentDetail?.customDiscountFixed :
+            (appointmentDetail?.customDiscountPercent && parseFloat(appointmentDetail?.customDiscountPercent) > 0) ?
+                appointmentDetail?.customDiscountPercent : "0.00";
+
+    const tipAmount = appointmentDetail?.tipAmount ?? "0.00";
 
     return (
         <View style={styles.container}>
@@ -60,20 +66,54 @@ export const TotalView = ({
 
             <View style={styles.row}>
                 <Text style={styles.text}>Tip</Text>
-                <IconButton
-                    icon={images.plus}
-                    iconStyle={styles.iconAdd}
-                    onPress={addTip}
-                />
+                {
+                    parseFloat(tipAmount) > 0 ?
+                        <TouchableOpacity
+                            onPress={addTip}
+                            style={{ flexDirection: "row", alignItems: "center" }}
+                        >
+                            <Text style={[styles.text, { marginRight: 5 }]}>
+                                {`$ ${tipAmount}`}
+                            </Text>
+                            <Image
+                                source={images.iconArrow}
+                                resizeMode='contain'
+                                style={styles.iconArrow}
+                            />
+                        </TouchableOpacity>
+                        :
+                        <IconButton
+                            icon={images.plus}
+                            iconStyle={styles.iconAdd}
+                            onPress={addTip}
+                        />
+                }
             </View>
 
             <View style={styles.row}>
                 <Text style={styles.text}>Discount</Text>
-                <IconButton
-                    icon={images.plus}
-                    iconStyle={styles.iconAdd}
-                    onPress={addDiscount}
-                />
+                {
+                    parseFloat(customDiscount) > 0 ?
+                        <TouchableOpacity
+                            onPress={addDiscount}
+                            style={{ flexDirection: "row", alignItems: "center" }}
+                        >
+                            <Text style={[styles.text, { marginRight: 5 }]}>
+                                {`$ ${customDiscount}`}
+                            </Text>
+                            <Image
+                                source={images.iconArrow}
+                                resizeMode='contain'
+                                style={styles.iconArrow}
+                            />
+                        </TouchableOpacity>
+                        :
+                        <IconButton
+                            icon={images.plus}
+                            iconStyle={styles.iconAdd}
+                            onPress={addDiscount}
+                        />
+                }
             </View>
 
             <View style={styles.line} />
@@ -100,9 +140,8 @@ const styles = StyleSheet.create({
         marginVertical: scaleHeight(8)
     },
     iconAdd: {
-        width: scaleWidth(18),
-        height: scaleWidth(18),
-        tintColor: "#0764B0"
+        width: scaleWidth(20),
+        height: scaleWidth(20),
     },
     text: {
         fontSize: scaleFont(17),
@@ -114,5 +153,9 @@ const styles = StyleSheet.create({
         height: 1,
         backgroundColor: "#eeeeee",
         marginVertical: scaleHeight(8)
+    },
+    iconArrow: {
+        width: scaleWidth(10),
+        height: scaleWidth(10),
     }
 });

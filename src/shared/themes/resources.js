@@ -54,7 +54,7 @@ export const images = {
   circleGreen: require('@src/assets/images/circleGreen.png'),
   circleGrey: require('@src/assets/images/circleGrey.png'),
   checkout_customer_icon: require('@src/assets/images/checkout_customer_icon.png'),
-  plus: require('@src/assets/images/plus.png'),
+  plus: require('@src/assets/images/add_discount_checkout.png'),
   iconExtra: require('@src/assets/images/iconExtra.png'),
   iconChangeDate: require('@src/assets/images/iconChangeDate.png'),
   iconAddMore: require('@src/assets/images/iconAddMore.png'),

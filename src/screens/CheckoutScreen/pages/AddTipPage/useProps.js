@@ -1,7 +1,7 @@
 import React from 'react';
-import { useAxiosQuery, getListCustomer } from '@src/apis';
+import { useAxiosQuery, getListCustomer, changeStylist, useAxiosMutation, getAppointmentById } from '@src/apis';
 import { useDispatch, useSelector } from "react-redux";
-import { customer, bookAppointment } from "@redux/slices";
+import { customer, bookAppointment, appointment } from "@redux/slices";
 import { useForm, useWatch } from "react-hook-form";
 import { formatNumberFromCurrency } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
@@ -11,6 +11,7 @@ function percentage(percent, total) {
 }
 
 export const useProps = (props) => {
+  const dispatch = useDispatch();
 
   const form = useForm();
 
@@ -19,7 +20,28 @@ export const useProps = (props) => {
   } = useSelector(state => state);
 
   const [percentSelected, setPercentSelected] = React.useState("");
+  const [isMouted, setMouted] = React.useState(false)
 
+  const [, submitChangeStylist] = useAxiosMutation({
+    ...changeStylist(),
+    isLoadingDefault: true,
+    onSuccess: (data, response) => {
+      if (response?.codeNumber == 200) {
+        fetchAppointmentById();
+      }
+    }
+  });
+
+  const [, fetchAppointmentById] = useAxiosQuery({
+    ...getAppointmentById(appointmentDetail?.appointmentId),
+    enabled: false,
+    onSuccess: (data, response) => {
+      if (response?.codeNumber == 200) {
+        dispatch(appointment.setAppointmentDetail(data));
+        NavigationService.navigate(screenNames.CheckoutScreen);
+      }
+    },
+  });
 
   const valueTip = useWatch({
     control: form.control,
@@ -34,9 +56,21 @@ export const useProps = (props) => {
       valueTip !== percentage(25, formatNumberFromCurrency(appointmentDetail?.subTotal)) &&
       valueTip !== percentage(50, formatNumberFromCurrency(appointmentDetail?.subTotal))
     ) {
-      setPercentSelected("")
+      if (isMouted) {
+        setPercentSelected("")
+      }
     }
   }, [valueTip]);
+
+  React.useEffect(() => {
+    setPercentSelected(parseInt(appointmentDetail?.tipPercent));
+    form.setValue("tip", appointmentDetail?.tipAmount || "00");
+    setTimeout(() => {
+      setMouted(true);
+    }, 300);
+  }, []);
+
+
 
   return {
 
@@ -47,8 +81,19 @@ export const useProps = (props) => {
       NavigationService.back();
     },
 
-    onSubmit: () => {
-
+    onSubmit: async (values) => {
+      const { tip } = values;
+      const data = {
+        staffId: 0,
+        bookingServiceId: 0,
+        tipAmount: tip,
+        price: 0,
+        tipPercent: percentSelected ? percentSelected : 0,
+        note: "",
+        extras: null,
+      }
+      const body = await changeStylist(appointmentDetail?.appointmentId, data);
+      submitChangeStylist(body.params);
     },
 
     selectPercent: (percent) => {
