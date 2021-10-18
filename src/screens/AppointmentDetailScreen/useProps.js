@@ -45,6 +45,15 @@ export const useProps = ({
   const [canEdit, setCanEdit] = React.useState(false);
 
 
+  const [{ }, fetchBlockTimes] = useAxiosQuery({
+    ...getBlockTimeByDate(dateToFormat(appointmentDate, "MM/DD/YYYY")),
+    enabled: true,
+    onSuccess: (data, response) => {
+      dispatch(appointment.setBlockTimeBydate(data));
+    },
+  });
+
+
   const [, submitUpdateAppointmentStatus] = useAxiosMutation({
     ...updateAppointmentStatusRequest(),
     isLoadingDefault: true,

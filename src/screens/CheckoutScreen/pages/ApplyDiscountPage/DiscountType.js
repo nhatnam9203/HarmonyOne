@@ -13,7 +13,7 @@ export const DiscountType = React.forwardRef(({
     
 }, ref) => {
 
-    const [discount_type, setDiscountType] = React.useState("money");
+    const [discount_type, setDiscountType] = React.useState("percent");
 
     const onChangeDiscountType = (valueType) => {
         setDiscountType(valueType);

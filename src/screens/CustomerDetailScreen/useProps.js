@@ -32,14 +32,14 @@ export const useProps = (props) => {
     getActionSheets: () => [
       {
         id: 'edit-customer',
-        label: t('Edit'),
+        label: t('Edit customer'),
         func: () => {
           NavigationService.navigate(screenNames.CustomerNewScreen, { isEdit: true, customerDetail });
         },
       },
       {
         id: 'delete-customer',
-        label: t('Delete'),
+        label: t('Delete customer'),
         textColor: colors.red,
         func: () => {
           setTimeout(() => {

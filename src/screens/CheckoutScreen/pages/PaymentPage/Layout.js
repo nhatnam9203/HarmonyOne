@@ -48,6 +48,7 @@ export const Layout = ({
                         onPress={() => { }}
                         highlight={true}
                         width={'100%'}
+                        disabled={methodPay == "" || !methodPay}
                     />
                 </View>
             </SingleScreenLayout>

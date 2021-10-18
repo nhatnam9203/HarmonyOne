@@ -26,8 +26,6 @@ export const useProps = (props) => {
   const [moneyDiscountCustom, setMoneyDiscountCustom] = React.useState(0);
   const [moneyDiscountFixedAmout, setMoneyDiscountFixedAmout] = React.useState(0);
   const [discountByOwner, setDiscountByOwner] = React.useState(100);
-  const [discount_type, setDiscountType] = React.useState("money");
-
 
 
   const [, submitCustomPromotion] = useAxiosMutation({
@@ -65,6 +63,7 @@ export const useProps = (props) => {
     const note = promotionAppointment?.notes?.note || "";
     const customDiscountFixed = appointmentDetail?.customDiscountFixed
     const customDiscountPercent = appointmentDetail?.customDiscountPercent;
+
 
     if (customDiscountFixed && customDiscountFixed > 0) {
       form.setValue("valueDiscount", customDiscountFixed);
