@@ -513,7 +513,7 @@ export const maskNotiAsReadById = (notiId) => ({
   params: {
     url: `notification/view/${notiId}`,
     method: 'PUT',
-    data : {}
+    data: {}
   }
 });
 
@@ -522,7 +522,7 @@ export const readAllNotification = (page) => ({
   params: {
     url: `notification/view/all`,
     method: 'PUT',
-    data : {}
+    data: {}
   }
 });
 
@@ -534,3 +534,21 @@ export const getPromotionAppointment = (appointmentId) => ({
   }
 });
 
+export const customPromotion = (appointmentId, data) => ({
+  queryId: 'customPromotion',
+  params: {
+    url: `appointment/custompromotion/${appointmentId}`,
+    method: 'PUT',
+    data
+  }
+});
+
+export const addPromotionNote = (appointmentId, data) => ({
+  queryId: 'addPromotionNote',
+  method : "POST",
+  params: {
+    url: `appointment/promotion/note/${appointmentId}`,
+    method: 'POST',
+    data
+  }
+});

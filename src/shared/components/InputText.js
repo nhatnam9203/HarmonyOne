@@ -25,6 +25,7 @@ export const InputText = React.forwardRef(({
     secureTextEntry = false,
     defaultValue = '',
     defaultValueRemove = '',
+    maxLength = 1600
 }, ref) => {
 
     const [isFocus, setFocus] = React.useState(false);
@@ -53,7 +54,7 @@ export const InputText = React.forwardRef(({
                     style={[styles.input, inputStyle]}
                     multiline={multiline}
                     textAlignVertical="top"
-                    maxLength={1600}
+                    maxLength={maxLength}
                     keyboardType={keyboardType}
                     onFocus={() => setFocus(true)}
                     onBlur={() => setFocus(false)}

@@ -26,7 +26,6 @@ const notificationSlice = createSlice({
         },
         changeNotifyRead : (state, action) => {
             const index = state.notifications.findIndex(obj => obj?.merchantNotificationId == action.payload);
-            console.log({ index });
             if (index !== -1) {
                 state.notifications[index].view = 1;
             }

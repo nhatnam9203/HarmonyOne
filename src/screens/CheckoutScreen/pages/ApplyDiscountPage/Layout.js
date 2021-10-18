@@ -6,23 +6,31 @@ import { IconButton, CustomInput, InputText, Button, Slider } from "@shared/comp
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { DiscountType } from "./DiscountType";
+import { formatNumberFromCurrency, roundNumber } from "@shared/utils";
 
 export const Layout = ({
     form,
     appointmentDetail,
     discountTypeRef,
-    promotionNotes,
     discountByOwner,
     moneyDiscountCustom,
     moneyDiscountFixedAmout,
     onChangeTextCustomDiscount,
-    onApply,
+    submitPromotion,
     back,
+    handelSliderValue,
+
 }) => {
 
     const [t] = useTranslation();
 
-    const handelSliderValue = () => { }
+    const discountByStaff = (100 - discountByOwner)
+    const manualDiscount = moneyDiscountCustom > 0
+        ? moneyDiscountCustom
+        : moneyDiscountFixedAmout
+    const discountMoneyByStaff = roundNumber(formatNumberFromCurrency(discountByStaff) * formatNumberFromCurrency(manualDiscount) / 100);
+    const discountMoneyByOwner = roundNumber(manualDiscount - discountMoneyByStaff);
+
 
     return (
         <View style={styles.container}>
@@ -49,12 +57,17 @@ export const Layout = ({
                         onChangeText={onChangeTextCustomDiscount}
                     />
 
-                    <View style={styles.viewRowContainer}>
+                    <View style={[styles.viewRowContainer, { marginTop: scaleHeight(8) }]}>
                         <Text style={styles.textNormal}>Discount by Owner</Text>
                         <Text style={styles.textNormal}>Discount by Staff</Text>
                     </View>
+
+                    <View style={[styles.viewRowContainer, { marginTop: scaleHeight(16) }]}>
+                        <Text style={styles.textNormal}>{`$ ${discountMoneyByOwner}`}</Text>
+                        <Text style={styles.textNormal}>{`$ ${discountMoneyByStaff}`}</Text>
+                    </View>
                     <Slider
-                        value={100}
+                        value={discountByOwner}
                         minimumValue={0}
                         maximumValue={100}
                         onValueChange={(value) => handelSliderValue(value)}
@@ -87,8 +100,8 @@ export const Layout = ({
                     />
 
                     <View style={styles.viewRowContainer}>
-                        <Text style={styles.textNormal}>75 %</Text>
-                        <Text style={styles.textNormal}>25 %</Text>
+                        <Text style={styles.textNormal}>{discountByOwner} %</Text>
+                        <Text style={styles.textNormal}>{discountByStaff} %</Text>
                     </View>
 
                     <CustomInput
@@ -115,7 +128,7 @@ export const Layout = ({
                 <View style={styles.bottom}>
                     <Button
                         label="Apply"
-                        onPress={onApply}
+                        onPress={submitPromotion}
                         highlight={true}
                         width={'100%'}
                     />

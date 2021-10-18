@@ -6,49 +6,49 @@ import { useWatch } from "react-hook-form";
 import { CustomInput, InputText } from "@shared/components";
 import { formatNumberFromCurrency, roundNumber } from "@shared/utils";
 
-export const DiscountType = ({
+export const DiscountType = React.forwardRef(({
     form,
     subTotal = 0,
-    onChangeText = () =>{}
-}) => {
+    onChangeText = () => { }
+}, ref) => {
 
     const [discount_type, setDiscountType] = React.useState("money");
 
     const onChangeDiscountType = (valueType) => {
         setDiscountType(valueType);
+        let discount = form.getValues("valueDiscount");
         if (valueType == "percent") {
-            calculateDiscount();
+            discount = roundNumber((formatNumberFromCurrency(discount) * formatNumberFromCurrency(subTotal) / 100));
+            onChangeText(discount, 0);
         } else {
-
+            onChangeText(0, discount);
         }
     }
 
-    const calculateDiscount = (textNumber) => {
+    const calculateDiscount = () => {
         let discount = form.getValues("valueDiscount");
         if (discount_type == "percent") {
             discount = roundNumber((formatNumberFromCurrency(discount) * formatNumberFromCurrency(subTotal) / 100));
-
-            // await this.setState({
-            //     discount,
-            //     percent: this.state.valueText,
-            //     fixedAmount: 0,
-            // });
-
             onChangeText(discount, 0);
         } else {
-            // await this.setState({
-            //     discount,
-            //     fixedAmount: this.state.valueText,
-            //     percent: 0,
-            // });
-
             onChangeText(0, discount);
         }
     }
 
     const valueDiscount = useWatch({
         control: form.control,
-    })
+        name: 'valueDiscount'
+    });
+
+    React.useImperativeHandle(ref, () => ({
+        changeDiscountType: (type) => {
+            setDiscountType(type);
+        }
+    }));
+
+    React.useEffect(() => {
+        calculateDiscount();
+    }, [valueDiscount])
 
     return (
         <CustomInput
@@ -85,13 +85,15 @@ export const DiscountType = ({
                         type="money"
                         options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
                         placeholder="0.00"
+                        maxLength={6}
                         style={{ width: scaleWidth(235) }}
                     />
                 </View>
             }
         />
     )
-};
+});
+
 
 
 const styles = StyleSheet.create({
