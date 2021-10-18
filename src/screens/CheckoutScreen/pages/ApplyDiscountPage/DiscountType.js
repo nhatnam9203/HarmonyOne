@@ -9,7 +9,8 @@ import { formatNumberFromCurrency, roundNumber } from "@shared/utils";
 export const DiscountType = React.forwardRef(({
     form,
     subTotal = 0,
-    onChangeText = () => { }
+    onChangeText = () => { },
+    
 }, ref) => {
 
     const [discount_type, setDiscountType] = React.useState("money");

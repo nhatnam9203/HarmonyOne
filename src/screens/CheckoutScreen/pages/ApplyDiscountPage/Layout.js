@@ -7,6 +7,8 @@ import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { DiscountType } from "./DiscountType";
 import { formatNumberFromCurrency, roundNumber } from "@shared/utils";
+import { useWatch } from "react-hook-form";
+
 
 export const Layout = ({
     form,
@@ -23,6 +25,11 @@ export const Layout = ({
 }) => {
 
     const [t] = useTranslation();
+
+    const valueDiscount = useWatch({
+        control: form.control,
+        name: 'valueDiscount'
+    });
 
     const discountByStaff = (100 - discountByOwner)
     const manualDiscount = moneyDiscountCustom > 0
@@ -120,7 +127,11 @@ export const Layout = ({
 
                     <View style={styles.row}>
                         <Text style={[styles.text]}>Total Discount</Text>
-                        <Text style={[styles.text, { color: "#4AD100" }]}>{`$ 0.00`}</Text>
+                        <Text style={[styles.text, { color: "#4AD100" }]}>
+                            {moneyDiscountFixedAmout > 0 ?
+                                `$ -${valueDiscount}` :
+                                `$ -${roundNumber((formatNumberFromCurrency(valueDiscount) * formatNumberFromCurrency(appointmentDetail?.subTotal) / 100))}`}
+                        </Text>
                     </View>
 
 

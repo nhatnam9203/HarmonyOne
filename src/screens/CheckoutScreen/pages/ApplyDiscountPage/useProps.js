@@ -26,6 +26,7 @@ export const useProps = (props) => {
   const [moneyDiscountCustom, setMoneyDiscountCustom] = React.useState(0);
   const [moneyDiscountFixedAmout, setMoneyDiscountFixedAmout] = React.useState(0);
   const [discountByOwner, setDiscountByOwner] = React.useState(100);
+  const [discount_type, setDiscountType] = React.useState("money");
 
 
 
