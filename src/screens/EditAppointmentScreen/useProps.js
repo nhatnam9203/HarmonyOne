@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatNumberFromCurrency, formatMoney, convertMinsToHrsMins } from "@shared/utils";
-import { bookAppointment, appointment } from "@redux/slices";
+import { bookAppointment, appointment, editAppointment } from "@redux/slices";
 import { addAppointment, useAxiosMutation, getAppointmentByDate, useAxiosQuery, updateAppointment, getAppointmentById } from "@src/apis";
 import { dateToFormat } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
+import { Alert } from "react-native";
 
 export const useProps = (_params) => {
   const dispatch = useDispatch();
@@ -133,8 +134,6 @@ export const useProps = (_params) => {
     deleteService: (service) => {
     },
 
-    changeDateTime: () => {
-    },
 
     onPressBack: () => {
       NavigationService.back();
@@ -166,6 +165,16 @@ export const useProps = (_params) => {
       setTimeout(() => {
         dispatch(bookAppointment.resetBooking());
       }, 800);
-    }
+    },
+
+    changeDateTime: (date) => {
+      const formatDate = `${moment(date).format("YYYY-MM-DD")}T${moment(date).format("HH:mm")}:00`
+      dispatch(editAppointment.changeDateTime(formatDate));
+    },
+
+    changeServiceTime: (time, bookingServiceId) => {
+      const formatDate = `${moment().format("YYYY-MM-DD")}T${moment(time, ["hh:mm A"]).format("HH:mm")}:00`
+      dispatch(editAppointment.changeServiceTime({ time : formatDate, bookingServiceId }));
+    },
   };
 };

@@ -11,7 +11,7 @@ import {
 } from '@shared/components';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { SingleScreenLayout } from '@shared/layouts';
-import { dateToFormat } from "@shared/utils";
+import { dateToFormat, slop } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 import moment from 'moment';
 
@@ -22,6 +22,7 @@ export const Layout = ({
   getAllTotal,
   deleteService,
   changeDateTime,
+  changeServiceTime,
   confirm,
   dialogBookingRef,
   onOK,
@@ -32,8 +33,10 @@ export const Layout = ({
   addMoreService
 }) => {
 
+  console.log({ appointmentEdit })
+
   const renderHeader = () => (
-    <View style={{ paddingRight: scaleWidth(16), paddingTop : 8 }}>
+    <View style={{ paddingRight: scaleWidth(16), paddingTop: 8 }}>
       <CustomerInfoView
         customerId={appointmentEdit?.customerId}
         firstName={appointmentEdit?.firstName}
@@ -46,7 +49,8 @@ export const Layout = ({
       {
         <>
           <DayPicker
-            onApply={() => { }}
+            onApply={changeDateTime}
+            dayPicked={moment(appointmentEdit.fromTime)}
             componentRender={() => (
               <AppointmentTimeView
                 fromTime={appointmentEdit.fromTime}
@@ -57,22 +61,24 @@ export const Layout = ({
           <View style={[styles.line, { marginTop: scaleHeight(8) }]} />
         </>
       }
+
       <View style={styles.containerService}>
         <Text style={styles.titleService}>
-           Services
+          Services
         </Text>
       </View>
     </View>
   )
 
   const renderFooter = () => (
-    <View style={{ paddingRight: scaleWidth(16) }}>
+    <View style={{ paddingRight: scaleWidth(16), marginTop: scaleHeight(12) }}>
       <IconButton
         icon={images.iconAddMore}
         iconStyle={styles.iconAddMore}
         style={styles.buttonAddMore}
         renderText={() => <Text style={styles.txtAddMore}>Add another service</Text>}
         onPress={addMoreService}
+        slop={slop(0)}
       />
 
       <View style={styles.containerTotal}>
@@ -81,7 +87,6 @@ export const Layout = ({
           price={`$ ${getAllTotal().price}`}
         />
       </View>
-
       <View style={{ height: scaleHeight(100) }} />
     </View>
   )
@@ -119,10 +124,11 @@ export const Layout = ({
                     extras={appointmentEdit?.extras.filter(ex => ex?.serviceId == data.item?.serviceId && ex.checked)}
                     onPressItemReview={true}
                   />
+
                   <View style={styles.rowItemTime}>
                     <Text style={styles.titleStartTime}>Start time</Text>
                     <InputSelectTime
-                      apply={time => { }}
+                      apply={(time) => changeServiceTime(time,data?.item?.bookingServiceId)}
                       time={dateToFormat(data?.item?.fromTime, "hh:mm A")}
                       renderInput={() => (
                         <View style={styles.inputSelectTime}>
@@ -138,6 +144,7 @@ export const Layout = ({
                       )}
                     />
                   </View>
+
                 </View>
               )}
               ListHeaderComponent={renderHeader()}
