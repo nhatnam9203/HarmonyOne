@@ -3,7 +3,7 @@ import { View, StyleSheet, FlatList, Text, TouchableOpacity, Image } from 'react
 import { colors, fonts, images } from "@shared/themes";
 import { Button, CustomerInfoView } from "@shared/components";
 import { HeaderBooking } from "../../widgets";
-import { AppointmentServiceItem, AppointmentTimeView, TotalView, IconButton, DialogBookingSuccess } from '@shared/components';
+import { AppointmentServiceItem, AppointmentTimeView, TotalView, IconButton, DialogSuccess } from '@shared/components';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { ButtonAddNote } from "./ButtonAddNote";
 import NavigationService from '@navigation/NavigationService';
@@ -142,7 +142,7 @@ export const Layout = ({
           />
         </View>
       </View>
-      <DialogBookingSuccess
+      <DialogSuccess
         ref={dialogBookingRef}
         onConfirmYes={() => onOK()}
       />

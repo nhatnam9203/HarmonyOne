@@ -16,6 +16,8 @@ import NavigationService from '@navigation/NavigationService';
 export const useProps = (props) => {
   const dispatch = useDispatch();
 
+  const dialogSuccessRef = React.useRef();
+
   const {
     appointment: { appointmentDetail, groupAppointments = [], appointmentDate }
   } = useSelector(state => state);
@@ -37,8 +39,6 @@ export const useProps = (props) => {
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         fetchAppointmentByDate();
-        NavigationService.navigate(screenNames.AppointmentScreen);
-        dispatch(appointmentAction.resetBooking());
       }
     }
   });
@@ -63,6 +63,7 @@ export const useProps = (props) => {
     enabled: false,
     onSuccess: (data, response) => {
       dispatch(appointmentAction.setBlockTimeBydate(data));
+      dialogSuccessRef?.current?.show();
     },
   });
 
@@ -70,6 +71,7 @@ export const useProps = (props) => {
   return {
     appointmentDetail,
     methodPay,
+    dialogSuccessRef,
 
     onChangeMethodPay: (item) => {
       setMethodPay(item)
@@ -82,6 +84,11 @@ export const useProps = (props) => {
     onSubmitPayment: async () => {
       const body = await checkoutAppointment(appointmentDetail?.appointmentId);
       submitCheckoutAppointment(body.params);
+    },
+
+    onOK: () => {
+      NavigationService.navigate(screenNames.AppointmentScreen);
+      // dispatch(appointmentAction.resetBooking());
     }
   }
 };

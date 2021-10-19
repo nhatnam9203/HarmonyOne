@@ -31,5 +31,6 @@ export * from "./InputSelectTime";
 export * from "./WorkingTime";
 export * from "./NotificationIcon";
 export * from "./DayPicker";
-export * from "./DialogBookingSuccess";
+export * from "./DialogSuccess";
+export * from "./DialogLoading";
 export * from "./Slider";
