@@ -27,7 +27,8 @@ export const useProps = (props) => {
     service: { services },
     product: { products },
     extra: { extras },
-    auth: { staff }
+    auth: { staff },
+    editAppointment: { appointmentEdit }
   } = useSelector(state => state)
 
   const categoryList = useSelector(state => state.category.category);
@@ -88,12 +89,12 @@ export const useProps = (props) => {
     );
   }
 
-  React.useEffect(()=>{
-    if(isRefresh){
+  React.useEffect(() => {
+    if (isRefresh) {
       getCategoryList();
       getServiceList();
     }
-  },[isRefresh]);
+  }, [isRefresh]);
 
   // React.useEffect(() => {
   //   getCategoryList();
@@ -101,7 +102,7 @@ export const useProps = (props) => {
   // }, []);
 
   return {
-
+    appointmentEdit,
     valueSearch,
     dialogDeleteCategoryRef,
     tempCategory,
@@ -145,10 +146,10 @@ export const useProps = (props) => {
       NavigationService.navigate(screenNames.ServiceNewScreen, { refreshService });
     },
 
-    editService: (item) => {
+    getServiceDetail: (item) => {
       NavigationService.navigate(
-        screenNames.ServiceNewScreen,
-        { isEdit: true, serviceEdit: item, refreshService })
+        screenNames.AddServiceDetailPage,
+        { item })
         ;
     },
 
@@ -159,7 +160,7 @@ export const useProps = (props) => {
         func: () => {
           NavigationService.navigate(
             screenNames.ServiceNewScreen,
-            { categoryId : category.categoryId, isNewWithCategory: true }
+            { categoryId: category.categoryId, isNewWithCategory: true }
           );
         },
       },

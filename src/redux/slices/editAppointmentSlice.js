@@ -15,6 +15,7 @@ const editAppointment = createSlice({
         setAppointentEdit: (state, action) => {
             state.appointmentEdit = action.payload;
         },
+
         changeDateTime: (state, action) => {
             let tempAppointment = {
                 ...state.appointmentEdit,
@@ -22,6 +23,7 @@ const editAppointment = createSlice({
             }
             state.appointmentEdit = tempAppointment;
         },
+
         changeServiceTime: (state, action) => {
             const { time, bookingServiceId } = action.payload;
             let tempAppointment = {
@@ -69,8 +71,58 @@ const editAppointment = createSlice({
             }
             state.appointmentEdit = tempAppointment;
         },
+
+        addService: (state, action) => {
+            let { service, extras = [] } = action.payload;
+            let tempAppointment = {
+                ...state.appointmentEdit,
+            }
+            let tempServices = tempAppointment.services || [];
+            let tempExtras = tempAppointment.extras || [];
+            if (tempServices?.length > 0) {
+                service.fromTime = calculateFromTimePreviousService(tempServices, tempExtras);
+            } else {
+                service.fromTime = `${moment().format("YYYY-MM-DD")}T${moment().format("HH:mm")}:00`;
+            }
+
+            tempServices.push(service);
+            tempExtras = [
+                ...tempExtras,
+                ...extras
+            ];
+            tempAppointment = {
+                ...tempAppointment,
+                services: tempServices,
+                extras: tempExtras,
+            }
+            state.appointmentEdit = tempAppointment;
+        },
     },
 });
+
+const calculateFromTimePreviousService = (services = [], tempExtras) => {
+    let fromTime = `${moment().format("YYYY-MM-DD")}T${moment().format("HH:mm")}:00`;
+    if (services.length > 0) {
+        let duration = 0;
+        const previousService = { ...services[services.length - 1] };
+        for (let i = 0; i < tempExtras.length; i++) {
+            if (tempExtras[i]?.bookingServiceId &&
+                previousService?.bookingServiceId &&
+                tempExtras[i]?.bookingServiceId == previousService?.bookingServiceId) {
+                duration += parseInt(tempExtras[i].duration);
+            } else
+                if (tempExtras[i]?.serviceId &&
+                    previousService?.serviceId &&
+                    tempExtras[i]?.serviceId == previousService?.serviceId) {
+                    duration += parseInt(tempExtras[i].duration);
+                }
+        }
+        duration += parseInt(previousService.duration);
+        fromTime = moment(previousService.fromTime).add("minutes", duration);
+        fromTime = `${moment(fromTime).format("YYYY-MM-DD")}T${moment(fromTime).format("HH:mm")}:00`;
+    }
+    return fromTime;
+}
 
 const { actions, reducer } = editAppointment;
 

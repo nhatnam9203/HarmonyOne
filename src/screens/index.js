@@ -42,6 +42,7 @@ import { ApplyDiscountPage } from "./CheckoutScreen/pages";
 import { PaymentPage } from "./CheckoutScreen/pages/PaymentPage";
 import { EditAppointmentScreen } from "./EditAppointmentScreen";
 import { AddServicePage } from "./ServiceScreen/pages/AddServicePage";
+import { AddServiceDetailPage } from "./ServiceScreen/pages/AddServiceDetailPage";
 
 module.exports = {
   ForgotPincode,
@@ -86,4 +87,5 @@ module.exports = {
   PaymentPage,
   EditAppointmentScreen,
   AddServicePage,
+  AddServiceDetailPage,
 };

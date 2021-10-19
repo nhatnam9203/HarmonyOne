@@ -117,18 +117,23 @@ export const Layout = ({
                 <View>
                   <AppointmentServiceItem
                     service={data.item}
-                    name={data.item?.serviceName}
+                    name={data.item?.serviceName ?? data.item?.name}
                     duration={getTotalItem(data.item, "duration")}
                     price={getTotalPrice(data.item)}
                     isDelete={true}
-                    extras={appointmentEdit?.extras.map(ex => ({ ...ex, name: ex.extraName }))}
+                    extras={appointmentEdit?.extras
+                      .filter(
+                        ex => ex?.bookingServiceId ? ex?.bookingServiceId == data.item?.bookingServiceId :
+                          ex?.serviceId == data.item?.serviceId
+                      )
+                      .map(ex => ({ ...ex, name: ex?.extraName ?? ex?.name }))}
                     onPressItemReview={true}
                   />
 
                   <View style={styles.rowItemTime}>
                     <Text style={styles.titleStartTime}>Start time</Text>
                     <InputSelectTime
-                      apply={(time) => changeServiceTime(time,data?.item?.bookingServiceId)}
+                      apply={(time) => changeServiceTime(time, data?.item?.bookingServiceId)}
                       time={dateToFormat(data?.item?.fromTime, "hh:mm A")}
                       renderInput={() => (
                         <View style={styles.inputSelectTime}>
