@@ -10,7 +10,7 @@ import {
 } from '@src/apis';
 import { useDispatch, useSelector } from "react-redux";
 import { dateToFormat } from "@shared/utils";
-import { appointment as appointmentAction } from "@redux/slices";
+import { bookAppointment } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 
 export const useProps = (props) => {
@@ -38,7 +38,7 @@ export const useProps = (props) => {
     ...checkoutSubmit(),
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
-        fetchAppointmentByDate();
+        dialogSuccessRef?.current?.show();
       }
     }
   });
@@ -63,7 +63,6 @@ export const useProps = (props) => {
     enabled: false,
     onSuccess: (data, response) => {
       dispatch(appointmentAction.setBlockTimeBydate(data));
-      dialogSuccessRef?.current?.show();
     },
   });
 
@@ -78,7 +77,7 @@ export const useProps = (props) => {
     },
 
     back: () => {
-      NavigationService.back();
+      // NavigationService.back();
     },
 
     onSubmitPayment: async () => {
@@ -87,8 +86,9 @@ export const useProps = (props) => {
     },
 
     onOK: () => {
+      fetchAppointmentByDate();
       NavigationService.navigate(screenNames.AppointmentScreen);
-      // dispatch(appointmentAction.resetBooking());
+      dispatch(bookAppointment.resetBooking());
     }
   }
 };
