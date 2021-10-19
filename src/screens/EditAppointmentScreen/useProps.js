@@ -89,9 +89,9 @@ export const useProps = (_params) => {
     getTotalItem: (service, itemType) => {
       let total = 0;
       total += parseInt(service[itemType])
-      for (let i = 0; i < extrasBooking.length; i++) {
-        if ((extrasBooking[i].serviceId == service.serviceId) && extrasBooking[i].checked) {
-          total += extrasBooking[i][itemType];
+      for (let i = 0; i < appointmentEdit.extras.length; i++) {
+        if ((appointmentEdit.extras[i].bookingServiceId == service.bookingServiceId)) {
+          total += appointmentEdit.extras[i][itemType];
         }
       }
       return total;
@@ -100,13 +100,14 @@ export const useProps = (_params) => {
     getTotalPrice: (service) => {
       let total = 0;
       total += formatNumberFromCurrency(service.price);
-      for (let i = 0; i < extrasBooking.length; i++) {
-        if ((extrasBooking[i].serviceId == service.serviceId) && extrasBooking[i].checked) {
-          total += formatNumberFromCurrency(extrasBooking[i].price);
+      for (let i = 0; i < appointmentEdit.extras.length; i++) {
+        if ((appointmentEdit.extras[i].bookingServiceId == service.bookingServiceId)) {
+          total += formatNumberFromCurrency(appointmentEdit.extras[i].price);
         }
       }
       return formatMoney(total);
     },
+
 
     getAllTotal: () => {
       let price = 0;
@@ -118,7 +119,7 @@ export const useProps = (_params) => {
       }
 
       for (let i = 0; i < appointmentEdit?.extras.length; i++) {
-        if (appointmentEdit?.extras[i].checked) {
+        if (appointmentEdit?.extras[i]) {
           price += formatNumberFromCurrency(appointmentEdit?.extras[i].price);
           duration += formatNumberFromCurrency(appointmentEdit?.extras[i].duration);
         }
@@ -174,7 +175,7 @@ export const useProps = (_params) => {
 
     changeServiceTime: (time, bookingServiceId) => {
       const formatDate = `${moment().format("YYYY-MM-DD")}T${moment(time, ["hh:mm A"]).format("HH:mm")}:00`
-      dispatch(editAppointment.changeServiceTime({ time : formatDate, bookingServiceId }));
+      dispatch(editAppointment.changeServiceTime({ time: formatDate, bookingServiceId }));
     },
   };
 };

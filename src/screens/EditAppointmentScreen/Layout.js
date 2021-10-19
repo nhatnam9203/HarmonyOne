@@ -121,7 +121,7 @@ export const Layout = ({
                     duration={getTotalItem(data.item, "duration")}
                     price={getTotalPrice(data.item)}
                     isDelete={true}
-                    extras={appointmentEdit?.extras.filter(ex => ex?.serviceId == data.item?.serviceId && ex.checked)}
+                    extras={appointmentEdit?.extras.map(ex => ({ ...ex, name: ex.extraName }))}
                     onPressItemReview={true}
                   />
 
