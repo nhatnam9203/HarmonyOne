@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
 
     textTotalInfo: {
         fontFamily: fonts.REGULAR,
-        fontSize: scaleFont(15),
+        fontSize: scaleFont(17),
         fontWeight: 'normal',
         fontStyle: 'normal',
         letterSpacing: -0.36,
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
 
     textTotal: {
         fontFamily: fonts.MEDIUM,
-        fontSize: scaleFont(15),
+        fontSize: scaleFont(17),
         fontWeight: '500',
         fontStyle: 'normal',
         letterSpacing: 0,
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
 
     textTotalPrice: {
         fontFamily: fonts.BOLD,
-        fontSize: scaleFont(15),
+        fontSize: scaleFont(17),
         letterSpacing: 0,
         textAlign: 'right',
         color: colors.frog_green,

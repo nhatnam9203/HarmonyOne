@@ -73,7 +73,7 @@ const ItemExtra = ({ extra, onChangeExtraService }) => {
                 value={extra?.checked}
                 onValueChange={(newValue) => changeChecked(newValue)}
                 boxType='square'
-                style={{ width: 24, height: 24, marginRight: scaleWidth(16) }}
+                style={{ width: 22, height: 22, marginRight: scaleWidth(16) }}
             />
 
             {

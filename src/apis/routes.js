@@ -63,7 +63,7 @@ export const addStaff = (data) => ({
 export const getStaffById = (staffId, merchantId) => ({
   queryId: 'getStaffById',
   params: {
-    url: `/staff/${staffId}?merchantId=${merchantId}`,
+    url: `/staff/${staffId}`,
     method: 'GET',
   },
 });
@@ -545,7 +545,7 @@ export const customPromotion = (appointmentId, data) => ({
 
 export const addPromotionNote = (appointmentId, data) => ({
   queryId: 'addPromotionNote',
-  method : "POST",
+  method: "POST",
   params: {
     url: `appointment/promotion/note/${appointmentId}`,
     method: 'POST',
@@ -555,7 +555,7 @@ export const addPromotionNote = (appointmentId, data) => ({
 
 export const changeStylist = (appointmentId, data) => ({
   queryId: 'changeStylist',
-  method : "POST",
+  method: "POST",
   params: {
     url: `appointment/tip/${appointmentId}`,
     method: 'PUT',
@@ -564,22 +564,34 @@ export const changeStylist = (appointmentId, data) => ({
 });
 
 
-// export function changeStylist(staffId, bookingServiceId, tipAmount, appointmentId, price,extras = null, tipPercent = 0, note = "", isGroup = false) {
-//   return {
-//       type: 'CHANGE_STYLIST',
-//       method: 'PUT',
-//       token: true,
-//       body: {
-//           staffId: staffId ? staffId : 0,
-//           bookingServiceId,
-//           tipAmount,
-//           price,
-//           tipPercent,
-//           note,
-//           extras:extras,
-//       },
-//       api: `appointment/tip/${appointmentId}`,
-//       appointmentId,
-//       isGroup
-//   }
-// }
+/**
+ * PAYMENT
+ */
+
+export const selectPaymentMethod = (checkoutGroupId, data) => ({
+  queryId: 'selectPaymentMethod',
+  params: {
+    url: `appointment/selectpaymentmethod/${checkoutGroupId}`,
+    method: 'PUT',
+    data
+  }
+});
+
+export const checkoutSubmit = (appointmentId) => ({
+  queryId: 'checkoutSubmit',
+  params: {
+    url: `checkout/submit/${appointmentId}`,
+    method: 'PUT',
+    data: {}
+  }
+});
+
+export const checkoutAppointment = (appointmentId) => ({
+  queryId: 'checkoutAppointment',
+  params: {
+    url: `appointment/checkout/${appointmentId}`,
+    method: 'PUT',
+    data: {}
+  }
+});
+

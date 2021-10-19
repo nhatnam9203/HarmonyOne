@@ -40,6 +40,8 @@ import { ExtraSelectScreen } from "./ExtraScreen/pages/ExtraSelectScreen";
 import { AddTipPage } from "./CheckoutScreen/pages";
 import { ApplyDiscountPage } from "./CheckoutScreen/pages";
 import { PaymentPage } from "./CheckoutScreen/pages/PaymentPage";
+import { EditAppointmentScreen } from "./EditAppointmentScreen";
+import { AddServicePage } from "./ServiceScreen/pages/AddServicePage";
 
 module.exports = {
   ForgotPincode,
@@ -82,4 +84,6 @@ module.exports = {
   AddTipPage,
   ApplyDiscountPage,
   PaymentPage,
+  EditAppointmentScreen,
+  AddServicePage,
 };

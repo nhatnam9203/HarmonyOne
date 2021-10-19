@@ -10,14 +10,11 @@ import NavigationService from '@navigation/NavigationService';
 
 export const Layout = ({
   appointmentDetail,
-  selectPayment
+  selectPayment,
+  onPressBack
 }) => {
 
   const [t] = useTranslation();
-
-  const back = () => {
-    NavigationService.back();
-  }
 
   //screen này xư lý button back quay ra màn hinh home
   return (
@@ -27,6 +24,7 @@ export const Layout = ({
         isRight={false}
         isLeft={true}
         isScrollLayout={false}
+        onPressLeft={onPressBack}
       >
         <View style={styles.content}>
           <View style={styles.customerInfoView}>
@@ -36,6 +34,7 @@ export const Layout = ({
               lastName={appointmentDetail?.lastName}
               phoneNumber={appointmentDetail?.phoneNumber}
               isButtonRight={false}
+              onPress={()=>{}}
             />
           </View>
           <ItemList

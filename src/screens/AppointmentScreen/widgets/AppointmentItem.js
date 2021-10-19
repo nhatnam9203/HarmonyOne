@@ -86,7 +86,7 @@ export const AppointmentItem = ({ item, onChangeAppointmentId }) => {
 
                 <View style={styles.rowContent}>
                     <Text style={[styles.textTime, { color: getColors().textColor }]}>
-                        {`${item?.blockTimeStart} - ${item?.blockTimeEnd}`}
+                        {`${item?.blockTimeStart} - ${item?.appointmentId}`}
                     </Text>
                 </View>
 

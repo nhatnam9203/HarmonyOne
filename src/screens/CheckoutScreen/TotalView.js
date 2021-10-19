@@ -6,7 +6,6 @@ import { Button, IconButton } from "@shared/components";
 import { fonts, colors, images } from '@shared/themes';
 import NavigationService from '@navigation/NavigationService';
 import {
-    getGroupAppointmentById,
     getPromotionAppointment,
     useAxiosQuery,
 } from "@src/apis";
@@ -19,23 +18,13 @@ export const TotalView = ({
 }) => {
     const dispatch = useDispatch();
 
-    const [, fetchGroupApointmentById] = useAxiosQuery({
-        ...getGroupAppointmentById(appointmentDetail?.appointmentId),
-        enabled: false,
-        onSuccess: (data, response) => {
-            if (response?.codeNumber == 200) {
-                dispatch(appointment.setGroupAppointment(data));
-                NavigationService.navigate(screenNames.ApplyDiscountPage);
-            }
-        }
-    });
-
     const [, fetchPromotionAppointment] = useAxiosQuery({
         ...getPromotionAppointment(appointmentDetail?.appointmentId),
         enabled: false,
         onSuccess: (data, response) => {
             if (response?.codeNumber == 200) {
                 dispatch(appointment.setPromotionAppointment(data));
+                NavigationService.navigate(screenNames.ApplyDiscountPage);
             }
         }
     })
@@ -45,7 +34,6 @@ export const TotalView = ({
     }
 
     const addDiscount = () => {
-        fetchGroupApointmentById();
         fetchPromotionAppointment();
     }
 
@@ -120,7 +108,9 @@ export const TotalView = ({
 
             <View style={styles.row}>
                 <Text style={[styles.text, { fontFamily: fonts.BOLD }]}>Total</Text>
-                <Text style={[styles.text, { fontFamily: fonts.BOLD, color: "#4AD100" }]}>{`$ ${appointmentDetail?.total}`}</Text>
+                <Text style={[styles.text, { fontFamily: fonts.BOLD, color: "#4AD100" }]}>
+                    {`$ ${appointmentDetail?.total}`}
+                </Text>
             </View>
         </View>
     );

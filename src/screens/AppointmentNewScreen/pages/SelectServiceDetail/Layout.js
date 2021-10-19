@@ -170,7 +170,6 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     backgroundColor: colors.white,
-    paddingTop: scaleWidth(8)
   },
   containerDescription: {
     padding: scaleWidth(16),
@@ -219,7 +218,7 @@ const styles = StyleSheet.create({
   },
   wrapIconBack: {
     position: 'absolute',
-    top: scaleHeight(25),
+    top: scaleHeight(45),
     left: scaleWidth(16),
     borderRadius: 1000,
     backgroundColor: "#dddddd",

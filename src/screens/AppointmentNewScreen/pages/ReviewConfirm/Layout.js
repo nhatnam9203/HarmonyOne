@@ -25,7 +25,9 @@ export const Layout = ({
   addMore,
   confirm,
   dialogBookingRef,
-  onOK
+  onOK,
+  isQuickCheckout,
+  onPressBack
 }) => {
 
 
@@ -41,14 +43,23 @@ export const Layout = ({
         onPress={changeCustomer}
       />
       <View style={styles.line} />
-      <AppointmentTimeView
-        fromTime={dateTimeView}
-        icon={images.iconChangeDate}
-        onPressIcon={changeDateTime}
-      />
+      {
+        !isQuickCheckout &&
+        <>
+          <AppointmentTimeView
+            fromTime={dateTimeView}
+            icon={images.iconChangeDate}
+            onPressIcon={changeDateTime}
+          />
+          <View style={[styles.line, { marginTop: scaleHeight(8) }]} />
+        </>
+      }
       <View style={styles.containerService}>
-        <Text style={styles.titleService}>Services</Text>
-
+        <Text style={styles.titleService}>
+          {
+            isQuickCheckout ? "Items" : "Services"
+          }
+        </Text>
       </View>
     </View>
   )
@@ -66,7 +77,7 @@ export const Layout = ({
       <View style={styles.containerTotal}>
         <TotalView
           duration={getAllTotal().duration}
-          price={getAllTotal().price}
+          price={`$ ${getAllTotal().price}`}
         />
       </View>
 
@@ -81,7 +92,7 @@ export const Layout = ({
       <HeaderBooking
         step={4}
         title={'Review & Confirm'}
-        onPressBack={() => NavigationService.navigate(screenNames.SelectDateTime)}
+        onPressBack={onPressBack}
       />
       <View style={styles.content}>
         <View style={{ flex: 1, paddingLeft: scaleWidth(16) }}>
@@ -123,7 +134,7 @@ export const Layout = ({
 
         <View style={styles.bottom}>
           <Button
-            label="Confirm"
+            label={isQuickCheckout ? "Check Out" : "Confirm"}
             onPress={confirm}
             highlight={true}
             width={'100%'}
@@ -160,14 +171,13 @@ const styles = StyleSheet.create({
     marginBottom: scaleHeight(5)
   },
   containerService: {
-    borderTopWidth: 1,
-    borderTopColor: "#eeeeee",
-    marginTop: scaleHeight(5)
   },
   titleService: {
-    fontFamily: fonts.MEDIUM,
+    fontFamily: fonts.BOLD,
     fontSize: scaleFont(17),
-    marginVertical: scaleHeight(16)
+    marginBottom: scaleHeight(16),
+    marginTop: scaleHeight(10),
+    color: "#404040"
   },
   txtAddMore: {
     fontSize: scaleFont(17),
@@ -182,7 +192,7 @@ const styles = StyleSheet.create({
     marginTop: scaleHeight(16)
   },
   containerTotal: {
-    marginTop: scaleHeight(16)
+    marginTop: scaleHeight(26)
   },
   rowBack: {
     alignItems: 'center',

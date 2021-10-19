@@ -11,7 +11,8 @@ import moment from "moment";
 let InputTime = React.forwardRef(({
     style,
     apply,
-    time = moment().format("hh:mm A")
+    time = moment().format("hh:mm A"),
+    renderInput = null,
 }, ref) => {
 
     const actionSheetRef = React.useRef();
@@ -38,23 +39,32 @@ let InputTime = React.forwardRef(({
     }
 
     return (
-        <View style={[styles.containerInput]}>
-            <TouchableOpacity onPress={openActionSheet} style={[styles.wrapInput, style]}>
-                <Text style={styles.txtDate}>{time}</Text>
-                <Image
-                    source={images.dropdown}
-                    style={styles.icon}
-                    resizeMode='contain'
+        <>
+            {
+                renderInput ?
+                    <TouchableOpacity onPress={openActionSheet}>
+                        {renderInput()}
+                    </TouchableOpacity>
+                    :
+                    <View style={[styles.containerInput]}>
+                        <TouchableOpacity onPress={openActionSheet} style={[styles.wrapInput, style]}>
+                            <Text style={styles.txtDate}>{time}</Text>
+                            <Image
+                                source={images.dropdown}
+                                style={styles.icon}
+                                resizeMode='contain'
+                            />
+                        </TouchableOpacity>
+                    </View>
+            }
+            <CustomActionSheet ref={actionSheetRef}>
+                <TimePicker
+                    onApply={onApplyTime}
+                    cancel={closeActionSheet}
+                    startTime={moment(time, ["hh:mm A"])}
                 />
-                <CustomActionSheet ref={actionSheetRef}>
-                    <TimePicker
-                        onApply={onApplyTime}
-                        cancel={closeActionSheet}
-                        startTime={moment(time,["hh:mm A"])}
-                    />
-                </CustomActionSheet>
-            </TouchableOpacity>
-        </View>
+            </CustomActionSheet>
+        </>
     )
 });
 
@@ -79,7 +89,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: scaleWidth(10),
         alignItems: 'center',
         justifyContent: 'space-between'
-},
+    },
     input: {
         flex: 1,
         fontSize: scaleFont(16),

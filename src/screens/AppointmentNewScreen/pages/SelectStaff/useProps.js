@@ -14,9 +14,9 @@ export const useProps = ({
   const serviceSelected = route?.params?.serviceSelected;
 
   const {
-    bookAppointment: { staffsOfService = [] , dayBooking = moment(), isAddMore },
+    bookAppointment: { staffsOfService = [], dayBooking = moment(), isAddMore, isQuickCheckout },
     auth: { staff },
-    merchant : { merchantDetail },
+    merchant: { merchantDetail },
   } = useSelector(state => state);
 
 
@@ -46,7 +46,7 @@ export const useProps = ({
     onSuccess: (data, response) => {
       if (response.codeNumber == 200) {
         dispatch(bookAppointment.setTimesAvailable(data));
-        NavigationService.navigate(screenNames.SelectDateTime,{ staffSelected : getStaffSelected() });
+        NavigationService.navigate(screenNames.SelectDateTime, { staffSelected: getStaffSelected() });
       }
     }
   });
@@ -55,13 +55,24 @@ export const useProps = ({
     staffList,
 
     goToDateTime: async () => {
-      if(isAddMore){
+
+      if (isAddMore) {
         dispatch(bookAppointment.updateStatusAddMore(false));
         NavigationService.navigate(screenNames.ReviewConfirm);
         return;
       }
-      /**************************** GET TIME AVAILABLE CHO STAFF DUOC CHON *****************************/
+
       const staffSelected = getStaffSelected();
+
+      /**************************** UPDATE STAFF CHO SERVICE *****************************/
+      dispatch(bookAppointment.updateStaffService({ service: serviceSelected, staff: staffSelected }));
+      /**************************** QUICK CHECKOUT KHONG CAN CHON DATE TIME *****************************/
+      if (isQuickCheckout) {
+        NavigationService.navigate(screenNames.ReviewConfirm);
+        return;
+      }
+
+      /**************************** GET TIME AVAILABLE CHO STAFF DUOC CHON *****************************/
       const data = {
         date: moment(dayBooking).format("YYYY-MM-DD"),
         merchantId: staff?.merchantId,
@@ -71,8 +82,6 @@ export const useProps = ({
       const body = await staffGetAvaiableTime(staffSelected?.staffId, data);
       submitGetStaffAvailable(body.params);
 
-      /**************************** UPDATE STAFF CHO SERVICE *****************************/
-      dispatch(bookAppointment.updateStaffService({ service: serviceSelected, staff: staffSelected }));
     },
 
 

@@ -37,8 +37,8 @@ export const Layout = ({
         <View style={styles.marginHeight} />
         <Button
           width="100%"
-          highlight={merchantID?.length === 4}
-          disabled={merchantID?.length !== 4}
+          highlight={true}
+          disabled={merchantID?.length < 4 || !merchantID }
           isLoading={isLoading}
           onPress={loginMerchant}
         />

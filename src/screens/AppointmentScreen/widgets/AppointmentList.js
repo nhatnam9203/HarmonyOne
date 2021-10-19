@@ -6,6 +6,7 @@ import { IconButton, ListEmptyComponent } from "@shared/components";
 import { AppointmentItem } from "./AppointmentItem";
 import { useTranslation } from "react-i18next";
 import { guid } from "@shared/utils";
+import sortArray from "sort-array";
 
 const AppointmentList = ({
     blockTimes = [],
@@ -15,6 +16,11 @@ const AppointmentList = ({
 }) => {
 
     const [t] = useTranslation();
+
+    // const temptData = sortArray(blockTimes, {
+    //     by: "appointmentId",
+    //     order: "ASC",
+    //   });
 
     return (
         <FlatList

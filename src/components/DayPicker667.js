@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import Text from './Text'
 import { scaleWidth, scaleHeight } from '@utils'
-import { Calendar } from './react-native-calendars'
+import { Calendar } from './react-native-calendars/src'
 import { rightButton, leftButton } from '@assets'
 import moment from 'moment'
 

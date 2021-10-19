@@ -11,7 +11,8 @@ export const Layout = ({
     back,
     appointmentDetail,
     methodPay,
-    onChangeMethodPay
+    onChangeMethodPay,
+    onSubmitPayment,
 }) => {
 
     const [t] = useTranslation();
@@ -45,7 +46,7 @@ export const Layout = ({
                 <View style={styles.bottom}>
                     <Button
                         label="Charge"
-                        onPress={() => { }}
+                        onPress={onSubmitPayment}
                         highlight={true}
                         width={'100%'}
                         disabled={methodPay == "" || !methodPay}

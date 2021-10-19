@@ -218,3 +218,8 @@ export const workingTimesData = {
 export const roundNumber = (num) => {
   return (Math.round(num * 100) / 100).toFixed(2);
 };
+
+const nearestFutureMinutes = (interval, someMoment) => {
+  const roundedMinutes = Math.ceil(someMoment.minute() / interval) * interval;
+  return someMoment.clone().minute(roundedMinutes).second(0);
+}

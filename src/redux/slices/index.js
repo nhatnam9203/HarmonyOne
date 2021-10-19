@@ -12,6 +12,7 @@ import staffSlice from "./staffSlice";
 import appointmentSlice from "./appointmentSlice";
 import merchantSlice from "./merchantSlice";
 import notificationSlice from "./notificationSlice";
+import editAppointmentSlice from "./editAppointmentSlice";
 
 const rootReducers = Object.assign(
   {},
@@ -30,6 +31,7 @@ const rootReducers = Object.assign(
     appointment: appointmentSlice.reducer,
     merchant: merchantSlice.reducer,
     notification: notificationSlice.reducer,
+    editAppointment : editAppointmentSlice.reducer
   },
 );
 
@@ -49,4 +51,5 @@ module.exports = {
   appointment: appointmentSlice.actions,
   merchant: merchantSlice.actions,
   notification : notificationSlice.actions,
+  editAppointment : editAppointmentSlice.actions
 };

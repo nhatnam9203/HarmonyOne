@@ -154,7 +154,7 @@ export const Layout = ({
               }
             />
 
-            {/* <CustomInput
+            <CustomInput
               label='City'
               error={errors?.city}
               renderInput={() =>
@@ -165,7 +165,7 @@ export const Layout = ({
                   error={errors?.city}
                 />
               }
-            /> */}
+            />
         </KeyboardAwareScrollView>
         <View style={styles.bottom}>
             <Button

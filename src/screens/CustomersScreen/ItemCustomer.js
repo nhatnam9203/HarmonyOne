@@ -89,19 +89,19 @@ const styles = StyleSheet.create({
         backgroundColor: '#FAFAFA'
     },
     firstLetter: {
-        fontSize: scaleWidth(30),
+        fontSize: scaleFont(23),
         fontWeight: "bold",
         color: "#1366AE",
         fontFamily: fonts.MEDIUM
     },
     customerName: {
-        fontSize: scaleWidth(19),
+        fontSize: scaleFont(20),
         color: "#404040",
         fontFamily: fonts.MEDIUM
     },
     phone: {
         color: '#7A98BB',
-        fontSize: scaleWidth(14),
+        fontSize: scaleFont(15),
         fontFamily: fonts.REGULAR
     },
 })

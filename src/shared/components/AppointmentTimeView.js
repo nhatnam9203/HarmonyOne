@@ -10,7 +10,7 @@ const TIME_FORMAT = 'LT'; // 4:20 PM
 
 export const AppointmentTimeView = ({ fromTime = '', toTime = '', icon = null, onPressIcon = () => { } }) => {
   return (
-    <TouchableOpacity activeOpacity={1} style={styles.container}>
+    <View activeOpacity={1} style={styles.container}>
       <View style={styles.customerContent}>
         <Text style={styles.textDate}>
           {dateToFormat(fromTime, DATE_FORMAT)}
@@ -30,7 +30,7 @@ export const AppointmentTimeView = ({ fromTime = '', toTime = '', icon = null, o
         </View>
       </View>
       {/* <Image source={images.iconArrow} style={styles.arrow} /> */}
-    </TouchableOpacity>
+    </View>
   );
 };
 

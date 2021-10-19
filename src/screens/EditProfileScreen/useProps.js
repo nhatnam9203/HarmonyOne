@@ -35,19 +35,19 @@ export const useProps = (props) => {
 
     let staffPhone = staff?.phone;
     let phone = '';
-    if (staffPhone.toString().includes("+84")) {
-      phone = staffPhone.toString().slice(3);
+    if (staffPhone?.toString().includes("+84")) {
+      phone = staffPhone?.toString().slice(3);
       setValue("phone", phone);
       inputPhoneHeadRef?.current?.changeValue({ label: "+84", value: "+84" });
     } else {
-      phone = staffPhone.toString().slice(2);
+      phone = staffPhone?.toString().slice(2);
       setValue("phone", phone);
       inputPhoneHeadRef?.current?.changeValue({ label: "+1", value: "+1" });
     }
   }, []);
 
   const [, getStaffLogin] = useAxiosQuery({
-    ...getStaffById(staff?.staffId),
+    ...getStaffById(staff?.staffId,staff?.merchantId),
     enabled: false,
     isLoadingDefault: true,
     onSuccess: (data, response) => {
@@ -61,6 +61,7 @@ export const useProps = (props) => {
   const [, submitEditStaff] = useAxiosMutation({
     ...updateStaff(staff?.staffId),
     onSuccess: (data, response) => {
+      console.log({ response })
       if (response.codeNumber == 200) {
         getStaffLogin();
       }
@@ -126,7 +127,7 @@ export const useProps = (props) => {
         fileId,
       }
 
-      const body = await updateStaff(data, staff.staffId);
+      const body = await updateStaff(staff.staffId, data);
       submitEditStaff(body.params);
 
     }

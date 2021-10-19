@@ -9,9 +9,9 @@ import NavigationService from '@navigation/NavigationService';
 
 export const CustomerInfoView = ({
   customerId,
-  firstName = '',
-  lastName,
-  phoneNumber,
+  firstName = 'Unknown',
+  lastName = "Unknown",
+  phoneNumber = "Unknown",
   onPress,
   isButtonRight = true,
 }) => {
@@ -36,7 +36,7 @@ export const CustomerInfoView = ({
       onPress();
       return;
     }
-    getCustomerById();
+    customerId !== 0 && getCustomerById();
   }
 
   return (
@@ -47,9 +47,9 @@ export const CustomerInfoView = ({
       <View style={layouts.marginHorizontal} />
       <View style={styles.customerContent}>
         <Text style={styles.textName}>{`${firstName} ${lastName}`}</Text>
-        <Text style={styles.textPhone}>{`${formatPhoneNumber(phoneNumber)}`}</Text>
+        <Text style={styles.textPhone}>{`${phoneNumber}`}</Text>
       </View>
-      {isButtonRight && <Image source={images.iconArrow} style={styles.arrow} />}
+      {isButtonRight && customerId !== 0 && <Image source={images.iconArrow} style={styles.arrow} />}
     </Pressable>
   );
 };

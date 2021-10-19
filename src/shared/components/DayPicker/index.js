@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, Alert } from 'react-native'
 import { fonts, colors } from '@shared/themes';
 import { slop } from "@shared/utils";
 import { images } from "@shared/themes/resources";
@@ -11,13 +11,14 @@ import moment from "moment";
 
 export const DayPicker = React.forwardRef(({
     style,
-    onApply = () =>{},
+    onApply = () => { },
     dayPicked = moment(),
+    componentRender = null,
 }, ref) => {
 
     const actionSheetRef = React.useRef();
     const [open, setOpen] = React.useState(false);
-    
+
     const [daySelected, selectDay] = React.useState(moment().clone());
     const selectedDay = moment(daySelected).format("YYYY-MM-DD").toString();
 
@@ -44,30 +45,37 @@ export const DayPicker = React.forwardRef(({
         closeActionSheet();
     }
 
-    const onHide = () =>{
+    const onHide = () => {
         setOpen(false);
     }
 
     return (
         <View style={[styles.containerInput]}>
-            <TouchableOpacity onPress={openActionSheet} style={[styles.wrapInput, style]}>
-                <Text style={styles.txtDate}>
-                    {moment(dayPicked).format("MMMM DD, YYYY")}
-                </Text>
-                <Image
-                    source={images.dropdown}
-                    style={[styles.icon,{ transform : [{ rotate : open ? "180deg" : "0deg" }] }]}
-                    resizeMode='contain'
+            {
+                componentRender ?
+                    <TouchableOpacity onPress={openActionSheet}>
+                        {componentRender()}
+                    </TouchableOpacity> :
+                    
+                    <TouchableOpacity onPress={openActionSheet} style={[styles.wrapInput, style]}>
+                        <Text style={styles.txtDate}>
+                            {moment(dayPicked).format("MMMM DD, YYYY")}
+                        </Text>
+                        <Image
+                            source={images.dropdown}
+                            style={[styles.icon, { transform: [{ rotate: open ? "180deg" : "0deg" }] }]}
+                            resizeMode='contain'
+                        />
+                    </TouchableOpacity>
+            }
+            <CustomActionSheet onHide={onHide} ref={actionSheetRef}>
+                <CalendarDay
+                    selectedDay={selectedDay}
+                    selectDay={selectDay}
+                    closeCalendarPicker={closeActionSheet}
+                    apply={apply}
                 />
-                <CustomActionSheet onHide={onHide} ref={actionSheetRef}>
-                    <CalendarDay
-                        selectedDay={selectedDay}
-                        selectDay={selectDay}
-                        closeCalendarPicker={closeActionSheet}
-                        apply={apply}
-                    />
-                </CustomActionSheet>
-            </TouchableOpacity>
+            </CustomActionSheet>
         </View>
     )
 });

@@ -28,6 +28,7 @@ export const useProps = (_params) => {
     onLogout: async () => {
       const body = await staffLogoutRequest();
       logout(body.params);
+      NavigationService.navigate('AuthStack', { isLogout: true });
     },
   };
 };

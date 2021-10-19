@@ -30,7 +30,7 @@ export const Layout = ({
             },
             labelStyle: {
               fontFamily: fonts.REGULAR,
-              fontSize: scaleFont(18)
+              fontSize: scaleFont(17)
             },
             style: {
               backgroundColor: colors.white,

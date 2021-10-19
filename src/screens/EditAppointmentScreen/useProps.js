@@ -13,7 +13,8 @@ export const useProps = (_params) => {
 
   const {
     bookAppointment: { customerBooking = {}, servicesBooking = [], extrasBooking = [], dayBooking, timeBooking, isQuickCheckout },
-    appointment: { appointmentDate },
+    appointment: { appointmentDate, appointmentDetail },
+    editAppointment: { appointmentEdit },
     auth: { staff }
   } = useSelector(state => state);
 
@@ -34,18 +35,6 @@ export const useProps = (_params) => {
     },
   });
 
-  const [, submitAddAppointment] = useAxiosMutation({
-    ...addAppointment(),
-    onSuccess: async (data, response) => {
-      if (response?.codeNumber == 200) {
-        const appointmentId = response?.data;
-        setAppointmentId(appointmentId)
-        const data = getDataUpdate();
-        const body = await updateAppointment(appointmentId, data);
-        submitUpdateAppointment(body.params);
-      }
-    }
-  });
 
   const [, submitUpdateAppointment] = useAxiosMutation({
     ...updateAppointment(),
@@ -93,6 +82,8 @@ export const useProps = (_params) => {
     timeBooking,
     dialogBookingRef,
     isQuickCheckout,
+    appointmentDetail,
+    appointmentEdit,
 
     getTotalItem: (service, itemType) => {
       let total = 0;
@@ -119,14 +110,16 @@ export const useProps = (_params) => {
     getAllTotal: () => {
       let price = 0;
       let duration = 0;
-      for (let i = 0; i < servicesBooking.length; i++) {
-        price += formatNumberFromCurrency(servicesBooking[i].price);
-        duration += servicesBooking[i].duration;
+
+      for (let i = 0; i < appointmentEdit?.services?.length; i++) {
+        price += formatNumberFromCurrency(appointmentEdit?.services[i].price);
+        duration += appointmentEdit?.services[i].duration;
       }
-      for (let i = 0; i < extrasBooking.length; i++) {
-        if (extrasBooking[i].checked) {
-          price += formatNumberFromCurrency(extrasBooking[i].price);
-          duration += formatNumberFromCurrency(extrasBooking[i].duration);
+
+      for (let i = 0; i < appointmentEdit?.extras.length; i++) {
+        if (appointmentEdit?.extras[i].checked) {
+          price += formatNumberFromCurrency(appointmentEdit?.extras[i].price);
+          duration += formatNumberFromCurrency(appointmentEdit?.extras[i].duration);
         }
       }
 
@@ -136,32 +129,19 @@ export const useProps = (_params) => {
       }
     },
 
-    changeCustomer: () => {
-      NavigationService.navigate(
-        screenNames.CustomersScreen,
-        { isBookAppointment: true, isReviewConfirm: true }
-      );
-    },
 
     deleteService: (service) => {
-      dispatch(bookAppointment.deleteService(service))
     },
 
     changeDateTime: () => {
-      NavigationService.navigate(screenNames.SelectDateTime);
-    },
-
-    addMore: () => {
-      NavigationService.navigate(screenNames.SelectService, { isAddMore: true });
-      dispatch(bookAppointment.updateStatusAddMore(true));
     },
 
     onPressBack: () => {
-      if (isQuickCheckout) {
-        NavigationService.navigate(screenNames.SelectStaff);
-      } else {
-        NavigationService.navigate(screenNames.SelectDateTime);
-      }
+      NavigationService.back();
+    },
+
+    addMoreService: () => {
+      NavigationService.navigate(screenNames.AddServicePage);
     },
 
     confirm: async () => {
@@ -179,8 +159,6 @@ export const useProps = (_params) => {
         products: [],
       }
 
-      const body = await addAppointment(data);
-      submitAddAppointment(body.params);
     },
 
     onOK: () => {

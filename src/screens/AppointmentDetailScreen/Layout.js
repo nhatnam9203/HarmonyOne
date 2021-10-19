@@ -60,6 +60,7 @@ export const Layout = ({
     return formatMoneyWithUnit(price);
   };
 
+
   return (
     <View style={styles.container}>
       <SingleScreenLayout

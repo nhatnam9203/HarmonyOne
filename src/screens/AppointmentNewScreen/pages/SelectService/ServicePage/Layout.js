@@ -21,7 +21,7 @@ export const Layout = ({
 
     return (
         <View style={styles.container}>
-            <View>
+            <View style={styles.categoryListContainer}>
                 <FlatList
                     ref={categoryRef}
                     style={styles.categoryList}
@@ -74,7 +74,6 @@ export const Layout = ({
 const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.white,
-        paddingTop: scaleWidth(16),
         flex: 1,
         borderTopWidth: 1,
         borderTopColor: "#eeeeee"
@@ -97,13 +96,21 @@ const styles = StyleSheet.create({
             fontFamily: categorySelected == categoryId ? fonts.MEDIUM : fonts.REGULAR
         }
     },
+    categoryListContainer : {
+        shadowColor: "#4040401A",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 6,
+        
+        elevation: 5,
+    },
     categoryList: {
         paddingBottom: scaleHeight(16),
-        paddingTop: scaleHeight(4),
+        paddingTop: scaleHeight(16),
         backgroundColor: colors.white,
-        borderBottomWidth: 1,
-        borderBottomColor: '#dddddd',
-
     },
     sectionList: {
         flex: 1,

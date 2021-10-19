@@ -9,23 +9,28 @@ import { images } from "@shared/themes/resources";
 const methodPays = [
     {
         title: "Harmony pay",
-        icon: images.harmonyPay
+        icon: images.harmonyPay,
+        method: "harmony"
     },
     {
         title: "Cash",
-        icon: images.cashPay
+        icon: images.cashPay,
+        method: "cash"
     },
     {
         title: "Credit Card",
-        icon: images.creditCardPay
+        icon: images.creditCardPay,
+        method: "credit_card"
     },
     {
-        title: "Giftcard",
-        icon: images.giftCardPay
+        title: "Gift Card",
+        icon: images.giftCardPay,
+        method: "giftcard"
     },
     {
         title: "Others - Check",
-        icon: images.otherPay
+        icon: images.otherPay,
+        method : "other"
     }
 ]
 
@@ -36,25 +41,25 @@ export const ItemsPay = ({
     return (
         <View style={styles.container}>
             {
-                methodPays.map(method => (
+                methodPays.map(item => (
                     <Pressable
-                        key={method?.title}
+                        key={item?.title}
                         style={[
                             styles.item,
-                            { backgroundColor: methodPay == method.title ? "#0764B0" : "white" }
+                            { backgroundColor: methodPay?.title == item.title ? "#0764B0" : "white" }
                         ]}
-                        onPress={() => onChangeMethodPay(method?.title)}
+                        onPress={() => onChangeMethodPay(item)}
                     >
                         <Image
-                            source={method.icon}
+                            source={item.icon}
                             resizeMode='contain'
                             style={[
                                 styles.iconPay,
-                                { tintColor: methodPay == method.title ? "white" : "#7A98BB" }
+                                { tintColor: methodPay?.title == item.title ? "white" : "#7A98BB" }
                             ]}
                         />
-                        <Text style={[styles.title, { color: methodPay == method.title ? "white" : "#7A98BB" }]}>
-                            {method.title}
+                        <Text style={[styles.title, { color: methodPay?.title == item.title ? "white" : "#7A98BB" }]}>
+                            {item.title}
                         </Text>
                     </Pressable>
                 ))

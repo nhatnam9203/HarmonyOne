@@ -11,13 +11,13 @@ const log = (obj, message = '') => {
 log(Configs, 'Configs');
 export const axios = Axios.create({
   baseURL:  Configs.API_URL,
-  // baseURL : `https://dev.harmonypayment.com/api/`,
+  // baseURL: `https://dev.harmonypayment.com/api/`,
   timeout: 30000,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
     'User-Agent': `HarmonyMerchant/${Configs.APP_VERSION}.${Configs.CODE_PUSH_VERSION}/${Platform.OS}`,
-    // DeviceID: `${encodeURIComponent(deviceName)}_${deviceId}`,
+    DeviceID: `testtuy767867867867867fghdhd`,
   },
 });
 

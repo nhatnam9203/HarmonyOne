@@ -8,12 +8,11 @@ import {
   useAxiosMutation,
   useAxiosQuery,
   getAppointmentById,
-  getGroupAppointmentById,
   getPromotionAppointment,
 } from "@src/apis";
 
 import { APPOINTMENT_STATUS, getColorForStatus, dateToFormat } from '@shared/utils';
-import { appointment } from "@redux/slices";
+import { appointment, editAppointment } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 
 const NoNeedEdit = [
@@ -122,7 +121,10 @@ export const useProps = ({
       {
         id: 'edit-appointment',
         label: t('Edit Appointment'),
-        func: () => { },
+        func: () => {
+          dispatch(editAppointment.setAppointentEdit(appointmentDetail))
+          NavigationService.navigate(screenNames.EditAppointmentScreen);
+        },
       },
       {
         id: 'cancel-appointment',

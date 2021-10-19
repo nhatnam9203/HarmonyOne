@@ -4,6 +4,7 @@ import { View, StyleSheet, ScrollView, TouchableOpacity, Text, ActivityIndicator
 import { images, colors, fonts } from '@shared/themes';
 import { IconButton, CustomImage } from "@shared/components";
 import { isElement, isEmpty } from "lodash";
+import { guid } from "@shared/utils";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
 const StaffList = ({
@@ -18,13 +19,12 @@ const StaffList = ({
     return (
         <View style={styles.container}>
             <ScrollView
-                pagingEnabled={true}
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
             >
                 {
                     isLoading && new Array(5).fill().map(() => (
-                        <SkeletonPlaceholder>
+                        <SkeletonPlaceholder key={guid()}>
                             <SkeletonPlaceholder.Item marginLeft={20}>
                                 <SkeletonPlaceholder.Item
                                     width={scaleWidth(48)}
@@ -63,7 +63,7 @@ const StaffList = ({
                                             styles.avatar,
                                             {
                                                 borderColor: staffSelected == staff?.staffId ? colors.ocean_blue : "white",
-                                                borderWidth: staffSelected == staff?.staffId ? 3 : 1,
+                                                borderWidth: staffSelected == staff?.staffId ? 2 : 1,
                                             }
                                         ]}
                                         source={{ uri: staff?.imageUrl }}
