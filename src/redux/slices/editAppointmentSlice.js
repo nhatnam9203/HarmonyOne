@@ -36,6 +36,12 @@ const editAppointment = createSlice({
                     tempServices[i].fromTime = time;
                 }
             }
+            tempAppointment = {
+                ...tempAppointment,
+                services: tempServices,
+                fromTime: tempServices.length > 0 ? tempServices[0].fromTime : `${moment().format("YYYY-MM-DD")}T${moment().format("HH:mm")}:00`
+            }
+            state.appointmentEdit = tempAppointment;
         },
 
         removeServiceBooking: (state, action) => {
@@ -51,6 +57,7 @@ const editAppointment = createSlice({
                 ...tempAppointment,
                 services: tempServices,
                 extras: tempExtras,
+                fromTime: tempServices.length > 0 ? tempServices[0].fromTime : `${moment().format("YYYY-MM-DD")}T${moment().format("HH:mm")}:00`
             }
             state.appointmentEdit = tempAppointment;
         },
@@ -68,7 +75,9 @@ const editAppointment = createSlice({
                 ...tempAppointment,
                 services: tempServices,
                 extras: tempExtras,
+                fromTime: tempServices.length > 0 ? tempServices[0].fromTime : `${moment().format("YYYY-MM-DD")}T${moment().format("HH:mm")}:00`
             }
+
             state.appointmentEdit = tempAppointment;
         },
 
@@ -87,7 +96,7 @@ const editAppointment = createSlice({
 
             tempServices.push(service);
             tempExtras = [
-                ...tempExtras,
+                ...tempExtras.filter(ex => ({ ...ex, status: 1 })),
                 ...extras
             ];
             tempAppointment = {

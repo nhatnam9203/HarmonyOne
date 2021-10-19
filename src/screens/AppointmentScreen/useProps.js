@@ -116,7 +116,6 @@ export const useProps = (_params) => {
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
     enabled: true,
     onSuccess: (data, response) => {
-      console.log({ response })
       dispatch(appointment.setBlockTimeBydate(data));
       setRefresh(false);
     },

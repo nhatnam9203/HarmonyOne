@@ -33,7 +33,6 @@ export const Layout = ({
   addMoreService
 }) => {
 
-  console.log({ appointmentEdit })
 
   const renderHeader = () => (
     <View style={{ paddingRight: scaleWidth(16), paddingTop: 8 }}>
