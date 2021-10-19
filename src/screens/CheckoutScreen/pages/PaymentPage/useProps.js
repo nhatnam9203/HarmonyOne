@@ -62,7 +62,7 @@ export const useProps = (props) => {
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
     enabled: false,
     onSuccess: (data, response) => {
-      dispatch(appointmentAction.setBlockTimeBydate(data));
+      dispatch(appointment.setBlockTimeBydate(data));
     },
   });
 

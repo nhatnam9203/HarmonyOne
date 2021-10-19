@@ -34,7 +34,41 @@ const editAppointment = createSlice({
                     tempServices[i].fromTime = time;
                 }
             }
-        }
+        },
+
+        removeServiceBooking: (state, action) => {
+            const bookingServiceId = action.payload;
+            let tempAppointment = {
+                ...state.appointmentEdit,
+            }
+            let tempServices = tempAppointment.services || [];
+            let tempExtras = tempAppointment.extras || [];
+            tempServices = tempServices.filter(sv => sv.bookingServiceId !== bookingServiceId);
+            tempExtras = tempExtras.filter(ex => ex.bookingServiceId !== bookingServiceId);
+            tempAppointment = {
+                ...tempAppointment,
+                services: tempServices,
+                extras: tempExtras,
+            }
+            state.appointmentEdit = tempAppointment;
+        },
+
+        removeServiceAdded: (state, action) => {
+            const serviceId = action.payload;
+            let tempAppointment = {
+                ...state.appointmentEdit,
+            }
+            let tempServices = tempAppointment.services || [];
+            let tempExtras = tempAppointment.extras || [];
+            tempServices = tempServices.filter(sv => sv.serviceId !== serviceId);
+            tempExtras = tempExtras.filter(ex => ex.serviceId !== serviceId);
+            tempAppointment = {
+                ...tempAppointment,
+                services: tempServices,
+                extras: tempExtras,
+            }
+            state.appointmentEdit = tempAppointment;
+        },
     },
 });
 

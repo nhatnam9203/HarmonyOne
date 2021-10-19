@@ -133,6 +133,11 @@ export const useProps = (_params) => {
 
 
     deleteService: (service) => {
+      if (service?.bookingServiceId) {
+        dispatch(editAppointment.removeServiceBooking(service?.bookingServiceId));
+      } else {
+        dispatch(editAppointment.removeServiceAdded(service?.serviceId));
+      }
     },
 
 
@@ -177,5 +182,7 @@ export const useProps = (_params) => {
       const formatDate = `${moment().format("YYYY-MM-DD")}T${moment(time, ["hh:mm A"]).format("HH:mm")}:00`
       dispatch(editAppointment.changeServiceTime({ time: formatDate, bookingServiceId }));
     },
+
+
   };
 };
