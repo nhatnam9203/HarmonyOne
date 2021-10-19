@@ -6,7 +6,7 @@ export const DATE_FORMAT_STRING = 'MM/DD/YYYY';
 export const BIRTH_DAY_DATE_FORMAT_STRING = 'MM/DD/YYYY';
 export const DATE_SHOW_FORMAT_STRING = 'LL'; // August 30, 2021
 export const DATE_TIME_SHOW_FORMAT_STRING = 'LLL'; // August 30, 2021 4:14 PM
-export const DATE_TIME_REQUEST_FORMAT_STRING = 'YYYY-MM-DD';
+export const DATE_TIME_REQUEST_FORMAT_STRING = 'MM/DD/YYYY';
 export const TIME_APPOINTMENT_FORMAT = 'LT'; // 4:14 PM
 
 export const dateToFormat = (

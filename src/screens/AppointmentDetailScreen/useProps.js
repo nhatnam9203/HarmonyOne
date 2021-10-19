@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from "react-redux";
 import {
   updateAppointmentStatusRequest,
-  getBlockTimeByDate,
+  getAppointmentByDate,
   useAxiosMutation,
   useAxiosQuery,
   getAppointmentById,
@@ -44,8 +44,8 @@ export const useProps = ({
   const [canEdit, setCanEdit] = React.useState(false);
 
 
-  const [{ }, fetchBlockTimes] = useAxiosQuery({
-    ...getBlockTimeByDate(dateToFormat(appointmentDate, "MM/DD/YYYY")),
+  const [{ }, fetchAppointmentByDate] = useAxiosQuery({
+    ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
     enabled: true,
     onSuccess: (data, response) => {
       dispatch(appointment.setBlockTimeBydate(data));
@@ -58,7 +58,7 @@ export const useProps = ({
     isLoadingDefault: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
-        fetchBlockTimes();
+        fetchAppointmentByDate();
         fetchAppointmentById();
       }
     },

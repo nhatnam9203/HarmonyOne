@@ -32,7 +32,7 @@ export const InputDate = React.forwardRef(({
                     {
                         mode === "time" ?
                             moment(date).utc().format("hh:mm A") :
-                            moment(date).utc().format("MM/DD/YYYY")
+                            moment(date).utc().format("YYYY-MM-DD")
                     }
                 </Text>
                 <Image

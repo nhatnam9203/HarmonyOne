@@ -7,7 +7,7 @@ import {
   getExtra,
   getStaffByDate,
   appointmentStaffByDateRequest,
-  getBlockTimeByDate,
+  getAppointmentByDate,
   getAppointmentById,
   getMerchantById,
   getCountUnReadOfNotification
@@ -39,8 +39,8 @@ export const useProps = (_params) => {
 
 
   const setDate = (date) => {
-    if (dateToFormat(date, "MM/DD/YYYY") == dateToFormat(appointmentDate, "MM/DD/YYYY")) {
-      fetchBlockTimes();
+    if (dateToFormat(date, "YYYY-MM-DD") == dateToFormat(appointmentDate, "YYYY-MM-DD")) {
+      fetchAppointmentByDate();
       fetchStaffByDate();
     } else {
       dispatch(appointment.setAppointmentDate(date));
@@ -104,7 +104,7 @@ export const useProps = (_params) => {
   });
 
   const [,fetchStaffByDate] = useAxiosQuery({
-    ...getStaffByDate(staffInfo?.merchantId, dateToFormat(appointmentDate, "MM/DD/YYYY")),
+    ...getStaffByDate(staffInfo?.merchantId, dateToFormat(appointmentDate, "YYYY-MM-DD")),
     enabled: true,
     onSuccess: (data, response) => {
       dispatch(staff.setStaffByDate(data));
@@ -112,10 +112,11 @@ export const useProps = (_params) => {
     },
   });
 
-  const [{ isLoading }, fetchBlockTimes] = useAxiosQuery({
-    ...getBlockTimeByDate(dateToFormat(appointmentDate, "MM/DD/YYYY")),
+  const [{ isLoading }, fetchAppointmentByDate] = useAxiosQuery({
+    ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
     enabled: true,
     onSuccess: (data, response) => {
+      console.log({ response })
       dispatch(appointment.setBlockTimeBydate(data));
       setRefresh(false);
     },
@@ -131,7 +132,7 @@ export const useProps = (_params) => {
   });
 
   const refreshFromScreen = () => {
-    fetchBlockTimes();
+    fetchAppointmentByDate();
   }
 
 
@@ -149,7 +150,7 @@ export const useProps = (_params) => {
   /************************************** REFRESH BLOCK TIMES  ***************************************/
   React.useEffect(() => {
     if (isRefresh) {
-      fetchBlockTimes();
+      fetchAppointmentByDate();
     }
   }, [isRefresh]);
 

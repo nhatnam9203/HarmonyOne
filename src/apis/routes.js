@@ -195,10 +195,11 @@ export const getGroupAppointmentById = (appointmentId) => ({
  * BLOCK TIMES
  */
 
-export const getBlockTimeByDate = (date) => ({
-  queryId: 'getBlockTimeByDate',
+export const getAppointmentByDate = (date) => ({
+  queryId: 'getAppointmentByDate',
   params: {
-    url: `blocktime?workingdate=${date}`,
+    // url: `blocktime?workingdate=${date}`,
+    url : `appointment/date/${date}`,
     method: 'GET',
   },
 });

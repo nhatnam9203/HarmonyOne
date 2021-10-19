@@ -43,37 +43,6 @@ export const AppointmentItem = ({ item, onChangeAppointmentId }) => {
         onChangeAppointmentId(item?.appointmentId);
     };
 
-    const notesServices = (notes = []) => {
-        let noteServices = [];
-
-        for (let i = 0; i < notes.length; i++) {
-            if (i > 1) {
-                if (notes[i].includes("- ")) {
-                    noteServices.push(notes[i])
-                } else if (notes[i].toString().trim() !== "") {
-                    noteServices.push(`- ${notes[i]}`)
-                }
-            }
-        }
-        return noteServices;
-    }
-
-    const splitNotes = (note) => {
-        let tempNote = note.toString().replace("</br>", "<br>");
-        tempNote = tempNote.split("<br>");
-        return {
-            blockName: tempNote[0],
-            blockPhone: tempNote[1],
-            blockService: notesServices(tempNote)
-        }
-    }
-
-    const {
-        blockName,
-        blockPhone,
-        blockService,
-    } = splitNotes(item?.note);
-
     return (
         <View style={styles.container}>
             <Pressable
@@ -86,29 +55,47 @@ export const AppointmentItem = ({ item, onChangeAppointmentId }) => {
 
                 <View style={styles.rowContent}>
                     <Text style={[styles.textTime, { color: getColors().textColor }]}>
-                        {`${item?.blockTimeStart} - ${item?.appointmentId}`}
+                        {`${dateToFormat(item?.fromTime,"hh:mm A")} - ${dateToFormat(item?.toTime,"hh:mm A")}`}
                     </Text>
                 </View>
 
                 <View style={styles.marginVertical} />
                 <View style={styles.rowContent}>
                     <Text style={[styles.textName, { color: getColors().textColor }]}>
-                        {`${blockName}`}
+                        {`${item?.firstName} ${item?.lastName}`}
                     </Text>
                     <View style={styles.marginVertical} />
                     <Text style={[styles.textPhone, { color: getColors().textColor }]}>
-                        {`${blockPhone}`}
+                        {`${item?.phoneNumber}`}
                     </Text>
                 </View>
 
                 <View style={layouts.marginVertical} />
                 <View style={styles.rowContent}>
                     {
-                        blockService.map((x) => (
+                        item?.services.map((x) => (
                             <Text
                                 key={x + guid()?.toString()}
                                 style={[styles.textPhone, styles.textService, { color: getColors().textColor, }]}>
-                                {x?.toString().replace("- ", "")}
+                                {x?.serviceName}
+                            </Text>
+                        ))
+                    }
+                    {
+                        item?.extras.map((x) => (
+                            <Text
+                                key={x + guid()?.toString()}
+                                style={[styles.textPhone, styles.textService, { color: getColors().textColor, }]}>
+                                {x?.extraName}
+                            </Text>
+                        ))
+                    }
+                    {
+                        item?.products.map((x) => (
+                            <Text
+                                key={x + guid()?.toString()}
+                                style={[styles.textPhone, styles.textService, { color: getColors().textColor, }]}>
+                                {x?.productName}
                             </Text>
                         ))
                     }

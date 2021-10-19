@@ -6,7 +6,7 @@ import {
   checkoutSubmit,
   useAxiosMutation,
   checkoutAppointment,
-  getBlockTimeByDate
+  getAppointmentByDate
 } from '@src/apis';
 import { useDispatch, useSelector } from "react-redux";
 import { dateToFormat } from "@shared/utils";
@@ -36,7 +36,7 @@ export const useProps = (props) => {
     ...checkoutSubmit(),
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
-        fetchBlockTimes();
+        fetchAppointmentByDate();
         NavigationService.navigate(screenNames.AppointmentScreen);
         dispatch(appointmentAction.resetBooking());
       }
@@ -58,8 +58,8 @@ export const useProps = (props) => {
     }
   });
 
-  const [, fetchBlockTimes] = useAxiosQuery({
-    ...getBlockTimeByDate(dateToFormat(appointmentDate, "MM/DD/YYYY")),
+  const [, fetchAppointmentByDate] = useAxiosQuery({
+    ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
     enabled: false,
     onSuccess: (data, response) => {
       dispatch(appointmentAction.setBlockTimeBydate(data));

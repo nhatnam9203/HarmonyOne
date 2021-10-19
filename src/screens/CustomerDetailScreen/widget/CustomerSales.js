@@ -22,7 +22,7 @@ const CustomerSales = ({
                     <Text style={styles.price}>{`$ ${lastVisitSale}`}</Text>
                     <Text style={styles.totalSales}>Last visit sales</Text>
                     <Text style={[styles.totalSales, { fontFamily: fonts.LIGHT }]}>
-                        { lastVisitDate ? `${dateToFormat(lastVisitDate,"MM/DD/YYYY")}` : ""}
+                        { lastVisitDate ? `${dateToFormat(lastVisitDate,"YYYY-MM-DD")}` : ""}
                     </Text>
                 </View>
             </View>

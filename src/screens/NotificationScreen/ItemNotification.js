@@ -54,7 +54,7 @@ export const ItemNotification = ({
                     {`${item?.customerPhone} `}
                 </Text>
                 <Text style={[styles.content, { marginTop: scaleHeight(8), fontSize: scaleFont(15) }]}>
-                    {`${moment(item?.createdDate).format("MM/DD/YYYY")} ${moment(item?.createdDate).format("hh:mm A")}`}
+                    {`${moment(item?.createdDate).format("YYYY-MM-DD")} ${moment(item?.createdDate).format("hh:mm A")}`}
                 </Text>
             </View>
         </Pressable>

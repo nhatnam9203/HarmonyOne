@@ -30,6 +30,8 @@ export const Layout = ({
   isLoading
 }) => {
 
+  console.log({ blockTimesVisibile })
+
   const [t] = useTranslation();
 
   return (
@@ -41,7 +43,7 @@ export const Layout = ({
         containerStyle={{ paddingVertical: 0 }}
         headerLeftComponent={() =>
           <IconCalendar
-            onPress={() => setDate(moment().format("MM/DD/YYYY"))}
+            onPress={() => setDate(moment().format("YYYY-MM-DD"))}
           />
         }
         headerCenterComponent={() =>

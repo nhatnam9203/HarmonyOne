@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatNumberFromCurrency, formatMoney, convertMinsToHrsMins } from "@shared/utils";
 import { bookAppointment, appointment } from "@redux/slices";
-import { addAppointment, useAxiosMutation, getBlockTimeByDate, useAxiosQuery, updateAppointment, getAppointmentById } from "@src/apis";
+import { addAppointment, useAxiosMutation, getAppointmentByDate, useAxiosQuery, updateAppointment, getAppointmentById } from "@src/apis";
 import { dateToFormat } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
@@ -22,8 +22,8 @@ export const useProps = (_params) => {
 
   const test = moment().format("MM-DD-YYYY hh:mm A");
 
-  const [, fetchBlockTimes] = useAxiosQuery({
-    ...getBlockTimeByDate(dateToFormat(appointmentDate, "MM/DD/YYYY")),
+  const [, fetchAppointmentByDate] = useAxiosQuery({
+    ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
     enabled: false,
     onSuccess: (data, response) => {
       dispatch(appointment.setBlockTimeBydate(data));
@@ -40,7 +40,7 @@ export const useProps = (_params) => {
     ...updateAppointment(),
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
-        fetchBlockTimes();
+        fetchAppointmentByDate();
         if (isQuickCheckout) {
           fetchAppointmentById();
         }
