@@ -16,7 +16,7 @@ export const DialogLoading = React.forwardRef(
     }, ref) => {
         const [t] = useTranslation();
 
-        const [open, setOpen] = React.useState(true);
+        const [open, setOpen] = React.useState(false);
         const hideModal = () => {
             setOpen(false);
             onModalHide();
@@ -47,7 +47,7 @@ export const DialogLoading = React.forwardRef(
             <Modal
                 style={styles.modal}
                 isVisible={open}
-                onRequestClose={hideModal} 
+                onRequestClose={hideModal}
                 backdropTransitionOutTiming={0}
                 backdropTransitionInTiming={0}
                 animationIn="fadeInRight"
@@ -59,8 +59,9 @@ export const DialogLoading = React.forwardRef(
                         {title}
                     </Text>
                     <Image 
-                        source={images.iconLoading}
+                        source={images.checked_success}
                         style={styles.iconChecked}
+                        resizeMode='contain'
                     />
 
                     <View style={styles.bottomStyle}>
@@ -101,8 +102,8 @@ const styles = StyleSheet.create({
     },
 
     iconChecked : {
-        width : scaleWidth(80),
-        height : scaleWidth(80),
+        width : scaleWidth(43),
+        height : scaleWidth(43),
         tintColor : "#4AD100",
         marginTop: scaleHeight(20)
     },
