@@ -19,6 +19,7 @@ export const AppointmentServiceItem = ({
     onPressItem = null,
     onPressItemReview = false,
 }) => {
+
     const { t } = useTranslation();
 
     const getDuration = (duration) => {

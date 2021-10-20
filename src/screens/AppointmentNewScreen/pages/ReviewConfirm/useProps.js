@@ -2,7 +2,14 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatNumberFromCurrency, formatMoney, convertMinsToHrsMins } from "@shared/utils";
 import { bookAppointment, appointment } from "@redux/slices";
-import { addAppointment, useAxiosMutation, getAppointmentByDate, useAxiosQuery, updateAppointment, getAppointmentById } from "@src/apis";
+import {
+  addAppointment,
+  useAxiosMutation,
+  getAppointmentByDate,
+  useAxiosQuery,
+  getAppointmentById,
+  addItemIntoAppointment
+} from "@src/apis";
 import { dateToFormat } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
@@ -14,12 +21,11 @@ export const useProps = (_params) => {
   const {
     bookAppointment: { customerBooking = {}, servicesBooking = [], extrasBooking = [], dayBooking, timeBooking, isQuickCheckout },
     appointment: { appointmentDate },
-    auth: { staff }
+    auth: { staff },
+
   } = useSelector(state => state);
 
   const [appointmentIdUpdate, setAppointmentId] = React.useState(0);
-
-  const test = moment().format("MM-DD-YYYY hh:mm A");
 
   const [, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
@@ -39,22 +45,14 @@ export const useProps = (_params) => {
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
         const appointmentId = response?.data;
-        setAppointmentId(appointmentId)
-        const data = getDataUpdate();
-        const body = await updateAppointment(appointmentId, data);
-        submitUpdateAppointment(body.params);
-      }
-    }
-  });
-
-  const [, submitUpdateAppointment] = useAxiosMutation({
-    ...updateAppointment(),
-    onSuccess: (data, response) => {
-      if (response?.codeNumber == 200) {
-        fetchAppointmentByDate();
-        if (isQuickCheckout) {
-          fetchAppointmentById();
+        const tempData = {
+          services: servicesBooking,
+          extras: extrasBooking.map(ex => ({ extraId: ex.extraId })),
+          products: [],
+          giftCards: [],
         }
+        const body = await addItemIntoAppointment(appointmentId, tempData);
+        submitAddItem(body.params);
       }
     }
   });
@@ -71,21 +69,17 @@ export const useProps = (_params) => {
   });
 
 
-  const getDataUpdate = () => {
-    const data = {
-      staffId: servicesBooking[0].staffId,
-      fromTime: !isQuickCheckout ? `${dayBooking} ${timeBooking}` : moment().format("MM-DD-YYYY hh:mm A"),
-      status: isQuickCheckout ? "checkin" : "confirm",
-      categories: [],
-      services: servicesBooking,
-      extras: extrasBooking.map(ex => ({ ...ex, status: 1 })),
-      products: [],
-      giftCards: []
-    };
-    console.log('data update appointment')
-    console.log({ data })
-    return data;
-  }
+  const [, submitAddItem] = useAxiosMutation({
+    ...addItemIntoAppointment(),
+    onSuccess: (data, response) => {
+      if (response?.codeNumber == 200) {
+        fetchAppointmentByDate();
+        if (isQuickCheckout) {
+          fetchAppointmentById();
+        }
+      }
+    },
+  });
 
   return {
     customerBooking,
@@ -180,9 +174,6 @@ export const useProps = (_params) => {
         extras: [],
         products: [],
       }
-
-      console.log('data submit add appointment')
-      console.log({ data })
 
       const body = await addAppointment(data);
       submitAddAppointment(body.params);
