@@ -17,31 +17,17 @@ export const useProps = (props) => {
   const dispatch = useDispatch();
 
   const dialogSuccessRef = React.useRef();
+  const dialogActiveGiftCard = React.useRef();
 
   const {
     appointment: { appointmentDetail, groupAppointments = [], appointmentDate }
   } = useSelector(state => state);
   const [methodPay, setMethodPay] = React.useState(null);
 
-  const [, submitCheckoutAppointment] = useAxiosMutation({
-    ...checkoutAppointment(),
-    isStopLoading : true,
-    onSuccess: async (data, response) => {
-      if (response?.codeNumber == 200) {
-        const data = {
-          method: methodPay.method,
-          amount: parseFloat(appointmentDetail?.total),
-          giftCardId: 0,
-        }
-        const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
-        submitSelectPaymentMethod(body.params);
-      }
-    }
-  });
 
   const [, submitSelectPaymentMethod] = useAxiosMutation({
     ...selectPaymentMethod(),
-    isStopLoading : true,
+    isStopLoading: true,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
         const body = await checkoutSubmit(response.data);
@@ -67,14 +53,17 @@ export const useProps = (props) => {
     },
   });
 
-
   return {
     appointmentDetail,
     methodPay,
     dialogSuccessRef,
+    dialogActiveGiftCard,
 
     onChangeMethodPay: (item) => {
       setMethodPay(item)
+      if (item?.method == "giftcard") {
+        dialogActiveGiftCard?.current?.show();
+      }
     },
 
     back: () => {
@@ -82,8 +71,26 @@ export const useProps = (props) => {
     },
 
     onSubmitPayment: async () => {
-      const body = await checkoutAppointment(appointmentDetail?.appointmentId);
-      submitCheckoutAppointment(body.params);
+      const data = {
+        method: methodPay.method,
+        amount: parseFloat(appointmentDetail?.total),
+        giftCardId: 0,
+      }
+      const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
+      submitSelectPaymentMethod(body.params);
+    },
+
+    onPayGiftCard: async (amount, giftCardId) => {
+      const data = {
+        method: "giftcard",
+        amount,
+        giftCardId,
+      }
+      const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
+      submitSelectPaymentMethod(body.params);
+      setTimeout(() => {
+        dialogActiveGiftCard?.current?.hide();
+      }, 200);
     },
 
     onOK: () => {

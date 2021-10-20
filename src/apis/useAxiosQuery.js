@@ -34,7 +34,7 @@ export const useAxiosQuery = ({
         dispatch(app?.hideLoading());
         if (response?.codeNumber == 200 || response?.codeNumber == 404 || response?.codeNumber == 201) {
           if (onSuccess && typeof onSuccess === 'function') {
-            onSuccess(response.data, response);
+            onSuccess(response?.data, response);
           }
         } else {
           if (

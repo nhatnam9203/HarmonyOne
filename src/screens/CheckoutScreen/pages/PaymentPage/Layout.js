@@ -6,6 +6,7 @@ import { IconButton, CustomInput, InputText, Button, DialogSuccess, DialogLoadin
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { ItemsPay } from "./ItemsPay";
+import { DialogActiveGiftCard } from "./DialogActiveGiftCard";
 
 export const Layout = ({
     back,
@@ -14,7 +15,9 @@ export const Layout = ({
     onChangeMethodPay,
     onSubmitPayment,
     dialogSuccessRef,
+    dialogActiveGiftCard,
     onOK,
+    onPayGiftCard,
 }) => {
 
     const [t] = useTranslation();
@@ -60,6 +63,13 @@ export const Layout = ({
                 ref={dialogSuccessRef}
                 title="Transaction completed"
                 onConfirmYes={() => onOK()}
+            />
+            <DialogActiveGiftCard
+                ref={dialogActiveGiftCard}
+                title="Enter gift card serial number"
+                onConfirmYes={() => { }}
+                onModalHide={() => onChangeMethodPay("")}
+                onPayGiftCard={onPayGiftCard}
             />
         </View>
     );

@@ -190,7 +190,7 @@ export const getGroupAppointmentById = (appointmentId) => ({
   },
 });
 
-export const removeItemAppointment = (appointmentId,data) => ({
+export const removeItemAppointment = (appointmentId, data) => ({
   queryId: 'removeItemAppointment',
   params: {
     url: `appointment/removeitem/${appointmentId}`,
@@ -199,7 +199,7 @@ export const removeItemAppointment = (appointmentId,data) => ({
   },
 });
 
-export const addItemIntoAppointment = (appointmentId,data) => ({
+export const addItemIntoAppointment = (appointmentId, data) => ({
   queryId: 'addItemIntoAppointment',
   params: {
     url: `appointment/additem/${appointmentId}`,
@@ -612,4 +612,13 @@ export const checkoutAppointment = (appointmentId) => ({
     data: {}
   }
 });
+
+export const checkGiftCard = (serialNumber) => ({
+  queryId: 'checkGiftCard',
+  params: {
+    url: `giftcard/serialNumber/${serialNumber}?isActive=${true}`,
+    method: 'GET',
+  }
+});
+
 
