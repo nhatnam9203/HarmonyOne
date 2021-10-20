@@ -89,7 +89,7 @@ export const Layout = ({
       <View style={{ height: scaleHeight(100) }} />
     </View>
   )
-
+  
   return (
     <>
       <View style={styles.container}>
@@ -124,7 +124,8 @@ export const Layout = ({
                       extras={
                         appointmentEdit?.extras
                           .filter(
-                            ex => ex?.bookingServiceId == data.item?.bookingServiceId
+                            ex => ex?.bookingServiceId ? ex?.bookingServiceId == data.item?.bookingServiceId :
+                            ex?.serviceId == data.item?.serviceId
                           )
                           .map(ex => ({ ...ex, name: ex?.extraName ?? ex?.name }))
                       }
