@@ -11,6 +11,7 @@ import { Alert } from "react-native";
 export const useProps = (_params) => {
   const dispatch = useDispatch();
   const dialogBookingRef = React.useRef();
+  const alertRef = React.useRef();
 
   const {
     bookAppointment: { customerBooking = {}, servicesBooking = [], extrasBooking = [], dayBooking, timeBooking, isQuickCheckout },
@@ -21,18 +22,12 @@ export const useProps = (_params) => {
 
   const [appointmentIdUpdate, setAppointmentId] = React.useState(0);
 
-  const test = moment().format("MM-DD-YYYY hh:mm A");
-
   const [, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
     enabled: false,
+    isLoadingDefault: true,
     onSuccess: (data, response) => {
       dispatch(appointment.setBlockTimeBydate(data));
-      if (isQuickCheckout) {
-        NavigationService.navigate(screenNames.CheckoutScreen);
-      } else {
-        dialogBookingRef?.current?.show();
-      }
     },
   });
 
@@ -41,39 +36,23 @@ export const useProps = (_params) => {
     ...updateAppointment(),
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
+        alertRef?.current?.alertWithType('info', 'Update appointment', response?.message);
         fetchAppointmentByDate();
-        if (isQuickCheckout) {
-          fetchAppointmentById();
-        }
+        fetchAppointmentById();
       }
     }
   });
 
   const [, fetchAppointmentById] = useAxiosQuery({
-    ...getAppointmentById(appointmentIdUpdate),
+    ...getAppointmentById(appointmentEdit?.appointmentId),
     enabled: false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(appointment.setAppointmentDetail(data));
-        NavigationService.navigate(screenNames.CheckoutScreen);
+        NavigationService.navigate(screenNames.AppointmentDetailScreen);
       }
     },
   });
-
-
-  const getDataUpdate = () => {
-    const data = {
-      staffId: servicesBooking[0].staffId,
-      fromTime: !isQuickCheckout ? `${dayBooking} ${timeBooking}` : moment().format("MM-DD-YYYY hh:mm A"),
-      status: isQuickCheckout ? "checkin" : "confirm",
-      categories: [],
-      services: servicesBooking,
-      extras: extrasBooking.map(ex => ({ ...ex, status: 1 })),
-      products: [],
-      giftCards: []
-    };
-    return data;
-  }
 
   return {
     customerBooking,
@@ -85,6 +64,7 @@ export const useProps = (_params) => {
     isQuickCheckout,
     appointmentDetail,
     appointmentEdit,
+    alertRef,
 
     getTotalItem: (service, itemType) => {
       let total = 0;
@@ -152,18 +132,18 @@ export const useProps = (_params) => {
     confirm: async () => {
 
       const data = {
-        staffId: servicesBooking[0].staffId,
-        merchantId: staff?.merchantId,
-        userId: 0,
-        customerId: customerBooking?.customerId,
-        fromTime: !isQuickCheckout ? `${dayBooking} ${timeBooking}` : moment().format("MM-DD-YYYY hh:mm A"),
-        status: isQuickCheckout ? "checkin" : "confirm",
-        categories: [],
-        services: [],
-        extras: [],
-        products: [],
-      }
+        staffId: appointmentEdit.staffId,
+        fromTime: appointmentEdit.fromTime,
+        status: appointmentEdit.status,
+        categories: appointmentEdit.categories,
+        services: appointmentEdit.services,
+        extras: appointmentEdit.extras,
+        products: appointmentEdit.products,
+        giftCards: appointmentEdit.giftCards
+      };
 
+      const body = await updateAppointment(appointmentEdit.appointmentId, data);
+      submitUpdateAppointment(body.params);
     },
 
     onOK: () => {
@@ -182,6 +162,21 @@ export const useProps = (_params) => {
       const formatDate = `${moment().format("YYYY-MM-DD")}T${moment(time, ["hh:mm A"]).format("HH:mm")}:00`
       dispatch(editAppointment.changeServiceTime({ time: formatDate, bookingServiceId }));
     },
+
+    editService: (item) => {
+      NavigationService.navigate(
+        screenNames.AddServiceDetailPage,
+        {
+          item,
+          isEditItem: true,
+          extrasEdit: appointmentEdit?.extras
+            .filter(
+              ex => ex?.bookingServiceId ? ex?.bookingServiceId == item?.bookingServiceId :
+                ex?.serviceId == item?.serviceId
+            )
+            .map(ex => ({ ...ex, name: ex?.extraName ?? ex?.name }))
+        });
+    }
 
 
   };

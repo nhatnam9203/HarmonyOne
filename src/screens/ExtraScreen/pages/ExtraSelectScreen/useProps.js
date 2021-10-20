@@ -22,8 +22,6 @@ export const useProps = (props) => {
     extra: { extras = [] },
   } = useSelector(state => state);
 
-  console.log({ extras })
-
   const [t] = useTranslation();
 
   const [, getExtraList] = useAxiosQuery({

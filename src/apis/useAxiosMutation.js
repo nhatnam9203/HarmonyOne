@@ -9,11 +9,11 @@ export const useAxiosMutation = ({
   onSuccess,
   onLoginError,
   isLoadingDefault = true,
+  isStopLoading = false,
 }) => {
   const dispatch = useDispatch();
 
   const postRequest = async (body = null) => {
-    console.log({body })
     const response = body ? await axios(body) : await axios(params);
     return response?.data;
   };
@@ -60,7 +60,7 @@ export const useAxiosMutation = ({
       dispatch(app.showLoading());
     }
 
-    if (!isLoading) {
+    if (!isLoading && !isStopLoading) {
       // hide app loading here
       dispatch(app.hideLoading());
     }

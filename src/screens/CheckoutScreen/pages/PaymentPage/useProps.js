@@ -10,7 +10,7 @@ import {
 } from '@src/apis';
 import { useDispatch, useSelector } from "react-redux";
 import { dateToFormat } from "@shared/utils";
-import { bookAppointment } from "@redux/slices";
+import { bookAppointment, appointment } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 
 export const useProps = (props) => {
@@ -23,9 +23,25 @@ export const useProps = (props) => {
   } = useSelector(state => state);
   const [methodPay, setMethodPay] = React.useState(null);
 
+  const [, submitCheckoutAppointment] = useAxiosMutation({
+    ...checkoutAppointment(),
+    isStopLoading : true,
+    onSuccess: async (data, response) => {
+      if (response?.codeNumber == 200) {
+        const data = {
+          method: methodPay.method,
+          amount: parseFloat(appointmentDetail?.total),
+          giftCardId: 0,
+        }
+        const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
+        submitSelectPaymentMethod(body.params);
+      }
+    }
+  });
 
   const [, submitSelectPaymentMethod] = useAxiosMutation({
     ...selectPaymentMethod(),
+    isStopLoading : true,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
         const body = await checkoutSubmit(response.data);
@@ -39,21 +55,6 @@ export const useProps = (props) => {
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dialogSuccessRef?.current?.show();
-      }
-    }
-  });
-
-  const [, submitCheckoutAppointment] = useAxiosMutation({
-    ...checkoutAppointment(),
-    onSuccess: async (data, response) => {
-      if (response?.codeNumber == 200) {
-        const data = {
-          method: methodPay.method,
-          amount: parseFloat(appointmentDetail?.total),
-          giftCardId: 0,
-        }
-        const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
-        submitSelectPaymentMethod(body.params);
       }
     }
   });

@@ -65,73 +65,22 @@ export const useProps = ({
 
     }
 
-    const unsubscribe = navigation.addListener('focus', () => {
-      if (serviceRef?.current) {
-        console.log("----- on back ----")
-        setDurationService(serviceRef?.current?.duration);
-        setPrice(serviceRef?.current?.price);
-      }
-    });
-
-    return unsubscribe;
   }, []);
 
 
   const editService = () => {
-    let itemServiceEdit = {
-      service: serviceRef.current,
+    const itemServiceEdit = {
+      ...item,
       duration: durationService,
       price,
     }
-    if (isEditItem) {
-      itemServiceEdit = {
-        service: item,
-        duration: durationService,
-        price,
-      }
-    }
-    dispatch(bookAppointment.editService(itemServiceEdit));
-    dispatch(bookAppointment.updateExtrasBooking(extrasService));
-    serviceRef.current = itemServiceEdit.service;
+    const tempExtras = extrasService;
+    dispatch(editAppointment.editService({ service: itemServiceEdit, extras: tempExtras }));
+    dispatch(editAppointment.updateExtras(tempExtras));
+    NavigationService.navigate(screenNames.EditAppointmentScreen);
+    // dispatch(bookAppointment.updateExtrasBooking(extrasService));
   }
 
-
-  const addService = () => {
-    if (serviceRef?.current) {
-      editService();
-      return;
-    }
-
-    /* add service */
-    let temp = [...servicesBooking];
-    const tempItem = {
-      ...item,
-      duration: durationService,
-      price
-    };
-    serviceRef.current = tempItem;
-    temp.push(tempItem);
-    dispatch(bookAppointment.setServicesBooking(temp));
-
-    /* add extras */
-    let tempExtras = extrasService.filter(ex => ex.checked == true);
-    extrasRef.current = extrasService;
-    let tempExtrasBooking = [...extrasBooking, ...tempExtras];
-    dispatch(bookAppointment.setExtrasBooking(tempExtrasBooking));
-  }
-
-  /* FETCH STAFF AVAILABLE OF SERVICE */
-  const [, fetchStaffAvaiable] = useAxiosQuery({
-    ...getStaffOfService(item?.serviceId),
-    enabled: false,
-    onSuccess: async (data, response) => {
-      if (response?.codeNumber == 200) {
-        await addService();
-        await dispatch(bookAppointment.setStafsfOfService(data));
-        await NavigationService.navigate(screenNames.SelectStaff, { serviceSelected: item });
-      }
-    }
-  })
 
   return {
     item,
@@ -144,10 +93,6 @@ export const useProps = ({
     setStatusEditPrice,
     setPrice,
     inputPriceRef,
-
-    goToSelectStaff: () => {
-      fetchStaffAvaiable();
-    },
 
     goToReview: () => {
       editService();
@@ -168,30 +113,22 @@ export const useProps = ({
     },
 
     back: () => {
-      if (isEditItem) {
-        NavigationService.navigate(screenNames.ReviewConfirm);
-      } else {
-        const findService = servicesBooking.find(obj => obj?.serviceId == item?.serviceId);
-        if (findService && !findService.staffId) {
-          dispatch(bookAppointment.deleteService(findService))
-        }
-        NavigationService.back();
-      }
+      NavigationService.back();
     },
 
     addService: () => {
-      const service = {
-        ...item,
-        duration: durationService,
-        price
-      };
-      const tempExtras = extrasService.filter(ex => ex.checked == true);
-      dispatch(editAppointment?.addService({ service, extras: tempExtras }));
-      NavigationService.navigate(screenNames.EditAppointmentScreen);
+      if (isEditItem) {
+        editService();
+      } else {
+        const service = {
+          ...item,
+          duration: durationService,
+          price
+        };
+        const tempExtras = extrasService.filter(ex => ex.checked == true);
+        dispatch(editAppointment?.addService({ service, extras: tempExtras }));
+        NavigationService.navigate(screenNames.EditAppointmentScreen);
+      }
     },
-
-    editService : () =>{
-    },
-
   };
 };

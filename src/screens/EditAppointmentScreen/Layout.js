@@ -13,6 +13,7 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 import { SingleScreenLayout } from '@shared/layouts';
 import { dateToFormat, slop } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
+import DropdownAlert from 'react-native-dropdownalert';
 import moment from 'moment';
 
 
@@ -24,13 +25,12 @@ export const Layout = ({
   changeDateTime,
   changeServiceTime,
   confirm,
-  dialogBookingRef,
-  onOK,
-  isQuickCheckout,
   onPressBack,
   appointmentDetail,
   appointmentEdit,
-  addMoreService
+  addMoreService,
+  editService,
+  alertRef,
 }) => {
 
 
@@ -91,98 +91,119 @@ export const Layout = ({
   )
 
   return (
-    <View style={styles.container}>
-      <SingleScreenLayout
-        pageTitle={"Edit Appointment"}
-        isLeft={false}
-        isRight={true}
-        headerRightComponent={() =>
-          <IconButton
-            icon={images.iconClose}
-            iconStyle={styles.iconClose}
-            style={styles.buttonClose}
-            onPress={() => NavigationService.back()}
-          />
-        }
-        isScrollLayout={false}
-        containerStyle={{ paddingVertical: 0 }}
-      >
-        <View style={styles.content}>
-          <View style={{ flex: 1, paddingLeft: scaleWidth(16) }}>
-            <SwipeListView
-              showsVerticalScrollIndicator={false}
-              data={appointmentEdit?.services}
-              renderItem={(data, rowMap) => (
-                <View>
-                  <AppointmentServiceItem
-                    service={data.item}
-                    name={data.item?.serviceName ?? data.item?.name}
-                    duration={getTotalItem(data.item, "duration")}
-                    price={getTotalPrice(data.item)}
-                    isDelete={true}
-                    extras={appointmentEdit?.extras
-                      .filter(
-                        ex => ex?.bookingServiceId ? ex?.bookingServiceId == data.item?.bookingServiceId :
-                          ex?.serviceId == data.item?.serviceId
-                      )
-                      .map(ex => ({ ...ex, name: ex?.extraName ?? ex?.name }))}
-                    onPressItemReview={true}
-                  />
+    <>
+      <View style={styles.container}>
+        <SingleScreenLayout
+          pageTitle={"Edit Appointment"}
+          isLeft={false}
+          isRight={true}
+          headerRightComponent={() =>
+            <IconButton
+              icon={images.iconClose}
+              iconStyle={styles.iconClose}
+              style={styles.buttonClose}
+              onPress={() => NavigationService.back()}
+            />
+          }
+          isScrollLayout={false}
+          containerStyle={{ paddingVertical: 0 }}
+        >
+          <View style={styles.content}>
+            <View style={{ flex: 1, paddingLeft: scaleWidth(16) }}>
+              <SwipeListView
+                showsVerticalScrollIndicator={false}
+                data={appointmentEdit?.services}
+                renderItem={(data, rowMap) => (
+                  <View>
+                    <AppointmentServiceItem
+                      service={data.item}
+                      name={data.item?.serviceName ?? data.item?.name}
+                      duration={getTotalItem(data.item, "duration")}
+                      price={getTotalPrice(data.item)}
+                      isDelete={true}
+                      extras={appointmentEdit?.extras
+                        .filter(
+                          ex => ex?.bookingServiceId ? ex?.bookingServiceId == data.item?.bookingServiceId :
+                            ex?.serviceId == data.item?.serviceId
+                        )
+                        .map(ex => ({ ...ex, name: ex?.extraName ?? ex?.name }))}
+                      onPressItemReview={true}
+                      onPressItem={() => editService(data.item)}
+                    />
 
-                  <View style={styles.rowItemTime}>
-                    <Text style={styles.titleStartTime}>Start time</Text>
-                    <InputSelectTime
-                      apply={(time) => changeServiceTime(time, data?.item?.bookingServiceId)}
-                      time={dateToFormat(data?.item?.fromTime, "hh:mm A")}
-                      renderInput={() => (
-                        <View style={styles.inputSelectTime}>
-                          <Text style={styles.serviceFromtime}>
-                            {dateToFormat(data?.item?.fromTime, "hh:mm A")}
-                          </Text>
-                          <Image
-                            source={images.downarrow}
-                            style={styles.iconArrowDown}
-                            resizeMode='contain'
-                          />
-                        </View>
-                      )}
+                    <View style={styles.rowItemTime}>
+                      <Text style={styles.titleStartTime}>Start time</Text>
+                      <InputSelectTime
+                        apply={(time) => changeServiceTime(time, data?.item?.bookingServiceId)}
+                        time={dateToFormat(data?.item?.fromTime, "hh:mm A")}
+                        renderInput={() => (
+                          <View style={styles.inputSelectTime}>
+                            <Text style={styles.serviceFromtime}>
+                              {dateToFormat(data?.item?.fromTime, "hh:mm A")}
+                            </Text>
+                            <Image
+                              source={images.downarrow}
+                              style={styles.iconArrowDown}
+                              resizeMode='contain'
+                            />
+                          </View>
+                        )}
+                      />
+                    </View>
+
+                  </View>
+                )}
+                ListHeaderComponent={renderHeader()}
+                ListFooterComponent={renderFooter()}
+                keyExtractor={(item) => item?.serviceId + "serviceItemBooking"}
+                renderHiddenItem={(data, rowMap) => (
+                  <View style={styles.rowBack}>
+                    <View />
+                    <IconButton
+                      icon={images.iconTrash}
+                      iconStyle={styles.iconTrash}
+                      style={styles.buttonDelete}
+                      onPress={() => deleteService(data.item)}
                     />
                   </View>
+                )}
+                disableRightSwipe={true}
+                leftOpenValue={0}
+                rightOpenValue={-scaleWidth(60)}
+              />
 
-                </View>
-              )}
-              ListHeaderComponent={renderHeader()}
-              ListFooterComponent={renderFooter()}
-              keyExtractor={(item) => item?.serviceId + "serviceItemBooking"}
-              renderHiddenItem={(data, rowMap) => (
-                <View style={styles.rowBack}>
-                  <View />
-                  <IconButton
-                    icon={images.iconTrash}
-                    iconStyle={styles.iconTrash}
-                    style={styles.buttonDelete}
-                    onPress={() => deleteService(data.item)}
-                  />
-                </View>
-              )}
-              disableRightSwipe={true}
-              leftOpenValue={0}
-              rightOpenValue={-scaleWidth(60)}
-            />
+            </View>
 
+            <View style={styles.bottom}>
+              <Button
+                label={"Confirm"}
+                onPress={confirm}
+                highlight={true}
+                width={'100%'}
+              />
+            </View>
           </View>
+        </SingleScreenLayout>
+      </View>
+      <DropdownAlert
+        ref={alertRef}
+        closeInterval={2000}
+        infoColor="#1B68AC"
+        titleStyle={{
+          fontSize : scaleFont(19),
+          color : "white",
+          fontFamily : fonts.BOLD
+        }}
+        messageStyle = {{
+          fontSize : scaleFont(15),
+          color : "white",
+          fontFamily : fonts.REGULAR
+        }}
+        defaultContainer={{ alignItems : "center", justifyContent : "center", padding : 16,paddingLeft : 20, paddingTop : 30, paddingBottom: 8 }}
+        renderImage={() => <Image source={images.harmonyPay} style={styles.iconHarmonyPay} />}
+      />
 
-          <View style={styles.bottom}>
-            <Button
-              label={"Confirm"}
-              onPress={confirm}
-              highlight={true}
-              width={'100%'}
-            />
-          </View>
-        </View>
-      </SingleScreenLayout>
-    </View>
+    </>
   );
 };
 
@@ -292,5 +313,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginLeft: scaleWidth(50),
     alignItems: "center"
+  },
+  iconHarmonyPay: {
+    width: scaleWidth(45),
+    height: scaleWidth(45),
+    tintColor : "white"
   }
 });

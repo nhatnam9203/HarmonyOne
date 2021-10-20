@@ -6,7 +6,7 @@ import { formatMoneyWithUnit } from '@shared/utils';
 import { isEmpty } from "lodash";
 import NavigationService from '@navigation/NavigationService';
 
-const ServiceItem = ({ service, disabled = false }) => {
+const ServiceItem = ({ service, disabled = false, onPress }) => {
 
     const navigateDetail = () => {
         if (!disabled) {
@@ -15,7 +15,7 @@ const ServiceItem = ({ service, disabled = false }) => {
     }
 
     return (
-        <Pressable onPress={navigateDetail} style={[styles.container, { opacity: disabled ? 0.5 : 1 }]}>
+        <Pressable onPress={onPress ? onPress : navigateDetail} style={[styles.container, { opacity: disabled ? 0.5 : 1 }]}>
             {
                 isEmpty(service?.imageUrl) ?
                     <CustomImage

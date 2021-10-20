@@ -112,7 +112,7 @@ export const useProps = (props) => {
     }
 
     if (values.secondTime && !values.openTime) {
-      alert("Your second time was valueable, please fill out open time and ut must be greater than second time");
+      alert("Your second time was valueable, please fill out open time and it must be greater than second time");
       return false;
     }
 

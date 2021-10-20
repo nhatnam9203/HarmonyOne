@@ -13,6 +13,7 @@ export const useAxiosQuery = ({
   onSuccess,
   onLoginError,
   isLoadingDefault = true,
+  isStopLoading = false,
   enabled = false,
   isCancelToken = false,
 }) => {
@@ -69,7 +70,7 @@ export const useAxiosQuery = ({
       dispatch(app?.showLoading());
     }
 
-    if (!isFetching) {
+    if (!isFetching && !isStopLoading) {
       // hide app loading here
       dispatch(app?.hideLoading());
     }

@@ -11,7 +11,6 @@ export const Layout = ({
   item,
   durationService,
   onChangeDurationService,
-  goToSelectStaff,
   extraListRef,
   extrasService,
   onChangeExtraService,
@@ -53,7 +52,7 @@ export const Layout = ({
         </View>
 
         <View style={styles.containerDescription}>
-          <Text style={styles.servivceName}>{item?.name}</Text>
+          <Text style={styles.servivceName}>{item?.name ?? item?.serviceName}</Text>
           {
             item?.description !== "" && <Text style={styles.description}>
               {item?.description}

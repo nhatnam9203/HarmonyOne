@@ -17,9 +17,10 @@ const editAppointment = createSlice({
         },
 
         changeDateTime: (state, action) => {
+            const dayChanged = action.payload?.toString()?.substring(0, 10);
             let tempAppointment = {
                 ...state.appointmentEdit,
-                fromTime: action.payload
+                fromTime: `${dayChanged}T${moment(state.appointmentEdit.fromTime).format('HH:mm')}:00`
             }
             state.appointmentEdit = tempAppointment;
         },
@@ -30,10 +31,11 @@ const editAppointment = createSlice({
                 ...state.appointmentEdit,
             }
             let tempServices = tempAppointment.services || [];
+            const day = state.appointmentEdit.fromTime.toString()?.substring(0, 10);
 
             for (let i = 0; i < tempServices.length; i++) {
                 if (tempServices[i].bookingServiceId == bookingServiceId) {
-                    tempServices[i].fromTime = time;
+                    tempServices[i].fromTime = `${day}T${moment(time).format('HH:mm')}:00`;
                 }
             }
             tempAppointment = {
@@ -106,8 +108,67 @@ const editAppointment = createSlice({
             }
             state.appointmentEdit = tempAppointment;
         },
+
+        editService: (state, action) => {
+            let tempAppointment = {
+                ...state.appointmentEdit,
+            }
+            let tempServices = tempAppointment.services || [];
+            const findIndex = tempServices.findIndex(obj => obj.serviceId == action.payload?.serviceId);
+            if (findIndex !== -1) {
+                tempServices[findIndex] = action.payload;
+                tempAppointment = {
+                    ...tempAppointment,
+                    services: tempServices,
+                }
+                state.appointmentEdit = tempAppointment;
+            }
+        },
+
+        updateExtras: (state, action) => {
+            const extrasList = action.payload;
+            let tempAppointment = {
+                ...state.appointmentEdit,
+            }
+            let tempExtras = tempAppointment.extras || [];
+            for (let el of extrasList) {
+                const index = findPositionExtra(tempExtras, el);
+                if (index !== -1) {
+                    if (!el?.checked) {
+                        if (!el?.bookingServiceId) {
+                            tempExtras = tempExtras.filter(ex => ex?.serviceId !== el?.serviceId)
+                        } else {
+                            tempExtras[index] = { ...el, status: 0 }
+                        }
+                    } else {
+                        tempExtras[index] = { ...el, status: 1 }
+                    }
+
+                } else {
+                    if (el.checked == true) {
+                        let tempEl = {
+                            ...el,
+                            status: 1
+                        }
+                        tempExtras.push(tempEl);
+                    }
+                }
+            }
+            tempAppointment = {
+                ...tempAppointment,
+                extras: tempExtras,
+            }
+            state.appointmentEdit = tempAppointment;
+        },
     },
 });
+
+function findPositionExtra(extrasBooking = [], extra) {
+    let index = -1;
+    index = extrasBooking.findIndex(ex => ex.extraId == extra.extraId);
+    return index;
+}
+
 
 const calculateFromTimePreviousService = (services = [], tempExtras) => {
     let fromTime = `${moment().format("YYYY-MM-DD")}T${moment().format("HH:mm")}:00`;
@@ -132,6 +193,8 @@ const calculateFromTimePreviousService = (services = [], tempExtras) => {
     }
     return fromTime;
 }
+
+
 
 const { actions, reducer } = editAppointment;
 

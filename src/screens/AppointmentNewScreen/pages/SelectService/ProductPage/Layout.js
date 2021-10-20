@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, FlatList, Pressable, SectionList } from 'react-native';
+import { Text, View, StyleSheet, FlatList, Pressable, SectionList, Alert } from 'react-native';
 import { colors, fonts } from "@shared/themes";
 import { ListEmptyComponent } from "@shared/components";
 import { useSelector, useDispatch } from "react-redux";
@@ -56,6 +56,7 @@ export const Layout = ({
                     renderItem={({ item }) =>
                         <ServiceItem
                             service={item}
+                            onPress={()=>{Alert.alert('book product đang làm ^_^')}}
                         />
                     }
                     renderSectionHeader={({ section }) => {
