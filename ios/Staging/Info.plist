@@ -26,16 +26,6 @@
 	<string>NVJtTRn21nGW6lKWg-foVAJFR8gZRCERckdW8</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-  <key>NSCameraUsageDescription</key>
-  <string>Use camera for scanner</string>
-
-  <key>NSPhotoLibraryAddUsageDescription</key>
-  <string>Use camera to take photo and upload</string>
-
-  <!-- Include this only if you are planning to use the camera roll -->
-  <key>NSPhotoLibraryUsageDescription</key>
-  <string>Use camera to take photo and upload</string>
-
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

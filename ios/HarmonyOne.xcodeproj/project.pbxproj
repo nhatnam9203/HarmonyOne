@@ -13,12 +13,10 @@
 		11B11B7ABC584158B415EF01 /* SFProDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76CE450F62014179BB93BB88 /* SFProDisplay-Regular.ttf */; };
 		12F22A6FFD2242FC92BA3B94 /* SF Pro Text Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DE5ABF6A5296435981187F38 /* SF Pro Text Bold.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		1BD6DA882AAC4429A06FAD6D /* SF Pro Text Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98DDB29850FC47E9B1393D14 /* SF Pro Text Light.ttf */; };
 		25C8ECFB5AC54F9590FB0E6C /* SF Pro Text MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF9B806DB4AD4E9B87675AEF /* SF Pro Text MediumItalic.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* HarmonyOneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* HarmonyOneTests.m */; };
 		2FB0D625B17C1DB49A555B73 /* libPods-HarmonyOne.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C2686700AA083CE07635ED /* libPods-HarmonyOne.a */; };
@@ -499,7 +497,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				0050E39540F74B1ABFB02276 /* SFProDisplay-Bold.ttf in Resources */,
 				C7A07B29EF21406485A30503 /* SFProDisplay-Medium.ttf in Resources */,
 				11B11B7ABC584158B415EF01 /* SFProDisplay-Regular.ttf in Resources */,
@@ -524,7 +521,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1208,11 +1204,11 @@
 			baseConfigurationReference = 4ECEA090C0EF2A4A2FD33A13 /* Pods-HarmonyOne-Staging.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Stage";
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Staging/Info.plist";
@@ -1228,7 +1224,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Staging-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1238,11 +1234,11 @@
 			baseConfigurationReference = A07B30E020632CA0759A93BA /* Pods-HarmonyOne-Staging.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Stage";
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				INFOPLIST_FILE = "$(SRCROOT)/Staging/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1256,7 +1252,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "HPO Staging Appstore";
 				SWIFT_OBJC_BRIDGING_HEADER = "Staging-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
