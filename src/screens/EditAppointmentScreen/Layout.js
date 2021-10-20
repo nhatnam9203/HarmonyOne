@@ -89,7 +89,7 @@ export const Layout = ({
       <View style={{ height: scaleHeight(100) }} />
     </View>
   )
-
+  
   return (
     <>
       <View style={styles.container}>
@@ -121,12 +121,13 @@ export const Layout = ({
                       duration={getTotalItem(data.item, "duration")}
                       price={getTotalPrice(data.item)}
                       isDelete={true}
-                      extras={appointmentEdit?.extras
-                        .filter(
-                          ex => ex?.bookingServiceId ? ex?.bookingServiceId == data.item?.bookingServiceId :
-                            ex?.serviceId == data.item?.serviceId
-                        )
-                        .map(ex => ({ ...ex, name: ex?.extraName ?? ex?.name }))}
+                      extras={
+                        appointmentEdit?.extras
+                          .filter(
+                            ex => ex?.bookingServiceId == data.item?.bookingServiceId
+                          )
+                          .map(ex => ({ ...ex, name: ex?.extraName ?? ex?.name }))
+                      }
                       onPressItemReview={true}
                       onPressItem={() => editService(data.item)}
                     />
@@ -190,16 +191,16 @@ export const Layout = ({
         closeInterval={2000}
         infoColor="#1B68AC"
         titleStyle={{
-          fontSize : scaleFont(19),
-          color : "white",
-          fontFamily : fonts.BOLD
+          fontSize: scaleFont(19),
+          color: "white",
+          fontFamily: fonts.BOLD
         }}
-        messageStyle = {{
-          fontSize : scaleFont(15),
-          color : "white",
-          fontFamily : fonts.REGULAR
+        messageStyle={{
+          fontSize: scaleFont(15),
+          color: "white",
+          fontFamily: fonts.REGULAR
         }}
-        defaultContainer={{ alignItems : "center", justifyContent : "center", padding : 16,paddingLeft : 20, paddingTop : 30, paddingBottom: 8 }}
+        defaultContainer={{ alignItems: "center", justifyContent: "center", padding: 16, paddingLeft: 20, paddingTop: 30, paddingBottom: 8 }}
         renderImage={() => <Image source={images.harmonyPay} style={styles.iconHarmonyPay} />}
       />
 
@@ -317,6 +318,6 @@ const styles = StyleSheet.create({
   iconHarmonyPay: {
     width: scaleWidth(45),
     height: scaleWidth(45),
-    tintColor : "white"
+    tintColor: "white"
   }
 });

@@ -5,7 +5,7 @@ import moment from "moment";
 
 const reducerName = 'hpo.appointmentEdit';
 const initialState = {
-    appointmentEdit: {},
+    appointmentEdit: {}
 };
 
 const editAppointment = createSlice({
@@ -71,6 +71,7 @@ const editAppointment = createSlice({
             }
             let tempServices = tempAppointment.services || [];
             let tempExtras = tempAppointment.extras || [];
+
             tempServices = tempServices.filter(sv => sv.serviceId !== serviceId);
             tempExtras = tempExtras.filter(ex => ex.serviceId !== serviceId);
             tempAppointment = {

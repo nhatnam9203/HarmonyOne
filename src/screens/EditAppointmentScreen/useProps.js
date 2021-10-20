@@ -2,7 +2,15 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatNumberFromCurrency, formatMoney, convertMinsToHrsMins } from "@shared/utils";
 import { bookAppointment, appointment, editAppointment } from "@redux/slices";
-import { addAppointment, useAxiosMutation, getAppointmentByDate, useAxiosQuery, updateAppointment, getAppointmentById } from "@src/apis";
+import {
+  addAppointment,
+  useAxiosMutation,
+  getAppointmentByDate,
+  useAxiosQuery,
+  updateAppointment,
+  getAppointmentById,
+  removeItemAppointment
+} from "@src/apis";
 import { dateToFormat } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
@@ -13,6 +21,7 @@ export const useProps = (_params) => {
   const dialogBookingRef = React.useRef();
   const alertRef = React.useRef();
 
+
   const {
     bookAppointment: { customerBooking = {}, servicesBooking = [], extrasBooking = [], dayBooking, timeBooking, isQuickCheckout },
     appointment: { appointmentDate, appointmentDetail },
@@ -21,6 +30,12 @@ export const useProps = (_params) => {
   } = useSelector(state => state);
 
   const [appointmentIdUpdate, setAppointmentId] = React.useState(0);
+  const [servicesBookingRemove, setServicesBookingRemove] = React.useState([]);
+  const [extrasBookingRemove, setExtrasBookingRemove] = React.useState([]);
+
+
+  console.log({ servicesBookingRemove , extrasBookingRemove })
+
 
   const [, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
@@ -29,6 +44,15 @@ export const useProps = (_params) => {
     onSuccess: (data, response) => {
       dispatch(appointment.setBlockTimeBydate(data));
     },
+  });
+
+  const [, submitRemoveItemAppointment] = useAxiosMutation({
+    ...removeItemAppointment(),
+    onSuccess: (data, response) => {
+      if (response?.codeNumber == 200) {
+
+      }
+    }
   });
 
 
@@ -53,6 +77,8 @@ export const useProps = (_params) => {
       }
     },
   });
+
+  console.log({ appointmentEdit })
 
   return {
     customerBooking,
@@ -112,9 +138,22 @@ export const useProps = (_params) => {
     },
 
 
-    deleteService: (service) => {
+    deleteService: async(service) => {
       if (service?.bookingServiceId) {
-        dispatch(editAppointment.removeServiceBooking(service?.bookingServiceId));
+        let arrTempServicesRemove = await[...servicesBookingRemove];
+        let arrTempExtrasRemove = await [...extrasBookingRemove];
+        
+        const extrasWillBeReomved = await appointmentEdit?.extras.filter(obj => obj.bookingServiceId == service?.bookingServiceId);
+
+        console.log({ extrasWillBeReomved, appointmentEdit })
+
+        arrTempExtrasRemove = await [...arrTempExtrasRemove, ...extrasWillBeReomved];
+        await arrTempServicesRemove.push(service.bookingServiceId);
+        await setServicesBookingRemove(arrTempServicesRemove);
+        await setExtrasBookingRemove(arrTempExtrasRemove);
+
+        await dispatch(editAppointment.removeServiceBooking(service?.bookingServiceId));
+
       } else {
         dispatch(editAppointment.removeServiceAdded(service?.serviceId));
       }

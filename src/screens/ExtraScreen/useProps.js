@@ -88,6 +88,8 @@ export const useProps = (props) => {
           }
           return null;
         });
+
+        console.log({ extrasList })
       }
 
       return extrasList;

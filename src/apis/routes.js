@@ -190,6 +190,22 @@ export const getGroupAppointmentById = (appointmentId) => ({
   },
 });
 
+export const removeItemAppointment = (appointmentId) => ({
+  queryId: 'removeItemAppointment',
+  params: {
+    url: `appointment/removeitem/${appointmentId}`,
+    method: 'PUT',
+  },
+});
+
+export const addItemIntoAppointment = (appointmentId,data) => ({
+  queryId: 'addItemIntoAppointment',
+  params: {
+    url: `appointment/additem/${appointmentId}`,
+    method: 'PUT',
+    data
+  },
+});
 
 /**
  * BLOCK TIMES
@@ -199,7 +215,7 @@ export const getAppointmentByDate = (date) => ({
   queryId: 'getAppointmentByDate',
   params: {
     // url: `blocktime?workingdate=${date}`,
-    url : `appointment/date/${date}`,
+    url: `appointment/date/${date}`,
     method: 'GET',
   },
 });

@@ -19,6 +19,9 @@ export const Layout = ({
   getData
 }) => {
 
+  const data = getData();
+  console.log({ data })
+
   const [t] = useTranslation();
 
   return (
