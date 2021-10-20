@@ -23,12 +23,13 @@ let EditButton = ({ ...props }) => {
 EditButton = WithPopupActionSheet(EditButton);
 
 export const Layout = ({
+  appointmentEdit,
   valueSearch,
   getDataList,
   onChangeSearch,
   newCategory,
   newService,
-  editService,
+  getServiceDetail,
   getActionSheets,
   dialogDeleteCategoryRef,
   handleArchiveCategory,
@@ -65,11 +66,17 @@ export const Layout = ({
             onRefresh={onRefresh}
             refreshing={isRefresh}
             ListEmptyComponent={() => <ListEmptyComponent description={t('No Service')} image={images.iconNotFound} />}
-            renderItem={({ item }) =>
-              <ItemService
-                item={item}
-                onPress={editService}
-              />
+            renderItem={({ item }) => {
+              const isDiabled = appointmentEdit?.services?.find(obj => obj?.serviceId == item?.serviceId);
+              return (
+                <View style={{ opacity: isDiabled ? 0.4 : 1 }}>
+                  <ItemService
+                    item={item}
+                    onPress={isDiabled ? () =>{} : getServiceDetail}
+                  />
+                </View>
+              )
+            }
             }
             renderSectionHeader={({ section }) => {
               return (

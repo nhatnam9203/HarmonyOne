@@ -10,41 +10,22 @@ import {
 } from '@src/apis';
 import { useDispatch, useSelector } from "react-redux";
 import { dateToFormat } from "@shared/utils";
-import { appointment as appointmentAction } from "@redux/slices";
+import { bookAppointment, appointment } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
+
+  const dialogSuccessRef = React.useRef();
 
   const {
     appointment: { appointmentDetail, groupAppointments = [], appointmentDate }
   } = useSelector(state => state);
   const [methodPay, setMethodPay] = React.useState(null);
 
-
-  const [, submitSelectPaymentMethod] = useAxiosMutation({
-    ...selectPaymentMethod(),
-    onSuccess: async (data, response) => {
-      if (response?.codeNumber == 200) {
-        const body = await checkoutSubmit(response.data);
-        applyCheckoutSubmit(body.params);
-      }
-    }
-  });
-
-  const [, applyCheckoutSubmit] = useAxiosMutation({
-    ...checkoutSubmit(),
-    onSuccess: (data, response) => {
-      if (response?.codeNumber == 200) {
-        fetchAppointmentByDate();
-        NavigationService.navigate(screenNames.AppointmentScreen);
-        dispatch(appointmentAction.resetBooking());
-      }
-    }
-  });
-
   const [, submitCheckoutAppointment] = useAxiosMutation({
     ...checkoutAppointment(),
+    isStopLoading : true,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
         const data = {
@@ -58,11 +39,31 @@ export const useProps = (props) => {
     }
   });
 
+  const [, submitSelectPaymentMethod] = useAxiosMutation({
+    ...selectPaymentMethod(),
+    isStopLoading : true,
+    onSuccess: async (data, response) => {
+      if (response?.codeNumber == 200) {
+        const body = await checkoutSubmit(response.data);
+        applyCheckoutSubmit(body.params);
+      }
+    }
+  });
+
+  const [, applyCheckoutSubmit] = useAxiosMutation({
+    ...checkoutSubmit(),
+    onSuccess: (data, response) => {
+      if (response?.codeNumber == 200) {
+        dialogSuccessRef?.current?.show();
+      }
+    }
+  });
+
   const [, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
     enabled: false,
     onSuccess: (data, response) => {
-      dispatch(appointmentAction.setBlockTimeBydate(data));
+      dispatch(appointment.setBlockTimeBydate(data));
     },
   });
 
@@ -70,18 +71,25 @@ export const useProps = (props) => {
   return {
     appointmentDetail,
     methodPay,
+    dialogSuccessRef,
 
     onChangeMethodPay: (item) => {
       setMethodPay(item)
     },
 
     back: () => {
-      NavigationService.back();
+      // NavigationService.back();
     },
 
     onSubmitPayment: async () => {
       const body = await checkoutAppointment(appointmentDetail?.appointmentId);
       submitCheckoutAppointment(body.params);
+    },
+
+    onOK: () => {
+      fetchAppointmentByDate();
+      NavigationService.navigate(screenNames.AppointmentScreen);
+      dispatch(bookAppointment.resetBooking());
     }
   }
 };

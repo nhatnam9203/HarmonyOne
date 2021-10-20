@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { IconButton, CustomInput, InputText, Button } from "@shared/components";
+import { IconButton, CustomInput, InputText, Button, DialogSuccess, DialogLoading } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { ItemsPay } from "./ItemsPay";
@@ -13,6 +13,8 @@ export const Layout = ({
     methodPay,
     onChangeMethodPay,
     onSubmitPayment,
+    dialogSuccessRef,
+    onOK,
 }) => {
 
     const [t] = useTranslation();
@@ -37,7 +39,7 @@ export const Layout = ({
                         Select payment method
                     </Text>
 
-                    <ItemsPay 
+                    <ItemsPay
                         methodPay={methodPay}
                         onChangeMethodPay={onChangeMethodPay}
                     />
@@ -53,6 +55,12 @@ export const Layout = ({
                     />
                 </View>
             </SingleScreenLayout>
+
+            <DialogLoading
+                ref={dialogSuccessRef}
+                title="Transaction completed"
+                onConfirmYes={() => onOK()}
+            />
         </View>
     );
 };

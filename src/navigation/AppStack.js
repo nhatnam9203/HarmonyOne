@@ -34,7 +34,8 @@ import {
   ApplyDiscountPage,
   PaymentPage,
   EditAppointmentScreen,
-  AddServicePage
+  AddServicePage,
+  AddServiceDetailPage
 } from '@screens';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
 import { useSelector } from "react-redux";
@@ -93,6 +94,7 @@ const AppStack = () => {
         <Screen {...PaymentPage} />
         <Screen {...EditAppointmentScreen} />
         <Screen {...AddServicePage} />
+        <Screen {...AddServiceDetailPage} />
 
         <Screen name="ChangePincode" component={ChangePincode} />
         <Screen name="ForgotPincode" component={ForgotPincode} />

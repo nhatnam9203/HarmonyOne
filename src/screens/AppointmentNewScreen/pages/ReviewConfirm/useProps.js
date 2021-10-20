@@ -82,6 +82,8 @@ export const useProps = (_params) => {
       products: [],
       giftCards: []
     };
+    console.log('data update appointment')
+    console.log({ data })
     return data;
   }
 
@@ -170,7 +172,7 @@ export const useProps = (_params) => {
         staffId: servicesBooking[0].staffId,
         merchantId: staff?.merchantId,
         userId: 0,
-        customerId: customerBooking?.customerId,
+        customerId: customerBooking?.customerId || 0,
         fromTime: !isQuickCheckout ? `${dayBooking} ${timeBooking}` : moment().format("MM-DD-YYYY hh:mm A"),
         status: isQuickCheckout ? "checkin" : "confirm",
         categories: [],
@@ -178,6 +180,9 @@ export const useProps = (_params) => {
         extras: [],
         products: [],
       }
+
+      console.log('data submit add appointment')
+      console.log({ data })
 
       const body = await addAppointment(data);
       submitAddAppointment(body.params);

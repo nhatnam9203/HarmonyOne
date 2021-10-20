@@ -30,7 +30,6 @@ export const Layout = ({
   isLoading
 }) => {
 
-  console.log({ blockTimesVisibile })
 
   const [t] = useTranslation();
 

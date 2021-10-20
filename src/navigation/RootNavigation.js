@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { StatusBar } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
@@ -7,7 +8,6 @@ import { isReadyRef, navigationRef } from './NavigationService';
 import LaunchScreen from 'react-native-splash-screen';
 import 'react-native-gesture-handler';
 
-import { StatusBar } from 'react-native';
 import AuthStack from './AuthStack';
 import AppStack from './AppStack';
 
@@ -56,7 +56,7 @@ export class RootNavigation extends Component {
         onReady={() => {
           this.isReadyRef.current = true;
         }}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="light-content" hidden />
 
         <Navigator headerMode="none">
           <Screen {...SplashScreen} />

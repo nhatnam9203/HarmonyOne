@@ -85,7 +85,7 @@ export const images = {
   otherPay: require('@src/assets/images/otherPay.png'),
   giftCardPay: require('@src/assets/images/giftcard_payment.png'),
   downarrow: require('@src/assets/images/down-arrow.png'),
-  iconLoading: require('@src/assets/images/Loading.svg'),
+  iconLoading: require('@src/assets/images/Loading.gif'),
 
 
   EmptyList: require('@src/assets/images/emptyList.png'),

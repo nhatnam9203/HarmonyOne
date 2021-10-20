@@ -8,7 +8,7 @@ import { IconButton } from "./IconButton";
 import Modal from "react-native-modal";
 
 
-export const DialogBookingSuccess = React.forwardRef(
+export const DialogSuccess = React.forwardRef(
     ({
         onConfirmYes = () => { },
         onModalHide = () => { },
