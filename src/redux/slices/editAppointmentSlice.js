@@ -100,8 +100,9 @@ const editAppointment = createSlice({
             tempServices.push(service);
             tempExtras = [
                 ...tempExtras.filter(ex => ({ ...ex, status: 1 })),
-                ...extras
+                ...extras.map(ex=>({ ...ex, status : 1 }))
             ];
+            
             tempAppointment = {
                 ...tempAppointment,
                 services: tempServices,
@@ -134,6 +135,7 @@ const editAppointment = createSlice({
             let tempExtras = tempAppointment.extras || [];
             for (let el of extrasList) {
                 const index = findPositionExtra(tempExtras, el);
+                console.log({ el , index })
                 if (index !== -1) {
                     if (!el?.checked) {
                         if (!el?.bookingServiceId) {

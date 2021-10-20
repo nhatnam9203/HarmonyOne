@@ -190,11 +190,12 @@ export const getGroupAppointmentById = (appointmentId) => ({
   },
 });
 
-export const removeItemAppointment = (appointmentId) => ({
+export const removeItemAppointment = (appointmentId,data) => ({
   queryId: 'removeItemAppointment',
   params: {
     url: `appointment/removeitem/${appointmentId}`,
     method: 'PUT',
+    data
   },
 });
 

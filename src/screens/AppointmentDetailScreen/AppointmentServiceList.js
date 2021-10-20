@@ -39,7 +39,7 @@ export const AppointmentServiceList = ({ services = [], extras = [] }) => {
           <AppointmentServiceItem
             key={item?.bookingServiceId + "serviceItem"}
             service={item}
-            extras={extras.map(ex => ({ ...ex, name: ex.extraName }))}
+            extras={extras.filter(ex=>ex.bookingServiceId == item?.bookingServiceId).map(ex => ({ ...ex, name: ex.extraName }))}
             name={item?.serviceName}
             duration={totalDuration(item, "duration")}
             price={getTotalPrice(item)}

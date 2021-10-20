@@ -43,8 +43,6 @@ export const useProps = ({
   });
   const [canEdit, setCanEdit] = React.useState(false);
 
-  console.log({ appointmentDetail })
-
 
   const [{ }, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),

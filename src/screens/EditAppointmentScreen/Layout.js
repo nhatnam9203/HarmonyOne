@@ -89,7 +89,7 @@ export const Layout = ({
       <View style={{ height: scaleHeight(100) }} />
     </View>
   )
-  
+
   return (
     <>
       <View style={styles.container}>

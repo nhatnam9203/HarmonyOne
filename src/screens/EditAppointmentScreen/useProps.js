@@ -9,7 +9,8 @@ import {
   useAxiosQuery,
   updateAppointment,
   getAppointmentById,
-  removeItemAppointment
+  removeItemAppointment,
+  addItemIntoAppointment,
 } from "@src/apis";
 import { dateToFormat } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
@@ -29,12 +30,11 @@ export const useProps = (_params) => {
     auth: { staff }
   } = useSelector(state => state);
 
+
   const [appointmentIdUpdate, setAppointmentId] = React.useState(0);
   const [servicesBookingRemove, setServicesBookingRemove] = React.useState([]);
   const [extrasBookingRemove, setExtrasBookingRemove] = React.useState([]);
 
-
-  console.log({ servicesBookingRemove , extrasBookingRemove })
 
 
   const [, fetchAppointmentByDate] = useAxiosQuery({
@@ -48,21 +48,47 @@ export const useProps = (_params) => {
 
   const [, submitRemoveItemAppointment] = useAxiosMutation({
     ...removeItemAppointment(),
-    onSuccess: (data, response) => {
+    isStopLoading : true,
+    onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
 
+        const tempData = {
+          services: appointmentEdit.services.filter(obj => !obj?.bookingServiceId && obj.status == 1),
+          extras: appointmentEdit.extras.filter(obj => !obj?.bookingServiceId && obj.status == 1),
+          products: [],
+          giftCards: [],
+        }
+
+        const body = await addItemIntoAppointment(appointmentEdit?.appointmentId, tempData);
+        submitAddItem(body.params);
       }
     }
   });
 
-
-  const [, submitUpdateAppointment] = useAxiosMutation({
-    ...updateAppointment(),
+  const [, submitAddItem] = useAxiosMutation({
+    ...addItemIntoAppointment(),
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         alertRef?.current?.alertWithType('info', 'Update appointment', response?.message);
         fetchAppointmentByDate();
         fetchAppointmentById();
+      }
+    }
+  });
+
+  const [, submitUpdateAppointment] = useAxiosMutation({
+    ...updateAppointment(),
+    isStopLoading : true,
+    onSuccess: async (data, response) => {
+      if (response?.codeNumber == 200) {
+        const tempData = {
+          services: servicesBookingRemove.map(sv => ({ bookingServiceId: sv.bookingServiceId })),
+          extras: extrasBookingRemove.map(ex=>({ bookingExtraId : ex.bookingExtraId })),
+          products: [],
+          giftCards: [],
+        }
+        const body = await removeItemAppointment(appointmentEdit?.appointmentId, tempData);
+        submitRemoveItemAppointment(body.params);
       }
     }
   });
@@ -77,8 +103,6 @@ export const useProps = (_params) => {
       }
     },
   });
-
-  console.log({ appointmentEdit })
 
   return {
     customerBooking,
@@ -138,20 +162,19 @@ export const useProps = (_params) => {
     },
 
 
-    deleteService: async(service) => {
+    deleteService: async (service) => {
       if (service?.bookingServiceId) {
-        let arrTempServicesRemove = await[...servicesBookingRemove];
+        let arrTempServicesRemove = await [...servicesBookingRemove];
         let arrTempExtrasRemove = await [...extrasBookingRemove];
-        
-        const extrasWillBeReomved = await appointmentEdit?.extras.filter(obj => obj.bookingServiceId == service?.bookingServiceId);
 
-        console.log({ extrasWillBeReomved, appointmentEdit })
+        const extraBooking = appointmentEdit?.extras;
+        const extrasWillBeReomved = await extraBooking.filter(obj => obj.bookingServiceId == service?.bookingServiceId);
 
         arrTempExtrasRemove = await [...arrTempExtrasRemove, ...extrasWillBeReomved];
-        await arrTempServicesRemove.push(service.bookingServiceId);
+
+        await arrTempServicesRemove.push(service);
         await setServicesBookingRemove(arrTempServicesRemove);
         await setExtrasBookingRemove(arrTempExtrasRemove);
-
         await dispatch(editAppointment.removeServiceBooking(service?.bookingServiceId));
 
       } else {
@@ -175,8 +198,8 @@ export const useProps = (_params) => {
         fromTime: appointmentEdit.fromTime,
         status: appointmentEdit.status,
         categories: appointmentEdit.categories,
-        services: appointmentEdit.services,
-        extras: appointmentEdit.extras,
+        services: appointmentEdit.services.filter(obj => obj.bookingServiceId),
+        extras: appointmentEdit.extras.filter(obj => obj.bookingServiceId),
         products: appointmentEdit.products,
         giftCards: appointmentEdit.giftCards
       };
