@@ -20,8 +20,6 @@ export class GiftCardScanner extends Component {
     onBarCodeRead(scanResult) {
         if (scanResult.data != null) {
             this.props.onReadBarcode(scanResult.data)
-            // this.props.actions.customer.onChangeBarcode(scanResult.data);
-            // this.props.ScanOK();
         }
         return;
     }
@@ -51,9 +49,6 @@ export class GiftCardScanner extends Component {
                     showAnimatedLine={true}
                     transparency={0.8}
                 />
-                {/* <View style={[ styles.overlay, styles.topOverlay ]}>
-					<Text style={styles.scanScreenMessage}>HARMONYPAY SCANNER</Text>
-				</View> */}
             </View>
         );
     }

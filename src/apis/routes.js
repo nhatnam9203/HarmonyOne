@@ -621,4 +621,11 @@ export const checkGiftCard = (serialNumber) => ({
   }
 });
 
-
+export const cancelHarmonyPayment = (payAppointmentId, data) => ({
+  queryId: 'cancelHarmonyPayment',
+  params: {
+    url: `appointment/cancelmethod/${payAppointmentId}`,
+    method: 'PUT',
+    data
+  }
+});

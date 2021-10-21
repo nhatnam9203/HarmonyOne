@@ -6,37 +6,60 @@ import {
   checkoutSubmit,
   useAxiosMutation,
   checkoutAppointment,
-  getAppointmentByDate
+  getAppointmentByDate,
+  cancelHarmonyPayment
 } from '@src/apis';
 import { useDispatch, useSelector } from "react-redux";
-import { dateToFormat } from "@shared/utils";
-import { bookAppointment, appointment } from "@redux/slices";
+import { dateToFormat, guid } from "@shared/utils";
+import { bookAppointment, appointment, app } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 import { Alert } from 'react-native';
+import { isEmpty } from "lodash";
+import Configs from '@src/config';
+const signalR = require("@microsoft/signalr");
+
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
 
+  
+  /************************************* REF *************************************/
   const dialogSuccessRef = React.useRef();
   const dialogActiveGiftCard = React.useRef();
 
+
+  /************************************* SELECTOR *************************************/
   const {
-    appointment: { appointmentDetail, groupAppointments = [], appointmentDate }
+    appointment: { appointmentDetail, groupAppointments = [], appointmentDate },
+    auth: { staff }
   } = useSelector(state => state);
+
+
+  /************************************* STATE *************************************/
   const [methodPay, setMethodPay] = React.useState(null);
+  const [payAppointmentId, setPayAppointmentId] = React.useState(null);
+  const [isCancelHarmony, changeStatusCancelHarmony] = React.useState(false);
+  const [connectionSignalR, setConnectionSignalR] = React.useState(null);
 
 
+  /************************************* GỌI API SELECT METHOD PAY *************************************/
   const [, submitSelectPaymentMethod] = useAxiosMutation({
     ...selectPaymentMethod(),
     isStopLoading: true,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
-        const body = await checkoutSubmit(response.data);
-        applyCheckoutSubmit(body.params);
+        if (methodPay.method == "harmony") {
+          setPayAppointmentId(data);
+        }
+        if (methodPay.method !== "harmony") {
+          const body = await checkoutSubmit(response.data);
+          applyCheckoutSubmit(body.params);
+        }
       }
     }
   });
 
+  /************************************* GỌI API CHECKOUT SUBMIT *************************************/
   const [, applyCheckoutSubmit] = useAxiosMutation({
     ...checkoutSubmit(),
     onSuccess: (data, response) => {
@@ -46,6 +69,7 @@ export const useProps = (props) => {
     }
   });
 
+  /************************************* FETCH APPOINTMENT BY DATE *************************************/
   const [, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
     enabled: false,
@@ -54,15 +78,100 @@ export const useProps = (props) => {
     },
   });
 
-  React.useLayoutEffect(() => {
-    dialogActiveGiftCard?.current?.hide();
-  }, []);
+  /************************************* CALL API CANCEL HARMONY PAYMENT *************************************/
+  const [, submitCancelHarmonyPayment] = useAxiosMutation({
+    ...cancelHarmonyPayment(),
+    onSuccess: (data, response) => {
+      if (response?.codeNumber == 200) {
+        setMethodPay(null);
+        setPayAppointmentId(null);
+        changeStatusCancelHarmony(false);
+        if (connectionSignalR) {
+          connectionSignalR?.stop();
+        }
+        setTimeout(() => {
+          setConnectionSignalR(null);
+        }, 300);
+      }
+    }
+  });
+
+  /************************************* HANDLE HARMONY PAYMENT SUCCESS *************************************/
+  const handleHarmonyPayment = (checkoutPayment) => {
+    setMethodPay(null);
+    setPayAppointmentId(null);
+    changeStatusCancelHarmony(false);
+    dialogSuccessRef?.current?.show();
+  }
+
+  /************************************* SETUP SIGNALR CHO METHOD HARMONY *************************************/
+  const setupSignalR = () => {
+    try {
+      dispatch(app.showLoading());
+      const urlconnect = `${Configs.SOCKET_URL}notification/?merchantId=${staff?.merchantId}&Title=Merchant&kind=app&deviceId=gfghdfgdfd&token=${staff?.token}`;
+      const connection = new signalR.HubConnectionBuilder()
+        .withUrl(
+          `${Configs.SOCKET_URL}notification/?merchantId=${staff?.merchantId}&Title=Merchant&kind=app&deviceId=${guid()}&token=${staff?.token}`,
+          {
+            transport:
+              signalR.HttpTransportType.LongPolling |
+              signalR.HttpTransportType.WebSockets,
+          }
+        )
+        .withAutomaticReconnect([0, 2000, 10000, 30000])
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+
+      connection.on("ListWaNotification", (data) => {
+        const temptData = JSON.parse(data);
+        if (
+          temptData.data &&
+          !isEmpty(temptData.data) &&
+          temptData.data.isPaymentHarmony &&
+          temptData.data.checkoutGroupId == groupAppointments?.checkoutGroupId
+        ) {
+          handleHarmonyPayment(temptData.data.checkoutPayment);
+          connection.stop();
+        }
+      });
+
+      connection.onclose(async (error) => {
+        // this.props.actions.appointment.resetConnectSignalR();
+      });
+
+      connection
+        .start()
+        .then(async () => {
+          setConnectionSignalR(connection)
+          const data = {
+            method: "harmony",
+            amount: appointmentDetail?.total,
+            giftCardId: 0,
+          }
+          const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
+          submitSelectPaymentMethod(body.params);
+          changeStatusCancelHarmony(true)
+        })
+        .catch((error) => {
+          dispatch(app.hideLoading());
+          setTimeout(() => {
+            alert(error);
+          }, 1000);
+        });
+    } catch (error) {
+      dispatch(app.hideLoading());
+      setTimeout(() => {
+        alert(error);
+      }, 1000);
+    }
+  }
 
   return {
     appointmentDetail,
     methodPay,
     dialogSuccessRef,
     dialogActiveGiftCard,
+    isCancelHarmony,
 
     onChangeMethodPay: (item) => {
       setMethodPay(item);
@@ -75,14 +184,28 @@ export const useProps = (props) => {
       // NavigationService.back();
     },
 
-    onSubmitPayment: async () => {
+    cancelHarmonyPay: async () => {
       const data = {
-        method: methodPay.method,
-        amount: parseFloat(appointmentDetail?.total),
-        giftCardId: 0,
+        status: null,
+        note: null,
       }
-      const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
-      submitSelectPaymentMethod(body.params);
+      const body = await cancelHarmonyPayment(payAppointmentId, data);
+      submitCancelHarmonyPayment(body.params);
+    },
+
+    onSubmitPayment: async () => {
+      if (methodPay.method == "harmony") {
+        setupSignalR();
+        return;
+      } else {
+        const data = {
+          method: methodPay.method,
+          amount: parseFloat(appointmentDetail?.total),
+          giftCardId: 0,
+        }
+        const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
+        submitSelectPaymentMethod(body.params);
+      }
     },
 
     onPayGiftCard: async (amount, giftCardId) => {

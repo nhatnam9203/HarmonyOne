@@ -14,7 +14,7 @@ const AppConfigs = {
 // const Configs = Object.assign({}, AppConfigs, EvnConfigs);
 const Configs = Object.assign(EvnConfigs, AppConfigs, {
   API_URL: 'https://staging.harmonypayment.com/api/',
-  SOCKET_URL: 'https://staging.harmonypayment.com/',
+  SOCKET_URL: 'https://signalr-stage.harmonypayment.com/',
   REDUX_LOGGER: false,
 });
 export default Configs;

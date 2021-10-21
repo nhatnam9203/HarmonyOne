@@ -18,6 +18,8 @@ export const Layout = ({
     dialogActiveGiftCard,
     onOK,
     onPayGiftCard,
+    isCancelHarmony,
+    cancelHarmonyPay
 }) => {
 
     const [t] = useTranslation();
@@ -44,14 +46,14 @@ export const Layout = ({
 
                     <ItemsPay
                         methodPay={methodPay}
-                        onChangeMethodPay={onChangeMethodPay}
+                        onChangeMethodPay={isCancelHarmony ? () => { } : onChangeMethodPay}
                     />
                 </View>
 
                 <View style={styles.bottom}>
                     <Button
-                        label="Charge"
-                        onPress={onSubmitPayment}
+                        label={isCancelHarmony ? "Cancel" : "Charge"}
+                        onPress={isCancelHarmony ? cancelHarmonyPay : onSubmitPayment}
                         highlight={true}
                         width={'100%'}
                         disabled={methodPay == "" || !methodPay}

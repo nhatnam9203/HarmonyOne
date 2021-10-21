@@ -43,11 +43,6 @@ export const DialogActiveGiftCard = React.forwardRef(
             onModalHide();
         };
 
-        const onHandleNOButtonPress = () => {
-            hideModal();
-        };
-
-
         React.useImperativeHandle(ref, () => ({
             show: () => {
                 setOpen(true);
@@ -63,28 +58,23 @@ export const DialogActiveGiftCard = React.forwardRef(
             }
         }));
 
-        const onHandleYESButtonPress = () => {
-            hideModal();
-            if (onConfirmYes && typeof onConfirmYes === "function") {
-                onConfirmYes();
-                hideModal();
-            }
-        };
-
+        { /************************************* GỌI API CHECK SERIAL NUMBER SHOW POPUP GIFTCARD DETAIL LÊN *************************************/ }
         const checkSerialNumber = async () => {
             try {
-                setLoading(true);
-                const params = {
-                    url: `giftcard/serialNumber/${serialNumber}?isActive=${true}`,
-                    method: "GET",
-                }
-                const response = await axios(params);
-                if (response?.data?.codeNumber == 400) {
-                    Alert.alert(response?.data?.message);
-                } else {
-                    setTitlePage("Gift Card Details");
-                    setGiftcardPaymentInfo(response?.data?.data);
-                    calcuLateDueAmount(response?.data?.data);
+                if (!isEmpty(serialNumber)) {
+                    setLoading(true);
+                    const params = {
+                        url: `giftcard/serialNumber/${serialNumber}?isActive=${true}`,
+                        method: "GET",
+                    }
+                    const response = await axios(params);
+                    if (response?.data?.codeNumber == 400) {
+                        Alert.alert(response?.data?.message);
+                    } else {
+                        setTitlePage("Gift Card Details");
+                        setGiftcardPaymentInfo(response?.data?.data);
+                        calcuLateDueAmount(response?.data?.data);
+                    }
                 }
             } catch (err) {
 
@@ -112,6 +102,7 @@ export const DialogActiveGiftCard = React.forwardRef(
             )
         }
 
+        { /************************************* GỌI API PAY GIFT CARD *************************************/ }
         const payGiftCard = () => {
             if (getAmountEnter(amount) > formatNumberFromCurrency(giftcardPaymentInfo.amount)) {
                 alert("Enter amount is not bigger than the value of gift card!")
@@ -186,11 +177,13 @@ export const DialogActiveGiftCard = React.forwardRef(
                                 </View> :
                                 giftcardPaymentInfo ?
                                     <View style={{ width: "100%", backgroundColor: "white", borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
+                                        { /************************************* SERIAL NUMBER *************************************/}
                                         <View style={[styles.row, { justifyContent: "flex-start" }]}>
                                             <Text style={[styles.txt, { width: scaleWidth(140) }]}>Serial number:</Text>
                                             <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}># {giftcardPaymentInfo?.serialNumber}</Text>
                                         </View>
 
+                                        { /************************************* AMOUNT *************************************/}
                                         <View style={[styles.row, styles.rowAmount]}>
                                             <Text style={[styles.txt, { width: scaleWidth(140) }]}>Amount:</Text>
                                             <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}>{`$ ${giftcardPaymentInfo?.amount}`}</Text>
@@ -200,12 +193,13 @@ export const DialogActiveGiftCard = React.forwardRef(
                                         <View style={styles.row}>
                                             <Text style={[styles.txt, { fontFamily: fonts.BOLD }]}>Payment details</Text>
                                         </View>
-
+                                        { /************************************* CHARGE AMOUNT *************************************/}
                                         <View style={styles.row}>
                                             <Text style={styles.txt}>Charge amount:</Text>
                                             <Text style={[styles.txt, { fontFamily: fonts.BOLD }]}>{`$ ${groupAppointments?.dueAmount}`}</Text>
                                         </View>
 
+                                        { /************************************* PAYMENT AMOUNT *************************************/}
                                         <View style={styles.row}>
                                             <Text style={styles.txt}>Pay amount:</Text>
                                             <TextInputMask
@@ -217,6 +211,7 @@ export const DialogActiveGiftCard = React.forwardRef(
                                             />
                                         </View>
 
+                                        { /************************************* AMOUNUT DUE *************************************/}
                                         <View style={[styles.row, styles.rowAmountDue]}>
                                             <Text style={styles.txt}>Amount Due:</Text>
                                             <Text style={[styles.txt, { fontFamily: fonts.BOLD, color: colors.red }]}>
@@ -224,6 +219,7 @@ export const DialogActiveGiftCard = React.forwardRef(
                                             </Text>
                                         </View>
 
+                                        { /************************************* BUTTON *************************************/}
                                         <View style={[styles.bottomStyle, { paddingHorizontal: scaleWidth(15) }]}>
                                             <TouchableOpacity
                                                 onPress={hideModal}
@@ -241,6 +237,7 @@ export const DialogActiveGiftCard = React.forwardRef(
                                         </View>
                                     </View>
                                     : <>
+                                        { /************************************* INPUT SERIAL NUMBER *************************************/}
                                         <View style={styles.containerInput}>
                                             <TextInput
                                                 style={styles.textInput}
