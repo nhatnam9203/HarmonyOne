@@ -8,6 +8,7 @@ import { images } from "@shared/themes/resources";
 import { DiscountType } from "./DiscountType";
 import { formatNumberFromCurrency, roundNumber } from "@shared/utils";
 import { useWatch } from "react-hook-form";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 
 export const Layout = ({
@@ -56,7 +57,7 @@ export const Layout = ({
                 isScrollLayout={false}
                 containerStyle={{ paddingVertical: 0 }}
             >
-                <View style={styles.content}>
+                <KeyboardAwareScrollView contentContainerStyle={styles.content}>
                     <DiscountType
                         form={form}
                         ref={discountTypeRef}
@@ -135,7 +136,7 @@ export const Layout = ({
                     </View>
 
 
-                </View>
+                </KeyboardAwareScrollView>
                 <View style={styles.bottom}>
                     <Button
                         label="Apply"

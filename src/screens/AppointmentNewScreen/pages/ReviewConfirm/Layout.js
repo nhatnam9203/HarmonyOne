@@ -31,7 +31,7 @@ export const Layout = ({
 }) => {
 
 
-  let dateTimeView = moment(`${dayBooking} ${timeBooking}`, ["YYYY-MM-DD hh:mm"])
+  let dateTimeView = moment(`${dayBooking} ${timeBooking}`, ["YYYY-MM-DD hh:mm"]);
 
   const renderHeader = () => (
     <View style={{ paddingRight: scaleWidth(16) }}>

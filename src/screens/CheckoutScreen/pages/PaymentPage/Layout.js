@@ -59,6 +59,14 @@ export const Layout = ({
                         disabled={methodPay == "" || !methodPay}
                     />
                 </View>
+
+                <DialogActiveGiftCard
+                    ref={dialogActiveGiftCard}
+                    title="Enter gift card serial number"
+                    onConfirmYes={() => { }}
+                    onModalHide={() => onChangeMethodPay("")}
+                    onPayGiftCard={onPayGiftCard}
+                />
             </SingleScreenLayout>
 
             <DialogLoading
@@ -66,13 +74,7 @@ export const Layout = ({
                 title="Transaction completed"
                 onConfirmYes={() => onOK()}
             />
-            <DialogActiveGiftCard
-                ref={dialogActiveGiftCard}
-                title="Enter gift card serial number"
-                onConfirmYes={() => { }}
-                onModalHide={() => onChangeMethodPay("")}
-                onPayGiftCard={onPayGiftCard}
-            />
+
         </View>
     );
 };

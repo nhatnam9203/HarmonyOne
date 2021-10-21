@@ -222,6 +222,7 @@ const styles = StyleSheet.create({
     width: scaleWidth(375 / 3),
     height: scaleWidth(375 / 3),
     borderRadius: 1000,
+    zIndex : 99999
   },
 
   avatar: {
