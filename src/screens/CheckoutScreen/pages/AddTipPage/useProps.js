@@ -76,7 +76,8 @@ export const useProps = (props) => {
 
     form,
     percentSelected,
-
+    formatNumberFromCurrency,
+    appointmentDetail,
     back: () => {
       NavigationService.back();
     },
@@ -99,6 +100,20 @@ export const useProps = (props) => {
     selectPercent: (percent) => {
       setPercentSelected(percent);
       form.setValue("tip", percentage(parseInt(percent), formatNumberFromCurrency(appointmentDetail?.subTotal)))
+    },
+
+    removeTip: async() => {
+      const data = {
+        staffId: 0,
+        bookingServiceId: 0,
+        tipAmount: 0,
+        price: 0,
+        tipPercent: 0,
+        note: "",
+        extras: null,
+      }
+      const body = await changeStylist(appointmentDetail?.appointmentId, data);
+      submitChangeStylist(body.params);
     }
   }
 };

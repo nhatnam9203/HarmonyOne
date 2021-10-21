@@ -11,7 +11,7 @@
     "clean": "rm -rf node_modules && rm -rf yarn.lock && rm -rf $TMPDIR/react-* && watchman watch-del-all",
     "clean:ios": "cd ios && rm -rf ~/Library/Caches/CocoaPods && rm -rf Pods && rm -rf ~/Library/Developer/Xcode/DerivedData/* && rm -rf Podfile.lock",
     "push:ios-production": "appcenter codepush release-react -a HarmonyPayment/HPOne-iOS -d Production -t 1.0.0 --description fix-bug",
-    "push:ios-staging": "appcenter codepush release-react -a HarmonyPayment/HPOne-iOS -d Staging -t 1.0.0 --description pay-giftcard",
+    "push:ios-staging": "appcenter codepush release-react -a HarmonyPayment/HPOne-iOS -d Staging -t 1.0.0 --description fix",
     "push-clean:ios-production": "appcenter codepush deployment clear -a HarmonyPayment/HPOne-iOS Production",
     "push-clean:ios-staging": "appcenter codepush deployment clear -a HarmonyPayment/HPOne-iOS Staging",
     "push:android-production": "appcenter codepush release-react -a HarmonyPayment/HPOne-Android -d Production -t 1.0.0 --description update",

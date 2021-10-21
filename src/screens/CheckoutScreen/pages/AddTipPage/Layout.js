@@ -14,6 +14,9 @@ export const Layout = ({
     onSubmit,
     selectPercent,
     percentSelected,
+    formatNumberFromCurrency,
+    removeTip,
+    appointmentDetail,
 }) => {
 
     const [t] = useTranslation();
@@ -66,6 +69,11 @@ export const Layout = ({
                             ))
                         }
                     </View>
+
+                    {parseFloat(formatNumberFromCurrency(appointmentDetail?.tipAmount)) > 0 &&
+                        <TouchableOpacity onPress={removeTip}>
+                            <Text style={styles.txtRemoveTip}>Remove tip</Text>
+                        </TouchableOpacity>}
                 </View>
                 <View style={styles.bottom}>
                     <Button
@@ -83,6 +91,12 @@ export const Layout = ({
 
 
 const styles = StyleSheet.create({
+    txtRemoveTip: {
+        marginTop: scaleHeight(16),
+        color: colors.red,
+        fontSize: scaleFont(15),
+        fontFamily: fonts.MEDIUM
+    },
     container: {
         flex: 1,
         backgroundColor: "white",

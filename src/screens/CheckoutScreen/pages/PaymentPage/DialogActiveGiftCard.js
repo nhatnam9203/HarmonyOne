@@ -103,7 +103,6 @@ export const DialogActiveGiftCard = React.forwardRef(
         }
 
         const calcuLateDueAmount = async (giftCardInfo) => {
-            console.log({ giftCardInfo })
             const dueAmount = groupAppointments.dueAmount ? groupAppointments.dueAmount : 0;
             const tempDueAmount = formatMoney(formatNumberFromCurrency(dueAmount) - getAmountEnter(giftCardInfo.amount));
             const tempAmount = tempDueAmount >= 0 ? giftCardInfo.amount : dueAmount;

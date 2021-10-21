@@ -23,15 +23,15 @@ const methodPays = [
         method: "credit_card"
     },
     {
+        title: "Others - Check",
+        icon: images.otherPay,
+        method : "other"
+    },
+    {
         title: "Gift Card",
         icon: images.giftCardPay,
         method: "giftcard"
     },
-    {
-        title: "Others - Check",
-        icon: images.otherPay,
-        method : "other"
-    }
 ]
 
 export const ItemsPay = ({

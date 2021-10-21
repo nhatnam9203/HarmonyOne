@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { dateToFormat } from "@shared/utils";
 import { bookAppointment, appointment } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
+import { Alert } from 'react-native';
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
@@ -53,6 +54,10 @@ export const useProps = (props) => {
     },
   });
 
+  React.useLayoutEffect(() => {
+    dialogActiveGiftCard?.current?.hide();
+  }, []);
+
   return {
     appointmentDetail,
     methodPay,
@@ -60,7 +65,7 @@ export const useProps = (props) => {
     dialogActiveGiftCard,
 
     onChangeMethodPay: (item) => {
-      setMethodPay(item)
+      setMethodPay(item);
       if (item?.method == "giftcard") {
         dialogActiveGiftCard?.current?.show();
       }
