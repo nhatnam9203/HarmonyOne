@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, Alert } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
@@ -120,7 +120,7 @@ export const Layout = ({
       <View style={styles.bottom}>
         <Button
           label="Save"
-          onPress={() => { }}
+          onPress={() => { Alert.alert('dang gan api') }}
           highlight={true}
           width={'100%'}
         />

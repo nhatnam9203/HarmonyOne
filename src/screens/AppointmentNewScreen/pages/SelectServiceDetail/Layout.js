@@ -3,6 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Text, Image, ScrollView } from 'rea
 import { colors, fonts, images } from "@shared/themes";
 import { CustomImage, IconButton, Button } from "@shared/components";
 import { ExtraOfService } from './ExtraOfService';
+import { slop } from "@shared/utils";
 import { isEmpty } from "lodash";
 import { TextInputMask } from "react-native-masked-text";
 
@@ -95,10 +96,11 @@ export const Layout = ({
                   $
                 </Text>
                 {
-                  isEditPrice && <TextInputMask
+                  isEditPrice && 
+                  <TextInputMask
                     value={price}
                     onChangeText={text => setPrice(text)}
-                    style={[styles.duration, { fontSize: scaleFont(18) }]}
+                    style={[styles.duration, { fontSize: scaleFont(18), }]}
                     type="money"
                     editable={isEditPrice}
                     options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
@@ -113,7 +115,7 @@ export const Layout = ({
                 }
               </View>
 
-              <TouchableOpacity onPress={() => {
+              <TouchableOpacity hitSlop={slop(20)} onPress={() => {
                 if (isEditPrice) {
                   setStatusEditPrice(false);
 
@@ -252,7 +254,7 @@ const styles = StyleSheet.create({
   wrapPrice: {
     flexDirection: "row",
     alignItems: "center",
-    marginRight: scaleWidth(8),
+    marginRight: scaleWidth(12),
     borderWidth: 1,
     borderColor: "#dddddd",
     height: scaleHeight(30),

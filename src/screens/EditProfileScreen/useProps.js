@@ -52,7 +52,7 @@ export const useProps = (props) => {
     isLoadingDefault: true,
     onSuccess: (data, response) => {
       if (response.codeNumber == 200) {
-        dispatch(auth.loginStaff(data));
+        dispatch(auth.updateProfile(data));
         NavigationService.back();
       }
     },
@@ -61,7 +61,6 @@ export const useProps = (props) => {
   const [, submitEditStaff] = useAxiosMutation({
     ...updateStaff(staff?.staffId),
     onSuccess: (data, response) => {
-      console.log({ response })
       if (response.codeNumber == 200) {
         getStaffLogin();
       }
@@ -118,6 +117,7 @@ export const useProps = (props) => {
         },
         driverlicense: staff.driverLicense,
         professionalLicense: staff.professionalLicense,
+        socialSecurityNumber: staff?.socialSecurityNumber,
         isDisabled: staff.isDisabled,
         workingTime: staff.workingTimes,
         tipFee: staff.tipFees,

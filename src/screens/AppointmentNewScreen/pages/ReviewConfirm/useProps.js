@@ -29,6 +29,7 @@ export const useProps = (_params) => {
 
   const [, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
+    isLoadingDefault : true,
     enabled: false,
     onSuccess: (data, response) => {
       dispatch(appointment.setBlockTimeBydate(data));
@@ -42,6 +43,7 @@ export const useProps = (_params) => {
 
   const [, submitAddAppointment] = useAxiosMutation({
     ...addAppointment(),
+    isStopLoading : true,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
         const appointmentId = response?.data;
@@ -71,6 +73,8 @@ export const useProps = (_params) => {
 
   const [, submitAddItem] = useAxiosMutation({
     ...addItemIntoAppointment(),
+    isLoadingDefault : true,
+    isStopLoading : true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         fetchAppointmentByDate();

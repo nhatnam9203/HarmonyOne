@@ -243,7 +243,8 @@ const styles = StyleSheet.create({
     },
     iconTrash: {
         width: scaleWidth(23),
-        height: scaleWidth(23)
+        height: scaleWidth(23),
+        tintColor : "#404040"
     },
     txtAddmore: {
         marginLeft: scaleWidth(16),
@@ -253,7 +254,8 @@ const styles = StyleSheet.create({
     },
     btnAddmore: {
         marginVertical: scaleHeight(16),
-        marginBottom: scaleHeight(30)
+        marginBottom: scaleHeight(30),
+        alignSelf : "flex-start"
     },
     wrapInput: {
         width: '100%',

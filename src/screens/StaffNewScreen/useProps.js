@@ -53,7 +53,7 @@ export const useProps = (props) => {
     onSuccess: (data, response) => {
       if (response.codeNumber == 200) {
         props?.route?.params?.refreshList();
-        NavigationService.back();
+        NavigationService.navigate(screenNames.StaffScreen)
       }
     },
   });
@@ -63,10 +63,12 @@ export const useProps = (props) => {
     onSuccess: (data, response) => {
       if (response.codeNumber == 200) {
           props?.route?.params?.refreshList();
-          NavigationService.back();
+          NavigationService.navigate(screenNames.StaffScreen)
       }
     },
   });
+
+  console.log({ staffEdit })
 
 
   React.useEffect(() => {

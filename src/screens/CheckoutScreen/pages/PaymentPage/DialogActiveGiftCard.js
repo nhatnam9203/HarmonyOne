@@ -7,9 +7,12 @@ import { images } from "@shared/themes/resources";
 import { checkGiftCard, useAxiosQuery } from "@src/apis";
 import { axios } from '@shared/services/axiosClient';
 import { app } from "@redux/slices";
-import { formatMoney, formatNumberFromCurrency } from "@shared/utils";
+import { formatMoney, formatNumberFromCurrency, slop } from "@shared/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { TextInputMask } from "react-native-masked-text";
+import { GiftCardScanner } from "./GiftCardScanner";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { isEmpty } from "lodash";
 import Modal from "react-native-modal";
 
 
@@ -31,6 +34,7 @@ export const DialogActiveGiftCard = React.forwardRef(
         const [giftcardPaymentInfo, setGiftcardPaymentInfo] = React.useState(null);
         const [amount, setAmount] = React.useState("0.00");
         const [dueAmountGiftCardPayment, setDueAmountGiftCardPayment] = React.useState("0.00");
+        const [isScanning, setScanning] = React.useState(false);
 
         const { appointment: { groupAppointments } } = useSelector(state => state);
 
@@ -42,6 +46,22 @@ export const DialogActiveGiftCard = React.forwardRef(
         const onHandleNOButtonPress = () => {
             hideModal();
         };
+
+
+        React.useImperativeHandle(ref, () => ({
+            show: () => {
+                setOpen(true);
+                setSerialNumber("");
+                setGiftcardPaymentInfo(null);
+                setScanning(false);
+                setAmount("0.00");
+                setDueAmountGiftCardPayment("0.00");
+                setTitlePage("Active Gift Card");
+            },
+            hide: () => {
+                setOpen(false);
+            }
+        }));
 
         const onHandleYESButtonPress = () => {
             hideModal();
@@ -104,22 +124,10 @@ export const DialogActiveGiftCard = React.forwardRef(
                 } else {
                     const checkoutGroupId = groupAppointments?.checkoutGroupId || 0;
                     const giftCardId = giftcardPaymentInfo?.giftCardId || 0;
-                    onPayGiftCard(formatNumberFromCurrency(amount),giftCardId);
+                    onPayGiftCard(formatNumberFromCurrency(amount), giftCardId);
                 }
             }
         }
-
-        React.useImperativeHandle(ref, () => ({
-            show: () => {
-                setOpen(true);
-                setSerialNumber("");
-                setGiftcardPaymentInfo(null);
-                setTitlePage("Active Gift Card");
-            },
-            hide: () => {
-                setOpen(false);
-            }
-        }));
 
         const onChangeAmount = (value) => {
             const dueAmount = groupAppointments.dueAmount ? groupAppointments.dueAmount : 0;
@@ -127,6 +135,19 @@ export const DialogActiveGiftCard = React.forwardRef(
             setDueAmountGiftCardPayment(
                 formatMoney(formatNumberFromCurrency(dueAmount) - formatNumberFromCurrency(value))
             );
+        }
+
+        const openScanBarcode = () => {
+            setScanning(true);
+            setTitlePage("Scan Your Code");
+        }
+
+        const onReadBarcode = (result) => {
+            if (!isEmpty(result)) {
+                setSerialNumber(result);
+            }
+            setTitlePage("Active Gift Card");
+            setScanning(false);
         }
 
         return (
@@ -139,109 +160,143 @@ export const DialogActiveGiftCard = React.forwardRef(
                 animationIn="zoomIn"
                 animationOut="zoomOut"
             >
-                <View pointerEvents={isLoading ? "none" : "auto"} style={styles.container}>
-                    <View style={styles.header}>
-                        <Text style={styles.textHeader}>{titlePage}</Text>
+                <KeyboardAwareScrollView
+                    pointerEvents={isLoading ? "none" : "auto"}
+                    contentContainerStyle={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+                >
+                    <View pointerEvents={isLoading ? "none" : "auto"} style={styles.container}>
+                        <View style={styles.header}>
+                            <Text style={styles.textHeader}>{titlePage}</Text>
+                            {
+                                !giftcardPaymentInfo && <IconButton
+                                    icon={images.iconClose}
+                                    style={styles.buttonClose}
+                                    iconStyle={styles.iconButtonClose}
+                                    onPress={hideModal}
+                                />
+                            }
+                        </View>
+
+                        {!giftcardPaymentInfo && !isScanning && <Text style={styles.txtTitle}>
+                            {title}
+                        </Text>}
                         {
-                            !giftcardPaymentInfo && <IconButton
-                                icon={images.iconClose}
-                                style={styles.buttonClose}
-                                iconStyle={styles.iconButtonClose}
-                                onPress={hideModal}
-                            />
+                            isScanning ?
+                                <View style={{ width: scaleWidth(340), height: scaleWidth(350), justifyContent: "center", alignItems: "center" }}>
+                                    <GiftCardScanner onReadBarcode={onReadBarcode} />
+                                </View> :
+                                giftcardPaymentInfo ?
+                                    <View style={{ width: "100%", backgroundColor: "white", borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
+                                        <View style={[styles.row, { justifyContent: "flex-start" }]}>
+                                            <Text style={[styles.txt, { width: scaleWidth(140) }]}>Serial number:</Text>
+                                            <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}># {giftcardPaymentInfo?.serialNumber}</Text>
+                                        </View>
+
+                                        <View style={[styles.row, styles.rowAmount]}>
+                                            <Text style={[styles.txt, { width: scaleWidth(140) }]}>Amount:</Text>
+                                            <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}>{`$ ${giftcardPaymentInfo?.amount}`}</Text>
+                                        </View>
+
+
+                                        <View style={styles.row}>
+                                            <Text style={[styles.txt, { fontFamily: fonts.BOLD }]}>Payment details</Text>
+                                        </View>
+
+                                        <View style={styles.row}>
+                                            <Text style={styles.txt}>Charge amount:</Text>
+                                            <Text style={[styles.txt, { fontFamily: fonts.BOLD }]}>{`$ ${groupAppointments?.dueAmount}`}</Text>
+                                        </View>
+
+                                        <View style={styles.row}>
+                                            <Text style={styles.txt}>Pay amount:</Text>
+                                            <TextInputMask
+                                                value={amount}
+                                                onChangeText={onChangeAmount}
+                                                type="money"
+                                                style={styles.inputPrice}
+                                                options={{ precision: 2, separator: '.', delimiter: ',', unit: '$ ', suffixUnit: '' }}
+                                            />
+                                        </View>
+
+                                        <View style={[styles.row, styles.rowAmountDue]}>
+                                            <Text style={styles.txt}>Amount Due:</Text>
+                                            <Text style={[styles.txt, { fontFamily: fonts.BOLD, color: colors.red }]}>
+                                                {`$ ${dueAmountGiftCardPayment}`}
+                                            </Text>
+                                        </View>
+
+                                        <View style={[styles.bottomStyle, { paddingHorizontal: scaleWidth(15) }]}>
+                                            <TouchableOpacity
+                                                onPress={hideModal}
+                                                style={[styles.buttonPay, { backgroundColor: "#F1F1F1", borderWidth: 1, borderColor: "#cccccc" }]}
+                                            >
+                                                <Text style={[styles.textSubmit, { color: "#404040" }]}>CANCEL</Text>
+                                            </TouchableOpacity>
+
+                                            <TouchableOpacity
+                                                onPress={payGiftCard}
+                                                style={styles.buttonPay}
+                                            >
+                                                <Text style={styles.textSubmit}>PAY</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                    : <>
+                                        <View style={styles.containerInput}>
+                                            <TextInput
+                                                style={styles.textInput}
+                                                value={serialNumber}
+                                                onChangeText={text => setSerialNumber(text)}
+                                                placeholderTextColor="#cccccc"
+                                                placeholder="Your gift card"
+                                            />
+
+                                            <TouchableOpacity onPress={openScanBarcode} hitSlop={slop(20)} style={styles.buttonScancode}>
+                                                <Image
+                                                    source={images.scancode}
+                                                    resizeMode='contain'
+                                                    style={styles.iconScancode}
+                                                />
+                                            </TouchableOpacity>
+
+                                        </View>
+
+                                        <View style={styles.bottomStyle}>
+                                            <TouchableOpacity
+                                                onPress={checkSerialNumber}
+                                                style={styles.buttonSubmit}
+                                            >
+                                                {
+                                                    isLoading ?
+                                                        <ActivityIndicator size='small' color='white' /> :
+                                                        <Text style={styles.textSubmit}>Add card</Text>
+                                                }
+                                            </TouchableOpacity>
+                                        </View>
+                                    </>
                         }
                     </View>
-                    {!giftcardPaymentInfo && <Text style={styles.txtTitle}>
-                        {title}
-                    </Text>}
-
-                    {
-                        giftcardPaymentInfo ?
-                            <View style={{ width: "100%", backgroundColor: "white", borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
-                                <View style={[styles.row, { justifyContent: "flex-start" }]}>
-                                    <Text style={[styles.txt, { width: scaleWidth(140) }]}>Serial number:</Text>
-                                    <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}># {giftcardPaymentInfo?.serialNumber}</Text>
-                                </View>
-
-                                <View style={[styles.row, styles.rowAmount]}>
-                                    <Text style={[styles.txt, { width: scaleWidth(140) }]}>Amount:</Text>
-                                    <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}>{`$ ${giftcardPaymentInfo?.amount}`}</Text>
-                                </View>
-
-
-                                <View style={styles.row}>
-                                    <Text style={[styles.txt, { fontFamily: fonts.BOLD }]}>Payment details</Text>
-                                </View>
-
-                                <View style={styles.row}>
-                                    <Text style={styles.txt}>Charge amount:</Text>
-                                    <Text style={[styles.txt, { fontFamily: fonts.BOLD }]}>{`$ ${groupAppointments?.dueAmount}`}</Text>
-                                </View>
-
-                                <View style={styles.row}>
-                                    <Text style={styles.txt}>Pay amount:</Text>
-                                    <TextInputMask
-                                        value={amount}
-                                        onChangeText={onChangeAmount}
-                                        type="money"
-                                        style={styles.inputPrice}
-                                        options={{ precision: 2, separator: '.', delimiter: ',', unit: '$ ', suffixUnit: '' }}
-                                    />
-                                </View>
-
-                                <View style={[styles.row, styles.rowAmountDue]}>
-                                    <Text style={styles.txt}>Amount Due:</Text>
-                                    <Text style={[styles.txt, { fontFamily: fonts.BOLD, color: colors.red }]}>
-                                        {`$ ${dueAmountGiftCardPayment}`}
-                                    </Text>
-                                </View>
-
-                                <View style={[styles.bottomStyle, { paddingHorizontal: scaleWidth(15) }]}>
-                                    <TouchableOpacity
-                                        onPress={hideModal}
-                                        style={[styles.buttonPay, { backgroundColor: "#F1F1F1", borderWidth: 1, borderColor: "#cccccc" }]}
-                                    >
-                                        <Text style={[styles.textSubmit, { color: "#404040" }]}>CANCEL</Text>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity
-                                        onPress={payGiftCard}
-                                        style={styles.buttonPay}
-                                    >
-                                        <Text style={styles.textSubmit}>PAY</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                            : <>
-                                <TextInput
-                                    style={styles.textInput}
-                                    value={serialNumber}
-                                    onChangeText={text => setSerialNumber(text)}
-                                    placeholderTextColor="#cccccc"
-                                    placeholder="Your gift card"
-                                />
-
-                                <View style={styles.bottomStyle}>
-                                    <TouchableOpacity
-                                        onPress={checkSerialNumber}
-                                        style={styles.buttonSubmit}
-                                    >
-                                        {
-                                            isLoading ? <
-                                                ActivityIndicator size='small' color='white' /> :
-                                                <Text style={styles.textSubmit}>Add card</Text>
-                                        }
-                                    </TouchableOpacity>
-                                </View>
-                            </>
-                    }
-                </View>
+                </KeyboardAwareScrollView>
             </Modal>
         );
     }
 );
 
 const styles = StyleSheet.create({
+    buttonScancode: {
+        height: scaleHeight(42),
+        width: scaleWidth(42),
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#F1F1F1",
+        borderWidth: 2,
+        borderColor: "#dddddd",
+        borderLeftWidth: 0,
+    },
+    iconScancode: {
+        height: scaleHeight(25),
+        width: scaleWidth(25),
+    },
     rowAmountDue: {
         borderBottomWidth: 1, borderBottomColor: "#dddddd", paddingBottom: scaleHeight(16)
     },
@@ -335,15 +390,18 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: scaleWidth(16),
     },
-
-    textInput: {
+    containerInput: {
         width: scaleWidth(300),
-        height: scaleHeight(38),
+        height: scaleHeight(42),
+        marginTop: scaleHeight(12),
+        flexDirection: "row"
+    },
+    textInput: {
+        flex: 1,
         borderWidth: 2,
         fontSize: scaleFont(17),
         fontFamily: fonts.MEDIUM,
         borderColor: "#f0dfdf",
-        marginTop: scaleHeight(12),
         paddingHorizontal: scaleWidth(16),
         textAlign: "center"
     },

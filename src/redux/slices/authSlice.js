@@ -13,18 +13,23 @@ const authSlice = createSlice({
         console.log({ action });
         state.merchantID = action.payload;
       },
-      // prepare: (params) => {
-      //   console.log(params);
-      // },
     },
     loginStaff: {
       reducer: (state, action) => {
         state.staff = action.payload;
       },
-      // prepare: (params) => {
-      //   console.log(params);
-      // },
     },
+    updateProfile: {
+      reducer: (state, action) => {
+        const { firstName, lastName, displayName, phone, email, fileId, imageUrl, city } = action.payload;
+        console.log(action.payload)
+        state.staff = {
+          ...state.staff,
+          firstName, lastName, displayName, phone, email, fileId, imageUrl, city
+        }
+      },
+    },
+
     signOutApp: {
       reducer: (state, action) => {
         return initialState;

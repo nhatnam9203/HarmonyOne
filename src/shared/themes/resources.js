@@ -86,6 +86,7 @@ export const images = {
   giftCardPay: require('@src/assets/images/giftcard_payment.png'),
   downarrow: require('@src/assets/images/down-arrow.png'),
   iconLoading: require('@src/assets/images/Loading.gif'),
+  scancode: require('@src/assets/images/scancode.png'),
 
 
   EmptyList: require('@src/assets/images/emptyList.png'),

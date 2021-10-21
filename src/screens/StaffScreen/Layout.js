@@ -45,7 +45,7 @@ export const Layout = ({
             renderItem={({ item }) =>
               <ItemStaff
                 item={item}
-                onPress={()=>editStaff(item)}
+                onPress={() => editStaff(item)}
               />
             }
             ListFooterComponent={() => <View style={{ height: scaleHeight(100) }} />}
