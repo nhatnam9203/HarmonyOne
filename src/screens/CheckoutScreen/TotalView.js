@@ -50,32 +50,6 @@ export const TotalView = ({
             </View>
 
             <View style={styles.row}>
-                <Text style={styles.text}>Tip</Text>
-                {
-                    parseFloat(tipAmount) > 0 ?
-                        <TouchableOpacity
-                            onPress={addTip}
-                            style={{ flexDirection: "row", alignItems: "center" }}
-                        >
-                            <Text style={[styles.text, { marginRight: 5 }]}>
-                                {`$ ${tipAmount}`}
-                            </Text>
-                            <Image
-                                source={images.iconArrow}
-                                resizeMode='contain'
-                                style={styles.iconArrow}
-                            />
-                        </TouchableOpacity>
-                        :
-                        <IconButton
-                            icon={images.plus}
-                            iconStyle={styles.iconAdd}
-                            onPress={addTip}
-                        />
-                }
-            </View>
-
-            <View style={styles.row}>
                 <Text style={styles.text}>Discount</Text>
                 {
                     parseFloat(discount) > 0 ?
@@ -97,6 +71,32 @@ export const TotalView = ({
                             icon={images.plus}
                             iconStyle={styles.iconAdd}
                             onPress={addDiscount}
+                        />
+                }
+            </View>
+
+            <View style={styles.row}>
+                <Text style={styles.text}>Tip</Text>
+                {
+                    parseFloat(tipAmount) > 0 ?
+                        <TouchableOpacity
+                            onPress={addTip}
+                            style={{ flexDirection: "row", alignItems: "center" }}
+                        >
+                            <Text style={[styles.text, { marginRight: 5 }]}>
+                                {`$ ${tipAmount}`}
+                            </Text>
+                            <Image
+                                source={images.iconArrow}
+                                resizeMode='contain'
+                                style={styles.iconArrow}
+                            />
+                        </TouchableOpacity>
+                        :
+                        <IconButton
+                            icon={images.plus}
+                            iconStyle={styles.iconAdd}
+                            onPress={addTip}
                         />
                 }
             </View>

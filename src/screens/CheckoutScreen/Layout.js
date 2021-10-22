@@ -48,6 +48,7 @@ export const Layout = ({
             appointmentDetail={appointmentDetail}
             groupAppointments={groupAppointments}
           />
+          <View style={{ height : scaleHeight(80) }} />
         </ScrollView>
 
         <View style={styles.bottom}>

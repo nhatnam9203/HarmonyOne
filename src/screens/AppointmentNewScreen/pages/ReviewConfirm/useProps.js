@@ -8,7 +8,8 @@ import {
   getAppointmentByDate,
   useAxiosQuery,
   getAppointmentById,
-  addItemIntoAppointment
+  addItemIntoAppointment,
+  getGroupAppointmentById
 } from "@src/apis";
 import { dateToFormat } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
@@ -71,6 +72,17 @@ export const useProps = (_params) => {
     },
   });
 
+  const [, fetchGroupApointmentById] = useAxiosQuery({
+    ...getGroupAppointmentById(appointmentIdUpdate),
+    enabled: false,
+    onSuccess: async (data, response) => {
+      if (response?.codeNumber == 200) {
+        dispatch(appointment.setGroupAppointment(data));
+      }
+    }
+  });
+
+
 
   const [, submitAddItem] = useAxiosMutation({
     ...addItemIntoAppointment(),
@@ -81,6 +93,7 @@ export const useProps = (_params) => {
         fetchAppointmentByDate();
         if (isQuickCheckout) {
           fetchAppointmentById();
+          fetchGroupApointmentById();
         }
       }
     },

@@ -211,9 +211,7 @@ export const useProps = (props) => {
     const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
     submitSelectPaymentMethod(body.params);
   }
-
-  console.log({ methodPay })
-
+  
   return {
     appointmentDetail,
     methodPay,
