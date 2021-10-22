@@ -49,6 +49,7 @@ const ScreenNames = {
   EditAppointmentScreen : "hpo.editAppointment",
   AddServicePage : "hpo.addService",
   AddServiceDetailPage : "hpo.addServiceDetailPage",
+  EnterAmountPage : "hpo.enterAmountPage",
 };
 
 module.exports = { ScreenNames };

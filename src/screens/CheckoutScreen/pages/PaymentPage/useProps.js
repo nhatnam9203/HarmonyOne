@@ -7,14 +7,15 @@ import {
   useAxiosMutation,
   checkoutAppointment,
   getAppointmentByDate,
-  cancelHarmonyPayment
+  cancelHarmonyPayment,
+  getGroupAppointmentById
 } from '@src/apis';
 import { useDispatch, useSelector } from "react-redux";
 import { dateToFormat, guid } from "@shared/utils";
 import { bookAppointment, appointment, app } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 import { Alert } from 'react-native';
-import { isEmpty } from "lodash";
+import { isEmpty, method } from "lodash";
 import Configs from '@src/config';
 const signalR = require("@microsoft/signalr");
 
@@ -22,10 +23,12 @@ const signalR = require("@microsoft/signalr");
 export const useProps = (props) => {
   const dispatch = useDispatch();
 
-  
+
   /************************************* REF *************************************/
   const dialogSuccessRef = React.useRef();
   const dialogActiveGiftCard = React.useRef();
+  const popupPaymentDetailRef = React.useRef();
+  const popupChangeRef = React.useRef();
 
 
   /************************************* SELECTOR *************************************/
@@ -34,12 +37,15 @@ export const useProps = (props) => {
     auth: { staff }
   } = useSelector(state => state);
 
+  console.log({ groupAppointments })
+
 
   /************************************* STATE *************************************/
   const [methodPay, setMethodPay] = React.useState(null);
   const [payAppointmentId, setPayAppointmentId] = React.useState(null);
   const [isCancelHarmony, changeStatusCancelHarmony] = React.useState(false);
   const [connectionSignalR, setConnectionSignalR] = React.useState(null);
+  const [paymentDetail, setPaymentDetail] = React.useState(null);
 
 
   /************************************* GỌI API SELECT METHOD PAY *************************************/
@@ -63,11 +69,40 @@ export const useProps = (props) => {
   const [, applyCheckoutSubmit] = useAxiosMutation({
     ...checkoutSubmit(),
     onSuccess: (data, response) => {
+      console.log('checkout submit : ', { response });
       if (response?.codeNumber == 200) {
-        dialogSuccessRef?.current?.show();
+        const dueAmount = parseFloat(
+          response?.data?.checkoutPaymentResponse?.dueAmount || 0
+        );
+        if (dueAmount == 0) {
+          dialogSuccessRef?.current?.show();
+          return;
+        }
+        if (dueAmount < 0) {
+          setPaymentDetail(response?.data);
+          popupChangeRef?.current?.show();
+          return;
+        }
+        if (dueAmount > 0) {
+          setPaymentDetail(response?.data);
+          popupPaymentDetailRef?.current?.show();
+          return;
+        }
       }
     }
   });
+
+    /************************************* GỌI API GET GROUP APPOINTMENT BY ID *************************************/
+  const [, fetchGroupApointmentById] = useAxiosQuery({
+    ...getGroupAppointmentById(appointmentDetail?.appointmentId),
+    enabled: false,
+    onSuccess: async (data, response) => {
+      if (response?.codeNumber == 200) {
+        dispatch(appointment.setGroupAppointment(data));
+      }
+    }
+  });
+
 
   /************************************* FETCH APPOINTMENT BY DATE *************************************/
   const [, fetchAppointmentByDate] = useAxiosQuery({
@@ -166,12 +201,28 @@ export const useProps = (props) => {
     }
   }
 
+  const handlePayment = async (amount) => {
+    const data = {
+      method: methodPay.method,
+      amount,
+      giftCardId: 0,
+    }
+    console.log('handle payment : ', { data });
+    const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
+    submitSelectPaymentMethod(body.params);
+  }
+
+  console.log({ methodPay })
+
   return {
     appointmentDetail,
     methodPay,
     dialogSuccessRef,
+    popupPaymentDetailRef,
     dialogActiveGiftCard,
+    popupChangeRef,
     isCancelHarmony,
+    paymentDetail,
 
     onChangeMethodPay: (item) => {
       setMethodPay(item);
@@ -194,17 +245,13 @@ export const useProps = (props) => {
     },
 
     onSubmitPayment: async () => {
-      if (methodPay.method == "harmony") {
+      if (methodPay.method == "credit_card") {
+        Alert.alert("pay bằng credit card")
+      } else if (methodPay.method == "harmony") {
         setupSignalR();
         return;
       } else {
-        const data = {
-          method: methodPay.method,
-          amount: parseFloat(appointmentDetail?.total),
-          giftCardId: 0,
-        }
-        const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
-        submitSelectPaymentMethod(body.params);
+        NavigationService.navigate(screenNames.EnterAmountPage, { handlePayment });
       }
     },
 

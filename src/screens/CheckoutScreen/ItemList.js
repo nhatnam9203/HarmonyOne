@@ -22,7 +22,7 @@ export const ItemList = ({
 
     const renderItem = (item) => {
         return (
-            <View style={styles.item}>
+            <View key={item?.key?.toString()} style={styles.item}>
                 <View style={styles.row}>
                     <Text style={styles.name}>{item?.name}</Text>
                     <Text style={styles.price}>
@@ -39,12 +39,17 @@ export const ItemList = ({
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Items</Text>
-            <FlatList
+            {
+                itemList.map((item) => (
+                    renderItem(item)
+                ))
+            }
+            {/* <FlatList
                 data={itemList}
                 keyExtractor={(item) => item?.key?.toString()}
                 renderItem={({ item }) => renderItem(item)}
                 style={styles.flatList}
-            />
+            /> */}
         </View>
     );
 };
@@ -112,7 +117,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: "#eeeeee",
         paddingBottom: scaleHeight(12),
-        marginTop: scaleHeight(24)
+        marginTop: scaleHeight(24),
+        paddingHorizontal: scaleWidth(16),
     },
     flatList: {
         maxHeight: scaleHeight(270),
