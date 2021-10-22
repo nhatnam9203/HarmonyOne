@@ -84,9 +84,9 @@ export const useProps = (props) => {
           return;
         }
         if (dueAmount > 0) {
+          dispatch(appointment.updateGroupAppointment(response?.data))
           setPaymentDetail(response?.data);
           popupPaymentDetailRef?.current?.show();
-          return;
         }
       }
     }

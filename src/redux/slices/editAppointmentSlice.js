@@ -116,9 +116,9 @@ const editAppointment = createSlice({
                 ...state.appointmentEdit,
             }
             let tempServices = tempAppointment.services || [];
-            const findIndex = tempServices.findIndex(obj => obj.serviceId == action.payload?.serviceId);
+            const findIndex = tempServices.findIndex(obj => obj.serviceId == action.payload?.service?.serviceId);
             if (findIndex !== -1) {
-                tempServices[findIndex] = action.payload;
+                tempServices[findIndex] = action.payload?.service;
                 tempAppointment = {
                     ...tempAppointment,
                     services: tempServices,
