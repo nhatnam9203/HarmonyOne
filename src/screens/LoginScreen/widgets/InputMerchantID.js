@@ -125,9 +125,9 @@ const styles = StyleSheet.create({
   },
 
   textInput: {
-    fontFamily: fonts.ROBOTO,
+    fontFamily: fonts.REGULAR,
     fontWeight: 'normal',
-    fontStyle: 'regular',
+    fontStyle: 'normal',
     letterSpacing: -0.36,
     textAlign: 'center',
     fontSize: scaleFont(15),
