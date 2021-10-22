@@ -11,6 +11,7 @@ const amountList = ["10", "20", "50", "100", "500"];
 
 export const Layout = ({
     form,
+    errors,
     back,
     onSubmit,
     setAmount,
@@ -48,10 +49,12 @@ export const Layout = ({
 
                     <CustomInput
                         label='Amount'
+                        error={errors?.amount}
                         renderInput={() =>
                             <InputText
                                 form={form}
                                 name="amount"
+                                error={errors?.amount}
                                 defaultValue="0.00"
                                 defaultValueRemove="0.00"
                                 type="money"
@@ -159,7 +162,7 @@ const styles = StyleSheet.create({
     itemAmount: {
         justifyContent: "center",
         alignItems: 'center',
-        paddingVertical: scaleHeight(5),
+        paddingVertical: scaleHeight(7),
         borderWidth: 1,
         borderColor: "#dddddd",
         width: scaleWidth(375 / 5 - 12),
@@ -168,7 +171,7 @@ const styles = StyleSheet.create({
     txtAmount: {
         color: "#0764B0",
         fontSize: scaleFont(15),
-        fontFamily: fonts.REGULAR
+        fontFamily: fonts.MEDIUM
     },
     bottom: {
         padding: scaleWidth(16),
@@ -187,7 +190,8 @@ const styles = StyleSheet.create({
         fontSize: scaleFont(19),
         color: "#4AD100",
         fontFamily: fonts.BOLD,
-        textAlign: "center"
+        textAlign: "center",
+        color : "red"
     },
     txtSelectPayment: {
         textAlign: "center",

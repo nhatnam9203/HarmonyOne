@@ -4,7 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { customer, bookAppointment, appointment } from "@redux/slices";
 import { useForm, useWatch } from "react-hook-form";
 import { formatNumberFromCurrency } from "@shared/utils";
+import { yupResolver } from '@hookform/resolvers/yup';
 import NavigationService from '@navigation/NavigationService';
+import * as yup from "yup";
+
+export const enterAmountSchema = yup.object().shape({
+  amount: yup.string().required("required").test('len', 'Please enter amount', val => formatNumberFromCurrency(val) > 0),
+});
 
 const amountList = ["10", "20", "50", "100", "500"];
 
@@ -15,7 +21,8 @@ function percentage(percent, total) {
 export const useProps = (props) => {
   const dispatch = useDispatch();
 
-  const form = useForm();
+  const form = useForm({ resolver: yupResolver(enterAmountSchema) });
+  const { errors } = form.formState;
 
   const {
     appointment: { appointmentDetail, groupAppointments }
@@ -57,6 +64,7 @@ export const useProps = (props) => {
   return {
 
     form,
+    errors,
     amount,
     formatNumberFromCurrency,
     appointmentDetail,
