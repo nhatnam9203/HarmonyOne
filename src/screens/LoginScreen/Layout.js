@@ -20,25 +20,16 @@ export const Layout = ({
       <View style={styles.container}>
         <View style={layouts.marginVertical} />
         <Text style={textStyles.sf_pt_medium_17_500}>{t('Sign In')}</Text>
-        <Image
-          source={images.logo}
-          style={styles.logo}
-          resizeMode="contain"
-        />
+        <Image source={images.logo} style={styles.logo} resizeMode="contain" />
         <View style={styles.marginHeight} />
-        <InputMerchantID
-          onChangeMID={onChangeMID}
-          isLoading={isLoading}
-        />
+        <InputMerchantID onChangeMID={onChangeMID} isLoading={isLoading} />
         <View style={layouts.marginVertical} />
-        {
-          textMessage && <Text style={styles.msgError}>{textMessage}</Text>
-        }
+        {textMessage && <Text style={styles.msgError}>{textMessage}</Text>}
         <View style={styles.marginHeight} />
         <Button
           width="100%"
           highlight={true}
-          disabled={merchantID?.length < 4 || !merchantID }
+          disabled={merchantID?.length < 4 || !merchantID}
           isLoading={isLoading}
           onPress={loginMerchant}
         />

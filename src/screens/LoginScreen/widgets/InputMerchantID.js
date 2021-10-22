@@ -1,22 +1,20 @@
-import React, { Component } from 'react';
-import {
-  View,
-  TextInput,
-  Image,
-  TouchableOpacity,
-  Animated,
-  StyleSheet,
-} from 'react-native';
 import { icon_mid } from '@assets';
-import { Text } from '@components';
-import { slop } from '@utils';
-import * as Animatable from 'react-native-animatable';
 import { colors, fonts } from '@shared/themes';
+import { slop } from '@utils';
+import React from 'react';
+import {
+  Animated,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { CustomTextInput } from '@shared/components';
 
 export const InputMerchantID = ({ onChangeMID, isLoading }) => {
   const AnimatedButton = Animated.createAnimatedComponent(TouchableOpacity);
   const bottomAnimated = React.useRef(
-    new Animated.Value(scaleHeight(0)),
+    new Animated.Value(scaleHeight(10)),
   ).current;
   const fontSizeAnimated = React.useRef(
     new Animated.Value(scaleFont(15)),
@@ -60,27 +58,30 @@ export const InputMerchantID = ({ onChangeMID, isLoading }) => {
 
   return (
     <View style={styles.containerInput}>
-      <Image source={icon_mid} style={styles.inputIcon} resizeMode="contain" />
-      {isOpenInput && (
-        <TextInput
-          value={valueMID}
-          autoFocus={true}
-          onChangeText={onHandleChangeMID}
-          style={styles.textInput}
-          keyboardType="numeric"
-          clearTextOnFocus={true}
-          editable={!isLoading}
+      <View style={styles.inputContent}>
+        <Image
+          source={icon_mid}
+          style={styles.inputIcon}
+          resizeMode="contain"
         />
-      )}
+        {isOpenInput && (
+          <CustomTextInput
+            value={valueMID}
+            autoFocus={true}
+            onChangeText={onHandleChangeMID}
+            inputStyle={styles.textInput}
+            style={styles.inputStyle}
+            keyboardType="numeric"
+            clearTextOnFocus={true}
+            editable={!isLoading}
+          />
+        )}
+      </View>
       <AnimatedButton
         activeOpacity={1}
         onPress={onPressInput}
         hitSlop={slop}
-        style={[
-          styles.btnEnterYourMID,
-          { bottom: bottomAnimated },
-          isOpenInput && { position: 'absolute' },
-        ]}>
+        style={[styles.btnEnterYourMID, { bottom: bottomAnimated }]}>
         <Animated.Text
           fontFamily="medium"
           style={[
@@ -99,36 +100,38 @@ export const InputMerchantID = ({ onChangeMID, isLoading }) => {
 const styles = StyleSheet.create({
   containerInput: {
     width: '100%',
-    minHeight: scaleHeight(80),
+    height: scaleHeight(120),
     flexDirection: 'row',
     alignItems: 'flex-end',
     borderBottomWidth: scaleHeight(1),
     borderBottomColor: '#c5c5c5',
     paddingVertical: scaleHeight(10),
-    position: 'relative',
+  },
+
+  inputContent: {
+    height: scaleHeight(30),
+    width: '100%',
+    flexDirection: 'row',
+  },
+
+  inputStyle: {
+    flex: 1,
   },
 
   inputIcon: {
     width: scaleWidth(24),
     height: scaleHeight(24),
     position: 'absolute',
-    left : 0,
-    bottom : 12
   },
 
   textInput: {
-    fontFamily: fonts.REGULAR,
+    fontFamily: fonts.ROBOTO,
     fontWeight: 'normal',
-    fontStyle: 'normal',
+    fontStyle: 'regular',
     letterSpacing: -0.36,
     textAlign: 'center',
-    fontSize: scaleHeight(15),
+    fontSize: scaleFont(15),
     color: colors.bluegrey,
-    marginLeft: scaleWidth(5),
-    paddingRight: scaleWidth(10),
-    height: scaleHeight(24),
-    flex: 1,
-    width: '100%',
   },
 
   content: {
@@ -144,7 +147,7 @@ const styles = StyleSheet.create({
   btnEnterYourMID: {
     flex: 1,
     width: '100%',
-    // height: scaleHeight(24),
     justifyContent: 'center',
+    position: 'absolute',
   },
 });
