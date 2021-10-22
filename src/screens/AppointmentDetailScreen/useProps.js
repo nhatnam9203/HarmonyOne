@@ -9,6 +9,7 @@ import {
   useAxiosQuery,
   getAppointmentById,
   getPromotionAppointment,
+  getGroupAppointmentById
 } from "@src/apis";
 
 import { APPOINTMENT_STATUS, getColorForStatus, dateToFormat } from '@shared/utils';
@@ -64,6 +65,17 @@ export const useProps = ({
     },
   });
 
+  const [, fetchGroupApointmentById] = useAxiosQuery({
+    ...getGroupAppointmentById(appointmentDetail?.appointmentId),
+    enabled: false,
+    onSuccess: async (data, response) => {
+      if (response?.codeNumber == 200) {
+        dispatch(appointment.setGroupAppointment(data));
+        NavigationService.navigate(screenNames.CheckoutScreen);
+      }
+    }
+  });
+
 
   const [, fetchAppointmentById] = useAxiosQuery({
     ...getAppointmentById(item?.appointmentId),
@@ -110,7 +122,7 @@ export const useProps = ({
   }, [item]);
 
   const checkOut = () => {
-    NavigationService.navigate(screenNames.CheckoutScreen);
+    fetchGroupApointmentById();
   }
 
   return {

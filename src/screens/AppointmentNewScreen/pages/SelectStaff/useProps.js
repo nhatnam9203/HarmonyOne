@@ -56,13 +56,15 @@ export const useProps = ({
 
     goToDateTime: async () => {
 
+      const staffSelected = getStaffSelected();
+
       if (isAddMore) {
         dispatch(bookAppointment.updateStatusAddMore(false));
+        dispatch(bookAppointment.updateStaffService({ service: serviceSelected, staff: staffSelected }));
         NavigationService.navigate(screenNames.ReviewConfirm);
         return;
       }
 
-      const staffSelected = getStaffSelected();
 
       /**************************** UPDATE STAFF CHO SERVICE *****************************/
       dispatch(bookAppointment.updateStaffService({ service: serviceSelected, staff: staffSelected }));

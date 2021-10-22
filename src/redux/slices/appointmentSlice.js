@@ -6,11 +6,11 @@ import moment from "moment";
 const reducerName = 'hpo.appointment';
 const initialState = {
     appointmentsByDate: [],
-    appointmentDate : moment(),
+    appointmentDate: moment(),
     appointmentDetail: {},
     blockTimes: [],
-    groupAppointments : [],
-    promotionAppointment : [],
+    groupAppointments: [],
+    promotionAppointment: [],
 };
 
 const appointmentSlice = createSlice({
@@ -26,14 +26,24 @@ const appointmentSlice = createSlice({
         setBlockTimeBydate: (state, action) => {
             state.blockTimes = action.payload;
         },
-        setAppointmentDate : (state, action) =>{
+        setAppointmentDate: (state, action) => {
             state.appointmentDate = action.payload;
         },
-        setGroupAppointment : (state , action) =>{
+        setGroupAppointment: (state, action) => {
             state.groupAppointments = action.payload;
         },
-        setPromotionAppointment : (state , action) =>{
+        setPromotionAppointment: (state, action) => {
             state.promotionAppointment = action.payload;
+        },
+        updateGroupAppointment: (state, action) => {
+            const checkoutPaymentResponse = action.payload?.checkoutPaymentResponse;
+            let tempGroupAppointment = {
+                ...state.groupAppointments,
+                checkoutPayments: (checkoutPaymentResponse?.paidAmounts && Array.isArray(checkoutPaymentResponse?.paidAmounts)) ?
+                    checkoutPaymentResponse?.paidAmounts.reverse() : tempGroupAppointment?.checkoutPayments,
+                dueAmount: checkoutPaymentResponse?.dueAmount
+            };
+            state.groupAppointments = tempGroupAppointment;
         }
     },
 });

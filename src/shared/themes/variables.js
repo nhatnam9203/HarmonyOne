@@ -31,6 +31,7 @@ export const fonts = {
   LIGHT: 'SFProText-Light',
   ITALIC: 'SFProText-Italic',
   BOLD: 'SFProText-Bold',
+  ROBOTO: 'Roboto',
 };
 
 export const textStyles = StyleSheet.create({

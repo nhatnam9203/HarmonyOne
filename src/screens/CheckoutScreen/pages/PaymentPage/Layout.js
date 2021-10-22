@@ -6,7 +6,7 @@ import { IconButton, CustomInput, InputText, Button, DialogSuccess, DialogLoadin
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { ItemsPay } from "./ItemsPay";
-import { DialogActiveGiftCard } from "./DialogActiveGiftCard";
+import { DialogActiveGiftCard, PopupPaymentDetail, PopupChange } from "./widgets";
 
 export const Layout = ({
     back,
@@ -15,11 +15,14 @@ export const Layout = ({
     onChangeMethodPay,
     onSubmitPayment,
     dialogSuccessRef,
+    popupChangeRef,
+    popupPaymentDetailRef,
     dialogActiveGiftCard,
     onOK,
     onPayGiftCard,
     isCancelHarmony,
-    cancelHarmonyPay
+    cancelHarmonyPay,
+    paymentDetail,
 }) => {
 
     const [t] = useTranslation();
@@ -59,6 +62,23 @@ export const Layout = ({
                         disabled={methodPay == "" || !methodPay}
                     />
                 </View>
+
+                <DialogActiveGiftCard
+                    ref={dialogActiveGiftCard}
+                    title="Enter gift card serial number"
+                    onConfirmYes={() => { }}
+                    onModalHide={() => onChangeMethodPay("")}
+                    onPayGiftCard={onPayGiftCard}
+                />
+                <PopupPaymentDetail
+                    ref={popupPaymentDetailRef}
+                    paymentDetail={paymentDetail}
+                />
+                <PopupChange
+                    ref={popupChangeRef}
+                    paymentDetail={paymentDetail}
+                    onOK={onOK}
+                />
             </SingleScreenLayout>
 
             <DialogLoading
@@ -66,13 +86,7 @@ export const Layout = ({
                 title="Transaction completed"
                 onConfirmYes={() => onOK()}
             />
-            <DialogActiveGiftCard
-                ref={dialogActiveGiftCard}
-                title="Enter gift card serial number"
-                onConfirmYes={() => { }}
-                onModalHide={() => onChangeMethodPay("")}
-                onPayGiftCard={onPayGiftCard}
-            />
+
         </View>
     );
 };
@@ -116,11 +130,10 @@ const styles = StyleSheet.create({
     wrapPrice: {
         width: "100%",
         paddingVertical: scaleHeight(10),
-        borderWidth: 1,
-        borderColor: "#cccccc",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: scaleHeight(16)
+        marginTop: scaleHeight(16),
+        backgroundColor: "#FAFAFA"
     },
     priceTotal: {
         fontSize: scaleFont(19),

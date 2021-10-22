@@ -14,8 +14,10 @@ import { appointment } from "@redux/slices";
 
 
 export const TotalView = ({
-    appointmentDetail
+    appointmentDetail,
+    groupAppointments
 }) => {
+    console.log({ groupAppointments, appointmentDetail })
     const dispatch = useDispatch();
 
     const [, fetchPromotionAppointment] = useAxiosQuery({
@@ -37,12 +39,7 @@ export const TotalView = ({
         fetchPromotionAppointment();
     }
 
-    const customDiscount =
-        (appointmentDetail?.customDiscountFixed && parseFloat(appointmentDetail?.customDiscountFixed) > 0) ?
-            appointmentDetail?.customDiscountFixed :
-            (appointmentDetail?.customDiscountPercent && parseFloat(appointmentDetail?.customDiscountPercent) > 0) ?
-                appointmentDetail?.customDiscountPercent : "0.00";
-
+    const discount = appointmentDetail?.discount ?? "0.00";
     const tipAmount = appointmentDetail?.tipAmount ?? "0.00";
 
     return (
@@ -50,6 +47,32 @@ export const TotalView = ({
             <View style={styles.row}>
                 <Text style={styles.text}>Subtotal</Text>
                 <Text style={styles.text}>{`$ ${appointmentDetail?.subTotal}`}</Text>
+            </View>
+
+            <View style={styles.row}>
+                <Text style={styles.text}>Discount</Text>
+                {
+                    parseFloat(discount) > 0 ?
+                        <TouchableOpacity
+                            onPress={addDiscount}
+                            style={{ flexDirection: "row", alignItems: "center" }}
+                        >
+                            <Text style={[styles.text, { marginRight: 5 }]}>
+                                {`$ ${discount}`}
+                            </Text>
+                            <Image
+                                source={images.iconArrow}
+                                resizeMode='contain'
+                                style={styles.iconArrow}
+                            />
+                        </TouchableOpacity>
+                        :
+                        <IconButton
+                            icon={images.plus}
+                            iconStyle={styles.iconAdd}
+                            onPress={addDiscount}
+                        />
+                }
             </View>
 
             <View style={styles.row}>
@@ -78,38 +101,36 @@ export const TotalView = ({
                 }
             </View>
 
-            <View style={styles.row}>
-                <Text style={styles.text}>Discount</Text>
-                {
-                    parseFloat(customDiscount) > 0 ?
-                        <TouchableOpacity
-                            onPress={addDiscount}
-                            style={{ flexDirection: "row", alignItems: "center" }}
-                        >
-                            <Text style={[styles.text, { marginRight: 5 }]}>
-                                {`$ ${customDiscount}`}
-                            </Text>
-                            <Image
-                                source={images.iconArrow}
-                                resizeMode='contain'
-                                style={styles.iconArrow}
-                            />
-                        </TouchableOpacity>
-                        :
-                        <IconButton
-                            icon={images.plus}
-                            iconStyle={styles.iconAdd}
-                            onPress={addDiscount}
-                        />
-                }
-            </View>
-
             <View style={styles.line} />
 
             <View style={styles.row}>
                 <Text style={[styles.text, { fontFamily: fonts.BOLD }]}>Total</Text>
                 <Text style={[styles.text, { fontFamily: fonts.BOLD, color: "#4AD100" }]}>
                     {`$ ${appointmentDetail?.total}`}
+                </Text>
+            </View>
+
+            <View style={styles.line} />
+
+            {
+                groupAppointments?.checkoutPayments && groupAppointments?.checkoutPayments?.length > 0 &&
+                groupAppointments?.checkoutPayments?.map(item => (
+                    <View style={styles.row}>
+                        <Text style={[styles.text, { fontFamily: fonts.MEDIUM}]}>
+                            Paid
+                            <Text style={{ fontFamily : fonts.REGULAR }}>{` (${item?.paymentMethod})`}</Text>
+                        </Text>
+                        <Text style={[styles.text, { fontFamily: fonts.MEDIUM}]}>
+                            {`$ ${item.amount}`}
+                        </Text>
+                    </View>
+                ))
+            }
+
+            <View style={styles.row}>
+                <Text style={[styles.text, { fontFamily: fonts.BOLD, color: "red" }]}>Amount Due</Text>
+                <Text style={[styles.text, { fontFamily: fonts.BOLD, color: "red" }]}>
+                    {`$ ${groupAppointments?.dueAmount}`}
                 </Text>
             </View>
         </View>

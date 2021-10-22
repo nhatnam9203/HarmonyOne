@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { Button, CustomInput, InputText, IconButton, DropdownMenu, CustomerInfoView } from "@shared/components";
@@ -10,6 +10,7 @@ import NavigationService from '@navigation/NavigationService';
 
 export const Layout = ({
   appointmentDetail,
+  groupAppointments,
   selectPayment,
   onPressBack
 }) => {
@@ -26,7 +27,7 @@ export const Layout = ({
         isScrollLayout={false}
         onPressLeft={onPressBack}
       >
-        <View style={styles.content}>
+        <ScrollView style={styles.content}>
           <View style={styles.customerInfoView}>
             <CustomerInfoView
               customerId={appointmentDetail?.customerId}
@@ -45,8 +46,10 @@ export const Layout = ({
           />
           <TotalView
             appointmentDetail={appointmentDetail}
+            groupAppointments={groupAppointments}
           />
-        </View>
+          <View style={{ height : scaleHeight(80) }} />
+        </ScrollView>
 
         <View style={styles.bottom}>
           <Button
