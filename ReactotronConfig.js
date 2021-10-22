@@ -2,6 +2,7 @@ import Reactotron, {
   asyncStorage,
   openInEditor,
   networking,
+  trackGlobalErrors,
 } from 'reactotron-react-native';
 import sagaPlugin from 'reactotron-redux-saga';
 import { reactotronRedux } from 'reactotron-redux';
@@ -12,11 +13,12 @@ const reactotron = Reactotron.configure({ name: 'Harmony One' }) // AsyncStorage
   //.use(openInEditor()) // <--- here we go!
   .use(networking()) // <--- here we go!
   .use(sagaPlugin())
+  .use(trackGlobalErrors()) // <--- here we go!
   .use(
     reactotronRedux({
-      except: ['EFFECT_TRIGGERED', 'EFFECT_RESOLVED', 'EFFECT_REJECTED'],
+      // except: ['EFFECT_TRIGGERED', 'EFFECT_RESOLVED', 'EFFECT_REJECTED'],
     }),
-  ) //  <- here i am
+  )
 
   .connect(); // let's connect!
 

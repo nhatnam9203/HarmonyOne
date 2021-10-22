@@ -1,14 +1,20 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { serviceSalarySchema } from "@shared/helpers/schema";
-import { useSelector } from "react-redux";
-import { useAxiosMutation, addNewExtra, editExtra, uploadAvatarStaff, addStaff, updateStaff } from '@src/apis';
-import { createFormData } from "@shared/utils";
+import { serviceSalarySchema } from '@shared/helpers/schema';
+import { useSelector } from 'react-redux';
+import {
+  useAxiosMutation,
+  addNewExtra,
+  editExtra,
+  uploadAvatarStaff,
+  addStaff,
+  updateStaff,
+} from '@src/apis';
+import { createFormData } from '@shared/utils';
 import NavigationService from '@navigation/NavigationService';
 
 export const useProps = (props) => {
-
   const statusRef = React.useRef();
   const inputPhoneHeadRef = React.useRef();
   const roleRef = React.useRef();
@@ -19,14 +25,12 @@ export const useProps = (props) => {
   const payoutWithCashRef = React.useRef();
   const assignServicesRef = React.useRef();
 
-
   const [fileId, setFileId] = React.useState(0);
-  const [imageUrl, setImageUrl] = React.useState("");
+  const [imageUrl, setImageUrl] = React.useState('');
 
   const {
-    auth: { staff }
-  } = useSelector(state => state);
-
+    auth: { staff },
+  } = useSelector((state) => state);
 
   const form = useForm({ resolver: yupResolver(serviceSalarySchema) });
 
@@ -36,7 +40,6 @@ export const useProps = (props) => {
   const { isEdit = null, staffEdit = null } = props?.route?.params;
 
   const back = () => NavigationService.back();
-
 
   const [, submitUploadAvatarStaff] = useAxiosMutation({
     ...uploadAvatarStaff(),
@@ -53,7 +56,7 @@ export const useProps = (props) => {
     onSuccess: (data, response) => {
       if (response.codeNumber == 200) {
         props?.route?.params?.refreshList();
-        NavigationService.navigate(screenNames.StaffScreen)
+        NavigationService.navigate(screenNames.StaffScreen);
       }
     },
   });
@@ -62,38 +65,35 @@ export const useProps = (props) => {
     ...updateStaff(staffEdit?.staffId),
     onSuccess: (data, response) => {
       if (response.codeNumber == 200) {
-          props?.route?.params?.refreshList();
-          NavigationService.navigate(screenNames.StaffScreen)
+        props?.route?.params?.refreshList();
+        NavigationService.navigate(screenNames.StaffScreen);
       }
     },
   });
 
-  console.log({ staffEdit })
-
-
   React.useEffect(() => {
     if (isEdit) {
-      setValue("firstName", staffEdit?.firstName);
-      setValue("lastName", staffEdit?.lastName);
-      setValue("displayName", staffEdit?.displayName);
-      setValue("email", staffEdit?.email);
-      setValue("pin", staffEdit?.pin);
-      setValue("confirmPin", staffEdit?.pin);
+      setValue('firstName', staffEdit?.firstName);
+      setValue('lastName', staffEdit?.lastName);
+      setValue('displayName', staffEdit?.displayName);
+      setValue('email', staffEdit?.email);
+      setValue('pin', staffEdit?.pin);
+      setValue('confirmPin', staffEdit?.pin);
 
-      setFileId(staffEdit?.fileId || "0");
+      setFileId(staffEdit?.fileId || '0');
       setImageUrl(staffEdit?.imageUrl);
 
       let staffPhone = staffEdit?.phone;
       let phone = '';
 
-      if (staffPhone?.toString()?.includes("+84")) {
+      if (staffPhone?.toString()?.includes('+84')) {
         phone = staffPhone.toString().slice(3);
-        setValue("phone", phone);
-        inputPhoneHeadRef?.current?.changeValue({ label: "+84", value: "+84" });
+        setValue('phone', phone);
+        inputPhoneHeadRef?.current?.changeValue({ label: '+84', value: '+84' });
       } else {
         phone = staffPhone?.toString()?.slice(2);
-        setValue("phone", phone);
-        inputPhoneHeadRef?.current?.changeValue({ label: "+1", value: "+1" });
+        setValue('phone', phone);
+        inputPhoneHeadRef?.current?.changeValue({ label: '+1', value: '+1' });
       }
       roleRef?.current?.changeItem(staffEdit?.roles?.name);
       statusRef?.current?.changeItem(staffEdit?.isDisabled);
@@ -104,24 +104,41 @@ export const useProps = (props) => {
       }, 500);
 
       /************************************** SET VALUE EDIT SERVICE SALARY ************************************** */
-      serviceSalaryRef?.current?.setPerhourStatus(staffEdit?.salaries?.perHour?.isCheck);
-      serviceSalaryRef?.current?.setIncomeStatus(staffEdit?.salaries?.commission?.isCheck);
-      serviceSalaryRef?.current?.setPerhourValue(staffEdit?.salaries?.perHour?.value);
-      serviceSalaryRef?.current?.setIncomeValue(staffEdit?.salaries?.commission?.value);
+      serviceSalaryRef?.current?.setPerhourStatus(
+        staffEdit?.salaries?.perHour?.isCheck,
+      );
+      serviceSalaryRef?.current?.setIncomeStatus(
+        staffEdit?.salaries?.commission?.isCheck,
+      );
+      serviceSalaryRef?.current?.setPerhourValue(
+        staffEdit?.salaries?.perHour?.value,
+      );
+      serviceSalaryRef?.current?.setIncomeValue(
+        staffEdit?.salaries?.commission?.value,
+      );
 
       /************************************** SET VALUE EDIT PRODUCT SALARY ************************************** */
-      productSalaryRef?.current?.setStatus(staffEdit?.productSalaries?.commission?.isCheck);
-      productSalaryRef?.current?.setValue(staffEdit?.productSalaries?.commission?.value);
+      productSalaryRef?.current?.setStatus(
+        staffEdit?.productSalaries?.commission?.isCheck,
+      );
+      productSalaryRef?.current?.setValue(
+        staffEdit?.productSalaries?.commission?.value,
+      );
 
       /************************************** SET VALUE EDIT TIP FEE ************************************** */
-      tipFeeRef?.current?.setPercentStatus(staffEdit?.tipFees?.percent?.isCheck);
-      tipFeeRef?.current?.setFixedAmountStatus(staffEdit?.tipFees?.fixedAmount?.isCheck);
+      tipFeeRef?.current?.setPercentStatus(
+        staffEdit?.tipFees?.percent?.isCheck,
+      );
+      tipFeeRef?.current?.setFixedAmountStatus(
+        staffEdit?.tipFees?.fixedAmount?.isCheck,
+      );
       tipFeeRef?.current?.setPercentValue(staffEdit?.tipFees?.percent?.value);
-      tipFeeRef?.current?.setFixedAmountValue(staffEdit?.tipFees?.fixedAmount?.value);
+      tipFeeRef?.current?.setFixedAmountValue(
+        staffEdit?.tipFees?.fixedAmount?.value,
+      );
 
       /************************************** SET VALUE EDIT CASH PERCENT ************************************** */
       payoutWithCashRef?.current?.setValue(staffEdit?.cashPercent);
-
     }
   }, []);
 
@@ -149,14 +166,13 @@ export const useProps = (props) => {
     },
 
     onSubmit: async (values) => {
-
       const phoneHead = inputPhoneHeadRef?.current?.getValue().value;
       const productSalary = {
         commission: {
           value: productSalaryRef?.current?.getValue(),
           isCheck: productSalaryRef?.current?.getStatus(),
-        }
-      }
+        },
+      };
 
       const salary = {
         commission: {
@@ -166,9 +182,8 @@ export const useProps = (props) => {
         perHour: {
           isCheck: serviceSalaryRef?.current?.getPerhourStatus(),
           value: serviceSalaryRef?.current?.getPerhourValue(),
-        }
-      }
-
+        },
+      };
 
       const tipFee = {
         percent: {
@@ -178,22 +193,22 @@ export const useProps = (props) => {
         fixedAmount: {
           value: tipFeeRef?.current?.getFixedAmountValue(),
           isCheck: tipFeeRef?.current?.getFixedAmountStatus(),
-        }
-      }
+        },
+      };
 
       const workingTime = workingTimeRef?.current?.getValue();
       const categories = assignServicesRef?.current?.getValue();
       const cashPercent = payoutWithCashRef?.current?.getValue();
 
       const data = {
-        driverlicense: "",
-        socialSecurityNumber: "",
-        professionalLicense: "",
+        driverlicense: '',
+        socialSecurityNumber: '',
+        professionalLicense: '',
         address: {
-          street: "",
-          city: "",
+          street: '',
+          city: '',
           state: 0,
-          zip: ""
+          zip: '',
         },
         roles: {
           nameRole: values.role.value,
@@ -213,11 +228,11 @@ export const useProps = (props) => {
         salary,
         productSalary,
         tipFee,
-        cellPhone: values.phone ? values.phone : "",
-        cellPhone: values.phone ? `${phoneHead}${values.phone}` : "",
-        isActive: isEdit ? staffEdit?.isActive  : true,
-        merchantId: staff?.merchantId
-      }
+        cellPhone: values.phone ? values.phone : '',
+        cellPhone: values.phone ? `${phoneHead}${values.phone}` : '',
+        isActive: isEdit ? staffEdit?.isActive : true,
+        merchantId: staff?.merchantId,
+      };
 
       if (isEdit) {
         const body = await updateStaff(staffEdit?.staffId, data);
@@ -226,7 +241,6 @@ export const useProps = (props) => {
         const body = await addStaff(data);
         submitAddStaff(body.params);
       }
-
-    }
+    },
   };
 };

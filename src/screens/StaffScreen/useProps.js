@@ -1,28 +1,34 @@
-import React from "react";
+import React from 'react';
 import {
   useAxiosQuery,
   useAxiosMutation,
   getStaffByMerchant,
-  getStaffById
+  getStaffById,
 } from '@src/apis';
 
-import { service, product, category, extra, staff as staffAction } from '@redux/slices';
-import { useSelector, useDispatch } from "react-redux";
-import { colors } from "@shared/themes";
-import { useTranslation } from "react-i18next";
-import NavigationService from '@navigation/NavigationService'
+import {
+  service,
+  product,
+  category,
+  extra,
+  staff as staffAction,
+} from '@redux/slices';
+import { useSelector, useDispatch } from 'react-redux';
+import { colors } from '@shared/themes';
+import { useTranslation } from 'react-i18next';
+import NavigationService from '@navigation/NavigationService';
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
 
-  const [valueSearch, setSearchValue] = React.useState("");
+  const [valueSearch, setSearchValue] = React.useState('');
   const [isRefresh, setRefresh] = React.useState(false);
-  const [staffIdDetail, setStaffIdDetail] = React.useState("")
+  const [staffIdDetail, setStaffIdDetail] = React.useState('');
 
   const {
     auth: { staff },
-    staff: { staffListByMerchant = [] }
-  } = useSelector(state => state)
+    staff: { staffListByMerchant = [] },
+  } = useSelector((state) => state);
 
   const [t] = useTranslation();
 
@@ -37,27 +43,30 @@ export const useProps = (props) => {
   });
 
   const [, fetchStaffbyId] = useAxiosQuery({
-    ...getStaffById(staffIdDetail,staff?.merchantId),
+    ...getStaffById(staffIdDetail, staff?.merchantId),
     isLoadingDefault: true,
     enabled: false,
+    queryId: 'fetchStaffbyId',
     onSuccess: (data, response) => {
-      NavigationService.navigate(
-        screenNames.StaffNewScreen, { refreshList , isEdit: true, staffEdit: data  }
-      );
+      NavigationService.navigate(screenNames.StaffNewScreen, {
+        refreshList,
+        isEdit: true,
+        staffEdit: data,
+      });
     },
   });
 
   const refreshList = () => {
     fetchStaffList();
-    setSearchValue("");
-  }
+    setSearchValue('');
+  };
 
   /************************************** REFRESH STAFF LIST  ***************************************/
   React.useEffect(() => {
     if (isRefresh) {
       fetchStaffList();
     }
-  }, [isRefresh])
+  }, [isRefresh]);
 
   /************************************** LOAD STAFF LIST AFTER COMPONENT MOUNTED  ***************************************/
   React.useEffect(() => {
@@ -71,9 +80,7 @@ export const useProps = (props) => {
     }
   }, [staffIdDetail]);
 
-
   return {
-
     valueSearch,
     isRefresh,
 
@@ -82,21 +89,15 @@ export const useProps = (props) => {
     },
 
     newStaff: () => {
-      NavigationService.navigate(
-        screenNames.StaffNewScreen, { refreshList }
-      );
+      NavigationService.navigate(screenNames.StaffNewScreen, { refreshList });
     },
 
     editStaff: (item) => {
-      if(item?.staffId == staffIdDetail){
-        fetchStaffbyId();
-      }else{
-        setStaffIdDetail(item?.staffId);
-      }
+      setStaffIdDetail(item?.staffId);
     },
 
     onRefresh: () => {
-      setRefresh(true) 
+      setRefresh(true);
     },
 
     getData: () => {
@@ -116,6 +117,6 @@ export const useProps = (props) => {
       }
 
       return staffList;
-    }
+    },
   };
 };

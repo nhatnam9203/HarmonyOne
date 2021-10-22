@@ -1,17 +1,20 @@
-import React from "react";
+import React from 'react';
 import { getStaffById, useAxiosQuery } from '@src/apis';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 import NavigationService from '@navigation/NavigationService';
 
 export const useProps = (_params) => {
-
-  const { staff } = useSelector(state => state.auth);
+  const { staff } = useSelector((state) => state.auth);
 
   const [, getStaffEditProfile] = useAxiosQuery({
     ...getStaffById(staff.staffId),
+    enabled: false,
+    queryId: 'getStaffEditProfile',
     onSuccess: (data, response) => {
       if (response.codeNumber == 200) {
-        NavigationService.navigate(screenNames.EditProfileScreen, { staffProfile: data });
+        NavigationService.navigate(screenNames.EditProfileScreen, {
+          staffProfile: data,
+        });
       }
     },
   });
