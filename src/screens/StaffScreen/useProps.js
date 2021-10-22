@@ -46,7 +46,7 @@ export const useProps = (props) => {
     ...getStaffById(staffIdDetail, staff?.merchantId),
     isLoadingDefault: true,
     enabled: false,
-    queryId: 'fetchStaffbyId',
+    queryId: 'fetchStaffById',
     onSuccess: (data, response) => {
       NavigationService.navigate(screenNames.StaffNewScreen, {
         refreshList,
