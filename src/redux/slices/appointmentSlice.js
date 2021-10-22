@@ -36,11 +36,12 @@ const appointmentSlice = createSlice({
             state.promotionAppointment = action.payload;
         },
         updateGroupAppointment: (state, action) => {
-            const checkoutPaymentResponse = action.data?.checkoutPaymentResponse;
+            const checkoutPaymentResponse = action.payload?.checkoutPaymentResponse;
             let tempGroupAppointment = {
                 ...state.groupAppointments,
-                checkoutPayments : checkoutPaymentResponse?.paidAounts,
-                dueAmount : checkoutPaymentResponse?.dueAmount
+                checkoutPayments: (checkoutPaymentResponse?.paidAmounts && Array.isArray(checkoutPaymentResponse?.paidAmounts)) ?
+                    checkoutPaymentResponse?.paidAmounts.reverse() : tempGroupAppointment?.checkoutPayments,
+                dueAmount: checkoutPaymentResponse?.dueAmount
             };
             state.groupAppointments = tempGroupAppointment;
         }
