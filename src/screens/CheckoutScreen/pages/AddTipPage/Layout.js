@@ -71,7 +71,7 @@ export const Layout = ({
                     </View>
 
                     {parseFloat(formatNumberFromCurrency(appointmentDetail?.tipAmount)) > 0 &&
-                        <TouchableOpacity onPress={removeTip}>
+                        <TouchableOpacity style={{ alignSelf : 'flex-start' }} onPress={removeTip}>
                             <Text style={styles.txtRemoveTip}>Remove tip</Text>
                         </TouchableOpacity>}
                 </View>

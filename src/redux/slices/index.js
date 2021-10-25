@@ -13,6 +13,7 @@ import appointmentSlice from "./appointmentSlice";
 import merchantSlice from "./merchantSlice";
 import notificationSlice from "./notificationSlice";
 import editAppointmentSlice from "./editAppointmentSlice";
+import invoiceSlice from "./invoiceSlice";
 
 const rootReducers = Object.assign(
   {},
@@ -31,7 +32,8 @@ const rootReducers = Object.assign(
     appointment: appointmentSlice.reducer,
     merchant: merchantSlice.reducer,
     notification: notificationSlice.reducer,
-    editAppointment : editAppointmentSlice.reducer
+    editAppointment : editAppointmentSlice.reducer,
+    invoice : invoiceSlice.reducer,
   },
 );
 
@@ -51,5 +53,6 @@ module.exports = {
   appointment: appointmentSlice.actions,
   merchant: merchantSlice.actions,
   notification : notificationSlice.actions,
-  editAppointment : editAppointmentSlice.actions
+  editAppointment : editAppointmentSlice.actions,
+  invoice : invoiceSlice.actions,
 };

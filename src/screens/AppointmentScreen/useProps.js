@@ -11,6 +11,7 @@ import {
   getAppointmentById,
   getMerchantById,
   getCountUnReadOfNotification,
+  getStaffByMerchant,
 } from '@src/apis';
 
 import { useNavigation } from '@react-navigation/core';
@@ -144,12 +145,23 @@ export const useProps = (_params) => {
 
   const [, fetchMerchantById] = useAxiosQuery({
     ...getMerchantById(staffInfo?.merchantId),
+    queryId : "fetchMerchantById_appointmentScreen",
     isLoadingDefault: false,
     enabled: false,
     onSuccess: (data, response) => {
       dispatch(merchant.setMerchantDetail(data));
     },
   });
+
+  const [, fetchStaffList] = useAxiosQuery({
+    ...getStaffByMerchant(staffInfo?.merchantId),
+    isLoadingDefault: true,
+    enabled: false,
+    onSuccess: (data, response) => {
+      dispatch(staff.setStaffListByMerchant(data));
+    },
+  });
+
 
   const refreshFromScreen = () => {
     fetchAppointmentByDate();
@@ -188,6 +200,7 @@ export const useProps = (_params) => {
     getExtraList();
     fetchMerchantById();
     fetchCountUnread();
+    fetchStaffList();
   }, []);
 
   return {

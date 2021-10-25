@@ -8,6 +8,7 @@ export const SearchInput = ({
     value = "",
     onChangeText = () => { },
     removeText = () => { },
+    onSubmit = () =>{}
 }) => {
     return (
         <View style={styles.wrapInput}>
@@ -16,6 +17,7 @@ export const SearchInput = ({
                 style={styles.input}
                 value={value}
                 onChangeText={onChangeText}
+                onSubmitEditing={onSubmit}
             />
 
             <IconButton

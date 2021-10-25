@@ -17,7 +17,7 @@ export const items = [
     title: "Invoices",
     icon: images.iconInvoice,
     onPress: () => { 
-      // NavigationService.navigate(screenNames.BusinessInformationSreen)
+      NavigationService.navigate(screenNames.InvoiceScreen)
     }
   },
   {

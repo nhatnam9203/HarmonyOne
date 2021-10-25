@@ -2,10 +2,10 @@ import React from 'react';
 import { View, StyleSheet, Text, FlatList } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { colors, fonts, layouts } from '@shared/themes';
-import { AppointmentServiceItem } from '@shared/components';
+import { AppointmentServiceItem, AppointmentProductItem } from '@shared/components';
 import { formatNumberFromCurrency, formatMoney, convertMinsToHrsMins } from "@shared/utils";
 
-export const AppointmentServiceList = ({ services = [], extras = [] }) => {
+export const AppointmentServiceList = ({ services = [], extras = [], products = [] }) => {
   const { t } = useTranslation();
 
 
@@ -43,6 +43,16 @@ export const AppointmentServiceList = ({ services = [], extras = [] }) => {
             name={item?.serviceName}
             duration={totalDuration(item, "duration")}
             price={getTotalPrice(item)}
+          />
+        ))
+      }
+      {
+        products?.map((item) => (
+          <AppointmentProductItem
+            key={item?.bookingProductId + "productItem"}
+            product={item}
+            name={item?.productName}
+            price={item?.price}
           />
         ))
       }

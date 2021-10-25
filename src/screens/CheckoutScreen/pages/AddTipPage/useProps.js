@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAxiosQuery, getListCustomer, changeStylist, useAxiosMutation, getAppointmentById } from '@src/apis';
+import { useAxiosQuery, getListCustomer, changeStylist, useAxiosMutation, getAppointmentById , getGroupAppointmentById } from '@src/apis';
 import { useDispatch, useSelector } from "react-redux";
 import { customer, bookAppointment, appointment } from "@redux/slices";
 import { useForm, useWatch } from "react-hook-form";
@@ -28,12 +28,25 @@ export const useProps = (props) => {
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         fetchAppointmentById();
+        fetchGroupApointmentById();
+      }
+    }
+  });
+
+  const [, fetchGroupApointmentById] = useAxiosQuery({
+    ...getGroupAppointmentById(appointmentDetail?.appointmentId),
+    queryId: "refetchGroupAppointment_addTip",
+    enabled: false,
+    onSuccess: async (data, response) => {
+      if (response?.codeNumber == 200) {
+        dispatch(appointment.setGroupAppointment(data));
       }
     }
   });
 
   const [, fetchAppointmentById] = useAxiosQuery({
     ...getAppointmentById(appointmentDetail?.appointmentId),
+    queryId: "getAppointmentById_addTip",
     enabled: false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {

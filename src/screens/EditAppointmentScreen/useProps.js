@@ -34,7 +34,7 @@ export const useProps = (_params) => {
   const [appointmentIdUpdate, setAppointmentId] = React.useState(0);
   const [servicesBookingRemove, setServicesBookingRemove] = React.useState([]);
   const [extrasBookingRemove, setExtrasBookingRemove] = React.useState([]);
-
+  const [productsBookingRemove, setProductsBookingRemove] = React.useState([]);
 
 
   const [, fetchAppointmentByDate] = useAxiosQuery({
@@ -48,7 +48,7 @@ export const useProps = (_params) => {
 
   const [, submitRemoveItemAppointment] = useAxiosMutation({
     ...removeItemAppointment(),
-    isStopLoading : true,
+    isStopLoading: true,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
 
@@ -78,15 +78,16 @@ export const useProps = (_params) => {
 
   const [, submitUpdateAppointment] = useAxiosMutation({
     ...updateAppointment(),
-    isStopLoading : true,
+    isStopLoading: true,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
         const tempData = {
           services: servicesBookingRemove.map(sv => ({ bookingServiceId: sv.bookingServiceId })),
-          extras: extrasBookingRemove.map(ex=>({ bookingExtraId : ex.bookingExtraId })),
-          products: [],
+          extras: extrasBookingRemove.map(ex => ({ bookingExtraId: ex.bookingExtraId })),
+          products: productsBookingRemove.map(pro => ({ bookingProductId: pro.bookingProductId })),   
           giftCards: [],
         }
+
         const body = await removeItemAppointment(appointmentEdit?.appointmentId, tempData);
         submitRemoveItemAppointment(body.params);
       }
@@ -161,6 +162,13 @@ export const useProps = (_params) => {
       }
     },
 
+    deleteProduct: async(product) => {
+       dispatch(editAppointment.removeProduct(product?.productId));
+       let arrTempProductRemoved = await [...productsBookingRemove];
+       await arrTempProductRemoved.push(product);
+       await setProductsBookingRemove(arrTempProductRemoved);
+    },
+
 
     deleteService: async (service) => {
       if (service?.bookingServiceId) {
@@ -169,7 +177,6 @@ export const useProps = (_params) => {
 
         const extraBooking = appointmentEdit?.extras;
         const extrasWillBeReomved = await extraBooking.filter(obj => obj.bookingServiceId == service?.bookingServiceId);
-
         arrTempExtrasRemove = await [...arrTempExtrasRemove, ...extrasWillBeReomved];
 
         await arrTempServicesRemove.push(service);

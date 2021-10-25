@@ -14,6 +14,7 @@ export const useProps = (props) => {
     const form = useForm({
         resolver: yupResolver(customerSchema)
     });
+
     const { setValue } = form;
     const errors = form.formState.errors;
 
