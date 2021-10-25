@@ -84,6 +84,23 @@ const editAppointment = createSlice({
             state.appointmentEdit = tempAppointment;
         },
 
+        removeProduct : (state, action) =>{
+
+            const productId = action.payload;
+            let tempAppointment = {
+                ...state.appointmentEdit,
+            }
+            let tempProduct = tempAppointment.products || [];
+
+            tempProduct = tempProduct.filter(sv => sv.productId !== productId);
+            tempAppointment = {
+                ...tempAppointment,
+                products: tempProduct,
+            }
+
+            state.appointmentEdit = tempAppointment;
+        },
+
         addService: (state, action) => {
             let { service, extras = [] } = action.payload;
             let tempAppointment = {

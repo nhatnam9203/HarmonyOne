@@ -8,12 +8,13 @@ const initialState = {
     timesAvailable: [],
     customerBooking: {},
     servicesBooking: [],
+    productsBooking: [],
     extrasBooking: [],
     dayBooking: moment(),
     timeBooking: "",
-    notesBooking : "",
-    isAddMore : false,
-    isQuickCheckout : false
+    notesBooking: "",
+    isAddMore: false,
+    isQuickCheckout: false
 };
 
 const bookAppointmentSlice = createSlice({
@@ -35,6 +36,9 @@ const bookAppointmentSlice = createSlice({
         setExtrasBooking: (state, action) => {
             state.extrasBooking = action.payload;
         },
+        setProductsBooking: (state, action) => {
+            state.productsBooking = action.payload;
+        },
 
         editService: (state, action) => {
             const { service, duration, price } = action.payload;
@@ -43,8 +47,21 @@ const bookAppointmentSlice = createSlice({
             if (findIndex !== -1) {
                 tempServices[findIndex].duration = duration;
                 tempServices[findIndex].price = price;
-                console.log({ temp : tempServices[findIndex].price})
+                console.log({ temp: tempServices[findIndex].price })
                 state.servicesBooking = tempServices;
+            } else {
+                return state;
+            }
+        },
+
+        editProduct: (state, action) => {
+            const { product, quantity, price } = action.payload;
+            console.log({ action })
+            let tempProducts = [...state.productsBooking];
+            const findIndex = tempProducts.findIndex(s => s?.productId == product?.productId);
+            if (findIndex !== -1) {
+                tempProducts[findIndex].quantity = quantity;
+                state.productsBooking = tempProducts;
             } else {
                 return state;
             }
@@ -58,6 +75,13 @@ const bookAppointmentSlice = createSlice({
             tempExtras = tempExtras.filter(obj => obj.serviceId !== service?.serviceId);
             state.servicesBooking = tempServices;
             state.extrasBooking = tempExtras;
+        },
+
+        deleteProduct: (state, action) => {
+            const product = action.payload;
+            let tempProducts = [...state.productsBooking];
+            tempProducts = tempProducts.filter(obj => obj.productId !== product?.productId);
+            state.productsBooking = tempProducts;
         },
 
         updateStaffService: (state, action) => {
@@ -97,15 +121,15 @@ const bookAppointmentSlice = createSlice({
             state.timeBooking = action.payload;
         },
 
-        updateNote : (state,action) =>{
+        updateNote: (state, action) => {
             state.notesBooking = action.payload;
         },
 
-        updateStatusAddMore : (state,action) =>{
+        updateStatusAddMore: (state, action) => {
             state.isAddMore = action.payload;
         },
 
-        setQuickCheckout : (state, action) =>{
+        setQuickCheckout: (state, action) => {
             state.isQuickCheckout = action.payload;
         },
 
@@ -115,6 +139,7 @@ const bookAppointmentSlice = createSlice({
             state.customerBooking = {};
             state.servicesBooking = [];
             state.extrasBooking = [];
+            state.productsBooking = [];
             state.dayBooking = moment();
             state.timeBooking = "";
             state.notesBooking = "";

@@ -37,8 +37,6 @@ export const useProps = (props) => {
     auth: { staff }
   } = useSelector(state => state);
 
-  console.log({ groupAppointments })
-
 
   /************************************* STATE *************************************/
   const [methodPay, setMethodPay] = React.useState(null);
@@ -69,7 +67,6 @@ export const useProps = (props) => {
   const [, applyCheckoutSubmit] = useAxiosMutation({
     ...checkoutSubmit(),
     onSuccess: (data, response) => {
-      console.log('checkout submit : ', { response });
       if (response?.codeNumber == 200) {
         const dueAmount = parseFloat(
           response?.data?.checkoutPaymentResponse?.dueAmount || 0
@@ -84,7 +81,7 @@ export const useProps = (props) => {
           return;
         }
         if (dueAmount > 0) {
-          dispatch(appointment.updateGroupAppointment(response?.data))
+          fetchGroupApointmentById();
           setPaymentDetail(response?.data);
           popupPaymentDetailRef?.current?.show();
         }
@@ -95,6 +92,7 @@ export const useProps = (props) => {
     /************************************* GỌI API GET GROUP APPOINTMENT BY ID *************************************/
   const [, fetchGroupApointmentById] = useAxiosQuery({
     ...getGroupAppointmentById(appointmentDetail?.appointmentId),
+    queryId : "refetchGroupAppointment",
     enabled: false,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
@@ -107,6 +105,7 @@ export const useProps = (props) => {
   /************************************* FETCH APPOINTMENT BY DATE *************************************/
   const [, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
+    queryId : "fetchAppointmentByDate_checkOut",
     enabled: false,
     onSuccess: (data, response) => {
       dispatch(appointment.setBlockTimeBydate(data));
@@ -207,7 +206,6 @@ export const useProps = (props) => {
       amount,
       giftCardId: 0,
     }
-    console.log('handle payment : ', { data });
     const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
     submitSelectPaymentMethod(body.params);
   }

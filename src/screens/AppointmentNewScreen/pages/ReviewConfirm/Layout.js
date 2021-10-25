@@ -3,9 +3,10 @@ import { View, StyleSheet, FlatList, Text, TouchableOpacity, Image } from 'react
 import { colors, fonts, images } from "@shared/themes";
 import { Button, CustomerInfoView } from "@shared/components";
 import { HeaderBooking } from "../../widgets";
-import { AppointmentServiceItem, AppointmentTimeView, TotalView, IconButton, DialogSuccess } from '@shared/components';
+import { AppointmentServiceItem, AppointmentProductItem, AppointmentTimeView, TotalView, IconButton, DialogSuccess } from '@shared/components';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { ButtonAddNote } from "./ButtonAddNote";
+import { guid } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 import moment from 'moment';
 
@@ -13,6 +14,7 @@ import moment from 'moment';
 export const Layout = ({
   customerBooking,
   servicesBooking,
+  productsBooking,
   extrasBooking,
   dayBooking,
   timeBooking,
@@ -21,6 +23,7 @@ export const Layout = ({
   getAllTotal,
   changeCustomer,
   deleteService,
+  deleteProduct,
   changeDateTime,
   addMore,
   confirm,
@@ -32,6 +35,8 @@ export const Layout = ({
 
 
   let dateTimeView = moment(`${dayBooking} ${timeBooking}`, ["YYYY-MM-DD hh:mm"]);
+
+  const dataList = [...servicesBooking, ...productsBooking];
 
   const renderHeader = () => (
     <View style={{ paddingRight: scaleWidth(16) }}>
@@ -99,8 +104,8 @@ export const Layout = ({
 
           <SwipeListView
             showsVerticalScrollIndicator={false}
-            data={servicesBooking}
-            renderItem={(data, rowMap) => (
+            data={dataList}
+            renderItem={(data, rowMap) => data?.item?.serviceId ? (
               <AppointmentServiceItem
                 service={data.item}
                 name={data.item?.name}
@@ -110,10 +115,18 @@ export const Layout = ({
                 extras={extrasBooking.filter(ex => ex?.serviceId == data.item?.serviceId && ex.checked)}
                 onPressItemReview={true}
               />
-            )}
+            ) : <AppointmentProductItem
+              product={data.item}
+              name={data.item?.name}
+              duration={getTotalItem(data.item, "duration")}
+              price={getTotalPrice(data.item)}
+              isDelete={true}
+              onPressItemReview={true}
+            />
+            }
             ListHeaderComponent={renderHeader()}
             ListFooterComponent={renderFooter()}
-            keyExtractor={(item) => item?.serviceId + "serviceItemBooking"}
+            keyExtractor={(item) => item?.serviceId ? item?.serviceId + guid() : item?.productId + guid() + "itemBooking"}
             renderHiddenItem={(data, rowMap) => (
               <View style={styles.rowBack}>
                 <View />
@@ -121,7 +134,7 @@ export const Layout = ({
                   icon={images.iconTrash}
                   iconStyle={styles.iconTrash}
                   style={styles.buttonDelete}
-                  onPress={() => deleteService(data.item)}
+                  onPress={() => data?.item?.service ? deleteService(data.item) : deleteProduct(data.item)}
                 />
               </View>
             )}
@@ -138,7 +151,7 @@ export const Layout = ({
             onPress={confirm}
             highlight={true}
             width={'100%'}
-            disabled={servicesBooking.length == 0}
+            disabled={(servicesBooking.length + productsBooking.length) == 0}
           />
         </View>
       </View>

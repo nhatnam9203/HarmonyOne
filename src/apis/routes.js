@@ -491,6 +491,14 @@ export const getMarketPlaces = (page = 1) => ({
   }
 });
 
+export const getSmsInformation = (conditionId) => ({
+  queryId: 'getSmsInformation',
+  params: {
+    url: `MerchantPromotion/smsLength/${conditionId}?api-version=1.2`,
+    method: 'GET',
+  }
+});
+
 
 /**
  * MERCHANT
@@ -629,3 +637,63 @@ export const cancelHarmonyPayment = (payAppointmentId, data) => ({
     data
   }
 });
+
+
+
+/**
+ * MERCHANT SETTING
+ */
+
+
+export const merchantSetting = (data) => ({
+  queryId: 'merchantSetting',
+  params: {
+    url: `merchant/setting`,
+    method: 'PUT',
+    data
+  }
+});
+
+/* 
+* INVOICE
+*/
+
+export const getListInvoicesByMerchant = (
+  key = "", method = "", status = "", timeStart = "", timeEnd = "", quickFilter = "", page = 1,
+) => ({
+  queryId: 'getListInvoicesByMerchant',
+  params: {
+    url: `checkout?page=${page}&method=${method}&status=${status}&timeStart=${timeStart}&timeEnd=${timeEnd}&key=${key}&quickFilter=${quickFilter}&row=10&api-version=1.1`,
+    method: 'GET',
+  }
+});
+
+export const getInvoiceDetail = (checkoutId) => ({
+  queryId: 'getInvoiceDetail',
+  params: {
+    url: `checkout/${checkoutId}`,
+    method: 'GET',
+  }
+});
+
+export const changeStatustransaction = (checkoutId, data) => ({
+  queryId: 'changeStatustransaction',
+  params: {
+    url: `checkout/paymentvoidrefundtransaction/${checkoutId}`,
+    method: 'PUT',
+    data
+  }
+});
+
+// export function changeStatustransaction(checkoutId, params, responseData = {}, paymentTerminal, sn) {
+//   return {
+//       type: 'CHANGE_STATUS_TRANSACTION',
+//       method: 'PUT',
+//       api: `checkout/paymentvoidrefundtransaction/${checkoutId}`,
+//       token: true,
+//       params,
+//       checkoutId
+//   }
+// }
+
+

@@ -7,6 +7,7 @@ const initialState = {
     promotion: [],
     marketPlaces: [],
     pagesMarketPace: 0,
+    smsInfoMarketing : {},
 };
 
 const marketingSlice = createSlice({
@@ -23,6 +24,9 @@ const marketingSlice = createSlice({
                 state.marketPlaces = state.marketPlaces.concat(action?.payload?.data);
             }
             state.pagesMarketPace = action?.payload?.pages;
+        },
+        setSmsInfoMarketing : (state, action) => {
+            state.smsInfoMarketing = action.payload;
         }
     },
 });

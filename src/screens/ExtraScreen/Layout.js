@@ -20,7 +20,6 @@ export const Layout = ({
 }) => {
 
   const data = getData();
-  console.log({ data })
 
   const [t] = useTranslation();
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert } from "react-native";
-import { useAxiosQuery, getListCustomer, addPromotionNote, customPromotion, useAxiosMutation, getAppointmentById } from '@src/apis';
+import { useAxiosQuery, getListCustomer, addPromotionNote, customPromotion, useAxiosMutation, getAppointmentById, getGroupAppointmentById } from '@src/apis';
 import { useDispatch, useSelector } from "react-redux";
 import { customer, bookAppointment, appointment } from "@redux/slices";
 import { useForm, useWatch } from "react-hook-form";
@@ -34,6 +34,7 @@ export const useProps = (props) => {
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         fetchAppointmentById();
+        fetchGroupApointmentById();
       }
     }
   });
@@ -48,8 +49,20 @@ export const useProps = (props) => {
     }
   });
 
+  const [, fetchGroupApointmentById] = useAxiosQuery({
+    ...getGroupAppointmentById(appointmentDetail?.appointmentId),
+    queryId: "refetchGroupAppointment_applyDiscount",
+    enabled: false,
+    onSuccess: async (data, response) => {
+      if (response?.codeNumber == 200) {
+        dispatch(appointment.setGroupAppointment(data));
+      }
+    }
+  });
+
   const [, fetchAppointmentById] = useAxiosQuery({
     ...getAppointmentById(appointmentDetail?.appointmentId),
+    queryId: "getAppointmentById_applyDiscount",
     enabled: false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {

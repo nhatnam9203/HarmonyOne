@@ -169,10 +169,11 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: scaleFont(18),
-        fontFamily: fonts.MEDIUM
+        fontFamily: fonts.MEDIUM,
+        color : "#404040"
     },
     itemText: {
-        fontSize: scaleFont(17),
+        fontSize: scaleFont(16),
         fontFamily: fonts.REGULAR,
         marginTop: scaleHeight(16)
     },

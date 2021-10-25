@@ -14,10 +14,6 @@ export const Layout = ({
 
     const [t] = useTranslation();
 
-    React.useEffect(() => {
-        workingTimeRef?.current?.setValue(merchantDetail?.businessHour);
-    }, [])
-
     return (
         <View style={styles.container}>
             <SingleScreenLayout
@@ -28,7 +24,10 @@ export const Layout = ({
                 containerStyle={{ paddingVertical: 0 }}
             >
                 <View style={styles.content}>
-                    <WorkingTime renderTitle={() => <View style={{ height: scaleHeight(10) }} />} ref={workingTimeRef} />
+                    <WorkingTime
+                        renderTitle={() => <View style={{ height: scaleHeight(10) }} />}
+                        ref={workingTimeRef}
+                    />
                 </View>
                 <View style={styles.bottom}>
                     <Button

@@ -223,3 +223,33 @@ const nearestFutureMinutes = (interval, someMoment) => {
   const roundedMinutes = Math.ceil(someMoment.minute() / interval) * interval;
   return someMoment.clone().minute(roundedMinutes).second(0);
 }
+
+export const roundFloatNumber = (num) => {
+  return (Math.round(num * 100) / 100).toFixed(2);
+};
+
+export const getContentDate = (timeStart, timeEnd) => {
+  let text = "Select date";
+  if (timeStart && timeEnd) {
+    text = `${timeStart} - ${timeEnd}`;
+    if (timeStart == timeEnd && timeStart == moment().format("MM/DD/YYYY")) {
+      text = "Today"
+    }
+    if (timeStart == timeEnd && timeStart == moment().subtract("days", 1).format("MM/DD/YYYY")) {
+      text = "Yesterday"
+    }
+    if (moment().startOf("months").format("MM/DD/YYYY") == timeStart && moment().endOf("months").format("MM/DD/YYYY") == timeEnd) {
+      text = "This month";
+    }
+    if (moment().subtract("months", 1).startOf("months").format("MM/DD/YYYY") == timeStart && moment().subtract("months", 1).endOf("months").format("MM/DD/YYYY") == timeEnd) {
+      text = "Last month";
+    }
+    if (moment().startOf("weeks").format("MM/DD/YYYY") == timeStart && moment().endOf("weeks").format("MM/DD/YYYY") == timeEnd) {
+      text = "This week";
+    }
+    if (moment().subtract("weeks", 1).startOf("weeks").format("MM/DD/YYYY") == timeStart && moment().subtract('weeks', 1).endOf("weeks").format("MM/DD/YYYY") == timeEnd) {
+      text = "Last week";
+    }
+  }
+  return text;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, View } from 'react-native';
-import { SelectService, SelectServiceDetail, SelectStaff, SelectDateTime , ReviewConfirm } from './pages';
+import { SelectService, SelectServiceDetail, SelectProductDetail, SelectStaff, SelectDateTime, ReviewConfirm } from './pages';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -15,6 +15,7 @@ export const Layout = () => {
       >
         <Screen {...SelectService} />
         <Screen {...SelectServiceDetail} />
+        <Screen {...SelectProductDetail} />
         <Screen {...SelectStaff} />
         <Screen {...SelectDateTime} />
         <Screen {...ReviewConfirm} />
