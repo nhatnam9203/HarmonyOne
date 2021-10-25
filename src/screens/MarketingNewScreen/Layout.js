@@ -8,6 +8,7 @@ import { IconButton, CustomInput, InputText, InputSelect, InputDate, ButtonUploa
 import { WithPopupActionSheet } from "@shared/HOC";
 import { Switch } from "react-native-paper";
 import { RadioButton } from 'react-native-paper';
+
 import MarketingDiscount from "./MarketingDiscount";
 import MarketingContent from "./MarketingContent";
 import RadioButtonRN from 'radio-buttons-react-native';

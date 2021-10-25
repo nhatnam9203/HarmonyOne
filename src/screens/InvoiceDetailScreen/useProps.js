@@ -88,17 +88,25 @@ export const useProps = (props) => {
     viewShotRef,
 
     voidRefundInvoice: async () => {
-      if (invoiceDetail?.paymentMethod !== "credit_card") {
-        const data = {
-          responseData: {},
-          paymentTerminal: null,
-          sn: null,
-        };
-        const body = await changeStatustransaction(invoiceDetail?.checkoutId, data);
-        submitChangeStatusTransaction(body.params);
-      } else {
-        handleVoidRefundCreditCard();
-      }
+      // if (invoiceDetail?.paymentMethod !== "credit_card") {
+      //   const data = {
+      //     responseData: {},
+      //     paymentTerminal: null,
+      //     sn: null,
+      //   };
+      //   const body = await changeStatustransaction(invoiceDetail?.checkoutId, data);
+      //   submitChangeStatusTransaction(body.params);
+      // } else {
+      //   handleVoidRefundCreditCard();
+      // }
+
+      const data = {
+        responseData: {},
+        paymentTerminal: null,
+        sn: null,
+      };
+      const body = await changeStatustransaction(invoiceDetail?.checkoutId, data);
+      submitChangeStatusTransaction(body.params);
     },
 
     shareInvoice: async () => {

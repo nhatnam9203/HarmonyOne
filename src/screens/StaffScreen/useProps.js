@@ -91,9 +91,14 @@ export const useProps = (props) => {
     newStaff: () => {
       NavigationService.navigate(screenNames.StaffNewScreen, { refreshList });
     },
+  
 
     editStaff: (item) => {
-      setStaffIdDetail(item?.staffId);
+      if(item?.staffId === staffIdDetail){
+        fetchStaffbyId();
+      }else{
+        setStaffIdDetail(item?.staffId);
+      }
     },
 
     onRefresh: () => {
