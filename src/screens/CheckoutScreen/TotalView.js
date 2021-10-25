@@ -17,7 +17,6 @@ export const TotalView = ({
     appointmentDetail,
     groupAppointments
 }) => {
-    console.log({ groupAppointments, appointmentDetail })
     const dispatch = useDispatch();
 
     const [, fetchPromotionAppointment] = useAxiosQuery({
