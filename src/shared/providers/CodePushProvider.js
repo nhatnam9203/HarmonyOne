@@ -3,6 +3,7 @@ import codePush from 'react-native-code-push';
 
 const log = (obj, message = '') => {
   // Logger.log(`[CodePushProvider] ${message}`, obj);
+  console.log(message);
 };
 
 export const CodePushContext = createContext({});
@@ -45,8 +46,6 @@ export const CodePushProvider = ({ children }) => {
 
   const codePushStatusChange = (status) => {
     if (status === codePush.SyncStatus.UPDATE_INSTALLED) {
-      log(status, 'CodePush Update Installed');
-
       codePush.allowRestart();
       setTimeout(() => {
         codePush.restartApp();
@@ -82,12 +81,15 @@ export const CodePushProvider = ({ children }) => {
         resolve('NET_WORK_TIME_OUT');
       }, 10000);
     });
+
     try {
       const update = await new Promise.race([
         codePush.checkForUpdate(),
         timeOutNetWork,
       ]);
+
       log(update, 'checkUpdateCodePush');
+      console.log(update);
 
       if (update && update !== 'NET_WORK_TIME_OUT') {
         // Trường hợp có update
@@ -121,11 +123,11 @@ export const CodePushProvider = ({ children }) => {
 
     const isExistedIndex = progressComplete?.findIndex((x) => x.id === id);
     if (isExistedIndex >= 0) {
-      let clones = [...progressComplete];
+      let clones = [...(progressComplete || [])];
       clones[isExistedIndex] = { id, delegate };
       setProgressComplete(clones);
     } else {
-      setProgressComplete([...progressComplete, { id, delegate }]);
+      setProgressComplete([...(progressComplete || []), { id, delegate }]);
     }
 
     if (
@@ -133,7 +135,7 @@ export const CodePushProvider = ({ children }) => {
       codePushSyncStatus === codePush.SyncStatus.UPDATE_IGNORED ||
       codePushSyncStatus === codePush.SyncStatus.UNKNOWN_ERROR
     ) {
-      if (typeof delegate === 'function') {
+      if (delegate && typeof delegate === 'function') {
         delegate();
       }
     }

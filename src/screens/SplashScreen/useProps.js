@@ -29,7 +29,6 @@ export const useProps = (_params) => {
     // SplashScreen.hide();
 
     addPushCodeCompleteCallback('splashscreen', () => {
-      console.log('finishedLoadCodePush');
       setFinishedLoadCodePush(true);
     });
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   useAxiosQuery,
   getService,
@@ -10,42 +10,58 @@ import {
   getAppointmentByDate,
   getAppointmentById,
   getMerchantById,
-  getCountUnReadOfNotification
+  getCountUnReadOfNotification,
 } from '@src/apis';
 
 import { useNavigation } from '@react-navigation/core';
-import { useDispatch, useSelector } from "react-redux";
-import { service, product, category, extra, staff, appointment, bookAppointment, merchant, notification } from '@redux/slices';
-import { dateToFormat } from "@shared/utils";
-import moment from "moment";
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  service,
+  product,
+  category,
+  extra,
+  staff,
+  appointment,
+  bookAppointment,
+  merchant,
+  notification,
+} from '@redux/slices';
+import { dateToFormat } from '@shared/utils';
+import moment from 'moment';
 import NavigationService from '@navigation/NavigationService';
-
 
 export const useProps = (_params) => {
   const dispatch = useDispatch();
-  const staffInfo = useSelector(state => state.auth.staff);
+  const staffInfo = useSelector((state) => state.auth.staff);
 
   const [visibleDatePicker, setVisibleDatePicker] = React.useState(false);
-  const [staffSelected, setStaffSelected] = React.useState("");
+  const [staffSelected, setStaffSelected] = React.useState('');
   const [blockTimesVisibile, setBlockTimesVisible] = React.useState([]);
-  const [appointmentDetailId, setAppointmentDetailId] = React.useState("");
+  const [appointmentDetailId, setAppointmentDetailId] = React.useState('');
   const [isRefresh, setRefresh] = React.useState(false);
   const [firstLoading, setFirstLoading] = React.useState(true);
 
   const {
     staff: { staffsByDate = [] },
-    appointment: { appointmentsByDate = [], blockTimes = [], appointmentDetail, appointmentDate },
-  } = useSelector(state => state);
-
+    appointment: {
+      appointmentsByDate = [],
+      blockTimes = [],
+      appointmentDetail,
+      appointmentDate,
+    },
+  } = useSelector((state) => state);
 
   const setDate = (date) => {
-    if (dateToFormat(date, "YYYY-MM-DD") == dateToFormat(appointmentDate, "YYYY-MM-DD")) {
+    if (
+      dateToFormat(date, 'YYYY-MM-DD') ==
+      dateToFormat(appointmentDate, 'YYYY-MM-DD')
+    ) {
       fetchAppointmentByDate();
       fetchStaffByDate();
     } else {
       dispatch(appointment.setAppointmentDate(date));
     }
-  }
+  };
 
   const [, fetchCountUnread] = useAxiosQuery({
     ...getCountUnReadOfNotification(),
@@ -62,7 +78,9 @@ export const useProps = (_params) => {
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(appointment.setAppointmentDetail(data));
-        NavigationService.navigate(screenNames.AppointmentDetailScreen, { refreshFromScreen });
+        NavigationService.navigate(screenNames.AppointmentDetailScreen, {
+          refreshFromScreen,
+        });
       }
     },
   });
@@ -103,17 +121,20 @@ export const useProps = (_params) => {
     },
   });
 
-  const [,fetchStaffByDate] = useAxiosQuery({
-    ...getStaffByDate(staffInfo?.merchantId, dateToFormat(appointmentDate, "YYYY-MM-DD")),
+  const [, fetchStaffByDate] = useAxiosQuery({
+    ...getStaffByDate(
+      staffInfo?.merchantId,
+      dateToFormat(appointmentDate, 'YYYY-MM-DD'),
+    ),
     enabled: true,
     onSuccess: (data, response) => {
       dispatch(staff.setStaffByDate(data));
-      setFirstLoading(false)
+      setFirstLoading(false);
     },
   });
 
   const [{ isLoading }, fetchAppointmentByDate] = useAxiosQuery({
-    ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
+    ...getAppointmentByDate(dateToFormat(appointmentDate, 'YYYY-MM-DD')),
     enabled: true,
     onSuccess: (data, response) => {
       dispatch(appointment.setBlockTimeBydate(data));
@@ -132,19 +153,19 @@ export const useProps = (_params) => {
 
   const refreshFromScreen = () => {
     fetchAppointmentByDate();
-  }
-
+  };
 
   /************************************** GET LIST BLOCK TIMES  ***************************************/
   React.useEffect(() => {
     if (staffSelected) {
-      let temp = blockTimes.filter(blockTime => blockTime?.staffId == staffSelected);
+      let temp = blockTimes.filter(
+        (blockTime) => blockTime?.staffId == staffSelected,
+      );
       setBlockTimesVisible(temp);
     } else {
       setBlockTimesVisible(blockTimes);
     }
   }, [staffSelected, appointmentDate, blockTimes]);
-
 
   /************************************** REFRESH BLOCK TIMES  ***************************************/
   React.useEffect(() => {
@@ -153,14 +174,12 @@ export const useProps = (_params) => {
     }
   }, [isRefresh]);
 
-
   /************************************** GET APPOINTMENT DETAIL  ***************************************/
   React.useEffect(() => {
     if (appointmentDetailId) {
       fetchAppointmentById();
     }
   }, [appointmentDetailId]);
-
 
   React.useEffect(() => {
     getCategoryList();
@@ -170,7 +189,6 @@ export const useProps = (_params) => {
     fetchMerchantById();
     fetchCountUnread();
   }, []);
-
 
   return {
     staffsByDate,
@@ -182,7 +200,7 @@ export const useProps = (_params) => {
     setVisibleDatePicker,
     staffSelected,
     isRefresh,
-    isLoading : firstLoading ,
+    isLoading: firstLoading,
 
     onRefresh: () => {
       setRefresh(true);
@@ -190,9 +208,8 @@ export const useProps = (_params) => {
 
     selectStaff: (staffId) => {
       if (staffId == staffSelected) {
-        setStaffSelected("");
-      } else
-        setStaffSelected(staffId)
+        setStaffSelected('');
+      } else setStaffSelected(staffId);
     },
 
     onChangeAppointmentId: (appointmentId) => {
@@ -204,8 +221,10 @@ export const useProps = (_params) => {
     },
 
     addAppointment: () => {
-      NavigationService.navigate(screenNames.CustomersScreen, { isBookAppointment: true });
+      NavigationService.navigate(screenNames.CustomersScreen, {
+        isBookAppointment: true,
+      });
       dispatch(bookAppointment.resetBooking());
-    }
+    },
   };
 };
