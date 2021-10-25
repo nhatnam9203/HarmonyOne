@@ -127,17 +127,19 @@ export const Layout = ({
             ListHeaderComponent={renderHeader()}
             ListFooterComponent={renderFooter()}
             keyExtractor={(item) => item?.serviceId ? item?.serviceId + guid() : item?.productId + guid() + "itemBooking"}
-            renderHiddenItem={(data, rowMap) => (
-              <View style={styles.rowBack}>
-                <View />
-                <IconButton
-                  icon={images.iconTrash}
-                  iconStyle={styles.iconTrash}
-                  style={styles.buttonDelete}
-                  onPress={() => data?.item?.service ? deleteService(data.item) : deleteProduct(data.item)}
-                />
-              </View>
-            )}
+            renderHiddenItem={(data, rowMap) => {
+              return (
+                <View style={styles.rowBack}>
+                  <View />
+                  <IconButton
+                    icon={images.iconTrash}
+                    iconStyle={styles.iconTrash}
+                    style={styles.buttonDelete}
+                    onPress={() => data?.item?.serviceId ? deleteService(data.item) : deleteProduct(data.item)}
+                  />
+                </View>
+              )
+            }}
             disableRightSwipe={true}
             leftOpenValue={0}
             rightOpenValue={-scaleWidth(60)}

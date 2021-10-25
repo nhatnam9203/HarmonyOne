@@ -26,6 +26,10 @@ const InputService = ({
     const [dataServices, setDataServices] = React.useState([]);
     const [activeSections, setActiveSections] = React.useState([]);
 
+    const [dataServicesSaved, setDataServicesSaved] = React.useState([]);
+    const [isEdit, setIsEdit] = React.useState(false);
+    const [categoriesEdit, setCategoriesEdit] = React.useState([]);
+
     const serviceRef = React.useRef();
 
     // const getDataList = () => {
@@ -143,9 +147,23 @@ const InputService = ({
     })
 
     const openActionSheet = () => {
-        const data = getDataList();
+        let data = getDataList();
+        for(let i = 0 ; i < data.length; i++){
+            for(let j = 0; j< data[i].staffServices.length ; j++){
+                const item = data[i].staffServices[j];
+                if(checkItemExisted(item)){
+                    data[i].staffServices[j].selected = true;
+                    data[i].selected = true;
+                }
+            }
+        }
         setDataServices(data);
         actionSheetRef?.current?.show();
+    }
+
+    const checkItemExisted = (service) =>{
+        const item = serviceSelected.find(obj=>obj?.serviceId == service?.serviceId);
+        return item;
     }
 
     const closeActionSheet = () => {
@@ -175,9 +193,10 @@ const InputService = ({
     const onApply = () => {
         const services = [];
         for (let i = 0; i < dataServices.length; i++) {
-            for (let j = 0; j < dataServices[i].data.length; j++) {
-                if (dataServices[i].data[j].checked) {
-                    services.push(dataServices[i].data[j]);
+            for (let j = 0; j < dataServices[i].staffServices.length; j++) {
+                const el =  dataServices[i].staffServices[j];
+                if (dataServices[i].staffServices[j].selected) {
+                    services.push(dataServices[i].staffServices[j]);
                 }
             }
         }

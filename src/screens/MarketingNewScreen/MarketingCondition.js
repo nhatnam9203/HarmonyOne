@@ -16,11 +16,10 @@ const conditionList = [
     { label: "The customer is the referral", value: "4" },
 ];
 
-
-const MarketingCondition = ({
+const MarketingCondition = React.forwardRef(({
     form,
     errors,
-}) => {
+}, ref) => {
 
     const [condition, setCondition] = React.useState("No condition");
     const conditionRef = React.useRef();
@@ -101,7 +100,7 @@ const MarketingCondition = ({
             }
         </>
     );
-};
+});
 
 export default MarketingCondition;
 

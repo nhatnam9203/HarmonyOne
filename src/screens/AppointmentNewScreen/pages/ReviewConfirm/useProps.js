@@ -165,6 +165,7 @@ export const useProps = (_params) => {
     },
 
     deleteService: (service) => {
+      console.log('delete service : ',{ service })
       dispatch(bookAppointment.deleteService(service))
     },
 
