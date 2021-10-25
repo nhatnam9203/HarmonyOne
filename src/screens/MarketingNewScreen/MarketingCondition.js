@@ -32,6 +32,13 @@ const MarketingCondition = React.forwardRef(({
         setServiceSelected(tepmServices);
     }
 
+    React.useImperativeHandle(ref,()=>({
+        getConditionValue : () =>{
+            const objCondition = conditionList.filter(obj=>obj.label == condition);
+            return objCondition;
+        }
+    }));
+
     return (
         <>
             <CustomInput

@@ -39,6 +39,7 @@ export const Layout = ({
   errors,
   getActionSheets,
   actionRef,
+  conditionRef,
   checked,
   setChecked,
   imageUrl,
@@ -80,6 +81,7 @@ export const Layout = ({
           <MarketingCondition
             form={form}
             errors={errors}
+            ref={conditionRef}
           />
 
           <MarketingAction

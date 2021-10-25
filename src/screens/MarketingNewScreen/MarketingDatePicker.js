@@ -1,21 +1,37 @@
 import React from 'react';
-import { View, StyleSheet, Text, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, Image } from 'react-native';
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
-import { IconButton, CustomInput, InputText, InputSelect, InputDate, ButtonUpload } from "@shared/components";
+import { CustomInput, InputSelectTime, DayPicker } from "@shared/components";
 import { Switch } from "react-native-paper";
+import moment from "moment";
 
-const MarketingDatePicker = ({
+const MarketingDatePicker = React.forwardRef(({
 
-}) => {
-
-
+}, ref) => {
     const startDateRef = React.useRef();
     const startTimeRef = React.useRef();
     const endDateRef = React.useRef();
     const endTimeRef = React.useRef();
 
     const [visibleEndDate, setVisibleEndDate] = React.useState(true);
+    const [startDay, setStartDay] = React.useState(moment());
+    const [endDay, setEndDay] = React.useState(moment());
+    const [startTime, setStartTime] = React.useState(moment().format("hh:mm A"));
+    const [endTime, setEndTime] = React.useState(moment().format("hh:mm A"));
+
+
+    React.useImperativeHandle(ref, () => ({
+        getValueDatePicker : () =>{
+            return{
+                visibleEndDate,
+                startDay,
+                endDay,
+                startTime,
+                endTime,
+            }
+        }
+    }));
 
     return (
         <>
@@ -23,18 +39,41 @@ const MarketingDatePicker = ({
                 label='Start date'
                 renderInput={() =>
                     <View style={{ flexDirection: "row" }}>
-                        <InputDate
-                            ref={startDateRef}
-                            textStyle={styles.textDate}
-                            style={{ width: scaleWidth(130) }}
-                            iconStyle={styles.iconCalendar}
+                        <DayPicker
+                            dayPicked={startDay}
+                            onApply={(day) => { 
+                                setStartDay(day)
+                            }}
+                            componentRender={() =>
+                                <View style={styles.inputSelectTime}>
+                                    <Text style={styles.txtTime}>
+                                        {moment(startDay).format("MM-DD-YYYY")}
+                                    </Text>
+                                    <Image
+                                        source={images.iconCalendar}
+                                        style={styles.iconCalendar}
+                                        resizeMode='contain'
+                                    />
+                                </View>
+                            }
                         />
-                        <InputDate
-                            ref={startTimeRef}
-                            mode="time" icon={images.dropdown}
-                            textStyle={styles.textDate}
-                            style={{ width: scaleWidth(130), marginLeft: scaleWidth(8) }}
-                            iconStyle={styles.iconTime}
+                        <InputSelectTime
+                            apply={(time) => { 
+                               setStartTime(time);
+                            }}
+                            time={startTime}
+                            renderInput={() => (
+                                <View style={[styles.inputSelectTime, { marginLeft: scaleWidth(16) }]}>
+                                    <Text style={styles.txtTime}>
+                                        {startTime}
+                                    </Text>
+                                    <Image
+                                        source={images.dropdown}
+                                        style={styles.iconTimeSelect}
+                                        resizeMode='contain'
+                                    />
+                                </View>
+                            )}
                         />
                     </View>
                 }
@@ -47,25 +86,45 @@ const MarketingDatePicker = ({
                 renderInput={() =>
                     visibleEndDate ?
                         <View style={{ flexDirection: "row" }}>
-                            <InputDate
-                                ref={startDateRef}
-                                textStyle={styles.textDate}
-                                style={{ width: scaleWidth(130) }}
-                                iconStyle={styles.iconCalendar}
+                            <DayPicker
+                                dayPicked={endDay}
+                                onApply={(day) => { setEndDay(day) }}
+                                componentRender={() =>
+                                    <View style={styles.inputSelectTime}>
+                                        <Text style={styles.txtTime}>
+                                            {moment(endDay).format("MM-DD-YYYY")}
+                                        </Text>
+                                        <Image
+                                            source={images.iconCalendar}
+                                            style={styles.iconCalendar}
+                                            resizeMode='contain'
+                                        />
+                                    </View>
+                                }
                             />
-                            <InputDate
-                                ref={startTimeRef}
-                                mode="time" icon={images.dropdown}
-                                textStyle={styles.textDate}
-                                style={{ width: scaleWidth(130), marginLeft: scaleWidth(8) }}
-                                iconStyle={styles.iconTime}
+                            <InputSelectTime
+                                apply={(time) => setEndTime(time)}
+                                time={endTime}
+                                renderInput={() => (
+                                    <View style={[styles.inputSelectTime, { marginLeft: scaleWidth(16) }]}>
+                                        <Text style={styles.txtTime}>
+                                            {endTime}
+                                        </Text>
+                                        <Image
+                                            source={images.dropdown}
+                                            style={styles.iconTimeSelect}
+                                            resizeMode='contain'
+                                        />
+                                    </View>
+                                )}
                             />
                         </View> : null
                 }
             />
         </>
     );
-};
+
+});
 
 export default MarketingDatePicker;
 
@@ -84,6 +143,26 @@ const SwitchButton = ({
 
 
 const styles = StyleSheet.create({
+    iconTimeSelect: {
+        width: scaleWidth(12),
+        height: scaleWidth(12),
+        tintColor: "#404040"
+    },
+    txtTime: {
+        fontSize: scaleFont(15),
+        fontFamily: fonts.REGULAR,
+        color: "#000"
+    },
+    inputSelectTime: {
+        width: scaleWidth(135),
+        height: scaleHeight(40),
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        borderWidth: 1,
+        borderColor: "#cccccc",
+        paddingHorizontal: scaleWidth(8)
+    },
     container: {
         flex: 1,
         backgroundColor: "white",

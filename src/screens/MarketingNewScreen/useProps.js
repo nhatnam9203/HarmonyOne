@@ -19,6 +19,7 @@ export const useProps = (_params) => {
   const errors = form.formState.errors;
 
   const actionRef = React.useRef();
+  const conditionRef = React.useRef();
 
   const [checked, setChecked] = React.useState(false);
   const [imageUrl, setImageUrl] = React.useState("");
@@ -67,7 +68,9 @@ export const useProps = (_params) => {
 
   //   const businessName = staff?.businessName ?? "";
 
-  //   switch (getConditionIdByTitle(condition)) {
+  // const conditionValue = conditionRef?.current?.getConditionValue().value;
+
+  //   switch (conditionValue) {
   //     case 1:
   //       // convert endDate to string for format
   //       const mergeEndDate = noEndDate
@@ -189,6 +192,7 @@ export const useProps = (_params) => {
     errors,
 
     actionRef,
+    conditionRef,
     checked,
     visibleEndDate,
 

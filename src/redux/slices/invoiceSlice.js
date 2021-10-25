@@ -15,7 +15,6 @@ const invoiceSlice = createSlice({
     initialState: initialState,
     reducers: {
         setInvoiceList: (state, action) => {
-            console.log({ action })
             if (action?.payload?.currentPage == 1) {
                 state.invoiceList = action?.payload?.data;
             } else {

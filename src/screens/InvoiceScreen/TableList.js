@@ -24,7 +24,7 @@ import moment from "moment";
 const { height: screenHeight, width: screenWidth } = Dimensions.get("window");
 
 const TABLE_HEADER_HEIGHT = 50;
-const TABLE_ROW_HEIGHT = 50;
+const TABLE_ROW_HEIGHT = 65;
 const TABLE_CELL_DEFAULT_WIDTH = 160;
 const HEAD_FONT_SIZE = 17;
 const CELL_FONT_SIZE = 15;
@@ -605,6 +605,7 @@ function TableListExtended({
         onScrollEndDrag={onScrollEndDrag}
         onScrollBeginDrag={onScrollBeginDrag}
         directionalLockEnabled={true}
+        
         renderFooter={() => <View style={{ height: 20 }} />}
         onRefresh={() => {
           onRefresh();
