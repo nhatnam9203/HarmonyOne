@@ -94,11 +94,14 @@ export const Layout = ({
           <MarketingAction
             form={form}
             errors={errors}
+            ref={actionRef}
+            defaultMessage={defaultMessage}
           />
 
           <MarketingDiscount
             form={form}
             errors={errors}
+            defaultMessage={defaultMessage}
           />
 
           <SmsConfiguration onUploadImage={onUploadImage} imageUrl={imageUrl} />
@@ -106,6 +109,7 @@ export const Layout = ({
           <MarketingContent
             form={form}
             errors={errors}
+            defaultMessage={defaultMessage}
           />
 
           <MarketingNumberMessage />

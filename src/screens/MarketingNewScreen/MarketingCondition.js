@@ -31,6 +31,8 @@ const MarketingCondition = React.forwardRef(({
     const removeService = (service) => {
         let tepmServices = serviceSelected.filter(s => s.serviceId !== service.serviceId);
         setServiceSelected(tepmServices);
+        const message = defaultMessage(tepmServices);
+        form.setValue("message", message);
     }
 
     React.useImperativeHandle(ref, () => ({
@@ -57,7 +59,7 @@ const MarketingCondition = React.forwardRef(({
                     <InputSelect
                         ref={conditionRef}
                         form={form}
-                        name="condition"
+                        name="actionCondition"
                         title="Condition"
                         items={conditionList}
                         defaultValue={'1'}

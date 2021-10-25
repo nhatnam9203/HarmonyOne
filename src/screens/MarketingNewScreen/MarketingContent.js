@@ -35,6 +35,7 @@ const MarketingContent = ({
                         icon={images.iconSync}
                         iconStyle={styles.iconRefresh}
                         style={{ marginTop: -10 }}
+                        onPress={() => form.setValue("message", defaultMessage())}
                         renderText={() => <Text style={styles.txtDefault}>Use default content</Text>
                         }
                     />

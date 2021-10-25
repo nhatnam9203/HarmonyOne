@@ -11,10 +11,10 @@ export const useProps = (_params) => {
   const dispatch = useDispatch();
 
   const [t] = useTranslation();
-  const { 
+  const {
     auth: { staff },
-    merchant : { merchantDetail }
-   } = useSelector(state => state);
+    merchant: { merchantDetail }
+  } = useSelector(state => state);
 
   const form = useForm({
 
@@ -47,6 +47,12 @@ export const useProps = (_params) => {
     name: 'condition'
   });
 
+  const actionCondition = useWatch({
+    control: form.control,
+    name: 'actionCondition'
+  });
+
+
   const promotionType = useWatch({
     control: form.control,
     name: 'promotionType'
@@ -63,8 +69,19 @@ export const useProps = (_params) => {
   });
 
 
-  const defaultMessage = (conditionServiceProductTags) => {
-    const actionMsg = "";
+  const defaultMessage = (conditionServiceProductTags, actionServiceTags) => {
+
+    const actionServices = actionRef?.current?.getServices();
+    const actionCategories = actionRef?.current?.getCategories();
+    const actionCondition = actionRef?.current?.getConditionValue().value;
+
+    const actionTags = actionServiceTags ? actionServiceTags : parseInt(actionCondition) == 2 ? actionServices :
+      parseInt(actionCondition) == 3 ? actionCategories : [];
+
+    const actionMsg =
+      actionTags?.length > 0
+        ? `off for ${actionTags?.map((x) => x.name || "").join(", ")}.`
+        : "";
 
     const promotionMsg =
       promotionType === "percent"
@@ -87,14 +104,14 @@ export const useProps = (_params) => {
     switch (parseInt(conditionValue)) {
       case 1:
         // convert endDate to string for format
-        const mergeEndDate = visibleEndDate
+        const mergeEndDate = !visibleEndDate
           ? null
           : `${moment(endDay).format("YYYY-MM-DD")}T${moment(endTime, ["hh:mm A"]).format("hh:mm")}:00`
 
 
         // create message content with endDate
         const endDateMsg = mergeEndDate
-          ? `This offer is ends on moment(mergeEndDate).format("DD MMMM YYYY hh:mm A") so hurry`
+          ? `This offer is ends on ${moment(mergeEndDate).format("DD MMMM YYYY hh:mm A")} so hurry`
           : "Hurry";
 
         // ====> return text message
@@ -125,12 +142,17 @@ export const useProps = (_params) => {
 
 
   React.useEffect(() => {
-    if (condition && defaultMessage) {
+    if(condition){
       setConditionId(condition.value);
       const message = defaultMessage();
       form.setValue("message", message);
     }
-  }, [condition]);
+  }, [condition, actionCondition]);
+
+  React.useEffect(() => {
+    form.setValue("message", defaultMessage());
+  }, [promotionType]);
+
 
   const [,] = useAxiosQuery({
     ...getSmsInformation(conditionId),

@@ -8,16 +8,16 @@ import AntDesign from "react-native-vector-icons/AntDesign"
 import Collapsible from "react-native-collapsible";
 
 const actionList = [
-    { label: "Discount for whole cart", value: "0" },
-    { label: "Discount for specific services", value: "1" },
-    { label: "Discount for category", value: "2" },
+    { label: "Discount for whole cart", value: "1" },
+    { label: "Discount for specific services", value: "2" },
+    { label: "Discount for category", value: "3" },
 ];
 
-
-const MarketingAction = ({
+const MarketingAction = React.forwardRef(({
     form,
     errors,
-}) => {
+    defaultMessage,
+},ref)=>{
 
     const [condition, setAction] = React.useState("Discount for whole cart");
     const conditionRef = React.useRef();
@@ -28,12 +28,41 @@ const MarketingAction = ({
     const removeService = (service) => {
         let tepmServices = serviceSelected.filter(s => s.serviceId !== service.serviceId);
         setServiceSelected(tepmServices);
+        const message = defaultMessage(null,tepmServices);
+        form.setValue("message", message);
     }
 
     const removeCategory = (category) => {
         let tempCategory = categorySelected.filter(c => c.categoryId !== category.categoryId);
         setCategorySelected(tempCategory);
+        const message = defaultMessage(null,tempCategory);
+        form.setValue("message", message);
     }
+
+    const onChangeServiceSelected = (services) => {
+        setServiceSelected(services);
+        const message = defaultMessage(null,services);
+        form.setValue("message", message);
+    }
+
+    const onChangeCategorySelected = (categories) => {
+        setCategorySelected(categories);
+        const message = defaultMessage(null,categories);
+        form.setValue("message", message);
+    }
+
+    React.useImperativeHandle(ref, () => ({
+        getConditionValue: () => {
+            const objCondition = actionList.find(obj => obj.label == condition);
+            return objCondition;
+        },
+        getServices: () => {
+            return serviceSelected;
+        },
+        getCategories : () => {
+            return categorySelected;
+        } 
+    }));
 
     return (
         <>
@@ -46,7 +75,7 @@ const MarketingAction = ({
                         name="condition"
                         title="Condition"
                         items={actionList}
-                        defaultValue={'0'}
+                        defaultValue={'1'}
                         onSelect={(item) => {
                             setAction(item.label)
                         }}
@@ -58,7 +87,7 @@ const MarketingAction = ({
             {
                 <Collapsible collapsed={!(condition == "Discount for specific services")} duration={200}>
                     <InputService
-                        apply={(services) => setServiceSelected(services)}
+                        apply={onChangeServiceSelected}
                         serviceSelected={serviceSelected}
                     />
                     <View style={styles.containerServices}>
@@ -88,7 +117,7 @@ const MarketingAction = ({
             {
                 <Collapsible collapsed={!(condition == "Discount for category")} duration={200}>
                     <InputCategory
-                        apply={(categories) => setCategorySelected(categories)}
+                        apply={onChangeCategorySelected}
                         categorySelected={categorySelected}
                     />
                     <View style={styles.containerServices}>
@@ -118,7 +147,8 @@ const MarketingAction = ({
             }
         </>
     );
-};
+});
+
 
 export default MarketingAction;
 
@@ -132,7 +162,7 @@ const styles = StyleSheet.create({
         color: colors.ocean_blue,
         fontFamily: fonts.REGULAR,
         fontSize: scaleFont(16),
-        flexShrink : 1
+        flexShrink: 1
     },
 
     wrapService: {
