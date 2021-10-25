@@ -11,7 +11,10 @@ export const useProps = (_params) => {
   const dispatch = useDispatch();
 
   const [t] = useTranslation();
-  const { auth: { staff } } = useSelector(state => state);
+  const { 
+    auth: { staff },
+    merchant : { merchantDetail }
+   } = useSelector(state => state);
 
   const form = useForm({
 
@@ -60,7 +63,7 @@ export const useProps = (_params) => {
   });
 
 
-  const defaultMessage = () => {
+  const defaultMessage = (conditionServiceProductTags) => {
     const actionMsg = "";
 
     const promotionMsg =
@@ -68,9 +71,10 @@ export const useProps = (_params) => {
         ? promotionValue + " %"
         : "$ " + promotionValue;
 
-    const businessName = staff?.businessName ?? "";
+    const businessName = merchantDetail?.businessName ?? "";
 
     const conditionValue = conditionRef?.current?.getConditionValue().value;
+    const servicesCondition = conditionRef?.current?.getServices();
 
     const {
       visibleEndDate,
@@ -96,8 +100,9 @@ export const useProps = (_params) => {
         // ====> return text message
         return `Look out! 👀 ${businessName} is waiting for you to claim their special ${title} promotion to get ${promotionMsg} ${actionMsg}. ${endDateMsg} 🏃🏻‍♀️ and book your appointment on HarmonyPay App now!`;
       case 2:
+        const arrMessage = conditionServiceProductTags ? conditionServiceProductTags : servicesCondition;
         const serviceMsg =
-          conditionServiceProductTags?.map((x) => x.value || "").join(", ") ||
+          arrMessage?.map((x) => x.name || "").join(", ") ||
           "";
         // ====> return text message
         return `More for less and all for you! During their ${title} promotion,choose any of ${serviceMsg} at ${businessName} to get ${promotionMsg}${actionMsg}. Hurry and book your appointment on HarmonyPay App now to grab this deal!`;
@@ -120,7 +125,7 @@ export const useProps = (_params) => {
 
 
   React.useEffect(() => {
-    if (condition && defaultMessage ) {
+    if (condition && defaultMessage) {
       setConditionId(condition.value);
       const message = defaultMessage();
       form.setValue("message", message);

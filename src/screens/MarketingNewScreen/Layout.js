@@ -73,11 +73,14 @@ export const Layout = ({
                 name="campaignName"
                 placeholder="Campaign name"
                 error={errors?.campaignName}
+                onBlur={() => {
+                  form.setValue("message", defaultMessage());
+                }}
               />
             }
           />
 
-          <MarketingDatePicker 
+          <MarketingDatePicker
             ref={datePickerRef}
           />
 

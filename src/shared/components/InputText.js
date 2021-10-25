@@ -27,10 +27,16 @@ export const InputText = React.forwardRef(
       defaultValue = '',
       defaultValueRemove = '',
       maxLength = 1600,
+      onBlur = () =>{}
     },
     ref,
   ) => {
     const [isFocus, setFocus] = React.useState(false);
+
+    const onBlurInput = () =>{
+      setFocus(false);
+      onBlur();
+    }
 
     const { field } = useController({
       control: form.control,
@@ -66,7 +72,7 @@ export const InputText = React.forwardRef(
             maxLength={maxLength}
             keyboardType={keyboardType}
             onFocus={() => setFocus(true)}
-            onBlur={() => setFocus(false)}
+            onBlur={onBlurInput}
           />
           {renderRight
             ? renderRight()

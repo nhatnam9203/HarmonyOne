@@ -19,6 +19,7 @@ const conditionList = [
 const MarketingCondition = React.forwardRef(({
     form,
     errors,
+    defaultMessage
 }, ref) => {
 
     const [condition, setCondition] = React.useState("No condition");
@@ -32,12 +33,21 @@ const MarketingCondition = React.forwardRef(({
         setServiceSelected(tepmServices);
     }
 
-    React.useImperativeHandle(ref,()=>({
-        getConditionValue : () =>{
-            const objCondition = conditionList.find(obj=>obj.label == condition);
+    React.useImperativeHandle(ref, () => ({
+        getConditionValue: () => {
+            const objCondition = conditionList.find(obj => obj.label == condition);
             return objCondition;
+        },
+        getServices : () =>{
+            return serviceSelected;
         }
     }));
+
+    const onChangeServiceSelected = (services) => {
+        setServiceSelected(services);
+        const message = defaultMessage(services);
+        form.setValue("message", message);
+    }
 
     return (
         <>
@@ -50,7 +60,7 @@ const MarketingCondition = React.forwardRef(({
                         name="condition"
                         title="Condition"
                         items={conditionList}
-                        defaultValue={'0'}
+                        defaultValue={'1'}
                         onSelect={(item) => {
                             setCondition(item.label);
                         }}
@@ -62,7 +72,7 @@ const MarketingCondition = React.forwardRef(({
             {
                 <Collapsible collapsed={!(condition == "Using specific services")} duration={200}>
                     <InputService
-                        apply={(services) => setServiceSelected(services)}
+                        apply={onChangeServiceSelected}
                         serviceSelected={serviceSelected}
                     />
                     <View style={styles.containerServices}>
