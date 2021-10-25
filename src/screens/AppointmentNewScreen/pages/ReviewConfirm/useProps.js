@@ -20,7 +20,7 @@ export const useProps = (_params) => {
   const dialogBookingRef = React.useRef();
 
   const {
-    bookAppointment: { customerBooking = {}, servicesBooking = [], extrasBooking = [], dayBooking, timeBooking, isQuickCheckout },
+    bookAppointment: { customerBooking = {}, servicesBooking = [], extrasBooking = [], productsBooking = [] ,dayBooking, timeBooking, isQuickCheckout },
     appointment: { appointmentDate },
     auth: { staff },
 
@@ -30,6 +30,7 @@ export const useProps = (_params) => {
 
   const [, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
+    queryId : "etchAppointmentByDate_reviewConfirm",
     isLoadingDefault: true,
     enabled: false,
     onSuccess: (data, response) => {
@@ -52,6 +53,7 @@ export const useProps = (_params) => {
         const tempData = {
           services: servicesBooking,
           extras: extrasBooking.map(ex => ({ extraId: ex.extraId })),
+          product : [],
           products: [],
           giftCards: [],
         }
@@ -63,6 +65,7 @@ export const useProps = (_params) => {
 
   const [, fetchAppointmentById] = useAxiosQuery({
     ...getAppointmentById(appointmentIdUpdate),
+    queryId : "fetchAppointmentById_reviewConfirm",
     enabled: false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
@@ -103,6 +106,7 @@ export const useProps = (_params) => {
     customerBooking,
     servicesBooking,
     extrasBooking,
+    productsBooking,
     dayBooking,
     timeBooking,
     dialogBookingRef,
@@ -137,6 +141,9 @@ export const useProps = (_params) => {
         price += formatNumberFromCurrency(servicesBooking[i].price);
         duration += servicesBooking[i].duration;
       }
+      for (let i = 0; i < productsBooking.length; i++) {
+        price += parseFloat(formatNumberFromCurrency(productsBooking[i].price)) * productsBooking[i].quantity;
+      }
       for (let i = 0; i < extrasBooking.length; i++) {
         if (extrasBooking[i].checked) {
           price += formatNumberFromCurrency(extrasBooking[i].price);
@@ -161,6 +168,10 @@ export const useProps = (_params) => {
       dispatch(bookAppointment.deleteService(service))
     },
 
+    deleteProduct : (product) =>{
+      dispatch(bookAppointment.deleteProduct(product))
+    },
+
     changeDateTime: () => {
       NavigationService.navigate(screenNames.SelectDateTime);
     },
@@ -172,7 +183,7 @@ export const useProps = (_params) => {
 
     onPressBack: () => {
       if (isQuickCheckout) {
-        NavigationService.navigate(screenNames.SelectStaff);
+        NavigationService.back()
       } else {
         NavigationService.navigate(screenNames.SelectDateTime);
       }
@@ -190,7 +201,7 @@ export const useProps = (_params) => {
         categories: [],
         services: [],
         extras: [],
-        products: [],
+        products: productsBooking,
       }
 
       const body = await addAppointment(data);

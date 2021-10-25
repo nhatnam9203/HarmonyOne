@@ -44,6 +44,9 @@ import { EditAppointmentScreen } from "./EditAppointmentScreen";
 import { AddServicePage } from "./ServiceScreen/pages/AddServicePage";
 import { AddServiceDetailPage } from "./ServiceScreen/pages/AddServiceDetailPage";
 import { EnterAmountPage } from "./CheckoutScreen/pages/EnterAmountPage";
+import { InvoiceScreen } from "./InvoiceScreen";
+import { InvoiceDetailScreen } from "./InvoiceDetailScreen";
+import { SelectPeriod } from "../shared/components/SelectPeriod"
 
 
 module.exports = {
@@ -91,4 +94,7 @@ module.exports = {
   AddServicePage,
   AddServiceDetailPage,
   EnterAmountPage,
+  InvoiceScreen,
+  InvoiceDetailScreen,
+  SelectPeriod
 };

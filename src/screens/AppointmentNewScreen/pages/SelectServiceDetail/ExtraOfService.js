@@ -28,7 +28,7 @@ export const ExtraOfService = ({ extras = [], onChangeExtraService, durationServ
                 total += formatNumberFromCurrency(el.price);
             }
         }
-        return formatMoney(total);
+        return `$ ${formatMoney(total)}`;
     }
 
     return (

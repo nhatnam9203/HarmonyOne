@@ -60,7 +60,7 @@ export const images = {
   iconAddMore: require('@src/assets/images/iconAddMore.png'),
   iconAddNote: require('@src/assets/images/iconAddNote.png'),
   iconTrash: require('@src/assets/images/trash.png'),
-  iconChecked: require('@src/assets/images/checked.png'),
+  iconChecked: require('@src/assets/images/iconChecked.png'),
   iconCloseSettlement: require('@src/assets/images/iconCloseSettlement.png'),
   iconInventory: require('@src/assets/images/iconInventory.png'),
   staff_default: require('@src/assets/images/staff_default.png'),
@@ -87,6 +87,11 @@ export const images = {
   downarrow: require('@src/assets/images/down-arrow.png'),
   iconLoading: require('@src/assets/images/Loading.gif'),
   scancode: require('@src/assets/images/scancode.png'),
+  date_range: require('@src/assets/images/date_range.png'),
+  iconCalendar2: require('@src/assets/images/iconCalendar2.png'),
+  iconPrint: require('@src/assets/images/print.png'),
+  iconShare: require('@src/assets/images/share_icon.png'),
+
 
 
   EmptyList: require('@src/assets/images/emptyList.png'),

@@ -32,6 +32,7 @@ const ScreenNames = {
   CheckoutScreen : 'hpo.checkout',
   SelectService : 'hpo.appointment.booking.selectService',
   SelectServiceDetail : 'hpo.appointment.booking.selectService.detail',
+  SelectProductDetail : 'hpo.appointment.booking.selectProduct.detail',
   SelectStaff : 'hpo.appointment.booking.selectStaff',
   SelectDateTime : 'hpo.appointment.booking.selectDateTime',
   ReviewConfirm : 'hpo.appointment.booking.reviewConfirm',
@@ -50,6 +51,9 @@ const ScreenNames = {
   AddServicePage : "hpo.addService",
   AddServiceDetailPage : "hpo.addServiceDetailPage",
   EnterAmountPage : "hpo.enterAmountPage",
+  InvoiceScreen : "hpo.invoice",
+  InvoiceDetailScreen : "hpo.invoice.detail",
+  SelectPeriod: "hpo.selectPeriod",
 };
 
 module.exports = { ScreenNames };

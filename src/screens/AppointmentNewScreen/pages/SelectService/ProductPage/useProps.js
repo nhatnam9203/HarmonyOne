@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from "react-redux";
+import NavigationService from '@navigation/NavigationService';
 
 export const useProps = (_params) => {
 
@@ -10,7 +11,8 @@ export const useProps = (_params) => {
 
     const {
         category: { category = [] },
-        product: { products = [] }
+        product: { products = [] },
+        bookAppointment : { productsBooking = [] }
     } = useSelector(state => state);
 
     const categoryList = category.filter(ct => ct?.categoryType?.toString()?.toLowerCase() == "product" && ct.isDisabled == 0);
@@ -32,6 +34,11 @@ export const useProps = (_params) => {
         categorySelected,
         categoryList,
         data,
+        productsBooking,
+
+        selectProduct : (item) =>{
+            NavigationService.navigate(screenNames.SelectProductDetail, { item });
+        },
 
         selectCategory: (categoryId) => {
             setCategorySelected(categoryId);

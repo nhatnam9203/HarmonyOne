@@ -12,6 +12,8 @@ export const Layout = ({
     data,
     categoryList,
     selectCategory,
+    selectProduct,
+    productsBooking,
 }) => {
 
     const {
@@ -56,7 +58,8 @@ export const Layout = ({
                     renderItem={({ item }) =>
                         <ServiceItem
                             service={item}
-                            onPress={()=>{Alert.alert('book product đang làm ^_^')}}
+                            onPress={() => selectProduct(item)}
+                            disabled={productsBooking.find(s=>s?.productId == item?.productId)}
                         />
                     }
                     renderSectionHeader={({ section }) => {

@@ -93,6 +93,7 @@ export const Layout = ({
           <AppointmentServiceList
             services={appointmentItem?.services}
             extras={appointmentItem?.extras}
+            products={appointmentItem?.products}
           />
 
           <TotalView

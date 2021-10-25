@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, FlatList } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { fonts, colors, images } from '@shared/themes';
+import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
 
 export const ItemList = ({
     services = [],
@@ -21,12 +22,13 @@ export const ItemList = ({
 
 
     const renderItem = (item) => {
+        const priceShow = parseFloat(formatNumberFromCurrency(item?.price)) * parseInt(item?.qty);
         return (
             <View key={item?.key?.toString()} style={styles.item}>
                 <View style={styles.row}>
                     <Text style={styles.name}>{item?.name}</Text>
                     <Text style={styles.price}>
-                        {`$ ${item?.price}`}
+                        {`$ ${formatMoney(priceShow)}`}
                     </Text>
                 </View>
                 <Text style={styles.qty}>{`${item?.qty} item`}</Text>
@@ -44,12 +46,6 @@ export const ItemList = ({
                     renderItem(item)
                 ))
             }
-            {/* <FlatList
-                data={itemList}
-                keyExtractor={(item) => item?.key?.toString()}
-                renderItem={({ item }) => renderItem(item)}
-                style={styles.flatList}
-            /> */}
         </View>
     );
 };
