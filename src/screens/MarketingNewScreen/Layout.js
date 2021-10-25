@@ -40,11 +40,12 @@ export const Layout = ({
   getActionSheets,
   actionRef,
   conditionRef,
+  datePickerRef,
   checked,
   setChecked,
   imageUrl,
   onUploadImage,
-
+  defaultMessage,
 }) => {
 
   const [t] = useTranslation();
@@ -76,12 +77,15 @@ export const Layout = ({
             }
           />
 
-          <MarketingDatePicker />
+          <MarketingDatePicker 
+            ref={datePickerRef}
+          />
 
           <MarketingCondition
             form={form}
             errors={errors}
             ref={conditionRef}
+            defaultMessage={defaultMessage}
           />
 
           <MarketingAction

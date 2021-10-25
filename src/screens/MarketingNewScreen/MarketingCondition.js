@@ -9,11 +9,11 @@ import AntDesign from "react-native-vector-icons/AntDesign"
 import Collapsible from "react-native-collapsible";
 
 const conditionList = [
-    { label: "No condition", value: "0" },
-    { label: "Using specific services", value: "1" },
-    { label: "Customer birthday is within the week", value: "2" },
-    { label: "Time using the service reacthed the quality", value: "3" },
-    { label: "The customer is the referral", value: "4" },
+    { label: "No condition", value: "1" },
+    { label: "Using specific services", value: "2" },
+    { label: "Customer birthday is within the week", value: "3" },
+    { label: "Time using the service reacthed the quality", value: "4" },
+    { label: "The customer is the referral", value: "5" },
 ];
 
 const MarketingCondition = React.forwardRef(({
@@ -34,7 +34,7 @@ const MarketingCondition = React.forwardRef(({
 
     React.useImperativeHandle(ref,()=>({
         getConditionValue : () =>{
-            const objCondition = conditionList.filter(obj=>obj.label == condition);
+            const objCondition = conditionList.find(obj=>obj.label == condition);
             return objCondition;
         }
     }));
@@ -52,7 +52,7 @@ const MarketingCondition = React.forwardRef(({
                         items={conditionList}
                         defaultValue={'0'}
                         onSelect={(item) => {
-                            setCondition(item.label)
+                            setCondition(item.label);
                         }}
                     />
 

@@ -45,16 +45,7 @@ const MarketingDatePicker = React.forwardRef(({
                                 setStartDay(day)
                             }}
                             componentRender={() =>
-                                <View style={styles.inputSelectTime}>
-                                    <Text style={styles.txtTime}>
-                                        {moment(startDay).format("MM-DD-YYYY")}
-                                    </Text>
-                                    <Image
-                                        source={images.iconCalendar}
-                                        style={styles.iconCalendar}
-                                        resizeMode='contain'
-                                    />
-                                </View>
+                                <TempInput title={moment(startDay).format("YYYY-MM-DD")} />
                             }
                         />
                         <InputSelectTime
@@ -63,16 +54,7 @@ const MarketingDatePicker = React.forwardRef(({
                             }}
                             time={startTime}
                             renderInput={() => (
-                                <View style={[styles.inputSelectTime, { marginLeft: scaleWidth(16) }]}>
-                                    <Text style={styles.txtTime}>
-                                        {startTime}
-                                    </Text>
-                                    <Image
-                                        source={images.dropdown}
-                                        style={styles.iconTimeSelect}
-                                        resizeMode='contain'
-                                    />
-                                </View>
+                                <TempInput title={startTime} isRight />
                             )}
                         />
                     </View>
@@ -90,23 +72,20 @@ const MarketingDatePicker = React.forwardRef(({
                                 dayPicked={endDay}
                                 onApply={(day) => { setEndDay(day) }}
                                 componentRender={() =>
-                                    <View style={styles.inputSelectTime}>
-                                        <Text style={styles.txtTime}>
-                                            {moment(endDay).format("MM-DD-YYYY")}
-                                        </Text>
-                                        <Image
-                                            source={images.iconCalendar}
-                                            style={styles.iconCalendar}
-                                            resizeMode='contain'
-                                        />
-                                    </View>
+                                    <InputSelectTime
+                                        apply={(time) => setEndTime(time)}
+                                        time={endTime}
+                                        renderInput={() => (
+                                            <TempInput title={moment(endDay).format("YYYY-MM-DD")} />
+                                        )}
+                                    />
                                 }
                             />
                             <InputSelectTime
                                 apply={(time) => setEndTime(time)}
                                 time={endTime}
                                 renderInput={() => (
-                                   <TempInput title={endTime} isRight />
+                                    <TempInput title={endTime} isRight />
                                 )}
                             />
                         </View> : null
@@ -116,7 +95,8 @@ const MarketingDatePicker = React.forwardRef(({
     );
 });
 
-const TempInput = ({title, isRight}) => {
+
+const TempInput = ({ title, isRight }) => {
     return (
         <View style={[styles.inputSelectTime, { marginLeft: isRight ? scaleWidth(16) : 0 }]}>
             <Text style={styles.txtTime}>
