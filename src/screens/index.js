@@ -47,6 +47,7 @@ import { EnterAmountPage } from "./CheckoutScreen/pages/EnterAmountPage";
 import { InvoiceScreen } from "./InvoiceScreen";
 import { InvoiceDetailScreen } from "./InvoiceDetailScreen";
 import { SelectPeriod } from "../shared/components/SelectPeriod"
+import { AddServiceCheckboxPage } from "./ServiceScreen/pages/AddServiceCheckboxPage";
 
 
 module.exports = {
@@ -96,5 +97,6 @@ module.exports = {
   EnterAmountPage,
   InvoiceScreen,
   InvoiceDetailScreen,
-  SelectPeriod
+  SelectPeriod,
+  AddServiceCheckboxPage
 };
