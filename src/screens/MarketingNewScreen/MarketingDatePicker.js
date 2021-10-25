@@ -22,8 +22,8 @@ const MarketingDatePicker = React.forwardRef(({
 
 
     React.useImperativeHandle(ref, () => ({
-        getValueDatePicker : () =>{
-            return{
+        getValueDatePicker: () => {
+            return {
                 visibleEndDate,
                 startDay,
                 endDay,
@@ -41,7 +41,7 @@ const MarketingDatePicker = React.forwardRef(({
                     <View style={{ flexDirection: "row" }}>
                         <DayPicker
                             dayPicked={startDay}
-                            onApply={(day) => { 
+                            onApply={(day) => {
                                 setStartDay(day)
                             }}
                             componentRender={() =>
@@ -58,8 +58,8 @@ const MarketingDatePicker = React.forwardRef(({
                             }
                         />
                         <InputSelectTime
-                            apply={(time) => { 
-                               setStartTime(time);
+                            apply={(time) => {
+                                setStartTime(time);
                             }}
                             time={startTime}
                             renderInput={() => (
@@ -106,16 +106,7 @@ const MarketingDatePicker = React.forwardRef(({
                                 apply={(time) => setEndTime(time)}
                                 time={endTime}
                                 renderInput={() => (
-                                    <View style={[styles.inputSelectTime, { marginLeft: scaleWidth(16) }]}>
-                                        <Text style={styles.txtTime}>
-                                            {endTime}
-                                        </Text>
-                                        <Image
-                                            source={images.dropdown}
-                                            style={styles.iconTimeSelect}
-                                            resizeMode='contain'
-                                        />
-                                    </View>
+                                   <TempInput title={endTime} isRight />
                                 )}
                             />
                         </View> : null
@@ -123,8 +114,22 @@ const MarketingDatePicker = React.forwardRef(({
             />
         </>
     );
-
 });
+
+const TempInput = ({title, isRight}) => {
+    return (
+        <View style={[styles.inputSelectTime, { marginLeft: isRight ? scaleWidth(16) : 0 }]}>
+            <Text style={styles.txtTime}>
+                {title}
+            </Text>
+            <Image
+                source={isRight ? images.dropdown : images.iconCalendar}
+                style={isRight ? styles.iconTimeSelect : styles.iconCalendar}
+                resizeMode='contain'
+            />
+        </View>
+    )
+}
 
 export default MarketingDatePicker;
 
