@@ -22,18 +22,6 @@ const PopupFilterCustomer = React.forwardRef(
             onApply(customerList);
         };
 
-        const onHandleNOButtonPress = () => {
-            hideModal();
-        };
-
-        const onHandleYESButtonPress = () => {
-            hideModal();
-            if (onConfirmYes && typeof onConfirmYes === "function") {
-                onConfirmYes();
-                hideModal();
-            }
-        };
-
         const onChangeCheckedCustomer = (item) => {
             let tempCustomerList = [...customerList];
             const index = tempCustomerList.findIndex(obj => obj?.customerId == item?.customerId);
@@ -119,7 +107,7 @@ const ItemCustomer = ({ item, onChangeCheckedCustomer }) => {
                     value={item?.checked}
                     onValueChange={onChangeCheckedCustomer}
                     boxType='square'
-                    style={{ width: 18, height: 18, marginRight: scaleWidth(8) }}
+                    style={{ width: 18, height: 18, marginRight: scaleWidth(12) }}
                 />
                 <Text style={[styles.txtItem, { width: scaleWidth(120) }]}>{`${item?.firstName} ${item?.lastName}`}</Text>
             </View>
@@ -141,7 +129,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 1,
         backgroundColor: "#eeeeee",
-        marginVertical: 5
+        marginVertical: 7
     },
     txtItem: {
         fontFamily: fonts.REGULAR,
@@ -194,17 +182,6 @@ const styles = StyleSheet.create({
         margin: 0,
     },
 
-    txtTitle: {
-        fontFamily: fonts.BOLD,
-        fontSize: scaleFont(19),
-        fontWeight: "500",
-        fontStyle: "normal",
-        letterSpacing: 0,
-        textAlign: "center",
-        marginHorizontal: scaleWidth(16),
-        color: colors.WHITE,
-    },
-
     buttonClose: {
         width: scaleWidth(28),
         height: scaleHeight(28),
@@ -222,16 +199,6 @@ const styles = StyleSheet.create({
         width: scaleWidth(28),
         height: scaleHeight(28),
         tintColor: "#404040",
-    },
-
-    titleContent: {
-        fontFamily: fonts.REGULAR,
-        marginTop: scaleHeight(20),
-        fontSize: scaleFont(15),
-        marginHorizontal: scaleWidth(16),
-        fontStyle: "normal",
-        letterSpacing: 0,
-        textAlign: "center",
     },
 
     bottomStyle: {

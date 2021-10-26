@@ -365,6 +365,8 @@ export const useProps = (props) => {
       const actionServices = actionRef?.current?.getServices();
       const actionCategories = actionRef?.current?.getCategories();
 
+      const smsType = smsConfigurationRef?.current?.getSmsType();
+
       const {
         visibleEndDate,
         startDay,
@@ -398,7 +400,7 @@ export const useProps = (props) => {
         isDisabled: isDisabled ? 1 : 0,
         smsAmount: smsAmount,
         customerSendSMSQuantity: customerSendSMSQuantity ?? 0,
-        fileId: 0,
+        fileId: smsType == "sms" ? 0 : smsConfigurationRef?.current?.getFileId(),
         smsType: smsConfigurationRef?.current?.getSmsType(),
         content: form.getValues("message"),
         noEndDate: visibleEndDate,

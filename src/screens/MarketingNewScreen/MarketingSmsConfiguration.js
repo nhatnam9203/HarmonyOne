@@ -3,9 +3,11 @@ import { View, StyleSheet, Text } from 'react-native';
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { IconButton, CustomInput, InputText, InputSelect, InputDate, ButtonUpload } from "@shared/components";
+import { createFormData } from "@shared/utils";
 import { WithPopupActionSheet } from "@shared/HOC";
 import { Switch } from "react-native-paper";
 import { RadioButton } from 'react-native-paper';
+import { uploadAvatarStaff, useAxiosMutation } from "@src/apis";
 import RadioButtonRN from 'radio-buttons-react-native';
 import Collapsible from "react-native-collapsible";
 
@@ -19,35 +21,45 @@ const dataRadioButton = [
 ];
 
 
-let EditButton = ({ ...props }) => {
-    return (
-        <IconButton
-            icon={images.treedot}
-            iconStyle={styles.treedot}
-            style={styles.buttonTreedot}
-            onPress={() => { }}
-            {...props}
-        />
-    );
-};
-
-EditButton = WithPopupActionSheet(EditButton);
-
 const MarketingSmsConfiguration = React.forwardRef(({
-    onUploadImage,
-    imageUrl,
     openPopupFilterCustomer
 }, ref) => {
     const [smsType, setSmsType] = React.useState("sms");
+
+    const [fileId, setFileId] = React.useState(0);
+    const [imageUrl, setImageUrl] = React.useState("");
+
+    const [, submitUploadAvatarStaff] = useAxiosMutation({
+        ...uploadAvatarStaff(),
+        queryId: "uploadImageMMS",
+        onSuccess: (data, response) => {
+            if (response.codeNumber == 200) {
+                setFileId(data?.fileId ?? 0);
+                setImageUrl(data?.url);
+            }
+        },
+    });
+
+    const onUploadImage = async (response) => {
+        let files = response?.assets ?? [];
+        files = createFormData(files);
+        const body = await uploadAvatarStaff(files);
+        submitUploadAvatarStaff(body.params);
+    }
 
     React.useImperativeHandle(ref, () => ({
         getSmsType: () => {
             return smsType;
         },
 
+        getFileId: () => { return fileId },
+
+        setFileId: (data) => { setFileId(data) },
+
         setSmsType: (type) => {
             setSmsType(type);
-        }
+        },
+
 
     }));
 
@@ -55,7 +67,7 @@ const MarketingSmsConfiguration = React.forwardRef(({
         <>
             <CustomInput
                 label='SMS/MMS configuration'
-                style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", width : "100%" }}
+                style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", width: "100%" }}
                 renderRight={() =>
                     <IconButton
                         icon={images.iconFilter}
@@ -115,7 +127,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderWidth: 1,
         borderColor: "#cccccc",
-        marginTop : -5
+        marginTop: -5
     },
 
     content: {
