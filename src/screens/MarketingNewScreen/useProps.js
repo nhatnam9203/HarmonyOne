@@ -3,23 +3,23 @@ import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { colors } from "@shared/themes";
 import { useForm, useWatch } from "react-hook-form";
-import { getSmsInformation, useAxiosQuery } from "@src/apis";
+import { getSmsInformation, useAxiosQuery, getCustomerCanbeSendPromotion } from "@src/apis";
 import { marketing } from "@redux/slices";
 import { isEmpty } from "lodash";
 import { getShortNameForDiscountAction, formatMoney, formatNumberFromCurrency } from "@shared/utils";
 import moment from "moment";
 
-export const useProps = (_params) => {
+export const useProps = (props) => {
   const dispatch = useDispatch();
+
+  const merchantPromotionId = props?.route?.params?.merchantPromotionId || 0;
 
   const [t] = useTranslation();
   const {
     auth: { staff },
     merchant: { merchantDetail },
-    marketing: { smsInfoMarketing }
+    marketing: { smsInfoMarketing },
   } = useSelector(state => state);
-
-  console.log({ smsInfoMarketing })
 
   const form = useForm({
 
@@ -34,19 +34,37 @@ export const useProps = (_params) => {
   const [checked, setChecked] = React.useState(false);
   const [imageUrl, setImageUrl] = React.useState("");
   const [visibleEndDate, setVisibleEndDate] = React.useState(true);
-  const [conditionId, setConditionId] = React.useState(2);
+  const [conditionId, setConditionId] = React.useState(1);
 
   const [dataServiceProduct, setDataServiceProduct] = useState([]);
   const [dataCategory, setDataCategory] = useState([]);
   const [numberOfTimesApply, setNumberOfTimesApply] = useState("");
   const [actionTags, setActionTags] = useState([]);
-  const [isDisabled, setIsDisabled] = useState(true);
   const [customerSendSMSQuantity, setCustomerSendSMSQuantity] = useState(0);
   const [smsAmount, setSmsAmount] = useState("0.00");
   const [smsMaxAmount, setSmsMaxAmount] = useState("0.00");
   const [messageContent, setMessageContent] = React.useState(null);
   const [smsMaxCustomer, setSMSMaxCustomer] = React.useState(1);
   const [valueSlider, setValueSlider] = React.useState(0);
+  const [isDisabled, setDisabled] = useState(true);
+  const [isManually, setManually] = useState(true);
+
+
+
+  const [, fetchCustomerCanbeSendPromotion] = useAxiosQuery({
+    ...getCustomerCanbeSendPromotion(merchantPromotionId, staff?.merchantId),
+    queryId: "fetchCustomerCanbeSendPromotion_newCampaign",
+    enabled: false,
+    onSuccess: (data, response) => {
+      if (response?.codeNumber == 200) {
+        setSMSMaxCustomer(data.length);
+      }
+    }
+  });
+
+  React.useEffect(()=>{
+    fetchCustomerCanbeSendPromotion();
+  },[merchantPromotionId])
 
 
 
@@ -207,8 +225,9 @@ export const useProps = (_params) => {
     // );
   };
 
+
   React.useEffect(() => {
-    if (isEmpty(smsInfoMarketing)) {
+    if (!isEmpty(smsInfoMarketing)) {
       const customerCount = Math.max(
         smsInfoMarketing?.customerCount,
         smsMaxCustomer
@@ -243,7 +262,7 @@ export const useProps = (_params) => {
       const message = defaultMessage();
       form.setValue("message", message);
     }
-  }, [condition, actionCondition]);
+  }, [condition]);
 
   React.useEffect(() => {
     form.setValue("message", defaultMessage());
@@ -277,6 +296,10 @@ export const useProps = (_params) => {
     setChecked,
     smsAmount,
     customerSendSMSQuantity,
+    isManually,
+    isDisabled,
+    setDisabled,
+    setManually,
 
     getActionSheets: (category) => [
       {

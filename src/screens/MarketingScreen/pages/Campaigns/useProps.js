@@ -11,7 +11,8 @@ export const useProps = (_params) => {
   const [t] = useTranslation();
 
   const {
-    marketing: { promotion = [] }
+    marketing: { promotion = [] },
+    auth: { staff }
   } = useSelector(state => state);
 
   const [, fetchPromotion] = useAxiosQuery({
@@ -22,7 +23,8 @@ export const useProps = (_params) => {
         dispatch(marketing.setPromotion(data));
       }
     },
-  })
+  });
+
 
   React.useEffect(() => {
     fetchPromotion();
@@ -31,8 +33,9 @@ export const useProps = (_params) => {
   return {
     promotion,
 
-    newMarketing : () =>{
+    newMarketing: () => {
       NavigationService.navigate(screenNames.MarketingNewScreen);
+
     }
   };
 };

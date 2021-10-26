@@ -51,7 +51,11 @@ export const Layout = ({
   valueSlider,
   hanldeSliderValue,
   smsAmount,
-  customerSendSMSQuantity
+  customerSendSMSQuantity,
+  isManually,
+  isDisabled,
+  setDisabled,
+  setManually,
 }) => {
 
   const [t] = useTranslation();
@@ -128,14 +132,14 @@ export const Layout = ({
           />
 
           <IconButton
-            iconComponent={() => <SwitchButton />}
+            iconComponent={() => <Switch color={colors.ocean_blue} onValueChange={setDisabled} value={isDisabled} />}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
             renderText={() => <Text style={styles.txtItem}>{t('Active')}</Text>}
           />
 
           <IconButton
-            iconComponent={() => <SwitchButton />}
+            iconComponent={() => <Switch color={colors.ocean_blue} onValueChange={setManually} value={isManually} />}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
             renderText={() => <Text style={styles.txtItem}>{t('Manually')}</Text>}
@@ -156,18 +160,6 @@ export const Layout = ({
   );
 };
 
-
-const SwitchButton = ({
-  isVisible = false, onChange
-}) => {
-  return (
-    <Switch
-      value={isVisible}
-      onValueChange={onChange}
-      color={colors.ocean_blue}
-    />
-  )
-}
 
 
 const styles = StyleSheet.create({

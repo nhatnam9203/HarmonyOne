@@ -27,7 +27,7 @@ const marketingSlice = createSlice({
         },
         setSmsInfoMarketing : (state, action) => {
             state.smsInfoMarketing = action.payload;
-        }
+        },
     },
 });
 

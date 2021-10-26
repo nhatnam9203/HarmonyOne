@@ -59,7 +59,7 @@ const MarketingCondition = React.forwardRef(({
                     <InputSelect
                         ref={conditionRef}
                         form={form}
-                        name="actionCondition"
+                        name="condition"
                         title="Condition"
                         items={conditionList}
                         defaultValue={'1'}

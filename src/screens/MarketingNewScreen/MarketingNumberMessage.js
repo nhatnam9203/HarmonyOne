@@ -55,8 +55,8 @@ const MarketingMessageNumber = ({
                 smsMaxMoney={smsMaxAmount}
             />
             <View style={styles.row}>
-                <Text style={styles.txtItem}>{"$ 0.00"}</Text>
-                <Text style={styles.txtItem}>{`$ ${smsMaxAmount}`}</Text>
+                <Text style={[styles.txtItem,{ fontFamily : fonts.MEDIUM }]}>{"$ 0.00"}</Text>
+                <Text style={[styles.txtItem,{ fontFamily : fonts.MEDIUM }]}>{`$ ${smsMaxAmount}`}</Text>
             </View>
         </View>
     )
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: scaleFont(17),
         fontFamily: fonts.REGULAR,
-        marginBottom: scaleHeight(16),
+        marginBottom: scaleHeight(24),
         color: "#404040"
     }
 });
