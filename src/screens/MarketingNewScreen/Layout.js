@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, ScrollView, Alert } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, Alert , Image} from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
@@ -17,6 +17,8 @@ import MarketingDatePicker from './MarketingDatePicker';
 import SmsConfiguration from "./MarketingSmsConfiguration";
 import MarketingCondition from "./MarketingCondition";
 import MarketingAction from "./MarketingAction";
+
+import DropdownAlert from 'react-native-dropdownalert';
 
 
 let EditButton = ({ ...props }) => {
@@ -58,7 +60,8 @@ export const Layout = ({
   isDisabled,
   setDisabled,
   setManually,
-  handleCampaign
+  handleCampaign,
+  alertRef
 }) => {
 
   const [t] = useTranslation();
@@ -144,7 +147,7 @@ export const Layout = ({
           />
 
           <IconButton
-            iconComponent={() => <Switch color={colors.ocean_blue} onValueChange={setDisabled} value={isDisabled} />}
+            iconComponent={() => <Switch color={colors.ocean_blue} onValueChange={setDisabled} value={!isDisabled} />}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
             renderText={() => <Text style={styles.txtItem}>{t('Active')}</Text>}
@@ -168,6 +171,17 @@ export const Layout = ({
           width={'100%'}
         />
       </View>
+
+      <DropdownAlert
+        ref={alertRef}
+        closeInterval={2000}
+        infoColor="#1B68AC"
+        titleStyle={styles.titleAlertStyle}
+        messageStyle={styles.messageAlertStyle}
+        defaultContainer={styles.alertStyle}
+        renderImage={() => <Image source={images.harmonyPay} style={styles.iconHarmonyPay} />}
+      />
+
     </View>
   );
 };
@@ -233,5 +247,33 @@ const styles = StyleSheet.create({
     padding: scaleWidth(16),
     width: scaleWidth(375),
   },
+
+  messageAlertStyle: {
+    fontSize: scaleFont(15),
+    color: "white",
+    fontFamily: fonts.REGULAR
+  },
+
+  titleAlertStyle: {
+    fontSize: scaleFont(19),
+    color: "white",
+    fontFamily: fonts.BOLD
+  },
+
+  alertStyle: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 16,
+    paddingLeft: 20,
+    paddingTop: 30,
+    paddingBottom: 8
+  },
+
+  iconHarmonyPay: {
+    width: scaleWidth(45),
+    height: scaleWidth(45),
+    tintColor: "white"
+  }
+
 
 });

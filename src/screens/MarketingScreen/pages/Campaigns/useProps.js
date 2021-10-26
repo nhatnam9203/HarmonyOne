@@ -17,6 +17,7 @@ export const useProps = (_params) => {
 
   const [, fetchPromotion] = useAxiosQuery({
     ...getPromotionMerchant(),
+    queryId : "getCampaign",
     enabled: false,
     onSuccess: (data, response) => {
       if (response.codeNumber == 200) {

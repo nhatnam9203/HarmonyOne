@@ -3,11 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { colors } from "@shared/themes";
 import { useForm, useWatch } from "react-hook-form";
-import { getSmsInformation, useAxiosQuery, getCustomerCanbeSendPromotion } from "@src/apis";
+import { getSmsInformation, useAxiosQuery, getCustomerCanbeSendPromotion, createNewCampaign, useAxiosMutation, getPromotionMerchant } from "@src/apis";
 import { marketing } from "@redux/slices";
 import { isEmpty } from "lodash";
 import { getShortNameForDiscountAction, formatMoney, formatNumberFromCurrency } from "@shared/utils";
 import moment from "moment";
+import NavigationService from '@navigation/NavigationService';
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ export const useProps = (props) => {
   const conditionRef = React.useRef();
   const datePickerRef = React.useRef();
   const smsConfigurationRef = React.useRef();
+  const alertRef = React.useRef();
 
   const [checked, setChecked] = React.useState(false);
   const [imageUrl, setImageUrl] = React.useState("");
@@ -47,8 +49,8 @@ export const useProps = (props) => {
   const [messageContent, setMessageContent] = React.useState(null);
   const [smsMaxCustomer, setSMSMaxCustomer] = React.useState(1);
   const [valueSlider, setValueSlider] = React.useState(0);
-  const [isDisabled, setDisabled] = useState(true);
-  const [isManually, setManually] = useState(true);
+  const [isDisabled, setDisabled] = useState(false);
+  const [isManually, setManually] = useState(false);
   const [customerList, setCustomerList] = React.useState([]);
 
 
@@ -282,6 +284,27 @@ export const useProps = (props) => {
     }
   })
 
+  const [, submitCreateNewCampaign] = useAxiosMutation({
+    ...createNewCampaign(),
+    onSuccess: (data, response) => {
+      fetchPromotion();
+      alertRef?.current?.alertWithType('info', 'New Promotion', response?.message);
+    }
+  });
+
+  const [, fetchPromotion] = useAxiosQuery({
+    ...getPromotionMerchant(),
+    queryId: "reFetchCampaign",
+    enabled: false,
+    onSuccess: (data, response) => {
+      if (response.codeNumber == 200) {
+        dispatch(marketing.setPromotion(data));
+        NavigationService.back();
+      }
+    },
+  });
+
+
   return {
     form,
     errors,
@@ -290,6 +313,7 @@ export const useProps = (props) => {
     conditionRef,
     datePickerRef,
     smsConfigurationRef,
+    alertRef,
     checked,
     visibleEndDate,
     defaultMessage,
@@ -329,7 +353,7 @@ export const useProps = (props) => {
 
     hanldeSliderValue,
 
-    handleCampaign: () => {
+    handleCampaign: async () => {
 
       const conditionValue = conditionRef?.current?.getConditionValue().value;
       const servicesCondition = conditionRef?.current?.getServices();
@@ -367,7 +391,7 @@ export const useProps = (props) => {
         },
         promotionType: promotionType,
         promotionValue: `${promotionValue || "0.00"}`,
-        isDisabled: isDisabled ? 0 : 1,
+        isDisabled: isDisabled ? 1 : 0,
         smsAmount: smsAmount,
         customerSendSMSQuantity: customerSendSMSQuantity ?? 0,
         fileId: 0,
@@ -380,6 +404,9 @@ export const useProps = (props) => {
       };
 
       console.log({ campaign });
+
+      const body = await createNewCampaign(campaign);
+      submitCreateNewCampaign(body.params);
 
       // ------------ Check Valid ---------
       // let isValid = true;

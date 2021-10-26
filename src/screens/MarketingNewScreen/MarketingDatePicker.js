@@ -70,15 +70,11 @@ const MarketingDatePicker = React.forwardRef(({
                         <View style={{ flexDirection: "row" }}>
                             <DayPicker
                                 dayPicked={endDay}
-                                onApply={(day) => { setEndDay(day) }}
+                                onApply={(day) => {
+                                    setEndDay(day)
+                                }}
                                 componentRender={() =>
-                                    <InputSelectTime
-                                        apply={(time) => setEndTime(time)}
-                                        time={endTime}
-                                        renderInput={() => (
-                                            <TempInput title={moment(endDay).format("YYYY-MM-DD")} />
-                                        )}
-                                    />
+                                    <TempInput title={moment(endDay).format("YYYY-MM-DD")} />
                                 }
                             />
                             <InputSelectTime

@@ -84,6 +84,7 @@ export const useProps = (props) => {
           fetchGroupApointmentById();
           setPaymentDetail(response?.data);
           popupPaymentDetailRef?.current?.show();
+          setMethodPay(null);
         }
       }
     }

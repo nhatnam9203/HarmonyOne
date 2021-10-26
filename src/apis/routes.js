@@ -701,3 +701,11 @@ export const getCustomerCanbeSendPromotion = (merchantPromotionId, merchantId) =
   }
 });
 
+export const createNewCampaign = (data) => ({
+  queryId: 'createNewCampaign',
+  params: {
+    url: `MerchantPromotion?api-version=1.2`,
+    method: 'POST',
+    data,
+  }
+});
