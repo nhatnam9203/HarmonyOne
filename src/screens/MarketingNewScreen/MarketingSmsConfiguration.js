@@ -36,6 +36,7 @@ EditButton = WithPopupActionSheet(EditButton);
 const MarketingSmsConfiguration = React.forwardRef(({
     onUploadImage,
     imageUrl,
+    openPopupFilterCustomer
 }, ref) => {
     const [smsType, setSmsType] = React.useState("sms");
 
@@ -54,6 +55,15 @@ const MarketingSmsConfiguration = React.forwardRef(({
         <>
             <CustomInput
                 label='SMS/MMS configuration'
+                style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", width : "100%" }}
+                renderRight={() =>
+                    <IconButton
+                        icon={images.iconFilter}
+                        iconStyle={styles.iconFilter}
+                        style={styles.buttonFilter}
+                        onPress={openPopupFilterCustomer}
+                    />
+                }
                 renderInput={() =>
                     <RadioButtonRN
                         data={dataRadioButton}
@@ -91,6 +101,21 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "white",
+    },
+
+    iconFilter: {
+        width: scaleWidth(20),
+        height: scaleWidth(20),
+    },
+
+    buttonFilter: {
+        width: scaleWidth(30),
+        height: scaleWidth(30),
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: "#cccccc",
+        marginTop : -5
     },
 
     content: {

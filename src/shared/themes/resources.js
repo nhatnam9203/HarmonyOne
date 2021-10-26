@@ -91,7 +91,7 @@ export const images = {
   iconCalendar2: require('@src/assets/images/iconCalendar2.png'),
   iconPrint: require('@src/assets/images/print.png'),
   iconShare: require('@src/assets/images/share_icon.png'),
-
+  iconFilter: require('@src/assets/images/filter.png'),
 
 
   EmptyList: require('@src/assets/images/emptyList.png'),

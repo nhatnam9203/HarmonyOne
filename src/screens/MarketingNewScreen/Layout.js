@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, ScrollView, Alert , Image} from 'react-native';
+import { View, StyleSheet, Text, ScrollView, Alert, Image } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
@@ -17,6 +17,7 @@ import MarketingDatePicker from './MarketingDatePicker';
 import SmsConfiguration from "./MarketingSmsConfiguration";
 import MarketingCondition from "./MarketingCondition";
 import MarketingAction from "./MarketingAction";
+import { PoupFilterCustomer } from "./widget";
 
 import DropdownAlert from 'react-native-dropdownalert';
 
@@ -61,7 +62,10 @@ export const Layout = ({
   setDisabled,
   setManually,
   handleCampaign,
-  alertRef
+  alertRef,
+  popupFilterCustomerRef,
+  customerList,
+  setCustomerList
 }) => {
 
   const [t] = useTranslation();
@@ -129,6 +133,7 @@ export const Layout = ({
             onUploadImage={onUploadImage}
             imageUrl={imageUrl}
             ref={smsConfigurationRef}
+            openPopupFilterCustomer={() => { popupFilterCustomerRef?.current?.show(customerList) }}
           />
 
           <MarketingContent
@@ -171,6 +176,11 @@ export const Layout = ({
           width={'100%'}
         />
       </View>
+
+      <PoupFilterCustomer
+        ref={popupFilterCustomerRef}
+        onApply={list => setCustomerList(list)}
+      />
 
       <DropdownAlert
         ref={alertRef}

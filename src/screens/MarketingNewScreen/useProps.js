@@ -33,6 +33,7 @@ export const useProps = (props) => {
   const datePickerRef = React.useRef();
   const smsConfigurationRef = React.useRef();
   const alertRef = React.useRef();
+  const popupFilterCustomerRef = React.useRef();
 
   const [checked, setChecked] = React.useState(false);
   const [imageUrl, setImageUrl] = React.useState("");
@@ -61,7 +62,7 @@ export const useProps = (props) => {
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         setSMSMaxCustomer(data.length);
-        setCustomerList(data);
+        setCustomerList(data.map(obj=>({ ...obj, checked : true })));
       }
     }
   });
@@ -313,6 +314,7 @@ export const useProps = (props) => {
     conditionRef,
     datePickerRef,
     smsConfigurationRef,
+    popupFilterCustomerRef,
     alertRef,
     checked,
     visibleEndDate,
@@ -328,6 +330,8 @@ export const useProps = (props) => {
     setDisabled,
     setManually,
     calculatorsmsMoney,
+    customerList,
+    setCustomerList,
 
     getActionSheets: (category) => [
       {
@@ -399,7 +403,7 @@ export const useProps = (props) => {
         content: form.getValues("message"),
         noEndDate: visibleEndDate,
         isManually: isManually,
-        customerIds: customerList
+        customerIds: customerList.filter(x=>x.checked)
           .map((x) => x.customerId),
       };
 

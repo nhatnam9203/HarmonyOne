@@ -86,7 +86,7 @@ export const Layout = ({
             style={styles.flatList}
             onRefresh={onRefresh}
             refreshing={isRefresh}
-            ListEmptyComponent={() => <ListEmptyComponent description={t('No Appointments')} image={images.iconNotFound} />}
+            ListEmptyComponent={() => <ListEmptyComponent description={t('No products')} image={images.iconNotFound} />}
             renderItem={({ item }) =>
               <ItemService
                 item={item}
