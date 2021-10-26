@@ -30,6 +30,7 @@ export const useProps = (props) => {
   const actionRef = React.useRef();
   const conditionRef = React.useRef();
   const datePickerRef = React.useRef();
+  const smsConfigurationRef = React.useRef();
 
   const [checked, setChecked] = React.useState(false);
   const [imageUrl, setImageUrl] = React.useState("");
@@ -48,7 +49,7 @@ export const useProps = (props) => {
   const [valueSlider, setValueSlider] = React.useState(0);
   const [isDisabled, setDisabled] = useState(true);
   const [isManually, setManually] = useState(true);
-
+  const [customerList, setCustomerList] = React.useState([]);
 
 
   const [, fetchCustomerCanbeSendPromotion] = useAxiosQuery({
@@ -58,13 +59,14 @@ export const useProps = (props) => {
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         setSMSMaxCustomer(data.length);
+        setCustomerList(data);
       }
     }
   });
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     fetchCustomerCanbeSendPromotion();
-  },[merchantPromotionId])
+  }, [merchantPromotionId])
 
 
 
@@ -93,7 +95,6 @@ export const useProps = (props) => {
     control: form.control,
     name: 'campaignName'
   });
-
 
 
 
@@ -256,6 +257,7 @@ export const useProps = (props) => {
 
 
 
+
   React.useEffect(() => {
     if (condition) {
       setConditionId(condition.value);
@@ -287,6 +289,7 @@ export const useProps = (props) => {
     actionRef,
     conditionRef,
     datePickerRef,
+    smsConfigurationRef,
     checked,
     visibleEndDate,
     defaultMessage,
@@ -325,5 +328,95 @@ export const useProps = (props) => {
     },
 
     hanldeSliderValue,
+
+    handleCampaign: () => {
+
+      const conditionValue = conditionRef?.current?.getConditionValue().value;
+      const servicesCondition = conditionRef?.current?.getServices();
+      const actionCondition = actionRef?.current?.getConditionValue();
+      const actionServices = actionRef?.current?.getServices();
+      const actionCategories = actionRef?.current?.getCategories();
+
+      const {
+        visibleEndDate,
+        startDay,
+        endDay,
+        startTime,
+        endTime,
+      } = datePickerRef?.current?.getValueDatePicker();
+
+      // const tempConditionTags = getFormatTags(conditionServiceProductTags);
+      // const tempActionTags = getFormatTags(actionTags);
+      const campaign = {
+        name: title,
+        fromDate: `${moment(startDay).format("YYYY-MM-DD")}T${moment(startTime, ["hh:m A"]).format("HH:mm")}:00`,
+        toDate: `${moment(endDay).format("YYYY-MM-DD")}T${moment(endTime, ["hh:m A"]).format("HH:mm")}:00`,
+        conditionId: conditionValue,
+        applyTo: getShortNameForDiscountAction(actionCondition),
+        conditionDetail:
+          conditionValue === 4
+            ? numberOfTimesApply
+            : {
+              service: servicesCondition?.map(sv => (sv.serviceId)) || [],
+              product: [],
+            },
+        applyToDetail: {
+          service: actionServices?.map(sv => (sv.serviceId)),
+          product: [],
+          category: actionCategories?.map(ct => (ct.categoryId)),
+        },
+        promotionType: promotionType,
+        promotionValue: `${promotionValue || "0.00"}`,
+        isDisabled: isDisabled ? 0 : 1,
+        smsAmount: smsAmount,
+        customerSendSMSQuantity: customerSendSMSQuantity ?? 0,
+        fileId: 0,
+        smsType: smsConfigurationRef?.current?.getSmsType(),
+        content: form.getValues("message"),
+        noEndDate: visibleEndDate,
+        isManually: isManually,
+        customerIds: customerList
+          .map((x) => x.customerId),
+      };
+
+      console.log({ campaign });
+
+      // ------------ Check Valid ---------
+      // let isValid = true;
+      // const fromDate = new Date(campaign?.fromDate).getTime();
+      // const toDate = new Date(campaign?.toDate).getTime();
+
+      // if (!campaign?.name) {
+      //   alert("Enter the campaign's name please!");
+      //   isValid = false;
+      // } else if (parseInt(fromDate) >= parseInt(toDate) && !noEndDate) {
+      //   alert("The start date is not larger than the end date ");
+      //   isValid = false;
+      // } else if (
+      //   campaign.conditionId === 2 &&
+      //   conditionServiceProductTags.length < 1
+      // ) {
+      //   alert("Select services/product specific please!");
+      //   isValid = false;
+      // } else if (
+      //   campaign.conditionId === 4 &&
+      //   parseInt(numberOfTimesApply ? numberOfTimesApply : 0) < 1
+      // ) {
+      //   alert("Enter the number of times applied please!");
+      //   isValid = false;
+      // } else if (campaign?.applyTo === "specific" && actionTags.length < 1) {
+      //   alert("Select services/product for discount specific please!");
+      //   isValid = false;
+      // } else if (promotionValue == 0) {
+      //   alert("Enter promotion value please!");
+      //   isValid = false;
+      // }
+
+      // if (isValid) {
+      //   isHandleEdit
+      //     ? updatePromotionById(promotionId, campaign)
+      //     : handleCreateNewCampaign(campaign);
+      // }
+    }
   };
 };

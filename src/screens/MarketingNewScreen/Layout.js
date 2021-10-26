@@ -41,6 +41,7 @@ export const Layout = ({
   actionRef,
   conditionRef,
   datePickerRef,
+  smsConfigurationRef,
   checked,
   setChecked,
   imageUrl,
@@ -57,6 +58,7 @@ export const Layout = ({
   isDisabled,
   setDisabled,
   setManually,
+  handleCampaign
 }) => {
 
   const [t] = useTranslation();
@@ -120,7 +122,11 @@ export const Layout = ({
             defaultMessage={defaultMessage}
           />
 
-          <SmsConfiguration onUploadImage={onUploadImage} imageUrl={imageUrl} />
+          <SmsConfiguration
+            onUploadImage={onUploadImage}
+            imageUrl={imageUrl}
+            ref={smsConfigurationRef}
+          />
 
           <MarketingContent
             form={form}
@@ -157,7 +163,7 @@ export const Layout = ({
       <View style={styles.bottom}>
         <Button
           label="Save"
-          onPress={() => { Alert.alert('dang gan api') }}
+          onPress={handleCampaign}
           highlight={true}
           width={'100%'}
         />

@@ -11,10 +11,10 @@ import Collapsible from "react-native-collapsible";
 
 const dataRadioButton = [
     {
-        label: 'SMS'
+        label: 'sms'
     },
     {
-        label: 'MMS'
+        label: 'mms'
     }
 ];
 
@@ -33,12 +33,22 @@ let EditButton = ({ ...props }) => {
 
 EditButton = WithPopupActionSheet(EditButton);
 
-const MarketingSmsConfiguration = ({
+const MarketingSmsConfiguration = React.forwardRef(({
     onUploadImage,
     imageUrl,
-}) => {
+}, ref) => {
+    const [smsType, setSmsType] = React.useState("sms");
 
-    const [smsType, setSmsType] = React.useState("SMS");
+    React.useImperativeHandle(ref, () => ({
+        getSmsType: () => {
+            return smsType;
+        },
+
+        setSmsType: (type) => {
+            setSmsType(type);
+        }
+
+    }));
 
     return (
         <>
@@ -58,7 +68,7 @@ const MarketingSmsConfiguration = ({
                 }
             />
 
-            <Collapsible collapsed={smsType == "SMS"} duration={200}>
+            <Collapsible collapsed={smsType == "sms"} duration={200}>
                 <Text style={[styles.txtItem, { color: colors.black }]}>
                     Media
                 </Text>
@@ -72,7 +82,7 @@ const MarketingSmsConfiguration = ({
             </Collapsible>
         </>
     );
-};
+});
 
 export default MarketingSmsConfiguration;
 
