@@ -19,12 +19,15 @@ const conditionList = [
 const MarketingCondition = React.forwardRef(({
     form,
     errors,
-    defaultMessage
+    defaultMessage,
+    calculatorsmsMoney,
+    valueSlider,
 }, ref) => {
+
+
 
     const [condition, setCondition] = React.useState("No condition");
     const conditionRef = React.useRef();
-
     const [serviceSelected, setServiceSelected] = React.useState([]);
     const [numberOfTimesApply, setNumberOfTimesApply] = React.useState("");
 
@@ -44,6 +47,10 @@ const MarketingCondition = React.forwardRef(({
             return serviceSelected;
         }
     }));
+
+    React.useEffect(()=>{
+        calculatorsmsMoney(valueSlider);
+    },[condition,serviceSelected]);
 
     const onChangeServiceSelected = (services) => {
         setServiceSelected(services);

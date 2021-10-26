@@ -17,7 +17,9 @@ const MarketingAction = React.forwardRef(({
     form,
     errors,
     defaultMessage,
-},ref)=>{
+    calculatorsmsMoney,
+    valueSlider,
+}, ref) => {
 
     const [condition, setAction] = React.useState("Discount for whole cart");
     const conditionRef = React.useRef();
@@ -28,26 +30,26 @@ const MarketingAction = React.forwardRef(({
     const removeService = (service) => {
         let tepmServices = serviceSelected.filter(s => s.serviceId !== service.serviceId);
         setServiceSelected(tepmServices);
-        const message = defaultMessage(null,tepmServices);
+        const message = defaultMessage(null, tepmServices);
         form.setValue("message", message);
     }
 
     const removeCategory = (category) => {
         let tempCategory = categorySelected.filter(c => c.categoryId !== category.categoryId);
         setCategorySelected(tempCategory);
-        const message = defaultMessage(null,tempCategory);
+        const message = defaultMessage(null, tempCategory);
         form.setValue("message", message);
     }
 
     const onChangeServiceSelected = (services) => {
         setServiceSelected(services);
-        const message = defaultMessage(null,services);
+        const message = defaultMessage(null, services);
         form.setValue("message", message);
     }
 
     const onChangeCategorySelected = (categories) => {
         setCategorySelected(categories);
-        const message = defaultMessage(null,categories);
+        const message = defaultMessage(null, categories);
         form.setValue("message", message);
     }
 
@@ -59,10 +61,16 @@ const MarketingAction = React.forwardRef(({
         getServices: () => {
             return serviceSelected;
         },
-        getCategories : () => {
+        getCategories: () => {
             return categorySelected;
-        } 
+        }
     }));
+
+
+    React.useEffect(() => {
+        calculatorsmsMoney(valueSlider);
+    }, [condition, serviceSelected, categorySelected]);
+
 
     return (
         <>

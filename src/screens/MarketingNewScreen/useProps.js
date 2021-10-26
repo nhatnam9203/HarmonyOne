@@ -300,6 +300,7 @@ export const useProps = (props) => {
     isDisabled,
     setDisabled,
     setManually,
+    calculatorsmsMoney,
 
     getActionSheets: (category) => [
       {

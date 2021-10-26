@@ -48,6 +48,7 @@ export const Layout = ({
   defaultMessage,
   smsMaxCustomer,
   smsMaxAmount,
+  calculatorsmsMoney,
   valueSlider,
   hanldeSliderValue,
   smsAmount,
@@ -85,6 +86,7 @@ export const Layout = ({
                 error={errors?.campaignName}
                 onBlur={() => {
                   form.setValue("message", defaultMessage());
+                  calculatorsmsMoney(valueSlider);
                 }}
               />
             }
@@ -99,6 +101,8 @@ export const Layout = ({
             errors={errors}
             ref={conditionRef}
             defaultMessage={defaultMessage}
+            calculatorsmsMoney={calculatorsmsMoney}
+            valueSlider={valueSlider}
           />
 
           <MarketingAction
@@ -106,6 +110,8 @@ export const Layout = ({
             errors={errors}
             ref={actionRef}
             defaultMessage={defaultMessage}
+            calculatorsmsMoney={calculatorsmsMoney}
+            valueSlider={valueSlider}
           />
 
           <MarketingDiscount
