@@ -33,10 +33,12 @@ export const useProps = (props) => {
 
   /************************************* SELECTOR *************************************/
   const {
-    appointment: { appointmentDetail, groupAppointments = [], appointmentDate },
+    appointment: { appointmentDetail, 
+                  groupAppointments = [], 
+                  appointmentDate, 
+                  startProcessingPax },
     auth: { staff }
   } = useSelector(state => state);
-
 
   /************************************* STATE *************************************/
   const [methodPay, setMethodPay] = React.useState(null);
@@ -44,6 +46,34 @@ export const useProps = (props) => {
   const [isCancelHarmony, changeStatusCancelHarmony] = React.useState(false);
   const [connectionSignalR, setConnectionSignalR] = React.useState(null);
   const [paymentDetail, setPaymentDetail] = React.useState(null);
+
+
+  /************************************* USE EFFECT *************************************/
+  React.useEffect(() => {
+    if (startProcessingPax) {
+      dispatch(actions.appointment.resetStateCheckCreditPaymentToServer(false));
+      setVisibleProcessingCredit(true)
+       
+      //Payment by Dejavoo
+      const tenderType = paymentSelected === "Credit" ? "Credit" : "Debit";
+  
+      const parameter = {
+        tenderType: tenderType,
+        transType: "Sale",
+        amount: Number(moneyUserGiveForStaff).toFixed(2),
+        RefId: payAppointmentId,
+        invNum: `${groupAppointments?.checkoutGroupId || 0}`,
+      };
+      requestTransactionDejavoo(parameter).then((responses) => {
+        handleResponseCreditCardDejavoo(
+          responses,
+          true,
+          moneyUserGiveForStaff,
+          parameter
+        );
+      })
+    }
+  }, [startProcessingPax]);
 
 
   /************************************* GỌI API SELECT METHOD PAY *************************************/
