@@ -48,6 +48,9 @@ import { InvoiceScreen } from "./InvoiceScreen";
 import { InvoiceDetailScreen } from "./InvoiceDetailScreen";
 import { SelectPeriod } from "../shared/components/SelectPeriod"
 import { AddServiceCheckboxPage } from "./ServiceScreen/pages/AddServiceCheckboxPage";
+import { SettlementScreen } from "./SettlementScreen";
+import { BatchHistoryPage } from "./SettlementScreen/pages";
+import { TransactionsPage } from "./SettlementScreen/pages";
 
 
 module.exports = {
@@ -98,5 +101,8 @@ module.exports = {
   InvoiceScreen,
   InvoiceDetailScreen,
   SelectPeriod,
-  AddServiceCheckboxPage
+  AddServiceCheckboxPage,
+  SettlementScreen,
+  BatchHistoryPage,
+  TransactionsPage,
 };

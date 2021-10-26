@@ -22,7 +22,7 @@
     "run:android-staging": "npx react-native run-android --variant=staging",
     "run:android-production": "npx react-native run-android --variant=release",
     "run:ios-staging-device": "npx react-native run-ios --scheme='Staging' --device 'iPhone'",
-    "run:ios-staging": "npx react-native run-ios --scheme='Staging' --simulator='iPhone 11'",
+    "run:ios-staging": "npx react-native run-ios --scheme='Staging' --simulator='iPhone 12 Pro Max'",
     "pod": "npx pod-install",
     "new:screen": "npx ts-node ./scripts/createScreen.js",
     "new:page": "npx ts-node ./scripts/createPage.js",

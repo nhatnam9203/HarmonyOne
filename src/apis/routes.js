@@ -114,6 +114,14 @@ export const getStaffByMerchant = (merchantId) => ({
  * APPOINTMENTS
  */
 
+export const getPromotionByAppointment = (appointmentId) => ({
+  queryId: 'getPromotionByAppointment',
+  params: {
+    url: `appointment/promotion/${appointmentId}`,
+    method: 'GET',
+  },
+});
+
 export const appointmentStaffByDateRequest = (staffId, date) => ({
   queryId: 'appointmentStaffByDateRequest',
   params: {
@@ -685,15 +693,11 @@ export const changeStatustransaction = (checkoutId, data) => ({
   }
 });
 
-// export function changeStatustransaction(checkoutId, params, responseData = {}, paymentTerminal, sn) {
-//   return {
-//       type: 'CHANGE_STATUS_TRANSACTION',
-//       method: 'PUT',
-//       api: `checkout/paymentvoidrefundtransaction/${checkoutId}`,
-//       token: true,
-//       params,
-//       checkoutId
-//   }
-// }
-
+export const getCustomerCanbeSendPromotion = (merchantPromotionId, merchantId) => ({
+  queryId: 'canbesendpromotion',
+  params: {
+    url: `customer/canbesendpromotion?merchantPromotionId=${merchantPromotionId}&merchantId=${merchantId}`,
+    method: 'GET',
+  }
+});
 

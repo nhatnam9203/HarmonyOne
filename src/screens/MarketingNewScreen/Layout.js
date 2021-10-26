@@ -46,6 +46,12 @@ export const Layout = ({
   imageUrl,
   onUploadImage,
   defaultMessage,
+  smsMaxCustomer,
+  smsMaxAmount,
+  valueSlider,
+  hanldeSliderValue,
+  smsAmount,
+  customerSendSMSQuantity
 }) => {
 
   const [t] = useTranslation();
@@ -112,7 +118,14 @@ export const Layout = ({
             defaultMessage={defaultMessage}
           />
 
-          <MarketingNumberMessage />
+          <MarketingNumberMessage
+            smsMaxCustomer={smsMaxCustomer}
+            smsMaxAmount={smsMaxAmount}
+            valueSlider={valueSlider}
+            hanldeSliderValue={hanldeSliderValue}
+            smsAmount={smsAmount}
+            customerSendSMSQuantity={customerSendSMSQuantity}
+          />
 
           <IconButton
             iconComponent={() => <SwitchButton />}

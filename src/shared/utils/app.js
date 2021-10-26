@@ -253,3 +253,22 @@ export const getContentDate = (timeStart, timeEnd) => {
   }
   return text;
 }
+
+export const getShortNameForDiscountAction = (title) => {
+  let shortName = "";
+  switch (title) {
+    case "Discount for specific services":
+      shortName = "specific";
+      break;
+    case "Discount for whole cart":
+      shortName = "all";
+      break;
+    case "Discount by category":
+      shortName = "category";
+      break;
+    default:
+      shortName = "all";
+  }
+
+  return shortName;
+};

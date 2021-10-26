@@ -4,7 +4,9 @@ export const items = [
   {
     title: "Settlement",
     icon: images.iconCloseSettlement,
-    onPress: () => { }
+    onPress: () => { 
+      // NavigationService.navigate(screenNames.SettlementScreen)
+    }
   },
   {
     title: "Business Informations",

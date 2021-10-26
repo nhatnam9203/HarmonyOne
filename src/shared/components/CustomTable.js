@@ -654,8 +654,7 @@ TableListExtended.propTypes = {
   renderFooter: PropTypes.func,
   renderIconCell: PropTypes.func,
 };
-
-export default TableListExtended = forwardRef(TableListExtended);
+export const CustomTable = forwardRef(TableListExtended);
 
 //================================
 // Component

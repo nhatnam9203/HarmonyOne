@@ -11,6 +11,7 @@ const initialState = {
   blockTimes: [],
   groupAppointments: [],
   promotionAppointment: [],
+  discount : [],
 };
 
 const appointmentSlice = createSlice({
@@ -48,6 +49,7 @@ const appointmentSlice = createSlice({
       };
       state.groupAppointments = tempGroupAppointment;
     },
+
   },
 });
 

@@ -40,7 +40,10 @@ import {
   InvoiceScreen,
   InvoiceDetailScreen,
   SelectPeriod,
-  AddServiceCheckboxPage
+  AddServiceCheckboxPage,
+  SettlementScreen,
+  BatchHistoryPage,
+  TransactionsPage,
 } from '@screens';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
 import { useSelector } from "react-redux";
@@ -105,6 +108,9 @@ const AppStack = () => {
         <Screen {...SelectPeriod} />
         <Screen {...InvoiceDetailScreen} />
         <Screen {...AddServiceCheckboxPage} />
+        <Screen {...SettlementScreen} />
+        <Screen {...BatchHistoryPage} />
+        <Screen {...TransactionsPage} />
 
         <Screen name="ChangePincode" component={ChangePincode} />
         <Screen name="ForgotPincode" component={ForgotPincode} />

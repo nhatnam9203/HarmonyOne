@@ -28,7 +28,8 @@ export const TotalView = ({
                 NavigationService.navigate(screenNames.ApplyDiscountPage);
             }
         }
-    })
+    });
+
 
     const addTip = () => {
         NavigationService.navigate(screenNames.AddTipPage);
@@ -98,6 +99,11 @@ export const TotalView = ({
                             onPress={addTip}
                         />
                 }
+            </View>
+
+            <View style={styles.row}>
+                <Text style={styles.text}>Tax</Text>
+                <Text style={styles.text}>{`$ ${appointmentDetail?.tax}`}</Text>
             </View>
 
             <View style={styles.line} />

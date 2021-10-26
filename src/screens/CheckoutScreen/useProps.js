@@ -29,6 +29,7 @@ export const useProps = (props) => {
     selectPayment: async () => {
       const body = await checkoutAppointment(appointmentDetail?.appointmentId);
       submitCheckoutAppointment(body.params);
+      fetchPromomtionByAppointment();
     },
 
     onPressBack: () => {
