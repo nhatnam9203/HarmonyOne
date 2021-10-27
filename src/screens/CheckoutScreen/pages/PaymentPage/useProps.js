@@ -18,6 +18,9 @@ import { Alert } from 'react-native';
 import { isEmpty, method } from "lodash";
 import Configs from '@src/config';
 const signalR = require("@microsoft/signalr");
+import {
+  requestTransactionDejavoo,
+} from "@utils";
 
 
 export const useProps = (props) => {
@@ -56,11 +59,11 @@ export const useProps = (props) => {
        
       //Payment by Dejavoo
       const tenderType = paymentSelected === "Credit" ? "Credit" : "Debit";
-  
+      
       const parameter = {
         tenderType: tenderType,
         transType: "Sale",
-        amount: Number(moneyUserGiveForStaff).toFixed(2),
+        amount: Number(groupAppointments?.dueAmount).toFixed(2),
         RefId: payAppointmentId,
         invNum: `${groupAppointments?.checkoutGroupId || 0}`,
       };
@@ -68,7 +71,7 @@ export const useProps = (props) => {
         handleResponseCreditCardDejavoo(
           responses,
           true,
-          moneyUserGiveForStaff,
+          groupAppointments?.dueAmount,
           parameter
         );
       })
