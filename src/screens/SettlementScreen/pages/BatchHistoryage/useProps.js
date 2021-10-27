@@ -6,7 +6,7 @@ import {
   getListInvoicesByMerchant,
 } from "@src/apis";
 import { useDispatch, useSelector } from "react-redux";
-import { review, invoice, app } from "@redux/slices";
+import { review, invoice, app, settlement } from "@redux/slices";
 import { axios } from '@shared/services/axiosClient';
 import { getContentDate } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
@@ -20,10 +20,10 @@ export const useProps = (props) => {
   const startDate = props?.route?.params?.startDate;
   const endDate = props?.route?.params?.endDate;
 
-
   const {
     auth: { staff },
-    invoice: { invoiceList = [], pages = 0, count = 0, }
+    invoice: { DataList = [], pages = 0, count = 0, },
+    settlement : { batchHistory = [] }
   } = useSelector(state => state);
 
   /********************************* STATE  ********************************* */
@@ -37,18 +37,18 @@ export const useProps = (props) => {
 
 
   /********************************* GET INVOICE LIST  ********************************* */
-  const getInvoiceList = async (
-    key = "", method = "", status = "", timeStart = "", timeEnd = "", quickFilter = "", page = 1,
+  const getDataList = async (
+    key = "", timeStart = "", timeEnd = "", quickFilter = "", page = 1,
   ) => {
     dispatch(app.showLoading());
     const params = {
-      url: `checkout?page=${page}&method=${method}&status=${status}&timeStart=${timeStart}&timeEnd=${timeEnd}&key=${key}&quickFilter=${quickFilter}&row=10&api-version=1.1`,
+      url: `settlement/search?key=${key}&timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=${quickFilter}&page=${page}&row=10&api-version=1.1`,
       method: 'GET',
     }
     try {
       const response = await axios(params);
       if (response?.data?.codeNumber == 200) {
-        dispatch(invoice.setInvoiceList({
+        dispatch(settlement.setBatchHistory({
           ...response?.data,
           currentPage: page
         }));
@@ -67,8 +67,8 @@ export const useProps = (props) => {
 
   /********************************* GỌI INVOICE LIST LẦN ĐẦU  ********************************* */
   React.useEffect(() => {
-    getInvoiceList(
-      "", "", "", "", "", "", 1
+    getDataList(
+      "", "", "", "", 1
     );
   }, []);
 
@@ -77,8 +77,8 @@ export const useProps = (props) => {
     if (startDate && endDate) {
       setTimeStart(startDate);
       setTimeEnd(endDate);
-      getInvoiceList(
-        valueSearch, paymentMethod, status, startDate, endDate, "", 1
+      getDataList(
+        valueSearch, startDate, endDate, "", 1
       );
     }
   }, [startDate, endDate]);
@@ -88,12 +88,12 @@ export const useProps = (props) => {
     status,
     isRefresh,
     valueSearch,
-    invoiceList,
+    batchHistory,
     paymentMethod,
 
     selectPeriod: () => {
       NavigationService.navigate(screenNames.SelectPeriod, {
-        screenName: screenNames.InvoiceScreen,
+        screenName: screenNames.SettlementScreen,
         timeStart,
         timeEnd,
       });
@@ -104,16 +104,16 @@ export const useProps = (props) => {
     },
 
     onSubmitSearch: () => {
-      getInvoiceList(
-        valueSearch, paymentMethod, status, timeStart, timeEnd, "", currentPage
+      getDataList(
+        valueSearch, timeStart, timeEnd, "", currentPage
       );
     },
 
     onLoadMore: () => {
       if (currentPage < pages) {
         setCurrentPage(currentPage + 1);
-        getInvoiceList(
-          valueSearch, paymentMethod, status, timeStart, timeEnd, "", currentPage + 1
+        getDataList(
+          valueSearch, timeStart, timeEnd, "", currentPage + 1
         );
       }
     },
@@ -122,16 +122,16 @@ export const useProps = (props) => {
       setStatus(filterStatus);
       setPaymentMethod(filterType)
       setCurrentPage(1);
-      getInvoiceList(
-        valueSearch, filterType, filterStatus, timeStart, timeEnd, "", 1
+      getDataList(
+        valueSearch, timeStart, timeEnd, "", 1
       );
     },
 
     onRefresh: () => {
       setRefresh(true);
       setCurrentPage(1);
-      getInvoiceList(
-        "",paymentMethod, status, "", "", "", 1
+      getDataList(
+        "", "", "", "", 1
       );
     },
 

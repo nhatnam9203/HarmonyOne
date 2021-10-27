@@ -5,7 +5,7 @@ import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
 import { SearchInput } from "@shared/components";
 import { images } from "@shared/themes/resources";
-import { InvoiceList } from "./InvoiceList";
+import { DataList } from "./DataList";
 
 export const Layout = ({
   paymentMethodRef,
@@ -21,7 +21,7 @@ export const Layout = ({
   onChangeSearch,
   onSubmitSearch,
   selectPeriod,
-  invoiceList,
+  batchHistory,
   getContentDate,
   onLoadMore,
 }) => {
@@ -51,8 +51,8 @@ export const Layout = ({
           />
         </TouchableOpacity>
 
-        <InvoiceList
-          data={invoiceList}
+        <DataList
+          data={batchHistory}
           currentPage={currentPage}
           onLoadMore={onLoadMore}
           onRefresh={onRefresh}

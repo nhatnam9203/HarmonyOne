@@ -10,22 +10,26 @@ import NavigationService from '@navigation/NavigationService';
 import moment from "moment";
 
 
-export const InvoiceList = ({
+export const DataList = ({
     data = [],
     onLoadMore = () => { },
     onRefresh = () => { },
     isRefresh
 }) => {
+
+    console.log({ data })
+
+
     const dispatch = useDispatch();
     const { staff: { staffListByMerchant = [] } } = useSelector(state => state);
     const [t] = useTranslation();
 
 
     const onRowPress = ({ key, row, column, item }) => {
-        getInvoiceDetail(item?.checkoutId);
+        getDetail(item?.checkoutId);
     };
 
-    const getInvoiceDetail = async (checkoutId) => {
+    const getDetail = async (checkoutId) => {
         dispatch(app.showLoading());
         const params = {
             url: `checkout/${checkoutId}`,
@@ -49,40 +53,29 @@ export const InvoiceList = ({
     const renderCell = ({ key, row, column, item }) => {
         const data = item[key];
         switch (key) {
-            case "code":
+            case "settlementId":
                 return <Text style={styles.txt}>
                     #{data}
                 </Text>
-            case "createdDate":
+            case "date":
                 return (
-                    <View>
-                        <Text style={styles.txtDate}>
-                            {moment(data).format("hh:mm A")}
-                        </Text>
-                        <Text style={[styles.txtDate, { marginTop: 3 }]}>
-                            {moment(data).format("DD MMM")}
-                        </Text>
-                    </View>
+                    <Text style={styles.txtDate}>
+                        {moment(item?.settlementDate).format("MM/DD/YYYY")}
+                    </Text>
                 )
-            case "status":
+            case "time":
                 return (
-                    <View style={{ flexDirection: "row", alignItems: "center" }}>
-                        <View style={styles.circleStatus(data)} />
-                        <Text style={styles.txtStatus(data)}>{data}</Text>
-                    </View>
+                    <Text style={[styles.txtDate,{ fontFamily : fonts.MEDIUM }]}>
+                        {moment(item?.settlementDate).format("hh:mm A")}
+                    </Text>
                 )
             case "total":
-                return <Text style={styles.txt}>
+                return <Text style={[styles.txt,{ fontFamily : fonts.BOLD, color : "#404040" }]}>
                     $ {data}
                 </Text>
-            case "user":
-                return <Text style={styles.userName}>
-                    {`${data?.firstName} ${data?.lastName}`}
-                </Text>
             default:
-                const staff = staffListByMerchant.find(s => s.staffId == data);
                 return <Text style={styles.txt}>
-                    {`${staff?.displayName}`}
+                    $ {data}
                 </Text>
         }
 
@@ -92,19 +85,15 @@ export const InvoiceList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                code: "Invoice ID",
-                user: "Customer",
-                createdDate: "Date/time",
-                status: "Status",
-                createdById: "Created by",
-                total: "Total sales",
+                settlementId: "Batch ID",
+                date: "Date",
+                time: "Time",
+                total: "Amount",
             }}
             whiteKeys={[
-                "code",
-                "user",
-                "createdDate",
-                "status",
-                "createdById",
+                "settlementId",
+                "date",
+                "time",
                 "total",
             ]}
             primaryId="code"
@@ -126,6 +115,7 @@ export const InvoiceList = ({
             onRefresh={onRefresh}
             onLoadMore={onLoadMore}
             endLoadMore={() => { }}
+            maxColumnCount={4}
         />
     )
 }

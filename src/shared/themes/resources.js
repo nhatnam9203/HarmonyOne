@@ -92,7 +92,7 @@ export const images = {
   iconPrint: require('@src/assets/images/print.png'),
   iconShare: require('@src/assets/images/share_icon.png'),
   iconFilter: require('@src/assets/images/filter.png'),
-
+  iconMarketingGrey: require('@src/assets/images/iconMarketingGrey.png'),
 
   EmptyList: require('@src/assets/images/emptyList.png'),
   barTimeLine: require('@src/assets/images/barTimeLine.png'),

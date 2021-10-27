@@ -2,13 +2,6 @@ import NavigationService from '@navigation/NavigationService';
 import { images } from "@shared/themes/resources";
 export const items = [
   {
-    title: "Settlement",
-    icon: images.iconCloseSettlement,
-    onPress: () => { 
-      // NavigationService.navigate(screenNames.SettlementScreen)
-    }
-  },
-  {
     title: "Business Informations",
     icon: images.iconBusiness,
     onPress: () => { 
@@ -20,6 +13,13 @@ export const items = [
     icon: images.iconInvoice,
     onPress: () => { 
       NavigationService.navigate(screenNames.InvoiceScreen)
+    }
+  },
+  {
+    title: "Settlement",
+    icon: images.iconCloseSettlement,
+    onPress: () => { 
+      NavigationService.navigate(screenNames.SettlementScreen)
     }
   },
   {

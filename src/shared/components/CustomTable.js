@@ -121,6 +121,7 @@ function TableListExtended({
   isRefreshing,
   onLoadMore = () => {},
   endLoadMore = false,
+  maxColumnCount,
 }) {
   /**state */
   const [headerContent, setHeaderContent] = useState({});
@@ -257,7 +258,7 @@ function TableListExtended({
   // get width render cell with index or key
   const getCellWidth = (index, key) => {
     if (!!tableCellWidth) {
-      return screenWidth / MAX_COLUMNS_COUNT;
+      return screenWidth / ( maxColumnCount ? maxColumnCount : MAX_COLUMNS_COUNT )
     }
 
     if (tableCellWidth && tableCellWidth[key]) {

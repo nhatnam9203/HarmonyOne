@@ -5,6 +5,7 @@ import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { CloseSettlementPage, TransactionsPage, BatchHistoryPage } from "./pages"
+import NavigationService from '@navigation/NavigationService';
 const { Navigator, Screen } = createMaterialTopTabNavigator();
 
 
@@ -19,7 +20,8 @@ export const Layout = ({
       <SingleScreenLayout
         pageTitle={t('Settlement')}
         isRight={false}
-        isLeft={false}
+        isLeft={true}
+        onPressLeft={()=>NavigationService.navigate(screenNames.MoreScreen)}
         isScrollLayout={false}
         containerStyle={{ paddingTop: 5, paddingBottom: 0 }}
       >

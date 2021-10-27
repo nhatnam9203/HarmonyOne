@@ -745,3 +745,15 @@ export const getCustomerCanbeSendPromotion = (merchantPromotionId, merchantId) =
   }
 });
 
+
+/* 
+* SETTLEMENT
+*/
+export const getBatchHistory = (key = "", timeStart = "", timeEnd = "", quickFilter = "", page = 1) => ({
+  queryId: 'getBatchHistory',
+  params: {
+    url: `settlement/search?key=${key}&timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=${quickFilter}&page=${page}&row=10&api-version=1.1`,
+    method: 'GET',
+  }
+});
+
