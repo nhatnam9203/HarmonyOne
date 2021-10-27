@@ -67,6 +67,7 @@ export const Layout = ({
   customerList,
   setCustomerList,
   isViewDetail,
+  isEdit,
   disableCampaign,
   enableCampaign,
 }) => {
@@ -77,13 +78,13 @@ export const Layout = ({
     <View style={styles.container}>
       <View style={{ flex: 1 }}>
         <SingleScreenLayout
-          pageTitle={t("New campaign")}
+          pageTitle={isViewDetail ? t("Campaign detail") : isEdit ? t("Edit campaign") : t("New campaign")}
           isLeft={true}
           isRight={true}
           isScrollLayout={false}
           containerStyle={{ paddingVertical: 0 }}
           headerRightComponent={() =>
-            <EditButton actions={getActionSheets()} />
+            isViewDetail ? <EditButton actions={getActionSheets()} /> : <View />
           }
         >
           <ScrollView style={styles.content}>

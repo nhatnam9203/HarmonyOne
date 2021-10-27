@@ -419,6 +419,7 @@ export const useProps = (props) => {
     customerList,
     setCustomerList,
     isViewDetail,
+    isEdit,
 
     getActionSheets: (category) => [
       {
