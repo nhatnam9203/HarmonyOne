@@ -113,19 +113,19 @@ export const Layout = ({
               items.map(item => {
                 const itemPrice = parseFloat(formatNumberFromCurrency(item?.price)) * parseInt(item?.qty);
                 return (
-                  <View key={item?.key} style={[styles.row, { marginTop: scaleHeight(12) }]}>
+                  <View key={item?.key} style={[styles.row, { marginTop: scaleHeight(12), alignItems : "flex-start" }]}>
                     <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(150) }]}>
                       {item?.name}
                     </Text>
 
                     <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(69) }]}>
-                      {item?.price}
+                      $ {item?.price}
                     </Text>
                     <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(69) }]}>
                       {item?.qty}
                     </Text>
                     <Text style={[styles.text, { fontFamily: fonts.BOLD, width: scaleWidth(55), textAlign: "right" }]}>
-                      {formatMoney(itemPrice)}
+                      $ {formatMoney(itemPrice)}
                     </Text>
                   </View>
                 )

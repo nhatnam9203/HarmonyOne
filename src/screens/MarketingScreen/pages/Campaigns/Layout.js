@@ -3,12 +3,14 @@ import { View, StyleSheet, Text, FlatList } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
+import {slop} from "@shared/utils";
 import { images } from "@shared/themes/resources";
 import { IconButton } from "@shared/components";
 
 export const Layout = ({
   newMarketing,
   promotion,
+  editPromotion
 }) => {
 
   const [t] = useTranslation();
@@ -25,6 +27,8 @@ export const Layout = ({
             icon={item?.isDisabled == 1 ? images.circleGrey : images.circleGreen}
             iconStyle={styles.iconStyle}
             style={styles.item}
+            onPress={()=>editPromotion(item)}
+            slop={slop()}
             renderText={() => <Text style={styles.name}>{item?.name}</Text>}
           />
         }

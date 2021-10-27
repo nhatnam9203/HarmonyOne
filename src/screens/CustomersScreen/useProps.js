@@ -46,9 +46,9 @@ export const useProps = (props) => {
     setValueSearch("");
   }
 
-  React.useEffect(async () => {
+  React.useEffect( () => {
     if (isRefresh) {
-      await refetch();
+       refetch();
     }
     setRefresh(false);
   }, [isRefresh, currentPage]);

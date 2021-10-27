@@ -22,7 +22,6 @@ const authSlice = createSlice({
     updateProfile: {
       reducer: (state, action) => {
         const { firstName, lastName, displayName, phone, email, fileId, imageUrl, city } = action.payload;
-        console.log(action.payload)
         state.staff = {
           ...state.staff,
           firstName, lastName, displayName, phone, email, fileId, imageUrl, city

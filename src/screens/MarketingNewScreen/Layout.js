@@ -65,116 +65,133 @@ export const Layout = ({
   alertRef,
   popupFilterCustomerRef,
   customerList,
-  setCustomerList
+  setCustomerList,
+  isViewDetail,
+  disableCampaign,
+  enableCampaign,
 }) => {
 
   const [t] = useTranslation();
 
   return (
     <View style={styles.container}>
-      <SingleScreenLayout
-        pageTitle={t("New campaign")}
-        isLeft={true}
-        isRight={true}
-        isScrollLayout={false}
-        containerStyle={{ paddingVertical: 0 }}
-        headerRightComponent={() =>
-          <EditButton actions={getActionSheets()} />
-        }
-      >
-        <ScrollView style={styles.content}>
-          <CustomInput
-            label='Campaign name'
-            isRequired
-            error={errors?.campaignName}
-            renderInput={() =>
-              <InputText
-                form={form}
-                name="campaignName"
-                placeholder="Campaign name"
+      <View style={{ flex: 1 }}>
+        <SingleScreenLayout
+          pageTitle={t("New campaign")}
+          isLeft={true}
+          isRight={true}
+          isScrollLayout={false}
+          containerStyle={{ paddingVertical: 0 }}
+          headerRightComponent={() =>
+            <EditButton actions={getActionSheets()} />
+          }
+        >
+          <ScrollView style={styles.content}>
+            <View pointerEvents={isViewDetail ? "none" : "auto"}>
+              <CustomInput
+                label='Campaign name'
+                isRequired
                 error={errors?.campaignName}
-                onBlur={() => {
-                  form.setValue("message", defaultMessage());
-                  calculatorsmsMoney(valueSlider);
-                }}
+                renderInput={() =>
+                  <InputText
+                    form={form}
+                    name="campaignName"
+                    placeholder="Campaign name"
+                    error={errors?.campaignName}
+                    onBlur={() => {
+                      form.setValue("message", defaultMessage());
+                      calculatorsmsMoney(valueSlider);
+                    }}
+                  />
+                }
               />
-            }
-          />
 
-          <MarketingDatePicker
-            ref={datePickerRef}
-          />
+              <MarketingDatePicker
+                ref={datePickerRef}
+              />
 
-          <MarketingCondition
-            form={form}
-            errors={errors}
-            ref={conditionRef}
-            defaultMessage={defaultMessage}
-            calculatorsmsMoney={calculatorsmsMoney}
-            valueSlider={valueSlider}
-          />
+              <MarketingCondition
+                form={form}
+                errors={errors}
+                ref={conditionRef}
+                defaultMessage={defaultMessage}
+                calculatorsmsMoney={calculatorsmsMoney}
+                valueSlider={valueSlider}
+              />
 
-          <MarketingAction
-            form={form}
-            errors={errors}
-            ref={actionRef}
-            defaultMessage={defaultMessage}
-            calculatorsmsMoney={calculatorsmsMoney}
-            valueSlider={valueSlider}
-          />
+              <MarketingAction
+                form={form}
+                errors={errors}
+                ref={actionRef}
+                defaultMessage={defaultMessage}
+                calculatorsmsMoney={calculatorsmsMoney}
+                valueSlider={valueSlider}
+              />
 
-          <MarketingDiscount
-            form={form}
-            errors={errors}
-            defaultMessage={defaultMessage}
-          />
+              <MarketingDiscount
+                form={form}
+                errors={errors}
+                defaultMessage={defaultMessage}
+              />
 
-          <SmsConfiguration
-            onUploadImage={onUploadImage}
-            imageUrl={imageUrl}
-            ref={smsConfigurationRef}
-            openPopupFilterCustomer={() => { popupFilterCustomerRef?.current?.show(customerList) }}
-          />
+              <SmsConfiguration
+                onUploadImage={onUploadImage}
+                imageUrl={imageUrl}
+                ref={smsConfigurationRef}
+                openPopupFilterCustomer={() => { popupFilterCustomerRef?.current?.show(customerList) }}
+              />
 
-          <MarketingContent
-            form={form}
-            errors={errors}
-            defaultMessage={defaultMessage}
-          />
+              <MarketingContent
+                form={form}
+                errors={errors}
+                defaultMessage={defaultMessage}
+              />
 
-          <MarketingNumberMessage
-            smsMaxCustomer={smsMaxCustomer}
-            smsMaxAmount={smsMaxAmount}
-            valueSlider={valueSlider}
-            hanldeSliderValue={hanldeSliderValue}
-            smsAmount={smsAmount}
-            customerSendSMSQuantity={customerSendSMSQuantity}
-          />
+              <MarketingNumberMessage
+                smsMaxCustomer={smsMaxCustomer}
+                smsMaxAmount={smsMaxAmount}
+                valueSlider={valueSlider}
+                hanldeSliderValue={hanldeSliderValue}
+                smsAmount={smsAmount}
+                customerSendSMSQuantity={customerSendSMSQuantity}
+              />
 
-          <IconButton
-            iconComponent={() => <Switch color={colors.ocean_blue} onValueChange={setDisabled} value={!isDisabled} />}
-            iconStyle={styles.iconStyle}
-            style={styles.rowReverse}
-            renderText={() => <Text style={styles.txtItem}>{t('Active')}</Text>}
-          />
+              <IconButton
+                iconComponent={() => <Switch color={colors.ocean_blue} onValueChange={setDisabled} value={isDisabled} />}
+                iconStyle={styles.iconStyle}
+                style={styles.rowReverse}
+                renderText={() => <Text style={styles.txtItem}>{t('Active')}</Text>}
+              />
 
-          <IconButton
-            iconComponent={() => <Switch color={colors.ocean_blue} onValueChange={setManually} value={isManually} />}
-            iconStyle={styles.iconStyle}
-            style={styles.rowReverse}
-            renderText={() => <Text style={styles.txtItem}>{t('Manually')}</Text>}
-          />
-          <View style={{ height: scaleHeight(200) }} />
-        </ScrollView>
-      </SingleScreenLayout>
+              <IconButton
+                iconComponent={() => <Switch color={colors.ocean_blue} onValueChange={setManually} value={isManually} />}
+                iconStyle={styles.iconStyle}
+                style={styles.rowReverse}
+                renderText={() => <Text style={styles.txtItem}>{t('Manually')}</Text>}
+              />
+              <View style={{ height: scaleHeight(200) }} />
+            </View>
+          </ScrollView>
+        </SingleScreenLayout>
+      </View>
 
       <View style={styles.bottom}>
-        <Button
-          label="Save"
-          onPress={handleCampaign}
-          highlight={true}
-          width={'100%'}
-        />
+        {
+          isViewDetail ?
+            <Button
+              label={isDisabled ? "Start" : "Disable"}
+              onPress={isDisabled ? enableCampaign : disableCampaign}
+              highlight={true}
+              width={'100%'}
+              styleButton={{ backgroundColor: isDisabled ? colors.ocean_blue : "red", borderWidth: 0 }}
+            /> :
+            <Button
+              label="Save"
+              onPress={handleCampaign}
+              highlight={true}
+              width={'100%'}
+            />
+        }
       </View>
 
       <PoupFilterCustomer

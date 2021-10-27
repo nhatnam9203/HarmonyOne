@@ -5,6 +5,7 @@ import { images } from "@shared/themes/resources";
 import { CustomInput, InputSelect } from "@shared/components";
 import { InputService } from "./widget";
 import { TextInputMask } from "react-native-masked-text";
+import { useSelector } from "react-redux";
 import AntDesign from "react-native-vector-icons/AntDesign"
 import Collapsible from "react-native-collapsible";
 
@@ -12,7 +13,7 @@ const conditionList = [
     { label: "No condition", value: "1" },
     { label: "Using specific services", value: "2" },
     { label: "Customer birthday is within the week", value: "3" },
-    { label: "Time using the service reacthed the quality", value: "4" },
+    { label: "Times using the service reached the quantity", value: "4" },
     { label: "The customer is the referral", value: "5" },
 ];
 
@@ -24,6 +25,10 @@ const MarketingCondition = React.forwardRef(({
     valueSlider,
 }, ref) => {
 
+
+    const { 
+        service : { services },
+     } = useSelector(state=>state);
 
 
     const [condition, setCondition] = React.useState("No condition");
@@ -45,7 +50,37 @@ const MarketingCondition = React.forwardRef(({
         },
         getServices : () =>{
             return serviceSelected;
-        }
+        },
+        getNumberOfTimesApply : () =>{
+            return numberOfTimesApply;
+        },
+        setCondition : (dt) =>{
+            const obj = conditionList.find(item=>item?.label == dt);
+            setCondition(dt);
+            if(obj){
+                form.setValue("condition",obj);
+            }
+        },
+
+        setNumberOfTimesApply : (dt) =>{
+            setNumberOfTimesApply(dt)
+        },
+        
+        setServiceSelected: (arrServices = []) => {
+            let temp = [];
+            for (let i = 0; i < services.length; i++) {
+                for (let j = 0; j < arrServices.length; j++) {
+                    if (services[i].serviceId == arrServices[j]) {
+                        const tempService = {
+                            ...services[i],
+                            selected : true,
+                        }
+                        temp.push(tempService);
+                    }
+                }
+            }
+            setServiceSelected(temp);
+        },
     }));
 
     React.useEffect(()=>{
@@ -109,7 +144,7 @@ const MarketingCondition = React.forwardRef(({
             }
 
             {
-                condition == "Time using the service reacthed the quality" &&
+                condition == "Times using the service reached the quantity" &&
                 <>
                     <Text style={styles.numberTimes}>Number of times applied</Text>
                     <View style={styles.containerInputNumber}>

@@ -26,10 +26,10 @@ export const Button = ({
       onPress={onPress}
       style={[
         styles.button,
-        styleButton,
         { height: height, width: width },
         highlight && { backgroundColor: colors.ocean_blue },
         disabled && { backgroundColor: "#EEEEEE", borderColor: "#EEEEEE" },
+        styleButton,
       ]}
       disabled={disabled}
     >

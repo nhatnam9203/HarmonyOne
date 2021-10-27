@@ -152,7 +152,6 @@ const editAppointment = createSlice({
             let tempExtras = tempAppointment.extras || [];
             for (let el of extrasList) {
                 const index = findPositionExtra(tempExtras, el);
-                console.log({ el , index })
                 if (index !== -1) {
                     if (!el?.checked) {
                         if (!el?.bookingServiceId) {

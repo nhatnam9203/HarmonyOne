@@ -30,6 +30,13 @@ const MarketingDatePicker = React.forwardRef(({
                 startTime,
                 endTime,
             }
+        },
+        setValueDatePicker : (start_day,end_day,start_time,end_time, noEndDate) =>{
+            setStartDay(start_day);
+            setEndDay(end_day);
+            setStartTime(start_time);
+            setEndTime(end_time);
+            setVisibleEndDate(!noEndDate);
         }
     }));
 

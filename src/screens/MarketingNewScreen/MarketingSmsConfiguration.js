@@ -55,7 +55,7 @@ const MarketingSmsConfiguration = React.forwardRef(({
         getFileId: () => { return fileId },
 
         setFileId: (data) => { setFileId(data) },
-
+        setImageUrl: (data) => { setImageUrl(data) },
         setSmsType: (type) => {
             setSmsType(type);
         },

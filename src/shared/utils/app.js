@@ -254,6 +254,56 @@ export const getContentDate = (timeStart, timeEnd) => {
   return text;
 }
 
+export const getConditionIdByTitle = (title) => {
+  let id;
+  switch (title) {
+    case "No condition":
+      id = 1;
+      break;
+    case "Using specific services":
+      id = 2;
+      break;
+    case "Customer birthday is within the week":
+      id = 3;
+      break;
+    case "Times using the service reached the quantity":
+      id = 4;
+      break;
+    case "The customer is the referral":
+      id = 5;
+      break;
+    default:
+      id = 1;
+  }
+
+  return id;
+};
+
+export const getConditionTitleIdById = (id) => {
+  let title;
+  switch (id) {
+    case 1:
+      title = "No condition";
+      break;
+    case 2:
+      title = "Using specific services";
+      break;
+    case 3:
+      title = "Customer birthday is within the week";
+      break;
+    case 4:
+      title = "Times using the service reached the quantity";
+      break;
+    case 5:
+      title = "The customer is the referral";
+      break;
+    default:
+      title = "No condition";
+  }
+
+  return title;
+};
+
 export const getShortNameForDiscountAction = (title) => {
   let shortName = "";
   switch (title) {
@@ -271,4 +321,23 @@ export const getShortNameForDiscountAction = (title) => {
   }
 
   return shortName;
+};
+
+export const getDiscountActionByShortName = (shortName) => {
+  let actionDiscount = "";
+  switch (shortName) {
+    case "specific":
+      actionDiscount = "Discount for specific services";
+      break;
+    case "all":
+      actionDiscount = "Discount for whole cart";
+      break;
+    case "category":
+      actionDiscount = "Discount by category";
+      break;
+    default:
+      actionDiscount = "Discount for whole cart";
+  }
+
+  return actionDiscount;
 };

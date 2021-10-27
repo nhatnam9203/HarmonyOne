@@ -507,6 +507,77 @@ export const getSmsInformation = (conditionId) => ({
   }
 });
 
+export const createNewCampaign = (data) => ({
+  queryId: 'createNewCampaign',
+  params: {
+    url: `MerchantPromotion?api-version=1.2`,
+    method: 'POST',
+    data,
+  }
+});
+
+export const updatePromotionById = (promotionId, data) => ({
+  queryId: 'updatePromotionById',
+  params: {
+    url: `MerchantPromotion/${promotionId}?api-version=1.2`,
+    method: 'PUT',
+    data,
+  }
+});
+
+export const getPromotionDetailById = (promotionId) => ({
+  queryId: 'getPromotionDetailById',
+  params: {
+    url: `MerchantPromotion/${promotionId}?api-version=1.2`,
+    method: 'GET',
+  }
+});
+
+export const disablePromotionById = (promotionId) => ({
+  queryId: 'disablePromotionById',
+  params: {
+    url: `MerchantPromotion/disable/${promotionId}?api-version=1.2`,
+    method: 'PUT',
+    data: {}
+  }
+});
+
+export const enablePromotionById = (promotionId) => ({
+  queryId: 'enablePromotionById',
+  params: {
+    url: `MerchantPromotion/enable/${promotionId}?api-version=1.2`,
+    method: 'PUT',
+    data: {}
+  }
+});
+
+export const getPromotionAppointment = (appointmentId) => ({
+  queryId: 'getPromotionAppointment',
+  params: {
+    url: `appointment/promotion/${appointmentId}`,
+    method: 'GET',
+  }
+});
+
+export const customPromotion = (appointmentId, data) => ({
+  queryId: 'customPromotion',
+  params: {
+    url: `appointment/custompromotion/${appointmentId}`,
+    method: 'PUT',
+    data
+  }
+});
+
+export const addPromotionNote = (appointmentId, data) => ({
+  queryId: 'addPromotionNote',
+  method: "POST",
+  params: {
+    url: `appointment/promotion/note/${appointmentId}`,
+    method: 'POST',
+    data
+  }
+});
+
 
 /**
  * MERCHANT
@@ -557,33 +628,6 @@ export const readAllNotification = (page) => ({
     url: `notification/view/all`,
     method: 'PUT',
     data: {}
-  }
-});
-
-export const getPromotionAppointment = (appointmentId) => ({
-  queryId: 'getPromotionAppointment',
-  params: {
-    url: `appointment/promotion/${appointmentId}`,
-    method: 'GET',
-  }
-});
-
-export const customPromotion = (appointmentId, data) => ({
-  queryId: 'customPromotion',
-  params: {
-    url: `appointment/custompromotion/${appointmentId}`,
-    method: 'PUT',
-    data
-  }
-});
-
-export const addPromotionNote = (appointmentId, data) => ({
-  queryId: 'addPromotionNote',
-  method: "POST",
-  params: {
-    url: `appointment/promotion/note/${appointmentId}`,
-    method: 'POST',
-    data
   }
 });
 
@@ -701,11 +745,3 @@ export const getCustomerCanbeSendPromotion = (merchantPromotionId, merchantId) =
   }
 });
 
-export const createNewCampaign = (data) => ({
-  queryId: 'createNewCampaign',
-  params: {
-    url: `MerchantPromotion?api-version=1.2`,
-    method: 'POST',
-    data,
-  }
-});
