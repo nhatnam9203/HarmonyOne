@@ -90,7 +90,7 @@ export const useProps = (_params) => {
 
   React.useEffect(async () => {
     if (isRefresh) {
-      await fetchNotification();
+      fetchNotification();
       fetchCountUnread();
     }
     setRefresh(false);

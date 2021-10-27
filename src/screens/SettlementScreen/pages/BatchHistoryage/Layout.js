@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, ScrollView, TouchableOpacity, Image } from 'rea
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
-import { SearchInput } from "@shared/components";
+import { SearchInput, SelectPeriod2 } from "@shared/components";
 import { images } from "@shared/themes/resources";
 import { DataList } from "./DataList";
 
@@ -58,6 +58,8 @@ export const Layout = ({
           onRefresh={onRefresh}
           isRefresh={isRefresh}
         />
+
+        <SelectPeriod2 />
       </View>
     </View>
   );

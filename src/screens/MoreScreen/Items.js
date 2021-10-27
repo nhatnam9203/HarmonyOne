@@ -19,7 +19,7 @@ export const items = [
     title: "Settlement",
     icon: images.iconCloseSettlement,
     onPress: () => { 
-      NavigationService.navigate(screenNames.SettlementScreen)
+      // NavigationService.navigate(screenNames.SettlementScreen)
     }
   },
   {
