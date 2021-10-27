@@ -134,7 +134,7 @@ export const useProps = (props) => {
 
     const actionMsg =
       actionTags?.length > 0
-        ? `off for ${actionTags?.map((x) => x.name || "").join(", ")}.`
+        ? `off for ${actionTags?.map((x) => x?.name || "").join(", ")}.`
         : "";
 
     const promotionMsg =
@@ -173,7 +173,7 @@ export const useProps = (props) => {
       case 2:
         const arrMessage = conditionServiceProductTags ? conditionServiceProductTags : servicesCondition;
         const serviceMsg =
-          arrMessage?.map((x) => x.name || "").join(", ") ||
+          arrMessage?.map((x) => x?.name || "").join(", ") ||
           "";
         // ====> return text message
         return `More for less and all for you! During their ${title} promotion,choose any of ${serviceMsg} at ${businessName} to get ${promotionMsg}${actionMsg}. Hurry and book your appointment on HarmonyPay App now to grab this deal!`;

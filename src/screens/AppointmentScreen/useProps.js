@@ -145,7 +145,7 @@ export const useProps = (_params) => {
 
   const [, fetchMerchantById] = useAxiosQuery({
     ...getMerchantById(staffInfo?.merchantId),
-    queryId : "fetchMerchantById_appointmentScreen",
+    queryId: "fetchMerchantById_appointmentScreen",
     isLoadingDefault: false,
     enabled: false,
     onSuccess: (data, response) => {

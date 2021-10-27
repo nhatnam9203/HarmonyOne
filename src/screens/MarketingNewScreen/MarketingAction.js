@@ -151,7 +151,7 @@ const MarketingAction = React.forwardRef(({
                                     style={styles.wrapService}
                                     key={"serviceSelected" + service.serviceId}
                                 >
-                                    <Text style={styles.service}>{service.name}</Text>
+                                    <Text style={styles.service}>{service?.name}</Text>
                                     <TouchableOpacity onPress={() => removeService(service)}>
                                         <AntDesign
                                             style={{ marginLeft: scaleWidth(16) }}
@@ -182,7 +182,7 @@ const MarketingAction = React.forwardRef(({
                                     key={"categorySelected" + category.categoryId}
                                 >
                                     <Text style={styles.service}>
-                                        {category.name}
+                                        {category?.name}
                                     </Text>
                                     <TouchableOpacity onPress={() => removeCategory(category)}>
                                         <AntDesign

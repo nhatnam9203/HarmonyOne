@@ -126,7 +126,7 @@ const MarketingCondition = React.forwardRef(({
                                     style={styles.wrapService}
                                     key={"serviceSelected" + service.serviceId}
                                 >
-                                    <Text style={styles.service}>{service.name}</Text>
+                                    <Text style={styles.service}>{service?.name}</Text>
                                     <TouchableOpacity onPress={() => removeService(service)}>
                                         <AntDesign
                                             style={{ marginLeft: scaleWidth(16) }}
