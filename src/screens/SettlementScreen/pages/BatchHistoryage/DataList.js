@@ -17,12 +17,8 @@ export const DataList = ({
     isRefresh
 }) => {
 
-    console.log({ data })
-
-
     const dispatch = useDispatch();
     const { staff: { staffListByMerchant = [] } } = useSelector(state => state);
-    const [t] = useTranslation();
 
 
     const onRowPress = ({ key, row, column, item }) => {
@@ -54,23 +50,23 @@ export const DataList = ({
         const data = item[key];
         switch (key) {
             case "settlementId":
-                return <Text style={styles.txt}>
+                return <Text style={[styles.txtDate, { fontFamily: fonts.LIGHT }]}>
                     #{data}
                 </Text>
             case "date":
                 return (
-                    <Text style={styles.txtDate}>
+                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR }]}>
                         {moment(item?.settlementDate).format("MM/DD/YYYY")}
                     </Text>
                 )
             case "time":
                 return (
-                    <Text style={[styles.txtDate,{ fontFamily : fonts.MEDIUM }]}>
+                    <Text style={[styles.txtDate, { fontFamily: fonts.LIGHT }]}>
                         {moment(item?.settlementDate).format("hh:mm A")}
                     </Text>
                 )
             case "total":
-                return <Text style={[styles.txt,{ fontFamily : fonts.BOLD, color : "#404040" }]}>
+                return <Text style={[styles.txt, { fontFamily: fonts.BOLD, color: "#404040" }]}>
                     $ {data}
                 </Text>
             default:
@@ -125,12 +121,12 @@ const styles = StyleSheet.create({
 
     },
     txt: {
-        fontSize: scaleFont(14),
+        fontSize: scaleFont(13),
         fontFamily: fonts.REGULAR,
         color: "#404040"
     },
     txtDate: {
-        fontSize: scaleFont(14),
+        fontSize: scaleFont(13),
         fontFamily: fonts.LIGHT,
         color: "#404040"
     },

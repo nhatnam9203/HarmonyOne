@@ -12,7 +12,6 @@ const settlemtSlice = createSlice({
     initialState: initialState,
     reducers: {
         setBatchHistory: (state, action) => {
-            console.log({ action })
             if (action?.payload?.currentPage == 1) {
                 state.batchHistory = action?.payload?.data;
             } else {

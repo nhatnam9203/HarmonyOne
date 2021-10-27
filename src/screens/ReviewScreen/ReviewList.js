@@ -48,7 +48,7 @@ export const ReviewList = ({
                 onEndReachedThreshold={0.1}
                 initialNumToRender={20}
                 maxToRenderPerBatch={5}
-                ListEmptyComponent={() => <ListEmptyComponent description={t('No Appointments')} image={images.iconNotFound} />}
+                ListEmptyComponent={() => <ListEmptyComponent description={t('There is no reviews')} image={images.iconNotFound} />}
                 ListFooterComponent={() =>
                     <>
                         <View style={styles.itemLoadMore}>

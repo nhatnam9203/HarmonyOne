@@ -4,7 +4,7 @@ import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import { colors, fonts } from '@shared/themes';
 
 export const CustomActionSheet = React.forwardRef(
-    ({ onHide = () =>{} ,children }, ref) => {
+    ({ onHide = () => { }, children, ...props }, ref) => {
 
         const [open, setOpen] = React.useState(false);
 
@@ -17,13 +17,14 @@ export const CustomActionSheet = React.forwardRef(
             show: () => {
                 setOpen(true);
             },
-            hide : () =>{
+            hide: () => {
                 setOpen(false);
             }
         }));
 
         return (
             <CustomModal
+                {...props}
                 isVisible={open}
                 onRequestClose={onModalHide}
                 onBackdropPress={onModalHide}

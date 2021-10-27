@@ -3,27 +3,26 @@ import { View, StyleSheet, Text, ScrollView, TouchableOpacity, Image } from 'rea
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
-import { SearchInput, SelectPeriod2 } from "@shared/components";
+import { SearchInput, PeriodPicker } from "@shared/components";
 import { images } from "@shared/themes/resources";
 import { DataList } from "./DataList";
 
 export const Layout = ({
-  paymentMethodRef,
-  statusRef,
-  loadMore,
   currentPage,
-  onChangeFilter,
-  status,
-  paymentMethod,
   isRefresh,
   onRefresh,
   valueSearch,
   onChangeSearch,
   onSubmitSearch,
-  selectPeriod,
   batchHistory,
   getContentDate,
   onLoadMore,
+
+  timeStart,
+  timeEnd,
+  setTimeStart,
+  setTimeEnd,
+  onChangeDate
 }) => {
 
   const [t] = useTranslation();
@@ -39,17 +38,14 @@ export const Layout = ({
           onSubmit={onSubmitSearch}
         />
 
-        <TouchableOpacity
-          onPress={selectPeriod}
-          style={styles.buttonDateRange}
-        >
-          <Text style={styles.txtDateRange}>{getContentDate()}</Text>
-          <Image
-            source={images.date_range}
-            style={{ width: scaleWidth(24), height: scaleWidth(24) }}
-            resizeMode='contain'
-          />
-        </TouchableOpacity>
+        <PeriodPicker
+          timeStart={timeStart}
+          timeEnd={timeEnd}
+          setTimeStart={setTimeStart}
+          setTimeEnd={setTimeEnd}
+          onAccept={(startDate, endDate) => onChangeDate(startDate, endDate)}
+        />
+
 
         <DataList
           data={batchHistory}
@@ -59,7 +55,6 @@ export const Layout = ({
           isRefresh={isRefresh}
         />
 
-        <SelectPeriod2 />
       </View>
     </View>
   );
