@@ -52,6 +52,7 @@ import { SettlementScreen } from "./SettlementScreen";
 import { BatchHistoryPage } from "./SettlementScreen/pages";
 import { TransactionsPage } from "./SettlementScreen/pages";
 import { BatchHistoryDetailPage } from "./SettlementScreen/pages";
+import { EditActualAmountPage } from "./SettlementScreen/pages";
 
 
 module.exports = {
@@ -107,4 +108,5 @@ module.exports = {
   BatchHistoryPage,
   BatchHistoryDetailPage,
   TransactionsPage,
+  EditActualAmountPage,
 };

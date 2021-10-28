@@ -66,3 +66,9 @@ export const profileStaffLoginSchema = yup.object().shape({
     displayName: yup.string().required("required"),
     email: yup.string().email("Invalid email"),
 });
+
+
+export const settlmentEditAmountSchema = yup.object().shape({
+    paymentByCash: yup.string().required("required"),
+    otherPayment: yup.string().required("required"),
+});

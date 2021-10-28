@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, Image, ScrollView, TextInput } from 'react-native';
+import { View, StyleSheet, Text, Image, ScrollView, TextInput, Keyboard } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
@@ -7,6 +7,7 @@ import { Button, IconButton } from "@shared/components";
 import { TableSalesByStaff } from "./TableSalesByStaff";
 import { IncomeByPaymentMethod } from "./IncomeByPaymentMethod";
 import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import moment from "moment";
 
 export const Layout = ({
@@ -15,6 +16,7 @@ export const Layout = ({
   settlementWaiting,
   valueNote,
   onChangeNote,
+  editActualAmount,
 }) => {
 
   const [t] = useTranslation();
@@ -36,7 +38,7 @@ export const Layout = ({
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.content}>
+      <KeyboardAwareScrollView style={styles.content}>
         <View style={{ flexDirection: "row" }}>
           <Text style={[styles.title, { fontFamily: fonts.BOLD }]}>
             Last settlement :
@@ -69,12 +71,12 @@ export const Layout = ({
           </Text>
         </View>
 
-        <View style={{ flexDirection: "row", alignItems: "center", justifyContent : "space-between", paddingRight : scaleWidth(16) }}>
+        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingRight: scaleWidth(16) }}>
           <Text style={styles.bigTitle}>Income by payment methods</Text>
-          <IconButton 
+          <IconButton
             icon={images.iconPen}
             iconStyle={styles.iconPen}
-            onPress={()=>{}}
+            onPress={editActualAmount}
           />
         </View>
         <IncomeByPaymentMethod settlementWaiting={settlementWaiting} />
@@ -89,7 +91,7 @@ export const Layout = ({
               multiline={true}
               textAlignVertical='top'
               value={valueNote}
-              onChangeText={text=>{
+              onChangeText={text => {
                 onChangeNote(text);
               }}
               style={{ flex: 1 }}
@@ -99,7 +101,7 @@ export const Layout = ({
 
         <View style={{ height: scaleHeight(120) }} />
 
-      </ScrollView>
+      </KeyboardAwareScrollView>
 
       <View style={styles.bottom}>
         <Button
@@ -116,7 +118,7 @@ export const Layout = ({
 const styles = StyleSheet.create({
   iconPen: {
     width: scaleWidth(20),
-    height : scaleWidth(20),
+    height: scaleWidth(20),
   },
   txtNote: {
     fontSize: scaleFont(15),

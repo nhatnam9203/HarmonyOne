@@ -15,9 +15,9 @@ const initialState = {
     staffSales: [],
     giftCardSales: [],
 
-    settlementWaiting : {},
-    listStaffSales : [],
-    listGiftCardSales : [],
+    settlementWaiting: {},
+    listStaffSales: [],
+    listGiftCardSales: [],
 
 };
 
@@ -53,16 +53,26 @@ const settlemtSlice = createSlice({
             state.giftCardSales = action.payload;
         },
 
-        setSettlementWaiting : (state,action) =>{
+        setSettlementWaiting: (state, action) => {
             state.settlementWaiting = action.payload;
         },
 
-        setListStaffsSales : (state,action) =>{
+        setListStaffsSales: (state, action) => {
             state.listStaffSales = action.payload;
         },
 
-        setListGiftCardSales : (state,action) =>{
+        setListGiftCardSales: (state, action) => {
             state.listGiftCardSales = action.payload;
+        },
+
+        editAmountSettlementWaiting: (state, action) => {
+            const { otherPayment, paymentByCash } = action.payload;
+            let tempSettlementWating = {
+                ...state.settlementWaiting,
+                otherPayment,
+                paymentByCash
+            };
+            state.settlementWaiting = tempSettlementWating;
         }
 
 

@@ -1,6 +1,5 @@
 
 import React from "react";
-import NavigationService from '@navigation/NavigationService';
 import {
   useAxiosQuery,
   getListStaffsSales,
@@ -9,6 +8,7 @@ import {
 } from "@src/apis";
 import { settlement } from "@redux/slices";
 import { useSelector, useDispatch } from "react-redux";
+import NavigationService from '@navigation/NavigationService';
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
@@ -17,8 +17,6 @@ export const useProps = (props) => {
 
   const {
     settlement: { 
-      staffSales = [], giftCardSales = [],
-    
       settlementWaiting = {},
       listStaffSales = [],
       listGiftCardSales = [],
@@ -71,6 +69,10 @@ export const useProps = (props) => {
     valueNote,
     onChangeNote : (note) =>{
       setValueNote(note)
+    },
+
+    editActualAmount : () =>{
+      NavigationService.navigate(screenNames.EditActualAmountPage);
     }
   };
 };

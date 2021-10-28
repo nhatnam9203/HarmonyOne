@@ -45,6 +45,7 @@ import {
   BatchHistoryPage,
   BatchHistoryDetailPage,
   TransactionsPage,
+  EditActualAmountPage
 } from '@screens';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
 import { useSelector } from "react-redux";
@@ -113,6 +114,7 @@ const AppStack = () => {
         <Screen {...BatchHistoryPage} />
         <Screen {...TransactionsPage} />
         <Screen {...BatchHistoryDetailPage} />
+        <Screen {...EditActualAmountPage} />
 
         <Screen name="ChangePincode" component={ChangePincode} />
         <Screen name="ForgotPincode" component={ForgotPincode} />
