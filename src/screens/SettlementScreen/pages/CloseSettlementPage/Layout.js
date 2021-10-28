@@ -14,8 +14,10 @@ export const Layout = ({
   listStaffSales,
   listGiftCardSales,
   settlementWaiting,
+
   valueNote,
   onChangeNote,
+  
   editActualAmount,
   reviewSettlement,
 }) => {
@@ -49,9 +51,11 @@ export const Layout = ({
           </Text>
         </View>
 
+        {/*********************************** TABLE SALES BY STAFF  ***********************************/}
         <Text style={styles.bigTitle}>Sales by staff</Text>
         <TableSalesByStaff data={listStaffSales} />
 
+        {/*********************************** TOTAL GIFT CARD SOLD  ***********************************/}
         <View style={[styles.rowBetween, { marginTop: scaleHeight(16) }]}>
           <Text style={[styles.title, { fontFamily: fonts.MEDIUM, color: colors.ocean_blue }]}>
             Gift Card Sold
@@ -62,16 +66,17 @@ export const Layout = ({
           </Text>
         </View>
 
+        {/*********************************** TOTAL  ***********************************/}
         <View style={[styles.rowBetween, { backgroundColor: "#DCF7FF", alignItems: 'center', marginTop: scaleHeight(5) }]}>
           <Text style={[styles.title, { fontFamily: fonts.MEDIUM }]}>
             Total
           </Text>
-
           <Text style={[styles.title, { fontFamily: fonts.MEDIUM, padding: scaleWidth(16), color: "#4CD964" }]}>
             $ {formatMoney(totalAmount)}
           </Text>
         </View>
 
+      {/*********************************** INCOME BY PAYMENT METHOD  ***********************************/}
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingRight: scaleWidth(16) }}>
           <Text style={styles.bigTitle}>Income by payment methods</Text>
           {
@@ -85,6 +90,7 @@ export const Layout = ({
         </View>
         <IncomeByPaymentMethod settlementWaiting={settlementWaiting} />
 
+      {/*********************************** NOTE  ***********************************/}
         <View style={{ marginTop: scaleHeight(24) }} >
           <Text style={[styles.title, { fontFamily: fonts.MEDIUM, color: "#00408080" }]}>
             Note
@@ -107,6 +113,7 @@ export const Layout = ({
 
       </KeyboardAwareScrollView>
 
+      {/*********************************** BUTTON CONFIRM  ***********************************/}
       {
         settlementWaiting?.checkout && settlementWaiting?.checkout.length > 0 &&
         <View style={styles.bottom}>
