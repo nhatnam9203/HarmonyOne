@@ -9,6 +9,7 @@ import { CustomTable } from "@shared/components";
 import NavigationService from '@navigation/NavigationService';
 import moment from "moment";
 
+
 export const DataList = ({
     data = [],
     onLoadMore = () => { },
@@ -16,6 +17,8 @@ export const DataList = ({
     isRefresh,
     endLoadMore,
 }) => {
+
+    const [percent, setPercent] = React.useState(0);
 
     const dispatch = useDispatch();
 
@@ -35,7 +38,7 @@ export const DataList = ({
             const response = await axios(params);
             if (response?.data?.codeNumber == 200) {
                 dispatch(settlement.setStaffSales(response?.data?.data));
-                NavigationService.navigate(screenNames.BatchHistoryDetailPage, { batchDetail : item });
+                NavigationService.navigate(screenNames.BatchHistoryDetailPage, { batchDetail: item });
             }
 
         } catch (err) {

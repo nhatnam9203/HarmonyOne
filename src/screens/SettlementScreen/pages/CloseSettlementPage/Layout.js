@@ -74,11 +74,14 @@ export const Layout = ({
 
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingRight: scaleWidth(16) }}>
           <Text style={styles.bigTitle}>Income by payment methods</Text>
-          <IconButton
-            icon={images.iconPen}
-            iconStyle={styles.iconPen}
-            onPress={editActualAmount}
-          />
+          {
+            settlementWaiting?.checkout && settlementWaiting?.checkout.length > 0 &&
+            <IconButton
+              icon={images.iconPen}
+              iconStyle={styles.iconPen}
+              onPress={editActualAmount}
+            />
+          }
         </View>
         <IncomeByPaymentMethod settlementWaiting={settlementWaiting} />
 
@@ -104,14 +107,17 @@ export const Layout = ({
 
       </KeyboardAwareScrollView>
 
-      <View style={styles.bottom}>
-        <Button
-          label="Confirm"
-          onPress={reviewSettlement}
-          highlight={true}
-          width={'100%'}
-        />
-      </View>
+      {
+        settlementWaiting?.checkout && settlementWaiting?.checkout.length > 0 &&
+        <View style={styles.bottom}>
+          <Button
+            label="Confirm"
+            onPress={reviewSettlement}
+            highlight={true}
+            width={'100%'}
+          />
+        </View>
+      }
     </View>
   );
 };

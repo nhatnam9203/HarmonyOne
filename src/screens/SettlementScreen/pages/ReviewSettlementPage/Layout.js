@@ -8,11 +8,17 @@ import { IncomeByPaymentMethod } from "./IncomeByPaymentMethod";
 import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SingleScreenLayout } from '@shared/layouts';
+import { DialogProgress } from "./DialogProgress";
 import moment from "moment";
 
 export const Layout = ({
   settlementWaiting,
-  viewCreditTransactions
+  viewCreditTransactions,
+  dialogProgressRef,
+  viewBatch,
+  finish,
+  closeSettlement,
+  progress
 }) => {
 
   const [t] = useTranslation();
@@ -53,7 +59,7 @@ export const Layout = ({
                 Credit transactions:
               </Text>
               <Text style={[styles.bigTitle, { fontSize: scaleFont(15), marginBottom : 0 }]}>
-                24
+                {settlementWaiting?.paymentTransaction?.length || "0"}
               </Text>
             </TouchableOpacity>
           </View>
@@ -67,12 +73,19 @@ export const Layout = ({
       <View style={styles.bottom}>
         <Button
           label="Settle"
-          onPress={() => { }}
+          onPress={closeSettlement}
           highlight={true}
           width={'100%'}
           styleButton={{ backgroundColor: "#4AD100", borderWidth: 0 }}
         />
       </View>
+
+      <DialogProgress 
+        ref={dialogProgressRef}
+        viewBatch={viewBatch}
+        finish={finish}
+        progress={progress}
+      />
     </View>
   );
 };

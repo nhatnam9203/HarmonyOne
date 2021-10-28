@@ -796,3 +796,13 @@ export const getSettlementWating = (terminalID = null, paymentTerminal = "pax") 
     method: 'GET',
   }
 });
+
+export const getTransactions = (timeStart = "", timeEnd = "", key = "", quickFilter = "",page = 1) => ({
+  queryId: 'getTransactions',
+  params: {
+    url: `settlement/transaction?status=&timeStart=${timeStart}&timeEnd=${timeEnd}&key=${key}&quickFilter=${quickFilter}&page=${page}`,
+    method: 'GET',
+  }
+});
+
+
