@@ -30,7 +30,6 @@ export const Layout = ({
   isLoading
 }) => {
 
-
   const [t] = useTranslation();
 
   return (

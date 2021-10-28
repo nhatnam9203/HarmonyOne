@@ -55,10 +55,11 @@ const ScreenNames = {
   InvoiceDetailScreen: "hpo.invoice.detail",
   SelectPeriod: "hpo.selectPeriod",
   AddServiceCheckboxPage: 'hpo.service.addServiceCheckbox',
-  SettlementScreen : "hpo.settlement",
-  BatchHistoryPage : "hpo.settlement.batch.history",
-  TransactionsPage : "hpo.settlement.transactions",
-  CloseSettlementPage : "hpo.settlement.close",
+  SettlementScreen: "hpo.settlement",
+  BatchHistoryPage: "hpo.settlement.batch.history",
+  TransactionsPage: "hpo.settlement.transactions",
+  CloseSettlementPage: "hpo.settlement.close",
+  BatchHistoryDetailPage: 'hpo.settlement.batch.history.detail',
 };
 
 module.exports = { ScreenNames };

@@ -5,6 +5,15 @@ import AsyncStorage from '@react-native-community/async-storage';
 const reducerName = 'hpo.settlement';
 const initialState = {
     batchHistory: [],
+    pages: 0,
+    count: 0,
+
+    transactions: [],
+    transactions_count: 0,
+    transactions_pages: 0,
+
+    staffSales: [],
+    giftCardSales: [],
 };
 
 const settlemtSlice = createSlice({
@@ -19,7 +28,26 @@ const settlemtSlice = createSlice({
             }
             state.pages = action?.payload?.pages;
             state.count = action?.payload?.count;
+        },
+
+        setTransactions: (state, action) => {
+            if (action?.payload?.currentPage == 1) {
+                state.transactions = action?.payload?.data;
+            } else {
+                state.transactions = state.transactions.concat(action?.payload?.data);
+            }
+            state.transactions_pages = action?.payload?.pages;
+            state.transactions_count = action?.payload?.count;
+        },
+
+        setStaffSales: (state, action) => {
+            state.staffSales = action.payload;
+        },
+
+        setGiftCardSales: (state, action) => {
+            state.giftCardSales = action.payload;
         }
+
     },
 });
 

@@ -8,7 +8,6 @@ import { images } from "@shared/themes/resources";
 import { DataList } from "./DataList";
 
 export const Layout = ({
-  currentPage,
   isRefresh,
   onRefresh,
   valueSearch,
@@ -22,7 +21,9 @@ export const Layout = ({
   timeEnd,
   setTimeStart,
   setTimeEnd,
-  onChangeDate
+  onChangeDate,
+  pages,
+  currentPage,
 }) => {
 
   const [t] = useTranslation();
@@ -53,6 +54,7 @@ export const Layout = ({
           onLoadMore={onLoadMore}
           onRefresh={onRefresh}
           isRefresh={isRefresh}
+          endLoadMore={currentPage >= pages}
         />
 
       </View>

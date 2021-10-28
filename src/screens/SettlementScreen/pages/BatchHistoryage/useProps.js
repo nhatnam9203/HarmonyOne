@@ -16,7 +16,7 @@ export const useProps = (props) => {
 
   const {
     auth: { staff },
-    settlement: { batchHistory = [] }
+    settlement: { batchHistory = [] , pages = 0, count = 0 }
   } = useSelector(state => state);
 
   /********************************* STATE  ********************************* */
@@ -81,6 +81,8 @@ export const useProps = (props) => {
     timeEnd,
     setTimeStart,
     setTimeEnd,
+    pages,
+    currentPage,
 
 
     onChangeSearch: (text) => {

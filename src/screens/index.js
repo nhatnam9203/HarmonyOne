@@ -51,6 +51,7 @@ import { AddServiceCheckboxPage } from "./ServiceScreen/pages/AddServiceCheckbox
 import { SettlementScreen } from "./SettlementScreen";
 import { BatchHistoryPage } from "./SettlementScreen/pages";
 import { TransactionsPage } from "./SettlementScreen/pages";
+import { BatchHistoryDetailPage } from "./SettlementScreen/pages";
 
 
 module.exports = {
@@ -104,5 +105,6 @@ module.exports = {
   AddServiceCheckboxPage,
   SettlementScreen,
   BatchHistoryPage,
+  BatchHistoryDetailPage,
   TransactionsPage,
 };

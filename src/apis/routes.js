@@ -757,3 +757,18 @@ export const getBatchHistory = (key = "", timeStart = "", timeEnd = "", quickFil
   }
 });
 
+export const getStaffSalesBySettlementId = (settlementId = 0) => ({
+  queryId: 'getStaffSalesBySettlementId',
+  params: {
+    url: `appointment/staffSales/getBySettlement/${settlementId}`,
+    method: 'GET',
+  }
+});
+
+export const getGiftCardSalesBySettlementId = (settlementId = 0) => ({
+  queryId: 'getGiftCardSalesBySettlementId',
+  params: {
+    url: `settlement/giftCardSales/${settlementId}`,
+    method: 'GET',
+  }
+});

@@ -93,6 +93,12 @@ export const images = {
   iconShare: require('@src/assets/images/share_icon.png'),
   iconFilter: require('@src/assets/images/filter.png'),
   iconMarketingGrey: require('@src/assets/images/iconMarketingGrey.png'),
+  
+  visaLogo : require('@src/assets/images/visaLogo.png'),
+  masterCardLogo : require('@src/assets/images/masterCardLogo.png'),
+  discoverLogo : require('@src/assets/images/discoverLogo.png'),
+  other_card : require('@src/assets/images/other_card.png'),
+  american_express : require('@src/assets/images/american_express.png'),
 
   EmptyList: require('@src/assets/images/emptyList.png'),
   barTimeLine: require('@src/assets/images/barTimeLine.png'),
@@ -100,6 +106,7 @@ export const images = {
   buttonPlus: require('@src/assets/home/button_plus.png'),
   arrowRight: require('@src/assets/images/arrowRight.png'),
   treedot: require('@src/assets/home/treedot.png'),
+
 };
 
 export const svg = {

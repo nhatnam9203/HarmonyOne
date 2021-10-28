@@ -1,13 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
-import { useTranslation } from "react-i18next";
 import { fonts, colors, images } from "@shared/themes";
-import { useSelector, useDispatch } from "react-redux";
-import { app, invoice, settlement } from "@redux/slices";
+import { app, invoice } from "@redux/slices";
 import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
-import NavigationService from '@navigation/NavigationService';
+import { getCredicardIcon } from "@shared/utils";
 import moment from "moment";
+
 
 export const DataList = ({
     data = [],
@@ -17,78 +16,51 @@ export const DataList = ({
     endLoadMore,
 }) => {
 
-    const dispatch = useDispatch();
-
-    const onRowPress = ({ key, row, column, item }) => {
-        getStaffSales(item);
-        getGiftCardSales(item?.settlementId);
-    };
-
-    const getStaffSales = async (item) => {
-        dispatch(app.showLoading());
-        const params = {
-            url: `appointment/staffSales/getBySettlement/${item?.settlementId}`,
-            method: 'GET',
-        }
-
-        try {
-            const response = await axios(params);
-            if (response?.data?.codeNumber == 200) {
-                dispatch(settlement.setStaffSales(response?.data?.data));
-                NavigationService.navigate(screenNames.BatchHistoryDetailPage, { batchDetail : item });
-            }
-
-        } catch (err) {
-
-        } finally {
-            dispatch(app.hideLoading());
-        }
-    }
-
-    const getGiftCardSales = async (settlementId) => {
-        dispatch(app.showLoading());
-        const params = {
-            url: `settlement/giftCardSales/${settlementId}`,
-            method: 'GET',
-        }
-
-        try {
-            const response = await axios(params);
-
-            if (response?.data?.codeNumber == 200) {
-                dispatch(settlement.setGiftCardSales(response?.data?.data));
-                // NavigationService.navigate(screenNames.InvoiceDetailScreen);
-            }
-
-        } catch (err) {
-
-        } finally {
-            dispatch(app.hideLoading());
-        }
-    }
-
     const renderCell = ({ key, row, column, item }) => {
         const data = item[key];
         switch (key) {
-            case "settlementId":
+            case "SettlementId":
                 return <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR }]}>
                     #{data}
                 </Text>
-            case "date":
+            case "createdDate":
                 return (
-                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR }]}>
-                        {moment(item?.settlementDate).format("MM/DD/YYYY")}
-                    </Text>
+                    <View>
+                        <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR }]}>
+                            {moment(item?.createdDate).format("MM/DD/YYYY")}
+                        </Text>
+                        <Text style={[styles.txtDate, { fontFamily: fonts.LIGHT }]}>
+                            {moment(item?.createdDate).format("hh:mm A")}
+                        </Text>
+                    </View>
                 )
-            case "time":
+            case "checkoutId":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.LIGHT }]}>
-                        {moment(item?.settlementDate).format("hh:mm A")}
+                        #{item?.checkoutId}
                     </Text>
                 )
-            case "total":
-                return <Text style={[styles.txt, { fontFamily: fonts.BOLD, color: "#404040" }]}>
-                    $ {data}
+            case "status":
+                return <Text style={[styles.txt, { fontFamily: fonts.REGULAR, color: "#404040" }]}>
+                    {item?.status}
+                </Text>
+            case "payment":
+                return item?.paymentData?.card_number ? (
+                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                        <Image
+                            style={styles.iconCard}
+                            source={getCredicardIcon(item?.paymentData?.card_type)}
+                            resizeMode='contain'
+                        />
+                        <Text style={[styles.txt, { fontFamily: fonts.LIGHT, marginLeft : 4}]}>
+                            x {item?.paymentData?.card_number}
+                        </Text>
+                    </View>
+                ) : <View />;
+
+            case "amount":
+                return <Text style={[styles.txt, { fontFamily: fonts.MEDIUM, color: "#000" }]}>
+                    $ {item?.amount}
                 </Text>
             default:
                 return <Text style={styles.txt}>
@@ -102,24 +74,28 @@ export const DataList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                settlementId: "Batch ID",
-                date: "Date",
-                time: "Time",
-                total: "Amount",
+                SettlementId: "Batch ID",
+                createdDate: "Date/time",
+                checkoutId: "Invoice",
+                status: "Status",
+                payment: "Payments",
+                amount: "Total",
             }}
             whiteKeys={[
-                "settlementId",
-                "date",
-                "time",
-                "total",
+                "SettlementId",
+                "createdDate",
+                "checkoutId",
+                "status",
+                "payment",
+                "amount"
             ]}
-            primaryId="code"
-            sumTotalKey="code"
+            primaryId="SettlementId"
+            sumTotalKey="amount"
             calcSumKeys={[
 
             ]}
             priceKeys={[
-                "total",
+                "amount",
             ]}
             unitKeys={{ workingHour: "hrs" }}
             sortDefault="NONE"
@@ -127,7 +103,6 @@ export const DataList = ({
             tableCellWidth={{}}
             renderCell={renderCell}
             renderActionCell={() => null}
-            onRowPress={onRowPress}
             isRefreshing={isRefresh}
             onRefresh={onRefresh}
             onLoadMore={onLoadMore}
@@ -138,6 +113,10 @@ export const DataList = ({
 }
 
 const styles = StyleSheet.create({
+    iconCard: {
+        width: scaleWidth(30),
+        height: scaleWidth(25),
+    },
     cell: {
 
     },

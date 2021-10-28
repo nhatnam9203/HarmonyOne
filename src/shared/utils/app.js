@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { images } from "../themes/resources"
 
 export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -20,7 +21,7 @@ export const APPOINTMENT_STATUS = {
   VOID: 'void',
   REFUND: 'refund',
   WAITING: 'waiting',
-  NOSHOW: 'no show'
+  NOSHOW: 'no show',
 };
 
 export const getColorForStatus = (status) => {
@@ -340,4 +341,25 @@ export const getDiscountActionByShortName = (shortName) => {
   }
 
   return actionDiscount;
+};
+
+
+export const getCredicardIcon = (cardType) => {
+  let icon = "";
+  let type = cardType?.toString()?.toLowerCase();
+  if (`${type}`.indexOf("visa") !== -1) {
+      icon = images.visaLogo;
+  } else if (`${type}`.indexOf("mastercard") !== -1) {
+      icon = images.masterCardLogo;
+  } else if (`${type}`.indexOf("discover") !== -1) {
+      icon = images.discoverLogo;
+  } else if (`${type}`.indexOf("americanexpress") !== -1) {
+      icon = images.american_express;
+  } else if (`${type}`.indexOf("other") !== -1) {
+      icon = images.other_card;
+  } else {
+      icon = images.other_card;
+  }
+
+  return icon;
 };

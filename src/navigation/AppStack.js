@@ -43,6 +43,7 @@ import {
   AddServiceCheckboxPage,
   SettlementScreen,
   BatchHistoryPage,
+  BatchHistoryDetailPage,
   TransactionsPage,
 } from '@screens';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
@@ -111,6 +112,7 @@ const AppStack = () => {
         <Screen {...SettlementScreen} />
         <Screen {...BatchHistoryPage} />
         <Screen {...TransactionsPage} />
+        <Screen {...BatchHistoryDetailPage} />
 
         <Screen name="ChangePincode" component={ChangePincode} />
         <Screen name="ForgotPincode" component={ForgotPincode} />

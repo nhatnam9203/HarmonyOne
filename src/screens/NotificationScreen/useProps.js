@@ -29,6 +29,7 @@ export const useProps = (_params) => {
 
   const [{ isLoading }, fetchNotification] = useAxiosQuery({
     ...getNotification(currentPage),
+    queryId : "fetchNotification_notify",
     isLoadingDefault: currentPage == 1,
     enabled: true,
     onSuccess: (data, response) => {
@@ -36,9 +37,9 @@ export const useProps = (_params) => {
         ...response,
         currentPage
       }))
-      setLoadingDefault(false);
     },
   });
+
 
   const [, fetchCountUnread] = useAxiosQuery({
     ...getCountUnReadOfNotification(),
@@ -92,9 +93,9 @@ export const useProps = (_params) => {
     if (isRefresh) {
       fetchNotification();
       fetchCountUnread();
+      setRefresh(false);
     }
-    setRefresh(false);
-  }, [isRefresh, currentPage]);
+  }, [isRefresh]);
 
   return {
     notifications,
@@ -104,7 +105,8 @@ export const useProps = (_params) => {
 
     loadMore: () => {
       if (currentPage < pages) {
-        setCurrentPage(currentPage + 1);
+        let page = currentPage + 1;
+        setCurrentPage(page);
       }
     },
 
