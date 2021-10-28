@@ -7,28 +7,7 @@ import NavigationService from '@navigation/NavigationService'
 
 export const useProps = (_params) => {
 
-  const dispatch = useDispatch();
-  const refDialogSignout = React.useRef();
-
-  const [, logout] = useAxiosMutation({
-    ...staffLogoutRequest(),
-    isLoadingDefault: true,
-    onSuccess: (data, response) => {
-      if (response?.codeNumber == 200) {
-        NavigationService.navigate('AuthStack', { isLogout: true });
-        dispatch(auth.signOutApp());
-        clearAuthToken();
-      }
-    },
-  });
-
   return {
-    refDialogSignout,
-
-    onLogout: async () => {
-      const body = await staffLogoutRequest();
-      logout(body.params);
-      NavigationService.navigate('AuthStack', { isLogout: true });
-    },
+   
   };
 };

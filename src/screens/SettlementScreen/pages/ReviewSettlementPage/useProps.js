@@ -73,10 +73,6 @@ export const useProps = (props) => {
 
     editActualAmount : () =>{
       NavigationService.navigate(screenNames.EditActualAmountPage);
-    },
-
-    reviewSettlement : () =>{
-      NavigationService.navigate(screenNames.ReviewSettlementPage);
     }
   };
 };

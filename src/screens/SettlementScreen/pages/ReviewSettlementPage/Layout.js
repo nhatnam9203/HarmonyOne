@@ -8,6 +8,7 @@ import { TableSalesByStaff } from "./TableSalesByStaff";
 import { IncomeByPaymentMethod } from "./IncomeByPaymentMethod";
 import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { SingleScreenLayout } from '@shared/layouts';
 import moment from "moment";
 
 export const Layout = ({
@@ -17,7 +18,6 @@ export const Layout = ({
   valueNote,
   onChangeNote,
   editActualAmount,
-  reviewSettlement,
 }) => {
 
   const [t] = useTranslation();
@@ -39,77 +39,48 @@ export const Layout = ({
 
   return (
     <View style={styles.container}>
-      <KeyboardAwareScrollView style={styles.content}>
-        <View style={{ flexDirection: "row" }}>
-          <Text style={[styles.title, { fontFamily: fonts.BOLD }]}>
-            Last settlement :
-          </Text>
-          <Text style={[styles.title, { marginLeft: scaleWidth(16) }]}>
-            {moment(settlementWaiting?.settlementdate).format("MM/DD/YYYY - hh:mm A")}
-          </Text>
-        </View>
+      <SingleScreenLayout
+        pageTitle={t('Review settlement')}
+        isRight={false}
+        isLeft={true}
+        isScrollLayout={false}
+      >
+        <KeyboardAwareScrollView style={styles.content}>
 
-        <Text style={styles.bigTitle}>Sales by staff</Text>
-        <TableSalesByStaff data={listStaffSales} />
+          <Text style={styles.bigTitle}>Actual amount</Text>
+          <IncomeByPaymentMethod settlementWaiting={settlementWaiting} />
 
-        <View style={[styles.rowBetween, { marginTop: scaleHeight(16) }]}>
-          <Text style={[styles.title, { fontFamily: fonts.MEDIUM, color: colors.ocean_blue }]}>
-            Gift Card Sold
+          <View style={{ marginTop: scaleHeight(24) }} >
+            <Text style={[styles.title, { fontFamily: fonts.MEDIUM, color: "#00408080" }]}>
+              Note
             </Text>
 
-          <Text style={[styles.title, { fontFamily: fonts.MEDIUM, paddingRight: scaleWidth(16), color: colors.ocean_blue }]}>
-            $ {formatMoney(giftCardTotal)}
-          </Text>
-        </View>
-
-        <View style={[styles.rowBetween, { backgroundColor: "#DCF7FF", alignItems: 'center', marginTop: scaleHeight(5) }]}>
-          <Text style={[styles.title, { fontFamily: fonts.MEDIUM }]}>
-            Total
-          </Text>
-
-          <Text style={[styles.title, { fontFamily: fonts.MEDIUM, padding: scaleWidth(16), color: "#4CD964" }]}>
-            $ {formatMoney(totalAmount)}
-          </Text>
-        </View>
-
-        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingRight: scaleWidth(16) }}>
-          <Text style={styles.bigTitle}>Income by payment methods</Text>
-          <IconButton
-            icon={images.iconPen}
-            iconStyle={styles.iconPen}
-            onPress={editActualAmount}
-          />
-        </View>
-        <IncomeByPaymentMethod settlementWaiting={settlementWaiting} />
-
-        <View style={{ marginTop: scaleHeight(24) }} >
-          <Text style={[styles.title, { fontFamily: fonts.MEDIUM, color: "#00408080" }]}>
-            Note
-          </Text>
-
-          <View style={styles.containerNote}>
-            <TextInput
-              multiline={true}
-              textAlignVertical='top'
-              value={valueNote}
-              onChangeText={text => {
-                onChangeNote(text);
-              }}
-              style={{ flex: 1 }}
-            />
+            <View pointerEvents="none" style={styles.containerNote}>
+              <TextInput
+                multiline={true}
+                textAlignVertical='top'
+                value={valueNote}
+                onChangeText={text => {
+                  onChangeNote(text);
+                }}
+                style={{ flex: 1 }} 
+              />
+            </View>
           </View>
-        </View>
 
-        <View style={{ height: scaleHeight(120) }} />
+          <View style={{ height: scaleHeight(120) }} />
 
-      </KeyboardAwareScrollView>
+        </KeyboardAwareScrollView>
+
+      </SingleScreenLayout>
 
       <View style={styles.bottom}>
         <Button
-          label="Confirm"
-          onPress={reviewSettlement}
+          label="Settle"
+          onPress={() => { }}
           highlight={true}
           width={'100%'}
+          styleButton={{ backgroundColor: "#4AD100", borderWidth : 0 }}
         />
       </View>
     </View>
@@ -172,8 +143,7 @@ const styles = StyleSheet.create({
     fontSize: scaleFont(17),
     color: colors.ocean_blue,
     fontFamily: fonts.BOLD,
-    marginVertical: scaleHeight(16),
-    marginTop: scaleHeight(24),
+    marginBottom: scaleHeight(16),
     marginLeft: scaleWidth(16)
   },
 

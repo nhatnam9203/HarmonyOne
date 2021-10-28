@@ -53,6 +53,7 @@ import { BatchHistoryPage } from "./SettlementScreen/pages";
 import { TransactionsPage } from "./SettlementScreen/pages";
 import { BatchHistoryDetailPage } from "./SettlementScreen/pages";
 import { EditActualAmountPage } from "./SettlementScreen/pages";
+import { ReviewSettlementPage } from "./SettlementScreen/pages";
 
 
 module.exports = {
@@ -109,4 +110,5 @@ module.exports = {
   BatchHistoryDetailPage,
   TransactionsPage,
   EditActualAmountPage,
+  ReviewSettlementPage
 };
