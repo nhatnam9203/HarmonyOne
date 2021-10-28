@@ -772,3 +772,27 @@ export const getGiftCardSalesBySettlementId = (settlementId = 0) => ({
     method: 'GET',
   }
 });
+
+export const getListStaffsSales = (terminalID) => ({
+  queryId: 'getListStaffsSales',
+  params: {
+    url: `appointment/staffSales?sn=${terminalID}`,
+    method: 'GET',
+  }
+});
+
+export const getListGiftCardSales = (terminalID = null) => ({
+  queryId: 'getListGiftCardSales',
+  params: {
+    url: `settlement/waiting/giftCardSales?sn=${terminalID}`,
+    method: 'GET',
+  }
+});
+
+export const getSettlementWating = (terminalID = null, paymentTerminal = "pax") => ({
+  queryId: 'getSettlementWating',
+  params: {
+    url: `settlement/waiting?sn=${terminalID}&paymentTerminal=${paymentTerminal}`,
+    method: 'GET',
+  }
+});

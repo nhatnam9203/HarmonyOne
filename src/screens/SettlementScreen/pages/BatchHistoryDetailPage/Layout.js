@@ -49,7 +49,7 @@ export const Layout = ({
               Batch ID : #{batchDetail?.settlementId}
             </Text>
             <Text style={[styles.title, { marginLeft: scaleWidth(16) }]}>
-              {moment(batchDetail?.settlementdate).format("MM/DD/YYYY hh:mm A")}
+              {moment(batchDetail?.settlementdate).format("MM/DD/YYYY - hh:mm A")}
             </Text>
           </View>
 
@@ -78,7 +78,7 @@ export const Layout = ({
 
           <Text style={styles.bigTitle}>Income by payment methods</Text>
           <IncomeByPaymentMethod batchDetail={batchDetail} />
-          
+
           <View style={{ marginTop : scaleHeight(24) }} >
             <Text style={[styles.title, { fontFamily: fonts.MEDIUM, color: "#00408080" }]}>
               Note

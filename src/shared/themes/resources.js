@@ -93,6 +93,8 @@ export const images = {
   iconShare: require('@src/assets/images/share_icon.png'),
   iconFilter: require('@src/assets/images/filter.png'),
   iconMarketingGrey: require('@src/assets/images/iconMarketingGrey.png'),
+  iconPen: require('@src/assets/images/iconPen.png'),
+
   
   visaLogo : require('@src/assets/images/visaLogo.png'),
   masterCardLogo : require('@src/assets/images/masterCardLogo.png'),

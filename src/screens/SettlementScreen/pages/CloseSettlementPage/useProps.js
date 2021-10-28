@@ -1,34 +1,76 @@
+
 import React from "react";
-import { auth } from "@redux/slices";
-import { useDispatch } from "react-redux";
-import { staffLogoutRequest, useAxiosMutation } from "@src/apis";
-import { clearAuthToken } from "@shared/storages/authToken"
-import NavigationService from '@navigation/NavigationService'
+import NavigationService from '@navigation/NavigationService';
+import {
+  useAxiosQuery,
+  getListStaffsSales,
+  getListGiftCardSales,
+  getSettlementWating,
+} from "@src/apis";
+import { settlement } from "@redux/slices";
+import { useSelector, useDispatch } from "react-redux";
 
-export const useProps = (_params) => {
-
+export const useProps = (props) => {
   const dispatch = useDispatch();
-  const refDialogSignout = React.useRef();
 
-  const [, logout] = useAxiosMutation({
-    ...staffLogoutRequest(),
-    isLoadingDefault: true,
+  const [valueNote,setValueNote] = React.useState("66876");
+
+  const {
+    settlement: { 
+      staffSales = [], giftCardSales = [],
+    
+      settlementWaiting = {},
+      listStaffSales = [],
+      listGiftCardSales = [],
+    
+    }
+  } = useSelector(state => state);
+
+  const [, fetchListGiftCardSales] = useAxiosQuery({
+    ...getListGiftCardSales(),
+    enabled: false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
-        NavigationService.navigate('AuthStack', { isLogout: true });
-        dispatch(auth.signOutApp());
-        clearAuthToken();
+        dispatch(settlement.setListGiftCardSales(data))
       }
-    },
+    }
   });
 
-  return {
-    refDialogSignout,
+  const [, fetchListStaffsSales] = useAxiosQuery({
+    ...getListStaffsSales(),
+    enabled: false,
+    onSuccess: (data, response) => {
+      if (response?.codeNumber == 200) {
+        dispatch(settlement.setListStaffsSales(data))
+      }
+    }
+  });
 
-    onLogout: async () => {
-      const body = await staffLogoutRequest();
-      logout(body.params);
-      NavigationService.navigate('AuthStack', { isLogout: true });
-    },
+  const [, fetchSettlementWating] = useAxiosQuery({
+    ...getSettlementWating(),
+    enabled: false,
+    onSuccess: (data, response) => {
+      if (response?.codeNumber == 200) {
+        dispatch(settlement.setSettlementWaiting(data));
+        setValueNote(data?.note || "");
+      }
+    }
+  });
+
+  
+  React.useEffect(() => {
+    fetchSettlementWating();
+    fetchListGiftCardSales();
+    fetchListStaffsSales();
+  }, []);
+
+  return {        
+    settlementWaiting,
+    listStaffSales,
+    listGiftCardSales,
+    valueNote,
+    onChangeNote : (note) =>{
+      setValueNote(note)
+    }
   };
 };
