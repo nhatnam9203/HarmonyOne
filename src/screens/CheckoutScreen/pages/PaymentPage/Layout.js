@@ -2,7 +2,13 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { IconButton, CustomInput, InputText, Button, DialogSuccess, DialogLoading } from "@shared/components";
+import { IconButton, 
+         CustomInput, 
+         InputText, 
+         Button, 
+         DialogSuccess, 
+         DialogLoading,
+         PopupProcessingCredit } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { ItemsPay } from "./ItemsPay";
@@ -23,6 +29,7 @@ export const Layout = ({
     isCancelHarmony,
     cancelHarmonyPay,
     paymentDetail,
+    onCancelTransactionCredit,
 }) => {
 
     const [t] = useTranslation();
@@ -85,6 +92,11 @@ export const Layout = ({
                 ref={dialogSuccessRef}
                 title="Transaction completed"
                 onConfirmYes={() => onOK()}
+            />
+
+            <PopupProcessingCredit
+                ref={popupProcessingRef}
+                onConfirmYes={() => onCancelTransactionCredit()}
             />
 
         </View>

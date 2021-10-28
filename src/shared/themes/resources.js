@@ -100,6 +100,7 @@ export const images = {
   buttonPlus: require('@src/assets/home/button_plus.png'),
   arrowRight: require('@src/assets/images/arrowRight.png'),
   treedot: require('@src/assets/home/treedot.png'),
+  danger: require('@src/assets/images/danger.png'),
 };
 
 export const svg = {

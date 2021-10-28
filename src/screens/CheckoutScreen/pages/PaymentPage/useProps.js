@@ -50,35 +50,6 @@ export const useProps = (props) => {
   const [connectionSignalR, setConnectionSignalR] = React.useState(null);
   const [paymentDetail, setPaymentDetail] = React.useState(null);
 
-
-  /************************************* USE EFFECT *************************************/
-  React.useEffect(() => {
-    if (startProcessingPax) {
-      dispatch(actions.appointment.resetStateCheckCreditPaymentToServer(false));
-      setVisibleProcessingCredit(true)
-       
-      //Payment by Dejavoo
-      const tenderType = paymentSelected === "Credit" ? "Credit" : "Debit";
-      
-      const parameter = {
-        tenderType: tenderType,
-        transType: "Sale",
-        amount: Number(groupAppointments?.dueAmount).toFixed(2),
-        RefId: payAppointmentId,
-        invNum: `${groupAppointments?.checkoutGroupId || 0}`,
-      };
-      requestTransactionDejavoo(parameter).then((responses) => {
-        handleResponseCreditCardDejavoo(
-          responses,
-          true,
-          groupAppointments?.dueAmount,
-          parameter
-        );
-      })
-    }
-  }, [startProcessingPax]);
-
-
   /************************************* GỌI API SELECT METHOD PAY *************************************/
   const [, submitSelectPaymentMethod] = useAxiosMutation({
     ...selectPaymentMethod(),
@@ -88,7 +59,9 @@ export const useProps = (props) => {
         if (methodPay.method == "harmony") {
           setPayAppointmentId(data);
         }
-        if (methodPay.method !== "harmony") {
+        if (methodPay.method === "credit_card") {
+          handlePaymentByCredit();
+        } else if (methodPay.method !== "harmony") {
           const body = await checkoutSubmit(response.data);
           applyCheckoutSubmit(body.params);
         }
@@ -246,6 +219,31 @@ export const useProps = (props) => {
     const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
     submitSelectPaymentMethod(body.params);
   }
+
+  /**
+   * Handle payment by credit card
+   * Dejavoo
+   */
+  const handlePaymentByCredit = () => {
+    popupProcessingRef?.current?.show();
+       
+    //Payment by Dejavoo
+    const parameter = {
+      tenderType: "Credit",
+      transType: "Sale",
+      amount: Number(groupAppointments?.dueAmount).toFixed(2),
+      RefId: payAppointmentId,
+      invNum: `${groupAppointments?.checkoutGroupId || 0}`,
+    };
+    requestTransactionDejavoo(parameter).then((responses) => {
+      handleResponseCreditCardDejavoo(
+        responses,
+        true,
+        groupAppointments?.dueAmount,
+        parameter
+      );
+    })
+  }
   
   return {
     appointmentDetail,
@@ -303,6 +301,9 @@ export const useProps = (props) => {
 
     onOK: () => {
       fetchAppointmentByDate();
-    }
+    },
+    onCancelTransactionCredit: () => {
+      alert("Please wait!")
+    },
   }
 };
