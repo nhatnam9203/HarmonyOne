@@ -76,6 +76,7 @@ export const useProps = (props) => {
     },
 
     reviewSettlement : () =>{
+      dispatch(settlement.updateNote(valueNote));
       NavigationService.navigate(screenNames.ReviewSettlementPage);
     }
   };

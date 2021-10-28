@@ -73,6 +73,14 @@ const settlemtSlice = createSlice({
                 paymentByCash
             };
             state.settlementWaiting = tempSettlementWating;
+        },
+
+        updateNote: (state, action) => {
+            let tempSettlementWating = {
+                ...state.settlementWaiting,
+                note : action.payload
+            };
+            state.settlementWaiting = tempSettlementWating;
         }
 
 

@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, Text, Image, ScrollView, TextInput, Keyboard } from 'react-native';
+import { View, StyleSheet, Text, Image, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { Button, IconButton } from "@shared/components";
-import { TableSalesByStaff } from "./TableSalesByStaff";
 import { IncomeByPaymentMethod } from "./IncomeByPaymentMethod";
 import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -12,30 +11,10 @@ import { SingleScreenLayout } from '@shared/layouts';
 import moment from "moment";
 
 export const Layout = ({
-  listStaffSales,
-  listGiftCardSales,
   settlementWaiting,
-  valueNote,
-  onChangeNote,
-  editActualAmount,
 }) => {
 
   const [t] = useTranslation();
-
-  let totalAmount = 0;
-  let giftCardTotal = 0
-  if (listStaffSales.length > 0) {
-    listStaffSales.forEach(staff => {
-      totalAmount = parseFloat(totalAmount) + parseFloat(formatNumberFromCurrency(staff?.total || 0.00));
-    });
-  }
-
-  if (listGiftCardSales.length > 0) {
-    listGiftCardSales.forEach(giftCard => {
-      giftCardTotal = parseFloat(giftCardTotal) + parseFloat(formatNumberFromCurrency(giftCard?.total || 0.00));
-    });
-  }
-  totalAmount = totalAmount + giftCardTotal;
 
   return (
     <View style={styles.container}>
@@ -59,13 +38,23 @@ export const Layout = ({
               <TextInput
                 multiline={true}
                 textAlignVertical='top'
-                value={valueNote}
+                value={settlementWaiting?.note || ""}
                 onChangeText={text => {
-                  onChangeNote(text);
                 }}
-                style={{ flex: 1 }} 
+                style={{ flex: 1 }}
               />
             </View>
+
+            <Text style={[styles.bigTitle, { marginTop: scaleHeight(16) }]}>Open batch</Text>
+
+            <TouchableOpacity style={styles.wrapBatch}>
+              <Text style={[styles.bigTitle, styles.txtCreditTrans]}>
+                Credit transactions:
+              </Text>
+              <Text style={[styles.bigTitle, { fontSize: scaleFont(15), marginBottom : 0 }]}>
+                24
+              </Text>
+            </TouchableOpacity>
           </View>
 
           <View style={{ height: scaleHeight(120) }} />
@@ -80,7 +69,7 @@ export const Layout = ({
           onPress={() => { }}
           highlight={true}
           width={'100%'}
-          styleButton={{ backgroundColor: "#4AD100", borderWidth : 0 }}
+          styleButton={{ backgroundColor: "#4AD100", borderWidth: 0 }}
         />
       </View>
     </View>
@@ -88,6 +77,22 @@ export const Layout = ({
 };
 
 const styles = StyleSheet.create({
+  txtCreditTrans : {
+    fontSize: scaleFont(15), 
+    fontFamily: fonts.MEDIUM, 
+    marginLeft : 0,
+     marginBottom : 0 
+  },
+  wrapBatch: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: scaleWidth(10),
+    borderWidth : 1,
+    borderColor : "#cccccc",
+    marginHorizontal : scaleWidth(16),
+    borderRadius : 3
+  },
   iconPen: {
     width: scaleWidth(20),
     height: scaleWidth(20),
