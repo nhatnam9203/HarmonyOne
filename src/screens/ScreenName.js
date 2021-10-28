@@ -61,7 +61,8 @@ const ScreenNames = {
   CloseSettlementPage: "hpo.settlement.close",
   BatchHistoryDetailPage: 'hpo.settlement.batch.history.detail',
   EditActualAmountPage: 'hpo.settlement.editAmount',
-  ReviewSettlementPage : 'hpo.settlement.review',
+  ReviewSettlementPage: 'hpo.settlement.review',
+  CreditCardTransactionPage: 'hpo.settlement.creditCard.transaction',
 };
 
 module.exports = { ScreenNames };

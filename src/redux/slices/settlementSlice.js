@@ -82,8 +82,6 @@ const settlemtSlice = createSlice({
             };
             state.settlementWaiting = tempSettlementWating;
         }
-
-
     },
 });
 

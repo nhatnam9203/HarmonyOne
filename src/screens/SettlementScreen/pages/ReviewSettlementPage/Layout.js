@@ -12,6 +12,7 @@ import moment from "moment";
 
 export const Layout = ({
   settlementWaiting,
+  viewCreditTransactions
 }) => {
 
   const [t] = useTranslation();
@@ -47,7 +48,7 @@ export const Layout = ({
 
             <Text style={[styles.bigTitle, { marginTop: scaleHeight(16) }]}>Open batch</Text>
 
-            <TouchableOpacity style={styles.wrapBatch}>
+            <TouchableOpacity onPress={viewCreditTransactions} style={styles.wrapBatch}>
               <Text style={[styles.bigTitle, styles.txtCreditTrans]}>
                 Credit transactions:
               </Text>

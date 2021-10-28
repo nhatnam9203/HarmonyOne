@@ -94,6 +94,7 @@ export const images = {
   iconFilter: require('@src/assets/images/filter.png'),
   iconMarketingGrey: require('@src/assets/images/iconMarketingGrey.png'),
   iconPen: require('@src/assets/images/iconPen.png'),
+  iconSettlement: require('@src/assets/images/iconSettlement.png'),
 
   
   visaLogo : require('@src/assets/images/visaLogo.png'),

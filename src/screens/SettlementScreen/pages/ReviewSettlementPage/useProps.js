@@ -25,5 +25,9 @@ export const useProps = (props) => {
   return {        
     settlementWaiting,
 
+    viewCreditTransactions : () =>{
+      NavigationService.navigate(screenNames.CreditCardTransactionPage);
+    }
+
   };
 };
