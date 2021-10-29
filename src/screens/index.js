@@ -56,6 +56,8 @@ import { EditActualAmountPage } from "./SettlementScreen/pages";
 import { ReviewSettlementPage } from "./SettlementScreen/pages";
 import { CreditCardTransactionPage } from "./SettlementScreen/pages";
 import { StaffIncomeDetailPage } from "./SettlementScreen/pages";
+import { GiftCardSoldPage } from "./SettlementScreen/pages";
+import { ReportStaffSalary } from "./ReportsScreen/pages";
 
 
 module.exports = {
@@ -114,5 +116,7 @@ module.exports = {
   EditActualAmountPage,
   ReviewSettlementPage,
   CreditCardTransactionPage,
-  StaffIncomeDetailPage
+  StaffIncomeDetailPage,
+  GiftCardSoldPage,
+  ReportStaffSalary
 };

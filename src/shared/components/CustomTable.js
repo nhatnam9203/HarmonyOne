@@ -124,6 +124,7 @@ function TableListExtended({
   maxColumnCount,
   isRenderSection = false,
   heightSection = 0,
+  headStyle
 }) {
   /**state */
   const [headerContent, setHeaderContent] = useState({});
@@ -146,7 +147,7 @@ function TableListExtended({
   const [currentOffset, setCurrentOffset] = useState({ x: 0, y: 0 });
 
   const setListData = (sort) => {
-    let sortList = tableData;
+    let sortList = [...tableData];
     if (sortKey && sortList.length > 0 && sort !== SORT_STATE.none) {
       sortList.sort((a, b) => {
         if (sort === SORT_STATE.desc) {
@@ -172,7 +173,6 @@ function TableListExtended({
     } else {
       sort = SORT_STATE.desc;
     }
-
     setSortState(sort);
     setListData(sort);
   };
@@ -437,7 +437,7 @@ function TableListExtended({
                 ...(sortKey === key && { flexDirection: "row", alignItems: "center", justifyContent: "flex-start" }),
               }}
             >
-              <Text style={styles.txtHead}>{headerContent[key] ?? ""}</Text>
+              <Text style={[styles.txtHead,headStyle]}>{headerContent[key] ?? ""}</Text>
               {sortKey === key && (
                 <TouchableOpacity
                   style={styles.btnSort}
@@ -469,7 +469,7 @@ function TableListExtended({
                 ...(sortKey === key && { flexDirection: "row" }),
               }}
             >
-              <Text style={styles.txtHead}>{headerContent[key] ?? ""}</Text>
+              <Text style={[styles.txtHead,headStyle]}>{headerContent[key] ?? ""}</Text>
               {sortKey === key && (
                 <TouchableOpacity style={styles.btnSort} onPress={changeSortData}>
                   <View>

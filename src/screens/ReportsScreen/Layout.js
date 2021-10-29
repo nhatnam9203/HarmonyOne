@@ -6,6 +6,7 @@ import { IconButton, ItemSelect, NotificationIcon } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { items } from "./Items";
+import NavigationService from '@navigation/NavigationService';
 
 export const Layout = ({
 }) => {
@@ -28,7 +29,9 @@ export const Layout = ({
             <GroupItem icon={images.iconReportStaff} text="Staff" />
             <ItemSelect
               title={"Staff salary"}
-              onPress={() => { }}
+              onPress={() => {
+                NavigationService.navigate(screenNames.ReportStaffSalary);
+              }}
               style={{ paddingLeft: 0 }}
             />
             <ItemSelect

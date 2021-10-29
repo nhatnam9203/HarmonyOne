@@ -792,12 +792,12 @@ export const getListGiftCardSales = (terminalID = null) => ({
 export const getSettlementWating = (terminalID = null, paymentTerminal = "pax") => ({
   queryId: 'getSettlementWating',
   params: {
-    url: `settlement/waiting?sn=${terminalID}&paymentTerminal=${paymentTerminal}`,
+    url: `settlement/waiting?sn=null&paymentTerminal=pax`,
     method: 'GET',
   }
 });
 
-export const getTransactions = (timeStart = "", timeEnd = "", key = "", quickFilter = "",page = 1) => ({
+export const getTransactions = (timeStart = "", timeEnd = "", key = "", quickFilter = "", page = 1) => ({
   queryId: 'getTransactions',
   params: {
     url: `settlement/transaction?status=&timeStart=${timeStart}&timeEnd=${timeEnd}&key=${key}&quickFilter=${quickFilter}&page=${page}`,
@@ -805,4 +805,16 @@ export const getTransactions = (timeStart = "", timeEnd = "", key = "", quickFil
   }
 });
 
+
+/* 
+* REPORT
+*/
+
+export const reportGetStaffSalary = (params, page = 1) => ({
+  queryId: 'reportGetStaffSalary',
+  params: {
+    url: `staff/salary?${params}&page=${page}`,
+    method: 'GET',
+  }
+});
 

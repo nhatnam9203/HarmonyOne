@@ -6,3 +6,4 @@ export * from "./EditActualAmountPage";
 export * from "./ReviewSettlementPage";
 export * from "./CreditCardTransactionPage";
 export * from "./StaffIncomeDetailPage";
+export * from "./GiftCardSoldPage";
