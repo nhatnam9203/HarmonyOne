@@ -160,10 +160,12 @@ export const useProps = (props) => {
     },
 
     viewBatch: () => {
+      dialogProgressRef?.current?.hide();
       NavigationService.navigate(screenNames.BatchHistoryPage);
     },
 
     finish: () => {
+      dialogProgressRef?.current?.hide();
       NavigationService.navigate(screenNames.CloseSettlementPage);
     }
 

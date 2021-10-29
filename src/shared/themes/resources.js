@@ -95,8 +95,14 @@ export const images = {
   iconMarketingGrey: require('@src/assets/images/iconMarketingGrey.png'),
   iconPen: require('@src/assets/images/iconPen.png'),
   iconSettlement: require('@src/assets/images/iconSettlement.png'),
+  iconReportStaff: require('@src/assets/images/iconReportStaff.png'),
+  iconReportCustomer: require('@src/assets/images/iconReportCustomer.png'),
+  iconReportOverall: require('@src/assets/images/iconReportOverall.png'),
+  iconReportService: require('@src/assets/images/iconReportService.png'),
+  iconReportGiftcard: require('@src/assets/images/iconReportGiftcard.png'),
+  iconReportProduct: require('@src/assets/images/iconReportProduct.png'),
 
-  
+
   visaLogo : require('@src/assets/images/visaLogo.png'),
   masterCardLogo : require('@src/assets/images/masterCardLogo.png'),
   discoverLogo : require('@src/assets/images/discoverLogo.png'),

@@ -4,21 +4,21 @@ import { IconButton } from "@shared/components";
 import { fonts, colors, images } from "@shared/themes";
 import { View } from 'react-native-animatable';
 
-export const ItemSelect = ({ title = '', icon, onPress, iconRight, iconRightStyle, iconLeftStyle, textStyle }) => {
+export const ItemSelect = ({ title = '', icon, onPress, iconRight, iconRightStyle, iconLeftStyle, textStyle, style }) => {
     return (
         <Pressable onPress={() => onPress()}>
             {
                 ({ pressed }) => (
-                    <View style={[styles.item, { backgroundColor: pressed ? colors.ocean_blue : "transparent" }]}>
+                    <View style={[styles.item, { backgroundColor: pressed ? colors.ocean_blue : "transparent" }, style]}>
                         <View style={{ flexDirection: "row", alignItems: "center" }}>
-                            <Image
+                            {icon && <Image
                                 resizeMode='contain'
                                 source={icon}
                                 style={[
                                     styles.iconReport, iconLeftStyle,
                                     { tintColor: pressed ? colors.white : "#7C9AB9" }
                                 ]}
-                            />
+                            />}
 
                             <Text style={[styles.text, textStyle, { color: pressed ? colors.white : "#404040" }]}>
                                 {title}

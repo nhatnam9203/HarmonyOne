@@ -63,6 +63,7 @@ const ScreenNames = {
   EditActualAmountPage: 'hpo.settlement.editAmount',
   ReviewSettlementPage: 'hpo.settlement.review',
   CreditCardTransactionPage: 'hpo.settlement.creditCard.transaction',
+  StaffIncomeDetailPage : 'hpo.settlement.staff.income.detail',
 };
 
 module.exports = { ScreenNames };

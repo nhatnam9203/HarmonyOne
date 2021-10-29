@@ -117,6 +117,12 @@ export const useProps = (props) => {
       return getContentDate(timeStart, timeEnd);
     },
 
+    removeSearch: () => {
+      setValueSearch("");
+      getDataList(
+        "", "", "", "", 1
+      );
+    }
 
   };
 };

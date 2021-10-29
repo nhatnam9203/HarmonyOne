@@ -24,6 +24,7 @@ export const Layout = ({
   onChangeDate,
   pages,
   currentPage,
+  removeSearch,
 }) => {
 
   const [t] = useTranslation();
@@ -34,7 +35,7 @@ export const Layout = ({
         <SearchInput
           value={valueSearch}
           onChangeText={onChangeSearch}
-          removeText={valueSearch.length > 0 ? () => onChangeSearch("") : () => { }}
+          removeText={valueSearch.length > 0 ? () => removeSearch() : () => { }}
           placeholder="Search client by phone or name"
           onSubmit={onSubmitSearch}
         />

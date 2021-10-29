@@ -16,10 +16,10 @@ export const useProps = (props) => {
 
   const {
     auth: { staff },
-    settlement: { 
-      transactions = [], 
-      transactions_pages = 0, 
-     }
+    settlement: {
+      transactions = [],
+      transactions_pages = 0,
+    }
   } = useSelector(state => state);
 
   /********************************* STATE  ********************************* */
@@ -44,9 +44,9 @@ export const useProps = (props) => {
       if (response?.data?.codeNumber == 200) {
         dispatch(
           settlement.setTransactions({
-          ...response?.data,
-          currentPage: page
-        }));
+            ...response?.data,
+            currentPage: page
+          }));
       } else {
         Alert.alert(response?.data?.message)
       }
@@ -59,13 +59,13 @@ export const useProps = (props) => {
     }
   }
 
-  React.useEffect(()=>{
-    if(timeStart && timeEnd){
+  React.useEffect(() => {
+    if (timeStart && timeEnd) {
       getDataList(
         valueSearch, timeStart, timeEnd, "", currentPage,
       );
     }
-  },[timeStart,timeEnd]);
+  }, [timeStart, timeEnd]);
 
 
   /********************************* GET DATA LIST LẦN ĐẦU  ********************************* */
@@ -121,6 +121,12 @@ export const useProps = (props) => {
       return getContentDate(timeStart, timeEnd);
     },
 
+    removeSearch: () => {
+      setValueSearch("");
+      getDataList(
+        "", "", "", "", 1
+      );
+    }
 
   };
 };

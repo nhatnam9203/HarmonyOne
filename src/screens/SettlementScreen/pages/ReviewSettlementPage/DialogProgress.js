@@ -16,7 +16,6 @@ export const DialogProgress = React.forwardRef(
         finish = () => { },
     }, ref) => {
         const [t] = useTranslation();
-        console.log({ progress })
 
         const [open, setOpen] = React.useState(false);
         const hideModal = () => {
@@ -39,6 +38,9 @@ export const DialogProgress = React.forwardRef(
         React.useImperativeHandle(ref, () => ({
             show: () => {
                 setOpen(true);
+            },
+            hide: () => {
+                setOpen(false);
             },
         }));
 
