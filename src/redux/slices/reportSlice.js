@@ -6,7 +6,11 @@ const reducerName = 'hpo.report';
 const initialState = {
     staffSalary: [],
     staffSalary_pages: 0,
-    staffSalary_count : 0
+    staffSalary_count : 0,
+
+    servicesDuration: [],
+    servicesDuration_pages: 0,
+    servicesDuration_count : 0
 };
 
 const reportSlice = createSlice({
@@ -22,6 +26,16 @@ const reportSlice = createSlice({
             state.staffSalary_pages = action?.payload?.pages;
             state.staffSalary_count = action?.payload?.count;
         },
+
+        setListServiceDuration : (state,action) =>{
+            if (action?.payload?.currentPage == 1) {
+                state.servicesDuration = action?.payload?.data;
+            } else {
+                state.servicesDuration = state.servicesDuration.concat(action?.payload?.data);
+            }
+            state.servicesDuration_pages = action?.payload?.pages;
+            state.servicesDuration_count = action?.payload?.count;
+        }
     },
 });
 

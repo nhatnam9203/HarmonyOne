@@ -233,12 +233,12 @@ export const getContentDate = (timeStart, timeEnd) => {
   let text = "Select date";
   if (timeStart && timeEnd) {
     text = `${timeStart} - ${timeEnd}`;
-    if (timeStart == timeEnd && timeStart == moment().format("MM/DD/YYYY")) {
+    if ((timeStart == timeEnd) && (timeStart == moment().format("MM/DD/YYYY"))) {
       text = "Today"
     }
-    if (timeStart == timeEnd && timeStart == moment().subtract("days", 1).format("MM/DD/YYYY")) {
+    if ((timeStart == timeEnd) && (timeStart == moment().subtract("days", 1).format("MM/DD/YYYY"))) {
       text = "Yesterday"
-    }
+    } 
     if (moment().startOf("months").format("MM/DD/YYYY") == timeStart && moment().endOf("months").format("MM/DD/YYYY") == timeEnd) {
       text = "This month";
     }

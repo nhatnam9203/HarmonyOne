@@ -17,8 +17,8 @@ export const useProps = (props) => {
   const {
     auth: { staff },
     report : {
-      staffSalary = [],
-      staffSalary_pages = 0,
+      servicesDuration = [],
+      servicesDuration_pages = 0,
     }
   } = useSelector(state => state);
 
@@ -34,18 +34,16 @@ export const useProps = (props) => {
   ) => {
     dispatch(app.showLoading());
     const params = {
-      url: `staff/salary?timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=${quickFilter}&page=${page}`,
+      url: `staff/report/serviceduration?timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=${quickFilter}&page=${page}`,
       method: 'GET',
     }
-
-    console.log({ params })
 
 
     try {
       const response = await axios(params);
       if (response?.data?.codeNumber == 200) {
         dispatch(
-          report.setListStaffSalary({
+          report.setListServiceDuration({
             ...response?.data,
             currentPage: page
           }));
@@ -81,8 +79,8 @@ export const useProps = (props) => {
     setTimeEnd,
     currentPage,
 
-    staffSalary,
-    staffSalary_pages,
+    servicesDuration,
+    servicesDuration_pages,
 
 
     onSubmitSearch: () => {
@@ -92,7 +90,7 @@ export const useProps = (props) => {
     },
 
     onLoadMore: () => {
-      if (currentPage < staffSalary_pages) {
+      if (currentPage < servicesDuration_pages) {
         setCurrentPage(currentPage + 1);
         getDataList(
          timeStart, timeEnd, "", currentPage + 1

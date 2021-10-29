@@ -66,6 +66,7 @@ const ScreenNames = {
   StaffIncomeDetailPage: 'hpo.settlement.staff.income.detail',
   GiftCardSoldPage: 'hpo.settlement.giftcard.sold',
   ReportStaffSalary: 'hpo.report.staff.salary',
+  ReportServiceDuration : 'hpo.report.service.duration',
 };
 
 module.exports = { ScreenNames };

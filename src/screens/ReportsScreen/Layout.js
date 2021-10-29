@@ -36,7 +36,9 @@ export const Layout = ({
             />
             <ItemSelect
               title={"Service duration"}
-              onPress={() => { }}
+              onPress={() => { 
+                NavigationService.navigate(screenNames.ReportServiceDuration);
+              }}
               style={{ paddingLeft: 0 }}
             />
 

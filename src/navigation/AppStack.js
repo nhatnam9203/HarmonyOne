@@ -50,7 +50,8 @@ import {
   CreditCardTransactionPage,
   StaffIncomeDetailPage,
   GiftCardSoldPage,
-  ReportStaffSalary
+  ReportStaffSalary,
+  ReportServiceDuration
 } from '@screens';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
 import { useSelector } from "react-redux";
@@ -125,6 +126,7 @@ const AppStack = () => {
         <Screen {...StaffIncomeDetailPage} />
         <Screen {...GiftCardSoldPage} />
         <Screen {...ReportStaffSalary} />
+        <Screen {...ReportServiceDuration} />
 
         <Screen name="ChangePincode" component={ChangePincode} />
         <Screen name="ForgotPincode" component={ForgotPincode} />

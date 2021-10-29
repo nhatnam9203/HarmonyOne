@@ -259,13 +259,15 @@ function TableListExtended({
 
   // get width render cell with index or key
   const getCellWidth = (index, key) => {
-    if (!!tableCellWidth) {
-      return screenWidth / (maxColumnCount ? maxColumnCount : MAX_COLUMNS_COUNT)
-    }
 
     if (tableCellWidth && tableCellWidth[key]) {
       return tableCellWidth[key];
     }
+
+    if (!!tableCellWidth) {
+      return screenWidth / (maxColumnCount ? maxColumnCount : MAX_COLUMNS_COUNT)
+    }
+
     return TABLE_CELL_DEFAULT_WIDTH;
   };
 
@@ -429,7 +431,7 @@ function TableListExtended({
     >
       {whiteKeys.map((key, index) => {
         return index === 0 ? (
-          <View style={styles.headName} key={uniqueId(key, index, "header")}>
+          <View style={[styles.headName,{ borderBottomWidth : 1, borderBottomColor : "#eeeeee" }]} key={uniqueId(key, index, "header")}>
             <TableCell
               style={{
                 width: getCellWidth(index, key),
@@ -467,6 +469,8 @@ function TableListExtended({
                 width: getCellWidth(index, key),
                 ...(isPriceCell(key) && { alignItems: "flex-end" }),
                 ...(sortKey === key && { flexDirection: "row" }),
+                backgroundColor: "white",
+                borderBottomWidth : 1, borderBottomColor : "#eeeeee" 
               }}
             >
               <Text style={[styles.txtHead,headStyle]}>{headerContent[key] ?? ""}</Text>
@@ -509,7 +513,7 @@ function TableListExtended({
         {whiteKeys.map((key, index) => {
           return index === 0 ? (
             <View
-              style={[styles.headName, { backgroundColor: "#ffffff" }]}
+              style={[styles.headName, { backgroundColor: "#fafafa", borderBottomWidth : 1, borderBottomColor : "#eeeeee"  }]}
               key={uniqueId(key, index, "summary")}
             >
               <TableCell
@@ -541,6 +545,8 @@ function TableListExtended({
                   ...(isPriceCell(key) && {
                     alignItems: "flex-end",
                   }),
+                  backgroundColor: "#fafafa",
+                  borderBottomWidth : 1, borderBottomColor : "#eeeeee"
                 }}
               >
                 {/* {key === sumTotalKey && (
@@ -746,7 +752,7 @@ const styles = StyleSheet.create({
     margin: 0,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#FAFAFA",
+    backgroundColor: "white",
   },
 
   btnSort: {

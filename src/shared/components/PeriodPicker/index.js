@@ -46,9 +46,21 @@ export const PeriodPicker = ({
   const [endDate, setEndDate] = React.useState(moment());
   const calendarViewRef = React.useRef();
 
-
   const openActionSheet = () => {
     periodRef?.current?.show();
+    if (timeStart && timeEnd) {
+      const textSelected = getContentDate(timeStart, timeEnd);
+      const findDate = dateRangeData.find(obj => obj.label == textSelected);
+
+      setTimeout(() => {
+        if (findDate) {
+          dateRangeRef?.current?.changeItem(findDate?.value);
+        } else {
+          setStartDate(moment(timeStart, ["MM/DD/YYYY"]));
+          setEndDate(timeEnd, ["MM/DD/YYYY"]);
+        }
+      }, 250);
+    }
   }
 
   const closeActionSheet = () => {
@@ -107,23 +119,6 @@ export const PeriodPicker = ({
       calendarViewRef?.current?.setCurrentMonthCalendar(end);
     }
   }, [dateRange]);
-
-
-  React.useEffect(() => {
-    if (startDate && endDate) {
-      const textSelected = getContentDate(startDate, endDate);
-      const findDate = dateRangeData.find(obj => obj.label == textSelected);
-
-      setTimeout(() => {
-        if (findDate) {
-          dateRangeRef?.current?.changeItem(findDate?.value);
-        } else {
-          setStartDate(moment(startDate, ["MM/DD/YYYY"]));
-          setEndDate(endDate, ["MM/DD/YYYY"]);
-        }
-      }, 500);
-    }
-  }, []);
 
   const [t] = useTranslation();
 
