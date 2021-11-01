@@ -98,23 +98,6 @@ export const Layout = ({
 
 const styles = StyleSheet.create({
 
-  txtDateRange: {
-    fontSize: scaleFont(15),
-    fontFamily: fonts.REGULAR,
-    color: "#404040"
-  },
-
-  buttonDateRange: {
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-    padding: scaleWidth(8),
-    marginHorizontal: scaleWidth(16),
-    marginBottom: scaleHeight(16),
-    borderWidth: 1,
-    borderColor: "#dddddd",
-    borderRadius: 5
-  },
   wrapper: {
     padding: 0,
   },
