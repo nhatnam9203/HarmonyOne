@@ -82,7 +82,6 @@ export const Layout = ({
                 />
               }
             />
-
           </View>
           <DataList
             data={listCategorySales}

@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, ScrollView, TouchableOpacity, Image } from 'rea
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors, images } from "@shared/themes";
-import { PeriodPicker, IconButton } from "@shared/components";
+import { PeriodPicker, IconButton, CustomInput, InputSelect } from "@shared/components";
 import { DataList } from "./DataList";
 import { WithPopupActionSheet } from "@shared/HOC";
 export const Layout = ({
@@ -17,7 +17,11 @@ export const Layout = ({
   onChangeDate,
   actionSheetExports,
   listProductSales,
-  exportFile
+  exportFile,
+  onChangeFilter,
+  getContentList,
+  form,
+  listFilterRef,
 }) => {
 
   let ExportButton = ({ ...props }) => {
@@ -60,6 +64,25 @@ export const Layout = ({
             setTimeEnd={setTimeEnd}
             onAccept={(startDate, endDate) => onChangeDate(startDate, endDate)}
           />
+
+          <View style={{ paddingHorizontal: scaleWidth(16), marginTop: -scaleHeight(24) }}>
+            <CustomInput
+              label=''
+              renderInput={() =>
+                <InputSelect
+                  ref={listFilterRef}
+                  form={form}
+                  name="filter"
+                  items={getContentList()}
+                  onSelect={(item) => {
+                    onChangeFilter(item);
+                  }}
+                  title="List"
+                  defaultValue={"all"}
+                />
+              }
+            />
+          </View>
 
           <DataList
             data={listProductSales}

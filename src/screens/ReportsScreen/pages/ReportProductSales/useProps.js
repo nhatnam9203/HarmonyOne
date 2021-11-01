@@ -7,9 +7,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { app, settlement, report } from "@redux/slices";
 import { axios } from '@shared/services/axiosClient';
 import { getContentDate, handleFileDownloaed } from "@shared/utils";
+import { useForm } from "react-hook-form";
 import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
 import { Alert } from "react-native";
+
+const filterList = [
+  { label : "Top 5 products", value : "top5" },
+  { label : "Top 10 products", value : "top10" },
+  { label : "All products", value : "all" }
+];
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
@@ -20,22 +27,27 @@ export const useProps = (props) => {
       listProductSales = [],
     }
   } = useSelector(state => state);
+  const form = useForm();
+  const listFilterRef = React.useRef();
 
   /********************************* STATE  ********************************* */
   const [currentPage, setCurrentPage] = React.useState(1);
   const [isRefresh, setRefresh] = React.useState(false);
   const [timeStart, setTimeStart] = React.useState(moment().startOf('week').format("MM/DD/YYYY"));
   const [timeEnd, setTimeEnd] = React.useState(moment().endOf('week').format("MM/DD/YYYY"));
+  const [valueFilter, setValueFilter] = React.useState("all");
 
   /********************************* GET DATA THEO PAGE  ********************************* */
   const getDataList = async (
-    timeStart = "", timeEnd = "", quickFilter = "custom", page = 1,
+    timeStart = "", timeEnd = "", quickFilter = "custom", page = 1, filterType = "all"
   ) => {
     dispatch(app.showLoading());
     const params = {
-      url:  `product/report/saleByProduct?timeStart=${timeStart}&timeEnd=${timeEnd}&category=all`,
+      url:  `product/report/saleByProduct?timeStart=${timeStart}&timeEnd=${timeEnd}&product=${filterType}`,
       method: 'GET',
     }
+
+    console.log({ params })
 
     try {
       const response = await axios(params);
@@ -62,14 +74,14 @@ export const useProps = (props) => {
   ) => {
     dispatch(app.showLoading());
     const params = {
-      url:  `product/report/saleByProduct/export?timeStart=${timeStart}&timeEnd=${timeEnd}&category=all`,
+      url:  `product/report/saleByProduct/export?timeStart=${timeStart}&timeEnd=${timeEnd}&product=${valueFilter}`,
       method: 'GET',
     }
 
     try {
       const response = await axios(params);
       if (response?.data?.codeNumber == 200) {
-        await handleFileDownloaed(response?.data?.data, "csv", "report_product_category_sales");
+        await handleFileDownloaed(response?.data?.data, "csv", `report_product_sales_${valueFilter}`);
       } else {
         Alert.alert(response?.data?.message)
       }
@@ -85,7 +97,7 @@ export const useProps = (props) => {
   React.useEffect(() => {
     if (timeStart && timeEnd) {
       getDataList(
-        timeStart, timeEnd, "", currentPage,
+        timeStart, timeEnd, "", currentPage,valueFilter
       );
     }
   }, [timeStart, timeEnd]);
@@ -102,11 +114,18 @@ export const useProps = (props) => {
     exportFile,
 
     listProductSales,
-
-    onSubmitSearch: () => {
+    form,
+    listFilterRef,
+    
+    onChangeFilter: (item) => {
+      setValueFilter(item?.value);
       getDataList(
-        "", "", "", 1
+        timeStart, timeEnd, "", currentPage,item?.value
       );
+    },
+
+    getContentList : () =>{
+      return filterList;
     },
 
     onRefresh: () => {

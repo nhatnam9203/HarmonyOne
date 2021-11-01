@@ -54,7 +54,6 @@ const reportSlice = createSlice({
             state.listCustomerSales = action.payload?.data;
         },
         setListCategorySales: (state, action) => {
-            console.log({ action })
             state.listCategorySales = action.payload?.data;
         },
         setListServiceSales: (state, action) => {

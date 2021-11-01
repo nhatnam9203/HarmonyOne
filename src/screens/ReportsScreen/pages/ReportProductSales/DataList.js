@@ -15,8 +15,6 @@ export const DataList = ({
     endLoadMore,
 }) => {
 
-    console.log({ data })
-
     const renderCell = ({ key, row, column, item }) => {
         const data = item[key];
         switch (key) {
