@@ -78,7 +78,8 @@ import {
   ServiceStatistic,
   ProductCategoryStatistic,
   ProductStatistic,
-  PaymentStatistic
+  PaymentStatistic,
+  MarketingEfficiencyStatistic,
  } from "./ReportsScreen/subPages";
 
 
@@ -157,5 +158,6 @@ module.exports = {
   ServiceStatistic,
   ProductCategoryStatistic,
   ProductStatistic,
-  PaymentStatistic
+  PaymentStatistic,
+  MarketingEfficiencyStatistic
 };

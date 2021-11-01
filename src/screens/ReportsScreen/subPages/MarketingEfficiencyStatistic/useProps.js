@@ -51,11 +51,11 @@ export const useProps = (props) => {
 
   React.useEffect(() => {
     if (item) {
-      const selectedObj = dataList.find(obj => obj?.method == item?.method);
+      const selectedObj = dataList.find(obj => obj?.promotionId == item?.promotionId);
       if (selectedObj) {
         setItemSelected({
-          label : selectedObj?.displayMethod,
-          value : selectedObj?.method,
+          label : selectedObj?.name,
+          value : selectedObj?.promotionId,
         });
       }
     }
@@ -73,8 +73,8 @@ export const useProps = (props) => {
 
     getContentList: () => {
       return dataList.map(obj => ({
-        label: obj?.displayMethod,
-        value: obj?.method
+        label: obj?.name,
+        value: obj?.promotionId
       }))
     },
 

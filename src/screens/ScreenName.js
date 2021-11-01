@@ -83,6 +83,7 @@ const ScreenNames = {
   ProductCategoryStatistic: "hpo.report.product.category.statistic",
   ProductStatistic: "hpo.report.product.statistic",
   PaymentStatistic : "hpo.report.payment.statistic",
+  MarketingEfficiencyStatistic : "hpo.report.marketing.efficiency.statistic",
 
 };
 

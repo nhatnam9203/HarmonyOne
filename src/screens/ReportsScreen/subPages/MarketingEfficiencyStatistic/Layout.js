@@ -3,20 +3,17 @@ import { View, StyleSheet, Text, ScrollView, TouchableOpacity, Image } from 'rea
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors, images } from "@shared/themes";
-import { PeriodPicker, IconButton } from "@shared/components";
+import { PeriodPicker, IconButton, CustomInput, InputSelect } from "@shared/components";
 import { DataList } from "./DataList";
 import { WithPopupActionSheet } from "@shared/HOC";
 export const Layout = ({
-  isRefresh,
-  onRefresh,
-  getContentDate,
-  timeStart,
-  timeEnd,
-  setTimeStart,
-  setTimeEnd,
-  onChangeDate,
   actionSheetExports,
-  listMarketingEffciency,
+  listSelectedRef,
+  getContentList,
+  itemSelected,
+  onChangeSelected,
+  form,
+  dataList,
   exportFile
 }) => {
 
@@ -35,10 +32,12 @@ export const Layout = ({
 
   const [t] = useTranslation();
 
+  const list = dataList.find(obj => obj?.promotionId == itemSelected?.value)?.statistics || [];
+
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Marketing Efficiency')}
+        pageTitle={t('Marketing statistic')}
         isLeft={true}
         isRight={true}
         headerRightComponent={() =>
@@ -47,27 +46,36 @@ export const Layout = ({
             iconStyle={styles.iconExport}
             style={styles.buttonExport}
             onPress={exportFile}
-          />
-        }
+          />}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
       >
         <View style={styles.content}>
-          <PeriodPicker
-            timeStart={timeStart}
-            timeEnd={timeEnd}
-            setTimeStart={setTimeStart}
-            setTimeEnd={setTimeEnd}
-            onAccept={(startDate, endDate) => onChangeDate(startDate, endDate)}
-          />
+
+          <View style={{ paddingHorizontal: scaleWidth(16), marginTop: -scaleHeight(16) }}>
+            <CustomInput
+              label=''
+              renderInput={() =>
+                <InputSelect
+                  ref={listSelectedRef}
+                  form={form}
+                  name="giftcard"
+                  items={getContentList()}
+                  onSelect={(item) => {
+                    onChangeSelected(item);
+                  }}
+                  title="Payment"
+                  defaultValue={itemSelected?.label}
+                />
+              }
+            />
+          </View>
 
           <DataList
-            data={listMarketingEffciency}
-            onRefresh={onRefresh}
-            isRefresh={isRefresh}
+            data={list}
+            onRefresh={() => { }}
+            isRefresh={false}
             endLoadMore={true}
-            timeStart={timeStart}
-            timeEnd={timeEnd}
           />
 
         </View>

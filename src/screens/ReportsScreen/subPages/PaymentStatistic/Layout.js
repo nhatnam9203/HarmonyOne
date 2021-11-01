@@ -34,8 +34,6 @@ export const Layout = ({
 
   const list = dataList.find(obj => obj?.method == itemSelected?.value)?.statistics || [];
 
-  console.log({ list , dataList , itemSelected })
-
   return (
     <View style={styles.container}>
       <SingleScreenLayout

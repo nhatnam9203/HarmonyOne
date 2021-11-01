@@ -68,6 +68,7 @@ import {
   ProductCategoryStatistic,
   ProductStatistic,
   PaymentStatistic,
+  MarketingEfficiencyStatistic,
 } from '@screens';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
 import { useSelector } from "react-redux";
@@ -159,6 +160,7 @@ const AppStack = () => {
         <Screen {...ProductCategoryStatistic} />
         <Screen {...ProductStatistic} />
         <Screen {...PaymentStatistic} />
+        <Screen {...MarketingEfficiencyStatistic} />
 
         <Screen name="ChangePincode" component={ChangePincode} />
         <Screen name="ForgotPincode" component={ForgotPincode} />

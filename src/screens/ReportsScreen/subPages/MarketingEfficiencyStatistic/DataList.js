@@ -5,7 +5,6 @@ import { app, invoice } from "@redux/slices";
 import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
-import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
 
 
@@ -14,83 +13,72 @@ export const DataList = ({
     onRefresh = () => { },
     isRefresh,
     endLoadMore,
-    timeStart, 
-    timeEnd,
 }) => {
 
-    const onRowPress = ({ item }) => {
-        NavigationService.navigate(screenNames.MarketingEfficiencyStatistic, { item, dataList: data, timeStart, timeEnd, });
-    }
-
     const renderCell = ({ key, row, column, item }) => {
-        return (
-            <TouchableOpacity onPress={() => onRowPress({ item })}>
-                {renderItem(key, row, column, item)}
-            </TouchableOpacity>
-        )
-
-    };
-
-    const renderItem = (key, row, column, item) => {
         const data = item[key];
         switch (key) {
-            case "name":
+            case "date":
                 return <Text style={[styles.txtDate, { fontFamily: fonts.MEDIUM, textAlign: "left" }]}>
-                    {item?.name}
+                    {moment(item?.date).format("MMM DD YYYY")}
                 </Text>
 
             case "revenue":
-                return <Text style={[styles.txtDate, { fontFamily: fonts.MEDIUM, textAlign: "left" }]}>
-                    $ {item?.revenue}
-                </Text>
+                return (
+                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
+                        $ {item?.revenue}
+                    </Text>
+                );
             case "discount":
                 return (
-                    <Text style={[styles.txtDate, { fontFamily: fonts.BOLD, textAlign: 'right' }]}>
+                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
                         $ {item?.discount}
                     </Text>
                 );
+
             default:
                 return <Text style={styles.txt}>
                     $ {data}
                 </Text>
         }
-    }
+
+    };
 
     return (
         <CustomTable
             tableData={data}
             tableHead={{
-                name: "Campaign",
+                date: "Date",
                 revenue: "Revenue",
-                discount: "Discount"
+                discount: "Discount",
             }}
             whiteKeys={[
-                "name",
+                "date",
                 "revenue",
-                "discount"
+                "discount",
             ]}
-            primaryId="method"
+            primaryId="staffId"
             sumTotalKey="name"
             calcSumKeys={[
                 "revenue",
-                "discount"
+                "discount",
             ]}
             priceKeys={[
                 "revenue",
                 "discount",
             ]}
 
-            sumTotalKey={"name"}
+            sumTotalKey={"date"}
             heightSection={50}
             isRenderSection={true}
 
             headStyle={{ color: colors.ocean_blue, fontSize: scaleFont(15), textAlign: 'left' }}
-            unitKeys={{ totalHour: "hrs" }}
-            arrTextTotal={["name"]}
+            unitKeys={{ type: "", }}
+            arrTextTotal={["date"]}
             maxColumnCount={3}
             sortDefault="NONE"
-            sortKey="name"
-            tableCellWidth={{ grossPayment: scaleWidth(140) }}
+            sortKey="date"
+            tableCellWidth={{ grossPayment: scaleWidth(150) }}
             renderCell={renderCell}
             renderActionCell={() => null}
             isRefreshing={isRefresh}
