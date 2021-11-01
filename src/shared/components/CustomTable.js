@@ -13,9 +13,8 @@ import {
   Image,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
-  Dimensions,
+  Dimensions,TouchableOpacity
 } from "react-native";
 import { StickyForm } from "react-native-largelist-v3";
 import { NormalHeader } from "react-native-spring-scrollview/NormalHeader";
@@ -357,6 +356,7 @@ function TableListExtended({
         }}
         key={cellKey}
         onPress={() => onRowPress({ item, row })}
+        delayPressIn={200}
         disabled={!onRowPress}
       >
         {whiteKeys.map((key, keyIndex) => {
@@ -598,7 +598,7 @@ function TableListExtended({
     onLoadMore();
     setTimeout(() => {
       stickyFormRef.current?.endLoading();
-    }, 50);
+    }, 100);
   };
 
   return (
@@ -607,13 +607,13 @@ function TableListExtended({
         ref={stickyFormRef}
         style={{ backgroundColor: "white", marginBottom: 5 }}
         contentStyle={{ width: tableWidth ?? "100%" }}
-        // onContentSizeChange={({ width }) => {
-        //   setFullSizeContentWidth(width);
-        // }}
-        // onSizeChange={({ width }) => {
-        //   setVisibleScrollPartWidth(width);
-        // }}
-        // onLayout={(e) => setVisibleScrollPartWidth(e.nativeEvent.layout.width)}
+        onContentSizeChange={({ width }) => {
+          setFullSizeContentWidth(width);
+        }}
+        onSizeChange={({ width }) => {
+          setVisibleScrollPartWidth(width);
+        }}
+        onLayout={(e) => setVisibleScrollPartWidth(e.nativeEvent.layout.width)}
         data={dataFactory}
         heightForSection={() => heightSection}
         heightForIndexPath={() => TABLE_ROW_HEIGHT}
@@ -625,14 +625,14 @@ function TableListExtended({
         alwaysBounceHorizontal={false}
         showsHorizontalScrollIndicator={isContentSmallerThanScrollView}
         showsVerticalScrollIndicator={true}
-        // onScroll={onScroll}
-        // onMomentumScrollBegin={onMomentumScrollBegin}
-        // onMomentumScrollEnd={onMomentumScrollEnd}
+        onScroll={onScroll}
+        onMomentumScrollBegin={onMomentumScrollBegin}
+        onMomentumScrollEnd={onMomentumScrollEnd}
         scrollEventThrottle={16}
-        // onScrollEndDrag={onScrollEndDrag}
-        // onScrollBeginDrag={onScrollBeginDrag}
+        onScrollEndDrag={onScrollEndDrag}
+        onScrollBeginDrag={onScrollBeginDrag}
         directionalLockEnabled={true}
-
+        showsHorizontalScrollIndicator={false}
         renderFooter={() => <View style={{ height: 20 }} />}
         onRefresh={() => {
           onRefresh();
@@ -643,7 +643,7 @@ function TableListExtended({
         refreshHeader={NormalHeader}
         onLoading={onHandleLoadMore}
       />
-      {/* {!isContentSmallerThanScrollView && (
+       {/* {!isContentSmallerThanScrollView && (
         <Animated.View
           style={styles.scrollIndicatorContainer}
           onLayout={(e) =>
@@ -657,7 +657,7 @@ function TableListExtended({
             ]}
           />
         </Animated.View>
-      )} */}
+      )}  */}
     </View>
   );
 }

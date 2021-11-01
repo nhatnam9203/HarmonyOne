@@ -3,3 +3,5 @@ export * from "./GiftCardStatistic";
 export * from "./CustomerStatistic";
 export * from "./ServiceCategoryStatistic";
 export * from "./ServiceStatistic";
+export * from "./ProductCategoryStatistic";
+export * from "./ProductStatistic";

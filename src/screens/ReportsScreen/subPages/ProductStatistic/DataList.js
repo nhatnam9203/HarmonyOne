@@ -5,8 +5,8 @@ import { app, invoice } from "@redux/slices";
 import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
-import NavigationService from '@navigation/NavigationService'
 import moment from "moment";
+import NavigationService from "@navigation/NavigationService";
 
 
 export const DataList = ({
@@ -16,41 +16,24 @@ export const DataList = ({
     endLoadMore,
 }) => {
 
-    const onRowPress = ({ item, row }) => {
-        NavigationService.navigate(screenNames.ServiceCategoryStatistic, { item });
-    }
-
-    const renderCell = ({ key, row, column, item }) => {
-        return (
-            <TouchableOpacity onPress={() => onRowPress({ item, row })}>
-                {renderItem(key, row, column, item)}
-            </TouchableOpacity>
-        )
-    };
-
-    const renderItem = (key, row, column, item) => {
+    const renderCell = ({key, row, column, item}) => {
         const data = item[key];
         switch (key) {
-            case "categoryName":
+            case "dateString":
                 return <Text style={[styles.txtDate, { fontFamily: fonts.MEDIUM, textAlign: "left" }]}>
-                    {item?.categoryName}
+                    {moment(item?.dateString,["MM/DD/YYYY"]).format("MMM DD YYYY")}
                 </Text>
-            case "serviceCount":
-                return (
-                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'center' }]}>
-                        {item?.serviceCount}
-                    </Text>
-                );
+
             case "quantity":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
                         {item?.quantity}
                     </Text>
                 );
-            case "totalHour":
+            case "avgPrice":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
-                        {item?.totalHour} hrs
+                        $ {item?.avgPrice}
                     </Text>
                 );
             case "totalSales":
@@ -70,43 +53,40 @@ export const DataList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                categoryName: "Category",
-                serviceCount: "No.of services",
-                quantity: "Sales Qty",
-                totalHour: "Total Duration",
+                dateString: "Date",
+                quantity: "Qty Sold",
+                avgPrice: "Av. Price",
                 totalSales: "Total Sales"
             }}
             whiteKeys={[
-                "categoryName",
-                "serviceCount",
+                "dateString",
                 "quantity",
-                "totalHour",
+                "avgPrice",
                 "totalSales"
             ]}
             primaryId="categoryId"
-            sumTotalKey="name"
+            sumTotalKey="dateString"
             calcSumKeys={[
-                "serviceCount",
                 "quantity",
-                "totalHour",
+                "avgPrice",
                 "totalSales"
             ]}
             priceKeys={[
                 "totalSales",
-                "totalHour"
+                "avgPrice",
             ]}
 
-            sumTotalKey={"categoryName"}
+            sumTotalKey={"dateString"}
             heightSection={50}
             isRenderSection={true}
 
             headStyle={{ color: colors.ocean_blue, fontSize: scaleFont(15), textAlign: 'left' }}
             unitKeys={{ totalHour: "hrs" }}
-            arrTextTotal={["categoryName"]}
+            arrTextTotal={["date"]}
             maxColumnCount={3}
             sortDefault="NONE"
-            sortKey="categoryName"
-            tableCellWidth={{ totalDuration: scaleWidth(140) }}
+            sortKey="dateString"
+            tableCellWidth={{ stockOnHand: scaleWidth(140) }}
             renderCell={renderCell}
             renderActionCell={() => null}
             isRefreshing={isRefresh}
@@ -138,7 +118,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.LIGHT,
         color: "#404040"
     },
-    userName: {
+    userdate: {
         fontSize: scaleFont(14),
         fontFamily: fonts.MEDIUM,
         color: colors.ocean_blue

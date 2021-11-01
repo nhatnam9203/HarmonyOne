@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Image } from 'react-native';
 import { fonts, colors, images } from "@shared/themes";
 import { app, invoice } from "@redux/slices";
 import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import moment from "moment";
 
 

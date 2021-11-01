@@ -100,7 +100,7 @@ export const DataList = ({
             maxColumnCount={3}
             sortDefault="NONE"
             sortKey="appointmentId"
-            tableCellWidth={{}}
+            tableCellWidth={{ serviceCount : scaleWidth(150) }}
             renderCell={renderCell}
             renderActionCell={() => null}
             isRefreshing={isRefresh}

@@ -21,6 +21,14 @@ export const DataList = ({
     }
 
     const renderCell = ({ key, row, column, item }) => {
+        return (
+            <TouchableOpacity onPress={() => onRowPress({ item, row })}>
+                {renderItem(key, row, column, item)}
+            </TouchableOpacity>
+        )
+    };
+
+    const renderItem = (key, row, column, item) => {
         const data = item[key];
         switch (key) {
             case "name":
@@ -56,8 +64,7 @@ export const DataList = ({
                     $ {data}
                 </Text>
         }
-
-    };
+    }
 
     return (
         <CustomTable
@@ -105,7 +112,6 @@ export const DataList = ({
             renderActionCell={() => null}
             isRefreshing={isRefresh}
             onRefresh={onRefresh}
-            onRowPress={onRowPress}
             onLoadMore={() => { }}
             endLoadMore={() => { }}
             maxColumnCount={3}

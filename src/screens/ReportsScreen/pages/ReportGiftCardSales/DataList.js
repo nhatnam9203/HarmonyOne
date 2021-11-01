@@ -23,6 +23,14 @@ export const DataList = ({
     }
 
     const renderCell = ({ key, row, column, item }) => {
+        return (
+            <TouchableOpacity onPress={() => onRowPress({ item, row })}>
+                {renderItem(key, row, column, item)}
+            </TouchableOpacity>
+        )
+    };
+
+    const renderItem = (key, row, column, item) => {
         const data = item[key];
         switch (key) {
             case "cardType":
@@ -46,8 +54,7 @@ export const DataList = ({
                     $ {data}
                 </Text>
         }
-
-    };
+    }
 
     return (
         <CustomTable
@@ -89,7 +96,6 @@ export const DataList = ({
             onRefresh={onRefresh}
             onLoadMore={() => { }}
             endLoadMore={() => { }}
-            onRowPress={onRowPress}
             maxColumnCount={3}
             styleFirstCell={styles.firstCell}
             styleFirstSection={[styles.firstCell, { backgroundColor: '#fafafa' }]}

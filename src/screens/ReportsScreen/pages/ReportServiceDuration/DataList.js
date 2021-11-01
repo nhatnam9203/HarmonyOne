@@ -18,13 +18,21 @@ export const DataList = ({
     onRowPress
 }) => {
 
-    const onPress = ({item, row}) =>{
+    const onPress = ({ item, row }) => {
         onRowPress(item?.staffId);
         // NavigationService.navigate(screenNames.ServiceDurationStatistic);
         // staff/report/serviceduration/detail/452?timeStart=10/21/2021&timeEnd=10/31/2021&quickFilter=custom
     }
 
     const renderCell = ({ key, row, column, item }) => {
+        return (
+            <TouchableOpacity onPress={() => onPress({ item, row })}>
+                {renderItem(key, row, column, item)}
+            </TouchableOpacity>
+        )
+    };
+
+    const renderItem = (key, row, column, item) => {
         const data = item[key];
         switch (key) {
             case "name":
@@ -42,8 +50,7 @@ export const DataList = ({
                     $ {data}
                 </Text>
         }
-
-    };
+    }
 
     return (
         <CustomTable
@@ -80,11 +87,10 @@ export const DataList = ({
             isRefreshing={isRefresh}
             onRefresh={onRefresh}
             onLoadMore={onLoadMore}
-            onRowPress={onPress}
             endLoadMore={() => { }}
             maxColumnCount={2}
             styleFirstCell={styles.firstCell}
-            styleFirstSection={[styles.firstCell,{ backgroundColor: '#fafafa' }]}
+            styleFirstSection={[styles.firstCell, { backgroundColor: '#fafafa' }]}
         />
     )
 }
@@ -112,7 +118,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.MEDIUM,
         color: colors.ocean_blue
     },
-    firstCell : {
+    firstCell: {
         shadowColor: "#C5C5C5",
         shadowOffset: {
             width: 2,

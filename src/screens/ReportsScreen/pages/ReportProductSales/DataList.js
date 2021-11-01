@@ -6,6 +6,7 @@ import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
 import moment from "moment";
+import NavigationService from "@navigation/NavigationService";
 
 
 export const DataList = ({
@@ -15,7 +16,21 @@ export const DataList = ({
     endLoadMore,
 }) => {
 
+    const onRowPress = ({ item }) => {
+        NavigationService.navigate(screenNames.ProductStatistic, { item })
+    }
+
     const renderCell = ({ key, row, column, item }) => {
+        return (
+            <TouchableOpacity onPress={() => onRowPress({ item })}>
+                {renderItem(key, row, column, item)}
+            </TouchableOpacity>
+        )
+    };
+
+    console.log({ data })
+
+    const renderItem = (key, row, column, item) => {
         const data = item[key];
         switch (key) {
             case "name":
@@ -51,15 +66,14 @@ export const DataList = ({
                     $ {data}
                 </Text>
         }
-
-    };
+    }
 
     return (
         <CustomTable
             tableData={data}
             tableHead={{
                 name: "Product",
-                stockOnHand : "Stock on hand",
+                stockOnHand: "Stock on hand",
                 quantity: "Qty Sold",
                 avgPrice: "Av. Price",
                 totalSales: "Total Sales"
