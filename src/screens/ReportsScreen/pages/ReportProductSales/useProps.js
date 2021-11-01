@@ -47,8 +47,6 @@ export const useProps = (props) => {
       method: 'GET',
     }
 
-    console.log({ params })
-
     try {
       const response = await axios(params);
       if (response?.data?.codeNumber == 200) {
