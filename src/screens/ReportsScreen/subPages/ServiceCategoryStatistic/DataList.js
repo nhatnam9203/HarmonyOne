@@ -5,7 +5,6 @@ import { app, invoice } from "@redux/slices";
 import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
-import NavigationService from '@navigation/NavigationService'
 import moment from "moment";
 
 
@@ -16,39 +15,38 @@ export const DataList = ({
     endLoadMore,
 }) => {
 
-    const onRowPress = ({ item, row }) => {
-        NavigationService.navigate(screenNames.ServiceCategoryStatistic, { item });
-    }
-
     const renderCell = ({ key, row, column, item }) => {
         const data = item[key];
         switch (key) {
-            case "categoryName":
-                return <Text style={[styles.txtDate, { fontFamily: fonts.MEDIUM, textAlign: "left" }]}>
-                    {item?.categoryName}
-                </Text>
-            case "serviceCount":
+            case "date":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'center' }]}>
+                        {moment(item?.date).format("MMM DD YYYY")}
+                    </Text>
+                );
+            case "serviceCount":
+                return (
+                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
                         {item?.serviceCount}
                     </Text>
                 );
+
             case "quantity":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
                         {item?.quantity}
                     </Text>
                 );
-            case "totalHour":
+            case "totalDuration":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
-                        {item?.totalHour} hrs
+                        {item?.totalDuration}
                     </Text>
                 );
             case "totalSales":
                 return (
-                    <Text style={[styles.txtDate, { fontFamily: fonts.BOLD, textAlign: 'right' }]}>
-                        $ {item?.totalSales}
+                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
+                        {item?.totalSales}
                     </Text>
                 );
             default:
@@ -56,57 +54,55 @@ export const DataList = ({
                     $ {data}
                 </Text>
         }
-
     };
 
     return (
         <CustomTable
             tableData={data}
             tableHead={{
-                categoryName: "Category",
+                date: "Date",
                 serviceCount: "No.of services",
                 quantity: "Sales Qty",
-                totalHour: "Total Duration",
-                totalSales: "Total Sales"
+                totalDuration: "Total Duration",
+                totalSales : "Total Sales",
             }}
             whiteKeys={[
-                "categoryName",
+                "date",
                 "serviceCount",
                 "quantity",
-                "totalHour",
+                "totalDuration",
                 "totalSales"
             ]}
-            primaryId="categoryId"
-            sumTotalKey="name"
+            primaryId="date"
+            sumTotalKey="date"
             calcSumKeys={[
                 "serviceCount",
                 "quantity",
-                "totalHour",
-                "totalSales"
+                "totalDuration",
+                "totalSales",
             ]}
             priceKeys={[
-                "totalSales",
-                "totalHour"
+                "totalDuration",
+                "totalSales"
             ]}
 
-            sumTotalKey={"categoryName"}
+            sumTotalKey={"date"}
             heightSection={50}
             isRenderSection={true}
 
             headStyle={{ color: colors.ocean_blue, fontSize: scaleFont(15), textAlign: 'left' }}
-            unitKeys={{ totalHour: "hrs" }}
-            arrTextTotal={["categoryName"]}
+            unitKeys={{ totalDuration: "hrs", }}
+            arrTextTotal={["date"]}
             maxColumnCount={3}
             sortDefault="NONE"
-            sortKey="categoryName"
-            tableCellWidth={{ totalDuration : scaleWidth(140) }}
+            sortKey=""
+            tableCellWidth={{}}
             renderCell={renderCell}
             renderActionCell={() => null}
             isRefreshing={isRefresh}
             onRefresh={onRefresh}
             onLoadMore={() => { }}
             endLoadMore={() => { }}
-            onRowPress={onRowPress}
             maxColumnCount={3}
             styleFirstCell={styles.firstCell}
             styleFirstSection={[styles.firstCell, { backgroundColor: '#fafafa' }]}

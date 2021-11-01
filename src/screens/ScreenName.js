@@ -77,7 +77,8 @@ const ScreenNames = {
   ReportOverallMarketingEfficiency : "hpo.report.overall.marketingEfficiency",
   ServiceDurationStatistic : "hpo.report.service.duration.statistic",
   GiftCardStatistic : "hpo.report.giftcard.statistic",
-  CustomerStatistic : "hpo.report.customer.statistic"
+  CustomerStatistic : "hpo.report.customer.statistic",
+  ServiceCategoryStatistic : "hpo.report.service.category.statistic",
 
 };
 

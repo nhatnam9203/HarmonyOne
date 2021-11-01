@@ -8,7 +8,8 @@ import { DataList } from "./DataList";
 import { WithPopupActionSheet } from "@shared/HOC";
 
 export const Layout = ({
-  item
+  item,
+  exportFile
 }) => {
 
   let ExportButton = ({ ...props }) => {
@@ -29,23 +30,22 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Statistic')}
+        pageTitle={t('Category statistic')}
         isLeft={true}
-        isRight={true}
-        headerRightComponent={() =>
-          <IconButton
-            icon={images.iconExport}
-            iconStyle={styles.iconExport}
-            style={styles.buttonExport}
-            onPress={exportFile}
-          />
-        }
-        isScrollLayout={false}
-        containerStyle={{ paddingVertical: 0 }}
+        isRight={false}
+        // headerRightComponent={() =>
+        //   <IconButton
+        //     icon={images.iconExport}
+        //     iconStyle={styles.iconExport}
+        //     style={styles.buttonExport}
+        //     onPress={exportFile}
+        //   />}
+        // isScrollLayout={false}
+        // containerStyle={{ paddingVertical: 0 }}
       >
         <View style={styles.content}>
 
-          <Text style={styles.txtName}>{item?.name}</Text>
+          <Text style={styles.txtName}>{item?.categoryName}</Text>
 
           <DataList
             data={item?.details || []}
@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
   },
 
   content: {
-    paddingTop: scaleHeight(16),
     flex: 1,
   },
 
@@ -83,12 +82,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  txtName: {
-    fontSize: scaleFont(20),
-    color: colors.ocean_blue,
-    fontFamily: fonts.BOLD,
-    marginLeft: scaleWidth(16),
-    marginVertical: scaleHeight(8),
-    marginBottom: scaleHeight(24)
+  txtName : {
+    fontSize : scaleFont(20),
+    color : colors.ocean_blue,
+    fontFamily : fonts.BOLD,
+    marginLeft : scaleWidth(16),
+    marginVertical : scaleHeight(8),
+    marginBottom : scaleHeight(24)
+  },
+
+  iconExport: {
+    width: scaleWidth(24),
+    height: scaleWidth(24),
+    tintColor: "#000"
+  },
+  buttonExport: {
+    height: "100%",
+    width: scaleWidth(35),
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
