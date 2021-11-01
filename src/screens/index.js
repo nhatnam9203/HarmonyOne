@@ -74,7 +74,8 @@ import {
   ServiceDurationStatistic,
   GiftCardStatistic,
   CustomerStatistic,
-  ServiceCategoryStatistic
+  ServiceCategoryStatistic,
+  ServiceStatistic
  } from "./ReportsScreen/subPages";
 
 
@@ -150,4 +151,5 @@ module.exports = {
   GiftCardStatistic,
   CustomerStatistic,
   ServiceCategoryStatistic,
+  ServiceStatistic,
 };

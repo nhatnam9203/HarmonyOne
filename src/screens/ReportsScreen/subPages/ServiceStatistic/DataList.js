@@ -6,7 +6,6 @@ import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
 import moment from "moment";
-import NavigationService from "@navigation/NavigationService";
 
 
 export const DataList = ({
@@ -16,27 +15,26 @@ export const DataList = ({
     endLoadMore,
 }) => {
 
-    const onRowPress = ({ item, row }) => {
-        NavigationService.navigate(screenNames.ServiceStatistic, { item });
-    }
-
     const renderCell = ({ key, row, column, item }) => {
         const data = item[key];
         switch (key) {
-            case "name":
-                return <Text style={[styles.txtDate, { fontFamily: fonts.MEDIUM, textAlign: "left" }]}>
-                    {item?.name}
-                </Text>
-            case "quantity":
+            case "date":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'center' }]}>
+                        {moment(item?.date).format("MMM DD YYYY")}
+                    </Text>
+                );
+
+            case "quantity":
+                return (
+                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
                         {item?.quantity}
                     </Text>
                 );
             case "totalDuration":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
-                        {item?.totalDuration} hrs
+                        {item?.totalDuration}
                     </Text>
                 );
             case "avgPrice":
@@ -47,8 +45,8 @@ export const DataList = ({
                 );
             case "totalSales":
                 return (
-                    <Text style={[styles.txtDate, { fontFamily: fonts.BOLD, textAlign: 'right' }]}>
-                        $ {item?.totalSales}
+                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
+                        {item?.totalSales}
                     </Text>
                 );
             default:
@@ -56,56 +54,54 @@ export const DataList = ({
                     $ {data}
                 </Text>
         }
-
     };
 
     return (
         <CustomTable
             tableData={data}
             tableHead={{
-                name: "Service",
+                date: "Date",
                 quantity: "Sales Qty",
-                totalDuration: "Total Durations",
+                totalDuration: "Total Duration",
                 avgPrice: "Av. Price",
-                totalSales: "Total Sales"
+                totalSales: "Total Sales",
             }}
             whiteKeys={[
-                "name",
+                "date",
                 "quantity",
                 "totalDuration",
                 "avgPrice",
                 "totalSales"
             ]}
-            primaryId="name"
-            sumTotalKey="name"
+            primaryId="date"
+            sumTotalKey="date"
             calcSumKeys={[
                 "quantity",
                 "totalDuration",
                 "avgPrice",
-                "totalSales"
+                "totalSales",
             ]}
             priceKeys={[
+                "totalDuration",
                 "avgPrice",
-                "totalSales",
-                "totalDuration"
+                "totalSales"
             ]}
 
-            sumTotalKey={"name"}
+            sumTotalKey={"date"}
             heightSection={50}
             isRenderSection={true}
 
             headStyle={{ color: colors.ocean_blue, fontSize: scaleFont(15), textAlign: 'left' }}
-            unitKeys={{ totalDuration: "hrs" }}
-            arrTextTotal={["name"]}
+            unitKeys={{ totalDuration: "hrs", }}
+            arrTextTotal={["date"]}
             maxColumnCount={3}
             sortDefault="NONE"
-            sortKey="name"
-            tableCellWidth={{ totalDuration: scaleWidth(140) }}
+            sortKey=""
+            tableCellWidth={{}}
             renderCell={renderCell}
             renderActionCell={() => null}
             isRefreshing={isRefresh}
             onRefresh={onRefresh}
-            onRowPress={onRowPress}
             onLoadMore={() => { }}
             endLoadMore={() => { }}
             maxColumnCount={3}

@@ -79,6 +79,7 @@ const ScreenNames = {
   GiftCardStatistic : "hpo.report.giftcard.statistic",
   CustomerStatistic : "hpo.report.customer.statistic",
   ServiceCategoryStatistic : "hpo.report.service.category.statistic",
+  ServiceStatistic : "hpo.report.service.statistic",
 
 };
 
