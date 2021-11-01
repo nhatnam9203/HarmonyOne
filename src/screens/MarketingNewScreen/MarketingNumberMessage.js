@@ -6,6 +6,12 @@ import { Slider } from "./widget";
 const MarketingMessageNumber = ({
     form,
     errors,
+    smsMaxCustomer,
+    smsMaxAmount,
+    smsAmount,
+    customerSendSMSQuantity,
+    valueSlider,
+    hanldeSliderValue,
 }) => {
 
     const [discount_type, setDiscountType] = React.useState("money");
@@ -15,11 +21,11 @@ const MarketingMessageNumber = ({
             <Text style={styles.title}>Number of message</Text>
             <View style={styles.row}>
                 <Text style={styles.txtItem}>0</Text>
-                <Text style={styles.txtItem}>150</Text>
+                <Text style={styles.txtItem}>{smsMaxCustomer}</Text>
             </View>
             <Slider
-                value={0}
-                onValueChange={() => { }}
+                value={valueSlider}
+                onValueChange={(text) => hanldeSliderValue(text)}
                 trackStyle={{
                     height: scaleWidth(10),
                     backgroundColor: "#F1F1F1",
@@ -43,14 +49,14 @@ const MarketingMessageNumber = ({
                     }),
                 }}
                 minimumTrackTintColor="#0764B0"
-                smsCount={"0"}
-                smsMaxCount={179 || 1}
-                smsMoney={"0.00"}
-                smsMaxMoney={"7.16"}
+                smsCount={customerSendSMSQuantity}
+                smsMaxCount={smsMaxCustomer}
+                smsMoney={smsAmount}
+                smsMaxMoney={smsMaxAmount}
             />
             <View style={styles.row}>
-                <Text style={styles.txtItem}>{"$0.00"}</Text>
-                <Text style={styles.txtItem}>{"$150.00"}</Text>
+                <Text style={[styles.txtItem,{ fontFamily : fonts.MEDIUM }]}>{"$ 0.00"}</Text>
+                <Text style={[styles.txtItem,{ fontFamily : fonts.MEDIUM }]}>{`$ ${smsMaxAmount}`}</Text>
             </View>
         </View>
     )
@@ -75,7 +81,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: scaleFont(17),
         fontFamily: fonts.REGULAR,
-        marginBottom: scaleHeight(16),
+        marginBottom: scaleHeight(24),
         color: "#404040"
     }
 });

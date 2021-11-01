@@ -114,6 +114,14 @@ export const getStaffByMerchant = (merchantId) => ({
  * APPOINTMENTS
  */
 
+export const getPromotionByAppointment = (appointmentId) => ({
+  queryId: 'getPromotionByAppointment',
+  params: {
+    url: `appointment/promotion/${appointmentId}`,
+    method: 'GET',
+  },
+});
+
 export const appointmentStaffByDateRequest = (staffId, date) => ({
   queryId: 'appointmentStaffByDateRequest',
   params: {
@@ -499,6 +507,77 @@ export const getSmsInformation = (conditionId) => ({
   }
 });
 
+export const createNewCampaign = (data) => ({
+  queryId: 'createNewCampaign',
+  params: {
+    url: `MerchantPromotion?api-version=1.2`,
+    method: 'POST',
+    data,
+  }
+});
+
+export const updatePromotionById = (promotionId, data) => ({
+  queryId: 'updatePromotionById',
+  params: {
+    url: `MerchantPromotion/${promotionId}?api-version=1.2`,
+    method: 'PUT',
+    data,
+  }
+});
+
+export const getPromotionDetailById = (promotionId) => ({
+  queryId: 'getPromotionDetailById',
+  params: {
+    url: `MerchantPromotion/${promotionId}?api-version=1.2`,
+    method: 'GET',
+  }
+});
+
+export const disablePromotionById = (promotionId) => ({
+  queryId: 'disablePromotionById',
+  params: {
+    url: `MerchantPromotion/disable/${promotionId}?api-version=1.2`,
+    method: 'PUT',
+    data: {}
+  }
+});
+
+export const enablePromotionById = (promotionId) => ({
+  queryId: 'enablePromotionById',
+  params: {
+    url: `MerchantPromotion/enable/${promotionId}?api-version=1.2`,
+    method: 'PUT',
+    data: {}
+  }
+});
+
+export const getPromotionAppointment = (appointmentId) => ({
+  queryId: 'getPromotionAppointment',
+  params: {
+    url: `appointment/promotion/${appointmentId}`,
+    method: 'GET',
+  }
+});
+
+export const customPromotion = (appointmentId, data) => ({
+  queryId: 'customPromotion',
+  params: {
+    url: `appointment/custompromotion/${appointmentId}`,
+    method: 'PUT',
+    data
+  }
+});
+
+export const addPromotionNote = (appointmentId, data) => ({
+  queryId: 'addPromotionNote',
+  method: "POST",
+  params: {
+    url: `appointment/promotion/note/${appointmentId}`,
+    method: 'POST',
+    data
+  }
+});
+
 
 /**
  * MERCHANT
@@ -549,33 +628,6 @@ export const readAllNotification = (page) => ({
     url: `notification/view/all`,
     method: 'PUT',
     data: {}
-  }
-});
-
-export const getPromotionAppointment = (appointmentId) => ({
-  queryId: 'getPromotionAppointment',
-  params: {
-    url: `appointment/promotion/${appointmentId}`,
-    method: 'GET',
-  }
-});
-
-export const customPromotion = (appointmentId, data) => ({
-  queryId: 'customPromotion',
-  params: {
-    url: `appointment/custompromotion/${appointmentId}`,
-    method: 'PUT',
-    data
-  }
-});
-
-export const addPromotionNote = (appointmentId, data) => ({
-  queryId: 'addPromotionNote',
-  method: "POST",
-  params: {
-    url: `appointment/promotion/note/${appointmentId}`,
-    method: 'POST',
-    data
   }
 });
 
@@ -685,15 +737,84 @@ export const changeStatustransaction = (checkoutId, data) => ({
   }
 });
 
-// export function changeStatustransaction(checkoutId, params, responseData = {}, paymentTerminal, sn) {
-//   return {
-//       type: 'CHANGE_STATUS_TRANSACTION',
-//       method: 'PUT',
-//       api: `checkout/paymentvoidrefundtransaction/${checkoutId}`,
-//       token: true,
-//       params,
-//       checkoutId
-//   }
-// }
+export const getCustomerCanbeSendPromotion = (merchantPromotionId, merchantId) => ({
+  queryId: 'canbesendpromotion',
+  params: {
+    url: `customer/canbesendpromotion?merchantPromotionId=${merchantPromotionId}&merchantId=${merchantId}`,
+    method: 'GET',
+  }
+});
 
+
+/* 
+* SETTLEMENT
+*/
+export const getBatchHistory = (key = "", timeStart = "", timeEnd = "", quickFilter = "", page = 1) => ({
+  queryId: 'getBatchHistory',
+  params: {
+    url: `settlement/search?key=${key}&timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=${quickFilter}&page=${page}&row=10&api-version=1.1`,
+    method: 'GET',
+  }
+});
+
+export const getStaffSalesBySettlementId = (settlementId = 0) => ({
+  queryId: 'getStaffSalesBySettlementId',
+  params: {
+    url: `appointment/staffSales/getBySettlement/${settlementId}`,
+    method: 'GET',
+  }
+});
+
+export const getGiftCardSalesBySettlementId = (settlementId = 0) => ({
+  queryId: 'getGiftCardSalesBySettlementId',
+  params: {
+    url: `settlement/giftCardSales/${settlementId}`,
+    method: 'GET',
+  }
+});
+
+export const getListStaffsSales = (terminalID) => ({
+  queryId: 'getListStaffsSales',
+  params: {
+    url: `appointment/staffSales?sn=${terminalID}`,
+    method: 'GET',
+  }
+});
+
+export const getListGiftCardSales = (terminalID = null) => ({
+  queryId: 'getListGiftCardSales',
+  params: {
+    url: `settlement/waiting/giftCardSales?sn=${terminalID}`,
+    method: 'GET',
+  }
+});
+
+export const getSettlementWating = (terminalID = null, paymentTerminal = "pax") => ({
+  queryId: 'getSettlementWating',
+  params: {
+    url: `settlement/waiting?sn=null&paymentTerminal=pax`,
+    method: 'GET',
+  }
+});
+
+export const getTransactions = (timeStart = "", timeEnd = "", key = "", quickFilter = "", page = 1) => ({
+  queryId: 'getTransactions',
+  params: {
+    url: `settlement/transaction?status=&timeStart=${timeStart}&timeEnd=${timeEnd}&key=${key}&quickFilter=${quickFilter}&page=${page}`,
+    method: 'GET',
+  }
+});
+
+
+/* 
+* REPORT
+*/
+
+export const reportGetStaffSalary = (params, page = 1) => ({
+  queryId: 'reportGetStaffSalary',
+  params: {
+    url: `staff/salary?${params}&page=${page}`,
+    method: 'GET',
+  }
+});
 

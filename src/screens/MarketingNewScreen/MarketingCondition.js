@@ -5,32 +5,92 @@ import { images } from "@shared/themes/resources";
 import { CustomInput, InputSelect } from "@shared/components";
 import { InputService } from "./widget";
 import { TextInputMask } from "react-native-masked-text";
+import { useSelector } from "react-redux";
 import AntDesign from "react-native-vector-icons/AntDesign"
 import Collapsible from "react-native-collapsible";
 
 const conditionList = [
-    { label: "No condition", value: "0" },
-    { label: "Using specific services", value: "1" },
-    { label: "Customer birthday is within the week", value: "2" },
-    { label: "Time using the service reacthed the quality", value: "3" },
-    { label: "The customer is the referral", value: "4" },
+    { label: "No condition", value: "1" },
+    { label: "Using specific services", value: "2" },
+    { label: "Customer birthday is within the week", value: "3" },
+    { label: "Times using the service reached the quantity", value: "4" },
+    { label: "The customer is the referral", value: "5" },
 ];
 
-
-const MarketingCondition = ({
+const MarketingCondition = React.forwardRef(({
     form,
     errors,
-}) => {
+    defaultMessage,
+    calculatorsmsMoney,
+    valueSlider,
+}, ref) => {
+
+
+    const { 
+        service : { services },
+     } = useSelector(state=>state);
+
 
     const [condition, setCondition] = React.useState("No condition");
     const conditionRef = React.useRef();
-
     const [serviceSelected, setServiceSelected] = React.useState([]);
     const [numberOfTimesApply, setNumberOfTimesApply] = React.useState("");
 
     const removeService = (service) => {
         let tepmServices = serviceSelected.filter(s => s.serviceId !== service.serviceId);
         setServiceSelected(tepmServices);
+        const message = defaultMessage(tepmServices);
+        form.setValue("message", message);
+    }
+
+    React.useImperativeHandle(ref, () => ({
+        getConditionValue: () => {
+            const objCondition = conditionList.find(obj => obj.label == condition);
+            return objCondition;
+        },
+        getServices : () =>{
+            return serviceSelected;
+        },
+        getNumberOfTimesApply : () =>{
+            return numberOfTimesApply;
+        },
+        setCondition : (dt) =>{
+            const obj = conditionList.find(item=>item?.label == dt);
+            setCondition(dt);
+            if(obj){
+                form.setValue("condition",obj);
+            }
+        },
+
+        setNumberOfTimesApply : (dt) =>{
+            setNumberOfTimesApply(dt)
+        },
+        
+        setServiceSelected: (arrServices = []) => {
+            let temp = [];
+            for (let i = 0; i < services.length; i++) {
+                for (let j = 0; j < arrServices.length; j++) {
+                    if (services[i].serviceId == arrServices[j]) {
+                        const tempService = {
+                            ...services[i],
+                            selected : true,
+                        }
+                        temp.push(tempService);
+                    }
+                }
+            }
+            setServiceSelected(temp);
+        },
+    }));
+
+    React.useEffect(()=>{
+        calculatorsmsMoney(valueSlider);
+    },[condition,serviceSelected]);
+
+    const onChangeServiceSelected = (services) => {
+        setServiceSelected(services);
+        const message = defaultMessage(services);
+        form.setValue("message", message);
     }
 
     return (
@@ -44,9 +104,9 @@ const MarketingCondition = ({
                         name="condition"
                         title="Condition"
                         items={conditionList}
-                        defaultValue={'0'}
+                        defaultValue={'1'}
                         onSelect={(item) => {
-                            setCondition(item.label)
+                            setCondition(item.label);
                         }}
                     />
 
@@ -56,7 +116,7 @@ const MarketingCondition = ({
             {
                 <Collapsible collapsed={!(condition == "Using specific services")} duration={200}>
                     <InputService
-                        apply={(services) => setServiceSelected(services)}
+                        apply={onChangeServiceSelected}
                         serviceSelected={serviceSelected}
                     />
                     <View style={styles.containerServices}>
@@ -66,7 +126,7 @@ const MarketingCondition = ({
                                     style={styles.wrapService}
                                     key={"serviceSelected" + service.serviceId}
                                 >
-                                    <Text style={styles.service}>{service.name}</Text>
+                                    <Text style={styles.service}>{service?.name}</Text>
                                     <TouchableOpacity onPress={() => removeService(service)}>
                                         <AntDesign
                                             style={{ marginLeft: scaleWidth(16) }}
@@ -84,7 +144,7 @@ const MarketingCondition = ({
             }
 
             {
-                condition == "Time using the service reacthed the quality" &&
+                condition == "Times using the service reached the quantity" &&
                 <>
                     <Text style={styles.numberTimes}>Number of times applied</Text>
                     <View style={styles.containerInputNumber}>
@@ -101,7 +161,7 @@ const MarketingCondition = ({
             }
         </>
     );
-};
+});
 
 export default MarketingCondition;
 

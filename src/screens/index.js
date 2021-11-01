@@ -47,6 +47,17 @@ import { EnterAmountPage } from "./CheckoutScreen/pages/EnterAmountPage";
 import { InvoiceScreen } from "./InvoiceScreen";
 import { InvoiceDetailScreen } from "./InvoiceDetailScreen";
 import { SelectPeriod } from "../shared/components/SelectPeriod"
+import { AddServiceCheckboxPage } from "./ServiceScreen/pages/AddServiceCheckboxPage";
+import { SettlementScreen } from "./SettlementScreen";
+import { BatchHistoryPage } from "./SettlementScreen/pages";
+import { TransactionsPage } from "./SettlementScreen/pages";
+import { BatchHistoryDetailPage } from "./SettlementScreen/pages";
+import { EditActualAmountPage } from "./SettlementScreen/pages";
+import { ReviewSettlementPage } from "./SettlementScreen/pages";
+import { CreditCardTransactionPage } from "./SettlementScreen/pages";
+import { StaffIncomeDetailPage } from "./SettlementScreen/pages";
+import { GiftCardSoldPage } from "./SettlementScreen/pages";
+import { ReportStaffSalary, ReportServiceDuration } from "./ReportsScreen/pages";
 
 
 module.exports = {
@@ -96,5 +107,17 @@ module.exports = {
   EnterAmountPage,
   InvoiceScreen,
   InvoiceDetailScreen,
-  SelectPeriod
+  SelectPeriod,
+  AddServiceCheckboxPage,
+  SettlementScreen,
+  BatchHistoryPage,
+  BatchHistoryDetailPage,
+  TransactionsPage,
+  EditActualAmountPage,
+  ReviewSettlementPage,
+  CreditCardTransactionPage,
+  StaffIncomeDetailPage,
+  GiftCardSoldPage,
+  ReportStaffSalary,
+  ReportServiceDuration,
 };

@@ -46,7 +46,7 @@ export const ItemNotification = ({
                 <Text style={styles.title(item?.view)}>
                     {item.title}
                 </Text>
-                <Text style={[styles.content, { marginTop: scaleHeight(8) }]}>
+                <Text style={[styles.content, { marginTop: scaleHeight(8), width : scaleWidth(280) }]}>
                     {`${item?.message} `}
                     <Text style={{ fontFamily: fonts.MEDIUM }}>{`${item?.customerName}`}</Text>
                 </Text>

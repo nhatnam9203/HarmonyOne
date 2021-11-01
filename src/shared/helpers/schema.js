@@ -61,5 +61,14 @@ export const serviceSalarySchema = yup.object().shape({
 
 
 export const profileStaffLoginSchema = yup.object().shape({
+    firstName: yup.string().required("required"),
+    lastName: yup.string().required("required"),
+    displayName: yup.string().required("required"),
+    email: yup.string().email("Invalid email"),
+});
 
+
+export const settlmentEditAmountSchema = yup.object().shape({
+    paymentByCash: yup.string().required("required"),
+    otherPayment: yup.string().required("required"),
 });

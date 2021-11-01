@@ -98,9 +98,11 @@ export const useProps = (props) => {
     discountByOwner,
     moneyDiscountCustom,
     moneyDiscountFixedAmout,
+    promotionAppointment,
 
 
     onChangeTextCustomDiscount: (moneyDiscountByPercent, moneyDiscountFixed) => {
+      console.log({ moneyDiscountByPercent, moneyDiscountFixed })
       setMoneyDiscountCustom(moneyDiscountByPercent);
       setMoneyDiscountFixedAmout(moneyDiscountFixed);
     },
@@ -114,10 +116,11 @@ export const useProps = (props) => {
     },
 
     submitPromotion: async () => {
+      const valueDiscount = form.getValues("valueDiscount");
       const dataCustomDiscount = {
         discountByOwner,
         discountFixtom: moneyDiscountFixedAmout,
-        discountPercent: moneyDiscountCustom,
+        discountPercent: parseFloat(moneyDiscountCustom) > 0 ? valueDiscount : 0,
       };
 
       const bodyDiscount = await customPromotion(appointmentDetail?.appointmentId, dataCustomDiscount);

@@ -38,3 +38,5 @@ export * from './Slider';
 export * from './CustomTextInput';
 export * from "./CustomTableListExtended";
 export * from "./SelectPeriod";
+export * from "./CustomTable";
+export * from "./PeriodPicker";

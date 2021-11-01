@@ -29,10 +29,9 @@ export const useProps = (props) => {
     ...changeStatustransaction(),
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
+        dispatch(invoice.updateStatusInvoiceSuccess(invoiceDetail));
         fetchInvoiceDetail();
         fetchAppointmentByDate();
-        dispatch(invoice.updateStatusInvoiceSuccess(invoiceDetail));
-        NavigationService.back();
       }
     },
   });
@@ -88,17 +87,25 @@ export const useProps = (props) => {
     viewShotRef,
 
     voidRefundInvoice: async () => {
-      if (invoiceDetail?.paymentMethod !== "credit_card") {
-        const data = {
-          responseData: {},
-          paymentTerminal: null,
-          sn: null,
-        };
-        const body = await changeStatustransaction(invoiceDetail?.checkoutId, data);
-        submitChangeStatusTransaction(body.params);
-      } else {
-        handleVoidRefundCreditCard();
-      }
+      // if (invoiceDetail?.paymentMethod !== "credit_card") {
+      //   const data = {
+      //     responseData: {},
+      //     paymentTerminal: null,
+      //     sn: null,
+      //   };
+      //   const body = await changeStatustransaction(invoiceDetail?.checkoutId, data);
+      //   submitChangeStatusTransaction(body.params);
+      // } else {
+      //   handleVoidRefundCreditCard();
+      // }
+
+      const data = {
+        responseData: {},
+        paymentTerminal: null,
+        sn: null,
+      };
+      const body = await changeStatustransaction(invoiceDetail?.checkoutId, data);
+      submitChangeStatusTransaction(body.params);
     },
 
     shareInvoice: async () => {

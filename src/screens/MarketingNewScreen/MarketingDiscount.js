@@ -8,15 +8,16 @@ import { CustomInput, InputText } from "@shared/components";
 const MarketingDiscount = ({
     form,
     errors,
+    defaultMessage,
 }) => {
 
     const discount_type = form.getValues("promotionType");
 
     const { field } = useController({
         control: form.control,
-        defaultValue : "fixed",
-        name : "promotionType",
-      });
+        defaultValue: "percent",
+        name: "promotionType",
+    });
 
     return (
         <CustomInput
@@ -49,7 +50,11 @@ const MarketingDiscount = ({
                         form={form}
                         name="promotionValue"
                         placeholder="0.00"
+                        defaultValue="0.00"
                         style={{ width: scaleWidth(235) }}
+                        type="money"
+                        options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
+                        onBlur={()=>form.setValue("message",defaultMessage())}
                     />
                 </View>
             }
@@ -65,7 +70,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
     },
 
-    row : {
+    row: {
         flexDirection: "row", justifyContent: "space-between"
     },
 

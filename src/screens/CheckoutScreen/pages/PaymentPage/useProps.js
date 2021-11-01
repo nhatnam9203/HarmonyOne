@@ -84,6 +84,7 @@ export const useProps = (props) => {
           fetchGroupApointmentById();
           setPaymentDetail(response?.data);
           popupPaymentDetailRef?.current?.show();
+          setMethodPay(null);
         }
       }
     }
@@ -103,14 +104,18 @@ export const useProps = (props) => {
 
 
   /************************************* FETCH APPOINTMENT BY DATE *************************************/
-  const [, fetchAppointmentByDate] = useAxiosQuery({
-    ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
-    queryId : "fetchAppointmentByDate_checkOut",
+ 
+  const [{  }, fetchAppointmentByDate] = useAxiosQuery({
+    ...getAppointmentByDate(dateToFormat(appointmentDate, 'YYYY-MM-DD')),
+    queryId : "fetchByDate_checkoutPage",
     enabled: false,
     onSuccess: (data, response) => {
       dispatch(appointment.setBlockTimeBydate(data));
+      NavigationService.navigate(screenNames.AppointmentScreen);
+      dispatch(bookAppointment.resetBooking());
     },
   });
+
 
   /************************************* CALL API CANCEL HARMONY PAYMENT *************************************/
   const [, submitCancelHarmonyPayment] = useAxiosMutation({
@@ -266,8 +271,6 @@ export const useProps = (props) => {
 
     onOK: () => {
       fetchAppointmentByDate();
-      NavigationService.navigate(screenNames.AppointmentScreen);
-      dispatch(bookAppointment.resetBooking());
     }
   }
 };

@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { images } from "../themes/resources"
 
 export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -20,7 +21,7 @@ export const APPOINTMENT_STATUS = {
   VOID: 'void',
   REFUND: 'refund',
   WAITING: 'waiting',
-  NOSHOW: 'no show'
+  NOSHOW: 'no show',
 };
 
 export const getColorForStatus = (status) => {
@@ -232,12 +233,12 @@ export const getContentDate = (timeStart, timeEnd) => {
   let text = "Select date";
   if (timeStart && timeEnd) {
     text = `${timeStart} - ${timeEnd}`;
-    if (timeStart == timeEnd && timeStart == moment().format("MM/DD/YYYY")) {
+    if ((timeStart == timeEnd) && (timeStart == moment().format("MM/DD/YYYY"))) {
       text = "Today"
     }
-    if (timeStart == timeEnd && timeStart == moment().subtract("days", 1).format("MM/DD/YYYY")) {
+    if ((timeStart == timeEnd) && (timeStart == moment().subtract("days", 1).format("MM/DD/YYYY"))) {
       text = "Yesterday"
-    }
+    } 
     if (moment().startOf("months").format("MM/DD/YYYY") == timeStart && moment().endOf("months").format("MM/DD/YYYY") == timeEnd) {
       text = "This month";
     }
@@ -253,3 +254,112 @@ export const getContentDate = (timeStart, timeEnd) => {
   }
   return text;
 }
+
+export const getConditionIdByTitle = (title) => {
+  let id;
+  switch (title) {
+    case "No condition":
+      id = 1;
+      break;
+    case "Using specific services":
+      id = 2;
+      break;
+    case "Customer birthday is within the week":
+      id = 3;
+      break;
+    case "Times using the service reached the quantity":
+      id = 4;
+      break;
+    case "The customer is the referral":
+      id = 5;
+      break;
+    default:
+      id = 1;
+  }
+
+  return id;
+};
+
+export const getConditionTitleIdById = (id) => {
+  let title;
+  switch (id) {
+    case 1:
+      title = "No condition";
+      break;
+    case 2:
+      title = "Using specific services";
+      break;
+    case 3:
+      title = "Customer birthday is within the week";
+      break;
+    case 4:
+      title = "Times using the service reached the quantity";
+      break;
+    case 5:
+      title = "The customer is the referral";
+      break;
+    default:
+      title = "No condition";
+  }
+
+  return title;
+};
+
+export const getShortNameForDiscountAction = (title) => {
+  let shortName = "";
+  switch (title) {
+    case "Discount for specific services":
+      shortName = "specific";
+      break;
+    case "Discount for whole cart":
+      shortName = "all";
+      break;
+    case "Discount by category":
+      shortName = "category";
+      break;
+    default:
+      shortName = "all";
+  }
+
+  return shortName;
+};
+
+export const getDiscountActionByShortName = (shortName) => {
+  let actionDiscount = "";
+  switch (shortName) {
+    case "specific":
+      actionDiscount = "Discount for specific services";
+      break;
+    case "all":
+      actionDiscount = "Discount for whole cart";
+      break;
+    case "category":
+      actionDiscount = "Discount by category";
+      break;
+    default:
+      actionDiscount = "Discount for whole cart";
+  }
+
+  return actionDiscount;
+};
+
+
+export const getCredicardIcon = (cardType) => {
+  let icon = "";
+  let type = cardType?.toString()?.toLowerCase();
+  if (`${type}`.indexOf("visa") !== -1) {
+      icon = images.visaLogo;
+  } else if (`${type}`.indexOf("mastercard") !== -1) {
+      icon = images.masterCardLogo;
+  } else if (`${type}`.indexOf("discover") !== -1) {
+      icon = images.discoverLogo;
+  } else if (`${type}`.indexOf("americanexpress") !== -1) {
+      icon = images.american_express;
+  } else if (`${type}`.indexOf("other") !== -1) {
+      icon = images.other_card;
+  } else {
+      icon = images.other_card;
+  }
+
+  return icon;
+};

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { useSelector } from "react-redux";
+import { isEmpty } from "lodash";
 import Ionicons from "react-native-vector-icons/Ionicons"
 
 const ItemTotal = ({
@@ -25,7 +26,7 @@ const ItemTotal = ({
                 <Text style={styles.content}>{t('All time statictis')}</Text>
                 <View style={{ flexDirection: 'row' }}>
                     {
-                        count && new Array(parseInt(number)).fill().map(() => (
+                        !isEmpty(count) && new Array(parseInt(number)).fill().map(() => (
                             <Image
                                 key={Math.random()}
                                 source={images.fullStar}
@@ -46,7 +47,7 @@ const ItemTotal = ({
                 </View>
             </View>
             {
-                count &&
+                !isEmpty(count) &&
                 <Text style={[styles.content, { textAlign: 'right', marginTop: scaleHeight(8) }]}>
                     {count} {t('reviews')}
                 </Text>

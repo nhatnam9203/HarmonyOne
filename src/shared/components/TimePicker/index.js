@@ -1,9 +1,11 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity , Text } from 'react-native'
+import { View, StyleSheet, TouchableOpacity , Text, Alert } from 'react-native'
 import { scaleWidth, scaleHeight, slop } from '@utils'
 import styles from './styles'
 import { Localization, HourPicker, MinutePicker, BottomButton } from './widget'
 import moment from 'moment';
+
+const minutes = ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'];
 
 export const TimePicker = ({ cancel, onApply, startTime }) => {
 
@@ -32,7 +34,11 @@ export const TimePicker = ({ cancel, onApply, startTime }) => {
 
     const onClickOK = () => {
         const time = `${hour}:${minute} ${localization}`;
-        onApply(time);
+        if(minutes.indexOf(minute?.toString()) == -1){
+            Alert.alert("Please choose minute");
+        }else{
+            onApply(time);
+        }
     }
 
     return (

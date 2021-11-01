@@ -5,7 +5,7 @@ import { fonts, colors, images } from "@shared/themes";
 import { useSelector, useDispatch } from "react-redux";
 import { app, invoice } from "@redux/slices";
 import { axios } from '@shared/services/axiosClient';
-import CustomTableListExtended from "./TableList";
+import { CustomTable } from "@shared/components";
 import NavigationService from '@navigation/NavigationService';
 import moment from "moment";
 
@@ -48,6 +48,16 @@ export const InvoiceList = ({
 
     const renderCell = ({ key, row, column, item }) => {
         const data = item[key];
+
+        return (
+            <TouchableOpacity onPress={() => getInvoiceDetail(item?.checkoutId)}>
+                { renderItem(key, data)}
+            </TouchableOpacity>
+        )
+
+    };
+
+    const renderItem = (key, data) => {
         switch (key) {
             case "code":
                 return <Text style={styles.txt}>
@@ -85,11 +95,10 @@ export const InvoiceList = ({
                     {`${staff?.displayName}`}
                 </Text>
         }
-
-    };
+    }
 
     return (
-        <CustomTableListExtended
+        <CustomTable
             tableData={data}
             tableHead={{
                 code: "Invoice ID",
@@ -121,7 +130,6 @@ export const InvoiceList = ({
             tableCellWidth={{}}
             renderCell={renderCell}
             renderActionCell={() => null}
-            onRowPress={onRowPress}
             isRefreshing={isRefresh}
             onRefresh={onRefresh}
             onLoadMore={onLoadMore}

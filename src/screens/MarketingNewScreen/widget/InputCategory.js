@@ -49,7 +49,7 @@ const InputCategory = ({
     const { field } = useController({
         control: form.control,
         defaultValue: "",
-        name,
+        name: "inputCategory"
     })
 
     const openActionSheet = () => {

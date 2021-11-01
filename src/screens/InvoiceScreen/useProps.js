@@ -110,7 +110,7 @@ export const useProps = (props) => {
 
     onSubmitSearch: () => {
       getInvoiceList(
-        valueSearch, paymentMethod, status, timeStart, timeEnd, "", currentPage
+        valueSearch, "", "", "", "", "", 1
       );
     },
 

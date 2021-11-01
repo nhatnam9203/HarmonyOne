@@ -19,7 +19,6 @@ const notificationSlice = createSlice({
                 state.notifications = state.notifications.concat(action?.payload?.data);
             }
             state.pages = action?.payload?.pages;
-            state.count = action?.payload?.count;
         },
         setCountUnread: (state, action) => {
             state.countUnread = action.payload;

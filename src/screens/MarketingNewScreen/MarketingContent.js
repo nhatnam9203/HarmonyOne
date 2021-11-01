@@ -16,11 +16,12 @@ const numberLength = () => {
 const MarketingContent = ({
     form,
     errors,
+    defaultMessage,
 }) => {
 
     const content = useWatch({
         control: form.control,
-        name: 'content'
+        name: 'message'
     });
 
     return (
@@ -34,6 +35,7 @@ const MarketingContent = ({
                         icon={images.iconSync}
                         iconStyle={styles.iconRefresh}
                         style={{ marginTop: -10 }}
+                        onPress={() => form.setValue("message", defaultMessage())}
                         renderText={() => <Text style={styles.txtDefault}>Use default content</Text>
                         }
                     />
@@ -41,7 +43,7 @@ const MarketingContent = ({
                 renderInput={() =>
                     <InputText
                         form={form}
-                        name="content"
+                        name="message"
                         options={{ mask: numberLength() }}
                         placeholder="Content"
                         multiline={true}

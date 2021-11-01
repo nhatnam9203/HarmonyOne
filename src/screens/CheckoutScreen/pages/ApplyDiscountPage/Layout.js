@@ -6,7 +6,7 @@ import { IconButton, CustomInput, InputText, Button, Slider } from "@shared/comp
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { DiscountType } from "./DiscountType";
-import { formatNumberFromCurrency, roundNumber } from "@shared/utils";
+import { formatNumberFromCurrency, roundNumber, guid } from "@shared/utils";
 import { useWatch } from "react-hook-form";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
@@ -22,6 +22,7 @@ export const Layout = ({
     submitPromotion,
     back,
     handelSliderValue,
+    promotionAppointment
 
 }) => {
 
@@ -31,6 +32,20 @@ export const Layout = ({
         control: form.control,
         name: 'valueDiscount'
     });
+
+    const discount = promotionAppointment?.promotions || [];
+
+    let total = 0;
+    for (let i = 0; i < discount.length; i++) {
+        total = formatNumberFromCurrency(total) + formatNumberFromCurrency(discount[i].discount);
+    }
+
+    const discountCustom = moneyDiscountFixedAmout > 0 ?
+        `${valueDiscount}` :
+        `${(formatNumberFromCurrency(valueDiscount) * formatNumberFromCurrency(appointmentDetail?.subTotal) / 100)}`;
+    total = formatNumberFromCurrency(total) +  parseFloat(discountCustom);
+
+    total = roundNumber(total);
 
     const discountByStaff = (100 - discountByOwner)
     const manualDiscount = moneyDiscountCustom > 0
@@ -58,12 +73,33 @@ export const Layout = ({
                 containerStyle={{ paddingVertical: 0 }}
             >
                 <KeyboardAwareScrollView contentContainerStyle={styles.content}>
-                    <DiscountType
-                        form={form}
-                        ref={discountTypeRef}
-                        subTotal={appointmentDetail?.subTotal}
-                        onChangeText={onChangeTextCustomDiscount}
-                    />
+
+                    {
+                        discount.length > 0 &&
+                        <>
+                            <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: scaleHeight(8) }}>
+                                <Text style={styles.txtDiscount}>Discount Campaigns:</Text>
+                                <Text style={styles.txtDiscount}>Apply value</Text>
+                            </View>
+                            {
+                                discount.map((obj) => (
+                                    <View key={guid()} style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: scaleHeight(8) }}>
+                                        <Text style={styles.txtDiscount}>{obj?.merchantPromotion?.name}</Text>
+                                        <Text style={[styles.txtDiscount, { color: "#51CF26" }]}>{`$ ${obj?.discount}`}</Text>
+                                    </View>
+                                ))
+                            }
+                        </>
+                    }
+
+                    <View style={{ marginTop: scaleHeight(12) }}>
+                        <DiscountType
+                            form={form}
+                            ref={discountTypeRef}
+                            subTotal={appointmentDetail?.subTotal}
+                            onChangeText={onChangeTextCustomDiscount}
+                        />
+                    </View>
 
                     <View style={[styles.viewRowContainer, { marginTop: scaleHeight(8) }]}>
                         <Text style={styles.textNormal}>Discount by Owner</Text>
@@ -129,9 +165,7 @@ export const Layout = ({
                     <View style={styles.row}>
                         <Text style={[styles.text]}>Total Discount</Text>
                         <Text style={[styles.text, { color: "#4AD100" }]}>
-                            {moneyDiscountFixedAmout > 0 ?
-                                `$ -${valueDiscount}` :
-                                `$ -${roundNumber((formatNumberFromCurrency(valueDiscount) * formatNumberFromCurrency(appointmentDetail?.subTotal) / 100))}`}
+                            {`$ -${total}`}
                         </Text>
                     </View>
 
@@ -153,6 +187,11 @@ export const Layout = ({
 
 
 const styles = StyleSheet.create({
+    txtDiscount: {
+        fontSize: scaleFont(16),
+        color: "#404040",
+        fontFamily: fonts.REGULAR
+    },
     container: {
         flex: 1,
         backgroundColor: "white",
