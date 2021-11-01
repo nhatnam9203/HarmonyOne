@@ -42,8 +42,8 @@ export const Layout = ({
         //     style={styles.buttonExport}
         //     onPress={exportFile}
         //   />}
-        // isScrollLayout={false}
-        // containerStyle={{ paddingVertical: 0 }}
+        isScrollLayout={false}
+        containerStyle={{ paddingVertical: 0 }}
       >
         <View style={styles.content}>
 
@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
 
   content: {
     flex: 1,
+    paddingTop : scaleHeight(16)
   },
 
   button: {

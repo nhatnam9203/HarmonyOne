@@ -56,6 +56,7 @@ export const DataList = ({
         }
     };
 
+
     return (
         <CustomTable
             tableData={data}
@@ -87,16 +88,17 @@ export const DataList = ({
             ]}
 
             sumTotalKey={"date"}
+
             heightSection={50}
             isRenderSection={true}
 
             headStyle={{ color: colors.ocean_blue, fontSize: scaleFont(15), textAlign: 'left' }}
-            unitKeys={{ totalHour: "hrs" }}
+            unitKeys={{ type: "", }}
             arrTextTotal={["date"]}
             maxColumnCount={3}
             sortDefault="NONE"
             sortKey="date"
-            tableCellWidth={{ totalDuration: scaleWidth(140) }}
+            tableCellWidth={{ serviceCount: scaleWidth(150) }}
             renderCell={renderCell}
             renderActionCell={() => null}
             isRefreshing={isRefresh}
@@ -107,56 +109,6 @@ export const DataList = ({
             styleFirstCell={styles.firstCell}
             styleFirstSection={[styles.firstCell, { backgroundColor: '#fafafa' }]}
         />
-        // <CustomTable
-        //     tableData={data}
-        //     tableHead={{
-        //         date: "Date",
-        //         serviceCount: "No.of services",
-        //         quantity: "Sales Qty",
-        //         totalDuration: "Total Duration",
-        //         totalSales : "Total Sales",
-        //     }}
-        //     whiteKeys={[
-        //         "date",
-        //         "serviceCount",
-        //         "quantity",
-        //         "totalDuration",
-        //         "totalSales"
-        //     ]}
-        //     primaryId="date"
-        //     sumTotalKey="date"
-        //     calcSumKeys={[
-        //         "serviceCount",
-        //         "quantity",
-        //         "totalDuration",
-        //         "totalSales",
-        //     ]}
-        //     priceKeys={[
-        //         "totalDuration",
-        //         "totalSales"
-        //     ]}
-
-        //     sumTotalKey={"date"}
-        //     heightSection={50}
-        //     isRenderSection={true}
-
-        //     headStyle={{ color: colors.ocean_blue, fontSize: scaleFont(15), textAlign: 'left' }}
-        //     unitKeys={{ totalDuration: "hrs", }}
-        //     arrTextTotal={["date"]}
-        //     maxColumnCount={3}
-        //     sortDefault="NONE"
-        //     sortKey=""
-        //     tableCellWidth={{}}
-        //     renderCell={renderCell}
-        //     renderActionCell={() => null}
-        //     isRefreshing={isRefresh}
-        //     onRefresh={onRefresh}
-        //     onLoadMore={() => { }}
-        //     endLoadMore={() => { }}
-        //     maxColumnCount={3}
-        //     styleFirstCell={styles.firstCell}
-        //     styleFirstSection={[styles.firstCell, { backgroundColor: '#fafafa' }]}
-        // />
     )
 }
 

@@ -5,3 +5,4 @@ export * from "./ServiceCategoryStatistic";
 export * from "./ServiceStatistic";
 export * from "./ProductCategoryStatistic";
 export * from "./ProductStatistic";
+export * from "./PaymentStatistic";

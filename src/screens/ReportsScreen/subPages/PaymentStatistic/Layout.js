@@ -6,9 +6,14 @@ import { fonts, colors, images } from "@shared/themes";
 import { PeriodPicker, IconButton, CustomInput, InputSelect } from "@shared/components";
 import { DataList } from "./DataList";
 import { WithPopupActionSheet } from "@shared/HOC";
-
 export const Layout = ({
-  item,
+  actionSheetExports,
+  listSelectedRef,
+  getContentList,
+  itemSelected,
+  onChangeSelected,
+  form,
+  dataList,
   exportFile
 }) => {
 
@@ -27,28 +32,49 @@ export const Layout = ({
 
   const [t] = useTranslation();
 
+  const list = dataList.find(obj => obj?.method == itemSelected?.value)?.statistics || [];
+
+  console.log({ list , dataList , itemSelected })
+
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Service statistic')}
+        pageTitle={t('Payment statistic')}
         isLeft={true}
-        isRight={false}
-        // headerRightComponent={() =>
-        //   <IconButton
-        //     icon={images.iconExport}
-        //     iconStyle={styles.iconExport}
-        //     style={styles.buttonExport}
-        //     onPress={exportFile}
-        //   />}
+        isRight={true}
+        headerRightComponent={() =>
+          <IconButton
+            icon={images.iconExport}
+            iconStyle={styles.iconExport}
+            style={styles.buttonExport}
+            onPress={exportFile}
+          />}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
       >
         <View style={styles.content}>
 
-          <Text style={styles.txtName}>{item?.name}</Text>
+          <View style={{ paddingHorizontal: scaleWidth(16), marginTop: -scaleHeight(16) }}>
+            <CustomInput
+              label=''
+              renderInput={() =>
+                <InputSelect
+                  ref={listSelectedRef}
+                  form={form}
+                  name="giftcard"
+                  items={getContentList()}
+                  onSelect={(item) => {
+                    onChangeSelected(item);
+                  }}
+                  title="Payment"
+                  defaultValue={itemSelected?.label}
+                />
+              }
+            />
+          </View>
 
           <DataList
-            data={item?.details || []}
+            data={list}
             onRefresh={() => { }}
             isRefresh={false}
             endLoadMore={true}
@@ -62,6 +88,23 @@ export const Layout = ({
 
 const styles = StyleSheet.create({
 
+  txtDateRange: {
+    fontSize: scaleFont(15),
+    fontFamily: fonts.REGULAR,
+    color: "#404040"
+  },
+
+  buttonDateRange: {
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    padding: scaleWidth(8),
+    marginHorizontal: scaleWidth(16),
+    marginBottom: scaleHeight(16),
+    borderWidth: 1,
+    borderColor: "#dddddd",
+    borderRadius: 5
+  },
   wrapper: {
     padding: 0,
   },
@@ -72,8 +115,8 @@ const styles = StyleSheet.create({
   },
 
   content: {
+    paddingTop: scaleHeight(16),
     flex: 1,
-    paddingTop : scaleHeight(16)
   },
 
   button: {
@@ -81,15 +124,6 @@ const styles = StyleSheet.create({
     width: scaleWidth(35),
     justifyContent: 'center',
     alignItems: 'center',
-  },
-
-  txtName : {
-    fontSize : scaleFont(20),
-    color : colors.ocean_blue,
-    fontFamily : fonts.BOLD,
-    marginLeft : scaleWidth(16),
-    marginVertical : scaleHeight(8),
-    marginBottom : scaleHeight(24)
   },
 
   iconExport: {

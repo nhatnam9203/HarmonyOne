@@ -52,7 +52,7 @@ export const Layout = ({
       >
         <View style={styles.content}>
 
-          <View style={{ paddingHorizontal: scaleWidth(16) }}>
+        <View style={{ paddingHorizontal: scaleWidth(16), marginTop: -scaleHeight(16) }}>
             <CustomInput
               label=''
               renderInput={() =>

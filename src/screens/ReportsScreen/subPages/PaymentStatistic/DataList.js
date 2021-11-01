@@ -18,38 +18,32 @@ export const DataList = ({
     const renderCell = ({ key, row, column, item }) => {
         const data = item[key];
         switch (key) {
-            case "appointmentId":
-                return <Text style={[styles.txtDate, { fontFamily: fonts.MEDIUM, textAlign: "left" }]}>
-                    # {item?.appointmentId}
-                </Text>
             case "date":
+                return <Text style={[styles.txtDate, { fontFamily: fonts.MEDIUM, textAlign: "left" }]}>
+                    {moment(item?.date).format("MMM DD YYYY")}
+                </Text>
+            case "transactions":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'center' }]}>
-                        {moment(item?.date).format("MMM DD YYYY")}
+                        {item?.transactions}
                     </Text>
                 );
-            case "time":
+            case "grossPayment":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
-                        {item?.time}
+                        $ {item?.grossPayment}
                     </Text>
                 );
-            case "serviceCount":
+            case "refund":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
-                        {item?.serviceCount}
+                        $ {item?.refund}
                     </Text>
                 );
-            case "staffName":
+            case "netPayment":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
-                        {item?.staffName}
-                    </Text>
-                );
-            case "payamount":
-                return (
-                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
-                        $ {item?.payamount}
+                        $ {item?.netPayment}
                     </Text>
                 );
             default:
@@ -57,48 +51,51 @@ export const DataList = ({
                     $ {data}
                 </Text>
         }
+
     };
 
     return (
         <CustomTable
             tableData={data}
             tableHead={{
-                appointmentId: "Appt ID",
                 date: "Date",
-                time: "Time",
-                serviceCount: "No.of services",
-                staffName: "Staff",
-                payamount: "Pay amount"
+                transactions: "Transactions",
+                grossPayment: "Gross payments",
+                refund: "Refunds",
+                netPayment: "Net payments",
             }}
             whiteKeys={[
-                "appointmentId",
                 "date",
-                "time",
-                "serviceCount",
-                "staffName",
-                "payamount"
+                "transactions",
+                "grossPayment",
+                "refund",
+                "netPayment"
             ]}
-            primaryId="appointmentId"
+            primaryId="staffId"
             sumTotalKey="name"
             calcSumKeys={[
-                "serviceCount",
-                "payamount"
+                "grossPayment",
+                "transactions",
+                "refund",
+                "netPayment",
             ]}
             priceKeys={[
-                "payamount"
+                "grossPayment",
+                "refund",
+                "netPayment"
             ]}
 
-            sumTotalKey={"appointmentId"}
+            sumTotalKey={"date"}
             heightSection={50}
             isRenderSection={true}
 
             headStyle={{ color: colors.ocean_blue, fontSize: scaleFont(15), textAlign: 'left' }}
             unitKeys={{ type: "", }}
-            arrTextTotal={["appointmentId"]}
+            arrTextTotal={["date"]}
             maxColumnCount={3}
             sortDefault="NONE"
-            sortKey="appointmentId"
-            tableCellWidth={{ serviceCount : scaleWidth(150) }}
+            sortKey="date"
+            tableCellWidth={{ grossPayment: scaleWidth(150) }}
             renderCell={renderCell}
             renderActionCell={() => null}
             isRefreshing={isRefresh}

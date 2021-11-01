@@ -6,16 +6,30 @@ import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
 import moment from "moment";
-
+import NavigationService from "@navigation/NavigationService";
 
 export const DataList = ({
     data = [],
     onRefresh = () => { },
     isRefresh,
     endLoadMore,
+    timeStart,
+    timeEnd,
 }) => {
 
+    const onRowPress = ({ item }) => {
+        NavigationService.navigate(screenNames.PaymentStatistic, { item, dataList: data, timeStart, timeEnd, });
+    }
+
     const renderCell = ({ key, row, column, item }) => {
+        return (
+            <TouchableOpacity onPress={()=>onRowPress({ item })}>
+                {renderItem(key, row, column, item)}
+            </TouchableOpacity>
+        )
+    };
+
+    const renderItem = (key, row, column, item) => {
         const data = item[key];
         switch (key) {
             case "displayMethod":
@@ -31,7 +45,7 @@ export const DataList = ({
             case "grossPayment":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
-                       $ {item?.grossPayment}
+                        $ {item?.grossPayment}
                     </Text>
                 );
             case "refund":
@@ -51,15 +65,14 @@ export const DataList = ({
                     $ {data}
                 </Text>
         }
-
-    };
+    }
 
     return (
         <CustomTable
             tableData={data}
             tableHead={{
                 displayMethod: "Payment",
-                transactions : "Transactions",
+                transactions: "Transactions",
                 grossPayment: "Gross payments",
                 refund: "Refunds",
                 netPayment: "Net payments"
