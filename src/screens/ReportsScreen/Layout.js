@@ -5,7 +5,6 @@ import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, ItemSelect, NotificationIcon } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
-import { items } from "./Items";
 import NavigationService from '@navigation/NavigationService';
 
 export const Layout = ({
@@ -45,7 +44,9 @@ export const Layout = ({
             <GroupItem icon={images.iconReportGiftcard} text="Gift card" />
             <ItemSelect
               title={"Gift card sales"}
-              onPress={() => { }}
+              onPress={() => { 
+                NavigationService.navigate(screenNames.ReportGiftCardSales);
+              }}
               style={{ paddingLeft: 0 }}
             />
 
@@ -53,43 +54,57 @@ export const Layout = ({
             <GroupItem icon={images.iconReportCustomer} text="Customer" />
             <ItemSelect
               title={"Sales by customer"}
-              onPress={() => { }}
+              onPress={() => { 
+                NavigationService.navigate(screenNames.ReportCustomerSales);
+              }}
               style={{ paddingLeft: 0 }}
             />
 
             <GroupItem icon={images.iconReportService} text="Service" />
             <ItemSelect
               title={"Sales by category"}
-              onPress={() => { }}
+              onPress={() => { 
+                NavigationService.navigate(screenNames.ReportServiceCategorySales);
+              }}
               style={{ paddingLeft: 0 }}
             />
             <ItemSelect
               title={"Sales by service"}
-              onPress={() => { }}
+              onPress={() => { 
+                NavigationService.navigate(screenNames.ReportServiceSales);
+              }}
               style={{ paddingLeft: 0 }}
             />
 
             <GroupItem icon={images.iconReportProduct} text="Product" />
             <ItemSelect
               title={"Sales by category"}
-              onPress={() => { }}
+              onPress={() => { 
+                NavigationService.navigate(screenNames.ReportProductCategorySales);
+               }}
               style={{ paddingLeft: 0 }}
             />
             <ItemSelect
               title={"Sales by product"}
-              onPress={() => { }}
+              onPress={() => { 
+                NavigationService.navigate(screenNames.ReportProductSales);
+              }}
               style={{ paddingLeft: 0 }}
             />
 
             <GroupItem icon={images.iconReportOverall} text="Overall" />
             <ItemSelect
               title={"Sales by payment method"}
-              onPress={() => { }}
+              onPress={() => { 
+                NavigationService.navigate(screenNames.ReportOverallPaymentMethod);
+              }}
               style={{ paddingLeft: 0 }}
             />
             <ItemSelect
               title={"Marketing efficiency"}
-              onPress={() => { }}
+              onPress={() => { 
+                NavigationService.navigate(screenNames.ReportOverallMarketingEfficiency);
+              }}
               style={{ paddingLeft: 0 }}
             />
 

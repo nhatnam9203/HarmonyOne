@@ -86,6 +86,7 @@ export const useProps = (props) => {
     ...exportProduct(staff?.merchantId, isNeedToOrder, exportType),
     enabled: false,
     onSuccess: (data, response) => {
+      console.log({ response, data });
       if (response?.codeNumber == 200) {
         dispatch(app.showLoading());
         handleFileDownloaed(data);

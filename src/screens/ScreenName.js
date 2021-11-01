@@ -67,6 +67,18 @@ const ScreenNames = {
   GiftCardSoldPage: 'hpo.settlement.giftcard.sold',
   ReportStaffSalary: 'hpo.report.staff.salary',
   ReportServiceDuration : 'hpo.report.service.duration',
+  ReportGiftCardSales : 'hpo.report.giftcard.sales',
+  ReportCustomerSales : 'hpo.report.customer.sales',
+  ReportServiceCategorySales : 'hpo.report.service.category.sales',
+  ReportServiceSales : 'hpo.report.service.sales',
+  ReportProductCategorySales : 'hpo.report.product.category.sales',
+  ReportProductSales : 'hpo.report.product.sales',
+  ReportOverallPaymentMethod : "hpo.report.overall.paymentMethod",
+  ReportOverallMarketingEfficiency : "hpo.report.overall.marketingEfficiency",
+  ServiceDurationStatistic : "hpo.report.service.duration.statistic",
+  GiftCardStatistic : "hpo.report.giftcard.statistic",
+  CustomerStatistic : "hpo.report.customer.statistic"
+
 };
 
 module.exports = { ScreenNames };

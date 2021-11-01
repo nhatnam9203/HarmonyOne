@@ -2,11 +2,10 @@ import React from 'react';
 import { View, StyleSheet, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { fonts, colors } from "@shared/themes";
-import { PeriodPicker } from "@shared/components";
-import { images } from "@shared/themes/resources";
+import { fonts, colors, images } from "@shared/themes";
+import { PeriodPicker, IconButton } from "@shared/components";
 import { DataList } from "./DataList";
-
+import { WithPopupActionSheet } from "@shared/HOC";
 export const Layout = ({
   isRefresh,
   onRefresh,
@@ -24,7 +23,22 @@ export const Layout = ({
   removeSearch,
   servicesDuration,
   servicesDuration_pages,
+  actionSheetExports,
+  onRowPress
 }) => {
+
+  let ExportButton = ({ ...props }) => {
+    return (
+      <IconButton
+        {...props}
+        icon={images.iconExport}
+        iconStyle={styles.iconExport}
+        style={styles.buttonExport}
+      />
+    );
+  };
+
+  ExportButton = WithPopupActionSheet(ExportButton);
 
   const [t] = useTranslation();
 
@@ -33,7 +47,8 @@ export const Layout = ({
       <SingleScreenLayout
         pageTitle={t('Service duration')}
         isLeft={true}
-        isRight={false}
+        isRight={true}
+        headerRightComponent={() => <ExportButton actions={actionSheetExports()} />}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
       >
@@ -53,6 +68,7 @@ export const Layout = ({
             onRefresh={onRefresh}
             isRefresh={isRefresh}
             endLoadMore={currentPage >= servicesDuration_pages}
+            onRowPress={onRowPress}
           />
 
         </View>
@@ -101,9 +117,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  styleDropDown: {
-    backgroundColor: "white",
-    borderTopRightRadius: 0,
-    borderBottomRightRadius: 0,
+  iconExport: {
+    width: scaleWidth(24),
+    height: scaleWidth(24),
+    tintColor: "#000"
   },
+  buttonExport: {
+    height: "100%",
+    width: scaleWidth(35),
+    justifyContent: "center",
+    alignItems: "center"
+  }
 });

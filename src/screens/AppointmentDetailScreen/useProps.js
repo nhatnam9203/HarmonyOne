@@ -33,7 +33,8 @@ export const useProps = ({
   const [t] = useTranslation();
 
   const {
-    appointment: { appointmentDetail, appointmentDate }
+    appointment: { appointmentDetail, appointmentDate },
+    invoice : { invoiceViewAppointmentDetail }
   } = useSelector(state => state);
 
   const item = appointmentDetail;
@@ -130,6 +131,7 @@ export const useProps = ({
     appointmentItem,
     headerColor,
     canEdit,
+    invoiceViewAppointmentDetail,
     getActionSheets: () => [
       {
         id: 'edit-appointment',

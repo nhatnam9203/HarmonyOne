@@ -13,19 +13,20 @@ import NavigationService from '@navigation/NavigationService';
 export const useProps = (props) => {
   const dispatch = useDispatch();
 
-  const [valueNote,setValueNote] = React.useState("66876");
+  const [valueNote, setValueNote] = React.useState("66876");
 
   const {
-    settlement: { 
+    settlement: {
       settlementWaiting = {},
       listStaffSales = [],
       listGiftCardSales = [],
-    
+
     }
   } = useSelector(state => state);
 
   const [, fetchListGiftCardSales] = useAxiosQuery({
     ...getListGiftCardSales(),
+    queryId: "fetchListGiftCardSales_settlementWaiting",
     enabled: false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
@@ -36,17 +37,22 @@ export const useProps = (props) => {
 
   const [, fetchListStaffsSales] = useAxiosQuery({
     ...getListStaffsSales(),
+    queryId: "fetchListStaffsSales_settlementWaiting",
     enabled: false,
+    isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
-        dispatch(settlement.setListStaffsSales(data))
+        dispatch(settlement.setListStaffsSales(data));
+        fetchSettlementWating();
       }
     }
   });
 
   const [, fetchSettlementWating] = useAxiosQuery({
     ...getSettlementWating(),
+    queryId: "fetchSettlementWating_settlementWaiting",
     enabled: false,
+    isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(settlement.setSettlementWaiting(data));
@@ -55,27 +61,26 @@ export const useProps = (props) => {
     }
   });
 
-  
+
   React.useEffect(() => {
-    fetchSettlementWating();
-    fetchListGiftCardSales();
     fetchListStaffsSales();
+    getListGiftCardSales();
   }, []);
 
-  return {        
+  return {
     settlementWaiting,
     listStaffSales,
     listGiftCardSales,
     valueNote,
-    onChangeNote : (note) =>{
+    onChangeNote: (note) => {
       setValueNote(note)
     },
 
-    editActualAmount : () =>{
+    editActualAmount: () => {
       NavigationService.navigate(screenNames.EditActualAmountPage);
     },
 
-    reviewSettlement : () =>{
+    reviewSettlement: () => {
       dispatch(settlement.updateNote(valueNote));
       NavigationService.navigate(screenNames.ReviewSettlementPage);
     }

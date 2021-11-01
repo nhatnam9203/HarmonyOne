@@ -34,7 +34,7 @@ export const useProps = (props) => {
       dispatch(customer.setCustomerList({
         ...response,
         currentPage
-      }))
+      }));
       setLoadingDefault(false);
     },
   });

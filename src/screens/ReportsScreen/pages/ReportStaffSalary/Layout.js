@@ -3,9 +3,10 @@ import { View, StyleSheet, Text, ScrollView, TouchableOpacity, Image } from 'rea
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
-import { PeriodPicker } from "@shared/components";
+import { PeriodPicker, IconButton } from "@shared/components";
 import { images } from "@shared/themes/resources";
 import { DataList } from "./DataList";
+import { WithPopupActionSheet } from "@shared/HOC";
 
 export const Layout = ({
   isRefresh,
@@ -24,16 +25,32 @@ export const Layout = ({
   removeSearch,
   staffSalary,
   staffSalary_pages,
+  actionSheetExports,
 }) => {
 
   const [t] = useTranslation();
+
+  let ExportButton = ({ ...props }) => {
+    return (
+      <IconButton
+        {...props}
+        icon={images.iconExport}
+        iconStyle={styles.iconExport}
+        style={styles.buttonExport}
+      />
+    );
+  };
+
+  ExportButton = WithPopupActionSheet(ExportButton);
+
 
   return (
     <View style={styles.container}>
       <SingleScreenLayout
         pageTitle={t('Staff salary')}
         isLeft={true}
-        isRight={false}
+        isRight={true}
+        headerRightComponent={() => <ExportButton actions={actionSheetExports()} />}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
       >
@@ -102,9 +119,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  styleDropDown: {
-    backgroundColor: "white",
-    borderTopRightRadius: 0,
-    borderBottomRightRadius: 0,
+  iconExport: {
+    width: scaleWidth(24),
+    height: scaleWidth(24),
+    tintColor: "#000"
   },
+  buttonExport: {
+    height: "100%",
+    width: scaleWidth(35),
+    justifyContent: "center",
+    alignItems: "center"
+  }
 });

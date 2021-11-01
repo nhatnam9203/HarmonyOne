@@ -8,6 +8,7 @@ const initialState = {
     pages: 0,
     count: 0,
     invoiceDetail: {},
+    invoiceViewAppointmentDetail: {}
 };
 
 const invoiceSlice = createSlice({
@@ -26,6 +27,9 @@ const invoiceSlice = createSlice({
         },
         setInvoiceDetail: (state, action) => {
             state.invoiceDetail = action.payload;
+        },
+        setInvoiceViewAppointmentDetail: (state, action) => {
+            state.invoiceViewAppointmentDetail = action.payload;
         },
         updateStatusInvoiceSuccess: (state, action) => {
             const invoice = action.payload;

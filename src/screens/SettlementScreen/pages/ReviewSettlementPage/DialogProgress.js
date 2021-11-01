@@ -1,21 +1,26 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from "react-native";
 import { colors, fonts, layouts } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { Button, IconButton } from "@shared/components";
 import { ProgressBar, Colors } from 'react-native-paper';
+import { useSelector } from "react-redux";
 import Modal from "react-native-modal";
 
 export const DialogProgress = React.forwardRef(
     ({
         onConfirmYes = () => { },
         onModalHide = () => { },
-        progress ,
+        progress,
         viewBatch = () => { },
         finish = () => { },
     }, ref) => {
         const [t] = useTranslation();
+
+        const {
+            app: { appLoading }
+        } = useSelector(state => state);
 
         const [open, setOpen] = React.useState(false);
         const hideModal = () => {
@@ -103,6 +108,12 @@ export const DialogProgress = React.forwardRef(
                             }}
                         />
                     </View>}
+
+                    {
+                        appLoading && <View style={styles.containerLoading}>
+                            <ActivityIndicator size='large' color={"green"} />
+                        </View>
+                    }
                 </View>
             </Modal>
         );
@@ -126,6 +137,16 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         shadowOpacity: 1,
         position: 'relative',
+    },
+
+    containerLoading: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 
     content: {

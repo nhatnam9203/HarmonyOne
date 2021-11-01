@@ -51,7 +51,18 @@ import {
   StaffIncomeDetailPage,
   GiftCardSoldPage,
   ReportStaffSalary,
-  ReportServiceDuration
+  ReportServiceDuration,
+  ReportGiftCardSales,
+  ReportCustomerSales,
+  ReportServiceCategorySales,
+  ReportServiceSales,
+  ReportProductCategorySales,
+  ReportProductSales,
+  ReportOverallPaymentMethod,
+  ReportOverallMarketingEfficiency,
+  ServiceDurationStatistic,
+  GiftCardStatistic,
+  CustomerStatistic,
 } from '@screens';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
 import { useSelector } from "react-redux";
@@ -127,6 +138,17 @@ const AppStack = () => {
         <Screen {...GiftCardSoldPage} />
         <Screen {...ReportStaffSalary} />
         <Screen {...ReportServiceDuration} />
+        <Screen {...ReportGiftCardSales} />
+        <Screen {...ReportCustomerSales} />
+        <Screen {...ReportServiceCategorySales} />
+        <Screen {...ReportServiceSales} />
+        <Screen {...ReportProductCategorySales} />
+        <Screen {...ReportProductSales} />
+        <Screen {...ReportOverallPaymentMethod} />
+        <Screen {...ReportOverallMarketingEfficiency} />
+        <Screen {...ServiceDurationStatistic} />
+        <Screen {...GiftCardStatistic} />
+        <Screen {...CustomerStatistic} />
 
         <Screen name="ChangePincode" component={ChangePincode} />
         <Screen name="ForgotPincode" component={ForgotPincode} />

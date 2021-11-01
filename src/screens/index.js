@@ -57,7 +57,24 @@ import { ReviewSettlementPage } from "./SettlementScreen/pages";
 import { CreditCardTransactionPage } from "./SettlementScreen/pages";
 import { StaffIncomeDetailPage } from "./SettlementScreen/pages";
 import { GiftCardSoldPage } from "./SettlementScreen/pages";
-import { ReportStaffSalary, ReportServiceDuration } from "./ReportsScreen/pages";
+import { 
+  ReportStaffSalary, 
+  ReportServiceDuration, 
+  ReportGiftCardSales, 
+  ReportCustomerSales,
+  ReportServiceCategorySales,
+  ReportServiceSales,
+  ReportProductCategorySales,
+  ReportProductSales,
+  ReportOverallPaymentMethod,
+  ReportOverallMarketingEfficiency,
+ } from "./ReportsScreen/pages";
+
+ import {
+  ServiceDurationStatistic,
+  GiftCardStatistic,
+  CustomerStatistic,
+ } from "./ReportsScreen/subPages";
 
 
 module.exports = {
@@ -120,4 +137,15 @@ module.exports = {
   GiftCardSoldPage,
   ReportStaffSalary,
   ReportServiceDuration,
+  ReportGiftCardSales,
+  ReportCustomerSales,
+  ReportServiceCategorySales,
+  ReportServiceSales,
+  ReportProductCategorySales,
+  ReportProductSales,
+  ReportOverallPaymentMethod,
+  ReportOverallMarketingEfficiency,
+  ServiceDurationStatistic,
+  GiftCardStatistic,
+  CustomerStatistic,
 };

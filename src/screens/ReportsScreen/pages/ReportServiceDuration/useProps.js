@@ -6,7 +6,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { app, settlement, report } from "@redux/slices";
 import { axios } from '@shared/services/axiosClient';
-import { getContentDate } from "@shared/utils";
+import { getContentDate, handleFileDownloaed } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
 import { Alert } from "react-native";
@@ -16,7 +16,7 @@ export const useProps = (props) => {
 
   const {
     auth: { staff },
-    report : {
+    report: {
       servicesDuration = [],
       servicesDuration_pages = 0,
     }
@@ -30,14 +30,13 @@ export const useProps = (props) => {
 
   /********************************* GET DATA THEO PAGE  ********************************* */
   const getDataList = async (
-   timeStart = "", timeEnd = "", quickFilter = "custom", page = 1,
+    timeStart = "", timeEnd = "", quickFilter = "custom", page = 1,
   ) => {
     dispatch(app.showLoading());
     const params = {
       url: `staff/report/serviceduration?timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=${quickFilter}&page=${page}`,
       method: 'GET',
     }
-
 
     try {
       const response = await axios(params);
@@ -59,10 +58,70 @@ export const useProps = (props) => {
     }
   }
 
+  /********************************* EXPOTR  ********************************* */
+  const exportFile = async (
+    exportType,
+  ) => {
+    dispatch(app.showLoading());
+    const params = {
+      url: `staff/report/serviceduration/export?timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=custom&staffId=0&type=${exportType}`,
+      method: 'GET',
+    }
+
+    try {
+      const response = await axios(params);
+      if (response?.data?.codeNumber == 200) {
+        await handleFileDownloaed(response?.data?.data, exportType, "report_service_duration");
+      } else {
+        Alert.alert(response?.data?.message)
+      }
+
+    } catch (err) {
+
+    } finally {
+      dispatch(app.hideLoading());
+    }
+  }
+
+
+  /********************************* GET SERVICE STAFF DURATION  ********************************* */
+  const getServiceDurationStaffDetail = async (
+    staffId
+  ) => {
+    dispatch(app.showLoading());
+    const params = {
+      url: `staff/report/serviceduration/detail/${staffId}?timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=custom`,
+      method: 'GET',
+    }
+
+    try {
+      const response = await axios(params);
+      console.log({ response });
+      if (response?.data?.codeNumber == 200) {
+        dispatch(
+          report.setServiceDurationStaffDetail({
+            ...response?.data,
+          }));
+        NavigationService.navigate(screenNames.ServiceDurationStatistic, { timeStart, timeEnd, staffId });
+      } else {
+        Alert.alert(response?.data?.message)
+      }
+
+    } catch (err) {
+
+    } finally {
+      setRefresh(false)
+      dispatch(app.hideLoading());
+    }
+  }
+
+  // 
+
+
   React.useEffect(() => {
     if (timeStart && timeEnd) {
       getDataList(
-         timeStart, timeEnd, "", currentPage,
+        timeStart, timeEnd, "", currentPage,
       );
     }
   }, [timeStart, timeEnd]);
@@ -72,7 +131,7 @@ export const useProps = (props) => {
   return {
     currentPage,
     isRefresh,
-    
+
     timeStart,
     timeEnd,
     setTimeStart,
@@ -85,7 +144,7 @@ export const useProps = (props) => {
 
     onSubmitSearch: () => {
       getDataList(
-       "", "", "", 1
+        "", "", "", 1
       );
     },
 
@@ -93,7 +152,7 @@ export const useProps = (props) => {
       if (currentPage < servicesDuration_pages) {
         setCurrentPage(currentPage + 1);
         getDataList(
-         timeStart, timeEnd, "", currentPage + 1
+          timeStart, timeEnd, "", currentPage + 1
         );
       }
     },
@@ -102,7 +161,7 @@ export const useProps = (props) => {
       setRefresh(true);
       setCurrentPage(1);
       getDataList(
-         moment().startOf('week').format("MM/DD/YYYY"), moment().endOf('week').format("MM/DD/YYYY"), "", 1
+        moment().startOf('week').format("MM/DD/YYYY"), moment().endOf('week').format("MM/DD/YYYY"), "", 1
       );
     },
 
@@ -110,6 +169,27 @@ export const useProps = (props) => {
     getContentDate: () => {
       return getContentDate(timeStart, timeEnd);
     },
+
+    actionSheetExports: () => [
+      {
+        id: 'export-excel',
+        label: 'EXCEL',
+        func: () => {
+          exportFile("excel");
+        },
+      },
+      {
+        id: 'export-csv',
+        label: 'CSV',
+        func: () => {
+          exportFile("csv");
+        },
+      },
+    ],
+
+    onRowPress: (staffId) => {
+      getServiceDurationStaffDetail(staffId);
+    }
 
   };
 };
