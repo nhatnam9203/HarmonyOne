@@ -59,7 +59,6 @@ export const DataList = ({
                     $ {data}
                 </Text>
         }
-
     };
 
     return (
