@@ -11,8 +11,7 @@ import { Alert } from "react-native";
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
-  const { item } = props?.route?.params;
-  console.log({ item })
+  const { item, timeStart, timeEnd } = props?.route?.params;
 
   /********************************* STATE  ********************************* */
 
@@ -23,29 +22,29 @@ export const useProps = (props) => {
   const exportFile = async (
     exportType,
   ) => {
-    if (staffSelected) {
-      //   dispatch(app.showLoading());
-      //   const params = {
-      //     url: `service/report/saleByCategory/export?timeStart=${timeStart}&timeEnd=${timeEnd}&category=${valueFilter}`,
-      //     method: 'GET',
-      //   }
+    if (item) {
+        dispatch(app.showLoading());
+        const params = {
+          url: `product/report/saleByProduct/export?timeStart=${timeStart}&timeEnd=${timeEnd}&product=${item?.productId}`,
+          method: 'GET',
+        }
 
-      //   try {
-      //     const response = await axios(params);
-      //     if (response?.data?.codeNumber == 200) {
-      //       await handleFileDownloaed(response?.data?.data, "csv", `report_staff_statistic_${staffSelected?.label}`);
-      //     } else {
-      //       Alert.alert(response?.data?.message)
-      //     }
+        try {
+          const response = await axios(params);
+          if (response?.data?.codeNumber == 200) {
+            await handleFileDownloaed(response?.data?.data, "csv", `report_product_${item?.name}`);
+          } else {
+            Alert.alert(response?.data?.message)
+          }
 
-      //   } catch (err) {
+        } catch (err) {
 
-      //   } finally {
-      //     dispatch(app.hideLoading());
-      //   }
-      // }
+        } finally {
+          dispatch(app.hideLoading());
+        }
+      }
     }
-  }
+  
 
 
   return {

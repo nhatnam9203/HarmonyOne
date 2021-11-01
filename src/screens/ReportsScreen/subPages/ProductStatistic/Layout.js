@@ -27,21 +27,19 @@ export const Layout = ({
 
   const [t] = useTranslation();
 
-  console.log({ item })
-
   return (
     <View style={styles.container}>
       <SingleScreenLayout
         pageTitle={t('Product statistic')}
         isLeft={true}
-        isRight={false}
-        // headerRightComponent={() =>
-        //   <IconButton
-        //     icon={images.iconExport}
-        //     iconStyle={styles.iconExport}
-        //     style={styles.buttonExport}
-        //     onPress={exportFile}
-        //   />}
+        isRight={true}
+        headerRightComponent={() =>
+          <IconButton
+            icon={images.iconExport}
+            iconStyle={styles.iconExport}
+            style={styles.buttonExport}
+            onPress={exportFile}
+          />}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
       >

@@ -65,7 +65,7 @@ export const Layout = ({
             onAccept={(startDate, endDate) => onChangeDate(startDate, endDate)}
           />
 
-          <View style={{ paddingHorizontal: scaleWidth(16), marginTop : -scaleHeight(24) }}>
+          <View style={{ paddingHorizontal: scaleWidth(16), marginTop: -scaleHeight(24) }}>
             <CustomInput
               label=''
               renderInput={() =>
@@ -88,6 +88,8 @@ export const Layout = ({
             onRefresh={onRefresh}
             isRefresh={isRefresh}
             endLoadMore={true}
+            timeStart={timeStart}
+            timeEnd={timeEnd}
           />
 
         </View>

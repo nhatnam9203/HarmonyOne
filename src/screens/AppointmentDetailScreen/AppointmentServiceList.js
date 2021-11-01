@@ -33,7 +33,7 @@ export const AppointmentServiceList = ({ services = [], extras = [], products = 
 
   return (
     <View style={styles.container}>
-      <Text style={styles.textTitle}>{t('Sevices')}</Text>
+      <Text style={styles.textTitle}>{t('Items')}</Text>
       {
         services?.map((item) => (
           <AppointmentServiceItem

@@ -89,6 +89,8 @@ export const Layout = ({
             onRefresh={onRefresh}
             isRefresh={isRefresh}
             endLoadMore={true}
+            timeStart={timeStart}
+            timeEnd={timeEnd}
           />
 
         </View>

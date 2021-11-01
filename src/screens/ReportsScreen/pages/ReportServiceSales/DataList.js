@@ -14,10 +14,12 @@ export const DataList = ({
     onRefresh = () => { },
     isRefresh,
     endLoadMore,
+    timeStart,
+    timeEnd,
 }) => {
 
     const onRowPress = ({ item, row }) => {
-        NavigationService.navigate(screenNames.ServiceStatistic, { item });
+        NavigationService.navigate(screenNames.ServiceStatistic, { item, timeStart, timeEnd });
     }
 
     const renderCell = ({ key, row, column, item }) => {

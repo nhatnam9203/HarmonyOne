@@ -30,7 +30,7 @@ export const useProps = (props) => {
   ) => {
     dispatch(app.showLoading());
     const params = {
-      url: `giftCard/reportSales/export/${itemSelected?.value}?timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=custom`,
+      url: `overall/marketingEfficiency/export/${itemSelected?.value}?timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=custom`,
       method: 'GET',
     }
 

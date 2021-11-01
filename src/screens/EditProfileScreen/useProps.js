@@ -57,7 +57,6 @@ export const useProps = (props) => {
     enabled: false,
     isLoadingDefault: true,
     onSuccess: (data, response) => {
-      console.log('getStaffLogin');
       if (response.codeNumber == 200) {
         dispatch(auth.updateProfile(data));
         NavigationService.back();

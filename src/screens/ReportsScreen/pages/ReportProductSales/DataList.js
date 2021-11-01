@@ -14,10 +14,12 @@ export const DataList = ({
     onRefresh = () => { },
     isRefresh,
     endLoadMore,
+    timeStart,
+    timeEnd
 }) => {
 
     const onRowPress = ({ item }) => {
-        NavigationService.navigate(screenNames.ProductStatistic, { item })
+        NavigationService.navigate(screenNames.ProductStatistic, { item, timeStart, timeEnd });
     }
 
     const renderCell = ({ key, row, column, item }) => {
@@ -28,7 +30,6 @@ export const DataList = ({
         )
     };
 
-    console.log({ data })
 
     const renderItem = (key, row, column, item) => {
         const data = item[key];

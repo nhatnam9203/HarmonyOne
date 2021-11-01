@@ -96,7 +96,6 @@ export const useProps = (props) => {
 
     try {
       const response = await axios(params);
-      console.log({ response });
       if (response?.data?.codeNumber == 200) {
         dispatch(
           report.setServiceDurationStaffDetail({

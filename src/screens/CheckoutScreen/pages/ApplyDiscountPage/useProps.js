@@ -102,7 +102,6 @@ export const useProps = (props) => {
 
 
     onChangeTextCustomDiscount: (moneyDiscountByPercent, moneyDiscountFixed) => {
-      console.log({ moneyDiscountByPercent, moneyDiscountFixed })
       setMoneyDiscountCustom(moneyDiscountByPercent);
       setMoneyDiscountFixedAmout(moneyDiscountFixed);
     },

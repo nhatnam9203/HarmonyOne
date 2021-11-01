@@ -30,7 +30,6 @@ export const DiscountType = React.forwardRef(({
         let discount = form.getValues("valueDiscount");
         if (discount_type == "percent") {
             discount = roundNumber((formatNumberFromCurrency(discount) * formatNumberFromCurrency(subTotal) / 100));
-            console.log({ discount })
             onChangeText(discount, 0);
         } else {
             onChangeText(0, discount);

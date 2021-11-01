@@ -30,14 +30,14 @@ export const useProps = (props) => {
   ) => {
     dispatch(app.showLoading());
     const params = {
-      url: `giftCard/reportSales/export/${itemSelected?.value}?timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=custom`,
+      url: `overall/paymentMethod/export/${itemSelected?.value}?timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=custom`,
       method: 'GET',
     }
 
     try {
       const response = await axios(params);
       if (response?.data?.codeNumber == 200) {
-        await handleFileDownloaed(response?.data?.data, "csv", `report_giftcard_sales/${itemSelected?.label}`);
+        await handleFileDownloaed(response?.data?.data, "csv", `report_payments/${itemSelected?.label}`);
       } else {
         Alert.alert(response?.data?.message)
       }
