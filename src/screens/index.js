@@ -56,6 +56,7 @@ import { CreditCardTransactionPage } from "./SettlementScreen/pages";
 import { StaffIncomeDetailPage } from "./SettlementScreen/pages";
 import { GiftCardSoldPage } from "./SettlementScreen/pages";
 import { FeedbackScreen } from "./FeedbackScreen";
+import { ChangePincodeScreen } from "./ChangePincodeScreen";
 import { 
   ReportStaffSalary, 
   ReportServiceDuration, 
@@ -157,5 +158,6 @@ module.exports = {
   ProductStatistic,
   PaymentStatistic,
   MarketingEfficiencyStatistic,
-  FeedbackScreen
+  FeedbackScreen,
+  ChangePincodeScreen
 };

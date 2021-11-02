@@ -85,6 +85,7 @@ const ScreenNames = {
   PaymentStatistic : "hpo.report.payment.statistic",
   MarketingEfficiencyStatistic : "hpo.report.marketing.efficiency.statistic",
   FeedbackScreen : "hpo.feedback",
+  ChangePincodeScreen : "hpo.pincode.change",
 };
 
 module.exports = { ScreenNames };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Linking } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, DialogConfirm } from "@shared/components";
@@ -14,6 +14,8 @@ export const Layout = ({
 }) => {
 
   const [t] = useTranslation();
+
+  const harmonyLink = `https://www.harmonypayment.com/home`;
 
   return (
     <View style={styles.container}>
@@ -46,6 +48,7 @@ export const Layout = ({
             icon={images.iconArrow}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
+            onPress={()=>Linking.openURL(harmonyLink)}
             renderText={() => <Text style={styles.txtItem}>{t('Help & FAQ')}</Text>}
           />
           <IconButton
@@ -65,12 +68,14 @@ export const Layout = ({
             icon={images.iconArrow}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
+            onPress={()=>Linking.openURL(harmonyLink)}
             renderText={() => <Text style={styles.txtItem}>{t('Privacy policy')}</Text>}
           />
           <IconButton
             icon={images.iconArrow}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
+            onPress={()=>Linking.openURL(harmonyLink)}
             renderText={() => <Text style={styles.txtItem}>{t('Terms')}</Text>}
           />
           <View style={styles.seperateLine} />
