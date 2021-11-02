@@ -247,10 +247,10 @@ export const getContentDate = (timeStart, timeEnd) => {
     if (moment().subtract("months", 1).startOf("months").format("MM/DD/YYYY") == timeStart && moment().subtract("months", 1).endOf("months").format("MM/DD/YYYY") == timeEnd) {
       text = "Last month";
     }
-    if (moment().startOf("weeks").format("MM/DD/YYYY") == timeStart && moment().endOf("weeks").format("MM/DD/YYYY") == timeEnd) {
+    if (moment().startOf("isoWeeks").format("MM/DD/YYYY") == timeStart && moment().endOf("isoWeeks").format("MM/DD/YYYY") == timeEnd) {
       text = "This week";
     }
-    if (moment().subtract("weeks", 1).startOf("weeks").format("MM/DD/YYYY") == timeStart && moment().subtract('weeks', 1).endOf("weeks").format("MM/DD/YYYY") == timeEnd) {
+    if (moment().subtract("weeks", 1).startOf("isoWeeks").format("MM/DD/YYYY") == timeStart && moment().subtract('weeks', 1).endOf("isoWeeks").format("MM/DD/YYYY") == timeEnd) {
       text = "Last week";
     }
   }

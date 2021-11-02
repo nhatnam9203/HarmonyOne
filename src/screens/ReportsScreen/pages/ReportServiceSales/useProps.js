@@ -34,8 +34,8 @@ export const useProps = (props) => {
   /********************************* STATE  ********************************* */
   const [currentPage, setCurrentPage] = React.useState(1);
   const [isRefresh, setRefresh] = React.useState(false);
-  const [timeStart, setTimeStart] = React.useState(moment().startOf('week').format("MM/DD/YYYY"));
-  const [timeEnd, setTimeEnd] = React.useState(moment().endOf('week').format("MM/DD/YYYY"));
+  const [timeStart, setTimeStart] = React.useState(moment().startOf('isoWeeks').format("MM/DD/YYYY"));
+  const [timeEnd, setTimeEnd] = React.useState(moment().endOf('isoWeeks').format("MM/DD/YYYY"));
   const [valueFilter, setValueFilter] = React.useState("all");
 
   /********************************* GET DATA THEO PAGE  ********************************* */
