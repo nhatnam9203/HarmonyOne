@@ -170,7 +170,7 @@ export const useProps = (props) => {
 
     finish: () => {
       dialogProgressRef?.current?.hide();
-      NavigationService.navigate(screenNames.CloseSettlementPage);
+      NavigationService.navigate(screenNames.SettlementWaitingPage);
     }
 
   };

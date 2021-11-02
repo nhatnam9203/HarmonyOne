@@ -54,7 +54,7 @@ export const WithPopupUpload = (WrappedComponent) => {
             },
             {
                 id: 'take-photo',
-                label: t('Launch Image'),
+                label: t('Launch camera'),
                 func: () => {
                     takePicture();
                 },

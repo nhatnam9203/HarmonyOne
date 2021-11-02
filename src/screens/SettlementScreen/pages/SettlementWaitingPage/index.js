@@ -4,8 +4,8 @@ import { Layout } from './Layout';
 import { useProps } from './useProps';
 import { images } from '@shared/themes';
 
-export const CloseSettlementPage = createScreenComponent(
-  "hpo.settlement.close",
+export const SettlementWaitingPage = createScreenComponent(
+  "hpo.settlement.waiting",
   (props) => <Layout {...useProps(props)} />,
   { tabBarLabel: 'Settlement' },
 );

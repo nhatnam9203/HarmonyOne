@@ -6,6 +6,7 @@ import { IconButton, DialogConfirm } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { Switch } from "react-native-paper";
+import NavigationService from '@navigation/NavigationService'
 
 export const Layout = ({
   refDialogSignout,
@@ -52,6 +53,9 @@ export const Layout = ({
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
             renderText={() => <Text style={styles.txtItem}>{t('Feed back')}</Text>}
+            onPress={() =>
+              NavigationService.navigate(screenNames.FeedbackScreen)
+            }
           />
           <View style={styles.seperateLine} />
 
@@ -78,17 +82,17 @@ export const Layout = ({
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
             renderText={() => <Text style={styles.txtItem}>{t('Sign out')}</Text>}
-            onPress={()=>refDialogSignout?.current?.show()}
+            onPress={() => refDialogSignout?.current?.show()}
           />
 
           <DialogConfirm
             ref={refDialogSignout}
             title={t("Warning !")}
             titleContent={
-                t("Are you sure yout want to log out of your account from this device ?")
+              t("Are you sure yout want to log out of your account from this device ?")
             }
             onConfirmYes={onLogout}
-            onModalHide={()=>{}}
+            onModalHide={() => { }}
           />
 
         </View>

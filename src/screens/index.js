@@ -2,9 +2,7 @@
 import ForgotPincode from './ForgotPincode';
 import ForgotPincodeSuccess from './ForgotPincodeSuccess';
 import WhatIsMerchant from './WhatIsMerchant';
-import Statistic from './Statistic';
 import ChangePincode from './ChangePincode';
-import FeedBack from './FeedBack';
 
 import { ScreenNames } from './ScreenName';
 import { SplashScreen } from './SplashScreen';
@@ -57,6 +55,7 @@ import { ReviewSettlementPage } from "./SettlementScreen/pages";
 import { CreditCardTransactionPage } from "./SettlementScreen/pages";
 import { StaffIncomeDetailPage } from "./SettlementScreen/pages";
 import { GiftCardSoldPage } from "./SettlementScreen/pages";
+import { FeedbackScreen } from "./FeedbackScreen";
 import { 
   ReportStaffSalary, 
   ReportServiceDuration, 
@@ -87,9 +86,7 @@ module.exports = {
   ForgotPincode,
   ForgotPincodeSuccess,
   WhatIsMerchant,
-  Statistic,
   ChangePincode,
-  FeedBack,
   ScreenNames,
   SplashScreen,
   LoginScreen,
@@ -159,5 +156,6 @@ module.exports = {
   ProductCategoryStatistic,
   ProductStatistic,
   PaymentStatistic,
-  MarketingEfficiencyStatistic
+  MarketingEfficiencyStatistic,
+  FeedbackScreen
 };

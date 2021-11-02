@@ -47,7 +47,7 @@ export const Layout = ({
             Last settlement :
           </Text>
           <Text style={[styles.title, { marginLeft: scaleWidth(16) }]}>
-            {moment(settlementWaiting?.settlementdate).format("MM/DD/YYYY - hh:mm A")}
+            {moment(settlementWaiting?.settlementDate).format("MM/DD/YYYY - hh:mm A")}
           </Text>
         </View>
 

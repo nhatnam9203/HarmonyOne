@@ -818,3 +818,12 @@ export const reportGetStaffSalary = (params, page = 1) => ({
   }
 });
 
+export const sendFeedback = (data) => ({
+  queryId: 'sendFeedback',
+  params: {
+    url: `feedback`,
+    method: 'POST',
+    data
+  }
+});
+

@@ -58,7 +58,7 @@ const ScreenNames = {
   SettlementScreen: "hpo.settlement",
   BatchHistoryPage: "hpo.settlement.batch.history",
   TransactionsPage: "hpo.settlement.transactions",
-  CloseSettlementPage: "hpo.settlement.close",
+  SettlementWaitingPage: "hpo.settlement.waiting",
   BatchHistoryDetailPage: 'hpo.settlement.batch.history.detail',
   EditActualAmountPage: 'hpo.settlement.editAmount',
   ReviewSettlementPage: 'hpo.settlement.review',
@@ -84,7 +84,7 @@ const ScreenNames = {
   ProductStatistic: "hpo.report.product.statistic",
   PaymentStatistic : "hpo.report.payment.statistic",
   MarketingEfficiencyStatistic : "hpo.report.marketing.efficiency.statistic",
-
+  FeedbackScreen : "hpo.feedback",
 };
 
 module.exports = { ScreenNames };
