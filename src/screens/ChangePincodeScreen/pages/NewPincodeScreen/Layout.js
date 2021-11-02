@@ -8,6 +8,8 @@ import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 
 export const Layout = ({
   onChangeInputCode,
+  onChangeNewPinCode,
+  newPincode,
   pinCode = '',
   forgotPinCode,
   onSubmit
@@ -24,18 +26,13 @@ export const Layout = ({
       >
         <View style={styles.content}>
 
-          <Image
-            source={images.iconSignIn}
-            style={styles.logo}
-            resizeMode="contain"
-          />
           <View style={styles.marginHeight} />
           <Text
             style={[
               layouts.sf_pt_medium_17_500,
               { fontSize: scaleFont(18), color: "#7A98BB", fontFamily: fonts.MEDIUM },
             ]}>
-            {t('Current PIN code')}
+            {t('New PIN code')}
           </Text>
           <View style={styles.marginHeight} />
           <View style={styles.containerInput}>
@@ -52,10 +49,29 @@ export const Layout = ({
               autoFocus={true}
             />
           </View>
+          <View style={styles.marginHeight} />
+          <Text
+            style={[
+              layouts.sf_pt_medium_17_500,
+              { fontSize: scaleFont(18), color: "#7A98BB", fontFamily: fonts.MEDIUM },
+            ]}>
+            {t('Confirm new PIN code')}
+          </Text>
+          <View style={styles.marginHeight} />
+          <View style={styles.containerInput}>
+            <SmoothPinCodeInput
+              placeholder={<View style={styles.dotInput} />}
+              mask={<View style={[styles.dotInput, { opacity: 1 }]} />}
+              // maskDelay={500}
+              password={true}
+              cellStyle={null}
+              cellStyleFocused={null}
+              cellSize={scaleWidth(26)}
+              value={newPincode}
+              onTextChange={onChangeNewPinCode}
+            />
+          </View>
 
-          <TouchableOpacity onPress={forgotPinCode} style={[styles.btnLink, { marginTop: scaleHeight(16) }]}>
-            <Text style={styles.txtLink}>{t('Forgot PIN code ?')}</Text>
-          </TouchableOpacity>
         </View>
       </SingleScreenLayout>
     </View>

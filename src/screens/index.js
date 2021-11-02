@@ -56,10 +56,11 @@ import { StaffIncomeDetailPage } from "./SettlementScreen/pages";
 import { GiftCardSoldPage } from "./SettlementScreen/pages";
 import { FeedbackScreen } from "./FeedbackScreen";
 import { ChangePincodeScreen } from "./ChangePincodeScreen";
-import { 
-  ReportStaffSalary, 
-  ReportServiceDuration, 
-  ReportGiftCardSales, 
+import { NewPincodeScreen } from "./ChangePincodeScreen/pages/NewPincodeScreen";
+import {
+  ReportStaffSalary,
+  ReportServiceDuration,
+  ReportGiftCardSales,
   ReportCustomerSales,
   ReportServiceCategorySales,
   ReportServiceSales,
@@ -67,9 +68,9 @@ import {
   ReportProductSales,
   ReportOverallPaymentMethod,
   ReportOverallMarketingEfficiency,
- } from "./ReportsScreen/pages";
+} from "./ReportsScreen/pages";
 
- import {
+import {
   ServiceDurationStatistic,
   GiftCardStatistic,
   CustomerStatistic,
@@ -79,7 +80,7 @@ import {
   ProductStatistic,
   PaymentStatistic,
   MarketingEfficiencyStatistic,
- } from "./ReportsScreen/subPages";
+} from "./ReportsScreen/subPages";
 
 
 module.exports = {
@@ -157,5 +158,6 @@ module.exports = {
   PaymentStatistic,
   MarketingEfficiencyStatistic,
   FeedbackScreen,
-  ChangePincodeScreen
+  ChangePincodeScreen,
+  NewPincodeScreen
 };

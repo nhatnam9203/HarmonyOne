@@ -1,42 +1,45 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { sendFeedback, useAxiosMutation } from "@src/apis";
+import { auth } from '@redux/slices';
+import { staffLoginRequest, useAxiosMutation } from '@src/apis';
+import React from 'react';
+import { Alert } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import NavigationService from "@navigation/NavigationService";
-import { Alert } from "react-native";
 
 export const useProps = (_params) => {
-
   const dispatch = useDispatch();
 
-  const [value, setValue] = React.useState('');
+  const merchantID = useSelector((state) => state.auth.merchantID);
 
-  const [,submitSendFeedback] = useAxiosMutation({
-    ...sendFeedback(),
-    onSuccess: (data, response) => {
-      if (response?.codeNumber == 200) {
-        NavigationService.back();
-      }else{
-        Alert.alert(response?.message);
+  const {
+    auth: { staff },
+    staff: { staffListByMerchant = [] }
+  } = useSelector(state => state);
+
+  const [pinCode, setPinCode] = React.useState('');
+
+  const onSubmit = (val) => {
+    const staffFind = staffListByMerchant.find(obj => obj?.staffId == staff?.staffId);
+    if (staffFind) {
+      if (staffFind?.pin == val) {
+        NavigationService.navigate(screenNames.NewPincodeScreen);
+      } else {
+        Alert.alert("Wrong pincode")
       }
     }
-  })
+  }
 
   return {
-    value,
-    onChange: (text) => {
-      setValue(text);
+    onChangeInputCode: (val) => {
+      setPinCode(val);
+      if(val?.length == 4){
+        onSubmit(val)
+      }
     },
+    pinCode,
 
-    onSubmit: async() => {
-      const body = {
-        'comment': value,
-        'vote': listEmojiRef?.current?.getStatus()
-      };
-
-      const data = await sendFeedback(body);
-      submitSendFeedback(data.params);
-
-    }
+    forgotPinCode: () => {
+      NavigationService.navigate('ForgotPincode');
+    },
 
   };
 };

@@ -14,7 +14,6 @@ export const useAxiosMutation = ({
   const dispatch = useDispatch();
 
   const postRequest = async (body = null) => {
-    console.log({ body })
     const response = body ? await axios(body) : await axios(params);
     return response?.data;
   };
@@ -22,7 +21,7 @@ export const useAxiosMutation = ({
   const { mutate, isLoading, isError, data } = useMutation((body) => postRequest(body),
     {
       onSuccess: (response) => {
-        if (response?.codeNumber == 200) {
+        if (response?.codeNumber == 200 || response?.codeNumber == 204) {
           if (onSuccess && typeof onSuccess === 'function') {
             onSuccess(response?.data, response);
           }

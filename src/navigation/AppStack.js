@@ -68,7 +68,8 @@ import {
   PaymentStatistic,
   MarketingEfficiencyStatistic,
   FeedbackScreen,
-  ChangePincodeScreen
+  ChangePincodeScreen,
+  NewPincodeScreen
 } from '@screens';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
 import { useSelector } from "react-redux";
@@ -163,6 +164,7 @@ const AppStack = () => {
         <Screen {...MarketingEfficiencyStatistic} />
         <Screen {...FeedbackScreen} />
         <Screen {...ChangePincodeScreen} />
+        <Screen {...NewPincodeScreen} />
 
         <Screen name="ForgotPincode" component={ForgotPincode} />
       </Navigator>

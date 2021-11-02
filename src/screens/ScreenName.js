@@ -86,6 +86,7 @@ const ScreenNames = {
   MarketingEfficiencyStatistic : "hpo.report.marketing.efficiency.statistic",
   FeedbackScreen : "hpo.feedback",
   ChangePincodeScreen : "hpo.pincode.change",
+  NewPincodeScreen : "hpo.pincode.change.new",
 };
 
 module.exports = { ScreenNames };
