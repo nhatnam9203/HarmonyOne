@@ -32,6 +32,9 @@ export const Layout = ({
             icon={images.iconArrow}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
+            onPress={() =>
+              NavigationService.navigate(screenNames.ChangePincodeScreen)
+            }
             renderText={() => <Text style={styles.txtItem}>{t('Change PIN code')}</Text>}
           />
           <IconButton

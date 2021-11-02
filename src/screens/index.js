@@ -2,7 +2,6 @@
 import ForgotPincode from './ForgotPincode';
 import ForgotPincodeSuccess from './ForgotPincodeSuccess';
 import WhatIsMerchant from './WhatIsMerchant';
-import ChangePincode from './ChangePincode';
 
 import { ScreenNames } from './ScreenName';
 import { SplashScreen } from './SplashScreen';
@@ -87,7 +86,6 @@ module.exports = {
   ForgotPincode,
   ForgotPincodeSuccess,
   WhatIsMerchant,
-  ChangePincode,
   ScreenNames,
   SplashScreen,
   LoginScreen,

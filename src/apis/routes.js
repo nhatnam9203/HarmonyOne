@@ -33,9 +33,9 @@ export const staffLoginRequest = (merchantID, pinCode) => ({
   },
 });
 
-export const staffLogoutRequest = () => ({
+export const staffLogoutRequest = (data) => ({
   params: {
-    url: '/staff/logout',
+    url: '/merchant/logout',
     method: 'PUT',
     data: {}
   },
