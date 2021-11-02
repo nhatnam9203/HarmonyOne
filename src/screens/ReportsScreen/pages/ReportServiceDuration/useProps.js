@@ -60,13 +60,15 @@ export const useProps = (props) => {
 
   /********************************* EXPOTR  ********************************* */
   const exportFile = async (
-    exportType,
+    exportType = "csv",
   ) => {
     dispatch(app.showLoading());
     const params = {
       url: `staff/report/serviceduration/export?timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=custom&staffId=0&type=${exportType}`,
       method: 'GET',
     }
+
+    console.log({ params })
 
     try {
       const response = await axios(params);
@@ -139,6 +141,7 @@ export const useProps = (props) => {
 
     servicesDuration,
     servicesDuration_pages,
+    exportFile : ()=>exportFile("csv"),
 
 
     onSubmitSearch: () => {

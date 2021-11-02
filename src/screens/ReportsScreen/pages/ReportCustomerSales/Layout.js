@@ -16,7 +16,8 @@ export const Layout = ({
   setTimeEnd,
   onChangeDate,
   actionSheetExports,
-  listCustomerSales
+  listCustomerSales,
+  exportFile
 }) => {
 
   let ExportButton = ({ ...props }) => {
@@ -40,7 +41,14 @@ export const Layout = ({
         pageTitle={t('Sales by customer')}
         isLeft={true}
         isRight={true}
-        headerRightComponent={() => <ExportButton actions={actionSheetExports()} />}
+        headerRightComponent={() =>
+          <IconButton
+            icon={images.iconExport}
+            iconStyle={styles.iconExport}
+            style={styles.buttonExport}
+            onPress={exportFile}
+          />
+        }
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
       >

@@ -26,6 +26,7 @@ export const Layout = ({
   staffSalary,
   staffSalary_pages,
   actionSheetExports,
+  exportFile
 }) => {
 
   const [t] = useTranslation();
@@ -50,7 +51,14 @@ export const Layout = ({
         pageTitle={t('Staff salary')}
         isLeft={true}
         isRight={true}
-        headerRightComponent={() => <ExportButton actions={actionSheetExports()} />}
+        headerRightComponent={() =>
+          <IconButton
+            icon={images.iconExport}
+            iconStyle={styles.iconExport}
+            style={styles.buttonExport}
+            onPress={exportFile}
+          />
+        }
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
       >

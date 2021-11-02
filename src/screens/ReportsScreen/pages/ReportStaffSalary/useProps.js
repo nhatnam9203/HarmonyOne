@@ -107,6 +107,7 @@ export const useProps = (props) => {
 
     staffSalary,
     staffSalary_pages,
+    exportFile : ()=>exportFile("csv"),
 
 
     onSubmitSearch: () => {

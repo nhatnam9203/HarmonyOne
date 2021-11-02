@@ -107,6 +107,7 @@ export const useProps = (props) => {
         "", "", "", 1
       );
     },
+    exportFile : ()=>exportFile("csv"),
 
     onRefresh: () => {
       setRefresh(true);

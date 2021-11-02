@@ -101,6 +101,7 @@ export const useProps = (props) => {
     setTimeEnd,
 
     listCustomerSales,
+    exportFile : () =>exportFile("csv"),
 
     onSubmitSearch: () => {
       getDataList(
