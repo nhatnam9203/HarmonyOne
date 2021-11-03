@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
+import { roundFloatNumber, formatNumberFromCurrency } from "@shared/utils";
 import AsyncStorage from '@react-native-community/async-storage';
 
 const reducerName = 'hpo.settlement';
@@ -70,15 +71,25 @@ const settlemtSlice = createSlice({
             let tempSettlementWating = {
                 ...state.settlementWaiting,
                 otherPayment,
-                paymentByCash
+                paymentByCash,
+                total: roundFloatNumber(
+                    formatNumberFromCurrency(state.settlementWaiting.paymentByHarmoy) +
+                    formatNumberFromCurrency(state.settlementWaiting.paymentByCreditCard) +
+                    formatNumberFromCurrency(paymentByCash) +
+                    formatNumberFromCurrency(otherPayment) +
+                    formatNumberFromCurrency(state.settlementWaiting.discount) +
+                    formatNumberFromCurrency(state.settlementWaiting.paymentByGiftcard)
+                ),
             };
+
+
             state.settlementWaiting = tempSettlementWating;
         },
 
         updateNote: (state, action) => {
             let tempSettlementWating = {
                 ...state.settlementWaiting,
-                note : action.payload
+                note: action.payload
             };
             state.settlementWaiting = tempSettlementWating;
         }

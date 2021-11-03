@@ -31,7 +31,7 @@ const index = () => {
         NavigationService.back();
     }
     const backSignIn = () => {
-        NavigationService.navigate('LoginMID');
+        NavigationService.back();
     }
 
     return (

@@ -1,6 +1,6 @@
 export * from "./BatchHistoryage";
 export * from "./TransactionsPage";
-export * from "./CloseSettlementPage";
+export * from "./SettlementWaitingPage";
 export * from "./BatchHistoryDetailPage";
 export * from "./EditActualAmountPage";
 export * from "./ReviewSettlementPage";

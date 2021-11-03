@@ -40,7 +40,7 @@ export const AppointmentItem = ({ item, onChangeAppointmentId }) => {
     }
 
     const onPress = (pressEvt) => {
-        onChangeAppointmentId(item?.appointmentId);
+        onChangeAppointmentId(item?.appointmentId, item?.status);
     };
 
     return (

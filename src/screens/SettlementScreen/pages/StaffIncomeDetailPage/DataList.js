@@ -106,7 +106,7 @@ export const DataList = ({
             sortDefault="NONE"
             renderCell={renderCell}
             sortKey="name"
-            tableCellWidth={{}}
+            tableCellWidth={{ appointmentCode : scaleWidth(150), total : scaleWidth(140), name : scaleWidth(150) }}
             renderActionCell={() => null}
             isRefreshing={false}
             onRefresh={() => { }}
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
 
     },
     txt: {
-        fontSize: scaleFont(13),
+        fontSize: scaleFont(14),
         fontFamily: fonts.REGULAR,
         color: "#404040"
     },

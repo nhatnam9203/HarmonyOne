@@ -48,7 +48,7 @@ export const useProps = (props) => {
     } catch (err) {
 
     } finally {
-      dispatch(app.hideLoading());
+      // dispatch(app.hideLoading());
     }
   }
 
@@ -57,6 +57,7 @@ export const useProps = (props) => {
     ...getBatchHistory("", "", "", "", 1),
     queryId: "fetchBatchHistory_reviewSettlement",
     enabled: false,
+    isLoadingDefault : false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(settlement.setBatchHistory({
@@ -71,6 +72,7 @@ export const useProps = (props) => {
     ...getListStaffsSales("", "", "", "", 1),
     queryId: "fetchListStaffsSales_reviewSettlement",
     enabled: false,
+    isLoadingDefault : false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(settlement.setListStaffsSales(data))
@@ -83,6 +85,7 @@ export const useProps = (props) => {
     ...getListGiftCardSales("", "", "", "", 1),
     queryId: "fetchListGiftCardSales_reviewSettlement",
     enabled: false,
+    isLoadingDefault : false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(settlement.setListGiftCardSales(data))
@@ -94,9 +97,11 @@ export const useProps = (props) => {
     ...getSettlementWating("", "", "", "", 1),
     queryId: "fetchSettlementWating_reviewSettlement",
     enabled: false,
+    isStopLoading : true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(settlement.setSettlementWaiting(data));
+        fetchBatchHistory();
       }
     },
   });
@@ -117,11 +122,10 @@ export const useProps = (props) => {
   });
 
   const refetchSettlement = () => {
-    fetchBatchHistory();
-    fetchListStaffsSales();
-    fetchListGiftCardSales();
     fetchSettlementWating();
     fetchTransactions();
+    fetchListStaffsSales();
+    fetchListGiftCardSales();
   }
 
 
@@ -161,12 +165,12 @@ export const useProps = (props) => {
 
     viewBatch: () => {
       dialogProgressRef?.current?.hide();
-      NavigationService.navigate(screenNames.BatchHistoryPage);
+      NavigationService.navigate(screenNames.SettlementScreen,{ screen : screenNames.BatchHistoryPage });
     },
 
     finish: () => {
       dialogProgressRef?.current?.hide();
-      NavigationService.navigate(screenNames.CloseSettlementPage);
+      NavigationService.navigate(screenNames.SettlementWaitingPage);
     }
 
   };

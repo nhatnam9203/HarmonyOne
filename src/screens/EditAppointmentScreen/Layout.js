@@ -65,7 +65,7 @@ export const Layout = ({
 
       <View style={styles.containerService}>
         <Text style={styles.titleService}>
-          Services
+          Items
         </Text>
       </View>
     </View>

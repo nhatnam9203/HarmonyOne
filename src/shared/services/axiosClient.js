@@ -3,6 +3,7 @@ import Configs from '@src/config';
 import { Platform } from 'react-native';
 import { ErrorHandler } from './ErrorHandler';
 import { getAuthToken } from '@shared/storages/authToken';
+import DevviceInfo from "react-native-device-info";
 
 const log = (obj, message = '') => {
   // Logger.log(`[axiosClient] ${message}`, obj);
@@ -17,7 +18,7 @@ export const axios = Axios.create({
     Accept: 'application/json',
     'Content-Type': 'application/json',
     'User-Agent': `HarmonyMerchant/${Configs.APP_VERSION}.${Configs.CODE_PUSH_VERSION}/${Platform.OS}`,
-    DeviceID: `testtuy767867867867867fghdhd`,
+    DeviceID: `${DevviceInfo.getDeviceName()}_${DevviceInfo.getDeviceId()}`,
   },
 });
 

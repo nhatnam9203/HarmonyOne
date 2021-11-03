@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { CloseSettlementPage, TransactionsPage, BatchHistoryPage } from "./pages"
+import { SettlementWaitingPage, TransactionsPage, BatchHistoryPage } from "./pages"
 import NavigationService from '@navigation/NavigationService';
 const { Navigator, Screen } = createMaterialTopTabNavigator();
 
@@ -27,7 +27,7 @@ export const Layout = ({
       >
         <View style={styles.content}>
           <Navigator
-            initialRouteName={screenNames.CloseSettlementPage}
+            initialRouteName={screenNames.SettlementWaitingPage}
             swipeEnabled={false}
             tabBarOptions={{
               indicatorStyle: {
@@ -45,7 +45,7 @@ export const Layout = ({
               inactiveTintColor : "#585858"
             }}
           >
-            <Screen {...CloseSettlementPage} />
+            <Screen {...SettlementWaitingPage} />
             <Screen {...TransactionsPage} />
             <Screen {...BatchHistoryPage} />
 

@@ -59,12 +59,12 @@ export const useProps = (props) => {
           end = moment(startDate).subtract("days", 1);
           break;
         case "This week":
-          start = moment().clone().startOf('week');
-          end = moment().clone().endOf('week');
+          start = moment().clone().startOf('isoWeeks');
+          end = moment().clone().endOf('isoWeeks');
           break;
         case "Last week":
-          start = moment().clone().subtract("weeks", 1).startOf('week');
-          end = moment().clone().subtract("weeks", 1).endOf('week');
+          start = moment().clone().subtract("weeks", 1).startOf('isoWeeks');
+          end = moment().clone().subtract("isoWeekss", 1).endOf('week');
           break;
         case "This month":
           start = moment().clone().startOf('month');

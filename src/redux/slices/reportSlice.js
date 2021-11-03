@@ -6,11 +6,21 @@ const reducerName = 'hpo.report';
 const initialState = {
     staffSalary: [],
     staffSalary_pages: 0,
-    staffSalary_count : 0,
+    staffSalary_count: 0,
 
     servicesDuration: [],
     servicesDuration_pages: 0,
-    servicesDuration_count : 0
+    servicesDuration_count: 0,
+
+    listGiftCardSales: [],
+    listCustomerSales: [],
+    listCategorySales: [],
+    listServiceSales: [],
+    listProductCategorySales: [],
+    listProductSales : [],
+    listPaymentMethod : [], 
+    listMarketingEffciency : [],
+    serviceDurationStaffDetail : [],
 };
 
 const reportSlice = createSlice({
@@ -27,7 +37,7 @@ const reportSlice = createSlice({
             state.staffSalary_count = action?.payload?.count;
         },
 
-        setListServiceDuration : (state,action) =>{
+        setListServiceDuration: (state, action) => {
             if (action?.payload?.currentPage == 1) {
                 state.servicesDuration = action?.payload?.data;
             } else {
@@ -35,6 +45,34 @@ const reportSlice = createSlice({
             }
             state.servicesDuration_pages = action?.payload?.pages;
             state.servicesDuration_count = action?.payload?.count;
+        },
+
+        setListGiftCardSales: (state, action) => {
+            state.listGiftCardSales = action?.payload?.data;
+        },
+        setListCustomerSales: (state, action) => {
+            state.listCustomerSales = action.payload?.data;
+        },
+        setListCategorySales: (state, action) => {
+            state.listCategorySales = action.payload?.data;
+        },
+        setListServiceSales: (state, action) => {
+            state.listServiceSales = action.payload?.data;
+        },
+        setListProductCategorySales: (state, action) => {
+            state.listProductCategorySales = action.payload?.data;
+        },
+        setListProductSales: (state, action) => {
+            state.listProductSales = action.payload?.data;
+        },
+        setListPaymentMethod : (state, action) =>{
+            state.listPaymentMethod = action.payload?.data;
+        },
+        setListMarketingEffciency : (state, action) =>{
+            state.listMarketingEffciency = action.payload?.data;
+        },
+        setServiceDurationStaffDetail : (state , action) =>{
+            state.serviceDurationStaffDetail = action.payload?.data;
         }
     },
 });

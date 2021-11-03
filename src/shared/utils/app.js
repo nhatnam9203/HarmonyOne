@@ -1,5 +1,7 @@
 import moment from 'moment';
-import { images } from '../themes/resources';
+import { images } from "../themes/resources";
+import RNFetchBlob from 'rn-fetch-blob';
+import { Platform } from "react-native";
 
 export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -196,41 +198,41 @@ export function convertMinsToHrsMins(mins) {
 
 export const workingTimesData = {
   Monday: {
-    timeStart: '08:30 AM',
-    timeEnd: '10:00 PM',
-    isCheck: true,
+    timeStart: "08:30 AM",
+    timeEnd: "10:00 PM",
+    isCheck: true
   },
   Tuesday: {
-    timeStart: '08:30 AM',
-    timeEnd: '10:00 PM',
-    isCheck: true,
+    timeStart: "08:30 AM",
+    timeEnd: "10:00 PM",
+    isCheck: true
   },
   Wednesday: {
-    timeStart: '08:30 AM',
-    timeEnd: '10:00 PM',
-    isCheck: true,
+    timeStart: "08:30 AM",
+    timeEnd: "10:00 PM",
+    isCheck: true
   },
   Thursday: {
-    timeStart: '08:30 AM',
-    timeEnd: '10:00 PM',
-    isCheck: true,
+    timeStart: "08:30 AM",
+    timeEnd: "10:00 PM",
+    isCheck: true
   },
   Friday: {
-    timeStart: '08:30 AM',
-    timeEnd: '10:00 PM',
-    isCheck: true,
+    timeStart: "08:30 AM",
+    timeEnd: "10:00 PM",
+    isCheck: true
   },
   Saturday: {
-    timeStart: '08:30 AM',
-    timeEnd: '10:00 PM',
-    isCheck: true,
+    timeStart: "08:30 AM",
+    timeEnd: "10:00 PM",
+    isCheck: true
   },
   Sunday: {
-    timeStart: '08:30 AM',
-    timeEnd: '10:00 PM',
-    isCheck: true,
-  },
-};
+    timeStart: "08:30 AM",
+    timeEnd: "10:00 PM",
+    isCheck: true
+  }
+}
 
 export const roundNumber = (num) => {
   return (Math.round(num * 100) / 100).toFixed(2);
@@ -258,11 +260,11 @@ export const getContentDate = (timeStart, timeEnd) => {
     ) {
       text = 'Yesterday';
     }
-    if (
-      moment().startOf('months').format('MM/DD/YYYY') == timeStart &&
-      moment().endOf('months').format('MM/DD/YYYY') == timeEnd
-    ) {
-      text = 'This month';
+    if ((timeStart == timeEnd) && (timeStart == moment().subtract("days", 1).format("MM/DD/YYYY"))) {
+      text = "Yesterday"
+    }
+    if (moment().startOf("months").format("MM/DD/YYYY") == timeStart && moment().endOf("months").format("MM/DD/YYYY") == timeEnd) {
+      text = "This month";
     }
     if (
       moment().subtract('months', 1).startOf('months').format('MM/DD/YYYY') ==
@@ -272,19 +274,11 @@ export const getContentDate = (timeStart, timeEnd) => {
     ) {
       text = 'Last month';
     }
-    if (
-      moment().startOf('weeks').format('MM/DD/YYYY') == timeStart &&
-      moment().endOf('weeks').format('MM/DD/YYYY') == timeEnd
-    ) {
-      text = 'This week';
+    if (moment().startOf("isoWeeks").format("MM/DD/YYYY") == timeStart && moment().endOf("isoWeeks").format("MM/DD/YYYY") == timeEnd) {
+      text = "This week";
     }
-    if (
-      moment().subtract('weeks', 1).startOf('weeks').format('MM/DD/YYYY') ==
-        timeStart &&
-      moment().subtract('weeks', 1).endOf('weeks').format('MM/DD/YYYY') ==
-        timeEnd
-    ) {
-      text = 'Last week';
+    if (moment().subtract("weeks", 1).startOf("isoWeeks").format("MM/DD/YYYY") == timeStart && moment().subtract('weeks', 1).endOf("isoWeeks").format("MM/DD/YYYY") == timeEnd) {
+      text = "Last week";
     }
   }
   return text;
@@ -381,15 +375,15 @@ export const getDiscountActionByShortName = (shortName) => {
 export const getCredicardIcon = (cardType) => {
   let icon = '';
   let type = cardType?.toString()?.toLowerCase();
-  if (`${type}`.indexOf('visa') !== -1) {
+  if (`${type}`.indexOf("visa") !== -1) {
     icon = images.visaLogo;
-  } else if (`${type}`.indexOf('mastercard') !== -1) {
+  } else if (`${type}`.indexOf("mastercard") !== -1) {
     icon = images.masterCardLogo;
-  } else if (`${type}`.indexOf('discover') !== -1) {
+  } else if (`${type}`.indexOf("discover") !== -1) {
     icon = images.discoverLogo;
-  } else if (`${type}`.indexOf('americanexpress') !== -1) {
+  } else if (`${type}`.indexOf("americanexpress") !== -1) {
     icon = images.american_express;
-  } else if (`${type}`.indexOf('other') !== -1) {
+  } else if (`${type}`.indexOf("other") !== -1) {
     icon = images.other_card;
   } else {
     icon = images.other_card;
@@ -398,6 +392,45 @@ export const getCredicardIcon = (cardType) => {
   return icon;
 };
 
+
+
+export const handleFileDownloaed = async (path, exportType, fileName) => {
+
+  const dirs = RNFetchBlob.fs.dirs;
+  const extension = exportType;
+
+  const params = {
+    title: `${fileName}.${extension}`,
+    fileCache: true,
+    appendExt: `${extension}`,
+    useDownloadManager: true,
+    mediaScannable: true,
+    notification: true,
+    description: 'File downloaded by download manager.',
+    path: `${dirs.DocumentDir}/${fileName}.${extension}`,
+  }
+
+  const fileDownload = await RNFetchBlob.config({
+    title: `${fileName}.${extension}`,
+    fileCache: true,
+    appendExt: `${extension}`,
+    useDownloadManager: true,
+    mediaScannable: true,
+    notification: true,
+    description: 'File downloaded by download manager.',
+    path: `${dirs.DocumentDir}/${fileName}.${extension}`,
+  }).fetch('GET', path, {});
+
+  const pathFileInventory = await fileDownload.path();
+
+  if (Platform.OS === 'ios') {
+    await RNFetchBlob.ios.previewDocument(pathFileInventory)
+  } else {
+    const android = await RNFetchBlob.android;
+    await android.actionViewIntent(pathFileInventory, 'application/vnd.android.package-archive')
+  }
+}
+}
 export const SORT_TYPE = {
   NONE: 'none',
   ASC: 'asc',

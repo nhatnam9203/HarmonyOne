@@ -124,7 +124,7 @@ export const Layout = ({
                     <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(69) }]}>
                       {item?.qty}
                     </Text>
-                    <Text style={[styles.text, { fontFamily: fonts.BOLD, width: scaleWidth(55), textAlign: "right" }]}>
+                    <Text style={[styles.text, { fontFamily: fonts.BOLD, width: scaleWidth(65), textAlign: "right" }]}>
                       $ {formatMoney(itemPrice)}
                     </Text>
                   </View>

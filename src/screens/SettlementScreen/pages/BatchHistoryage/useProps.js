@@ -16,7 +16,7 @@ export const useProps = (props) => {
 
   const {
     auth: { staff },
-    settlement: { batchHistory = [] , pages = 0, count = 0 }
+    settlement: { batchHistory = [], pages = 0, count = 0 }
   } = useSelector(state => state);
 
   /********************************* STATE  ********************************* */
@@ -29,9 +29,10 @@ export const useProps = (props) => {
 
   /********************************* GET DATA THEO PAGE  ********************************* */
   const getDataList = async (
-    key = "", timeStart = "", timeEnd = "", quickFilter = "", page = 1,
+    key = "", timeStart = "", timeEnd = "", quickFilter = "", page = 1, isfirstLoad
   ) => {
     dispatch(app.showLoading());
+
     const params = {
       url: `settlement/search?key=${key}&timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=${quickFilter}&page=${page}&row=10&api-version=1.1`,
       method: 'GET',
@@ -50,24 +51,26 @@ export const useProps = (props) => {
     } catch (err) {
 
     } finally {
-      setRefresh(false)
-      dispatch(app.hideLoading());
+      setRefresh(false);
+      if(!isfirstLoad){
+        dispatch(app.hideLoading());
+      }
     }
   }
 
-  React.useEffect(()=>{
-    if(timeStart && timeEnd){
+  React.useEffect(() => {
+    if (timeStart && timeEnd) {
       getDataList(
         valueSearch, timeStart, timeEnd, "", currentPage,
       );
     }
-  },[timeStart,timeEnd]);
+  }, [timeStart, timeEnd]);
 
 
   /********************************* GỌI INVOICE LIST LẦN ĐẦU  ********************************* */
   React.useEffect(() => {
     getDataList(
-      "", "", "", "", 1
+      "", "", "", "", 1, true
     );
   }, []);
 

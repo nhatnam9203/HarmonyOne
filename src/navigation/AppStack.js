@@ -4,9 +4,7 @@ import {
   CardStyleInterpolators,
 } from '@react-navigation/stack';
 import {
-  ChangePincode,
   ForgotPincode,
-  FeedBack,
   AppointmentDetailScreen,
   AppointmentNewScreen,
   CustomerNewScreen,
@@ -51,7 +49,27 @@ import {
   StaffIncomeDetailPage,
   GiftCardSoldPage,
   ReportStaffSalary,
-  ReportServiceDuration
+  ReportServiceDuration,
+  ReportGiftCardSales,
+  ReportCustomerSales,
+  ReportServiceCategorySales,
+  ReportServiceSales,
+  ReportProductCategorySales,
+  ReportProductSales,
+  ReportOverallPaymentMethod,
+  ReportOverallMarketingEfficiency,
+  ServiceDurationStatistic,
+  GiftCardStatistic,
+  CustomerStatistic,
+  ServiceCategoryStatistic,
+  ServiceStatistic,
+  ProductCategoryStatistic,
+  ProductStatistic,
+  PaymentStatistic,
+  MarketingEfficiencyStatistic,
+  FeedbackScreen,
+  ChangePincodeScreen,
+  NewPincodeScreen
 } from '@screens';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
 import { useSelector } from "react-redux";
@@ -127,10 +145,28 @@ const AppStack = () => {
         <Screen {...GiftCardSoldPage} />
         <Screen {...ReportStaffSalary} />
         <Screen {...ReportServiceDuration} />
+        <Screen {...ReportGiftCardSales} />
+        <Screen {...ReportCustomerSales} />
+        <Screen {...ReportServiceCategorySales} />
+        <Screen {...ReportServiceSales} />
+        <Screen {...ReportProductCategorySales} />
+        <Screen {...ReportProductSales} />
+        <Screen {...ReportOverallPaymentMethod} />
+        <Screen {...ReportOverallMarketingEfficiency} />
+        <Screen {...ServiceDurationStatistic} />
+        <Screen {...GiftCardStatistic} />
+        <Screen {...CustomerStatistic} />
+        <Screen {...ServiceCategoryStatistic} />
+        <Screen {...ServiceStatistic} />
+        <Screen {...ProductCategoryStatistic} />
+        <Screen {...ProductStatistic} />
+        <Screen {...PaymentStatistic} />
+        <Screen {...MarketingEfficiencyStatistic} />
+        <Screen {...FeedbackScreen} />
+        <Screen {...ChangePincodeScreen} />
+        <Screen {...NewPincodeScreen} />
 
-        <Screen name="ChangePincode" component={ChangePincode} />
         <Screen name="ForgotPincode" component={ForgotPincode} />
-        <Screen name="FeedBack" component={FeedBack} />
       </Navigator>
     );
   }

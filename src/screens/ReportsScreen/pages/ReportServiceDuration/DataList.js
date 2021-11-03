@@ -6,6 +6,7 @@ import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
 import moment from "moment";
+import NavigationService from '@navigation/NavigationService';
 
 
 export const DataList = ({
@@ -14,11 +15,24 @@ export const DataList = ({
     onRefresh = () => { },
     isRefresh,
     endLoadMore,
+    onRowPress
 }) => {
 
-    console.log({ data })
+    const onPress = ({ item, row }) => {
+        onRowPress(item?.staffId);
+        // NavigationService.navigate(screenNames.ServiceDurationStatistic);
+        // staff/report/serviceduration/detail/452?timeStart=10/21/2021&timeEnd=10/31/2021&quickFilter=custom
+    }
 
     const renderCell = ({ key, row, column, item }) => {
+        return (
+            <TouchableOpacity onPress={() => onPress({ item, row })}>
+                {renderItem(key, row, column, item)}
+            </TouchableOpacity>
+        )
+    };
+
+    const renderItem = (key, row, column, item) => {
         const data = item[key];
         switch (key) {
             case "name":
@@ -27,7 +41,7 @@ export const DataList = ({
                 </Text>
             case "differenceDuration":
                 return (
-                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign : 'right' }]}>
+                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
                         {item?.differenceDuration}
                     </Text>
                 )
@@ -36,8 +50,7 @@ export const DataList = ({
                     $ {data}
                 </Text>
         }
-
-    };
+    }
 
     return (
         <CustomTable
@@ -53,21 +66,22 @@ export const DataList = ({
             primaryId="staffId"
             sumTotalKey="name"
             calcSumKeys={[
-   
+
             ]}
             priceKeys={[
             ]}
 
             sumTotalKey={"name"}
-            heightSection={65}
+            heightSection={50}
             isRenderSection={true}
 
-            headStyle={{ color : colors.ocean_blue , fontSize : scaleFont(14), textAlign: 'right' }}
+            headStyle={{ color: colors.ocean_blue, fontSize: scaleFont(15), textAlign: 'right' }}
             unitKeys={{ salary: "", }}
+            arrTextTotal={["differenceDuration"]}
             maxColumnCount={3}
             sortDefault="NONE"
             sortKey="name"
-            tableCellWidth={{ name : scaleWidth(375/2 - 50), differenceDuration : scaleWidth(237.5) }}
+            tableCellWidth={{ name: scaleWidth(375 / 2 - 50), differenceDuration: scaleWidth(237.5) }}
             renderCell={renderCell}
             renderActionCell={() => null}
             isRefreshing={isRefresh}
@@ -75,6 +89,8 @@ export const DataList = ({
             onLoadMore={onLoadMore}
             endLoadMore={() => { }}
             maxColumnCount={2}
+            styleFirstCell={styles.firstCell}
+            styleFirstSection={[styles.firstCell, { backgroundColor: '#fafafa' }]}
         />
     )
 }
@@ -101,6 +117,18 @@ const styles = StyleSheet.create({
         fontSize: scaleFont(14),
         fontFamily: fonts.MEDIUM,
         color: colors.ocean_blue
+    },
+    firstCell: {
+        shadowColor: "#C5C5C5",
+        shadowOffset: {
+            width: 2,
+            height: 0,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 1.24,
+
+        elevation: 5,
+        backgroundColor: 'white'
     },
     circleStatus: status => {
 

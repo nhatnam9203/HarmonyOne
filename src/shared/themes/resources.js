@@ -104,7 +104,16 @@ export const images = {
   sortDown: require('@src/assets/images/down.png'),
   sortUp: require('@src/assets/images/up.png'),
   sortNone: require('@src/assets/images/sort_none.png'),
-
+  emoji1 :  require('@src/assets/images/emoji1.png'),
+  emoji2 :  require('@src/assets/images/emoji2.png'),
+  emoji3 :  require('@src/assets/images/emoji3.png'),
+  emoji4 :  require('@src/assets/images/emoji4.png'),
+  emoji5 :  require('@src/assets/images/emoji5.png'),
+  emoji_1 :  require('@src/assets/images/emoji_1.png'),
+  emoji_2 :  require('@src/assets/images/emoji_2.png'),
+  emoji_3 :  require('@src/assets/images/emoji_3.png'),
+  emoji_4 :  require('@src/assets/images/emoji_4.png'),
+  emoji_5 :  require('@src/assets/images/emoji_5.png'),
 
   visaLogo : require('@src/assets/images/visaLogo.png'),
   masterCardLogo : require('@src/assets/images/masterCardLogo.png'),

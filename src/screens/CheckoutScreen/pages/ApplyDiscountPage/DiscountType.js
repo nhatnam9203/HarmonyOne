@@ -30,7 +30,6 @@ export const DiscountType = React.forwardRef(({
         let discount = form.getValues("valueDiscount");
         if (discount_type == "percent") {
             discount = roundNumber((formatNumberFromCurrency(discount) * formatNumberFromCurrency(subTotal) / 100));
-            console.log({ discount })
             onChangeText(discount, 0);
         } else {
             onChangeText(0, discount);
@@ -89,6 +88,7 @@ export const DiscountType = React.forwardRef(({
                         placeholder="0.00"
                         maxLength={6}
                         style={{ width: scaleWidth(235) }}
+                        keyboardType={'numeric'}
                     />
                 </View>
             }

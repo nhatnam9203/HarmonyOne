@@ -11,11 +11,13 @@ import {
 } from 'react-native';
 import { CustomTextInput } from '@shared/components';
 
-export const InputMerchantID = ({ onChangeMID, isLoading }) => {
+export const InputMerchantID = ({ onChangeMID, isLoading, valueMID }) => {
   const AnimatedButton = Animated.createAnimatedComponent(TouchableOpacity);
+
   const bottomAnimated = React.useRef(
     new Animated.Value(scaleHeight(10)),
   ).current;
+
   const fontSizeAnimated = React.useRef(
     new Animated.Value(scaleFont(15)),
   ).current;
@@ -42,7 +44,6 @@ export const InputMerchantID = ({ onChangeMID, isLoading }) => {
   };
 
   const [isOpenInput, setOpenInput] = React.useState(false);
-  const [valueMID, setValueMID] = React.useState('');
 
   const onPressInput = () => {
     setOpenInput(true);
@@ -50,7 +51,6 @@ export const InputMerchantID = ({ onChangeMID, isLoading }) => {
   };
 
   const onHandleChangeMID = (text) => {
-    setValueMID(text);
     if (onChangeMID && typeof onChangeMID === 'function') {
       onChangeMID(text);
     }
@@ -67,6 +67,7 @@ export const InputMerchantID = ({ onChangeMID, isLoading }) => {
         {isOpenInput && (
           <CustomTextInput
             value={valueMID}
+            style={{ display: 'none' }}
             autoFocus={true}
             onChangeText={onHandleChangeMID}
             inputStyle={styles.textInput}

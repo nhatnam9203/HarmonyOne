@@ -26,8 +26,11 @@ import {
   bookAppointment,
   merchant,
   notification,
+  invoice,
+  app
 } from '@redux/slices';
 import { dateToFormat } from '@shared/utils';
+import { axios } from '@shared/services/axiosClient';
 import moment from 'moment';
 import NavigationService from '@navigation/NavigationService';
 
@@ -41,6 +44,7 @@ export const useProps = (_params) => {
   const [appointmentDetailId, setAppointmentDetailId] = React.useState('');
   const [isRefresh, setRefresh] = React.useState(false);
   const [firstLoading, setFirstLoading] = React.useState(true);
+  const [tempStatus , setTempStatus] = React.useState("");
 
   const {
     staff: { staffsByDate = [] },
@@ -76,15 +80,45 @@ export const useProps = (_params) => {
   const [, fetchAppointmentById] = useAxiosQuery({
     ...getAppointmentById(appointmentDetailId),
     enabled: false,
+    isStopLoading : tempStatus == "paid" ? true : false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(appointment.setAppointmentDetail(data));
-        NavigationService.navigate(screenNames.AppointmentDetailScreen, {
-          refreshFromScreen,
-        });
+        if (data?.status == "paid") {
+          getInvoiceDetail(data?.checkoutId);
+        } else {
+          NavigationService.navigate(screenNames.AppointmentDetailScreen, {
+            refreshFromScreen,
+          });
+        }
       }
     },
   });
+
+  const getInvoiceDetail = async (checkoutId) => {
+    if (checkoutId) {
+      dispatch(app.showLoading());
+      const params = {
+        url: `checkout/${checkoutId}`,
+        method: 'GET',
+      }
+
+      try {
+        const response = await axios(params);
+        if (response?.data?.codeNumber == 200) {
+          dispatch(invoice.setInvoiceViewAppointmentDetail(response?.data?.data));
+          NavigationService.navigate(screenNames.AppointmentDetailScreen, {
+            refreshFromScreen,
+          });
+        }
+
+      } catch (err) {
+
+      } finally {
+        dispatch(app.hideLoading());
+      }
+    }
+  }
 
   const [, getServiceList] = useAxiosQuery({
     ...getService(),
@@ -225,7 +259,8 @@ export const useProps = (_params) => {
       } else setStaffSelected(staffId);
     },
 
-    onChangeAppointmentId: (appointmentId) => {
+    onChangeAppointmentId: (appointmentId, status) => {
+      setTempStatus(status);
       if (appointmentId == appointmentDetailId) {
         fetchAppointmentById();
       } else {

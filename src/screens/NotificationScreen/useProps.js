@@ -36,7 +36,8 @@ export const useProps = (_params) => {
       dispatch(notification.setNotificationList({
         ...response,
         currentPage
-      }))
+      }));
+      setRefresh(false);
     },
   });
 
@@ -89,11 +90,10 @@ export const useProps = (_params) => {
   }, [appointmentDetailId]);
 
 
-  React.useEffect(async () => {
+  React.useEffect(() => {
     if (isRefresh) {
       fetchNotification();
       fetchCountUnread();
-      setRefresh(false);
     }
   }, [isRefresh]);
 

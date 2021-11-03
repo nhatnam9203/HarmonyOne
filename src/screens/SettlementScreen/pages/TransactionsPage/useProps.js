@@ -31,9 +31,10 @@ export const useProps = (props) => {
 
   /********************************* GET DATA THEO PAGE  ********************************* */
   const getDataList = async (
-    key = "", timeStart = "", timeEnd = "", quickFilter = "", page = 1,
+    key = "", timeStart = "", timeEnd = "", quickFilter = "", page = 1, isFirstLoad
   ) => {
     dispatch(app.showLoading());
+
     const params = {
       url: `settlement/transaction?status=&timeStart=${timeStart}&timeEnd=${timeEnd}&key=${key}&quickFilter=${quickFilter}&page=${page}`,
       method: 'GET',
@@ -54,8 +55,10 @@ export const useProps = (props) => {
     } catch (err) {
 
     } finally {
-      setRefresh(false)
-      dispatch(app.hideLoading());
+      setRefresh(false);
+      if(!isFirstLoad){
+        dispatch(app.hideLoading());
+      }
     }
   }
 
@@ -69,11 +72,11 @@ export const useProps = (props) => {
 
 
   /********************************* GET DATA LIST LẦN ĐẦU  ********************************* */
-  React.useEffect(() => {
-    getDataList(
-      "", "", "", "", 1
-    );
-  }, []);
+   React.useEffect(() => {
+     getDataList(
+       "", "", "", "", 1, true
+     );
+   }, []);
 
 
   return {

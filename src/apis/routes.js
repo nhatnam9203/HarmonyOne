@@ -33,9 +33,9 @@ export const staffLoginRequest = (merchantID, pinCode) => ({
   },
 });
 
-export const staffLogoutRequest = () => ({
+export const staffLogoutRequest = (data) => ({
   params: {
-    url: '/staff/logout',
+    url: '/merchant/logout',
     method: 'PUT',
     data: {}
   },
@@ -815,6 +815,15 @@ export const reportGetStaffSalary = (params, page = 1) => ({
   params: {
     url: `staff/salary?${params}&page=${page}`,
     method: 'GET',
+  }
+});
+
+export const sendFeedback = (data) => ({
+  queryId: 'sendFeedback',
+  params: {
+    url: `feedback`,
+    method: 'POST',
+    data
   }
 });
 

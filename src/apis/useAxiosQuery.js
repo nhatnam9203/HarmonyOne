@@ -49,7 +49,6 @@ export const useAxiosQuery = ({
       onError: (err) => {
         console.log({ err });
         console.log('end popint :', { params });
-        dispatch(app?.hideLoading());
         if (
           err?.message &&
           onLoginError &&
