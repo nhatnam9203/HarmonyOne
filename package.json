@@ -37,6 +37,8 @@
     "@microsoft/signalr": "^5.0.11",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/checkbox": "^0.5.8",
+    "@react-native-firebase/app": "^13.0.0",
+    "@react-native-firebase/messaging": "^13.0.0",
     "@react-native-masked-view/masked-view": "^0.2.6",
     "@react-navigation/bottom-tabs": "^5.11.13",
     "@react-navigation/material-top-tabs": "^5.x",
