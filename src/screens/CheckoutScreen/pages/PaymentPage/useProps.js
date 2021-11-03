@@ -244,6 +244,55 @@ export const useProps = (props) => {
       );
     })
   }
+
+  const handleResponseCreditCardDejavoo = async (
+    message,
+    online,
+    moneyUserGiveForStaff,
+    parameter
+  ) =>  {
+    popupProcessingRef?.current?.show();
+    
+    try {
+      parseString(message, (err, result) => {
+        if (err || _.get(result, 'xmp.response.0.ResultCode.0') != 0) {
+          let detailMessage = _.get(result, 'xmp.response.0.RespMSG.0', "").replace(/%20/g, " ")
+          detailMessage = !stringIsEmptyOrWhiteSpaces(detailMessage) ? `: ${detailMessage}` : detailMessage
+          
+          const resultTxt = `${_.get(result, 'xmp.response.0.Message.0')}${detailMessage}`
+                            || "Transaction failed";
+          if (payAppointmentId) {
+            dispatch(
+              actions.appointment.cancelHarmonyPayment(
+                payAppointmentId,
+                "transaction fail",
+                resultTxt
+              )
+            );
+          }
+          setTimeout(() => {
+            setVisibleErrorMessageFromPax(true);
+            setErrorMessageFromPax(`${resultTxt}`);
+          }, 300);
+        } else {
+          const SN = _.get(result, 'xmp.response.0.SN.0');
+          if(!stringIsEmptyOrWhiteSpaces(SN)){
+            dispatch(actions.hardware.setDejavooMachineSN(SN));
+          }
+          dispatch(actions.appointment.submitPaymentWithCreditCard(
+            profile?.merchantId || 0,
+            message,
+            payAppointmentId,
+            moneyUserGiveForStaff,
+            "dejavoo",
+            parameter
+          ));
+        }
+      });
+       
+      
+    } catch (error) {}
+  }
   
   return {
     appointmentDetail,
