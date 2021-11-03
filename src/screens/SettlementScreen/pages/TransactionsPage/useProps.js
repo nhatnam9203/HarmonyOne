@@ -1,34 +1,135 @@
 import React from "react";
-import { auth } from "@redux/slices";
-import { useDispatch } from "react-redux";
-import { staffLogoutRequest, useAxiosMutation } from "@src/apis";
-import { clearAuthToken } from "@shared/storages/authToken"
-import NavigationService from '@navigation/NavigationService'
+import {
+  useAxiosQuery,
+  useAxiosMutation,
+} from "@src/apis";
+import { useDispatch, useSelector } from "react-redux";
+import { app, settlement } from "@redux/slices";
+import { axios } from '@shared/services/axiosClient';
+import { getContentDate } from "@shared/utils";
+import NavigationService from "@navigation/NavigationService";
+import moment from "moment";
+import { Alert } from "react-native";
 
-export const useProps = (_params) => {
-
+export const useProps = (props) => {
   const dispatch = useDispatch();
-  const refDialogSignout = React.useRef();
 
-  const [, logout] = useAxiosMutation({
-    ...staffLogoutRequest(),
-    isLoadingDefault: true,
-    onSuccess: (data, response) => {
-      if (response?.codeNumber == 200) {
-        NavigationService.navigate('AuthStack', { isLogout: true });
-        dispatch(auth.signOutApp());
-        clearAuthToken();
+  const {
+    auth: { staff },
+    settlement: {
+      transactions = [],
+      transactions_pages = 0,
+    }
+  } = useSelector(state => state);
+
+  /********************************* STATE  ********************************* */
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [isRefresh, setRefresh] = React.useState(false);
+  const [valueSearch, setValueSearch] = React.useState("");
+  const [timeStart, setTimeStart] = React.useState("");
+  const [timeEnd, setTimeEnd] = React.useState("");
+
+  /********************************* GET DATA THEO PAGE  ********************************* */
+  const getDataList = async (
+    key = "", timeStart = "", timeEnd = "", quickFilter = "", page = 1, isFirstLoad
+  ) => {
+    dispatch(app.showLoading());
+
+    const params = {
+      url: `settlement/transaction?status=&timeStart=${timeStart}&timeEnd=${timeEnd}&key=${key}&quickFilter=${quickFilter}&page=${page}`,
+      method: 'GET',
+    }
+
+    try {
+      const response = await axios(params);
+      if (response?.data?.codeNumber == 200) {
+        dispatch(
+          settlement.setTransactions({
+            ...response?.data,
+            currentPage: page
+          }));
+      } else {
+        Alert.alert(response?.data?.message)
       }
-    },
-  });
+
+    } catch (err) {
+
+    } finally {
+      setRefresh(false);
+      if(!isFirstLoad){
+        dispatch(app.hideLoading());
+      }
+    }
+  }
+
+  React.useEffect(() => {
+    if (timeStart && timeEnd) {
+      getDataList(
+        valueSearch, timeStart, timeEnd, "", currentPage,
+      );
+    }
+  }, [timeStart, timeEnd]);
+
+
+  /********************************* GET DATA LIST LẦN ĐẦU  ********************************* */
+   React.useEffect(() => {
+     getDataList(
+       "", "", "", "", 1, true
+     );
+   }, []);
+
 
   return {
-    refDialogSignout,
+    currentPage,
+    isRefresh,
+    valueSearch,
+    transactions,
+    timeStart,
+    timeEnd,
+    setTimeStart,
+    setTimeEnd,
+    transactions_pages,
+    currentPage,
 
-    onLogout: async () => {
-      const body = await staffLogoutRequest();
-      logout(body.params);
-      NavigationService.navigate('AuthStack', { isLogout: true });
+
+    onChangeSearch: (text) => {
+      setValueSearch(text);
     },
+
+    onSubmitSearch: () => {
+      getDataList(
+        valueSearch, "", "", "", 1
+      );
+    },
+
+    onLoadMore: () => {
+      if (currentPage < transactions_pages) {
+        setCurrentPage(currentPage + 1);
+        getDataList(
+          valueSearch, timeStart, timeEnd, "", currentPage + 1
+        );
+      }
+    },
+
+    onRefresh: () => {
+      setRefresh(true);
+      setCurrentPage(1);
+      getDataList(
+        "", "", "", "", 1
+      );
+    },
+
+
+    getContentDate: () => {
+      return getContentDate(timeStart, timeEnd);
+    },
+
+    removeSearch: () => {
+      setValueSearch("");
+      getDataList(
+        "", "", "", "", 1
+      );
+    }
+
   };
 };

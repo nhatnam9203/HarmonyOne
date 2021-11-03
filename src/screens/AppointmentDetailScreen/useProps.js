@@ -23,6 +23,7 @@ const NoNeedEdit = [
   APPOINTMENT_STATUS.VOID,
   APPOINTMENT_STATUS.REFUND,
   APPOINTMENT_STATUS.NOSHOW,
+  APPOINTMENT_STATUS.WAITING
 ];
 
 export const useProps = ({
@@ -32,7 +33,8 @@ export const useProps = ({
   const [t] = useTranslation();
 
   const {
-    appointment: { appointmentDetail, appointmentDate }
+    appointment: { appointmentDetail, appointmentDate },
+    invoice : { invoiceViewAppointmentDetail }
   } = useSelector(state => state);
 
   const item = appointmentDetail;
@@ -129,6 +131,7 @@ export const useProps = ({
     appointmentItem,
     headerColor,
     canEdit,
+    invoiceViewAppointmentDetail,
     getActionSheets: () => [
       {
         id: 'edit-appointment',

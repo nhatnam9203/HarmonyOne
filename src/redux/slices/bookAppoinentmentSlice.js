@@ -47,7 +47,6 @@ const bookAppointmentSlice = createSlice({
             if (findIndex !== -1) {
                 tempServices[findIndex].duration = duration;
                 tempServices[findIndex].price = price;
-                console.log({ temp: tempServices[findIndex].price })
                 state.servicesBooking = tempServices;
             } else {
                 return state;
@@ -56,7 +55,6 @@ const bookAppointmentSlice = createSlice({
 
         editProduct: (state, action) => {
             const { product, quantity, price } = action.payload;
-            console.log({ action })
             let tempProducts = [...state.productsBooking];
             const findIndex = tempProducts.findIndex(s => s?.productId == product?.productId);
             if (findIndex !== -1) {

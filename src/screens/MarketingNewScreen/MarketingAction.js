@@ -4,13 +4,14 @@ import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { CustomInput, InputSelect } from "@shared/components";
 import { InputService, InputCategory } from "./widget";
+import { useSelector } from "react-redux";
 import AntDesign from "react-native-vector-icons/AntDesign"
 import Collapsible from "react-native-collapsible";
 
 const actionList = [
     { label: "Discount for whole cart", value: "1" },
     { label: "Discount for specific services", value: "2" },
-    { label: "Discount for category", value: "3" },
+    { label: "Discount by category", value: "3" },
 ];
 
 const MarketingAction = React.forwardRef(({
@@ -20,6 +21,11 @@ const MarketingAction = React.forwardRef(({
     calculatorsmsMoney,
     valueSlider,
 }, ref) => {
+
+    const { 
+        service : { services },
+        category : { category }
+     } = useSelector(state=>state);
 
     const [condition, setAction] = React.useState("Discount for whole cart");
     const conditionRef = React.useRef();
@@ -63,7 +69,47 @@ const MarketingAction = React.forwardRef(({
         },
         getCategories: () => {
             return categorySelected;
-        }
+        },
+        setAction: (dt) => {
+            setAction(dt);
+            const obj = actionList.find(item => item?.label == dt);
+            if (obj) {
+                form.setValue("actionCondition", obj);
+            }
+        },
+
+        setServiceSelected: (arrServices = []) => {
+            let temp = [];
+            for (let i = 0; i < services.length; i++) {
+                for (let j = 0; j < arrServices.length; j++) {
+                    if (services[i].serviceId == arrServices[j]) {
+                        const tempService = {
+                            ...services[i],
+                            selected : true,
+                        }
+                        temp.push(tempService);
+                    }
+                }
+            }
+            setServiceSelected(temp);
+        },
+
+        setCategories: (arrCategories) => {
+            let temp = [];
+            for (let i = 0; i < category.length; i++) {
+                for (let j = 0; j < arrCategories.length; j++) {
+                    if (category[i].categoryId == arrCategories[j]) {
+                        const tempCategory = {
+                            ...category[i],
+                            selected : true,
+                        }
+                        temp.push(tempCategory);
+                    }
+                }
+            }
+            setCategorySelected(temp);
+        },
+
     }));
 
 
@@ -105,7 +151,7 @@ const MarketingAction = React.forwardRef(({
                                     style={styles.wrapService}
                                     key={"serviceSelected" + service.serviceId}
                                 >
-                                    <Text style={styles.service}>{service.name}</Text>
+                                    <Text style={styles.service}>{service?.name}</Text>
                                     <TouchableOpacity onPress={() => removeService(service)}>
                                         <AntDesign
                                             style={{ marginLeft: scaleWidth(16) }}
@@ -123,7 +169,7 @@ const MarketingAction = React.forwardRef(({
             }
 
             {
-                <Collapsible collapsed={!(condition == "Discount for category")} duration={200}>
+                <Collapsible collapsed={!(condition == "Discount by category")} duration={200}>
                     <InputCategory
                         apply={onChangeCategorySelected}
                         categorySelected={categorySelected}
@@ -136,7 +182,7 @@ const MarketingAction = React.forwardRef(({
                                     key={"categorySelected" + category.categoryId}
                                 >
                                     <Text style={styles.service}>
-                                        {category.name}
+                                        {category?.name}
                                     </Text>
                                     <TouchableOpacity onPress={() => removeCategory(category)}>
                                         <AntDesign

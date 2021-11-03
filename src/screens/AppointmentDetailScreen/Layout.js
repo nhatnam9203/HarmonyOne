@@ -9,6 +9,8 @@ import { WithPopupActionSheet } from '@shared/HOC';
 import { TotalView, AppointmentTimeView, CustomerInfoView } from "@shared/components";
 import { CustomerAtHomeView } from './CustomerAtHomeView';
 import { AppointmentServiceList } from './AppointmentServiceList';
+import { InvoiceNumber } from "./InvoiceNumber";
+import moment from "moment";
 
 let EditButton = ({ headerTintColor, ...props }) => {
   return (
@@ -52,6 +54,7 @@ export const Layout = ({
   canEdit,
   getActionSheets,
   updateNextStatus,
+  invoiceViewAppointmentDetail
 }) => {
   const [t] = useTranslation();
 
@@ -59,7 +62,6 @@ export const Layout = ({
   const getPrice = (price) => {
     return formatMoneyWithUnit(price);
   };
-
 
   return (
     <View style={styles.container}>
@@ -98,7 +100,12 @@ export const Layout = ({
 
           <TotalView
             duration={`${convertMinsToHrsMins(appointmentItem?.duration)}`}
-            price={getPrice(appointmentItem?.total)}
+            price={`$ ${appointmentItem?.total}`}
+          />
+
+          <InvoiceNumber
+            invoiceViewAppointmentDetail={invoiceViewAppointmentDetail}
+            appointmentItem={appointmentItem}
           />
         </ScrollView>
 
@@ -119,6 +126,12 @@ export const Layout = ({
 };
 
 const styles = StyleSheet.create({
+  invoiceNumber: {
+    fontSize: scaleFont(15),
+    color: "#404040",
+    fontFamily: fonts.REGULAR,
+    marginBottom: scaleHeight(8)
+  },
   container: {
     flex: 1,
     backgroundColor: colors.white,

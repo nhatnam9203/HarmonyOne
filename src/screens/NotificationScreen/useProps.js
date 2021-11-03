@@ -29,16 +29,18 @@ export const useProps = (_params) => {
 
   const [{ isLoading }, fetchNotification] = useAxiosQuery({
     ...getNotification(currentPage),
+    queryId : "fetchNotification_notify",
     isLoadingDefault: currentPage == 1,
     enabled: true,
     onSuccess: (data, response) => {
       dispatch(notification.setNotificationList({
         ...response,
         currentPage
-      }))
-      setLoadingDefault(false);
+      }));
+      setRefresh(false);
     },
   });
+
 
   const [, fetchCountUnread] = useAxiosQuery({
     ...getCountUnReadOfNotification(),
@@ -88,13 +90,12 @@ export const useProps = (_params) => {
   }, [appointmentDetailId]);
 
 
-  React.useEffect(async () => {
+  React.useEffect(() => {
     if (isRefresh) {
-      await fetchNotification();
+      fetchNotification();
       fetchCountUnread();
     }
-    setRefresh(false);
-  }, [isRefresh, currentPage]);
+  }, [isRefresh]);
 
   return {
     notifications,
@@ -104,7 +105,8 @@ export const useProps = (_params) => {
 
     loadMore: () => {
       if (currentPage < pages) {
-        setCurrentPage(currentPage + 1);
+        let page = currentPage + 1;
+        setCurrentPage(page);
       }
     },
 

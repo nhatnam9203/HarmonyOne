@@ -21,8 +21,7 @@ export const useAxiosMutation = ({
   const { mutate, isLoading, isError, data } = useMutation((body) => postRequest(body),
     {
       onSuccess: (response) => {
-        dispatch(app.hideLoading());
-        if (response?.codeNumber == 200) {
+        if (response?.codeNumber == 200 || response?.codeNumber == 204) {
           if (onSuccess && typeof onSuccess === 'function') {
             onSuccess(response?.data, response);
           }

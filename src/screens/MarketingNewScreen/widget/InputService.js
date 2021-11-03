@@ -143,7 +143,7 @@ const InputService = ({
     const { field } = useController({
         control: form.control,
         defaultValue: "",
-        name,
+        name : "inputService"
     })
 
     const openActionSheet = () => {

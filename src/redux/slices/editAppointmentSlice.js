@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
+import { te } from 'date-fns/locale';
 
 const reducerName = 'hpo.appointmentEdit';
 const initialState = {
@@ -59,7 +60,7 @@ const editAppointment = createSlice({
                 ...tempAppointment,
                 services: tempServices,
                 extras: tempExtras,
-                fromTime: tempServices.length > 0 ? tempServices[0].fromTime : `${moment().format("YYYY-MM-DD")}T${moment().format("HH:mm")}:00`
+                fromTime: tempServices.length > 0 ? tempServices[0].fromTime : tempAppointment.fromTime
             }
             state.appointmentEdit = tempAppointment;
         },
@@ -78,7 +79,7 @@ const editAppointment = createSlice({
                 ...tempAppointment,
                 services: tempServices,
                 extras: tempExtras,
-                fromTime: tempServices.length > 0 ? tempServices[0].fromTime : `${moment().format("YYYY-MM-DD")}T${moment().format("HH:mm")}:00`
+                fromTime: tempServices.length > 0 ? tempServices[0].fromTime : tempAppointment.fromTime
             }
 
             state.appointmentEdit = tempAppointment;
@@ -152,7 +153,6 @@ const editAppointment = createSlice({
             let tempExtras = tempAppointment.extras || [];
             for (let el of extrasList) {
                 const index = findPositionExtra(tempExtras, el);
-                console.log({ el , index })
                 if (index !== -1) {
                     if (!el?.checked) {
                         if (!el?.bookingServiceId) {

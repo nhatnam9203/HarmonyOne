@@ -90,12 +90,14 @@ export const Layout = ({
 
       <View style={{ height: scaleHeight(100) }} />
     </View>
-  )
+  );
+
+  const step = isQuickCheckout ? "3" : "4";
 
   return (
     <View style={styles.container}>
       <HeaderBooking
-        step={4}
+        step={step}
         title={'Review & Confirm'}
         onPressBack={onPressBack}
       />

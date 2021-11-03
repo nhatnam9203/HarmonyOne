@@ -1,4 +1,4 @@
-import { images as IMAGE} from "@shared/themes";
+import { images as IMAGE } from "@shared/themes";
 import {
   formatMoney,
   formatNumberFromCurrency,
@@ -13,9 +13,8 @@ import {
   Image,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
-  Dimensions,
+  Dimensions,TouchableOpacity
 } from "react-native";
 import { StickyForm } from "react-native-largelist-v3";
 import { NormalHeader } from "react-native-spring-scrollview/NormalHeader";
@@ -119,8 +118,15 @@ function TableListExtended({
   sortDefault,
   onRefresh,
   isRefreshing,
-  onLoadMore = () => {},
+  onLoadMore = () => { },
   endLoadMore = false,
+  maxColumnCount,
+  isRenderSection = false,
+  heightSection = 0,
+  headStyle,
+  arrTextTotal = [],
+  styleFirstCell,
+  styleFirstSection
 }) {
   /**state */
   const [headerContent, setHeaderContent] = useState({});
@@ -143,7 +149,7 @@ function TableListExtended({
   const [currentOffset, setCurrentOffset] = useState({ x: 0, y: 0 });
 
   const setListData = (sort) => {
-    let sortList = tableData;
+    let sortList = [...tableData];
     if (sortKey && sortList.length > 0 && sort !== SORT_STATE.none) {
       sortList.sort((a, b) => {
         if (sort === SORT_STATE.desc) {
@@ -169,7 +175,6 @@ function TableListExtended({
     } else {
       sort = SORT_STATE.desc;
     }
-
     setSortState(sort);
     setListData(sort);
   };
@@ -256,13 +261,15 @@ function TableListExtended({
 
   // get width render cell with index or key
   const getCellWidth = (index, key) => {
-    if (!!tableCellWidth) {
-      return screenWidth / MAX_COLUMNS_COUNT;
-    }
 
     if (tableCellWidth && tableCellWidth[key]) {
       return tableCellWidth[key];
     }
+
+    if (!!tableCellWidth) {
+      return screenWidth / (maxColumnCount ? maxColumnCount : MAX_COLUMNS_COUNT)
+    }
+
     return TABLE_CELL_DEFAULT_WIDTH;
   };
 
@@ -305,7 +312,7 @@ function TableListExtended({
     autoScroll();
   };
 
-  onScrollBeginDrag = () => {};
+  onScrollBeginDrag = () => { };
 
   const onScrollEndDrag = () => {
     autoScroll();
@@ -349,10 +356,12 @@ function TableListExtended({
         }}
         key={cellKey}
         onPress={() => onRowPress({ item, row })}
+        delayPressIn={200}
         disabled={!onRowPress}
       >
         {whiteKeys.map((key, keyIndex) => {
           const keyUnique = uniqueId(key, keyIndex);
+
           const actProps = Object.create({
             key: key,
             row: row,
@@ -371,38 +380,39 @@ function TableListExtended({
             >
               <TableCell
                 onPress={() => onCellPress(actProps)}
-                style={{
+                style={[{
                   width: getCellWidth(keyIndex, key),
                   ...(isPriceCell(key) && { alignItems: "flex-end" }),
+                },styleFirstCell]}
+                disabled={!onCellPress}
+              >
+                {key === TABLE_ACTION_KEY
+                  ? cellActionRender
+                  : cellRender ?? (
+                    <Text style={styles.txtCell}>
+                      {isPriceCell(key)
+                        ? unitKeys[key]
+                          ? item[key] + " " + unitKeys[key]
+                          : "$ " + item[key]
+                        : item[key]}
+                    </Text>
+                  )}
+              </TableCell>
+            </View>
+          ) : (
+              <TableCell
+                onPress={() => onCellPress(actProps)}
+                key={keyUnique}
+                style={{
+                  width: getCellWidth(keyIndex, key),
+                  alignItems : 'flex-start',
+                  ...(keyIndex == whiteKeys?.length - 1 && { alignItems: "flex-end" }),
                 }}
                 disabled={!onCellPress}
               >
                 {key === TABLE_ACTION_KEY
                   ? cellActionRender
                   : cellRender ?? (
-                      <Text style={styles.txtCell}>
-                        {isPriceCell(key)
-                          ? unitKeys[key]
-                            ? item[key] + " " + unitKeys[key]
-                            : "$ " + item[key]
-                          : item[key]}
-                      </Text>
-                    )}
-              </TableCell>
-            </View>
-          ) : (
-            <TableCell
-              onPress={() => onCellPress(actProps)}
-              key={keyUnique}
-              style={{
-                width: getCellWidth(keyIndex, key),
-                ...(isPriceCell(key) && { alignItems: "flex-end" }),
-              }}
-              disabled={!onCellPress}
-            >
-              {key === TABLE_ACTION_KEY
-                ? cellActionRender
-                : cellRender ?? (
                     <Text style={styles.txtCell}>
                       {isPriceCell(key)
                         ? unitKeys[key]
@@ -411,8 +421,8 @@ function TableListExtended({
                         : item[key] || "-"}
                     </Text>
                   )}
-            </TableCell>
-          );
+              </TableCell>
+            );
         })}
       </TableRow>
     );
@@ -422,18 +432,20 @@ function TableListExtended({
     <TableRow
       style={[styles.head, { flexDirection: "row" }]}
       key={TABLE_HEADER_KEY}
+      disabled={true}
     >
       {whiteKeys.map((key, index) => {
         return index === 0 ? (
-          <View style={styles.headName} key={uniqueId(key, index, "header")}>
+          <View style={[styles.headName, { borderBottomWidth: 1, borderBottomColor: "#eeeeee" }]} key={uniqueId(key, index, "header")}>
             <TableCell
-              style={{
+              style={[{
                 width: getCellWidth(index, key),
                 ...(isPriceCell(key) && { alignItems: "flex-end" }),
-                ...(sortKey === key && { flexDirection: "row", alignItems : "center", justifyContent : "flex-start" }),
-              }}
+                ...(sortKey === key && { flexDirection: "row", alignItems: "center", justifyContent: "flex-start" }),
+              }, styleFirstCell]}
+              disabled={true}
             >
-              <Text style={styles.txtHead}>{headerContent[key] ?? ""}</Text>
+              <Text style={[styles.txtHead, headStyle]}>{headerContent[key] ?? ""}</Text>
               {sortKey === key && (
                 <TouchableOpacity
                   style={styles.btnSort}
@@ -446,8 +458,8 @@ function TableListExtended({
                         sortState === SORT_STATE.asc
                           ? IMAGE.sortUp
                           : sortState === SORT_STATE.desc
-                          ? IMAGE.sortDown
-                          : IMAGE.sortNone
+                            ? IMAGE.sortDown
+                            : IMAGE.sortNone
                       }
                       resizeMode="center"
                     />
@@ -457,66 +469,75 @@ function TableListExtended({
             </TableCell>
           </View>
         ) : (
-          <TableCell
-            key={uniqueId(key, index, "header")}
-            style={{
-              width: getCellWidth(index, key),
-              ...(isPriceCell(key) && { alignItems: "flex-end" }),
-              ...(sortKey === key && { flexDirection: "row" }),
-            }}
-          >
-            <Text style={styles.txtHead}>{headerContent[key] ?? ""}</Text>
-            {sortKey === key && (
-              <TouchableOpacity style={styles.btnSort} onPress={changeSortData}>
-                <View>
-                  <Image
-                    style={{ width: scaleWidth(18), height: scaleWidth(18) }}
-                    source={
-                      sortState === SORT_STATE.asc
-                        ? IMAGE.sortUp
-                        : sortState === SORT_STATE.desc
-                        ? IMAGE.sortDown
-                        : IMAGE.sortNone
-                    }
-                    resizeMode="center"
-                  />
-                </View>
-              </TouchableOpacity>
-            )}
-          </TableCell>
-        );
+            <TableCell
+              key={uniqueId(key, index, "header")}
+              style={{
+                width: getCellWidth(index, key),
+                alignItems : 'flex-start',
+                ...(index == whiteKeys?.length - 1 && { alignItems: "flex-end" }),
+                ...(sortKey === key && { flexDirection: "row" }),
+                backgroundColor: "white",
+                borderBottomWidth: 1, borderBottomColor: "#eeeeee"
+              }}
+              disabled={true}
+            >
+              <Text style={[styles.txtHead, headStyle]}>{headerContent[key] ?? ""}</Text>
+              {sortKey === key && (
+                <TouchableOpacity style={styles.btnSort} onPress={changeSortData}>
+                  <View>
+                    <Image
+                      style={{ width: scaleWidth(18), height: scaleWidth(18) }}
+                      source={
+                        sortState === SORT_STATE.asc
+                          ? IMAGE.sortUp
+                          : sortState === SORT_STATE.desc
+                            ? IMAGE.sortDown
+                            : IMAGE.sortNone
+                      }
+                      resizeMode="center"
+                    />
+                  </View>
+                </TouchableOpacity>
+              )}
+            </TableCell>
+          );
       })}
     </TableRow>
   );
 
   // render header
   const renderSection = () => {
-    return <></>;
+    if (!isRenderSection)
+      return <></>;
     return (
       <TableRow
         style={{
           ...styles.head,
-          backgroundColor: "#E5E5E5",
           flexDirection: "row",
         }}
         key={TABLE_SUMMARY_KEY}
+        disabled={true}
       >
         {whiteKeys.map((key, index) => {
+          
           return index === 0 ? (
             <View
-              style={[styles.headName, { backgroundColor: "#E5E5E5" }]}
+              style={[styles.headName, { backgroundColor: "#fafafa", borderBottomWidth: 1, borderBottomColor: "#eeeeee"}]}
               key={uniqueId(key, index, "summary")}
             >
               <TableCell
-                style={{
+                style={[
+                  styleFirstSection,{
                   width: getCellWidth(index, key),
                   ...(isPriceCell(key) && {
                     alignItems: "flex-end",
+                    backgroundColor: "#fafafa",
                   }),
-                }}
+                }]}
+                disabled={true}
               >
                 {key === sumTotalKey && (
-                  <Text style={styles.txtSum}>{"Total"}</Text>
+                  <Text style={[styles.txtSum, { textAlign: "left" }]}>{"Total"}</Text>
                 )}
 
                 {calcSumKeys.indexOf(key) > -1 && (
@@ -529,30 +550,35 @@ function TableListExtended({
               </TableCell>
             </View>
           ) : (
-            <TableCell
-              key={uniqueId(key, index, "summary")}
-              style={{
-                width: getCellWidth(index, key),
-                ...(isPriceCell(key) && {
-                  alignItems: "flex-end",
-                }),
-              }}
-            >
-              {key === sumTotalKey && (
-                <Text style={styles.txtSum}>{"Total"}</Text>
-              )}
+              <TableCell
+                key={uniqueId(key, index, "summary")}
+                style={{
+                  width: getCellWidth(index, key),
+                  ...(index == whiteKeys?.length - 1 && { alignItems: "flex-end" }),
+                  backgroundColor: "#fafafa",
+                  borderBottomWidth: 1, borderBottomColor: "#eeeeee",
+                }}
+                disabled={true}
+              >
+                {/* {key === sumTotalKey && (
+                  <Text style={styles.txtSum}>{"Total"}</Text>
+                )} */}
 
-              {calcSumKeys.indexOf(key) > -1 && (
-                <Text style={styles.txtSum}>
-                  {isPriceCell(key)
-                    ? unitKeys[key]
-                      ? formatServerNumber(sumObject[key]) + " " + unitKeys[key]
-                      : "$ " + formatMoney(sumObject[key])
-                    : sumObject[key]}
-                </Text>
-              )}
-            </TableCell>
-          );
+                {
+                  arrTextTotal.includes(key) == true && <Text style={[styles.txtSum, { textAlign: "right" }]}>{"Total"}</Text>
+                }
+
+                {calcSumKeys.indexOf(key) > -1 && (
+                  <Text style={styles.txtSum}>
+                    {isPriceCell(key)
+                      ? unitKeys[key]
+                        ? formatServerNumber(sumObject[key]) + " " + unitKeys[key]
+                        : "$ " + formatMoney(sumObject[key])
+                      : sumObject[key] + " " }
+                  </Text>
+                )}
+              </TableCell>
+            );
         })}
       </TableRow>
     );
@@ -571,8 +597,8 @@ function TableListExtended({
     // }
     onLoadMore();
     setTimeout(() => {
-      stickyFormRef.current.endLoading();
-    }, 2000);
+      stickyFormRef.current?.endLoading();
+    }, 100);
   };
 
   return (
@@ -587,14 +613,15 @@ function TableListExtended({
         onSizeChange={({ width }) => {
           setVisibleScrollPartWidth(width);
         }}
-        // onLayout={(e) => setVisibleScrollPartWidth(e.nativeEvent.layout.width)}
+        onLayout={(e) => setVisibleScrollPartWidth(e.nativeEvent.layout.width)}
         data={dataFactory}
-        heightForSection={() => 0}
+        heightForSection={() => heightSection}
         heightForIndexPath={() => TABLE_ROW_HEIGHT}
         renderHeader={renderHeader}
         renderSection={renderSection}
         renderIndexPath={renderItem}
         // bounces={false}
+
         alwaysBounceHorizontal={false}
         showsHorizontalScrollIndicator={isContentSmallerThanScrollView}
         showsVerticalScrollIndicator={true}
@@ -605,7 +632,7 @@ function TableListExtended({
         onScrollEndDrag={onScrollEndDrag}
         onScrollBeginDrag={onScrollBeginDrag}
         directionalLockEnabled={true}
-        
+        showsHorizontalScrollIndicator={false}
         renderFooter={() => <View style={{ height: 20 }} />}
         onRefresh={() => {
           onRefresh();
@@ -616,7 +643,7 @@ function TableListExtended({
         refreshHeader={NormalHeader}
         onLoading={onHandleLoadMore}
       />
-      {/* {!isContentSmallerThanScrollView && (
+       {/* {!isContentSmallerThanScrollView && (
         <Animated.View
           style={styles.scrollIndicatorContainer}
           onLayout={(e) =>
@@ -630,7 +657,7 @@ function TableListExtended({
             ]}
           />
         </Animated.View>
-      )} */}
+      )}  */}
     </View>
   );
 }
@@ -721,7 +748,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     flexWrap: "wrap",
     textAlign: "left",
-    fontFamily : fonts.MEDIUM
+    fontFamily: fonts.MEDIUM
   },
 
   separator: {
@@ -734,14 +761,14 @@ const styles = StyleSheet.create({
     color: "#404040",
     fontWeight: "600",
     flexWrap: "wrap",
-    textAlign: "center",
+    textAlign: "left",
   },
 
   headName: {
     margin: 0,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#FAFAFA",
+    backgroundColor: "white",
   },
 
   btnSort: {

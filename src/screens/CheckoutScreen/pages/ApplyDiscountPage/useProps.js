@@ -102,7 +102,6 @@ export const useProps = (props) => {
 
 
     onChangeTextCustomDiscount: (moneyDiscountByPercent, moneyDiscountFixed) => {
-      console.log({ moneyDiscountByPercent, moneyDiscountFixed })
       setMoneyDiscountCustom(moneyDiscountByPercent);
       setMoneyDiscountFixedAmout(moneyDiscountFixed);
     },
@@ -123,14 +122,41 @@ export const useProps = (props) => {
         discountPercent: parseFloat(moneyDiscountCustom) > 0 ? valueDiscount : 0,
       };
 
-      const bodyDiscount = await customPromotion(appointmentDetail?.appointmentId, dataCustomDiscount);
-      submitCustomPromotion(bodyDiscount.params);
+      const subTotal = appointmentDetail?.subTotal || 0;
+      const discount = promotionAppointment?.promotions || [];
 
-      const dataPromotionNote = {
-        notes: form.getValues("note")
+
+      let totalDiscount = 0;
+      for (let i = 0; i < discount.length; i++) {
+        totalDiscount = formatNumberFromCurrency(totalDiscount) + formatNumberFromCurrency(discount[i].discount);
       }
-      const bodyPromotionNote = await addPromotionNote(appointmentDetail?.appointmentId, dataPromotionNote);
-      submitAddPromotionNote(bodyPromotionNote.params);
+      const discountCustom = moneyDiscountFixedAmout > 0 ?
+        `${valueDiscount}` :
+        `${(formatNumberFromCurrency(valueDiscount) * formatNumberFromCurrency(appointmentDetail?.subTotal) / 100)}`;
+      totalDiscount = formatNumberFromCurrency(totalDiscount) + parseFloat(discountCustom);
+
+      if (formatNumberFromCurrency(totalDiscount) > formatNumberFromCurrency(subTotal)) {
+        Alert.alert(
+          `Warning`,
+          `Discount cannot be more than the subtotal.`,
+          [
+
+            { text: 'OK', onPress: () => { } }
+          ],
+          { cancelable: false }
+        );
+      } else {
+        const bodyDiscount = await customPromotion(appointmentDetail?.appointmentId, dataCustomDiscount);
+        submitCustomPromotion(bodyDiscount.params);
+
+        const dataPromotionNote = {
+          notes: form.getValues("note")
+        }
+        const bodyPromotionNote = await addPromotionNote(appointmentDetail?.appointmentId, dataPromotionNote);
+        submitAddPromotionNote(bodyPromotionNote.params);
+      }
+
+
 
 
       // this.props.actions.marketing.customPromotion(customDiscountPercent, customFixedAmount, discountByOwner, appointmentIdUpdatePromotion, true);

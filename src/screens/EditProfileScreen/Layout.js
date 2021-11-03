@@ -63,10 +63,12 @@ export const Layout = ({
 
             <CustomInput
               label='First name'
+              isRequired
               error={errors?.firstName}
               renderInput={() =>
                 <InputText
                   form={form}
+                  error={errors?.firstName}
                   name="firstName"
                   placeholder="First name"
                   error={errors?.firstName}
@@ -76,10 +78,12 @@ export const Layout = ({
 
             <CustomInput
               label='Last name'
+              isRequired
               error={errors?.lastName}
               renderInput={() =>
                 <InputText
                   form={form}
+                  error={errors?.lastName}
                   name="lastName"
                   placeholder="Last name"
                   error={errors?.lastName}
@@ -89,10 +93,12 @@ export const Layout = ({
 
             <CustomInput
               label='Display name'
+              isRequired
               error={errors?.displayName}
               renderInput={() =>
                 <InputText
                   form={form}
+                  error={errors?.displayName}
                   name="displayName"
                   placeholder="Display name"
                   error={errors?.displayName}

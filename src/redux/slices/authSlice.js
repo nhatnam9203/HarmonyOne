@@ -10,7 +10,6 @@ const authSlice = createSlice({
   reducers: {
     loginMerchant: {
       reducer: (state, action) => {
-        console.log({ action });
         state.merchantID = action.payload;
       },
     },
@@ -22,7 +21,6 @@ const authSlice = createSlice({
     updateProfile: {
       reducer: (state, action) => {
         const { firstName, lastName, displayName, phone, email, fileId, imageUrl, city } = action.payload;
-        console.log(action.payload)
         state.staff = {
           ...state.staff,
           firstName, lastName, displayName, phone, email, fileId, imageUrl, city
@@ -32,7 +30,7 @@ const authSlice = createSlice({
 
     signOutApp: {
       reducer: (state, action) => {
-        return initialState;
+        state.staff = null;
       },
     },
   },
@@ -44,7 +42,7 @@ let authMerchantReducer = persistReducer(
   {
     key: 'auth',
     storage: AsyncStorage,
-    whitelist: ['staff'],
+    whitelist: ['staff','merchantId'],
   },
   reducer,
 );

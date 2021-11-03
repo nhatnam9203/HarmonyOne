@@ -2,9 +2,6 @@
 import ForgotPincode from './ForgotPincode';
 import ForgotPincodeSuccess from './ForgotPincodeSuccess';
 import WhatIsMerchant from './WhatIsMerchant';
-import Statistic from './Statistic';
-import ChangePincode from './ChangePincode';
-import FeedBack from './FeedBack';
 
 import { ScreenNames } from './ScreenName';
 import { SplashScreen } from './SplashScreen';
@@ -51,15 +48,45 @@ import { AddServiceCheckboxPage } from "./ServiceScreen/pages/AddServiceCheckbox
 import { SettlementScreen } from "./SettlementScreen";
 import { BatchHistoryPage } from "./SettlementScreen/pages";
 import { TransactionsPage } from "./SettlementScreen/pages";
+import { BatchHistoryDetailPage } from "./SettlementScreen/pages";
+import { EditActualAmountPage } from "./SettlementScreen/pages";
+import { ReviewSettlementPage } from "./SettlementScreen/pages";
+import { CreditCardTransactionPage } from "./SettlementScreen/pages";
+import { StaffIncomeDetailPage } from "./SettlementScreen/pages";
+import { GiftCardSoldPage } from "./SettlementScreen/pages";
+import { FeedbackScreen } from "./FeedbackScreen";
+import { ChangePincodeScreen } from "./ChangePincodeScreen";
+import { NewPincodeScreen } from "./ChangePincodeScreen/pages/NewPincodeScreen";
+import {
+  ReportStaffSalary,
+  ReportServiceDuration,
+  ReportGiftCardSales,
+  ReportCustomerSales,
+  ReportServiceCategorySales,
+  ReportServiceSales,
+  ReportProductCategorySales,
+  ReportProductSales,
+  ReportOverallPaymentMethod,
+  ReportOverallMarketingEfficiency,
+} from "./ReportsScreen/pages";
+
+import {
+  ServiceDurationStatistic,
+  GiftCardStatistic,
+  CustomerStatistic,
+  ServiceCategoryStatistic,
+  ServiceStatistic,
+  ProductCategoryStatistic,
+  ProductStatistic,
+  PaymentStatistic,
+  MarketingEfficiencyStatistic,
+} from "./ReportsScreen/subPages";
 
 
 module.exports = {
   ForgotPincode,
   ForgotPincodeSuccess,
   WhatIsMerchant,
-  Statistic,
-  ChangePincode,
-  FeedBack,
   ScreenNames,
   SplashScreen,
   LoginScreen,
@@ -104,5 +131,33 @@ module.exports = {
   AddServiceCheckboxPage,
   SettlementScreen,
   BatchHistoryPage,
+  BatchHistoryDetailPage,
   TransactionsPage,
+  EditActualAmountPage,
+  ReviewSettlementPage,
+  CreditCardTransactionPage,
+  StaffIncomeDetailPage,
+  GiftCardSoldPage,
+  ReportStaffSalary,
+  ReportServiceDuration,
+  ReportGiftCardSales,
+  ReportCustomerSales,
+  ReportServiceCategorySales,
+  ReportServiceSales,
+  ReportProductCategorySales,
+  ReportProductSales,
+  ReportOverallPaymentMethod,
+  ReportOverallMarketingEfficiency,
+  ServiceDurationStatistic,
+  GiftCardStatistic,
+  CustomerStatistic,
+  ServiceCategoryStatistic,
+  ServiceStatistic,
+  ProductCategoryStatistic,
+  ProductStatistic,
+  PaymentStatistic,
+  MarketingEfficiencyStatistic,
+  FeedbackScreen,
+  ChangePincodeScreen,
+  NewPincodeScreen
 };

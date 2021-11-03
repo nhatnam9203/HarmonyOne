@@ -3,22 +3,46 @@ import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { colors } from "@shared/themes";
 import { useForm, useWatch } from "react-hook-form";
-import { getSmsInformation, useAxiosQuery, getCustomerCanbeSendPromotion } from "@src/apis";
+import {
+  getSmsInformation,
+  useAxiosQuery,
+  getCustomerCanbeSendPromotion,
+  createNewCampaign,
+  useAxiosMutation,
+  getPromotionMerchant,
+  disablePromotionById,
+  enablePromotionById,
+  updatePromotionById,
+} from "@src/apis";
 import { marketing } from "@redux/slices";
 import { isEmpty } from "lodash";
-import { getShortNameForDiscountAction, formatMoney, formatNumberFromCurrency } from "@shared/utils";
+import { useNavigation } from "@react-navigation/native";
+import {
+  getShortNameForDiscountAction,
+  getDiscountActionByShortName,
+  formatMoney,
+  formatNumberFromCurrency,
+  getConditionTitleIdById
+} from "@shared/utils";
+
 import moment from "moment";
+import NavigationService from '@navigation/NavigationService';
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
 
+  const navigation = useNavigation();
+
   const merchantPromotionId = props?.route?.params?.merchantPromotionId || 0;
+  const isViewDetail = props?.route?.params?.isViewDetail;
+  const isEdit = props?.route?.params?.isEdit;
+  const promotionEdit = props?.route?.params?.promotionEdit;
 
   const [t] = useTranslation();
   const {
     auth: { staff },
     merchant: { merchantDetail },
-    marketing: { smsInfoMarketing },
+    marketing: { smsInfoMarketing, promotionDetailById },
   } = useSelector(state => state);
 
   const form = useForm({
@@ -31,6 +55,8 @@ export const useProps = (props) => {
   const conditionRef = React.useRef();
   const datePickerRef = React.useRef();
   const smsConfigurationRef = React.useRef();
+  const alertRef = React.useRef();
+  const popupFilterCustomerRef = React.useRef();
 
   const [checked, setChecked] = React.useState(false);
   const [imageUrl, setImageUrl] = React.useState("");
@@ -48,7 +74,7 @@ export const useProps = (props) => {
   const [smsMaxCustomer, setSMSMaxCustomer] = React.useState(1);
   const [valueSlider, setValueSlider] = React.useState(0);
   const [isDisabled, setDisabled] = useState(true);
-  const [isManually, setManually] = useState(true);
+  const [isManually, setManually] = useState(false);
   const [customerList, setCustomerList] = React.useState([]);
 
 
@@ -108,7 +134,7 @@ export const useProps = (props) => {
 
     const actionMsg =
       actionTags?.length > 0
-        ? `off for ${actionTags?.map((x) => x.name || "").join(", ")}.`
+        ? `off for ${actionTags?.map((x) => x?.name || "").join(", ")}.`
         : "";
 
     const promotionMsg =
@@ -118,7 +144,7 @@ export const useProps = (props) => {
 
     const businessName = merchantDetail?.businessName ?? "";
 
-    const conditionValue = conditionRef?.current?.getConditionValue().value;
+    const conditionValue = conditionRef?.current?.getConditionValue()?.value;
     const servicesCondition = conditionRef?.current?.getServices();
 
     const {
@@ -147,7 +173,7 @@ export const useProps = (props) => {
       case 2:
         const arrMessage = conditionServiceProductTags ? conditionServiceProductTags : servicesCondition;
         const serviceMsg =
-          arrMessage?.map((x) => x.name || "").join(", ") ||
+          arrMessage?.map((x) => x?.name || "").join(", ") ||
           "";
         // ====> return text message
         return `More for less and all for you! During their ${title} promotion,choose any of ${serviceMsg} at ${businessName} to get ${promotionMsg}${actionMsg}. Hurry and book your appointment on HarmonyPay App now to grab this deal!`;
@@ -214,16 +240,16 @@ export const useProps = (props) => {
     setValueSlider(val);
     calculatorsmsMoney(val);
 
-    // const customerCount = parseInt(smsMaxCustomer || 0);
-    // const smsCount = Math.ceil(val * customerCount);
+    const customerCount = parseInt(smsMaxCustomer || 0);
+    const smsCount = Math.ceil(val * customerCount);
 
-    // setCustomerList(
-    //   customerList.map((x, index) =>
-    //     Object.assign({}, x, {
-    //       checked: index < smsCount ? true : false,
-    //     })
-    //   )
-    // );
+    setCustomerList(
+      customerList.map((x, index) =>
+        Object.assign({}, x, {
+          checked: index < smsCount ? true : false,
+        })
+      )
+    );
   };
 
 
@@ -233,10 +259,8 @@ export const useProps = (props) => {
         smsInfoMarketing?.customerCount,
         smsMaxCustomer
       );
-      // const customerSendSMSQty =
-      //   promotionDetailById?.customerSendSMSQuantity || 0;
-
-      const customerSendSMSQty = 0;
+      const customerSendSMSQty =
+        promotionDetailById?.customerSendSMSQuantity || 0;
 
       let tempValue = 0;
       if (customerCount > 0) {
@@ -245,16 +269,58 @@ export const useProps = (props) => {
 
       setValueSlider(tempValue);
       setSMSMaxCustomer(customerCount);
-      // calculatorsmsMoney(tempValue);
+      calculatorsmsMoney(tempValue);
     }
   }, [smsInfoMarketing]);
 
-  // React.useEffect(() => {
-  //   if (isEmpty(smsInfoMarketing)) {
-  //     calculatorsmsMoney(value);
-  //   }
-  // }, [title, actionServices, actionCategories, actionCondition]);
 
+
+  React.useEffect(() => {
+    if ((isViewDetail || isEdit) && promotionDetailById) {
+      setCustomerSendSMSQuantity(promotionDetailById?.customerSendSMSQuantity || 0);
+      form.setValue("campaignName", promotionDetailById?.name);
+      form.setValue("promotionType", promotionDetailById?.promotionType ?? "percent");
+      form.setValue("promotionValue", promotionDetailById?.promotionValue ?? "0.00");
+      form.setValue("message", promotionDetailById?.content || "");
+      datePickerRef?.current?.setValueDatePicker(
+        moment(promotionDetailById?.fromDate),
+        moment(promotionDetailById?.toDate),
+        moment(promotionDetailById?.fromDate).format("hh:mm A"),
+        moment(promotionDetailById?.toDate).format("hh:mm A"),
+        promotionDetailById?.noEndDate,
+      )
+      setDisabled(promotionDetailById?.isDisabled == 0 ? false : true);
+      setManually(promotionDetailById?.isManually);
+
+      const discountAction = getDiscountActionByShortName(promotionDetailById?.applyTo || "all");
+      const conditionTitle = getConditionTitleIdById(promotionDetailById?.conditionId || 1)
+      actionRef?.current?.setAction(discountAction);
+      conditionRef?.current?.setCondition(conditionTitle);
+
+      smsConfigurationRef?.current?.setSmsType(promotionDetailById?.smsType);
+      smsConfigurationRef?.current?.setFileId(promotionDetailById?.fileId);
+      smsConfigurationRef?.current?.setImageUrl(promotionDetailById?.smsMediaPath);
+
+      let tempNumberOfTimesApply =
+        promotionDetailById?.conditionId == 4
+          ? promotionDetailById?.conditionDetail
+          : "";
+      conditionRef?.current?.setNumberOfTimesApply(tempNumberOfTimesApply);
+
+      if (promotionDetailById?.conditionId == 2) {
+        conditionRef?.current?.setServiceSelected(promotionDetailById?.conditionDetail?.service);
+      }
+
+      if (promotionDetailById?.applyTo == "specific") {
+        actionRef?.current?.setServiceSelected(promotionDetailById?.applyToDetail?.service);
+      }
+
+      if (promotionDetailById?.applyTo == "category") {
+        actionRef?.current?.setCategories(promotionDetailById?.applyToDetail?.category);
+      }
+
+    }
+  }, [promotionDetailById, isEdit, isViewDetail]);
 
 
 
@@ -282,6 +348,50 @@ export const useProps = (props) => {
     }
   })
 
+  const [, submitCreateNewCampaign] = useAxiosMutation({
+    ...createNewCampaign(),
+    onSuccess: (data, response) => {
+      fetchPromotion();
+      alertRef?.current?.alertWithType('info', 'New Promotion', response?.message);
+    }
+  });
+
+  const [, submitUpdatePromotionById] = useAxiosMutation({
+    ...updatePromotionById(),
+    onSuccess: (data, response) => {
+      fetchPromotion();
+      alertRef?.current?.alertWithType('info', 'Update Promotion', response?.message);
+    }
+  });
+
+
+  const [, fetchPromotion] = useAxiosQuery({
+    ...getPromotionMerchant(),
+    queryId: "reFetchCampaign",
+    enabled: false,
+    onSuccess: (data, response) => {
+      if (response.codeNumber == 200) {
+        dispatch(marketing.setPromotion(data));
+        NavigationService.back();
+      }
+    },
+  });
+
+  const [, submitDisablePromotionById] = useAxiosMutation({
+    ...disablePromotionById(),
+    onSuccess: (data, response) => {
+      fetchPromotion();
+    }
+  });
+
+  const [, submitEnablePromotionById] = useAxiosMutation({
+    ...enablePromotionById(),
+    onSuccess: (data, response) => {
+      fetchPromotion();
+    }
+  });
+
+
   return {
     form,
     errors,
@@ -290,6 +400,8 @@ export const useProps = (props) => {
     conditionRef,
     datePickerRef,
     smsConfigurationRef,
+    popupFilterCustomerRef,
+    alertRef,
     checked,
     visibleEndDate,
     defaultMessage,
@@ -304,12 +416,16 @@ export const useProps = (props) => {
     setDisabled,
     setManually,
     calculatorsmsMoney,
+    customerList,
+    setCustomerList,
+    isViewDetail,
+    isEdit,
 
     getActionSheets: (category) => [
       {
         id: 'edit-campaign',
         label: t('Edit campaign'),
-        func: () => { },
+        func: () => { navigation.push(screenNames.MarketingNewScreen, { isEdit: true, merchantPromotionId }) },
       },
       {
         id: 'delete-campaign',
@@ -329,13 +445,26 @@ export const useProps = (props) => {
 
     hanldeSliderValue,
 
-    handleCampaign: () => {
+    disableCampaign: async () => {
+      const body = await disablePromotionById(promotionDetailById?.id);
+      submitDisablePromotionById(body.params);
+    },
+
+    enableCampaign: async () => {
+      const body = await enablePromotionById(promotionDetailById?.id);
+      submitEnablePromotionById(body.params);
+    },
+
+    handleCampaign: async () => {
 
       const conditionValue = conditionRef?.current?.getConditionValue().value;
       const servicesCondition = conditionRef?.current?.getServices();
       const actionCondition = actionRef?.current?.getConditionValue();
       const actionServices = actionRef?.current?.getServices();
       const actionCategories = actionRef?.current?.getCategories();
+
+      const smsType = smsConfigurationRef?.current?.getSmsType();
+      const numberOfTimesApply = conditionRef?.current?.getNumberOfTimesApply();
 
       const {
         visibleEndDate,
@@ -345,16 +474,14 @@ export const useProps = (props) => {
         endTime,
       } = datePickerRef?.current?.getValueDatePicker();
 
-      // const tempConditionTags = getFormatTags(conditionServiceProductTags);
-      // const tempActionTags = getFormatTags(actionTags);
       const campaign = {
         name: title,
         fromDate: `${moment(startDay).format("YYYY-MM-DD")}T${moment(startTime, ["hh:m A"]).format("HH:mm")}:00`,
         toDate: `${moment(endDay).format("YYYY-MM-DD")}T${moment(endTime, ["hh:m A"]).format("HH:mm")}:00`,
-        conditionId: conditionValue,
-        applyTo: getShortNameForDiscountAction(actionCondition),
+        conditionId: parseInt(conditionValue),
+        applyTo: getShortNameForDiscountAction(actionCondition?.label),
         conditionDetail:
-          conditionValue === 4
+          conditionValue == 4
             ? numberOfTimesApply
             : {
               service: servicesCondition?.map(sv => (sv.serviceId)) || [],
@@ -365,58 +492,64 @@ export const useProps = (props) => {
           product: [],
           category: actionCategories?.map(ct => (ct.categoryId)),
         },
-        promotionType: promotionType,
+        promotionType: promotionType ?? "percent",
         promotionValue: `${promotionValue || "0.00"}`,
         isDisabled: isDisabled ? 0 : 1,
         smsAmount: smsAmount,
         customerSendSMSQuantity: customerSendSMSQuantity ?? 0,
-        fileId: 0,
+        fileId: smsType == "sms" ? 0 : smsConfigurationRef?.current?.getFileId(),
         smsType: smsConfigurationRef?.current?.getSmsType(),
         content: form.getValues("message"),
-        noEndDate: visibleEndDate,
+        noEndDate: !visibleEndDate,
         isManually: isManually,
-        customerIds: customerList
+        customerIds: customerList.filter(x => x.checked)
           .map((x) => x.customerId),
       };
 
-      console.log({ campaign });
+      let isValid = true;
+      const fromDate = new Date(campaign?.fromDate).getTime();
+      const toDate = new Date(campaign?.toDate).getTime();
 
-      // ------------ Check Valid ---------
-      // let isValid = true;
-      // const fromDate = new Date(campaign?.fromDate).getTime();
-      // const toDate = new Date(campaign?.toDate).getTime();
+      if (!campaign?.name) {
+        alert("Enter the campaign's name please!");
+        isValid = false;
+      } else if (parseInt(fromDate) > parseInt(toDate) && visibleEndDate) {
+        alert("The start date is not larger than the end date ");
+        isValid = false;
+      } else if (
+        campaign.conditionId === 2 &&
+        actionServices.length < 1
+      ) {
+        alert("Select services/product specific please!");
+        isValid = false;
+      } else if (
+        campaign.conditionId === 4 &&
+        parseInt(numberOfTimesApply ? numberOfTimesApply : 0) < 1
+      ) {
+        alert("Enter the number of times applied please!");
+        isValid = false;
+      } else if (campaign?.applyTo === "specific" && actionServices.length < 1) {
+        alert("Select services/product for discount specific please!");
+        isValid = false;
+      }
+      else if (campaign?.applyTo === "category" && actionCategories.length < 1) {
+        alert("Select category for dis count please!");
+        isValid = false;
+      }
+      else if (!promotionValue || promotionValue == 0 || promotionValue == "0.00") {
+        alert("Enter promotion value please!");
+        isValid = false;
+      }
 
-      // if (!campaign?.name) {
-      //   alert("Enter the campaign's name please!");
-      //   isValid = false;
-      // } else if (parseInt(fromDate) >= parseInt(toDate) && !noEndDate) {
-      //   alert("The start date is not larger than the end date ");
-      //   isValid = false;
-      // } else if (
-      //   campaign.conditionId === 2 &&
-      //   conditionServiceProductTags.length < 1
-      // ) {
-      //   alert("Select services/product specific please!");
-      //   isValid = false;
-      // } else if (
-      //   campaign.conditionId === 4 &&
-      //   parseInt(numberOfTimesApply ? numberOfTimesApply : 0) < 1
-      // ) {
-      //   alert("Enter the number of times applied please!");
-      //   isValid = false;
-      // } else if (campaign?.applyTo === "specific" && actionTags.length < 1) {
-      //   alert("Select services/product for discount specific please!");
-      //   isValid = false;
-      // } else if (promotionValue == 0) {
-      //   alert("Enter promotion value please!");
-      //   isValid = false;
-      // }
-
-      // if (isValid) {
-      //   isHandleEdit
-      //     ? updatePromotionById(promotionId, campaign)
-      //     : handleCreateNewCampaign(campaign);
-      // }
+      if (isValid) {
+        if (isEdit) {
+          const body = await updatePromotionById(promotionDetailById?.id, campaign);
+          submitUpdatePromotionById(body.params);
+        } else {
+          const body = await createNewCampaign(campaign);
+          submitCreateNewCampaign(body.params);
+        }
+      }
     }
   };
 };

@@ -4,7 +4,7 @@ import { Layout } from './Layout';
 import { useProps } from './useProps';
 
 export const TransactionsPage = createScreenComponent(
-  'hpo.settlement.transactions',
+  'hpo.settlement.transaction',
   (props) => <Layout {...useProps(props)} />,
   { tabBarLabel: 'Transactions' },
 );

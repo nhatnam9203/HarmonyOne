@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { fonts, colors } from "@shared/themes";
 import { guid } from "@shared/utils";
 import { images } from "@shared/themes/resources";
+import { ListEmptyComponent } from "@shared/components";
 import { ItemReview } from "./widget";
 import { useSelector } from "react-redux";
 
@@ -47,6 +48,7 @@ export const ReviewList = ({
                 onEndReachedThreshold={0.1}
                 initialNumToRender={20}
                 maxToRenderPerBatch={5}
+                ListEmptyComponent={() => <ListEmptyComponent description={t('There is no reviews')} image={images.iconNotFound} />}
                 ListFooterComponent={() =>
                     <>
                         <View style={styles.itemLoadMore}>

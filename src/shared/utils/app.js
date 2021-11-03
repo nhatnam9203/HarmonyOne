@@ -1,4 +1,7 @@
 import moment from 'moment';
+import { images } from "../themes/resources";
+import RNFetchBlob from 'rn-fetch-blob';
+import { Platform } from "react-native";
 
 export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -20,7 +23,7 @@ export const APPOINTMENT_STATUS = {
   VOID: 'void',
   REFUND: 'refund',
   WAITING: 'waiting',
-  NOSHOW: 'no show'
+  NOSHOW: 'no show',
 };
 
 export const getColorForStatus = (status) => {
@@ -179,39 +182,39 @@ export function convertMinsToHrsMins(mins) {
 
 export const workingTimesData = {
   Monday: {
-      timeStart: "08:30 AM",
-      timeEnd: "10:00 PM",
-      isCheck: true
+    timeStart: "08:30 AM",
+    timeEnd: "10:00 PM",
+    isCheck: true
   },
   Tuesday: {
-      timeStart: "08:30 AM",
-      timeEnd: "10:00 PM",
-      isCheck: true
+    timeStart: "08:30 AM",
+    timeEnd: "10:00 PM",
+    isCheck: true
   },
   Wednesday: {
-      timeStart: "08:30 AM",
-      timeEnd: "10:00 PM",
-      isCheck: true
+    timeStart: "08:30 AM",
+    timeEnd: "10:00 PM",
+    isCheck: true
   },
   Thursday: {
-      timeStart: "08:30 AM",
-      timeEnd: "10:00 PM",
-      isCheck: true
+    timeStart: "08:30 AM",
+    timeEnd: "10:00 PM",
+    isCheck: true
   },
   Friday: {
-      timeStart: "08:30 AM",
-      timeEnd: "10:00 PM",
-      isCheck: true
+    timeStart: "08:30 AM",
+    timeEnd: "10:00 PM",
+    isCheck: true
   },
   Saturday: {
-      timeStart: "08:30 AM",
-      timeEnd: "10:00 PM",
-      isCheck: true
+    timeStart: "08:30 AM",
+    timeEnd: "10:00 PM",
+    isCheck: true
   },
   Sunday: {
-      timeStart: "08:30 AM",
-      timeEnd: "10:00 PM",
-      isCheck: true
+    timeStart: "08:30 AM",
+    timeEnd: "10:00 PM",
+    isCheck: true
   }
 }
 
@@ -232,10 +235,10 @@ export const getContentDate = (timeStart, timeEnd) => {
   let text = "Select date";
   if (timeStart && timeEnd) {
     text = `${timeStart} - ${timeEnd}`;
-    if (timeStart == timeEnd && timeStart == moment().format("MM/DD/YYYY")) {
+    if ((timeStart == timeEnd) && (timeStart == moment().format("MM/DD/YYYY"))) {
       text = "Today"
     }
-    if (timeStart == timeEnd && timeStart == moment().subtract("days", 1).format("MM/DD/YYYY")) {
+    if ((timeStart == timeEnd) && (timeStart == moment().subtract("days", 1).format("MM/DD/YYYY"))) {
       text = "Yesterday"
     }
     if (moment().startOf("months").format("MM/DD/YYYY") == timeStart && moment().endOf("months").format("MM/DD/YYYY") == timeEnd) {
@@ -244,15 +247,65 @@ export const getContentDate = (timeStart, timeEnd) => {
     if (moment().subtract("months", 1).startOf("months").format("MM/DD/YYYY") == timeStart && moment().subtract("months", 1).endOf("months").format("MM/DD/YYYY") == timeEnd) {
       text = "Last month";
     }
-    if (moment().startOf("weeks").format("MM/DD/YYYY") == timeStart && moment().endOf("weeks").format("MM/DD/YYYY") == timeEnd) {
+    if (moment().startOf("isoWeeks").format("MM/DD/YYYY") == timeStart && moment().endOf("isoWeeks").format("MM/DD/YYYY") == timeEnd) {
       text = "This week";
     }
-    if (moment().subtract("weeks", 1).startOf("weeks").format("MM/DD/YYYY") == timeStart && moment().subtract('weeks', 1).endOf("weeks").format("MM/DD/YYYY") == timeEnd) {
+    if (moment().subtract("weeks", 1).startOf("isoWeeks").format("MM/DD/YYYY") == timeStart && moment().subtract('weeks', 1).endOf("isoWeeks").format("MM/DD/YYYY") == timeEnd) {
       text = "Last week";
     }
   }
   return text;
 }
+
+export const getConditionIdByTitle = (title) => {
+  let id;
+  switch (title) {
+    case "No condition":
+      id = 1;
+      break;
+    case "Using specific services":
+      id = 2;
+      break;
+    case "Customer birthday is within the week":
+      id = 3;
+      break;
+    case "Times using the service reached the quantity":
+      id = 4;
+      break;
+    case "The customer is the referral":
+      id = 5;
+      break;
+    default:
+      id = 1;
+  }
+
+  return id;
+};
+
+export const getConditionTitleIdById = (id) => {
+  let title;
+  switch (id) {
+    case 1:
+      title = "No condition";
+      break;
+    case 2:
+      title = "Using specific services";
+      break;
+    case 3:
+      title = "Customer birthday is within the week";
+      break;
+    case 4:
+      title = "Times using the service reached the quantity";
+      break;
+    case 5:
+      title = "The customer is the referral";
+      break;
+    default:
+      title = "No condition";
+  }
+
+  return title;
+};
 
 export const getShortNameForDiscountAction = (title) => {
   let shortName = "";
@@ -272,3 +325,82 @@ export const getShortNameForDiscountAction = (title) => {
 
   return shortName;
 };
+
+export const getDiscountActionByShortName = (shortName) => {
+  let actionDiscount = "";
+  switch (shortName) {
+    case "specific":
+      actionDiscount = "Discount for specific services";
+      break;
+    case "all":
+      actionDiscount = "Discount for whole cart";
+      break;
+    case "category":
+      actionDiscount = "Discount by category";
+      break;
+    default:
+      actionDiscount = "Discount for whole cart";
+  }
+
+  return actionDiscount;
+};
+
+
+export const getCredicardIcon = (cardType) => {
+  let icon = "";
+  let type = cardType?.toString()?.toLowerCase();
+  if (`${type}`.indexOf("visa") !== -1) {
+    icon = images.visaLogo;
+  } else if (`${type}`.indexOf("mastercard") !== -1) {
+    icon = images.masterCardLogo;
+  } else if (`${type}`.indexOf("discover") !== -1) {
+    icon = images.discoverLogo;
+  } else if (`${type}`.indexOf("americanexpress") !== -1) {
+    icon = images.american_express;
+  } else if (`${type}`.indexOf("other") !== -1) {
+    icon = images.other_card;
+  } else {
+    icon = images.other_card;
+  }
+
+  return icon;
+};
+
+
+
+export const handleFileDownloaed = async (path, exportType, fileName) => {
+
+  const dirs = RNFetchBlob.fs.dirs;
+  const extension = exportType;
+
+  const params = {
+    title: `${fileName}.${extension}`,
+    fileCache: true,
+    appendExt: `${extension}`,
+    useDownloadManager: true,
+    mediaScannable: true,
+    notification: true,
+    description: 'File downloaded by download manager.',
+    path: `${dirs.DocumentDir}/${fileName}.${extension}`,
+  }
+
+  const fileDownload = await RNFetchBlob.config({
+    title: `${fileName}.${extension}`,
+    fileCache: true,
+    appendExt: `${extension}`,
+    useDownloadManager: true,
+    mediaScannable: true,
+    notification: true,
+    description: 'File downloaded by download manager.',
+    path: `${dirs.DocumentDir}/${fileName}.${extension}`,
+  }).fetch('GET', path, {});
+
+  const pathFileInventory = await fileDownload.path();
+
+  if (Platform.OS === 'ios') {
+    await RNFetchBlob.ios.previewDocument(pathFileInventory)
+  } else {
+    const android = await RNFetchBlob.android;
+    await android.actionViewIntent(pathFileInventory, 'application/vnd.android.package-archive')
+  }
+}

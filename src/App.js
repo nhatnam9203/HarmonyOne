@@ -31,13 +31,13 @@ export default App = () => {
     <Provider store={store}>
       <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
         <CodePushProvider>
+        <AxiosApiProvider>
           <AppStateProvider>
             <PaperProvider>
-              <AxiosApiProvider>
                 <RootNavigation />
-              </AxiosApiProvider>
             </PaperProvider>
           </AppStateProvider>
+          </AxiosApiProvider>
         </CodePushProvider>
       </PersistGate>
     </Provider>

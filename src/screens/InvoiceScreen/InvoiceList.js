@@ -48,6 +48,16 @@ export const InvoiceList = ({
 
     const renderCell = ({ key, row, column, item }) => {
         const data = item[key];
+
+        return (
+            <TouchableOpacity onPress={() => getInvoiceDetail(item?.checkoutId)}>
+                { renderItem(key, data)}
+            </TouchableOpacity>
+        )
+
+    };
+
+    const renderItem = (key, data) => {
         switch (key) {
             case "code":
                 return <Text style={styles.txt}>
@@ -85,8 +95,7 @@ export const InvoiceList = ({
                     {`${staff?.displayName}`}
                 </Text>
         }
-
-    };
+    }
 
     return (
         <CustomTable
@@ -121,7 +130,6 @@ export const InvoiceList = ({
             tableCellWidth={{}}
             renderCell={renderCell}
             renderActionCell={() => null}
-            onRowPress={onRowPress}
             isRefreshing={isRefresh}
             onRefresh={onRefresh}
             onLoadMore={onLoadMore}

@@ -15,7 +15,7 @@ const MarketingDiscount = ({
 
     const { field } = useController({
         control: form.control,
-        defaultValue: "fixed",
+        defaultValue: "percent",
         name: "promotionType",
     });
 

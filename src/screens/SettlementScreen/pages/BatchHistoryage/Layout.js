@@ -3,27 +3,28 @@ import { View, StyleSheet, Text, ScrollView, TouchableOpacity, Image } from 'rea
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
-import { SearchInput } from "@shared/components";
+import { SearchInput, PeriodPicker } from "@shared/components";
 import { images } from "@shared/themes/resources";
-import { InvoiceList } from "./InvoiceList";
+import { DataList } from "./DataList";
 
 export const Layout = ({
-  paymentMethodRef,
-  statusRef,
-  loadMore,
-  currentPage,
-  onChangeFilter,
-  status,
-  paymentMethod,
   isRefresh,
   onRefresh,
   valueSearch,
   onChangeSearch,
   onSubmitSearch,
-  selectPeriod,
-  invoiceList,
+  batchHistory,
   getContentDate,
   onLoadMore,
+
+  timeStart,
+  timeEnd,
+  setTimeStart,
+  setTimeEnd,
+  onChangeDate,
+  pages,
+  currentPage,
+  removeSearch,
 }) => {
 
   const [t] = useTranslation();
@@ -34,30 +35,29 @@ export const Layout = ({
         <SearchInput
           value={valueSearch}
           onChangeText={onChangeSearch}
-          removeText={valueSearch.length > 0 ? () => onChangeSearch("") : () => { }}
+          removeText={valueSearch.length > 0 ? () => removeSearch() : () => { }}
           placeholder="Search client by phone or name"
           onSubmit={onSubmitSearch}
         />
 
-        <TouchableOpacity
-          onPress={selectPeriod}
-          style={styles.buttonDateRange}
-        >
-          <Text style={styles.txtDateRange}>{getContentDate()}</Text>
-          <Image
-            source={images.date_range}
-            style={{ width: scaleWidth(24), height: scaleWidth(24) }}
-            resizeMode='contain'
-          />
-        </TouchableOpacity>
+        <PeriodPicker
+          timeStart={timeStart}
+          timeEnd={timeEnd}
+          setTimeStart={setTimeStart}
+          setTimeEnd={setTimeEnd}
+          onAccept={(startDate, endDate) => onChangeDate(startDate, endDate)}
+        />
 
-        <InvoiceList
-          data={invoiceList}
+
+        <DataList
+          data={batchHistory}
           currentPage={currentPage}
           onLoadMore={onLoadMore}
           onRefresh={onRefresh}
           isRefresh={isRefresh}
+          endLoadMore={currentPage >= pages}
         />
+
       </View>
     </View>
   );
