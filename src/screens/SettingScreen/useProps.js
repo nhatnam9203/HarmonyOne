@@ -18,7 +18,7 @@ export const useProps = (_params) => {
     onSuccess: (data, response) => {
       if (response.codeNumber == 200) {
         setTimeout(() => {
-          NavigationService.navigate('AuthStack', { isLogout: true });
+          NavigationService.replace('AuthStack', { isLogout: true });
           dispatch(auth.signOutApp());
           dispatch(app.setStatusHomeScreen(false));
           clearAuthToken();

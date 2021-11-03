@@ -42,6 +42,10 @@ export const useProps = (_params) => {
     }
   }
 
+  React.useState(()=>{
+    initialMerchantCode();
+  },[]);
+
   return {
     merchantID,
     onChangeMID: (mid) => {
