@@ -1,5 +1,5 @@
 import NavigationService from '@navigation/NavigationService';
-import { auth } from '@redux/slices';
+import { auth, app } from '@redux/slices';
 import { staffLoginRequest, useAxiosMutation } from '@src/apis';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,6 +11,8 @@ export const useProps = (_params) => {
 
   const [pinCode, setPinCode] = React.useState('');
 
+  console.log({ merchantID, pinCode })
+
   const [{ isLoading }, staffLogin] = useAxiosMutation({
     ...staffLoginRequest(merchantID, pinCode),
     onLoginError: (msg) => {
@@ -19,6 +21,7 @@ export const useProps = (_params) => {
     onSuccess: (data) => {
       if (data) {
         dispatch(auth.loginStaff(data));
+        dispatch(app.setStatusHomeScreen(true));
       }
       NavigationService.replace('HpOneStack');
     },
@@ -39,7 +42,7 @@ export const useProps = (_params) => {
       NavigationService.navigate('ForgotPincode');
     },
     useAnotherMID: () => {
-      NavigationService.back();
+      NavigationService.navigate(screenNames.LoginScreen);
     },
   };
 };

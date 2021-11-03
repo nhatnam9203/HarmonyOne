@@ -44,12 +44,10 @@ export const useProps = (_params) => {
 
   React.useEffect(() => {
     if (finishedLoadCodePush && finishedLoadApp) {
-      // splash complete here !
-      // if not sign in -> go to sign in screen
+
       if (staff) {
-        NavigationService.replace('HpOneStack');
+        NavigationService.replace('AuthStack', { screen: screenNames.PinScreen });
       }
-      // if sign in -> go to home
       else {
         NavigationService.replace('AuthStack');
       }

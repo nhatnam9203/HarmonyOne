@@ -29,6 +29,8 @@ const HeaderBooking = ({
         dispatch(bookAppointment.resetBooking());
     }
 
+    const steps = isQuickCheckout ? "3" : "4";
+
     return (
         <ImageBackground
             source={images.imageHeaderBg}
@@ -61,7 +63,7 @@ const HeaderBooking = ({
                 </View>
             </View>
             <Text style={styles.txtStep}>
-                {`Step ${step} of 4`}
+                {`Step ${step} of ${steps}`}
             </Text>
             <Text style={styles.title}>
                 {`${title}`}

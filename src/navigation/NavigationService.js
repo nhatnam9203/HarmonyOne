@@ -11,9 +11,9 @@ function navigate(name, params = null) {
   }
 }
 
-function replace(name) {
+function replace(name, params = null,) {
   if (isReadyRef.current) {
-    navigationRef.current?.dispatch(StackActions.replace(name));
+    navigationRef.current?.dispatch(StackActions.replace(name, params));
   }
 }
 

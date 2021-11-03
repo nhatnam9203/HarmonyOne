@@ -85,7 +85,7 @@ export const useProps = (props) => {
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         setSMSMaxCustomer(data.length);
-        setCustomerList(data.map(obj => ({ ...obj, checked: true })));
+        setCustomerList(data);
       }
     }
   });
@@ -425,7 +425,7 @@ export const useProps = (props) => {
       {
         id: 'edit-campaign',
         label: t('Edit campaign'),
-        func: () => { navigation.push(screenNames.MarketingNewScreen, { isEdit: true }) },
+        func: () => { navigation.push(screenNames.MarketingNewScreen, { isEdit: true, merchantPromotionId }) },
       },
       {
         id: 'delete-campaign',

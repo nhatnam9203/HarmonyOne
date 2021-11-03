@@ -1,5 +1,5 @@
 import React from "react";
-import { auth } from "@redux/slices";
+import { auth, app } from "@redux/slices";
 import { useDispatch } from "react-redux";
 import { staffLogoutRequest, useAxiosMutation } from "@src/apis";
 import { clearAuthToken } from "@shared/storages/authToken";
@@ -20,6 +20,7 @@ export const useProps = (_params) => {
         setTimeout(() => {
           NavigationService.navigate('AuthStack', { isLogout: true });
           dispatch(auth.signOutApp());
+          dispatch(app.setStatusHomeScreen(false));
           clearAuthToken();
         }, 200);
       }

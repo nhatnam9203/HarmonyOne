@@ -118,20 +118,4 @@ const styles = StyleSheet.create({
     opacity: 0.3,
   },
 
-  btnLink: {
-    width: scaleWidth(200),
-    height: scaleHeight(26),
-    marginTop: scaleHeight(6),
-    justifyContent: 'center',
-  },
-
-  txtLink: {
-    fontFamily: fonts.REGULAR,
-    fontSize: scaleFont(13),
-    fontWeight: 'normal',
-    fontStyle: 'normal',
-    letterSpacing: -0.29,
-    textAlign: 'center',
-    color: '#27aae1',
-  },
 });

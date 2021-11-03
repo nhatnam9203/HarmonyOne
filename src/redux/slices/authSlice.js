@@ -10,7 +10,6 @@ const authSlice = createSlice({
   reducers: {
     loginMerchant: {
       reducer: (state, action) => {
-        console.log({ action });
         state.merchantID = action.payload;
       },
     },
@@ -31,7 +30,7 @@ const authSlice = createSlice({
 
     signOutApp: {
       reducer: (state, action) => {
-        return initialState;
+        state.staff = null;
       },
     },
   },

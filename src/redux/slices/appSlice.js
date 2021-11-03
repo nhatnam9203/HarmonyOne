@@ -20,6 +20,7 @@ const initialState = {
   rememberMID: false,
   exportLoading: false,
   exportType: '',
+  isHome : false,
 };
 let appSlice = createSlice({
   name: reducerName,
@@ -40,6 +41,10 @@ let appSlice = createSlice({
         return Object.assign({}, state, action.payload);
       },
     },
+
+    setStatusHomeScreen : (state , action) =>{
+      state.isHome = action.payload;
+    }
   },
 });
 
