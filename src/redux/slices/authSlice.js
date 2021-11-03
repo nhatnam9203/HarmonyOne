@@ -42,7 +42,7 @@ let authMerchantReducer = persistReducer(
   {
     key: 'auth',
     storage: AsyncStorage,
-    whitelist: ['staff'],
+    whitelist: ['staff','merchantId'],
   },
   reducer,
 );

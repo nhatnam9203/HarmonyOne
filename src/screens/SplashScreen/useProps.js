@@ -4,6 +4,7 @@ import { sleep } from '@shared/utils/app';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
+import AsyncStorage from "@react-native-community/async-storage";
 
 export const useProps = (_params) => {
   const dispatch = useDispatch();
@@ -42,15 +43,27 @@ export const useProps = (_params) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  React.useEffect(() => {
-    if (finishedLoadCodePush && finishedLoadApp) {
+  const navigateMainScreen = async () => {
+    if (staff) {
+      const merchantID = await AsyncStorage.getItem("@merchantID");
 
-      if (staff) {
+      if (merchantID) {
+
         NavigationService.replace('AuthStack', { screen: screenNames.PinScreen });
-      }
-      else {
+      } else {
         NavigationService.replace('AuthStack');
       }
+      // NavigationService.replace("HpOneStack");
+    }
+    else {
+      NavigationService.replace('AuthStack');
+    }
+  }
+
+  React.useEffect(() => {
+    if (finishedLoadCodePush && finishedLoadApp) {
+      navigateMainScreen();
+
     }
   }, [finishedLoadCodePush, finishedLoadApp, staff]);
 

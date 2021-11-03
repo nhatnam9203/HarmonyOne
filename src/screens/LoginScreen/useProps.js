@@ -4,6 +4,7 @@ import React from 'react';
 import { ScreenNames } from '../ScreenName';
 import { auth } from '@redux/slices';
 import { useDispatch, useSelector } from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const useProps = (_params) => {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ export const useProps = (_params) => {
     onSuccess: (data) => {
       if (data?.code) {
         dispatch(auth.loginMerchant(data?.code));
+        AsyncStorage.setItem("@merchantID", JSON.stringify(merchantID));
       }
 
       NavigationService.navigate(ScreenNames.PinScreen);
@@ -33,10 +35,12 @@ export const useProps = (_params) => {
     setTextMessage(null);
   }, []);
 
-  React.useEffect(() => {
-    if(merchantIdSaved)
-    setMerchantID(merchantIdSaved);
-  }, [merchantIdSaved]);
+  const initialMerchantCode = async() =>{
+    const merchant_code = await AsyncStorage.getItem("@merchantID");
+    if(merchant_code){
+      setMerchantID(JSON.parse(merchant_code));
+    }
+  }
 
   return {
     merchantID,

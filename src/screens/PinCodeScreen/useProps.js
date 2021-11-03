@@ -2,6 +2,7 @@ import NavigationService from '@navigation/NavigationService';
 import { auth, app } from '@redux/slices';
 import { staffLoginRequest, useAxiosMutation } from '@src/apis';
 import React from 'react';
+import AsyncStorage from "@react-native-community/async-storage";
 import { useDispatch, useSelector } from 'react-redux';
 
 export const useProps = (_params) => {
@@ -9,12 +10,16 @@ export const useProps = (_params) => {
 
   const merchantID = useSelector((state) => state.auth.merchantID);
 
+  const [merchantCode, setMerchantCode] = React.useState("");
+
+  const {
+    auth: { staff }
+  } = useSelector(state => state);
+
   const [pinCode, setPinCode] = React.useState('');
 
-  console.log({ merchantID, pinCode })
-
   const [{ isLoading }, staffLogin] = useAxiosMutation({
-    ...staffLoginRequest(merchantID, pinCode),
+    ...staffLoginRequest(merchantCode, pinCode),
     onLoginError: (msg) => {
       // setTextMessage(msg);
     },
@@ -26,6 +31,19 @@ export const useProps = (_params) => {
       NavigationService.replace('HpOneStack');
     },
   });
+
+  const initialMerchantID = async () => {
+    const merchant_code = await AsyncStorage.getItem("@merchantID");
+    if (merchantID) {
+      setMerchantCode(merchantID);
+    } else {
+      setMerchantCode(JSON.parse(merchant_code))
+    }
+  }
+
+  React.useEffect(() => {
+    initialMerchantID();
+  }, []);
 
 
 
