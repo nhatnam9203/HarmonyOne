@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { images } from "../themes/resources"
+import { images } from '../themes/resources';
 
 export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -79,10 +79,13 @@ export const appointmentGroupByFromTime = (appointments) => {
 export const createFormData = (media) => {
   const data = new FormData();
   for (let i = 0; i < media.length; i++) {
-    data.append("files[]", {
-      uri: Platform.OS === "android" ? media[i].uri : media[i].uri.replace("file://", ""),
+    data.append('files[]', {
+      uri:
+        Platform.OS === 'android'
+          ? media[i].uri
+          : media[i].uri.replace('file://', ''),
       name: media[i].fileName ? media[i].fileName : `media-${i}.jpg`,
-      type: media[i].type ? media[i].type : "image/jpeg",
+      type: media[i].type ? media[i].type : 'image/jpeg',
     });
   }
   return data;
@@ -93,69 +96,85 @@ export const slop = (size = 10) => ({
   left: size,
   right: size,
   bottom: size,
-})
+});
 
 export const guid = () => {
   const s4 = () => {
     return Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
-  }
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-}
+  };
+  return (
+    s4() +
+    s4() +
+    '-' +
+    s4() +
+    '-' +
+    s4() +
+    '-' +
+    s4() +
+    '-' +
+    s4() +
+    s4() +
+    s4()
+  );
+};
 
 export const headerPhoneGroup = [
-  { label: "+1", value: "+1" },
-  { label: "+84", value: "+84" },
+  { label: '+1', value: '+1' },
+  { label: '+84', value: '+84' },
 ];
 
 export const genders = [
-  { label: "Male", value: "Male" },
-  { label: "Female", value: "Female" },
-  { label: "Other", value: "Other" },
+  { label: 'Male', value: 'Male' },
+  { label: 'Female', value: 'Female' },
+  { label: 'Other', value: 'Other' },
 ];
 
 export const customerGroup = [
-  { label: "Normal", value: "0" },
-  { label: "Vip", value: "1" },
+  { label: 'Normal', value: '0' },
+  { label: 'Vip', value: '1' },
 ];
 
 export const reviewTypeGroup = [
-  { label: "All reviews", value: "all" },
-  { label: "Bad reviews", value: "bad" },
-  { label: "Good reviews", value: "good" },
+  { label: 'All reviews', value: 'all' },
+  { label: 'Bad reviews', value: 'bad' },
+  { label: 'Good reviews', value: 'good' },
 ];
 
 export const statusGroup = [
-  { label: "All Status", value: "all" },
-  { label: "Show", value: "show" },
-  { label: "Hidden", value: "hidden" },
+  { label: 'All Status', value: 'all' },
+  { label: 'Show', value: 'show' },
+  { label: 'Hidden', value: 'hidden' },
 ];
 
-
 export function getTimeAvaible(staff_available_time) {
-  const time12PM = `${moment().format("YYYY-MM-DD")}T12:00:00`;
-  const time05PM = `${moment().format("YYYY-MM-DD")}T17:00:00`;
+  const time12PM = `${moment().format('YYYY-MM-DD')}T12:00:00`;
+  const time05PM = `${moment().format('YYYY-MM-DD')}T17:00:00`;
 
   const morning = staff_available_time.filter((obj) => {
-    const timeFilter = `${moment().format("YYYY-MM-DD")}T${moment(obj.time, ["h:mm A"]).format(
-      "HH:mm:ss",
-    )}`;
-    return moment(timeFilter).isSameOrBefore(time12PM) && !(obj.isBooked);
+    const timeFilter = `${moment().format('YYYY-MM-DD')}T${moment(obj.time, [
+      'h:mm A',
+    ]).format('HH:mm:ss')}`;
+    return moment(timeFilter).isSameOrBefore(time12PM) && !obj.isBooked;
   });
 
   const afternoon = staff_available_time.filter((obj) => {
-    const timeFilter = `${moment().format("YYYY-MM-DD")}T${moment(obj.time, ["h:mm A"]).format(
-      "HH:mm:ss",
-    )}`;
-    return moment(timeFilter).isAfter(time12PM) && moment(timeFilter).isBefore(time05PM) && !(obj.isBooked);
+    const timeFilter = `${moment().format('YYYY-MM-DD')}T${moment(obj.time, [
+      'h:mm A',
+    ]).format('HH:mm:ss')}`;
+    return (
+      moment(timeFilter).isAfter(time12PM) &&
+      moment(timeFilter).isBefore(time05PM) &&
+      !obj.isBooked
+    );
   });
 
   const evening = staff_available_time.filter((obj) => {
-    const timeFilter = `${moment().format("YYYY-MM-DD")}T${moment(obj.time, ["h:mm A"]).format(
-      "HH:mm:ss",
-    )}`;
-    return moment(timeFilter).isSameOrAfter(time05PM) && !(obj.isBooked);
+    const timeFilter = `${moment().format('YYYY-MM-DD')}T${moment(obj.time, [
+      'h:mm A',
+    ]).format('HH:mm:ss')}`;
+    return moment(timeFilter).isSameOrAfter(time05PM) && !obj.isBooked;
   });
 
   return {
@@ -164,8 +183,6 @@ export function getTimeAvaible(staff_available_time) {
     evening,
   };
 }
-
-
 
 export function convertMinsToHrsMins(mins) {
   let h = Math.floor(mins / 60);
@@ -177,44 +194,43 @@ export function convertMinsToHrsMins(mins) {
   return `${m} min`;
 }
 
-
 export const workingTimesData = {
   Monday: {
-      timeStart: "08:30 AM",
-      timeEnd: "10:00 PM",
-      isCheck: true
+    timeStart: '08:30 AM',
+    timeEnd: '10:00 PM',
+    isCheck: true,
   },
   Tuesday: {
-      timeStart: "08:30 AM",
-      timeEnd: "10:00 PM",
-      isCheck: true
+    timeStart: '08:30 AM',
+    timeEnd: '10:00 PM',
+    isCheck: true,
   },
   Wednesday: {
-      timeStart: "08:30 AM",
-      timeEnd: "10:00 PM",
-      isCheck: true
+    timeStart: '08:30 AM',
+    timeEnd: '10:00 PM',
+    isCheck: true,
   },
   Thursday: {
-      timeStart: "08:30 AM",
-      timeEnd: "10:00 PM",
-      isCheck: true
+    timeStart: '08:30 AM',
+    timeEnd: '10:00 PM',
+    isCheck: true,
   },
   Friday: {
-      timeStart: "08:30 AM",
-      timeEnd: "10:00 PM",
-      isCheck: true
+    timeStart: '08:30 AM',
+    timeEnd: '10:00 PM',
+    isCheck: true,
   },
   Saturday: {
-      timeStart: "08:30 AM",
-      timeEnd: "10:00 PM",
-      isCheck: true
+    timeStart: '08:30 AM',
+    timeEnd: '10:00 PM',
+    isCheck: true,
   },
   Sunday: {
-      timeStart: "08:30 AM",
-      timeEnd: "10:00 PM",
-      isCheck: true
-  }
-}
+    timeStart: '08:30 AM',
+    timeEnd: '10:00 PM',
+    isCheck: true,
+  },
+};
 
 export const roundNumber = (num) => {
   return (Math.round(num * 100) / 100).toFixed(2);
@@ -223,54 +239,73 @@ export const roundNumber = (num) => {
 const nearestFutureMinutes = (interval, someMoment) => {
   const roundedMinutes = Math.ceil(someMoment.minute() / interval) * interval;
   return someMoment.clone().minute(roundedMinutes).second(0);
-}
+};
 
 export const roundFloatNumber = (num) => {
   return (Math.round(num * 100) / 100).toFixed(2);
 };
 
 export const getContentDate = (timeStart, timeEnd) => {
-  let text = "Select date";
+  let text = 'Select date';
   if (timeStart && timeEnd) {
     text = `${timeStart} - ${timeEnd}`;
-    if ((timeStart == timeEnd) && (timeStart == moment().format("MM/DD/YYYY"))) {
-      text = "Today"
+    if (timeStart == timeEnd && timeStart == moment().format('MM/DD/YYYY')) {
+      text = 'Today';
     }
-    if ((timeStart == timeEnd) && (timeStart == moment().subtract("days", 1).format("MM/DD/YYYY"))) {
-      text = "Yesterday"
-    } 
-    if (moment().startOf("months").format("MM/DD/YYYY") == timeStart && moment().endOf("months").format("MM/DD/YYYY") == timeEnd) {
-      text = "This month";
+    if (
+      timeStart == timeEnd &&
+      timeStart == moment().subtract('days', 1).format('MM/DD/YYYY')
+    ) {
+      text = 'Yesterday';
     }
-    if (moment().subtract("months", 1).startOf("months").format("MM/DD/YYYY") == timeStart && moment().subtract("months", 1).endOf("months").format("MM/DD/YYYY") == timeEnd) {
-      text = "Last month";
+    if (
+      moment().startOf('months').format('MM/DD/YYYY') == timeStart &&
+      moment().endOf('months').format('MM/DD/YYYY') == timeEnd
+    ) {
+      text = 'This month';
     }
-    if (moment().startOf("weeks").format("MM/DD/YYYY") == timeStart && moment().endOf("weeks").format("MM/DD/YYYY") == timeEnd) {
-      text = "This week";
+    if (
+      moment().subtract('months', 1).startOf('months').format('MM/DD/YYYY') ==
+        timeStart &&
+      moment().subtract('months', 1).endOf('months').format('MM/DD/YYYY') ==
+        timeEnd
+    ) {
+      text = 'Last month';
     }
-    if (moment().subtract("weeks", 1).startOf("weeks").format("MM/DD/YYYY") == timeStart && moment().subtract('weeks', 1).endOf("weeks").format("MM/DD/YYYY") == timeEnd) {
-      text = "Last week";
+    if (
+      moment().startOf('weeks').format('MM/DD/YYYY') == timeStart &&
+      moment().endOf('weeks').format('MM/DD/YYYY') == timeEnd
+    ) {
+      text = 'This week';
+    }
+    if (
+      moment().subtract('weeks', 1).startOf('weeks').format('MM/DD/YYYY') ==
+        timeStart &&
+      moment().subtract('weeks', 1).endOf('weeks').format('MM/DD/YYYY') ==
+        timeEnd
+    ) {
+      text = 'Last week';
     }
   }
   return text;
-}
+};
 
 export const getConditionIdByTitle = (title) => {
   let id;
   switch (title) {
-    case "No condition":
+    case 'No condition':
       id = 1;
       break;
-    case "Using specific services":
+    case 'Using specific services':
       id = 2;
       break;
-    case "Customer birthday is within the week":
+    case 'Customer birthday is within the week':
       id = 3;
       break;
-    case "Times using the service reached the quantity":
+    case 'Times using the service reached the quantity':
       id = 4;
       break;
-    case "The customer is the referral":
+    case 'The customer is the referral':
       id = 5;
       break;
     default:
@@ -284,82 +319,87 @@ export const getConditionTitleIdById = (id) => {
   let title;
   switch (id) {
     case 1:
-      title = "No condition";
+      title = 'No condition';
       break;
     case 2:
-      title = "Using specific services";
+      title = 'Using specific services';
       break;
     case 3:
-      title = "Customer birthday is within the week";
+      title = 'Customer birthday is within the week';
       break;
     case 4:
-      title = "Times using the service reached the quantity";
+      title = 'Times using the service reached the quantity';
       break;
     case 5:
-      title = "The customer is the referral";
+      title = 'The customer is the referral';
       break;
     default:
-      title = "No condition";
+      title = 'No condition';
   }
 
   return title;
 };
 
 export const getShortNameForDiscountAction = (title) => {
-  let shortName = "";
+  let shortName = '';
   switch (title) {
-    case "Discount for specific services":
-      shortName = "specific";
+    case 'Discount for specific services':
+      shortName = 'specific';
       break;
-    case "Discount for whole cart":
-      shortName = "all";
+    case 'Discount for whole cart':
+      shortName = 'all';
       break;
-    case "Discount by category":
-      shortName = "category";
+    case 'Discount by category':
+      shortName = 'category';
       break;
     default:
-      shortName = "all";
+      shortName = 'all';
   }
 
   return shortName;
 };
 
 export const getDiscountActionByShortName = (shortName) => {
-  let actionDiscount = "";
+  let actionDiscount = '';
   switch (shortName) {
-    case "specific":
-      actionDiscount = "Discount for specific services";
+    case 'specific':
+      actionDiscount = 'Discount for specific services';
       break;
-    case "all":
-      actionDiscount = "Discount for whole cart";
+    case 'all':
+      actionDiscount = 'Discount for whole cart';
       break;
-    case "category":
-      actionDiscount = "Discount by category";
+    case 'category':
+      actionDiscount = 'Discount by category';
       break;
     default:
-      actionDiscount = "Discount for whole cart";
+      actionDiscount = 'Discount for whole cart';
   }
 
   return actionDiscount;
 };
 
-
 export const getCredicardIcon = (cardType) => {
-  let icon = "";
+  let icon = '';
   let type = cardType?.toString()?.toLowerCase();
-  if (`${type}`.indexOf("visa") !== -1) {
-      icon = images.visaLogo;
-  } else if (`${type}`.indexOf("mastercard") !== -1) {
-      icon = images.masterCardLogo;
-  } else if (`${type}`.indexOf("discover") !== -1) {
-      icon = images.discoverLogo;
-  } else if (`${type}`.indexOf("americanexpress") !== -1) {
-      icon = images.american_express;
-  } else if (`${type}`.indexOf("other") !== -1) {
-      icon = images.other_card;
+  if (`${type}`.indexOf('visa') !== -1) {
+    icon = images.visaLogo;
+  } else if (`${type}`.indexOf('mastercard') !== -1) {
+    icon = images.masterCardLogo;
+  } else if (`${type}`.indexOf('discover') !== -1) {
+    icon = images.discoverLogo;
+  } else if (`${type}`.indexOf('americanexpress') !== -1) {
+    icon = images.american_express;
+  } else if (`${type}`.indexOf('other') !== -1) {
+    icon = images.other_card;
   } else {
-      icon = images.other_card;
+    icon = images.other_card;
   }
 
   return icon;
+};
+
+export const SORT_TYPE = {
+  NONE: 'none',
+  ASC: 'asc',
+  DESC: 'desc',
 };
