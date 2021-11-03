@@ -430,7 +430,7 @@ export const handleFileDownloaed = async (path, exportType, fileName) => {
     await android.actionViewIntent(pathFileInventory, 'application/vnd.android.package-archive')
   }
 }
-}
+
 export const SORT_TYPE = {
   NONE: 'none',
   ASC: 'asc',
