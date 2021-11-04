@@ -691,6 +691,25 @@ export const cancelHarmonyPayment = (payAppointmentId, data) => ({
 });
 
 
+export const submitPaymentWithCreditCard = (merchantId, 
+  responseData, checkoutPaymentId, moneyUserGiveForStaff,
+  paymentTerminal, paymentData) => ({
+    
+    queryId: 'submitPaymentWithCreditCard',
+    params: {
+      url: `paymentTransaction`,
+      method: 'POST',
+      data: {
+        merchantId,
+        userId: 0,
+        title: paymentTerminal,
+        responseData,
+        checkoutPaymentId: checkoutPaymentId,
+        paymentTerminal,
+        paymentData
+      }
+    }
+})
 
 /**
  * MERCHANT SETTING

@@ -40,3 +40,5 @@ export * from "./CustomTableListExtended";
 export * from "./SelectPeriod";
 export * from "./CustomTable";
 export * from "./PeriodPicker";
+export * from "./PopupErrorMessage";
+export * from "./PopupProcessingCredit";

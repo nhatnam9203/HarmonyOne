@@ -1,6 +1,13 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { 
+    Image, 
+    StyleSheet, 
+    Text, 
+    TouchableOpacity,
+    View, 
+    ActivityIndicator, 
+} from "react-native";
 import { colors, fonts, layouts } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { Button } from "./Button";
@@ -51,7 +58,6 @@ export const PopupProcessingCredit = React.forwardRef(
                 backdropColor={'rgba(64,64,64,0.5)'}
             >
                 <View style={styles.container} >
-                    <View style={{ flex: 1, alignItems: 'center' }} >
                         <Text style={styles.title} >
                             {"Please wait"}
                         </Text>
@@ -68,13 +74,13 @@ export const PopupProcessingCredit = React.forwardRef(
                         </View>
 
                         {
-                            transactionId ? <Text style={{ alignSelf: "center", color: "#404040", fontSize: scaleSize(18) }} >
+                            transactionId ? <Text style={{ alignSelf: "center", color: "#404040", fontSize: scaleFont(18) }} >
                                 Enter<Text style={{ color: "red", fontWeight: "bold" }} >{` ${transactionId} `}</Text> number into your PAX machine!
                         </Text> : <View />
                         }
 
                         {
-                            Platform.OS === "ios" ? <View style={{ paddingVertical: scaleSize(14) }} >
+                            Platform.OS === "ios" ? <View style={{ paddingVertical: scaleHeight(14) }} >
                                 <Button
                                     onPress={onHandleYESButtonPress}
                                     highlight={false}
@@ -91,7 +97,6 @@ export const PopupProcessingCredit = React.forwardRef(
 
 
                     </View>
-                </View>
             </Modal>
         );
     }

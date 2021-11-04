@@ -8,7 +8,8 @@ import { IconButton,
          Button, 
          DialogSuccess, 
          DialogLoading,
-         PopupProcessingCredit } from "@shared/components";
+         PopupProcessingCredit,
+         PopupErrorMessage, } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { ItemsPay } from "./ItemsPay";
@@ -23,6 +24,9 @@ export const Layout = ({
     dialogSuccessRef,
     popupChangeRef,
     popupPaymentDetailRef,
+    popupProcessingRef,
+    popupErrorMessageRef,
+    errorMessageFromPax,
     dialogActiveGiftCard,
     onOK,
     onPayGiftCard,
@@ -97,6 +101,12 @@ export const Layout = ({
             <PopupProcessingCredit
                 ref={popupProcessingRef}
                 onConfirmYes={() => onCancelTransactionCredit()}
+            />
+
+            <PopupErrorMessage
+                ref={popupErrorMessageRef}
+                title={t("Trasaction Fail")}
+                message={errorMessageFromPax}
             />
 
         </View>

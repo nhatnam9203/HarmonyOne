@@ -8,19 +8,30 @@ import {
   checkoutAppointment,
   getAppointmentByDate,
   cancelHarmonyPayment,
-  getGroupAppointmentById
+  getGroupAppointmentById,
+  submitPaymentWithCreditCard,
 } from '@src/apis';
 import { useDispatch, useSelector } from "react-redux";
-import { dateToFormat, guid } from "@shared/utils";
-import { bookAppointment, appointment, app } from "@redux/slices";
+import { 
+  dateToFormat, 
+  guid,
+ } from "@shared/utils";
+import {
+  requestTransactionDejavoo,
+  stringIsEmptyOrWhiteSpaces,
+} from "@utils";
+import { bookAppointment, 
+  appointment, 
+  app, 
+  hardware,
+ } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 import { Alert } from 'react-native';
 import { isEmpty, method } from "lodash";
+import { parseString } from 'react-native-xml2js';
+import _ from 'lodash';
 import Configs from '@src/config';
 const signalR = require("@microsoft/signalr");
-import {
-  requestTransactionDejavoo,
-} from "@utils";
 
 
 export const useProps = (props) => {
@@ -32,7 +43,8 @@ export const useProps = (props) => {
   const dialogActiveGiftCard = React.useRef();
   const popupPaymentDetailRef = React.useRef();
   const popupChangeRef = React.useRef();
-
+  const popupProcessingRef = React.useRef();
+  const popupErrorMessageRef = React.useRef();
 
   /************************************* SELECTOR *************************************/
   const {
@@ -40,7 +52,8 @@ export const useProps = (props) => {
                   groupAppointments = [], 
                   appointmentDate, 
                   startProcessingPax },
-    auth: { staff }
+    auth: { staff },
+    hardware: { dejavooMachineInfo },
   } = useSelector(state => state);
 
   /************************************* STATE *************************************/
@@ -49,6 +62,14 @@ export const useProps = (props) => {
   const [isCancelHarmony, changeStatusCancelHarmony] = React.useState(false);
   const [connectionSignalR, setConnectionSignalR] = React.useState(null);
   const [paymentDetail, setPaymentDetail] = React.useState(null);
+  const [errorMessageFromPax, setErrorMessageFromPax] = React.useState("");
+
+
+  React.useEffect(() => {
+    if (payAppointmentId && methodPay.method === "credit_card") {
+        handlePaymentByCredit();
+    }
+  }, [payAppointmentId]);
 
   /************************************* GỌI API SELECT METHOD PAY *************************************/
   const [, submitSelectPaymentMethod] = useAxiosMutation({
@@ -56,12 +77,12 @@ export const useProps = (props) => {
     isStopLoading: true,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
-        if (methodPay.method == "harmony") {
+        if (methodPay.method == "harmony" 
+          || methodPay.method == "credit_card") {
           setPayAppointmentId(data);
         }
-        if (methodPay.method === "credit_card") {
-          handlePaymentByCredit();
-        } else if (methodPay.method !== "harmony") {
+ 
+        if (methodPay.method !== "harmony") {
           const body = await checkoutSubmit(response.data);
           applyCheckoutSubmit(body.params);
         }
@@ -138,6 +159,14 @@ export const useProps = (props) => {
           setConnectionSignalR(null);
         }, 300);
       }
+    }
+  });
+
+  /************************************* GỌI API SELECT METHOD PAY *************************************/
+  const [, submitPaymentCreditCard] = useAxiosMutation({
+    ...submitPaymentWithCreditCard(),
+    onSuccess: async (data, response) => {
+      
     }
   });
 
@@ -225,7 +254,7 @@ export const useProps = (props) => {
    * Handle payment by credit card
    * Dejavoo
    */
-  const handlePaymentByCredit = () => {
+  const handlePaymentByCredit = async() => {
     popupProcessingRef?.current?.show();
        
     //Payment by Dejavoo
@@ -235,15 +264,17 @@ export const useProps = (props) => {
       amount: Number(groupAppointments?.dueAmount).toFixed(2),
       RefId: payAppointmentId,
       invNum: `${groupAppointments?.checkoutGroupId || 0}`,
+      dejavooMachineInfo,
     };
-    requestTransactionDejavoo(parameter).then((responses) => {
-      handleResponseCreditCardDejavoo(
-        responses,
-        true,
-        groupAppointments?.dueAmount,
-        parameter
-      );
-    })
+    console.log(parameter)
+    const responses = await requestTransactionDejavoo(parameter)
+    console.log(responses)
+    handleResponseCreditCardDejavoo(
+      responses,
+      true,
+      groupAppointments?.dueAmount,
+      parameter
+    );
   }
 
   const handleResponseCreditCardDejavoo = async (
@@ -252,47 +283,49 @@ export const useProps = (props) => {
     moneyUserGiveForStaff,
     parameter
   ) =>  {
-    popupProcessingRef?.current?.show();
-    
+    popupProcessingRef?.current?.hide();
+    console.log('start handleResponseCreditCardDejavoo')
     try {
       parseString(message, (err, result) => {
+        console.log('handleResponseCreditCardDejavoo', err, result)
         if (err || _.get(result, 'xmp.response.0.ResultCode.0') != 0) {
           let detailMessage = _.get(result, 'xmp.response.0.RespMSG.0', "").replace(/%20/g, " ")
           detailMessage = !stringIsEmptyOrWhiteSpaces(detailMessage) ? `: ${detailMessage}` : detailMessage
           
           const resultTxt = `${_.get(result, 'xmp.response.0.Message.0')}${detailMessage}`
                             || "Transaction failed";
+          console.log('handleResponseCreditCardDejavoo fale', payAppointmentId)
           if (payAppointmentId) {
-            dispatch(
-              actions.appointment.cancelHarmonyPayment(
-                payAppointmentId,
-                "transaction fail",
-                resultTxt
-              )
-            );
+            const data = {
+              status: "transaction fail",
+              note: resultTxt,
+            }
+            const body = cancelHarmonyPayment(payAppointmentId, data)
+            console.log('cancel', body)
+            submitCancelHarmonyPayment(body.params);
           }
           setTimeout(() => {
-            setVisibleErrorMessageFromPax(true);
-            setErrorMessageFromPax(`${resultTxt}`);
+            setErrorMessageFromPax(resultTxt);
+            popupErrorMessageRef?.current?.show();
           }, 300);
         } else {
+          console.log('handleResponseCreditCardDejavoo success', payAppointmentId)
           const SN = _.get(result, 'xmp.response.0.SN.0');
           if(!stringIsEmptyOrWhiteSpaces(SN)){
-            dispatch(actions.hardware.setDejavooMachineSN(SN));
+            dispatch(hardware.setDejavooMachineSN(SN));
           }
-          dispatch(actions.appointment.submitPaymentWithCreditCard(
-            profile?.merchantId || 0,
-            message,
-            payAppointmentId,
-            moneyUserGiveForStaff,
-            "dejavoo",
-            parameter
-          ));
+          const body = submitPaymentWithCreditCard(profile?.merchantId || 0,
+                                                    message,
+                                                    payAppointmentId,
+                                                    moneyUserGiveForStaff,
+                                                    "dejavoo",
+                                                    parameter)
+          submitPaymentCreditCard(body.params);
         }
       });
-       
-      
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+    }
   }
   
   return {
@@ -300,6 +333,9 @@ export const useProps = (props) => {
     methodPay,
     dialogSuccessRef,
     popupPaymentDetailRef,
+    popupProcessingRef,
+    popupErrorMessageRef,
+    errorMessageFromPax,
     dialogActiveGiftCard,
     popupChangeRef,
     isCancelHarmony,
@@ -327,7 +363,7 @@ export const useProps = (props) => {
 
     onSubmitPayment: async () => {
       if (methodPay.method == "credit_card") {
-        Alert.alert("pay bằng credit card")
+        handlePayment()
       } else if (methodPay.method == "harmony") {
         setupSignalR();
         return;

@@ -1,11 +1,6 @@
 import axios from "axios";
-import {
-    AUTHEN_KEY,
-  } from '@utils';
 import _ from "lodash";
 import { parseString } from "react-native-xml2js";
-// import configureStore from "../redux/store";
-// const { store } = configureStore();
 let headers = Object.assign(
   { Accept: "application/json", "Content-Type": "application/json" }
 );
@@ -13,8 +8,7 @@ let headers = Object.assign(
 const api = 'https://spinpos.net/spin/cgi.html'
 
 export const requestTransactionDejavoo = async (params) => {
-    // const { hardware } = store.getState();
-    // const { dejavooMachineInfo } = hardware;
+    const dejavooMachineInfo = _.get(params, 'dejavooMachineInfo');
     const transType = _.get(params, 'transType')
     const param = `<request>`+
                 `<PaymentType>${_.get(params, 'tenderType')}</PaymentType>`+
@@ -54,8 +48,7 @@ export const requestTransactionDejavoo = async (params) => {
   }
   
   export const requestPrintDejavoo = async (params) => {
-    const { hardware } = store.getState();
-    const { dejavooMachineInfo } = hardware;
+    const dejavooMachineInfo = _.get(params, 'dejavooMachineInfo');
     const param = `<request>`+
                 `<AuthKey>${_.get(dejavooMachineInfo, 'authKey')}</AuthKey>`+
                 `<RegisterId>${_.get(dejavooMachineInfo, 'registerId')}</RegisterId>`+
@@ -76,8 +69,7 @@ export const requestTransactionDejavoo = async (params) => {
   };
 
   export const requestSettlementDejavoo = async () => {
-    const { hardware } = store.getState();
-    const { dejavooMachineInfo } = hardware;
+    const dejavooMachineInfo = _.get(params, 'dejavooMachineInfo');
     const param = `<request>`+
                 `<AuthKey>${_.get(dejavooMachineInfo, 'authKey')}</AuthKey>`+
                 `<RegisterId>${_.get(dejavooMachineInfo, 'registerId')}</RegisterId>`+

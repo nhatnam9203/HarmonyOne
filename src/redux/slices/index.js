@@ -16,6 +16,7 @@ import editAppointmentSlice from "./editAppointmentSlice";
 import invoiceSlice from "./invoiceSlice";
 import settlementSlice from "./settlementSlice";
 import reportSlice from "./reportSlice";
+import hardwareSlice from "./hardwareSlice";
 
 const rootReducers = Object.assign(
   {},
@@ -38,6 +39,7 @@ const rootReducers = Object.assign(
     invoice : invoiceSlice.reducer,
     settlement : settlementSlice.reducer,
     report : reportSlice.reducer,
+    hardware: hardwareSlice.reducer,
   },
 );
 

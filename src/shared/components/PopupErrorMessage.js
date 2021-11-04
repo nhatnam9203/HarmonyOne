@@ -12,6 +12,7 @@ export const PopupErrorMessage = React.forwardRef(
     ({
         onConfirmYes = () => { },
         onModalHide = () => { },
+        message,
     }, ref) => {
         const [t] = useTranslation();
 
@@ -57,7 +58,7 @@ export const PopupErrorMessage = React.forwardRef(
                         </Text>
                     </View>
                     {
-                        Platform.OS === "ios" ? <View style={{ paddingVertical: scaleSize(14) }} >
+                        Platform.OS === "ios" ? <View style={{ paddingVertical: scaleHeight(14) }} >
                             <Button
                                 onPress={onHandleYESButtonPress}
                                 highlight={false}
