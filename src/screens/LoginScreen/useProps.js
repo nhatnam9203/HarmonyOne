@@ -27,9 +27,8 @@ export const useProps = (_params) => {
     onLoginError: (msg) => {
       setTextMessage(msg);
     },
-    onSuccess: (data) => {
-      console.log({ data })
-      if (data?.code) {
+    onSuccess: (data, response) => {
+      if (response?.codeNumber == 200) {
         dispatch(auth.loginMerchant(merchantID));
         AsyncStorage.setItem("@merchantID", JSON.stringify(merchantID));
       }
@@ -37,6 +36,32 @@ export const useProps = (_params) => {
       NavigationService.navigate(ScreenNames.PinScreen);
     },
   });
+
+  const requestUserPermission = async () => {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+    if (enabled) {
+      getFcmToken() //<---- Add this
+      console.log('Authorization status:', authStatus);
+    }
+  }
+
+  const getFcmToken = async () => {
+    const fcmToken = await messaging().getToken();
+    if (fcmToken) {
+      console.log("Your Firebase Token is:", fcmToken);
+      setFcmToken(fcmToken)
+    } else {
+      console.log("Failed", "No token received");
+    }
+  }
+
+  React.useState(() => {
+    requestUserPermission();
+  }, []);
+
 
 
   React.useEffect(() => {
@@ -64,11 +89,10 @@ export const useProps = (_params) => {
       NavigationService.navigate('WhatIsMerchant');
     },
     loginMerchant: async () => {
-      const firebaseToken = await getFcmToken();
       setTextMessage(null);
       const data = {
         email: merchantID,
-        password: "72ee0157",
+        password: "1qaz@WSC",
         firebaseToken,
         deviceId: DeviceInfo.getUniqueId(),
       };

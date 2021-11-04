@@ -25,7 +25,6 @@ export const useProps = (_params) => {
       // setTextMessage(msg);
     },
     onSuccess: (data) => {
-      console.log({ data })
       if (data) {
         dispatch(auth.loginStaff(data));
         dispatch(app.setStatusHomeScreen(true));
@@ -36,6 +35,7 @@ export const useProps = (_params) => {
 
   const initialMerchantID = async () => {
     const merchant_code = await AsyncStorage.getItem("@merchantID");
+    console.log({ merchantID, merchant_code })
     if (merchantID) {
       setMerchantCode(merchantID);
     } else {
@@ -54,9 +54,12 @@ export const useProps = (_params) => {
       setPinCode(val);
     },
     pinCode,
+
     loginStaff: () => {
+      console.log({ merchantCode })
       staffLogin();
     },
+
     isLoading: isLoading,
     forgotPinCode: () => {
       NavigationService.navigate('ForgotPincode');

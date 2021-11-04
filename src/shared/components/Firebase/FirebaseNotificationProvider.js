@@ -13,8 +13,14 @@ import _ from 'lodash';
 //   handleAutoClose,
 // } from "@utils";
 
-const FirebaseNotificationProvider = ({ token }) => {
-  console.log('firebase notification provider')
+const FirebaseNotificationProvider = () => {
+
+  const {
+    auth: { staff }
+  } = useSelector(state => state);
+
+  const token = staff?.token;
+
   const dispatch = useDispatch();
   const [currentAppState, setCurrentAppState] = React.useState(
     AppState.currentState
@@ -29,6 +35,7 @@ const FirebaseNotificationProvider = ({ token }) => {
     ...activeFirebase(),
     isLoadingDefault: false,
     onSuccess: (data, response) => {
+      console.log('response active firebase : ', { response })
     }
   })
 
@@ -115,7 +122,6 @@ const FirebaseNotificationProvider = ({ token }) => {
   }
 
   React.useEffect(() => {
-    console.log({ token })
     if (firebaseToken && token) {
       callActiveFirebase(firebaseToken);
     }
