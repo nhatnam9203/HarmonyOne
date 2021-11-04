@@ -35,7 +35,6 @@ export const useProps = (_params) => {
 
   const initialMerchantID = async () => {
     const merchant_code = await AsyncStorage.getItem("@merchantID");
-    console.log({ merchantID, merchant_code })
     if (merchantID) {
       setMerchantCode(merchantID);
     } else {
@@ -56,7 +55,6 @@ export const useProps = (_params) => {
     pinCode,
 
     loginStaff: () => {
-      console.log({ merchantCode })
       staffLogin();
     },
 

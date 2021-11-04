@@ -7,7 +7,6 @@ import { SearchInput, PeriodPicker, IconButton, CustomInput, InputSelect } from 
 import { images } from "@shared/themes/resources";
 import { DataList } from "./DataList";
 import { customerGroup } from "@shared/utils"
-import SendSMS from "react-native-sms";
 
 
 export const Layout = ({

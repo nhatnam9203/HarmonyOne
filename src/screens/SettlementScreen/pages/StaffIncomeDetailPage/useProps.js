@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
+import SendSMS from "react-native-sms";
 
 
 export const useProps = (props) => {
@@ -45,19 +46,24 @@ export const useProps = (props) => {
           (staff) => staff?.staffId === staffSelected?.value
         );
 
+        console.log({staffInfoFromMerchant})
+
         if (staffInfo) {
           const displayName = staffInfoFromMerchant.displayName ? staffInfoFromMerchant.displayName : "";
           const total = staffInfo.total ? staffInfo.total : 0.0;
           const phone = staffInfoFromMerchant.phone ? staffInfoFromMerchant.phone : "";
           const today = moment().format("MM/DD/YYYY");
 
+          const data = {
+            body: `Hello ${displayName}, your total today ${today} is $${total}. Thank you :)`,
+            recipients: [`${phone}`],
+            successTypes: ["sent", "queued"],
+            allowAndroidSendWithoutReadPermission: true,
+          };
+
+
           SendSMS.send(
-            {
-              body: `Hello ${displayName}, your total today ${today} is $${total}. Thank you :)`,
-              recipients: [`${phone}`],
-              successTypes: ["sent", "queued"],
-              allowAndroidSendWithoutReadPermission: true,
-            },
+            data,
             (completed, cancelled, error) => {
             }
           );
