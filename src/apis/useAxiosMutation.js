@@ -14,6 +14,7 @@ export const useAxiosMutation = ({
   const dispatch = useDispatch();
 
   const postRequest = async (body = null) => {
+    console.log({ params })
     const response = body ? await axios(body) : await axios(params);
     return response?.data;
   };

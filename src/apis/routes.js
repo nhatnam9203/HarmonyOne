@@ -1,9 +1,10 @@
 import { guid } from "@shared/utils";
 
-export const merchantLogin = (merchantID) => ({
+export const merchantLogin = (data) => ({
   params: {
-    url: `/merchant/login/${merchantID}`,
+    url: `/merchant/login`,
     method: 'POST',
+    data
   },
 });
 
@@ -827,3 +828,12 @@ export const sendFeedback = (data) => ({
   }
 });
 
+
+export const activeFirebase = (data) => ({
+  queryId: 'activeFirebase',
+  params: {
+    url: `merchant/setupFireBase`,
+    method: 'PUT',
+    data
+  }
+});

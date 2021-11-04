@@ -12,6 +12,7 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { RootNavigation } from './navigation';
+import { FirebaseNotificationProvider } from "@shared/components";
 
 YellowBox.ignoreWarnings(['Setting a timer']);
 YellowBox.ignoreWarnings([
@@ -31,12 +32,13 @@ export default App = () => {
     <Provider store={store}>
       <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
         <CodePushProvider>
-        <AxiosApiProvider>
-          <AppStateProvider>
-            <PaperProvider>
+          <AxiosApiProvider>
+            <AppStateProvider>
+              <PaperProvider>
                 <RootNavigation />
-            </PaperProvider>
-          </AppStateProvider>
+              </PaperProvider>
+              <FirebaseNotificationProvider />
+            </AppStateProvider>
           </AxiosApiProvider>
         </CodePushProvider>
       </PersistGate>
