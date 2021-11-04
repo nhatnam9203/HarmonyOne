@@ -22,7 +22,7 @@ export const useProps = (_params) => {
 
 
   const [{ isLoading }, login] = useAxiosMutation({
-    ...merchantLogin(),
+    ...merchantLogin(merchantID),
     isLoadingDefault: false,
     onLoginError: (msg) => {
       setTextMessage(msg);
@@ -81,24 +81,29 @@ export const useProps = (_params) => {
 
   return {
     merchantID,
+
     onChangeMID: (mid) => {
       setMerchantID(mid);
     },
+
     isLoading: isLoading,
+
     whatMerchantID: () => {
       NavigationService.navigate('WhatIsMerchant');
     },
+
     loginMerchant: async () => {
       setTextMessage(null);
       const data = {
-        email: merchantID,
-        password: "1qaz@WSC",
+        // email: merchantID,
+        // password: "1qaz@WSC",
         firebaseToken,
         deviceId: DeviceInfo.getUniqueId(),
       };
-      const body = await merchantLogin(data);
+      const body = await merchantLogin(merchantID,data);
       login(body.params);
     },
+
     textMessage,
   };
 };

@@ -1,8 +1,8 @@
 import { guid } from "@shared/utils";
 
-export const merchantLogin = (data) => ({
+export const merchantLogin = (merchantID,data) => ({
   params: {
-    url: `/merchant/login`,
+    url: `/merchant/login/${merchantID}`,
     method: 'POST',
     data
   },

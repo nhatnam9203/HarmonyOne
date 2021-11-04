@@ -5,6 +5,7 @@ import {
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import NavigationService from "@navigation/NavigationService";
+import moment from "moment";
 
 
 export const useProps = (props) => {
@@ -16,7 +17,8 @@ export const useProps = (props) => {
   const [staffSelected, setStaffSelected] = React.useState("");
 
   const {
-    settlement: { listStaffSales = [] }
+    settlement: { listStaffSales = [] },
+    staff: { staffListByMerchant = [] }
   } = useSelector(state => state);
 
   React.useEffect(() => {
@@ -25,6 +27,7 @@ export const useProps = (props) => {
     setStaffSelected({ label: staffDetail?.name, value: staffDetail?.staffId });
   }, [listStaffSales]);
 
+
   return {
     form,
     stafListRef,
@@ -32,5 +35,36 @@ export const useProps = (props) => {
     staffSelected,
     listStaffSales,
     setStaffSelected,
+
+    sendTotalViaSMS: async () => {
+      try {
+        const staffInfo = listStaffSales.find(
+          (staff) => staff?.staffId === staffSelected?.value
+        );
+        const staffInfoFromMerchant = staffListByMerchant.find(
+          (staff) => staff?.staffId === staffSelected?.value
+        );
+
+        if (staffInfo) {
+          const displayName = staffInfoFromMerchant.displayName ? staffInfoFromMerchant.displayName : "";
+          const total = staffInfo.total ? staffInfo.total : 0.0;
+          const phone = staffInfoFromMerchant.phone ? staffInfoFromMerchant.phone : "";
+          const today = moment().format("MM/DD/YYYY");
+
+          SendSMS.send(
+            {
+              body: `Hello ${displayName}, your total today ${today} is $${total}. Thank you :)`,
+              recipients: [`${phone}`],
+              successTypes: ["sent", "queued"],
+              allowAndroidSendWithoutReadPermission: true,
+            },
+            (completed, cancelled, error) => {
+            }
+          );
+        }
+      } catch (error) {
+        // alert(error)
+      }
+    }
   };
 };
