@@ -14,6 +14,7 @@ import _ from 'lodash';
 // } from "@utils";
 
 const FirebaseNotificationProvider = () => {
+  console.log('firebase notification provider')
   const dispatch = useDispatch();
   const [currentAppState, setCurrentAppState] = React.useState(
     AppState.currentState
@@ -56,7 +57,6 @@ const FirebaseNotificationProvider = () => {
     //   type: "HANDLE_NOTIFICATION_WHEN_HAVE_A_APPOINTMENT",
     //   payload: data,
     // });
-    alert('có appointment')
     notifyService?.firebaseNotify(data);
   };
 
@@ -119,7 +119,10 @@ const FirebaseNotificationProvider = () => {
       deviceId,
       firebaseToken,
     }
+
     const body = await activeFirebase(data);
+    console.log('call ative firebase : ');
+    console.log({ data })
     submitActiveFirebase(body.params);
   }
 

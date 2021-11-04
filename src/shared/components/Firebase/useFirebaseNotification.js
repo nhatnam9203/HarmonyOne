@@ -1,6 +1,5 @@
 import AsyncStorage from "@react-native-community/async-storage";
 import messaging from "@react-native-firebase/messaging";
-import {Alert} from "react-native"
 import React from "react";
 
 const FIREBASE_TOKEN_STORE_KEY = "fcmToken";
@@ -29,15 +28,12 @@ function useFirebaseNotification({
 
     if (SAVE_STORE_TOKEN) {
       fcmToken = await AsyncStorage.getItem(FIREBASE_TOKEN_STORE_KEY);
-      Alert.aletr(fcmToken)
       if (!fcmToken) {
         fcmToken = await messaging().getToken();
-        Alert.aletr(fcmToken)
         await saveStoreToken(fcmToken);
       }
     } else {
       fcmToken = await messaging().getToken();
-      Alert.aletr(fcmToken)
     }
 
     setFirebaseToken(fcmToken);
