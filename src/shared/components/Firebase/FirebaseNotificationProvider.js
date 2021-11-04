@@ -1,5 +1,5 @@
 import React from "react";
-import { AppState } from "react-native";
+import { Alert, AppState } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import useFirebaseNotification from "./useFirebaseNotification";
 import NotifService from "@utils/NotifService";
@@ -53,6 +53,7 @@ const FirebaseNotificationProvider = () => {
     //   type: "HANDLE_NOTIFICATION_WHEN_HAVE_A_APPOINTMENT",
     //   payload: data,
     // });
+    
     notifyService?.firebaseNotify(data);
   };
 

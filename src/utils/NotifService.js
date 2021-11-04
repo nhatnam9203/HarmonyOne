@@ -122,10 +122,10 @@ export default class NotifService {
     const { body, sound, ...notify } = notification;
     PushNotification.localNotification({
       ...notify,
-      playSound: sound || false, // (optional) default: true
-      soundName: "harmony.mp3",
+      // playSound: sound || false, // (optional) default: true
+      // soundName: "harmony.mp3",
       message: body,
-      messageId,
+      // messageId,
     });
   }
 
