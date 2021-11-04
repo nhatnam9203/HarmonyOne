@@ -72,7 +72,6 @@ export const useProps = (_params) => {
         firebaseToken,
         deviceId: DeviceInfo.getUniqueId(),
       };
-      console.log({ data })
       const body = await merchantLogin(data);
       login(body.params);
     },

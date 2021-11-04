@@ -25,6 +25,7 @@ export const useProps = (_params) => {
       // setTextMessage(msg);
     },
     onSuccess: (data) => {
+      console.log({ data })
       if (data) {
         dispatch(auth.loginStaff(data));
         dispatch(app.setStatusHomeScreen(true));

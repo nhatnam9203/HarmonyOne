@@ -13,14 +13,13 @@ import _ from 'lodash';
 //   handleAutoClose,
 // } from "@utils";
 
-const FirebaseNotificationProvider = () => {
+const FirebaseNotificationProvider = ({ token }) => {
   console.log('firebase notification provider')
   const dispatch = useDispatch();
   const [currentAppState, setCurrentAppState] = React.useState(
     AppState.currentState
   );
 
-  const [token, setToken] = React.useState("");
   let notifyService;
   // const token = useSelector((state) => state.auth.token);
   // const paxMachineInfo = useSelector((state) => state.hardware.paxMachineInfo);
@@ -32,16 +31,6 @@ const FirebaseNotificationProvider = () => {
     onSuccess: (data, response) => {
     }
   })
-
-  const initialToken = async () => {
-    const _token = await getAuthToken();
-    saveFcmToken(token);
-    setToken(_token);
-  }
-
-  React.useEffect(() => {
-    initialToken();
-  }, []);
 
   React.useEffect(() => {
     notifyService = new NotifService(onClickedNotifyMessage);
@@ -113,6 +102,7 @@ const FirebaseNotificationProvider = () => {
     return DeviceInfo.getUniqueId();
   }
 
+
   const callActiveFirebase = async (firebaseToken) => {
     const deviceId = await getUniqueDeviceId();
     const data = {
@@ -121,16 +111,15 @@ const FirebaseNotificationProvider = () => {
     }
 
     const body = await activeFirebase(data);
-    console.log('call ative firebase : ');
-    console.log({ data })
     submitActiveFirebase(body.params);
   }
 
   React.useEffect(() => {
-    if (firebaseToken) {
+    console.log({ token })
+    if (firebaseToken && token) {
       callActiveFirebase(firebaseToken);
     }
-  }, [firebaseToken]);
+  }, [firebaseToken, token]);
 
   return null;
 };

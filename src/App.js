@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { RootNavigation } from './navigation';
 import { FirebaseNotificationProvider } from "@shared/components";
+import { getAuthToken } from '@shared/storages/authToken';
 
 YellowBox.ignoreWarnings(['Setting a timer']);
 YellowBox.ignoreWarnings([
@@ -28,6 +29,7 @@ if (__DEV__) {
 const { persistor, store } = configureStore();
 
 export default App = () => {
+
   return (
     <Provider store={store}>
       <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
@@ -36,7 +38,7 @@ export default App = () => {
             <AppStateProvider>
               <PaperProvider>
                 <RootNavigation />
-                <FirebaseNotificationProvider />
+                <FirebaseNotificationProvider token={null} />
               </PaperProvider>
             </AppStateProvider>
           </AxiosApiProvider>
