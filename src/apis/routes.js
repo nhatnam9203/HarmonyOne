@@ -702,12 +702,21 @@ export const submitPaymentWithCreditCard = (merchantId,
       data: {
         merchantId,
         userId: 0,
-        title: paymentTerminal,
+        title: "pax",
         responseData,
         checkoutPaymentId: checkoutPaymentId,
         paymentTerminal,
         paymentData
       }
+    }
+})
+
+export const sendGoogleReviewLink = (customerId = 0, merchantId = 0) => ({
+    
+    queryId: 'sendGoogleReviewLink',
+    params: {
+      url: `customer/sendReviewLink?customerId=${customerId}&merchantId=${merchantId}`,
+      method: 'GET',
     }
 })
 

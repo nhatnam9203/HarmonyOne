@@ -45,6 +45,7 @@ export const useProps = (props) => {
   const popupChangeRef = React.useRef();
   const popupProcessingRef = React.useRef();
   const popupErrorMessageRef = React.useRef();
+  const popupPayCompletedRef = React.useRef();
 
   /************************************* SELECTOR *************************************/
   const {
@@ -65,7 +66,8 @@ export const useProps = (props) => {
   const [errorMessageFromPax, setErrorMessageFromPax] = React.useState("");
 
 
-  React.useEffect(() => {
+ /************************************* useEffect *************************************/
+ React.useEffect(() => {
     if (payAppointmentId && methodPay.method === "credit_card") {
         handlePaymentByCredit();
     }
@@ -162,11 +164,15 @@ export const useProps = (props) => {
     }
   });
 
-  /************************************* GỌI API SELECT METHOD PAY *************************************/
+  /************************************* CALL API PAYMENT CREDIT CARD SUCCESS *************************************/
   const [, submitPaymentCreditCard] = useAxiosMutation({
     ...submitPaymentWithCreditCard(),
     onSuccess: async (data, response) => {
-      
+      setMethodPay(null);
+      setPayAppointmentId(null);
+      changeStatusCancelHarmony(false);
+      console.log('dialogSuccessRef', dialogSuccessRef)
+      dialogSuccessRef?.current?.show();
     }
   });
 
@@ -314,12 +320,14 @@ export const useProps = (props) => {
           if(!stringIsEmptyOrWhiteSpaces(SN)){
             dispatch(hardware.setDejavooMachineSN(SN));
           }
-          const body = submitPaymentWithCreditCard(profile?.merchantId || 0,
-                                                    message,
+          const messageTemp = message.replace(/\n/g, "")
+          const body = submitPaymentWithCreditCard(staff?.merchantId || 0,
+                                                    messageTemp,
                                                     payAppointmentId,
                                                     moneyUserGiveForStaff,
                                                     "dejavoo",
                                                     parameter)
+          console.log('submitPaymentWithCreditCard', body.params)
           submitPaymentCreditCard(body.params);
         }
       });
@@ -335,6 +343,7 @@ export const useProps = (props) => {
     popupPaymentDetailRef,
     popupProcessingRef,
     popupErrorMessageRef,
+    popupPayCompletedRef,
     errorMessageFromPax,
     dialogActiveGiftCard,
     popupChangeRef,
@@ -363,10 +372,11 @@ export const useProps = (props) => {
 
     onSubmitPayment: async () => {
       if (methodPay.method == "credit_card") {
-        handlePayment()
+        //hard code
+        // handlePayment()
+        popupPayCompletedRef?.current?.show();
       } else if (methodPay.method == "harmony") {
         setupSignalR();
-        return;
       } else {
         NavigationService.navigate(screenNames.EnterAmountPage, { handlePayment });
       }

@@ -404,3 +404,21 @@ export const handleFileDownloaed = async (path, exportType, fileName) => {
     await android.actionViewIntent(pathFileInventory, 'application/vnd.android.package-archive')
   }
 }
+
+export const getTitleSendLinkGoogle = (value) => {
+  let title = "";
+  switch (value) {
+    case "auto":
+      title = "Automatic";
+      break;
+    case "manual":
+      title = "Manually";
+      break;
+    case "off":
+      title = "Off";
+      break;
+    default:
+      title = "Manually";
+  }
+  return title;
+};

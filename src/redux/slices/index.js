@@ -63,4 +63,5 @@ module.exports = {
   invoice : invoiceSlice.actions,
   settlement : settlementSlice.actions,
   report : reportSlice.actions,
+  hardware: hardwareSlice.actions,
 };
