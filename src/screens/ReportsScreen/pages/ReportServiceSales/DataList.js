@@ -73,7 +73,7 @@ export const DataList = ({
             tableData={data}
             tableHead={{
                 name: "Service",
-                quantity: "Sales Qty",
+                quantity: "Sale Qty",
                 totalDuration: "Total Durations",
                 avgPrice: "Av. Price",
                 totalSales: "Total Sales"

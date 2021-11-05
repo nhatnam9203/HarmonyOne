@@ -93,7 +93,7 @@ export const DataList = ({
             isRenderSection={true}
 
             headStyle={{ color: colors.ocean_blue, fontSize: scaleFont(15), textAlign: 'left' }}
-            unitKeys={{ type: "", }}
+            unitKeys={{ totalDuration: "hrs", }}
             arrTextTotal={["date"]}
             maxColumnCount={3}
             sortDefault="NONE"

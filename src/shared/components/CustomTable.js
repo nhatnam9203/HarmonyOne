@@ -14,12 +14,13 @@ import {
   StyleSheet,
   Text,
   View,
-  Dimensions,TouchableOpacity,
+  Dimensions, TouchableOpacity,
   Alert
 } from "react-native";
 import { StickyForm } from "react-native-largelist-v3";
 import { NormalHeader } from "react-native-spring-scrollview/NormalHeader";
 import moment from "moment";
+import sortArray from "sort-array";
 
 const { height: screenHeight, width: screenWidth } = Dimensions.get("window");
 
@@ -150,18 +151,21 @@ function TableListExtended({
   const [fromLeft, setFromLeft] = useState(0);
   const [currentOffset, setCurrentOffset] = useState({ x: 0, y: 0 });
 
+  const sortTable = (sortType, data, direction) => {
+    let temptData = JSON.parse(JSON.stringify(data));
+    temptData = sortArray(temptData, {
+      by: sortType,
+      order: direction.toString().toLowerCase(),
+    });
+    return temptData;
+  };
+
+
   const setListData = (sort) => {
     let sortList = [...tableData];
     if (sortKey && sortList.length > 0 && sort !== SORT_STATE.none) {
-      sortList.sort((a, b) => {
-        if (sort === SORT_STATE.desc) {
-          return strCompare(a[sortKey], b[sortKey]);
-        } else if (sort === SORT_STATE.asc) {
-          return strCompare(b[sortKey], a[sortKey]);
-        }
-      });
+      sortList = sortTable(sortKey, sortList, sort);
     }
-
     setData(sortList);
   };
 
@@ -381,11 +385,11 @@ function TableListExtended({
               key={keyUnique}
             >
               <TableCell
-                onPress={() => onFirstCellPress({ item,row })}
+                onPress={() => onFirstCellPress({ item, row })}
                 style={[{
                   width: getCellWidth(keyIndex, key),
                   ...(isPriceCell(key) && { alignItems: "flex-end" }),
-                },styleFirstCell]}
+                }, styleFirstCell]}
                 disabled={!onFirstCellPress}
               >
                 {key === TABLE_ACTION_KEY
@@ -407,7 +411,7 @@ function TableListExtended({
                 key={keyUnique}
                 style={{
                   width: getCellWidth(keyIndex, key),
-                  alignItems : 'flex-start',
+                  alignItems: 'flex-start',
                   ...(keyIndex == whiteKeys?.length - 1 && { alignItems: "flex-end" }),
                 }}
                 disabled={!onCellPress}
@@ -475,7 +479,7 @@ function TableListExtended({
               key={uniqueId(key, index, "header")}
               style={{
                 width: getCellWidth(index, key),
-                alignItems : 'flex-start',
+                alignItems: 'flex-start',
                 ...(index == whiteKeys?.length - 1 && { alignItems: "flex-end" }),
                 ...(sortKey === key && { flexDirection: "row" }),
                 backgroundColor: "white",
@@ -521,21 +525,21 @@ function TableListExtended({
         disabled={true}
       >
         {whiteKeys.map((key, index) => {
-          
+
           return index === 0 ? (
             <View
-              style={[styles.headName, { backgroundColor: "#fafafa", borderBottomWidth: 1, borderBottomColor: "#eeeeee"}]}
+              style={[styles.headName, { backgroundColor: "#fafafa", borderBottomWidth: 1, borderBottomColor: "#eeeeee" }]}
               key={uniqueId(key, index, "summary")}
             >
               <TableCell
                 style={[
-                  styleFirstSection,{
-                  width: getCellWidth(index, key),
-                  ...(isPriceCell(key) && {
-                    alignItems: "flex-end",
-                    backgroundColor: "#fafafa",
-                  }),
-                }]}
+                  styleFirstSection, {
+                    width: getCellWidth(index, key),
+                    ...(isPriceCell(key) && {
+                      alignItems: "flex-end",
+                      backgroundColor: "#fafafa",
+                    }),
+                  }]}
                 disabled={true}
               >
                 {key === sumTotalKey && (
@@ -576,7 +580,7 @@ function TableListExtended({
                       ? unitKeys[key]
                         ? formatServerNumber(sumObject[key]) + " " + unitKeys[key]
                         : "$ " + formatMoney(sumObject[key])
-                      : sumObject[key] + " " }
+                      : sumObject[key] + " "}
                   </Text>
                 )}
               </TableCell>
@@ -645,7 +649,7 @@ function TableListExtended({
         refreshHeader={NormalHeader}
         onLoading={onHandleLoadMore}
       />
-       {/* {!isContentSmallerThanScrollView && (
+      {/* {!isContentSmallerThanScrollView && (
         <Animated.View
           style={styles.scrollIndicatorContainer}
           onLayout={(e) =>
