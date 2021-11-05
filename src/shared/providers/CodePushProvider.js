@@ -49,7 +49,7 @@ export const CodePushProvider = ({ children }) => {
       codePush.allowRestart();
       setTimeout(() => {
         codePush.restartApp();
-        codePush.disallowRestart();
+        // codePush.disallowRestart();
       }, 300);
 
       return;
@@ -62,9 +62,9 @@ export const CodePushProvider = ({ children }) => {
     const defaultOption = {
       updateDialog: {
         appendReleaseDescription: true,
-        descriptionPrefix: '\nChange log:\n',
+        descriptionPrefix: '\nUpdate code:\n',
       },
-      // installMode: codePush.InstallMode.IMMEDIATE,
+      installMode: codePush.InstallMode.IMMEDIATE,
     };
 
     await codePush.sync(

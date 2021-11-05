@@ -46,8 +46,6 @@ export const useProps = (props) => {
           (staff) => staff?.staffId === staffSelected?.value
         );
 
-        console.log({staffInfoFromMerchant})
-
         if (staffInfo) {
           const displayName = staffInfoFromMerchant.displayName ? staffInfoFromMerchant.displayName : "";
           const total = staffInfo.total ? staffInfo.total : 0.0;

@@ -119,12 +119,11 @@ export default class NotifService {
   }
 
   firebaseNotify({ data, messageId, notification }) {
-    const { body, sound, ...notify } = notification;
     PushNotification.localNotification({
-      ...notify,
+     title : notification?.title || "HarmonyPay",
       // playSound: sound || false, // (optional) default: true
       // soundName: "harmony.mp3",
-      message: body,
+      message: notification?.body || "Welcome",
       // messageId,
     });
   }

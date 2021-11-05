@@ -137,10 +137,8 @@ export const useProps = ({
         id: 'edit-appointment',
         label: t('Edit Appointment'),
         func: () => {
-          setTimeout(() => {
-            dispatch(editAppointment.setAppointentEdit(appointmentDetail))
-            NavigationService.navigate(screenNames.EditAppointmentScreen);
-          }, 500);
+          dispatch(editAppointment.setAppointentEdit(appointmentDetail))
+          NavigationService.navigate(screenNames.EditAppointmentScreen);
         },
       },
       {

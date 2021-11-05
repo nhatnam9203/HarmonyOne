@@ -35,7 +35,6 @@ const FirebaseNotificationProvider = () => {
     ...activeFirebase(),
     isLoadingDefault: false,
     onSuccess: (data, response) => {
-      console.log('response active firebase : ', { response })
     }
   })
 
