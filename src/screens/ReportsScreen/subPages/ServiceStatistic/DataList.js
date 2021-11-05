@@ -21,7 +21,7 @@ export const DataList = ({
         switch (key) {
             case "date":
                 return (
-                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'center' }]}>
+                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'left' }]}>
                         {moment(item?.date).format("MMM DD YYYY")}
                     </Text>
                 );

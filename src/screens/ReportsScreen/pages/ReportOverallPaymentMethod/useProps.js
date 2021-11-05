@@ -113,7 +113,7 @@ export const useProps = (props) => {
       setRefresh(true);
       setCurrentPage(1);
       getDataList(
-        moment().startOf('week').format("MM/DD/YYYY"), moment().endOf('week').format("MM/DD/YYYY"), "", 1
+        timeStart, timeEnd, "", 1
       );
     },
 
