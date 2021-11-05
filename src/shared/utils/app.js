@@ -284,6 +284,8 @@ export const getContentDate = (timeStart, timeEnd) => {
   return text;
 };
 
+export const arrDateFilter = ["Today","Yesterday","This month","Last month","This week","Last week"];
+
 export const getConditionIdByTitle = (title) => {
   let id;
   switch (title) {

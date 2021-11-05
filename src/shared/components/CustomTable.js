@@ -14,7 +14,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Dimensions,TouchableOpacity
+  Dimensions,TouchableOpacity,
+  Alert
 } from "react-native";
 import { StickyForm } from "react-native-largelist-v3";
 import { NormalHeader } from "react-native-spring-scrollview/NormalHeader";
@@ -111,6 +112,7 @@ function TableListExtended({
   renderCell,
   onCellPress,
   onRowPress,
+  onFirstCellPress,
   renderActionCell,
   checkSumItem,
   sortKey,
@@ -379,12 +381,12 @@ function TableListExtended({
               key={keyUnique}
             >
               <TableCell
-                onPress={() => onCellPress(actProps)}
+                onPress={() => onFirstCellPress({ item,row })}
                 style={[{
                   width: getCellWidth(keyIndex, key),
                   ...(isPriceCell(key) && { alignItems: "flex-end" }),
                 },styleFirstCell]}
-                disabled={!onCellPress}
+                disabled={!onFirstCellPress}
               >
                 {key === TABLE_ACTION_KEY
                   ? cellActionRender

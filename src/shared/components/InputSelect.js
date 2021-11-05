@@ -39,8 +39,11 @@ export const InputSelect = React.forwardRef(({
         changeItem : (value) =>{
             const obj = items.find(item => item.value == value);
             if (obj) {
-                field.onChange(obj)
+                field.onChange(obj);
             }
+        },
+        changeItemNoExist : (obj) =>{
+            field.onChange(obj);
         }
       }));
 

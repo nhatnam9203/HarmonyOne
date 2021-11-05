@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, FlatList, ActivityIndicator, TextInput } from 'react-native';
+import { View, StyleSheet, Text, FlatList, ActivityIndicator, TextInput, Keyboard } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
@@ -42,6 +42,7 @@ export const Layout = ({
             value={value}
             onChangeText={onChange}
             style={styles.input}
+            onSubmitEditing={()=>Keyboard.dismiss()}
           />
         </View>
         <View style={styles.bottom}>

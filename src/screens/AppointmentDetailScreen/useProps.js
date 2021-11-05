@@ -50,6 +50,7 @@ export const useProps = ({
   const [{ }, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
     enabled: true,
+    isStopLoading : true,
     onSuccess: (data, response) => {
       dispatch(appointment.setBlockTimeBydate(data));
     },
@@ -59,6 +60,7 @@ export const useProps = ({
   const [, submitUpdateAppointmentStatus] = useAxiosMutation({
     ...updateAppointmentStatusRequest(),
     isLoadingDefault: true,
+    isStopLoading : true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         fetchAppointmentByDate();

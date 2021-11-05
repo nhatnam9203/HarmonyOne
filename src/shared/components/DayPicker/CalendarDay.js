@@ -12,7 +12,9 @@ export const CalendarDay = ({
     onDayPress = () => { },
     selectedDay,
     selectDay,
-    apply
+    apply,
+    maxDate,
+    minDate,
 }) => {
 
     const cancel = () => {
@@ -30,6 +32,8 @@ export const CalendarDay = ({
                 onPressArrowLeft={(substractMonth) => substractMonth()}
                 onPressArrowRight={(addMonth) => addMonth()}
                 theme={theme}
+                maxDate={maxDate}
+                minDate={minDate}
                 markedDates={{
                     [selectedDay]: {
                         startingDay: true,

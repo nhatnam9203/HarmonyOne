@@ -22,9 +22,11 @@ export const DataList = ({
 
     const renderCell = ({ key, row, column, item }) => {
         return (
-            <TouchableOpacity onPress={()=>onRowPress({ item, row })}>
+            // <TouchableOpacity onPress={()=>onRowPress({ item, row })}>
+            <View>
                 {renderItem(key, row, column, item)}
-            </TouchableOpacity>
+            </View>
+            // </TouchableOpacity>
         )
     };
 
@@ -105,6 +107,7 @@ export const DataList = ({
             maxColumnCount={3}
             sortDefault="NONE"
             sortKey="name"
+            onFirstCellPress={onRowPress}
             tableCellWidth={{ lastVisitSale: scaleWidth(150) }}
             renderCell={renderCell}
             renderActionCell={() => null}

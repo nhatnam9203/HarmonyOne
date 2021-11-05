@@ -88,7 +88,7 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Service description'
+            label='Description'
             renderInput={() =>
               <InputText
                 form={form}

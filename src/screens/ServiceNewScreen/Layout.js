@@ -43,6 +43,8 @@ export const Layout = ({
 
   const dataCategory = getDataSelectCategory();
 
+  console.log({ dataCategory })
+
   const extraList = isEdit ? extrasListSelected : extrasSelection;
 
   return (
@@ -178,7 +180,7 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Supply fee'
+            label='Surcharge'
             renderInput={() =>
               <InputText
                 form={form}
