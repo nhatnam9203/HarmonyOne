@@ -46,6 +46,7 @@ export const useProps = (props) => {
   const popupProcessingRef = React.useRef();
   const popupErrorMessageRef = React.useRef();
   const popupPayCompletedRef = React.useRef();
+  const popupInvoiceRef = React.useRef();
 
   /************************************* SELECTOR *************************************/
   const {
@@ -55,6 +56,7 @@ export const useProps = (props) => {
                   startProcessingPax },
     auth: { staff },
     hardware: { dejavooMachineInfo },
+    merchant: { merchantDetail },
   } = useSelector(state => state);
 
   /************************************* STATE *************************************/
@@ -171,8 +173,7 @@ export const useProps = (props) => {
       setMethodPay(null);
       setPayAppointmentId(null);
       changeStatusCancelHarmony(false);
-      console.log('dialogSuccessRef', dialogSuccessRef)
-      dialogSuccessRef?.current?.show();
+      popupPayCompletedRef?.current?.show();
     }
   });
 
@@ -374,7 +375,7 @@ export const useProps = (props) => {
       if (methodPay.method == "credit_card") {
         //hard code
         // handlePayment()
-        popupPayCompletedRef?.current?.show();
+        popupInvoiceRef?.current?.show()
       } else if (methodPay.method == "harmony") {
         setupSignalR();
       } else {
@@ -403,7 +404,8 @@ export const useProps = (props) => {
     },
     printBill: () => {console.log('print bill')},
     donotPrintBill: () => {console.log('donot print bill')},
-    staff,
+    merchant: merchantDetail,
     groupAppointments,
+    cancelInvoicePrint: () => {},
   }
 };

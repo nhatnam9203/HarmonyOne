@@ -129,6 +129,8 @@ export const images = {
   arrowRight: require('@src/assets/images/arrowRight.png'),
   treedot: require('@src/assets/home/treedot.png'),
   danger: require('@src/assets/images/danger.png'),
+  checkBox: require('@src/assets/images/check-box.png'),
+  checkBoxEmpty: require('@src/assets/images/check-box-empty.png'),
 };
 
 export const svg = {

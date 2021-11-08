@@ -11,6 +11,7 @@ import { IconButton,
          PopupProcessingCredit,
          PopupErrorMessage, 
          PopupPayCompleted,
+         PopupInvoice,
         } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
@@ -39,8 +40,9 @@ export const Layout = ({
     onCancelTransactionCredit,
     printBill,
     donotPrintBill,
-    staff,
+    merchant,
     groupAppointments,
+    cancelInvoicePrint,
 }) => {
 
     const [t] = useTranslation();
@@ -118,10 +120,15 @@ export const Layout = ({
 
             <PopupPayCompleted
                 ref={popupPayCompletedRef}
-                profile={staff}
+                profile={merchant}
                 groupAppointment={groupAppointments}
                 onConfirmYes={printBill}
                 onConfirmNo={donotPrintBill}
+            />
+
+            <PopupInvoice
+                ref={popupInvoiceRef}
+                cancelInvoicePrint={() => cancelInvoicePrint()} 
             />
 
         </View>

@@ -45,3 +45,4 @@ export * from "./Firebase";
 export * from "./PopupErrorMessage";
 export * from "./PopupProcessingCredit";
 export * from "./PopupPayCompleted";
+export * from "./PopupInvoice";

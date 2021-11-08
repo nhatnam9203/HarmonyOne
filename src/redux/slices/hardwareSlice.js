@@ -5,6 +5,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const reducerName = 'hpo.hardware';
 const initialState = {
+  printerList: [],
+  printerSelect: '',
   paxMachineInfo: {
     commType: '',
     name: '',

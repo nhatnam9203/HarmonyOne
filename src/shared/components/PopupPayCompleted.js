@@ -10,6 +10,7 @@ import { forEach } from 'ramda';
 import { colors, fonts, layouts } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { Button } from "./Button";
+import { IconButton } from "./IconButton";
 import Modal from "react-native-modal";
 import {
     useAxiosMutation,
@@ -129,11 +130,11 @@ export const PopupPayCompleted = React.forwardRef(
                                     flex: 1, flexDirection: "row",
                                     justifyContent: "center", alignItems: "center"
                                 }} >
-                                    <Button 
+                                    <IconButton
+                                        icon={isSendLink ? images.checkBox : images.checkBoxEmpty}
                                         onPress={switchSendLink} 
-                                        style={{ justifyContent: "center" }} >
-                                        <Image source={checkIcon} />
-                                    </Button>
+                                    />
+                                   
                                     <Text style={styles.content}  >
                                         {t("Send Google Review Link")}
                                     </Text>
@@ -190,11 +191,9 @@ const styles = StyleSheet.create({
         marginLeft: scaleWidth(15),
         marginRight: scaleWidth(15),
     },
-
     modal: {
         margin: 0,
     },
-
     title: { 
         color: '#0764B0', 
         fontSize: scaleFont(18), 

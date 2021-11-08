@@ -12,6 +12,7 @@ export const PopupErrorMessage = React.forwardRef(
     ({
         onConfirmYes = () => { },
         onModalHide = () => { },
+        title,
         message,
     }, ref) => {
         const [t] = useTranslation();
@@ -51,6 +52,9 @@ export const PopupErrorMessage = React.forwardRef(
                 backdropColor={'rgba(64,64,64,0.5)'}
             >
                 <View style={styles.container} >
+                    <Text style={styles.title} >
+                        {title}
+                    </Text>
                     <View style={styles.viewTitle} >
                         <Image source={images.danger} />
                         <Text style={styles.content} >
@@ -112,7 +116,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     viewTitle: {
-        flex: 1, 
+        flexDirection: 'row',
         justifyContent: 'center', 
         alignItems: 'center', 
         paddingHorizontal: scaleWidth(10) 
