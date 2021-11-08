@@ -80,6 +80,7 @@
     "react-native-dropdownalert": "^4.3.0",
     "react-native-fast-image": "^8.3.7",
     "react-native-gesture-handler": "^1.10.3",
+    "react-native-image-crop-picker": "^0.36.4",
     "react-native-image-picker": "^4.0.6",
     "react-native-image-slider-box": "^1.1.8",
     "react-native-keyboard-aware-scroll-view": "APSL/react-native-keyboard-aware-scroll-view#pull/501/head",
