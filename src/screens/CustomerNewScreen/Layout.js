@@ -27,7 +27,7 @@ export const Layout = ({
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={isEdit ? t('Edit customer') :t('New customer')}
+                pageTitle={isEdit ? t('Edit customer') : t('New customer')}
                 isRight={false}
                 isScrollLayout={false}
             >
@@ -40,7 +40,7 @@ export const Layout = ({
                             <InputText
                                 form={form}
                                 name="firstName"
-                                placeholder="First name"
+                                placeholder="First Name"
                                 error={errors?.firstName}
                             />}
                     />
@@ -52,12 +52,12 @@ export const Layout = ({
                             <InputText
                                 form={form}
                                 name="lastName"
-                                placeholder="Last name"
+                                placeholder="Last Name"
                                 error={errors?.lastName}
                             />}
                     />
                     <CustomInput
-                        label='Phone number'
+                        label='Phone Number'
                         name="phone"
                         isRequired
                         error={errors?.phone}
@@ -85,7 +85,7 @@ export const Layout = ({
                         }
                     />
                     <CustomInput
-                        label='Customer group'
+                        label='Customer Group'
                         renderInput={() =>
                             <DropdownMenu
                                 ref={inputCustomerGroupRef}
@@ -98,7 +98,7 @@ export const Layout = ({
                         }
                     />
                     <CustomInput
-                        label='Contact email'
+                        label='Contact Email'
                         error={errors?.email}
                         renderInput={() =>
                             <InputText
@@ -165,7 +165,7 @@ export const Layout = ({
                         }
                     />
                     <CustomInput
-                        label='Referrer by'
+                        label='Referrer By'
                         renderInput={() =>
                             <InputText
                                 form={form}
@@ -175,7 +175,7 @@ export const Layout = ({
                         }
                     />
                     <CustomInput
-                        label='Referrer phone number'
+                        label='Referrer Phone Number'
                         renderInput={() =>
                             <View style={styles.row}>
                                 <DropdownMenu
@@ -199,12 +199,14 @@ export const Layout = ({
                         }
                     />
                     <CustomInput
-                        label='Customer note'
+                        label='Note'
                         renderInput={() =>
                             <InputText
-                                style={{ height: scaleHeight(69) }}
+                                style={{ height: scaleHeight(69), alignItems : "flex-start" }}
                                 form={form}
+                                maxLength={1600}
                                 multiline={true}
+                                iconCloseStyle={{ marginTop: scaleHeight(5) }}
                                 name="note" />}
                     />
                 </KeyboardAwareScrollView>

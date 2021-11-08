@@ -135,7 +135,7 @@ export const genders = [
 
 export const customerGroup = [
   { label: 'Normal', value: '0' },
-  { label: 'Vip', value: '1' },
+  { label: 'VIP', value: '1' },
 ];
 
 export const reviewTypeGroup = [

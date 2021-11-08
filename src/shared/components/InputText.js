@@ -15,7 +15,7 @@ export const InputText = React.forwardRef(
       multiline = false,
       type = 'custom',
       options = {
-        mask: '**************************************************',
+        mask: '**********************************************************************************************************************************************************************************************************************************************************',
       },
       name,
       form,
@@ -27,13 +27,14 @@ export const InputText = React.forwardRef(
       defaultValue = '',
       defaultValueRemove = '',
       maxLength = 1600,
-      onBlur = () =>{}
+      onBlur = () => { },
+      iconCloseStyle,
     },
     ref,
   ) => {
     const [isFocus, setFocus] = React.useState(false);
 
-    const onBlurInput = () =>{
+    const onBlurInput = () => {
       setFocus(false);
       onBlur();
     }
@@ -54,8 +55,8 @@ export const InputText = React.forwardRef(
               borderColor: isFocus
                 ? colors.ocean_blue
                 : error
-                ? 'red'
-                : '#cccccc',
+                  ? 'red'
+                  : '#cccccc',
             },
           ]}>
           {renderLeft && renderLeft()}
@@ -77,12 +78,12 @@ export const InputText = React.forwardRef(
           {renderRight
             ? renderRight()
             : field?.value?.length > 0 && (
-                <IconButton
-                  icon={images.iconClose}
-                  iconStyle={styles.iconClose}
-                  onPress={() => field.onChange(defaultValueRemove)}
-                />
-              )}
+              <IconButton
+                icon={images.iconClose}
+                iconStyle={[styles.iconClose, iconCloseStyle]}
+                onPress={() => field.onChange(defaultValueRemove)}
+              />
+            )}
         </View>
       </View>
     );
