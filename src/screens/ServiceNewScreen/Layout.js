@@ -40,11 +40,7 @@ export const Layout = ({
 }) => {
 
   const [t] = useTranslation();
-
   const dataCategory = getDataSelectCategory();
-
-  console.log({ dataCategory })
-
   const extraList = isEdit ? extrasListSelected : extrasSelection;
 
   return (

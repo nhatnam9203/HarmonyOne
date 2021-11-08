@@ -15,7 +15,7 @@ export const CodePushProvider = ({ children }) => {
 
   // React useEffect
   React.useEffect(() => {
-    codePush.disallowRestart();
+    // codePush.disallowRestart();
     codePushCheck();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -64,7 +64,7 @@ export const CodePushProvider = ({ children }) => {
         appendReleaseDescription: true,
         descriptionPrefix: '\nUpdate code:\n',
       },
-      installMode: codePush.InstallMode.IMMEDIATE,
+      // installMode: codePush.InstallMode.IMMEDIATE,
     };
 
     await codePush.sync(
