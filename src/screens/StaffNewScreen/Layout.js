@@ -178,7 +178,7 @@ export const Layout = ({
           />
 
           <Text style={styles.titleDuration}>
-            Image
+            Avatar
           </Text>
           <ButtonUpload
             onResponseImagePicker={onUploadImage}

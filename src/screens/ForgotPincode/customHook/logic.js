@@ -3,6 +3,7 @@ import { Animated } from 'react-native'
 import NavigationService from '@navigation/NavigationService';
 import { useSelector } from "react-redux";
 import { forgotPincode, useAxiosMutation } from "@src/apis";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const logic = () => {
     const [valueMID, setValueMID] = React.useState("");
@@ -25,6 +26,13 @@ const logic = () => {
     }
 
     const onPressContinue = async () => {
+        let merchantId = null;
+        const merchant_code = await AsyncStorage.getItem("@merchantID");
+        if (merchantID) {
+          merchantId = merchantID;
+        } else {
+          merchantId = merchant_code;
+        }
         const data = {
             merchantId: merchantID,
             email: valueMID,

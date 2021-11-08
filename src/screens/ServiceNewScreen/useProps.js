@@ -146,7 +146,7 @@ export const useProps = (props) => {
     },
 
     getDataSelectCategory: () => {
-      return categoryList.filter(cate => (cate.categoryType === "Service")).map((cate) => ({
+      return categoryList.filter(cate => (cate.categoryType === "Service") && cate.isDisabled == 0 && cate.isDeleted == 0).map((cate) => ({
         ...cate,
         label: cate.name,
         value: cate.categoryId,
@@ -184,6 +184,9 @@ export const useProps = (props) => {
           extrasSelection.filter(ex => ex.checked),
         fileId,
       }
+
+      console.log('add service new : ')
+      console.log({ data })
 
       // api bị lỗi không thêm mới extra từ extralist có sẵn được,
       // phần này bên pos là tạo mới extra tự nhập tay vô , ko phải chọn từ extra list có sẵn, design chỗ này khác với POS.

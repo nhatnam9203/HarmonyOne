@@ -9,28 +9,42 @@ import NavigationService from "@navigation/NavigationService";
 
 export const useProps = (props) => {
 
-  const staffDetail = props?.route?.params?.staffDetail;
   const form = useForm();
-  const stafListRef = React.useRef();
-  const [staffList, setStaffList] = React.useState([]);
-  const [staffSelected, setStaffSelected] = React.useState("");
+  const giftCardListRef = React.useRef();
+  const [giftCarList, setGiftCardList] = React.useState([]);
+  const [giftCardSelected, setGiftCardSelected] = React.useState("");
 
   const {
-    settlement: { listStaffSales = [] }
+    settlement: { listGiftCardSales = [], }
   } = useSelector(state => state);
 
   React.useEffect(() => {
-    let tempStaffList = listStaffSales.map((s) => ({ label: s?.name, value: s?.staffId }));
-    setStaffList(tempStaffList);
-    setStaffSelected({ label: staffDetail?.name, value: staffDetail?.staffId });
-  }, [listStaffSales]);
+    let tempGiftCardList = listGiftCardSales.map((s) => ({ label: s?.name, value: s?.appointmentId }));
+    tempGiftCardList = [{ label: "All type", value: "all" }, ...tempGiftCardList,];
+    setGiftCardList(tempGiftCardList);
+    setGiftCardSelected({ label: "All type", value: "all" });
+  }, [listGiftCardSales]);
+
 
   return {
     form,
-    stafListRef,
-    staffList,
-    staffSelected,
-    listStaffSales,
-    setStaffSelected,
+    giftCardListRef,
+    giftCarList,
+    giftCardSelected,
+    listGiftCardSales,
+    setGiftCardSelected,
+    setGiftCardList,
+
+    getGiftCardSelectedData: () => {
+      let tempArr = [];
+      const tempGiftCard = listGiftCardSales.find(obj => obj?.name == giftCardSelected?.label);
+      if (tempGiftCard) {
+        tempArr.push(tempGiftCard);
+      }else{
+        tempArr = listGiftCardSales;
+      }
+
+      return tempArr;
+    }
   };
 };

@@ -40,9 +40,7 @@ export const Layout = ({
 }) => {
 
   const [t] = useTranslation();
-
   const dataCategory = getDataSelectCategory();
-
   const extraList = isEdit ? extrasListSelected : extrasSelection;
 
   return (
@@ -178,7 +176,7 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Supply fee'
+            label='Surcharge'
             renderInput={() =>
               <InputText
                 form={form}

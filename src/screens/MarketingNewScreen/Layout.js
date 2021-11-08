@@ -135,27 +135,31 @@ export const Layout = ({
                 defaultMessage={defaultMessage}
               />
 
-              <SmsConfiguration
-                onUploadImage={onUploadImage}
-                imageUrl={imageUrl}
-                ref={smsConfigurationRef}
-                openPopupFilterCustomer={() => { popupFilterCustomerRef?.current?.show(customerList) }}
-              />
+              {
+                !isViewDetail && <>
+                  <SmsConfiguration
+                    onUploadImage={onUploadImage}
+                    imageUrl={imageUrl}
+                    ref={smsConfigurationRef}
+                    openPopupFilterCustomer={() => { popupFilterCustomerRef?.current?.show(customerList) }}
+                  />
 
-              <MarketingContent
-                form={form}
-                errors={errors}
-                defaultMessage={defaultMessage}
-              />
+                  <MarketingContent
+                    form={form}
+                    errors={errors}
+                    defaultMessage={defaultMessage}
+                  />
 
-              <MarketingNumberMessage
-                smsMaxCustomer={smsMaxCustomer}
-                smsMaxAmount={smsMaxAmount}
-                valueSlider={valueSlider}
-                hanldeSliderValue={hanldeSliderValue}
-                smsAmount={smsAmount}
-                customerSendSMSQuantity={customerSendSMSQuantity}
-              />
+                  <MarketingNumberMessage
+                    smsMaxCustomer={smsMaxCustomer}
+                    smsMaxAmount={smsMaxAmount}
+                    valueSlider={valueSlider}
+                    hanldeSliderValue={hanldeSliderValue}
+                    smsAmount={smsAmount}
+                    customerSendSMSQuantity={customerSendSMSQuantity}
+                  />
+                </>
+              }
 
               <IconButton
                 iconComponent={() => <Switch color={colors.ocean_blue} onValueChange={setDisabled} value={isDisabled} />}
@@ -164,12 +168,14 @@ export const Layout = ({
                 renderText={() => <Text style={styles.txtItem}>{t('Active')}</Text>}
               />
 
-              <IconButton
-                iconComponent={() => <Switch color={colors.ocean_blue} onValueChange={setManually} value={isManually} />}
-                iconStyle={styles.iconStyle}
-                style={styles.rowReverse}
-                renderText={() => <Text style={styles.txtItem}>{t('Manually')}</Text>}
-              />
+              {
+                !isViewDetail && <IconButton
+                  iconComponent={() => <Switch color={colors.ocean_blue} onValueChange={setManually} value={isManually} />}
+                  iconStyle={styles.iconStyle}
+                  style={styles.rowReverse}
+                  renderText={() => <Text style={styles.txtItem}>{t('Manually')}</Text>}
+                />
+              }
               <View style={{ height: scaleHeight(200) }} />
             </View>
           </ScrollView>

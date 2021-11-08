@@ -5,6 +5,7 @@ import {
   getListStaffsSales,
   getListGiftCardSales,
   getSettlementWating,
+  getGiftCardSalesBySettlementId
 } from "@src/apis";
 import { settlement } from "@redux/slices";
 import { useSelector, useDispatch } from "react-redux";
@@ -24,11 +25,24 @@ export const useProps = (props) => {
     }
   } = useSelector(state => state);
 
+  const [, fetchGiftCardSalesBySettlementId] = useAxiosQuery({
+    ...getGiftCardSalesBySettlementId(),
+    queryId: "fetchGiftCardSalesBySettlementId_settlementWaiting",
+    enabled: false,
+    onSuccess: (data, response) => {
+      console.log('get list giftcard sales : ', { response })
+      if (response?.codeNumber == 200) {
+        dispatch(settlement.setListGiftCardSales(data))
+      }
+    }
+  });
+
   const [, fetchListGiftCardSales] = useAxiosQuery({
     ...getListGiftCardSales(),
     queryId: "fetchListGiftCardSales_settlementWaiting",
     enabled: false,
     onSuccess: (data, response) => {
+      console.log('get list giftcard sales : ', { response })
       if (response?.codeNumber == 200) {
         dispatch(settlement.setListGiftCardSales(data))
       }
@@ -55,6 +69,7 @@ export const useProps = (props) => {
     isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
+        console.log('get settlement wauting: ', { response })
         dispatch(settlement.setSettlementWaiting(data));
         setValueNote(data?.note || "");
       }
@@ -64,7 +79,7 @@ export const useProps = (props) => {
 
   React.useEffect(() => {
     fetchListStaffsSales();
-    getListGiftCardSales();
+    fetchListGiftCardSales();
   }, []);
 
   return {
@@ -83,6 +98,12 @@ export const useProps = (props) => {
     reviewSettlement: () => {
       dispatch(settlement.updateNote(valueNote));
       NavigationService.navigate(screenNames.ReviewSettlementPage);
+    },
+
+    viewGiftCardSold: () => {
+      if(listGiftCardSales?.length > 0){
+        NavigationService.navigate(screenNames.GiftCardSoldPage);
+      }
     }
   };
 };

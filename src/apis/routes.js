@@ -1,9 +1,10 @@
 import { guid } from "@shared/utils";
 
-export const merchantLogin = (merchantID) => ({
+export const merchantLogin = (merchantID, data) => ({
   params: {
     url: `/merchant/login/${merchantID}`,
     method: 'POST',
+    data
   },
 });
 
@@ -793,14 +794,6 @@ export const getStaffSalesBySettlementId = (settlementId = 0) => ({
   }
 });
 
-export const getGiftCardSalesBySettlementId = (settlementId = 0) => ({
-  queryId: 'getGiftCardSalesBySettlementId',
-  params: {
-    url: `settlement/giftCardSales/${settlementId}`,
-    method: 'GET',
-  }
-});
-
 export const getListStaffsSales = (terminalID) => ({
   queryId: 'getListStaffsSales',
   params: {
@@ -833,6 +826,14 @@ export const getTransactions = (timeStart = "", timeEnd = "", key = "", quickFil
   }
 });
 
+export const getGiftCardSalesBySettlementId = (settlementId = 0) => ({
+  queryId: 'getGiftCardSalesBySettlementId',
+  params: {
+    url: `settlement/giftCardSales/${settlementId}`,
+    method: 'GET',
+  }
+});
+
 
 /* 
 * REPORT
@@ -855,3 +856,12 @@ export const sendFeedback = (data) => ({
   }
 });
 
+
+export const activeFirebase = (data) => ({
+  queryId: 'activeFirebase',
+  params: {
+    url: `merchant/setupFireBase`,
+    method: 'PUT',
+    data
+  }
+});

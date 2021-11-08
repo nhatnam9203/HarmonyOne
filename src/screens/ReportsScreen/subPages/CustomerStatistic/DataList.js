@@ -66,7 +66,7 @@ export const DataList = ({
                 appointmentId: "Appt ID",
                 date: "Date",
                 time: "Time",
-                serviceCount: "No.of services",
+                serviceCount: "No. of services",
                 staffName: "Staff",
                 payamount: "Pay amount"
             }}

@@ -40,7 +40,7 @@ export const Layout = ({
         }
       >
         <View style={styles.content}>
-          <CustomInput
+          {/* <CustomInput
             label='Category Type'
             isRequired
             style={{ width: '50%' }}
@@ -54,7 +54,7 @@ export const Layout = ({
                 height={scaleWidth(42)}
               />
             }
-          />
+          /> */}
           <CustomInput
             label='Category name'
             isRequired

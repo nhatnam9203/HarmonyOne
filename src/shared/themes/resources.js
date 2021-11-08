@@ -36,6 +36,7 @@ export const images = {
   iconNote: require('@src/assets/images/iconNote.png'),
   iconPhone: require('@src/assets/images/iconPhone.png'),
   iconEmail: require('@src/assets/images/iconEmail.png'),
+  icon_email : require('@src/assets/images/icon_email.png'),
   iconGender: require('@src/assets/images/iconGender.png'),
   iconBirthdate: require('@src/assets/images/iconBirthdate.png'),
   iconLocation: require('@src/assets/images/iconLocation.png'),

@@ -10,6 +10,7 @@ const authSlice = createSlice({
   reducers: {
     loginMerchant: {
       reducer: (state, action) => {
+        console.log('login MID : ', { action });
         state.merchantID = action.payload;
       },
     },

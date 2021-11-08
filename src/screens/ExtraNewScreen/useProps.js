@@ -3,11 +3,14 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { extraSchema } from "@shared/helpers/schema";
 import { useSelector } from "react-redux";
-import { useAxiosMutation, addNewExtra, editExtra, uploadAvatarStaff, submitUploadAvatarStaff } from '@src/apis';
+import { useAxiosMutation, addNewExtra, editExtra, uploadAvatarStaff, submitUploadAvatarStaff, useAxiosQuery, getExtra } from '@src/apis';
 import { createFormData } from "@shared/utils";
+import { extra as extraAction } from "@redux/slices";
+import { useDispatch } from "react-redux";
 import NavigationService from '@navigation/NavigationService'
 
 export const useProps = (props) => {
+  const dispatch = useDispatch();
 
   const statusRef = React.useRef();
 
@@ -28,9 +31,22 @@ export const useProps = (props) => {
     isLoadingDefault: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
-        props?.route?.params?.refreshList();
+        if (props?.route?.params?.refreshList) {
+          props?.route?.params?.refreshList();
+        } else {
+          getExtraList();
+        }
         back();
       }
+    },
+  });
+
+  const [, getExtraList] = useAxiosQuery({
+    ...getExtra(),
+    queryId: "refetchListExtra",
+    enabled: false,
+    onSuccess: (data, response) => {
+      dispatch(extraAction.setExtraList(data));
     },
   });
 

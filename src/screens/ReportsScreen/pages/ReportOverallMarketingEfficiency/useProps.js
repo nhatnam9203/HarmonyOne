@@ -33,12 +33,13 @@ export const useProps = (props) => {
   ) => {
     dispatch(app.showLoading());
     const params = {
-      url:  `overall/marketingEfficiency?timeStart=${timeStart}&timeEnd=${timeEnd}&promotionId=0`,
+      url:  `overall/marketingEfficiency?timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=custom&promotionId=0`,
       method: 'GET',
     }
 
     try {
       const response = await axios(params);
+      console.log({ response, params })
       if (response?.data?.codeNumber == 200) {
         dispatch(
           report.setListMarketingEffciency({
@@ -62,7 +63,7 @@ export const useProps = (props) => {
   ) => {
     dispatch(app.showLoading());
     const params = {
-      url:  `overall/marketingEfficiency/export?timeStart=${timeStart}&timeEnd=${timeEnd}&promotionId=0`,
+      url:  `overall/marketingEfficiency/export?timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=custom&promotionId=0`,
       method: 'GET',
     }
 
@@ -113,7 +114,7 @@ export const useProps = (props) => {
       setRefresh(true);
       setCurrentPage(1);
       getDataList(
-        moment().startOf('week').format("MM/DD/YYYY"), moment().endOf('week').format("MM/DD/YYYY"), "", 1
+        timeStart, timeEnd, "", 1
       );
     },
 

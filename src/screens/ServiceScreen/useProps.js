@@ -155,7 +155,7 @@ export const useProps = (props) => {
     getActionSheets: (category) => [
       {
         id: 'new-service',
-        label: t('New service'),
+        label: t('Add new service'),
         func: () => {
           NavigationService.navigate(
             screenNames.ServiceNewScreen,

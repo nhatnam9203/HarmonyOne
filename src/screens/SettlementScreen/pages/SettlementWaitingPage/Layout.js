@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, Image, ScrollView, TextInput, Keyboard } from 'react-native';
+import { View, StyleSheet, Text, Image, ScrollView, TextInput, Keyboard, TouchableOpacity } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
@@ -20,6 +20,7 @@ export const Layout = ({
   
   editActualAmount,
   reviewSettlement,
+  viewGiftCardSold,
 }) => {
 
   const [t] = useTranslation();
@@ -56,7 +57,7 @@ export const Layout = ({
         <TableSalesByStaff data={listStaffSales} />
 
         {/*********************************** TOTAL GIFT CARD SOLD  ***********************************/}
-        <View style={[styles.rowBetween, { marginTop: scaleHeight(16) }]}>
+        <TouchableOpacity onPress={viewGiftCardSold} style={[styles.rowBetween, { marginTop: scaleHeight(16) }]}>
           <Text style={[styles.title, { fontFamily: fonts.MEDIUM, color: colors.ocean_blue }]}>
             Gift Card Sold
             </Text>
@@ -64,7 +65,7 @@ export const Layout = ({
           <Text style={[styles.title, { fontFamily: fonts.MEDIUM, paddingRight: scaleWidth(16), color: colors.ocean_blue }]}>
             $ {formatMoney(giftCardTotal)}
           </Text>
-        </View>
+        </TouchableOpacity>
 
         {/*********************************** TOTAL  ***********************************/}
         <View style={[styles.rowBetween, { backgroundColor: "#DCF7FF", alignItems: 'center', marginTop: scaleHeight(5) }]}>

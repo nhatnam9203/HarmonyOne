@@ -21,7 +21,7 @@ export const DataList = ({
         switch (key) {
             case "date":
                 return (
-                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'center' }]}>
+                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'left' }]}>
                         {moment(item?.date).format("MMM DD YYYY")}
                     </Text>
                 );
@@ -62,7 +62,7 @@ export const DataList = ({
             tableData={data}
             tableHead={{
                 date: "Date",
-                quantity: "Sales Qty",
+                quantity: "Sale Qty",
                 totalDuration: "Total Duration",
                 avgPrice: "Av. Price",
                 totalSales: "Total Sales",

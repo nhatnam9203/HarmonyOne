@@ -3,7 +3,11 @@ module.exports = {
   plugins: [
     [
       'babel-plugin-root-import',
+      // '@babel/plugin-transform-modules-commonjs',
       {
+        strictMode: false,
+        allowTopLevelThis: true,
+        loose: true,
         paths: [
           {
             rootPathSuffix: './src',

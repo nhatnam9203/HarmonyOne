@@ -8,13 +8,15 @@ import { images } from "@shared/themes/resources";
 import { DataList } from "./DataList";
 import { customerGroup } from "@shared/utils"
 
+
 export const Layout = ({
   form,
   stafListRef,
   staffList,
   staffSelected,
   listStaffSales,
-  setStaffSelected
+  setStaffSelected,
+  sendTotalViaSMS
 }) => {
 
   const [t] = useTranslation();
@@ -27,6 +29,13 @@ export const Layout = ({
         pageTitle={t('Staff income details')}
         isRight={true}
         isLeft={true}
+        headerRightComponent={() =>
+          <IconButton
+            icon={images.icon_email}
+            style={styles.button}
+            iconStyle={styles.iconRight}
+            onPress={sendTotalViaSMS}
+          />}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
       >
@@ -40,9 +49,9 @@ export const Layout = ({
                 form={form}
                 name="staff"
                 items={staffList}
-                onSelect={(staff) => { 
+                onSelect={(staff) => {
                   setStaffSelected(staff);
-                 }}
+                }}
                 title="Staff"
                 defaultValue={staffSelected?.label}
               />
@@ -50,7 +59,7 @@ export const Layout = ({
           />
 
           <DataList
-            data={staffChoosed?.details|| []}
+            data={staffChoosed?.details || []}
           />
 
         </View>
@@ -81,6 +90,12 @@ const styles = StyleSheet.create({
     width: scaleWidth(35),
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  iconRight: {
+    width: scaleWidth(25),
+    height: scaleWidth(25),
+    tintColor : "#404040"
   },
 
   styleDropDown: {

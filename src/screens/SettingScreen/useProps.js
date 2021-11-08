@@ -3,6 +3,7 @@ import { auth, app } from "@redux/slices";
 import { useDispatch } from "react-redux";
 import { staffLogoutRequest, useAxiosMutation } from "@src/apis";
 import { clearAuthToken } from "@shared/storages/authToken";
+import { getFcmToken } from "@shared/storages/fcmToken";
 import DeviceInfo from "react-native-device-info";
 import NavigationService from '@navigation/NavigationService'
 
@@ -18,7 +19,7 @@ export const useProps = (_params) => {
     onSuccess: (data, response) => {
       if (response.codeNumber == 200) {
         setTimeout(() => {
-          NavigationService.navigate('AuthStack', { isLogout: true });
+          NavigationService.replace('AuthStack', { isLogout: true });
           dispatch(auth.signOutApp());
           dispatch(app.setStatusHomeScreen(false));
           clearAuthToken();
@@ -32,9 +33,10 @@ export const useProps = (_params) => {
     refDialogSignout,
 
     onLogout: async() => {
+      const firebaseToken = await getFcmToken();
       const data = {
         deviceId: DeviceInfo.getDeviceId(),
-        firebaseToken: "",
+        firebaseToken,
       }
       const body = await staffLogoutRequest(data);
       logout(body.params);

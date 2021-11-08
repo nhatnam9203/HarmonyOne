@@ -14,6 +14,8 @@ export const DayPicker = React.forwardRef(({
     onApply = () => { },
     dayPicked = moment(),
     componentRender = null,
+    maxDate,
+    minDate,
 }, ref) => {
 
     const actionSheetRef = React.useRef();
@@ -74,6 +76,8 @@ export const DayPicker = React.forwardRef(({
                     selectDay={selectDay}
                     closeCalendarPicker={closeActionSheet}
                     apply={apply}
+                    maxDate={maxDate}
+                    minDate={minDate}
                 />
             </CustomActionSheet>
         </View>

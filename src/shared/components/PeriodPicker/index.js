@@ -11,7 +11,7 @@ import CalendarView from "./CalendarView";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { useWatch } from "react-hook-form";
-import { getContentDate } from "@shared/utils";
+import { getContentDate, arrDateFilter } from "@shared/utils";
 import moment from 'moment';
 
 const dateRangeData = [
@@ -91,8 +91,8 @@ export const PeriodPicker = ({
           end = moment();
           break;
         case "Yesterday":
-          start = moment(startDate).subtract("days", 1);
-          end = moment(startDate).subtract("days", 1);
+          start = moment().subtract("days", 1);
+          end = moment().subtract("days", 1);
           break;
         case "This week":
           start = moment().clone().startOf('isoWeeks');
@@ -119,6 +119,19 @@ export const PeriodPicker = ({
       calendarViewRef?.current?.setCurrentMonthCalendar(end);
     }
   }, [dateRange]);
+
+  React.useEffect(() => {
+    const contentDate = getContentDate(
+      moment(startDate).format("MM/DD/YYYY"),
+      moment(endDate).format("MM/DD/YYYY"), 
+    );
+
+    const isIncludes = arrDateFilter.includes(contentDate);
+
+    if(!isIncludes){
+      dateRangeRef?.current?.changeItemNoExist({ label : "Custom", value : "custom" })
+    }
+  }, [startDate, endDate])
 
   const [t] = useTranslation();
 
@@ -182,6 +195,7 @@ export const PeriodPicker = ({
                     <DayPicker
                       dayPicked={startDate}
                       onApply={(date) => setStartDate(date)}
+                      maxDate={moment(endDate).format("YYYY-MM-DD")}
                       componentRender={() => (
                         <View style={styles.inputDate}>
                           <Text style={styles.txtInputDate}>{moment(startDate).format("MM/DD/YYYY")}</Text>
@@ -202,6 +216,7 @@ export const PeriodPicker = ({
                     <DayPicker
                       dayPicked={endDate}
                       onApply={(date) => setEndDate(date)}
+                      minDate={moment(endDate).format("YYYY-MM-DD")}
                       componentRender={() => (
                         <View style={styles.inputDate}>
                           <Text style={styles.txtInputDate}>{moment(endDate).format("MM/DD/YYYY")}</Text>

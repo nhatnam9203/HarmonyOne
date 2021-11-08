@@ -15,7 +15,7 @@ export const CodePushProvider = ({ children }) => {
 
   // React useEffect
   React.useEffect(() => {
-    codePush.disallowRestart();
+    // codePush.disallowRestart();
     codePushCheck();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -49,7 +49,7 @@ export const CodePushProvider = ({ children }) => {
       codePush.allowRestart();
       setTimeout(() => {
         codePush.restartApp();
-        codePush.disallowRestart();
+        // codePush.disallowRestart();
       }, 300);
 
       return;
@@ -62,7 +62,7 @@ export const CodePushProvider = ({ children }) => {
     const defaultOption = {
       updateDialog: {
         appendReleaseDescription: true,
-        descriptionPrefix: '\nChange log:\n',
+        descriptionPrefix: '\nUpdate code:\n',
       },
       // installMode: codePush.InstallMode.IMMEDIATE,
     };

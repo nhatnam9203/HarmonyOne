@@ -1,6 +1,7 @@
 import moment from 'moment';
 import _ from 'lodash';
-import { colors } from "../themes/variables";
+import { colors } from '../themes/variables';
+import { SORT_TYPE } from './app';
 
 export const DATE_FORMAT_STRING = 'MM/DD/YYYY';
 export const BIRTH_DAY_DATE_FORMAT_STRING = 'MM/DD/YYYY';
@@ -16,7 +17,7 @@ export const dateToFormat = (
   return moment(d).format(formatString);
 };
 
-export const formatPhoneNumber = (phoneNumberString) => {
+export const formatPhoneNumber = phoneNumberString => {
   var cleaned = ('' + phoneNumberString).replace(/\D/g, '');
 
   // Format Phone Us
@@ -44,7 +45,7 @@ export const formatPhoneNumber = (phoneNumberString) => {
   return null;
 };
 
-export const formatNumberFromCurrency = (currency) => {
+export const formatNumberFromCurrency = currency => {
   return Number(`${currency}`.replace(/[^0-9.-]+/g, ''));
 };
 
@@ -72,12 +73,12 @@ export const formatMoney = (
       i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousands) +
       (decimalCount
         ? decimal +
-        Math.abs(amount - i)
-          .toFixed(decimalCount)
-          .slice(2)
+          Math.abs(amount - i)
+            .toFixed(decimalCount)
+            .slice(2)
         : '')
     );
-  } catch (e) { }
+  } catch (e) {}
 };
 
 export const formatMoneyWithUnit = (amount, unit = '$') => {
@@ -95,54 +96,85 @@ export const formatMoneyWithUnit = (amount, unit = '$') => {
 };
 
 export const convertStatus = {
-  "checkin": "CHECK-IN",
-  "waiting": "WAITING",
-  "paid": "PAID",
-  "void": "VOID",
-  "refund": "REFUND",
-  "cancel": "CANCEL",
-  "confirm": "CONFIRMED",
-  "unconfirm": "UNCONFIRM",
-}
+  checkin: 'CHECK-IN',
+  waiting: 'WAITING',
+  paid: 'PAID',
+  void: 'VOID',
+  refund: 'REFUND',
+  cancel: 'CANCEL',
+  confirm: 'CONFIRMED',
+  unconfirm: 'UNCONFIRM',
+};
 
-export const convertColorByStatus = (status) => {
+export const convertColorByStatus = status => {
   let color = colors.ocean_blue;
 
   switch (status) {
-    case "checkin":
+    case 'checkin':
       color = colors.ocean_blue;
       break;
 
-    case "waiting":
-      color = "#dddddd";
+    case 'waiting':
+      color = '#dddddd';
       break;
 
-    case "void":
-      color = "#dddddd";
+    case 'void':
+      color = '#dddddd';
       break;
 
-    case "refund":
-      color = "#dddddd";
+    case 'refund':
+      color = '#dddddd';
       break;
 
-    case "cancel":
-      color = "red";
+    case 'cancel':
+      color = 'red';
       break;
 
-    case "paid":
-      color = "#50CF25";
+    case 'paid':
+      color = '#50CF25';
       break;
 
-    case "confirm":
-      color = "#404040";
+    case 'confirm':
+      color = '#404040';
       break;
 
-    case "unconfirm":
-      color = "#404040";
+    case 'unconfirm':
+      color = '#404040';
       break;
 
     default:
       break;
   }
   return color;
-}
+};
+
+export const dateCompare = (a, b) => {
+  // check valid date -> sort date
+  if (moment(a).isValid() && moment(b).isValid()) {
+    return new Date(a) - new Date(b);
+  }
+  return a.toString().localeCompare(b.toString());
+};
+
+export const sortByDate = (items, sort, sortKey) => {
+  let sortList = [...items]; // clone
+  if (sortKey && sortList?.length > 0) {
+    return sortList.sort((a, b) => {
+      if (sort === SORT_TYPE.DESC) {
+        return dateCompare(a[sortKey], b[sortKey]);
+      } else if (sort === SORT_TYPE.ASC) {
+        return dateCompare(b[sortKey], a[sortKey]);
+      } else return 0;
+    });
+  }
+  return sortList;
+};
+
+// export const roundNumber = (num = 0)=> {
+//   const r = (Math.round(num * 100) / 100).toFixed(2);
+//   return r ?? 0;
+// };
+
+// export const roundFloatNumber = num => {
+//   return (Math.round(num * 100) / 100).toFixed(2);
+// };
