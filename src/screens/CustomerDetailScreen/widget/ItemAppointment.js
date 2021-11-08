@@ -4,7 +4,6 @@ import { fonts, colors } from "@shared/themes";
 import { dateToFormat, convertStatus, convertColorByStatus } from "@shared/utils";
 
 const ItemAppointment = ({ item, isPast }) => {
-    console.log({ item })
     return (
         <View style={styles.item}>
             <View style={styles.itemLeft}>
