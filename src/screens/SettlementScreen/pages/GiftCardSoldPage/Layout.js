@@ -10,21 +10,20 @@ import { customerGroup } from "@shared/utils"
 
 export const Layout = ({
   form,
-  stafListRef,
-  staffList,
-  staffSelected,
-  listStaffSales,
-  setStaffSelected
+  giftCardListRef,
+  giftCarList,
+  giftCardSelected,
+  listGiftCardSales,
+  setGiftCardSelected,
+  getGiftCardSelectedData
 }) => {
 
   const [t] = useTranslation();
 
-  const staffChoosed = listStaffSales.find(obj => obj?.staffId == staffSelected?.value);
-
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Staff income details')}
+        pageTitle={t('Gift Card Sold')}
         isRight={true}
         isLeft={true}
         isScrollLayout={false}
@@ -36,21 +35,21 @@ export const Layout = ({
             label=''
             renderInput={() =>
               <InputSelect
-                ref={stafListRef}
+                ref={giftCardListRef}
                 form={form}
                 name="staff"
-                items={staffList}
-                onSelect={(staff) => { 
-                  setStaffSelected(staff);
-                 }}
-                title="Staff"
-                defaultValue={staffSelected?.label}
+                items={giftCarList}
+                onSelect={(item) => {
+                  setGiftCardSelected(item);
+                }}
+                title="Gift Card Sold"
+                defaultValue={giftCarList[0]?.label}
               />
             }
           />
 
           <DataList
-            data={staffChoosed?.details|| []}
+            data={getGiftCardSelectedData()}
           />
 
         </View>

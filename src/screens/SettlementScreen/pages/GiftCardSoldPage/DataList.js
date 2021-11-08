@@ -16,40 +16,31 @@ export const DataList = ({
     endLoadMore,
 }) => {
 
-
     const renderCell = ({ key, row, column, item }) => {
         const data = item[key];
         switch (key) {
+            case "createdDate":
+                return (
+                    <Text style={[styles.txt, { fontFamily: fonts.REGULAR }]}>
+                        {item?.dateString}
+                    </Text>
+                )
             case "name":
-                return (
-                    <Text style={[styles.txt, { fontFamily: fonts.MEDIUM, color: "#000" }]}>
-                        #{item?.name}
-                    </Text>
-                )
-            case "appointmentCode":
                 return <Text style={[styles.txt, { fontFamily: fonts.LIGHT }]}>
-                    #{item?.appointmentCode}
+                    {item?.name}
                 </Text>
-            case "date":
+            case "price":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.LIGHT }]}>
-                        {moment(item?.date).format("hh:mm A")}
+                        $ {item?.price}
                     </Text>
                 )
-            case "sales":
+            case "quantity":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.LIGHT }]}>
-                        $ {item?.sales}
+                        {item?.quantity}
                     </Text>
                 )
-            case "tax":
-                return <Text style={[styles.txt, { fontFamily: fonts.REGULAR, color: "#404040" }]}>
-                    $ {item?.tax}
-                </Text>
-            case "tip":
-                return <Text style={[styles.txt, { fontFamily: fonts.REGULAR, color: "#404040" }]}>
-                    $ {item?.tip}
-                </Text>
 
             case "total":
                 return <Text style={[styles.txt, { fontFamily: fonts.MEDIUM, color: "#000" }]}>
@@ -67,52 +58,44 @@ export const DataList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                name: "Service/Product",
-                appointmentCode: "Appointmet Id",
-                date: "Time",
-                sales: "Sales",
-                tax: "Tax",
-                tip: "Tip",
+                createdDate: "Date/time",
+                name: "Type",
+                price: "Value",
+                quantity: "Qty",
                 total: "Total sales",
             }}
             whiteKeys={[
+                "createdDate",
                 "name",
-                "appointmentCode",
-                "date",
-                "sales",
-                "tax",
-                "tip",
+                "price",
+                "quantity",
                 "total"
             ]}
-            primaryId="appointmentCode"
-            sumTotalKey="name"
-            tableCellWidth={{
-                name: 270,
-            }}
+            primaryId="name"
+            sumTotalKey="createdDate"
+            tableCellWidth={{ createdDate: scaleWidth(130) }}
             priceKeys={[
-                "tax",
-                "tip",
+                "price",
                 "total"
             ]}
 
-            calcSumKeys={[  
-                "tax",
-                "tip",
+            calcSumKeys={[
+                "quantity",
                 "total"
             ]}
-            heightSection={65}
+            heightSection={50}
             unitKeys={{ total: "", }}
             isRenderSection={true}
             sortDefault="NONE"
             renderCell={renderCell}
-            sortKey="name"
+            sortKey="createdDate"
             tableCellWidth={{}}
             renderActionCell={() => null}
             isRefreshing={false}
             onRefresh={() => { }}
             onLoadMore={() => { }}
             endLoadMore={() => { }}
-            maxColumnCount={4}
+            maxColumnCount={3}
         />
     )
 }
@@ -135,7 +118,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.LIGHT,
         color: "#404040"
     },
-    userName: {
+    usercreatedDate: {
         fontSize: scaleFont(14),
         fontFamily: fonts.MEDIUM,
         color: colors.ocean_blue
@@ -212,4 +195,3 @@ const styles = StyleSheet.create({
         }
     }
 })
-

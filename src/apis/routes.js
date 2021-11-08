@@ -1,6 +1,6 @@
 import { guid } from "@shared/utils";
 
-export const merchantLogin = (merchantID,data) => ({
+export const merchantLogin = (merchantID, data) => ({
   params: {
     url: `/merchant/login/${merchantID}`,
     method: 'POST',
@@ -766,14 +766,6 @@ export const getStaffSalesBySettlementId = (settlementId = 0) => ({
   }
 });
 
-export const getGiftCardSalesBySettlementId = (settlementId = 0) => ({
-  queryId: 'getGiftCardSalesBySettlementId',
-  params: {
-    url: `settlement/giftCardSales/${settlementId}`,
-    method: 'GET',
-  }
-});
-
 export const getListStaffsSales = (terminalID) => ({
   queryId: 'getListStaffsSales',
   params: {
@@ -802,6 +794,14 @@ export const getTransactions = (timeStart = "", timeEnd = "", key = "", quickFil
   queryId: 'getTransactions',
   params: {
     url: `settlement/transaction?status=&timeStart=${timeStart}&timeEnd=${timeEnd}&key=${key}&quickFilter=${quickFilter}&page=${page}`,
+    method: 'GET',
+  }
+});
+
+export const getGiftCardSalesBySettlementId = (settlementId = 0) => ({
+  queryId: 'getGiftCardSalesBySettlementId',
+  params: {
+    url: `settlement/giftCardSales/${settlementId}`,
     method: 'GET',
   }
 });
