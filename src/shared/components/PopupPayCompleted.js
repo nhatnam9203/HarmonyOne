@@ -3,6 +3,7 @@ import {
     View,
     Text,
     Image,
+    StyleSheet,
 } from 'react-native';
 import { getTitleSendLinkGoogle } from "@shared/utils";
 import { forEach } from 'ramda';
@@ -14,6 +15,7 @@ import {
     useAxiosMutation,
     sendGoogleReviewLink,
   } from '@src/apis';
+  import { useTranslation } from "react-i18next";
 
 export const PopupPayCompleted = React.forwardRef(
     ({
@@ -101,25 +103,22 @@ export const PopupPayCompleted = React.forwardRef(
                 animationOut="fadeOutRight"
                 backdropColor={'rgba(64,64,64,0.5)'}
             >
-                <View style={{
-                    width: scaleWidth(450), height: scaleHeight(230), backgroundColor: "#fff",
-                    borderRadius: scaleWidth(16)
-                }} >
+                <View style={styles.container} >
                     <View style={{ flex: 1 }} >
                         {/* ---------- header ------ */}
                         <View style={{
                             alignItems: 'center', paddingTop: scaleHeight(16), paddingBottom: scaleHeight(12),
                         }} >
-                            <Text style={{ color: '#0764B0', fontSize: scaleFont(28), fontWeight: 'bold' }}  >
-                                {`Transaction completed!`}
+                            <Text style={{ color: '#0764B0', fontSize: scaleFont(18), fontWeight: 'bold' }}  >
+                                {t("Transaction completed!")}
                             </Text>
                         </View>
                         {/* ------------ content ----- */}
                         <View style={{
                             alignItems: 'center'
                         }} >
-                            <Text style={{ color: '#404040', fontSize: scaleFont(20) }}  >
-                                {`Do you want to print receipt?`}
+                            <Text style={{ color: '#404040', fontSize: scaleFont(15) }}  >
+                                {t("Do you want to print receipt?")}
                             </Text>
                         </View>
 
@@ -130,11 +129,13 @@ export const PopupPayCompleted = React.forwardRef(
                                     flex: 1, flexDirection: "row",
                                     justifyContent: "center", alignItems: "center"
                                 }} >
-                                    <Button onPress={switchSendLink} style={{ justifyContent: "center" }} >
+                                    <Button 
+                                        onPress={switchSendLink} 
+                                        style={{ justifyContent: "center" }} >
                                         <Image source={checkIcon} />
                                     </Button>
                                     <Text style={styles.content}  >
-                                        {`Send Google Review Link`}
+                                        {t("Send Google Review Link")}
                                     </Text>
                                 </View> :
                                 <View style={{
@@ -155,7 +156,7 @@ export const PopupPayCompleted = React.forwardRef(
                             width={scaleWidth(100)}
                             height={scaleHeight(40)}
                             backgroundColor="#0764B0"
-                            title="Yes"
+                            label={t("Yes")}
                             textColor="#fff"
                             onPress={onHandleYESButtonPress}
                             style={{ borderWidth: 1, borderColor: '#C5C5C5' }}
@@ -166,7 +167,7 @@ export const PopupPayCompleted = React.forwardRef(
                             width={scaleWidth(100)}
                             height={scaleHeight(40)}
                             backgroundColor="#F1F1F1"
-                            title="No"
+                            label={t("No")}
                             textColor="#6A6A6A"
                             onPress={onHandleNoButtonPress}
                             style={{ borderWidth: 1, borderColor: '#C5C5C5' }}
@@ -183,13 +184,11 @@ export const PopupPayCompleted = React.forwardRef(
 
 const styles = StyleSheet.create({
     container: {
+        height: scaleHeight(230), 
         backgroundColor: "#fff",
-        alignItems: "center",
-        alignSelf: "center",
-        width: scaleWidth(340),
-        paddingTop: scaleWidth(20),
-        borderRadius: scaleHeight(5),
-        position: 'relative',
+        borderRadius: scaleWidth(16),
+        marginLeft: scaleWidth(15),
+        marginRight: scaleWidth(15),
     },
 
     modal: {
@@ -203,7 +202,7 @@ const styles = StyleSheet.create({
     },
     content: { 
         color: 'rgb(130,130,130)', 
-        fontSize: scaleFont(16), 
+        fontSize: scaleFont(15), 
         marginLeft: scaleWidth(12) }
     ,
     bottomView: {

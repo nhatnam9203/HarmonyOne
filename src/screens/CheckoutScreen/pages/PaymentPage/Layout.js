@@ -37,6 +37,10 @@ export const Layout = ({
     cancelHarmonyPay,
     paymentDetail,
     onCancelTransactionCredit,
+    printBill,
+    donotPrintBill,
+    staff,
+    groupAppointments,
 }) => {
 
     const [t] = useTranslation();
@@ -114,8 +118,10 @@ export const Layout = ({
 
             <PopupPayCompleted
                 ref={popupPayCompletedRef}
-                printBill={printBill}
-                donotPrintBill={donotPrintBill}
+                profile={staff}
+                groupAppointment={groupAppointments}
+                onConfirmYes={printBill}
+                onConfirmNo={donotPrintBill}
             />
 
         </View>

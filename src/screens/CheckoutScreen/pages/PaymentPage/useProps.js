@@ -401,5 +401,9 @@ export const useProps = (props) => {
     onCancelTransactionCredit: () => {
       alert("Please wait!")
     },
+    printBill: () => {console.log('print bill')},
+    donotPrintBill: () => {console.log('donot print bill')},
+    staff,
+    groupAppointments,
   }
 };

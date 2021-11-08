@@ -42,3 +42,4 @@ export * from "./CustomTable";
 export * from "./PeriodPicker";
 export * from "./PopupErrorMessage";
 export * from "./PopupProcessingCredit";
+export * from "./PopupPayCompleted";
