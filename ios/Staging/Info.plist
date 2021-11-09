@@ -28,8 +28,8 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-    <key>NSAllowsArbitraryLoads</key>
-    <true/>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 		<key>codepush.appcenter.ms</key>
 		<dict>
 			<key>NSExceptionAllowsInsecureHTTPLoads</key>
