@@ -34,10 +34,11 @@ export const WithPopupUploadMultipleImage = (WrappedComponent) => {
             setTimeout(() => {
                 ImageMultiplePicker.openPicker({
                     multiple: true
-                  }).then(response => {
+                }).then(response => {
+                    console.log('response multiple image : ')
                     console.log({ response })
                     responseCamera(response)
-                  });
+                });
             }, 500);
         }
 
