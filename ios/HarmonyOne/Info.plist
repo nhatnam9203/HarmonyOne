@@ -39,6 +39,8 @@
 			</dict>
 		</dict>
 	</dict>
+  <key>ITSAppUsesNonExemptEncryption</key>
+  <false/>
 	<key>NSCameraUsageDescription</key>
 	<string>Use camera for scanner</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
