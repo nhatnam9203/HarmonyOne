@@ -1,20 +1,45 @@
 import React from 'react';
-import { View, StyleSheet, Text, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, FlatList, Image, TouchableOpacity } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
-import { Button } from "@shared/components";
+import { Button, CustomImage, ListEmptyComponent } from "@shared/components";
 import { images } from "@shared/themes/resources";
+import { WithPopupUploadMultipleImage } from "@shared/HOC";
+import { ButtonUpload } from 'src/shared/components';
+
+
+let ButttonUploadMultippeImage = ({ onResponseImagePicker, ...props }) => {
+    return (
+        <>
+            <TouchableOpacity
+                onResponseImagePicker={onResponseImagePicker}
+                style={styles.buttonUpload}
+                {...props}
+            >
+                <Image
+                    source={images.iconUpload2}
+                    style={styles.iconUpload}
+                    resizeMode='contain'
+                />
+                <Text style={styles.txtUpload}>Upload Image</Text>
+            </TouchableOpacity>
+        </>
+    )
+}
+
+ButttonUploadMultippeImage = WithPopupUploadMultipleImage(ButttonUploadMultippeImage);
+
 
 export const Layout = ({
     merchantDetail,
+    onSave,
+    onResponseImagePicker,
 }) => {
 
     const [t] = useTranslation();
 
-    const onSave = () =>{
-
-    }
+    const banners = merchantDetail?.banners || [];
 
     return (
         <View style={styles.container}>
@@ -26,7 +51,21 @@ export const Layout = ({
                 containerStyle={{ paddingVertical: 0, paddingTop: scaleHeight(8) }}
             >
                 <View style={styles.content}>
-               
+                    <FlatList
+                        data={banners}
+                        keyExtractor={(item) => item?.merchantBannerId?.toString() + 'merchantBannerEdit'}
+                        ListEmptyComponent={() => <ListEmptyComponent description={t('No Appointments')} image={images.iconNotFound} />}
+                        renderItem={({ item }) =>
+                            <CustomImage
+                                source={{ uri: item?.imageUrl }}
+                                key={item?.merchantBannerId + "merchantBannerEdit"}
+                                style={styles.banner}
+                                resizeMode='cover'
+                            />
+                        }
+                        style={{ flex: 1 }}
+                        ListFooterComponent={() => (<ButttonUploadMultippeImage onResponseImagePicker={onResponseImagePicker} />)}
+                    />
                 </View>
                 <View style={styles.bottom}>
                     <Button
@@ -58,28 +97,34 @@ const styles = StyleSheet.create({
         paddingBottom: scaleHeight(32)
     },
 
-    inputPhone: {
-        width: scaleWidth(250),
-        height: scaleWidth(42),
-        borderWidth: 1,
-        borderColor: '#dddddd',
-        flexDirection: 'row',
-        borderRadius: 5,
-        borderTopLeftRadius: 0,
-        borderBottomLeftRadius: 0,
-        paddingHorizontal: scaleWidth(10),
-        alignItems: 'center'
-    },
-
-    styleDropDown: {
-        backgroundColor: "#fafafa",
-        borderTopRightRadius: 0,
-        borderBottomRightRadius: 0,
-        borderRightWidth: 0,
-    },
-
     row: {
         flexDirection: 'row'
+    },
+
+    banner: {
+        width: scaleWidth(375 - 32),
+        height: scaleWidth(375 - 32 - 70),
+        marginBottom: scaleHeight(12)
+    },
+
+    buttonUpload: {
+        width: scaleWidth(375 - 32),
+        height: scaleWidth(375 - 32 - 70),
+        marginBottom: scaleHeight(12),
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#F1F1F1"
+    },
+    txtUpload: {
+        fontSize: scaleFont(16),
+        color: "#7A98BB",
+        fontFamily: fonts.REGULAR
+    },
+    iconUpload: {
+        width: scaleWidth(50),
+        height: scaleWidth(50),
+        marginBottom: 5,
+        tintColor: "#7A98BB"
     },
 
 });

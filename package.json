@@ -110,6 +110,7 @@
     "react-native-storage": "^1.0.1",
     "react-native-svg": "^12.1.1",
     "react-native-swipe-list-view": "^3.2.9",
+    "react-native-autocomplete-input" : "^5.0.2",
     "react-native-tab-view": "^2.x",
     "react-native-table-component": "^1.2.1",
     "react-native-touch-id": "^4.4.1",

@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   },
   imgMarket: {
     width: "100%",
-    height: scaleHeight(120),
+    height: scaleHeight(150),
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },

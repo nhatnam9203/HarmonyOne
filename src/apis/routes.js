@@ -837,3 +837,11 @@ export const activeFirebase = (data) => ({
     data
   }
 });
+
+export const getStateCity = () => ({
+  queryId: 'getStateCity',
+  params: {
+    url: `state`,
+    method: 'GET',   
+  }
+});

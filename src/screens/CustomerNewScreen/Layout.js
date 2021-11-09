@@ -7,6 +7,7 @@ import { InputDate } from "./InputDate"
 import { fonts } from '@shared/themes';
 import { headerPhoneGroup, genders, customerGroup } from "@shared/utils"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { InputState } from "./InputState";
 
 
 export const Layout = ({
@@ -154,7 +155,7 @@ export const Layout = ({
                                     />
                                 </View>
                                 <View>
-                                    <InputText
+                                    <InputState
                                         form={form}
                                         name="state"
                                         placeholder="State"
@@ -202,7 +203,7 @@ export const Layout = ({
                         label='Note'
                         renderInput={() =>
                             <InputText
-                                style={{ height: scaleHeight(69), alignItems : "flex-start" }}
+                                style={{ height: scaleHeight(69), alignItems: "flex-start" }}
                                 form={form}
                                 maxLength={1600}
                                 multiline={true}

@@ -186,11 +186,11 @@ export const Layout = ({
         {
           isViewDetail ?
             <Button
-              label={isDisabled ? "Start" : "Disable"}
-              onPress={isDisabled ? enableCampaign : disableCampaign}
+              label={!isDisabled ? "Start" : "Disable"}
+              onPress={!isDisabled ? enableCampaign : disableCampaign}
               highlight={true}
               width={'100%'}
-              styleButton={{ backgroundColor: isDisabled ? colors.ocean_blue : "red", borderWidth: 0 }}
+              styleButton={{ backgroundColor: !isDisabled ? colors.ocean_blue : "red", borderWidth: 0 }}
             /> :
             <Button
               label="Save"

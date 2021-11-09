@@ -74,7 +74,6 @@ export const useProps = (_params) => {
     }
   });
 
-  console.log({ ratingItem })
 
   React.useEffect(() => {
     if (isRefresh) {
@@ -99,14 +98,12 @@ export const useProps = (_params) => {
     isRefresh,
 
     showReview: async(item) => {
-      console.log({ item })
       setRatingItem({ ...item, status: "show" });
       const body = await showRating(item?.staffRatingId);
       submitShowRating(body.params);
     },
 
     hideReview: async(item) => {
-      console.log({ item })
       setRatingItem({ ...item, status: "hidden" });
       const body = await hideRating(item?.staffRatingId);
       submitHideRating(body.params);

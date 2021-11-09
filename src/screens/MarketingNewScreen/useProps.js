@@ -76,6 +76,7 @@ export const useProps = (props) => {
   const [isDisabled, setDisabled] = useState(true);
   const [isManually, setManually] = useState(false);
   const [customerList, setCustomerList] = React.useState([]);
+  const [isMounted, setMounted] = React.useState(false);
 
 
   const [, fetchCustomerCanbeSendPromotion] = useAxiosQuery({
@@ -120,6 +121,11 @@ export const useProps = (props) => {
   const title = useWatch({
     control: form.control,
     name: 'campaignName'
+  });
+
+  const tempmessage = useWatch({
+    control: form.control,
+    name: 'message'
   });
 
 
@@ -194,13 +200,12 @@ export const useProps = (props) => {
     }
   }
 
-  const calculatorsmsMoney = (tempValue) => {
-    const customerCount = parseInt(smsMaxCustomer || 0);
+  const calculatorsmsMoney = (tempValue, customer_count) => {
+    const customerCount = customer_count ? customer_count : parseInt(smsMaxCustomer || 0);
     const smsCount = Math.ceil(tempValue * customerCount);
 
-    const messageContent = form.getValues("message");
     // const smsLength = smsInfoMarketing?.smsLength || 1;
-    const smsLength = messageContent?.trim().length || 1;
+    const smsLength = tempmessage?.trim().length || 1;
     const segmentFee = smsInfoMarketing?.segmentFee || 1;
     const segmentLength = smsInfoMarketing?.segmentLength || 1;
     // const additionalFee = parseFloat(smsCount > 0 ? (smsInfoMarketing?.additionalFee || 0) : 0);
@@ -254,7 +259,21 @@ export const useProps = (props) => {
 
 
   React.useEffect(() => {
-    if (!isEmpty(smsInfoMarketing)) {
+    if (condition) {
+      setConditionId(condition.value);
+      const message = defaultMessage();
+      form.setValue("message", message);
+      setMounted(true)
+    }
+  }, [condition]);
+
+  React.useEffect(() => {
+    form.setValue("message", defaultMessage());
+  }, [promotionType]);
+
+
+  React.useEffect(() => {
+    if (!isEmpty(smsInfoMarketing) && isMounted) {
       const customerCount = Math.max(
         smsInfoMarketing?.customerCount,
         smsMaxCustomer
@@ -269,9 +288,9 @@ export const useProps = (props) => {
 
       setValueSlider(tempValue);
       setSMSMaxCustomer(customerCount);
-      calculatorsmsMoney(tempValue);
+      calculatorsmsMoney(tempValue, customerCount);
     }
-  }, [smsInfoMarketing]);
+  }, [smsInfoMarketing, isMounted]);
 
 
 
@@ -284,12 +303,12 @@ export const useProps = (props) => {
       form.setValue("message", promotionDetailById?.content || "");
       datePickerRef?.current?.setValueDatePicker(
         moment(promotionDetailById?.fromDate),
-        moment(promotionDetailById?.toDate),
+        promotionDetailById?.toDate ? moment(promotionDetailById?.toDate) : moment(),
         moment(promotionDetailById?.fromDate).format("hh:mm A"),
-        moment(promotionDetailById?.toDate).format("hh:mm A"),
+        promotionDetailById?.toDate ? moment(promotionDetailById?.toDate).format("hh:mm A") : moment().format("hh:mm A"),
         promotionDetailById?.noEndDate,
       )
-      setDisabled(promotionDetailById?.isDisabled == 0 ? false : true);
+      setDisabled(promotionDetailById?.isDisabled == 0 ? true : false);
       setManually(promotionDetailById?.isManually);
 
       const discountAction = getDiscountActionByShortName(promotionDetailById?.applyTo || "all");
@@ -321,20 +340,6 @@ export const useProps = (props) => {
 
     }
   }, [promotionDetailById, isEdit, isViewDetail]);
-
-
-
-  React.useEffect(() => {
-    if (condition) {
-      setConditionId(condition.value);
-      const message = defaultMessage();
-      form.setValue("message", message);
-    }
-  }, [condition]);
-
-  React.useEffect(() => {
-    form.setValue("message", defaultMessage());
-  }, [promotionType]);
 
 
   const [,] = useAxiosQuery({

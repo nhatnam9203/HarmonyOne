@@ -43,7 +43,7 @@ const MarketingDatePicker = React.forwardRef(({
     return (
         <>
             <CustomInput
-                label='Start date'
+                label='Start Date'
                 renderInput={() =>
                     <View style={{ flexDirection: "row" }}>
                         <DayPicker
@@ -52,7 +52,7 @@ const MarketingDatePicker = React.forwardRef(({
                                 setStartDay(day)
                             }}
                             componentRender={() =>
-                                <TempInput title={moment(startDay).format("YYYY-MM-DD")} />
+                                <TempInput title={moment(startDay).format("MM/DD/YYYY")} />
                             }
                         />
                         <InputSelectTime
@@ -69,7 +69,7 @@ const MarketingDatePicker = React.forwardRef(({
             />
 
             <CustomInput
-                label='End date'
+                label='End Date'
                 style={{ width: scaleWidth(375 - 32), alignItems: 'center', justifyContent: "space-between" }}
                 renderRight={() => <SwitchButton isVisible={visibleEndDate} onChange={setVisibleEndDate} />}
                 renderInput={() =>
@@ -81,7 +81,7 @@ const MarketingDatePicker = React.forwardRef(({
                                     setEndDay(day)
                                 }}
                                 componentRender={() =>
-                                    <TempInput title={moment(endDay).format("YYYY-MM-DD")} />
+                                    <TempInput title={moment(endDay).format("MM/DD/YYYY")} />
                                 }
                             />
                             <InputSelectTime
