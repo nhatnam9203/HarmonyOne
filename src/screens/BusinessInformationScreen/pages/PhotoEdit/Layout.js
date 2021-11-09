@@ -64,7 +64,7 @@ export const Layout = ({
                             />
                         }
                         style={{ flex: 1 }}
-                        ListFooterComponent={() => (<ButttonUploadMultippeImage onResponseImagePicker={onResponseImagePicker} />)}
+                        // ListFooterComponent={() => (<ButttonUploadMultippeImage onResponseImagePicker={onResponseImagePicker} />)}
                     />
                 </View>
                 <View style={styles.bottom}>
