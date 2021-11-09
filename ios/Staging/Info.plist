@@ -53,6 +53,8 @@
 	</dict>
   <key>ITSAppUsesNonExemptEncryption</key>
   <false/>
+  <key>NSFaceIDUsageDescription</key>
+  <string>Enabling Face ID allows you quick and secure access to your account.</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Our app uses bluetooth to find, connect and transfer data between different devices</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>

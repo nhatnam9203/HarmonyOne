@@ -593,6 +593,27 @@ export const getMerchantById = (merchantId) => ({
 });
 
 
+export const addBannerMerchant = (data) => ({
+  queryId: 'addBannerMerchant',
+  params: {
+    url: `merchantbanner`,
+    method: 'POST',
+    data
+  }
+});
+
+
+// type: 'ADD_BANNER_WITH_INFO',
+// method: 'POST',
+// token: true,
+// api: `merchantbanner`,
+// body: {
+//     ...action.infoBanner,
+//     fileId: responses?.data?.fileId || 0
+// },
+// merchantId: action.merchantId
+
+
 
 /**
  * NOTIFICATION
@@ -845,3 +866,4 @@ export const getStateCity = () => ({
     method: 'GET',   
   }
 });
+

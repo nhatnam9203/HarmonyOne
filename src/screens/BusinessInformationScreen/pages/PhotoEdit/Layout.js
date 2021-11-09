@@ -35,11 +35,12 @@ export const Layout = ({
     merchantDetail,
     onSave,
     onResponseImagePicker,
+    onResponseCamera,
+    banners
 }) => {
 
     const [t] = useTranslation();
 
-    const banners = merchantDetail?.banners || [];
 
     return (
         <View style={styles.container}>
@@ -64,7 +65,12 @@ export const Layout = ({
                             />
                         }
                         style={{ flex: 1 }}
-                        // ListFooterComponent={() => (<ButttonUploadMultippeImage onResponseImagePicker={onResponseImagePicker} />)}
+                        // ListFooterComponent={() => (
+                        //     <ButttonUploadMultippeImage
+                        //         onResponseImagePicker={onResponseImagePicker}
+                        //         onResponseCamera={onResponseCamera}
+                        //     />
+                        // )}
                     />
                 </View>
                 <View style={styles.bottom}>

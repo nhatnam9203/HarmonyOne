@@ -16,7 +16,7 @@ const options = {
 };
 
 export const WithPopupUploadMultipleImage = (WrappedComponent) => {
-    return function WithDialogConfirmComponent({ onPress, onResponseImagePicker, ...props }) {
+    return function WithDialogConfirmComponent({ onPress, onResponseImagePicker, onResponseCamera, ...props }) {
 
         const popupRef = React.useRef(null);
 
@@ -26,7 +26,7 @@ export const WithPopupUploadMultipleImage = (WrappedComponent) => {
             if (response.didCancel) {
             } else if (response.error) {
             } else {
-                onResponseImagePicker(response);
+                onResponseCamera(response);
             }
         }
 
@@ -35,9 +35,7 @@ export const WithPopupUploadMultipleImage = (WrappedComponent) => {
                 ImageMultiplePicker.openPicker({
                     multiple: true
                 }).then(response => {
-                    console.log('response multiple image : ')
-                    console.log({ response })
-                    responseCamera(response)
+                    onResponseImagePicker(response)
                 });
             }, 500);
         }
