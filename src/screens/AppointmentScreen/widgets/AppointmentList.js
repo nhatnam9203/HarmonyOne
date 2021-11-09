@@ -17,11 +17,6 @@ const AppointmentList = ({
 
     const [t] = useTranslation();
 
-    // const temptData = sortArray(blockTimes, {
-    //     by: "appointmentId",
-    //     order: "ASC",
-    //   });
-
     return (
         <FlatList
             style={styles.flatList}
