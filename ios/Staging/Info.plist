@@ -28,27 +28,30 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-    <key>NSAllowsArbitraryLoads</key>
-    <true/>
-		<key>codepush.appcenter.ms</key>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
 		<dict>
-			<key>NSExceptionAllowsInsecureHTTPLoads</key>
-			<true/>
-		</dict>
-		<key>codepush.blob.core.windows.net</key>
-		<dict>
-			<key>NSExceptionAllowsInsecureHTTPLoads</key>
-			<true/>
-		</dict>
-		<key>codepushupdates.azureedge.net</key>
-		<dict>
-			<key>NSExceptionAllowsInsecureHTTPLoads</key>
-			<true/>
-		</dict>
-		<key>localhost</key>
-		<dict>
-			<key>NSExceptionAllowsInsecureHTTPLoads</key>
-			<true/>
+			<key>codepush.appcenter.ms</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+			<key>codepush.blob.core.windows.net</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+			<key>codepushupdates.azureedge.net</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
 		</dict>
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
