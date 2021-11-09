@@ -51,31 +51,31 @@ export const PopupErrorMessage = React.forwardRef(
                 animationOut="fadeOutRight"
                 backdropColor={'rgba(64,64,64,0.5)'}
             >
-                <View style={styles.container} >
-                    <Text style={styles.title} >
+                <View style={styles.container}>
+                    <Text style={styles.txtTitle}>
                         {title}
                     </Text>
-                    <View style={styles.viewTitle} >
-                        <Image source={images.danger} />
-                        <Text style={styles.content} >
-                            {message}
-                        </Text>
+                    <Image 
+                        source={images.danger}
+                        style={styles.iconChecked}
+                        resizeMode='contain'
+                    />
+                    <Text style={styles.content} >
+                        {message}
+                    </Text>
+                    <View style={styles.bottomStyle}>
+                        <Button
+                            onPress={onHandleYESButtonPress}
+                            highlight={false}
+                            height={scaleHeight(48)}
+                            width={scaleWidth(169 * 2)}
+                            label="OK"
+                            styleButton={{
+                                borderWidth: 0,
+                                backgroundColor: "transparent"
+                            }}
+                        />
                     </View>
-                    {
-                        Platform.OS === "ios" ? <View style={{ paddingVertical: scaleHeight(14) }} >
-                            <Button
-                                onPress={onHandleYESButtonPress}
-                                highlight={false}
-                                height={scaleHeight(48)}
-                                width={scaleWidth(169 * 2)}
-                                label="Cancel"
-                                styleButton={{
-                                    borderWidth: 0,
-                                    backgroundColor: "transparent"
-                                }}
-                            />
-                        </View> : <View />
-                    }
                 </View>
             </Modal>
         );
@@ -97,29 +97,36 @@ const styles = StyleSheet.create({
         margin: 0,
     },
 
-    title: { 
-        color: '#0764B0', 
-        fontSize: scaleFont(18), 
-        fontWeight: 'bold' 
+    iconChecked : {
+        width : scaleWidth(43),
+        height : scaleWidth(43),
+        marginTop: scaleHeight(20)
+    },
+
+
+    txtTitle: {
+        fontFamily: fonts.BOLD,
+        fontSize: scaleFont(17),
+        fontWeight: "500",
+        fontStyle: "normal",
+        letterSpacing: 0,
+        textAlign: "center",
+        marginHorizontal: scaleWidth(16),
+        color: colors.WHITE,
     },
     content: {
          color: '#404040', 
          fontSize: scaleFont(15), 
          marginTop: scaleHeight(4) 
     },
-    viewButton: {
-        height: scaleHeight(65), 
-        flexDirection: 'row',
-        borderTopColor: '#EEEEEE', 
-        borderTopWidth: 1, 
-        alignItems: 'center', 
-        justifyContent: 'center'
+    bottomStyle: {
+        width: "100%",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+        flexDirection: "row",
+        borderTopWidth: 1,
+        borderTopColor: "#dddddd",
+        marginTop: scaleHeight(20)
     },
-    viewTitle: {
-        flexDirection: 'row',
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        paddingHorizontal: scaleWidth(10) 
-    }
 
 });

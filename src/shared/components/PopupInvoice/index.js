@@ -6,9 +6,9 @@ import {
   getGroupAppointmentById,
   getInvoiceDetail,
 } from "@src/apis";
-import { getFullName, statusSuccess } from "@shared/utils";
-import {
-  checkIsTablet,
+import { 
+  getFullName, 
+  statusSuccess,
   formatNumberFromCurrency,
   formatWithMoment,
   getInfoFromModelNameOfPrinter,
@@ -16,7 +16,7 @@ import {
   getStaffNameForInvoice,
   PaymentTerminalType,
   stringIsEmptyOrWhiteSpaces,
-} from "@utils";
+ } from "@shared/utils";
 import React from "react";
 import {
   ActivityIndicator,
@@ -42,7 +42,7 @@ import _ from 'lodash';
 export const PopupInvoice = React.forwardRef(
   ({ cancelInvoicePrint }, ref) => {
     const viewShotRef = React.useRef(null);
-    const tempHeight = checkIsTablet() ? scaleHeight(400) : scaleHeight(450);
+    const tempHeight = scaleHeight(400);
 
     /**
   |--------------------------------------------------
@@ -78,24 +78,24 @@ export const PopupInvoice = React.forwardRef(
   | CALL API
   |--------------------------------------------------
   */
-  const [, getGroupAppointment] = useAxiosQuery({
-    ...getGroupAppointmentById(appointmentId),
-    enabled: false,
-    onSuccess: async (data, response) => {
-      if (response?.codeNumber == 200) {
-        setGroupAppointment(data);
-      }
-    }
-  });
+  // const [, getGroupAppointment] = useAxiosQuery({
+  //   ...getGroupAppointmentById(appointmentId),
+  //   enabled: false,
+  //   onSuccess: async (data, response) => {
+  //     if (response?.codeNumber == 200) {
+  //       setGroupAppointment(data);
+  //     }
+  //   }
+  // });
 
-    const [, getInvoiceDetail] = useAxiosQuery({
-      ...getInvoiceDetail(checkoutId),
-      queryId: "getInvoiceDetail_refetch",
-      enabled: false,
-      onSuccess: (data, response) => {
-        setInvoiceDetail(data);
-      },
-    });
+  //   const [, getInvoiceDetail] = useAxiosQuery({
+  //     ...getInvoiceDetail(checkoutId),
+  //     queryId: "getInvoiceDetail_refetch",
+  //     enabled: false,
+  //     onSuccess: (data, response) => {
+  //       setInvoiceDetail(data);
+  //     },
+  //   });
 
     /**
   |--------------------------------------------------
@@ -452,10 +452,37 @@ export const PopupInvoice = React.forwardRef(
         setIsSalonApp(isSalon);
 
         // call api get info
-        await getGroupAppointment(appointmentId);
+        useAxiosQuery({
+          ...getGroupAppointmentById(appointmentId),
+          enabled: false,
+          onSuccess: async (data, response) => {
+            if (response?.codeNumber == 200) {
+              setGroupAppointment(data);
+              setIsProcessingPrint(false);
+            }
+          }
+        });
+
         if (checkoutId) {
-          getInvoiceDetail(checkoutId);
+          useAxiosQuery({
+            ...getInvoiceDetail(checkoutId),
+            queryId: "getInvoiceDetail_refetch",
+            enabled: false,
+            onSuccess: (data, response) => {
+              setInvoiceDetail(data);
+              setIsProcessingPrint(false);
+            },
+          });
         }
+
+
+        // const body = getGroupAppointmentById(appointmentId)
+        // getGroupAppointment(body.params);
+
+        // if (checkoutId) {
+        //   const body = getInvoiceDetail(checkoutId)
+        //   getInvoiceDetail(body.params);
+        // }
         await setIsProcessingPrint(true);
 
         // show modal
@@ -463,21 +490,21 @@ export const PopupInvoice = React.forwardRef(
       },
     }));
 
-    React.useEffect(() => {
-      const { codeStatus, data } = groupAppointmentData || {};
-      if (statusSuccess(codeStatus)) {
-        setGroupAppointment(data);
-        setIsProcessingPrint(false);
-      }
-    }, [groupAppointmentData]);
+    // React.useEffect(() => {
+    //   const { codeStatus, data } = groupAppointment || {};
+    //   if (statusSuccess(codeStatus)) {
+    //     setGroupAppointment(data);
+    //     setIsProcessingPrint(false);
+    //   }
+    // }, [groupAppointment]);
 
-    React.useEffect(() => {
-      const { codeStatus, data } = invoiceDetail || {};
-      if (statusSuccess(codeStatus)) {
-        setInvoiceDetail(data);
-        setIsProcessingPrint(false);
-      }
-    }, [invoiceDetail]);
+    // React.useEffect(() => {
+    //   const { codeStatus, data } = invoiceDetail || {};
+    //   if (statusSuccess(codeStatus)) {
+    //     setInvoiceDetail(data);
+    //     setIsProcessingPrint(false);
+    //   }
+    // }, [invoiceDetail]);
 
     return (
       <Modal visible={visible} onRequestClose={() => {}} transparent={true}>

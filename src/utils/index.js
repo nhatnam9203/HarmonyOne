@@ -7,7 +7,6 @@ import NavigationService from '@navigation/NavigationService';
 import { baseURL } from '../config';
 import axios from 'axios';
 export * from './dejavooRequest';
-export * from './stringUtils';
 
 export function createReducer(initialState, handlers) {
   return function reducer(state = initialState, action) {

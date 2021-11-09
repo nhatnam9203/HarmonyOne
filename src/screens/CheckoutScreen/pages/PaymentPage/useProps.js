@@ -15,10 +15,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { 
   dateToFormat, 
   guid,
+  stringIsEmptyOrWhiteSpaces,
+  getInfoFromModelNameOfPrinter,
  } from "@shared/utils";
+import PrintManager from "@lib/PrintManager";
 import {
   requestTransactionDejavoo,
-  stringIsEmptyOrWhiteSpaces,
 } from "@utils";
 import { bookAppointment, 
   appointment, 
@@ -46,7 +48,7 @@ export const useProps = (props) => {
   const popupProcessingRef = React.useRef();
   const popupErrorMessageRef = React.useRef();
   const popupPayCompletedRef = React.useRef();
-  const popupInvoiceRef = React.useRef();
+  const invoiceRef = React.useRef(null);
 
   /************************************* SELECTOR *************************************/
   const {
@@ -55,7 +57,8 @@ export const useProps = (props) => {
                   appointmentDate, 
                   startProcessingPax },
     auth: { staff },
-    hardware: { dejavooMachineInfo },
+    hardware: { dejavooMachineInfo, 
+              paymentMachineType },
     merchant: { merchantDetail },
   } = useSelector(state => state);
 
@@ -170,9 +173,6 @@ export const useProps = (props) => {
   const [, submitPaymentCreditCard] = useAxiosMutation({
     ...submitPaymentWithCreditCard(),
     onSuccess: async (data, response) => {
-      setMethodPay(null);
-      setPayAppointmentId(null);
-      changeStatusCancelHarmony(false);
       popupPayCompletedRef?.current?.show();
     }
   });
@@ -182,7 +182,8 @@ export const useProps = (props) => {
     setMethodPay(null);
     setPayAppointmentId(null);
     changeStatusCancelHarmony(false);
-    dialogSuccessRef?.current?.show();
+    // dialogSuccessRef?.current?.show();
+    popupPayCompletedRef?.current?.show();
   }
 
   /************************************* SETUP SIGNALR CHO METHOD HARMONY *************************************/
@@ -336,6 +337,81 @@ export const useProps = (props) => {
       console.log(error)
     }
   }
+  const donotPrintBill = async () => {
+    if (!_.isEmpty(connectSignalR.current)) {
+      await connectSignalR.current?.stop();
+    }
+    popupPayCompletedRef?.current?.hide()
+    setMethodPay(null);
+    setPayAppointmentId(null);
+    if (paymentSelected === "Cash" || paymentSelected === "Other") {
+      const { portName } = getInfoFromModelNameOfPrinter(
+        printerList,
+        printerSelect
+      );
+
+      if (portName) {
+        openCashDrawer(portName);
+      } else {
+        setTimeout(() => {
+          alert("Please connect to your cash drawer.");
+        }, 700);
+      }
+    } 
+
+  };
+
+  openCashDrawer = async () => {
+    const { portName } = getInfoFromModelNameOfPrinter(
+      printerList,
+      printerSelect
+    );
+
+    if (portName) {
+      await PrintManager.getInstance().openCashDrawer(portName);
+    } else {
+      setTimeout(() => {
+        alert("Please connect to your cash drawer.");
+      }, 700);
+    }
+  };
+
+  const showInvoicePrint = async (isTemptPrint = true) => {
+    // -------- Pass data to Invoice --------
+    popupPayCompletedRef?.current?.hide();
+
+    invoiceRef.current?.showAppointmentReceipt({
+      appointmentId: groupAppointments?.mainAppointmentId,
+      checkoutId: paymentDetail?.invoiceNo,
+      isPrintTempt: isTemptPrint,
+      machineType: paymentMachineType,
+    });
+  };
+
+  const printBill = async () => {
+    const { portName } = getInfoFromModelNameOfPrinter(
+      printerList,
+      printerSelect
+    );
+
+    if (!_.isEmpty(connectSignalR.current)) {
+      await connectSignalR.current?.stop();
+    }
+
+    if (paymentMachineType !== "Clover" && !portName) {
+      alert("Please connect to your printer!");
+    } else {
+      if (paymentSelected === "Cash" || paymentSelected === "Other") {
+        //Will open when integrate clover
+        // if (paymentMachineType === "Clover") {
+        //   openCashDrawerClover();
+        // } else {
+          openCashDrawer(portName);
+        // }
+      }
+      showInvoicePrint(false);
+    }
+  };
   
   return {
     appointmentDetail,
@@ -345,6 +421,7 @@ export const useProps = (props) => {
     popupProcessingRef,
     popupErrorMessageRef,
     popupPayCompletedRef,
+    invoiceRef,
     errorMessageFromPax,
     dialogActiveGiftCard,
     popupChangeRef,
@@ -373,9 +450,7 @@ export const useProps = (props) => {
 
     onSubmitPayment: async () => {
       if (methodPay.method == "credit_card") {
-        //hard code
-        // handlePayment()
-        popupInvoiceRef?.current?.show()
+        handlePayment()
       } else if (methodPay.method == "harmony") {
         setupSignalR();
       } else {
@@ -402,8 +477,8 @@ export const useProps = (props) => {
     onCancelTransactionCredit: () => {
       alert("Please wait!")
     },
-    printBill: () => {console.log('print bill')},
-    donotPrintBill: () => {console.log('donot print bill')},
+    printBill,
+    donotPrintBill,
     merchant: merchantDetail,
     groupAppointments,
     cancelInvoicePrint: () => {},

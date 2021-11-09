@@ -30,6 +30,7 @@ export const Layout = ({
     popupProcessingRef,
     popupErrorMessageRef,
     popupPayCompletedRef,
+    invoiceRef,
     errorMessageFromPax,
     dialogActiveGiftCard,
     onOK,
@@ -127,7 +128,7 @@ export const Layout = ({
             />
 
             <PopupInvoice
-                ref={popupInvoiceRef}
+                ref={invoiceRef}
                 cancelInvoicePrint={() => cancelInvoicePrint()} 
             />
 
