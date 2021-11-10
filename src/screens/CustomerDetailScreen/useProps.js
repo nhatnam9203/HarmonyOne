@@ -1,16 +1,25 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { colors } from "@shared/themes";
+import { guid } from "@shared/utils";
 import { useAxiosQuery, useAxiosMutation, deleteCustomer, editCustomer } from '@src/apis';
+import { useSelector } from "react-redux";
+import DeviceInfo from "react-native-device-info";
 import NavigationService from '@navigation/NavigationService';
+import Configs from '@src/config';
+const signalR = require("@microsoft/signalr");
+
 
 export const useProps = (props) => {
 
   const { customerDetail } = useSelector(state => state.customer);
   const [customerIdDelete, setCustomerIdDelete] = React.useState(false);
   const [isPopupDeleteCustomer, showPopupDeleteCustomer] = React.useState(false);
+  const [connectionSignalR, setConnectionSignalR] = React.useState(null);
 
+  const { navigation } = props;
+  const { auth: { staff } } = useSelector(state => state);
+  const mounted = React.useRef(false);
   const dialogDeleteCustomer = React.useRef();
 
   const [t] = useTranslation();

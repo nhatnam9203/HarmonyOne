@@ -11,6 +11,8 @@ import NavigationService from '@navigation/NavigationService'
 export const Layout = ({
   refDialogSignout,
   onLogout,
+  toggleQuickLogin,
+  isQuickLogin,
 }) => {
 
   const [t] = useTranslation();
@@ -38,7 +40,7 @@ export const Layout = ({
             renderText={() => <Text style={styles.txtItem}>{t('Change PIN code')}</Text>}
           />
           <IconButton
-            iconComponent={() => <SwitchButton />}
+            iconComponent={() => <SwitchButton value={isQuickLogin} toggle={toggleQuickLogin} />}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
             renderText={() => <Text style={styles.txtItem}>{t('Biometric login')}</Text>}
@@ -51,7 +53,7 @@ export const Layout = ({
             icon={images.iconArrow}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
-            onPress={()=>Linking.openURL(harmonyLink)}
+            onPress={() => Linking.openURL(harmonyLink)}
             renderText={() => <Text style={styles.txtItem}>{t('Help & FAQ')}</Text>}
           />
           <IconButton
@@ -71,14 +73,14 @@ export const Layout = ({
             icon={images.iconArrow}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
-            onPress={()=>Linking.openURL(harmonyLink)}
+            onPress={() => Linking.openURL(harmonyLink)}
             renderText={() => <Text style={styles.txtItem}>{t('Privacy policy')}</Text>}
           />
           <IconButton
             icon={images.iconArrow}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
-            onPress={()=>Linking.openURL(harmonyLink)}
+            onPress={() => Linking.openURL(harmonyLink)}
             renderText={() => <Text style={styles.txtItem}>{t('Terms')}</Text>}
           />
           <View style={styles.seperateLine} />
@@ -113,16 +115,11 @@ const Title = ({ content = '' }) => (
   <Text style={styles.title}>{content}</Text>
 )
 
-const SwitchButton = () => {
-
-  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
-
-  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
-
+const SwitchButton = ({ value, toggle }) => {
   return (
     <Switch
-      value={isSwitchOn}
-      onValueChange={onToggleSwitch}
+      value={value}
+      onValueChange={()=>toggle()}
       color={colors.ocean_blue}
     />
   )

@@ -9,6 +9,7 @@ const initialState = {
     customerDetail: {},
     pages : 0,
     count : 0,
+    stateCity : [],
 };
 
 const customerSlice = createSlice({
@@ -26,6 +27,9 @@ const customerSlice = createSlice({
             }
             state.pages = action?.payload?.pages;
             state.count = action?.payload?.count;
+        },
+        setStateCity : (state, action) =>{
+            state.stateCity = action.payload;
         }
     },
 });

@@ -9,6 +9,7 @@ import VersionCheck from 'react-native-version-check';
 import Configs from '@src/config';
 import DeviceInfo from "react-native-device-info";
 import moment from "moment";
+
 const signalR = require("@microsoft/signalr");
 
 export const AppStateContext = createContext({});
@@ -25,6 +26,7 @@ export const AppStateProvider = ({ children }) => {
     },
 
   } = useSelector(state => state);
+
 
   const [, fetchStaffByDate] = useAxiosQuery({
     ...getStaffByDate(
@@ -97,7 +99,7 @@ export const AppStateProvider = ({ children }) => {
 
       connection.on("ListWaNotification", (data) => {
         const dataParse = JSON.parse(data);
-        const typeData = dataParse?.data?.Type;
+         const typeData = dataParse?.data?.Type;
         if (typeData) {
           switch (typeData) {
             case "appointment_update":

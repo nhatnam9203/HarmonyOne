@@ -91,7 +91,7 @@ const CustomerInfo = ({
                     iconStyle={styles.icon}
                     style={styles.rowIcon}
                     renderText={() => <Text style={styles.txtIcon}>
-                        {birthdate ? dateToFormat(birthdate, "YYYY-MM-DD") : ""}
+                        {birthdate ? dateToFormat(birthdate, "MM/DD/YYYY") : ""}
                     </Text>
                     }
                 />

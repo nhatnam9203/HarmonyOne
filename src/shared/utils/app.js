@@ -93,6 +93,19 @@ export const createFormData = (media) => {
   return data;
 };
 
+export const createFormDataMulipleImage = (media) => {
+  const data = new FormData();
+  for (let i = 0; i < media.length; i++) {
+    data.append('files[]', {
+      uri:  media[i].sourceURL,
+      name: media[i].filename ? media[i].filename : `media-${i}.jpg`,
+      type: media[i].mime ? media[i].mime : 'image/jpeg',
+    });
+  }
+  return data;
+};
+
+
 export const slop = (size = 10) => ({
   top: size,
   left: size,
@@ -135,7 +148,7 @@ export const genders = [
 
 export const customerGroup = [
   { label: 'Normal', value: '0' },
-  { label: 'Vip', value: '1' },
+  { label: 'VIP', value: '1' },
 ];
 
 export const reviewTypeGroup = [
@@ -394,7 +407,18 @@ export const getCredicardIcon = (cardType) => {
   return icon;
 };
 
-
+export const removeAccent = (str) => {
+  str = str.toLowerCase();
+  str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+  str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+  str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+  str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+  str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+  str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+  str = str.replace(/đ/g, "d");
+  str = str.replace(/ |/g, "");
+  return str;
+};
 
 export const handleFileDownloaed = async (path, exportType, fileName) => {
 

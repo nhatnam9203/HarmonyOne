@@ -1,9 +1,10 @@
 import React from "react";
 import { auth, app } from "@redux/slices";
-import { useDispatch } from "react-redux";
 import { staffLogoutRequest, useAxiosMutation } from "@src/apis";
 import { clearAuthToken } from "@shared/storages/authToken";
 import { getFcmToken } from "@shared/storages/fcmToken";
+import { useSelector, useDispatch } from "react-redux";
+import { dataLocal } from "@redux/slices";
 import DeviceInfo from "react-native-device-info";
 import NavigationService from '@navigation/NavigationService'
 
@@ -11,6 +12,10 @@ export const useProps = (_params) => {
 
   const dispatch = useDispatch();
   const refDialogSignout = React.useRef();
+
+  const {
+    dataLocal: { isQuickLogin = false }
+  } = useSelector(state => state);
 
 
   const [, logout] = useAxiosMutation({
@@ -29,10 +34,17 @@ export const useProps = (_params) => {
   });
 
 
+  const toggleQuickLogin = () => {
+    dispatch(dataLocal.setQuickLogin(!isQuickLogin))
+  }
+
+
   return {
     refDialogSignout,
+    toggleQuickLogin,
+    isQuickLogin,
 
-    onLogout: async() => {
+    onLogout: async () => {
       const firebaseToken = await getFcmToken();
       const data = {
         deviceId: DeviceInfo.getDeviceId(),

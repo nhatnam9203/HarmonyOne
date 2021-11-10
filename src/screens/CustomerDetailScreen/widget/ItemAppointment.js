@@ -34,7 +34,7 @@ const ItemAppointment = ({ item, isPast }) => {
                                 >
                                     {sv.serviceName}
                                     <Text style={[styles.serviceName, { fontFamily: fonts.LIGHT }]}>
-                                        {`- ${sv?.staff?.displayName}`}
+                                        {item?.staffId == 0 && item?.status !== "waiting" ? " - Any staff" : sv?.staff?.displayName ? ` - ${sv?.staff?.displayName}` : ""}
                                     </Text>
                                 </Text>
                             ))
@@ -49,7 +49,7 @@ const ItemAppointment = ({ item, isPast }) => {
                     {convertStatus[item?.status]}
                 </Text>
                 <Text style={styles.total(item?.status)}>
-                    {item?.total}
+                    $ {item?.total}
                 </Text>
             </View>
         </View>

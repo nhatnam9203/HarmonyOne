@@ -29,6 +29,7 @@ const reviewSlice = createSlice({
         updateStatusReview : (state,action) =>{
             let ratingIndex = state.listReviews.findIndex(item => item.staffRatingId == action.payload?.staffRatingId);
             if(ratingIndex !== -1){
+
                 if(action.payload.status == "hidden"){
                     state.listReviews[ratingIndex].isDisabled = 1;
                 }else{

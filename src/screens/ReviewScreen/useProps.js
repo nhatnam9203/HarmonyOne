@@ -74,6 +74,7 @@ export const useProps = (_params) => {
     }
   });
 
+
   React.useEffect(() => {
     if (isRefresh) {
       fetchListReview();
@@ -96,6 +97,18 @@ export const useProps = (_params) => {
     summary,
     isRefresh,
 
+    showReview: async(item) => {
+      setRatingItem({ ...item, status: "show" });
+      const body = await showRating(item?.staffRatingId);
+      submitShowRating(body.params);
+    },
+
+    hideReview: async(item) => {
+      setRatingItem({ ...item, status: "hidden" });
+      const body = await hideRating(item?.staffRatingId);
+      submitHideRating(body.params);
+    },
+
     getActionSheetReview: (item) => [
       {
         id: 'show-review',
@@ -108,18 +121,18 @@ export const useProps = (_params) => {
           }, 30);
         },
       },
-      {
-        id: 'delete-review',
-        label: t('Delete'),
-        textColor: "red",
-        func: () => {
-          setTimeout(async () => {
-            setRatingItem({ ...item, status: "hidden" });
-            const body = await hideRating(item?.staffRatingId);
-            submitHideRating(body.params);
-          }, 30);
-        },
-      },
+      // {
+      //   id: 'delete-review',
+      //   label: t('Delete'),
+      //   textColor: "red",
+      //   func: () => {
+      //     setTimeout(async () => {
+      //       setRatingItem({ ...item, status: "hidden" });
+      //       const body = await hideRating(item?.staffRatingId);
+      //       submitHideRating(body.params);
+      //     }, 30);
+      //   },
+      // },
     ],
 
     getActionSheetReply: (staffRatingId) => [

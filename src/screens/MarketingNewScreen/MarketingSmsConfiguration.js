@@ -13,10 +13,10 @@ import Collapsible from "react-native-collapsible";
 
 const dataRadioButton = [
     {
-        label: 'sms'
+        label: 'SMS'
     },
     {
-        label: 'mms'
+        label: 'MMS'
     }
 ];
 
@@ -90,7 +90,7 @@ const MarketingSmsConfiguration = React.forwardRef(({
                 }
             />
 
-            <Collapsible collapsed={smsType == "sms"} duration={200}>
+            <Collapsible collapsed={smsType == "SMS"} duration={200}>
                 <Text style={[styles.txtItem, { color: colors.black }]}>
                     Media
                 </Text>

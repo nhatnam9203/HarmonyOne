@@ -18,6 +18,8 @@ export const ReviewList = ({
     currentPage,
     isRefresh,
     onRefresh,
+    showReview,
+    hideReview,
 }) => {
 
     const [t] = useTranslation();
@@ -42,6 +44,8 @@ export const ReviewList = ({
                         openButtonReply={() => { }}
                         getActionSheetReview={() => getActionSheetReview(item)}
                         getActionSheetReply={getActionSheetReply}
+                        showReview={showReview}
+                        hideReview={hideReview}
                     />}
 
                 onEndReached={loadMore}

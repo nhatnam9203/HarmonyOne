@@ -1,6 +1,8 @@
 import { PopupActionSheet } from '@shared/components/PopupActionSheet';
 import React from 'react';
 import * as ImagePicker from "react-native-image-picker";
+import ImageMultiplePicker from 'react-native-image-crop-picker';
+
 import { Alert, View } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { colors } from "@shared/themes";
@@ -13,8 +15,8 @@ const options = {
     },
 };
 
-export const WithPopupUpload = (WrappedComponent) => {
-    return function WithDialogConfirmComponent({ onPress, onResponseImagePicker, ...props }) {
+export const WithPopupUploadMultipleImage = (WrappedComponent) => {
+    return function WithDialogConfirmComponent({ onPress, onResponseImagePicker, onResponseCamera, ...props }) {
 
         const popupRef = React.useRef(null);
 
@@ -24,14 +26,16 @@ export const WithPopupUpload = (WrappedComponent) => {
             if (response.didCancel) {
             } else if (response.error) {
             } else {
-                onResponseImagePicker(response);
+                onResponseCamera(response);
             }
         }
 
         const pickImage = () => {
             setTimeout(() => {
-                ImagePicker.launchImageLibrary(options, (response) => {
-                    responseCamera(response);
+                ImageMultiplePicker.openPicker({
+                    multiple: true
+                }).then(response => {
+                    onResponseImagePicker(response)
                 });
             }, 500);
         }
@@ -52,13 +56,13 @@ export const WithPopupUpload = (WrappedComponent) => {
                     pickImage();
                 },
             },
-            {
-                id: 'take-photo',
-                label: t('Launch camera'),
-                func: () => {
-                    takePicture();
-                },
-            },
+            // {
+            //     id: 'take-photo',
+            //     label: t('Launch camera'),
+            //     func: () => {
+            //         takePicture();
+            //     },
+            // },
         ]
 
         const showConfirmDialog = () => {

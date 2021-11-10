@@ -10,6 +10,7 @@ import {
   cancelHarmonyPayment,
   getGroupAppointmentById,
   submitPaymentWithCreditCard,
+  sendGoogleReviewLink,
 } from '@src/apis';
 import { useDispatch, useSelector } from "react-redux";
 import { 
@@ -177,6 +178,17 @@ export const useProps = (props) => {
     onSuccess: async (data, response) => {
       popupPayCompletedRef?.current?.show();
     }
+  });
+  
+  /************************************* SEND GOOGLE REVIEW LINK *************************************/
+ 
+  const [{  }, sendLinkGoogle] = useAxiosQuery({
+    ...sendGoogleReviewLink(appointmentDetail?.customerId, staff?.merchantId),
+    enabled: false,
+    isLoadingDefault : false,
+    onSuccess: (data, response) => {
+   
+    },
   });
 
   /************************************* HANDLE HARMONY PAYMENT SUCCESS *************************************/
@@ -486,6 +498,10 @@ export const useProps = (props) => {
 
     onOK: () => {
       fetchAppointmentByDate();
+      const statusSendLink = dialogSuccessRef?.current?.getStatusSendLink();
+      if(statusSendLink){
+        sendLinkGoogle();
+      }
     },
     onCancelTransactionCredit: () => {
       alert("Please wait!")

@@ -12,6 +12,7 @@ import {
   getMerchantById,
   getCountUnReadOfNotification,
   getStaffByMerchant,
+  getStateCity
 } from '@src/apis';
 
 import { useNavigation } from '@react-navigation/core';
@@ -27,7 +28,8 @@ import {
   merchant,
   notification,
   invoice,
-  app
+  app,
+  customer
 } from '@redux/slices';
 import { dateToFormat } from '@shared/utils';
 import { axios } from '@shared/services/axiosClient';
@@ -44,7 +46,7 @@ export const useProps = (_params) => {
   const [appointmentDetailId, setAppointmentDetailId] = React.useState('');
   const [isRefresh, setRefresh] = React.useState(false);
   const [firstLoading, setFirstLoading] = React.useState(true);
-  const [tempStatus , setTempStatus] = React.useState("");
+  const [tempStatus, setTempStatus] = React.useState("");
 
   const {
     staff: { staffsByDate = [] },
@@ -77,10 +79,22 @@ export const useProps = (_params) => {
     },
   });
 
+
+  const [, fetchStateCity] = useAxiosQuery({
+    ...getStateCity(),
+    enabled: false,
+    isLoadingDefault: false,
+    onSuccess: (data, response) => {
+      if (response?.codeNumber == 200) {
+        dispatch(customer.setStateCity(data))
+      }
+    },
+  });
+
   const [, fetchAppointmentById] = useAxiosQuery({
     ...getAppointmentById(appointmentDetailId),
     enabled: false,
-    isStopLoading : tempStatus == "paid" ? true : false,
+    isStopLoading: tempStatus == "paid" ? true : false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(appointment.setAppointmentDetail(data));
@@ -235,6 +249,7 @@ export const useProps = (_params) => {
     fetchMerchantById();
     fetchCountUnread();
     fetchStaffList();
+    fetchStateCity();
   }, []);
 
   return {

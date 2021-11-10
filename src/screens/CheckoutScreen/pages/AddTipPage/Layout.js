@@ -132,16 +132,16 @@ const styles = StyleSheet.create({
     itemPercent: {
         justifyContent: "center",
         alignItems: 'center',
-        paddingVertical: scaleHeight(5),
+        paddingVertical: scaleHeight(8),
         borderWidth: 1,
-        borderColor: "#dddddd",
+        borderColor: "#cccccc",
         width: scaleWidth(375 / 5 - 12),
         borderRadius: 3
     },
     txtPercent: {
         color: "#0764B0",
         fontSize: scaleFont(15),
-        fontFamily: fonts.REGULAR
+        fontFamily: fonts.MEDIUM
     },
     bottom: {
         padding: scaleWidth(16),

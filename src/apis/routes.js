@@ -284,6 +284,13 @@ export const getPastAppointmentByCustomer = (customerId, page) => ({
   },
 });
 
+export const sendGoogleReviewLink = (customerId = 0, merchantId = 0) => ({
+  queryId: `sendGoogleReviewLink`,
+  params: {
+    url: `customer/sendReviewLink?customerId=${customerId}&merchantId=${merchantId}`,
+    method: 'GET',
+  },
+});
 
 /**
  * SERVICE
@@ -593,6 +600,46 @@ export const getMerchantById = (merchantId) => ({
 });
 
 
+export const addBannerMerchant = (data) => ({
+  queryId: 'addBannerMerchant',
+  params: {
+    url: `merchantbanner`,
+    method: 'POST',
+    data
+  }
+});
+
+
+export const getBannerMerchant = (merchantId) => ({
+  queryId: 'getBannerMerchant',
+  params: {
+    url: `merchantbanner/getbymerchant/${merchantId}`,
+    method: 'GET',
+  }
+});
+
+export const deleteBannersMerchant = (data) => ({
+  queryId: 'deleteBannersMerchant',
+  params: {
+    url: `merchantbanner/multiple`,
+    method: 'DELETE',
+    data
+  }
+});
+
+
+
+// type: 'ADD_BANNER_WITH_INFO',
+// method: 'POST',
+// token: true,
+// api: `merchantbanner`,
+// body: {
+//     ...action.infoBanner,
+//     fileId: responses?.data?.fileId || 0
+// },
+// merchantId: action.merchantId
+
+
 
 /**
  * NOTIFICATION
@@ -865,3 +912,12 @@ export const activeFirebase = (data) => ({
     data
   }
 });
+
+export const getStateCity = () => ({
+  queryId: 'getStateCity',
+  params: {
+    url: `state`,
+    method: 'GET',   
+  }
+});
+

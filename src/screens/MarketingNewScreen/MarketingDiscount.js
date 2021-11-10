@@ -21,7 +21,7 @@ const MarketingDiscount = ({
 
     return (
         <CustomInput
-            label='DiscountType'
+            label='Discount Type'
             renderInput={() =>
                 <View style={styles.row}>
                     <TouchableOpacity

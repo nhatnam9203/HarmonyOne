@@ -46,6 +46,8 @@ const ItemReview = ({
     openButtonReply,
     getActionSheetReview,
     getActionSheetReply,
+    showReview,
+    hideReview,
 }) => {
 
     return (
@@ -88,14 +90,21 @@ const ItemReview = ({
                 {/******************************** HIDDEN *********************************/}
                 <View style={{ flexDirection: 'row', }}>
                     {
-                        item?.isDisabled == 1 &&
-                        <View style={styles.status}>
-                            <Text style={styles.txtHidden} >
-                                Hidden
-                            </Text>
-                        </View>
+                        item?.isDisabled == 0 ?
+                            <TouchableOpacity
+                                onPress={() => hideReview(item)}
+                                style={[styles.buttonShow, { backgroundColor: "red" }]}
+                            >
+                                <Text style={styles.txtShow}>Hide</Text>
+                            </TouchableOpacity> :
+                            <TouchableOpacity
+                                onPress={() => showReview(item)}
+                                style={styles.buttonShow}
+                            >
+                                <Text style={styles.txtShow}>Show</Text>
+                            </TouchableOpacity>
                     }
-                    <EditReview actions={getActionSheetReview()} />
+                    {/* <EditReview actions={getActionSheetReview()} /> */}
                 </View>
             </View>
 
@@ -193,6 +202,19 @@ const ImageRating = ({ item, ratingImages = [] }) => {
 export default ItemReview;
 
 const styles = StyleSheet.create({
+    buttonShow: {
+        width: scaleWidth(70),
+        height: scaleWidth(30),
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: colors.ocean_blue
+    },
+    txtShow: {
+        color: "white",
+        fontSize: scaleFont(14),
+        fontFamily: fonts.MEDIUM
+    },
+
     item: {
         borderBottomWidth: 1,
         borderBottomColor: '#eeeeee',

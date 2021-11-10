@@ -23,6 +23,8 @@ export const Layout = ({
   summary,
   isRefresh,
   onRefresh,
+  showReview,
+  hideReview,
 }) => {
 
   const [t] = useTranslation();
@@ -133,6 +135,8 @@ export const Layout = ({
             currentPage={currentPage}
             isRefresh={isRefresh}
             onRefresh={onRefresh}
+            showReview={showReview}
+            hideReview={hideReview}
           />
         </View>
       </SingleScreenLayout>
