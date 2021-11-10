@@ -56,13 +56,13 @@ export const WithPopupUploadMultipleImage = (WrappedComponent) => {
                     pickImage();
                 },
             },
-            // {
-            //     id: 'take-photo',
-            //     label: t('Launch camera'),
-            //     func: () => {
-            //         takePicture();
-            //     },
-            // },
+            {
+                id: 'take-photo',
+                label: t('Launch camera'),
+                func: () => {
+                    takePicture();
+                },
+            },
         ]
 
         const showConfirmDialog = () => {

@@ -62,8 +62,26 @@ export const useProps = (_params) => {
     queryId: "uploadBanner_camera",
     onSuccess: (data, response) => {
       if (response.codeNumber == 200) {
-        setFileId(data?.fileId ?? 0);
-        setImageUrl(data?.url);
+        let tempBannersAdded = [...bannersAdded];
+        tempBannersAdded.push({
+          filename: guid(),
+          fileId: data?.fileId
+        });
+        setBannersAdded(tempBannersAdded);
+
+        setBanners([
+          ...banners,
+          {
+            createdDate: "",
+            description: "",
+            fileId: data?.fileId,
+            imageUrl: data?.url,
+            isDisabled: 0,
+            merchantBannerId: `bannerAdded_${guid()}`,
+            merchantId: 0,
+            title: "",
+          }
+        ]);
       }
     },
   });
@@ -110,14 +128,13 @@ export const useProps = (_params) => {
 
   const addPerBannner = async () => {
     const data = {
-      "title": `${bannersAdded[0]?.filename}_${bannersAdded[0]?.localIdentifier}`,
+      "title": `${bannersAdded[0]?.filename}_${guid()}`,
       "description": "",
       "fileId": `${bannersAdded[0]?.fileId}`,
     };
     const body = await addBannerMerchant(data);
     submitAddBannerMerchant(body.params);
   }
-
 
   React.useEffect(() => {
     if (isSubmit) {
@@ -197,10 +214,11 @@ export const useProps = (_params) => {
     },
 
     onResponseCamera: async (response) => {
-      // let files = response?.assets ?? [];
-      // files = createFormData(files);
-      // const body = await uploadAvatarStaff(files);
-      // submitUploadAvatarStaff(body.params);
+      console.log('response camera : ', { response });
+      let files = response?.assets ?? [];
+      files = createFormData(files);
+      const body = await uploadAvatarStaff(files);
+      submitUploadCamera(body.params);
     },
 
 

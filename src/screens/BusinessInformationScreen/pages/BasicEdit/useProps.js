@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { basicEditSchema } from "@shared/helpers/schema";
 import NavigationService from '@navigation/NavigationService';
+import { Alert } from "react-native";
 
 export const useProps = (_params) => {
   const dispatch = useDispatch();
@@ -73,6 +74,8 @@ export const useProps = (_params) => {
 
 
     onSubmit: async (values) => {
+      Alert.alert('đang test lại');
+      return;
       const phoneHeader = inputPhoneHeadRef?.current?.getValue().value;
 
       const data = {
