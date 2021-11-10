@@ -58,10 +58,10 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        fontSize: scaleFont(16),
+        fontSize: scaleFont(17),
         fontFamily: fonts.MEDIUM,
         marginLeft: scaleWidth(16),
-        color: colors.greyish_brown_40,
+        color: "#000",
     },
 
     arrow: {

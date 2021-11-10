@@ -123,6 +123,9 @@ export const images = {
   other_card : require('@src/assets/images/other_card.png'),
   american_express : require('@src/assets/images/american_express.png'),
 
+  tick_ic : require('@src/assets/images/tick_ic.png'),
+  checkbox_blue : require('@src/assets/images/checkbox_blue.png'),
+
   EmptyList: require('@src/assets/images/emptyList.png'),
   barTimeLine: require('@src/assets/images/barTimeLine.png'),
   dropdown: require('@src/assets/images/dropdown.png'),

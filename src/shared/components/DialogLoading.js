@@ -6,6 +6,7 @@ import { images } from "@shared/themes/resources";
 import { Button } from "./Button";
 import { IconButton } from "./IconButton";
 import Modal from "react-native-modal";
+import CheckBox from "@react-native-community/checkbox";
 
 
 export const DialogLoading = React.forwardRef(
@@ -15,6 +16,8 @@ export const DialogLoading = React.forwardRef(
         title = "Appointment added successfully"
     }, ref) => {
         const [t] = useTranslation();
+
+        const [isSendLink, setSendLink] = React.useState(false);
 
         const [open, setOpen] = React.useState(false);
         const hideModal = () => {
@@ -38,8 +41,11 @@ export const DialogLoading = React.forwardRef(
             show: () => {
                 setOpen(true);
             },
-            hide : () =>{
+            hide: () => {
                 setOpen(false);
+            },
+            getStatusSendLink : () =>{
+                return isSendLink;
             }
         }));
 
@@ -58,11 +64,22 @@ export const DialogLoading = React.forwardRef(
                     <Text style={styles.txtTitle}>
                         {title}
                     </Text>
-                    <Image 
+                    <Image
                         source={images.checked_success}
                         style={styles.iconChecked}
                         resizeMode='contain'
                     />
+
+                    <View style={{ flexDirection: 'row', marginTop: scaleHeight(16) }}>
+                        <CheckBox
+                            disabled={false}
+                            value={isSendLink}
+                            onValueChange={(newValue) => setSendLink(newValue)}
+                            boxType='square'
+                            style={{ width: scaleWidth(22), height: scaleWidth(18), marginRight: scaleWidth(8) }}
+                        />
+                        <Text style={styles.txtSendLink}>Send Google Review Link</Text>
+                    </View>
 
                     <View style={styles.bottomStyle}>
                         <Button
@@ -101,10 +118,16 @@ const styles = StyleSheet.create({
         position: 'relative',
     },
 
-    iconChecked : {
-        width : scaleWidth(43),
-        height : scaleWidth(43),
-        tintColor : "#4AD100",
+    txtSendLink: {
+        color: "#585858",
+        fontSize: scaleFont(15),
+        fontFamily: fonts.REGULAR
+    },
+
+    iconChecked: {
+        width: scaleWidth(43),
+        height: scaleWidth(43),
+        tintColor: "#4AD100",
         marginTop: scaleHeight(20)
     },
 

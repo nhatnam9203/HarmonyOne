@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 const reducerName = 'hpo.merchant';
 const initialState = {
     merchantDetail: {},
+    bannersMerchant : [],
 };
 
 const merchantSlice = createSlice({
@@ -13,6 +14,9 @@ const merchantSlice = createSlice({
     reducers: {
         setMerchantDetail: (state, action) => {
             state.merchantDetail = action.payload;
+        },
+        setBannerMerchant : (state, action) =>{
+            state.bannersMerchant = action.payload ? action.payload : []
         }
     },
 });
