@@ -582,7 +582,7 @@ export const addPromotionNote = (appointmentId, data) => ({
   params: {
     url: `appointment/promotion/note/${appointmentId}`,
     method: 'POST',
-    datagt
+    data
   }
 });
 
