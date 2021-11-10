@@ -48,7 +48,6 @@ export const useProps = (props) => {
   const popupChangeRef = React.useRef();
   const popupProcessingRef = React.useRef();
   const popupErrorMessageRef = React.useRef();
-  const popupPayCompletedRef = React.useRef();
   const invoiceRef = React.useRef(null);
 
   /************************************* SELECTOR *************************************/
@@ -121,6 +120,7 @@ export const useProps = (props) => {
           fetchGroupApointmentById();
           setPaymentDetail(response?.data);
           popupPaymentDetailRef?.current?.show();
+          console.log('set setMethodPay null')
           setMethodPay(null);
         }
       }
@@ -159,6 +159,7 @@ export const useProps = (props) => {
     ...cancelHarmonyPayment(),
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
+        console.log('setMethodPay null')
         setMethodPay(null);
         setPayAppointmentId(null);
         changeStatusCancelHarmony(false);
@@ -176,10 +177,10 @@ export const useProps = (props) => {
   const [, submitPaymentCreditCard] = useAxiosMutation({
     ...submitPaymentWithCreditCard(),
     onSuccess: async (data, response) => {
-      popupPayCompletedRef?.current?.show();
+      dialogSuccessRef?.current?.show();
     }
   });
-  
+
   /************************************* SEND GOOGLE REVIEW LINK *************************************/
  
   const [{  }, sendLinkGoogle] = useAxiosQuery({
@@ -193,11 +194,11 @@ export const useProps = (props) => {
 
   /************************************* HANDLE HARMONY PAYMENT SUCCESS *************************************/
   const handleHarmonyPayment = (checkoutPayment) => {
+    console.log('setMethodPay null')
     setMethodPay(null);
     setPayAppointmentId(null);
     changeStatusCancelHarmony(false);
-    // dialogSuccessRef?.current?.show();
-    popupPayCompletedRef?.current?.show();
+    dialogSuccessRef?.current?.show();
   }
 
   /************************************* SETUP SIGNALR CHO METHOD HARMONY *************************************/
@@ -277,7 +278,8 @@ export const useProps = (props) => {
    * Dejavoo
    */
   const handlePaymentByCredit = async() => {
-    popupProcessingRef?.current?.show();
+    //hard code
+    // popupProcessingRef?.current?.show();
        
     //Payment by Dejavoo
     const parameter = {
@@ -305,7 +307,8 @@ export const useProps = (props) => {
     moneyUserGiveForStaff,
     parameter
   ) =>  {
-    popupProcessingRef?.current?.hide();
+    //hard code
+    // popupProcessingRef?.current?.hide();
     console.log('start handleResponseCreditCardDejavoo')
     try {
       parseString(message, (err, result) => {
@@ -359,10 +362,9 @@ export const useProps = (props) => {
       setConnectionSignalR(null);
     }, 300);
     
-    popupPayCompletedRef?.current?.hide()
-    setMethodPay(null);
-    setPayAppointmentId(null);
-    // if (paymentSelected === "Cash" || paymentSelected === "Other") {
+    dialogSuccessRef?.current?.hide()
+
+    console.log('methodPay', methodPay.method)    
     if (methodPay.method === "cash" || methodPay.method === "other") {
       const { portName } = getInfoFromModelNameOfPrinter(
         printerList,
@@ -378,7 +380,15 @@ export const useProps = (props) => {
       }
     } 
 
+    console.log('setMethodPay null')
+    setMethodPay(null);
+    setPayAppointmentId(null);
+
     fetchAppointmentByDate();
+    const statusSendLink = dialogSuccessRef?.current?.getStatusSendLink();
+    if(statusSendLink){
+      sendLinkGoogle();
+    }
 
   };
 
@@ -399,7 +409,7 @@ export const useProps = (props) => {
 
   const showInvoicePrint = async (isTemptPrint = true) => {
     // -------- Pass data to Invoice --------
-    popupPayCompletedRef?.current?.hide();
+    dialogSuccessRef?.current?.hide();
 
     invoiceRef.current?.showAppointmentReceipt({
       appointmentId: groupAppointments?.mainAppointmentId,
@@ -436,6 +446,11 @@ export const useProps = (props) => {
         }
         showInvoicePrint(false);
     }
+
+    const statusSendLink = dialogSuccessRef?.current?.getStatusSendLink();
+    if(statusSendLink){
+      sendLinkGoogle();
+    }
   };
   
   return {
@@ -445,7 +460,6 @@ export const useProps = (props) => {
     popupPaymentDetailRef,
     popupProcessingRef,
     popupErrorMessageRef,
-    popupPayCompletedRef,
     invoiceRef,
     errorMessageFromPax,
     dialogActiveGiftCard,
@@ -454,6 +468,7 @@ export const useProps = (props) => {
     paymentDetail,
 
     onChangeMethodPay: (item) => {
+      console.log('setMethodPay', item)
       setMethodPay(item);
       if (item?.method == "giftcard") {
         dialogActiveGiftCard?.current?.show();
@@ -496,13 +511,13 @@ export const useProps = (props) => {
       }, 200);
     },
 
-    onOK: () => {
-      fetchAppointmentByDate();
-      const statusSendLink = dialogSuccessRef?.current?.getStatusSendLink();
-      if(statusSendLink){
-        sendLinkGoogle();
-      }
-    },
+    // onOK: () => {
+    //   fetchAppointmentByDate();
+    //   const statusSendLink = dialogSuccessRef?.current?.getStatusSendLink();
+    //   if(statusSendLink){
+    //     sendLinkGoogle();
+    //   }
+    // },
     onCancelTransactionCredit: () => {
       alert("Please wait!")
     },

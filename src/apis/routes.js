@@ -759,15 +759,6 @@ export const submitPaymentWithCreditCard = (merchantId,
     }
 })
 
-export const sendGoogleReviewLink = (customerId = 0, merchantId = 0) => ({
-    
-    queryId: 'sendGoogleReviewLink',
-    params: {
-      url: `customer/sendReviewLink?customerId=${customerId}&merchantId=${merchantId}`,
-      method: 'GET',
-    }
-})
-
 /**
  * MERCHANT SETTING
  */

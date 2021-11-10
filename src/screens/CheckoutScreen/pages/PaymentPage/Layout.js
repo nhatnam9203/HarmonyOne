@@ -7,7 +7,6 @@ import { IconButton,
          InputText, 
          Button, 
          DialogSuccess, 
-         DialogLoading,
          PopupProcessingCredit,
          PopupErrorMessage, 
          PopupPayCompleted,
@@ -29,7 +28,6 @@ export const Layout = ({
     popupPaymentDetailRef,
     popupProcessingRef,
     popupErrorMessageRef,
-    popupPayCompletedRef,
     invoiceRef,
     errorMessageFromPax,
     dialogActiveGiftCard,
@@ -102,11 +100,11 @@ export const Layout = ({
                 />
             </SingleScreenLayout>
 
-            <DialogLoading
+            {/* <DialogLoading
                 ref={dialogSuccessRef}
                 title="Transaction completed"
                 onConfirmYes={() => onOK()}
-            />
+            /> */}
 
             <PopupProcessingCredit
                 ref={popupProcessingRef}
@@ -120,9 +118,8 @@ export const Layout = ({
             />
 
             <PopupPayCompleted
-                ref={popupPayCompletedRef}
-                profile={merchant}
-                groupAppointment={groupAppointments}
+                ref={dialogSuccessRef}
+                title="Transaction completed"
                 onConfirmYes={printBill}
                 onConfirmNo={donotPrintBill}
             />

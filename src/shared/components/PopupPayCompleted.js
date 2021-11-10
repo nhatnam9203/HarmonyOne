@@ -1,51 +1,40 @@
-import React from 'react';
-import {
-    View,
-    Text,
-    Image,
-    StyleSheet,
-} from 'react-native';
-import { getTitleSendLinkGoogle } from "@shared/utils";
-import { forEach } from 'ramda';
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { colors, fonts, layouts } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { Button } from "./Button";
 import { IconButton } from "./IconButton";
 import Modal from "react-native-modal";
-import {
-    useAxiosMutation,
-    sendGoogleReviewLink,
-  } from '@src/apis';
-  import { useTranslation } from "react-i18next";
+import CheckBox from "@react-native-community/checkbox";
+
 
 export const PopupPayCompleted = React.forwardRef(
     ({
         onConfirmYes = () => { },
         onConfirmNo = () => { },
         onModalHide = () => { },
-        profile, 
-        groupAppointment,
+        title = "Appointment added successfully"
     }, ref) => {
         const [t] = useTranslation();
 
+        const [isSendLink, setSendLink] = React.useState(false);
+
         const [open, setOpen] = React.useState(false);
-        const [isSendLink, setIsSendLink] = React.useState(false);
-
-        const [, submitSendLinkReview] = useAxiosMutation({
-            ...sendGoogleReviewLink(),
-            isLoading: false,
-            onSuccess: async (data, response) => {
-              
-            }
-          });
-
         const hideModal = () => {
             setOpen(false);
             onModalHide();
         };
 
+        const onHandleNOButtonPress = () => {
+            hideModal();
+            if (onConfirmNo && typeof onConfirmNo === "function") {
+                onConfirmNo();
+                hideModal();
+            }
+        };
+
         const onHandleYESButtonPress = () => {
-            handleSendGoogleLinkReview();
             hideModal();
             if (onConfirmYes && typeof onConfirmYes === "function") {
                 onConfirmYes();
@@ -53,43 +42,15 @@ export const PopupPayCompleted = React.forwardRef(
             }
         };
 
-        const onHandleNoButtonPress = () => {
-            handleSendGoogleLinkReview();
-            hideModal();
-            if (onConfirmNo && typeof onConfirmNo === "function") {
-                onConfirmNo();
-                hideModal();
-            }
-        }
-
-        const switchSendLink = () => {
-            setIsSendLink(!isSendLink)
-        }
-    
-        const handleSendGoogleLinkReview = async () => {
-            if (isSendLink) {
-                let customerIdList = new Set();
-                const appointments = groupAppointment?.appointments || [];
-                for (let i = 0; i < appointments.length; i++) {
-                    customerIdList.add(appointments[i]?.customerId);
-                }
-                const customerIdListNeedToSendLink = [...customerIdList];
-                const merchantId = profile?.merchantId || 0;
-                customerIdListNeedToSendLink.forEach((customerId) => {
-                    const body = sendGoogleReviewLink(groupAppointments?.checkoutGroupId, data);
-                    submitSelectPaymentMethod(body.params);
-                });
-                
-                setIsSendLink(false)
-            }
-        }
-
         React.useImperativeHandle(ref, () => ({
             show: () => {
                 setOpen(true);
             },
-            hide : () =>{
+            hide: () => {
                 setOpen(false);
+            },
+            getStatusSendLink : () =>{
+                return isSendLink;
             }
         }));
 
@@ -104,80 +65,54 @@ export const PopupPayCompleted = React.forwardRef(
                 animationOut="fadeOutRight"
                 backdropColor={'rgba(64,64,64,0.5)'}
             >
-                <View style={styles.container} >
-                    <View style={{ flex: 1 }} >
-                        {/* ---------- header ------ */}
-                        <View style={{
-                            alignItems: 'center', paddingTop: scaleHeight(16), paddingBottom: scaleHeight(12),
-                        }} >
-                            <Text style={{ color: '#0764B0', fontSize: scaleFont(18), fontWeight: 'bold' }}  >
-                                {t("Transaction completed!")}
-                            </Text>
-                        </View>
-                        {/* ------------ content ----- */}
-                        <View style={{
-                            alignItems: 'center'
-                        }} >
-                            <Text style={{ color: '#404040', fontSize: scaleFont(15) }}  >
-                                {t("Do you want to print receipt?")}
-                            </Text>
-                        </View>
-
-                        {/* ------------ Check box ----- */}
-                        {
-                            profile.sendReviewLinkOption === "manual" ?
-                                <View style={{
-                                    flex: 1, flexDirection: "row",
-                                    justifyContent: "center", alignItems: "center"
-                                }} >
-                                    <IconButton
-                                        icon={isSendLink ? images.checkBox : images.checkBoxEmpty}
-                                        onPress={switchSendLink} 
-                                    />
-                                   
-                                    <Text style={styles.content}  >
-                                        {t("Send Google Review Link")}
-                                    </Text>
-                                </View> :
-                                <View style={{
-                                    flex: 1,
-                                    justifyContent: "center", alignItems: "center"
-                                }} >
-                                    <Text style={styles.content}  >
-                                        {`You Are Choosing ${getTitleSendLinkGoogle(profile.sendReviewLinkOption)} Send Google Review Link`}
-                                    </Text>
-                                </View>
-                        }
-
+                <View style={styles.container}>
+                    <Text style={styles.txtTitle}>
+                        {title}
+                    </Text>
+                    <Image
+                        source={images.checked_success}
+                        style={styles.iconChecked}
+                        resizeMode='contain'
+                    />
+                    <Text style={{ color: '#404040', fontSize: scaleFont(15) }}  >
+                        {t("Do you want to print receipt?")}
+                    </Text>
+                    <View style={{ flexDirection: 'row', marginTop: scaleHeight(16) }}>
+                        <CheckBox
+                            disabled={false}
+                            value={isSendLink}
+                            onValueChange={(newValue) => setSendLink(newValue)}
+                            boxType='square'
+                            style={{ width: scaleWidth(22), height: scaleWidth(18), marginRight: scaleWidth(8) }}
+                        />
+                        <Text style={styles.txtSendLink}>Send Google Review Link</Text>
                     </View>
 
-
-                    <View style={styles.bottomView} >
+                    <View style={styles.bottomStyle}>
                         <Button
-                            width={scaleWidth(100)}
-                            height={scaleHeight(40)}
-                            backgroundColor="#0764B0"
-                            label={t("Yes")}
-                            textColor="#fff"
                             onPress={onHandleYESButtonPress}
-                            style={{ borderWidth: 1, borderColor: '#C5C5C5' }}
-                            styleText={{ fontSize: scaleFont(18), fontWeight: 'normal' }}
+                            highlight={false}
+                            height={scaleHeight(48)}
+                            width={scaleWidth(169 * 2)}
+                            label={t("Yes")}
+                            styleButton={{
+                                borderWidth: 0,
+                                backgroundColor: "transparent"
+                            }}
                         />
-
-                        <Button
-                            width={scaleWidth(100)}
-                            height={scaleHeight(40)}
-                            backgroundColor="#F1F1F1"
+                         <Button
+                            onPress={onHandleNOButtonPress}
+                            highlight={false}
+                            height={scaleHeight(48)}
+                            width={scaleWidth(169 * 2)}
                             label={t("No")}
-                            textColor="#6A6A6A"
-                            onPress={onHandleNoButtonPress}
-                            style={{ borderWidth: 1, borderColor: '#C5C5C5' }}
-                            styleText={{ fontSize: scaleFont(18), fontWeight: 'normal' }}
+                            styleButton={{
+                                borderWidth: 0,
+                                backgroundColor: "transparent"
+                            }}
                         />
                     </View>
-
                 </View>
-
             </Modal>
         );
     }
@@ -185,35 +120,85 @@ export const PopupPayCompleted = React.forwardRef(
 
 const styles = StyleSheet.create({
     container: {
-        height: scaleHeight(230), 
         backgroundColor: "#fff",
-        borderRadius: scaleWidth(16),
-        marginLeft: scaleWidth(15),
-        marginRight: scaleWidth(15),
+        alignItems: "center",
+        alignSelf: "center",
+        width: scaleWidth(340),
+        paddingTop: scaleWidth(20),
+        borderRadius: scaleHeight(5),
+        position: 'relative',
     },
+
+    txtSendLink: {
+        color: "#585858",
+        fontSize: scaleFont(15),
+        fontFamily: fonts.REGULAR
+    },
+
+    iconChecked: {
+        width: scaleWidth(43),
+        height: scaleWidth(43),
+        tintColor: "#4AD100",
+        marginTop: scaleHeight(20)
+    },
+
+
     modal: {
         margin: 0,
     },
-    title: { 
-        color: '#0764B0', 
-        fontSize: scaleFont(18), 
-        fontWeight: 'bold' 
+
+    txtTitle: {
+        fontFamily: fonts.BOLD,
+        fontSize: scaleFont(17),
+        fontWeight: "500",
+        fontStyle: "normal",
+        letterSpacing: 0,
+        textAlign: "center",
+        marginHorizontal: scaleWidth(16),
+        color: colors.WHITE,
     },
-    content: { 
-        color: 'rgb(130,130,130)', 
-        fontSize: scaleFont(15), 
-        marginLeft: scaleWidth(12) }
-    ,
-    bottomView: {
-        height: scaleHeight(75), 
-        flexDirection: 'row', 
-        paddingHorizontal: scaleWidth(70),
-        alignItems: 'center', 
-        justifyContent: 'space-between',
-        borderTopWidth: 1, 
-        borderTopColor: "rgb(212,211,211)"
+
+    buttonClose: {
+        width: scaleWidth(28),
+        height: scaleHeight(28),
+        borderRadius: scaleWidth(14),
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#fff",
+        marginRight: scaleWidth(10),
+        position: 'absolute',
+        right: scaleWidth(2),
+        top: scaleWidth(12),
+    },
+
+    iconButtonClose: {
+        width: scaleWidth(28),
+        height: scaleHeight(28),
+        tintColor: "#404040",
+    },
+
+    titleContent: {
+        fontFamily: fonts.REGULAR,
+        marginTop: scaleHeight(20),
+        fontSize: scaleFont(15),
+        marginHorizontal: scaleWidth(16),
+        fontStyle: "normal",
+        letterSpacing: 0,
+        textAlign: "center",
+    },
+
+    bottomStyle: {
+        width: "100%",
+        justifyContent: "space-around",
+        alignItems: "center",
+        flexDirection: "row",
+        borderTopWidth: 1,
+        borderTopColor: "#dddddd",
+        marginTop: scaleHeight(20)
+    },
+    line: {
+        height: scaleHeight(48),
+        width: scaleWidth(2),
+        backgroundColor: "#dddddd"
     }
-
 });
-
-
