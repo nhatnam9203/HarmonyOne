@@ -58,7 +58,9 @@ export const useProps = (props) => {
                   startProcessingPax },
     auth: { staff },
     hardware: { dejavooMachineInfo, 
-              paymentMachineType },
+              paymentMachineType,
+              printerList,
+              printerSelect, },
     merchant: { merchantDetail },
   } = useSelector(state => state);
 
@@ -338,13 +340,18 @@ export const useProps = (props) => {
     }
   }
   const donotPrintBill = async () => {
-    if (!_.isEmpty(connectSignalR.current)) {
-      await connectSignalR.current?.stop();
+    if (connectionSignalR) {
+      connectionSignalR?.stop();
     }
+    setTimeout(() => {
+      setConnectionSignalR(null);
+    }, 300);
+    
     popupPayCompletedRef?.current?.hide()
     setMethodPay(null);
     setPayAppointmentId(null);
-    if (paymentSelected === "Cash" || paymentSelected === "Other") {
+    // if (paymentSelected === "Cash" || paymentSelected === "Other") {
+    if (methodPay.method === "cash" || methodPay.method === "other") {
       const { portName } = getInfoFromModelNameOfPrinter(
         printerList,
         printerSelect
@@ -358,6 +365,8 @@ export const useProps = (props) => {
         }, 700);
       }
     } 
+
+    fetchAppointmentByDate();
 
   };
 
@@ -394,22 +403,26 @@ export const useProps = (props) => {
       printerSelect
     );
 
-    if (!_.isEmpty(connectSignalR.current)) {
-      await connectSignalR.current?.stop();
+    if (connectionSignalR) {
+      connectionSignalR?.stop();
     }
+    setTimeout(() => {
+      setConnectionSignalR(null);
+    }, 300);
 
     if (paymentMachineType !== "Clover" && !portName) {
       alert("Please connect to your printer!");
     } else {
-      if (paymentSelected === "Cash" || paymentSelected === "Other") {
+      console.log('payment method', methodPay.method)
+       if(methodPay.method == "cash" 
+          || methodPay.method == "other") {
         //Will open when integrate clover
         // if (paymentMachineType === "Clover") {
         //   openCashDrawerClover();
         // } else {
           openCashDrawer(portName);
-        // }
-      }
-      showInvoicePrint(false);
+        }
+        showInvoicePrint(false);
     }
   };
   
@@ -481,6 +494,8 @@ export const useProps = (props) => {
     donotPrintBill,
     merchant: merchantDetail,
     groupAppointments,
-    cancelInvoicePrint: () => {},
+    cancelInvoicePrint: () => {
+      fetchAppointmentByDate();
+    },
   }
 };
