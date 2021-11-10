@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 const reducerName = 'hpo.dataLocal';
 const initialState = {
     isQuickLogin: false,
+    pincodeSaved : "",
 };
 
 const dataLocalSlice = createSlice({
@@ -14,6 +15,9 @@ const dataLocalSlice = createSlice({
         setQuickLogin: (state, action) => {
             state.isQuickLogin = action.payload;
         },
+        savePincode : (state, action) => {
+            state.pincodeSaved = action.payload;
+        }
     },
 });
 

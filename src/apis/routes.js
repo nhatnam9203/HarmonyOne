@@ -603,6 +603,25 @@ export const addBannerMerchant = (data) => ({
 });
 
 
+export const getBannerMerchant = (merchantId) => ({
+  queryId: 'getBannerMerchant',
+  params: {
+    url: `merchantbanner/getbymerchant/${merchantId}`,
+    method: 'GET',
+  }
+});
+
+export const deleteBannersMerchant = (data) => ({
+  queryId: 'deleteBannersMerchant',
+  params: {
+    url: `merchantbanner/multiple`,
+    method: 'DELETE',
+    data
+  }
+});
+
+
+
 // type: 'ADD_BANNER_WITH_INFO',
 // method: 'POST',
 // token: true,

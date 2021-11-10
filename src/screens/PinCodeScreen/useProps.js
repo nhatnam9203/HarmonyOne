@@ -1,5 +1,5 @@
 import NavigationService from '@navigation/NavigationService';
-import { auth, app } from '@redux/slices';
+import { auth, app, dataLocal } from '@redux/slices';
 import { staffLoginRequest, useAxiosMutation } from '@src/apis';
 import React from 'react';
 import AsyncStorage from "@react-native-community/async-storage";
@@ -23,9 +23,8 @@ export const useProps = (_params) => {
   const dispatch = useDispatch();
 
   const merchantID = useSelector((state) => state.auth.merchantID);
-  const {
-    dataLocal: isQuickLogin
-  } = useSelector(state => state);
+  const isQuickLogin = useSelector((state) => state.dataLocal.isQuickLogin);
+  const pincodeSaved = useSelector((state) => state.dataLocal.pincodeSaved);
 
   const [merchantCode, setMerchantCode] = React.useState("");
 
@@ -43,6 +42,7 @@ export const useProps = (_params) => {
     onSuccess: (data) => {
       if (data) {
         dispatch(auth.loginStaff(data));
+        dispatch(dataLocal.savePincode(pinCode));
         dispatch(app.setStatusHomeScreen(true));
       }
       NavigationService.replace('HpOneStack');
@@ -51,21 +51,30 @@ export const useProps = (_params) => {
 
   const initialMerchantID = async () => {
     const merchant_code = await AsyncStorage.getItem("@merchantID");
+
     if (merchantID) {
       setMerchantCode(merchantID);
     } else {
       setMerchantCode(JSON.parse(merchant_code))
     }
+
   }
 
   const quickLogin = () => {
-    TouchID.authenticate('Quick Login', optionalConfigObject)
-      .then(success => {
-        staffLogin();
-      })
-      .catch(error => {
-        Alert.alert('Authentication Failed');
-      });
+    try {
+      TouchID.authenticate('Quick Login', optionalConfigObject)
+        .then(async (success) => {
+          let merchant_code = await AsyncStorage.getItem("@merchantID");
+          merchant_code = await JSON.parse(merchant_code);
+          const body = await staffLoginRequest(merchant_code, pincodeSaved);
+          staffLogin(body.params);
+        })
+        .catch(error => {
+          Alert.alert('Authentication Failed');
+        });
+    } catch (err) {
+
+    }
   }
 
   React.useEffect(() => {

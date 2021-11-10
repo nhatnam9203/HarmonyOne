@@ -32,8 +32,7 @@ export const useProps = ({
 
   const [price, setPrice] = React.useState("");
   const [isEditPrice, setStatusEditPrice] = React.useState(false);
-
-
+  
 
   React.useEffect(() => {
 
