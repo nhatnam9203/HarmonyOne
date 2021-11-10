@@ -24,7 +24,7 @@ export const BasicInformation = ({
 
     return (
         <View style={styles.container}>
-            <Title text="Basic Informations" onEdit={() => { alert("Api chưa mở role edit basic information cho token staff ") }} />
+            <Title text="Basic Informations" onEdit={() => { NavigationService.navigate("BasicEdit") }} />
 
             <CustomInput
                 label='Business name'

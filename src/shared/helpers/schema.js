@@ -72,3 +72,8 @@ export const settlmentEditAmountSchema = yup.object().shape({
     paymentByCash: yup.string().required("required"),
     otherPayment: yup.string().required("required"),
 });
+
+export const basicEditSchema = yup.object().shape({
+    businessName: yup.string().required("required"),
+    email: yup.string().email("Invalid email"),
+});

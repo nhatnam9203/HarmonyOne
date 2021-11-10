@@ -7,34 +7,17 @@ import {
 import { SingleScreenLayout } from '@shared/layouts';
 import { headerPhoneGroup } from '@shared/utils';
 import React from 'react';
-import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
-export const Layout = ({ merchantDetail, inputPhoneHeadRef }) => {
+export const Layout = ({
+  merchantDetail,
+  inputPhoneHeadRef,
+  onSubmit,
+  form,
+  errors,
+}) => {
   const [t] = useTranslation();
-
-  const form = useForm();
-  const { errors } = form.formState;
-
-  React.useEffect(() => {
-    form.setValue('businessName', merchantDetail?.businessName);
-    form.setValue('email', merchantDetail?.email);
-    form.setValue('webLink', merchantDetail?.webLink);
-    let merchantPhone = merchantDetail?.cellPhone;
-    let phone = '';
-    if (merchantPhone.toString().includes('+84')) {
-      phone = merchantPhone.toString().slice(3);
-      form.setValue('phone', phone);
-      inputPhoneHeadRef?.current?.changeValue({ label: '+84', value: '+84' });
-    } else {
-      phone = merchantPhone.toString().slice(2);
-      form.setValue('phone', phone);
-      inputPhoneHeadRef?.current?.changeValue({ label: '+1', value: '+1' });
-    }
-  }, []);
-
-  const onSubmit = () => {};
 
   return (
     <View style={styles.container}>
@@ -47,7 +30,9 @@ export const Layout = ({ merchantDetail, inputPhoneHeadRef }) => {
         <View style={styles.content}>
           <CustomInput
             label="Business name"
-            renderInput={() => <InputText form={form} name="businessName" />}
+            isRequired
+            error={errors?.businessName}
+            renderInput={() => <InputText form={form} name="businessName" error={errors?.businessName} />}
           />
           <CustomInput
             label="Phone number"
@@ -56,7 +41,7 @@ export const Layout = ({ merchantDetail, inputPhoneHeadRef }) => {
                 <DropdownMenu
                   ref={inputPhoneHeadRef}
                   items={headerPhoneGroup}
-                  onChangeValue={() => {}}
+                  onChangeValue={() => { }}
                   defaultIndex={0}
                   width={scaleWidth(95)}
                   height={scaleWidth(42)}
@@ -75,7 +60,9 @@ export const Layout = ({ merchantDetail, inputPhoneHeadRef }) => {
           />
           <CustomInput
             label="Contact email"
-            renderInput={() => <InputText form={form} name="email" />}
+            isRequired
+            error={errors?.email}
+            renderInput={() => <InputText form={form} name="email" error={errors?.email} />}
           />
           <CustomInput
             label="Website"
