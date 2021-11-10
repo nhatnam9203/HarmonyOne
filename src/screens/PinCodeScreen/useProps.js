@@ -49,6 +49,22 @@ export const useProps = (_params) => {
     },
   });
 
+  const [{ }, subnmitQuickLogin] = useAxiosMutation({
+    ...staffLoginRequest(merchantCode, pincodeSaved),
+    queryId: "",
+    onLoginError: (msg) => {
+      // setTextMessage(msg);
+    },
+    onSuccess: (data) => {
+      if (data) {
+        dispatch(auth.loginStaff(data));
+        dispatch(dataLocal.savePincode(pincodeSaved));
+        dispatch(app.setStatusHomeScreen(true));
+      }
+      NavigationService.replace('HpOneStack');
+    },
+  });
+
   const initialMerchantID = async () => {
     const merchant_code = await AsyncStorage.getItem("@merchantID");
 
@@ -67,7 +83,7 @@ export const useProps = (_params) => {
           let merchant_code = await AsyncStorage.getItem("@merchantID");
           merchant_code = await JSON.parse(merchant_code);
           const body = await staffLoginRequest(merchant_code, pincodeSaved);
-          staffLogin(body.params);
+          subnmitQuickLogin(body.params);
         })
         .catch(error => {
           Alert.alert('Authentication Failed');

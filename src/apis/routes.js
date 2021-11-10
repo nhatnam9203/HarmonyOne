@@ -284,6 +284,13 @@ export const getPastAppointmentByCustomer = (customerId, page) => ({
   },
 });
 
+export const sendGoogleReviewLink = (customerId = 0, merchantId = 0) => ({
+  queryId: `sendGoogleReviewLink`,
+  params: {
+    url: `customer/sendReviewLink?customerId=${customerId}&merchantId=${merchantId}`,
+    method: 'GET',
+  },
+});
 
 /**
  * SERVICE
