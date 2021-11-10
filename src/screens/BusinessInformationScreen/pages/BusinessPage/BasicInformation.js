@@ -5,6 +5,7 @@ import { CustomInput } from "@shared/components";
 import { slop } from "@shared/utils";
 import { View } from 'react-native-animatable';
 import { Title } from "../../Title";
+import { isEmpty } from "lodash";
 import NavigationService from '@navigation/NavigationService';
 
 export const BasicInformation = ({
@@ -33,28 +34,34 @@ export const BasicInformation = ({
                     <Text style={styles.txtItem}>{businessName}</Text>
                 }
             />
-            <CustomInput
-                label='Phone number'
-                renderInput={() =>
-                    <Text style={styles.txtItem}>{cellphone}</Text>
-                }
-            />
-            <CustomInput
-                label='Contact email'
-                renderInput={() =>
-                    <Text style={styles.txtItem}>{email}</Text>
-                }
-            />
-            <CustomInput
-                label='Website'
-                renderInput={() =>
-                    <TouchableOpacity onPress={openLinkWebsite}>
-                        <Text style={[styles.txtItem, { color: "#19A9EC", marginBottom: scaleHeight(16), fontFamily: fonts.REGULAR, textDecorationLine: 'underline' }]}>
-                            {webLink}
-                        </Text>
-                    </TouchableOpacity>
-                }
-            />
+            {
+                !isEmpty(cellphone) && <CustomInput
+                    label='Phone number'
+                    renderInput={() =>
+                        <Text style={styles.txtItem}>{cellphone}</Text>
+                    }
+                />
+            }
+            {
+                !isEmpty(email) && <CustomInput
+                    label='Contact email'
+                    renderInput={() =>
+                        <Text style={styles.txtItem}>{email}</Text>
+                    }
+                />
+            }
+            {
+                !isEmpty(webLink) && <CustomInput
+                    label='Website'
+                    renderInput={() =>
+                        <TouchableOpacity onPress={openLinkWebsite}>
+                            <Text style={[styles.txtItem, { color: "#19A9EC", marginBottom: scaleHeight(16), fontFamily: fonts.REGULAR, textDecorationLine: 'underline' }]}>
+                                {webLink}
+                            </Text>
+                        </TouchableOpacity>
+                    }
+                />
+            }
         </View>
     )
 }

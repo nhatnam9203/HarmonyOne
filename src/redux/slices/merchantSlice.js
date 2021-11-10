@@ -17,7 +17,7 @@ const merchantSlice = createSlice({
         },
         setBannerMerchant : (state, action) =>{
             state.bannersMerchant = action.payload ? action.payload : []
-        }
+        },
     },
 });
 

@@ -31,8 +31,6 @@ export const useProps = (_params) => {
     auth: { staff }
   } = useSelector(state => state);
 
-  console.log({ bannersMerchant })
-
   const [, submitAddBannerMerchant] = useAxiosMutation({
     ...addBannerMerchant(),
     onSuccess: (data, response) => {

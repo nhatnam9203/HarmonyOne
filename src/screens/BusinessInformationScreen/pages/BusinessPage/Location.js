@@ -14,7 +14,7 @@ export const Location = ({
 }) => {
     return (
         <View style={styles.container}>
-            <Title text="Location" onEdit={() => { alert("Api chưa mở role edit location cho token staff ") }} />
+            <Title text="Location" onEdit={() => { NavigationService.navigate("LocationEdit")}} />
             <CustomInput
                 label='Address'
                 style={{ marginTop: scaleHeight(8) }}

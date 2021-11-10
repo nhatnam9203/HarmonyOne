@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Button,
   CustomInput,
@@ -6,7 +7,6 @@ import {
 } from '@shared/components';
 import { SingleScreenLayout } from '@shared/layouts';
 import { headerPhoneGroup } from '@shared/utils';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 

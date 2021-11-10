@@ -582,7 +582,7 @@ export const addPromotionNote = (appointmentId, data) => ({
   params: {
     url: `appointment/promotion/note/${appointmentId}`,
     method: 'POST',
-    data
+    datagt
   }
 });
 
@@ -626,8 +626,6 @@ export const deleteBannersMerchant = (data) => ({
     data
   }
 });
-
-
 
 // type: 'ADD_BANNER_WITH_INFO',
 // method: 'POST',

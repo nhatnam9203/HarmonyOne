@@ -52,12 +52,12 @@ export const useProps = (_params) => {
     form.setValue('webLink', merchantDetail?.webLink);
     let merchantPhone = merchantDetail?.cellPhone;
     let phone = '';
-    if (merchantPhone.toString().includes('+84')) {
-      phone = merchantPhone.toString().slice(3);
+    if (merchantPhone?.toString().includes('+84')) {
+      phone = merchantPhone?.toString().slice(3);
       form.setValue('phone', phone);
       inputPhoneHeadRef?.current?.changeValue({ label: '+84', value: '+84' });
     } else {
-      phone = merchantPhone.toString().slice(2);
+      phone = merchantPhone?.toString().slice(2);
       form.setValue('phone', phone);
       inputPhoneHeadRef?.current?.changeValue({ label: '+1', value: '+1' });
     }
@@ -76,10 +76,6 @@ export const useProps = (_params) => {
       const phoneHeader = inputPhoneHeadRef?.current?.getValue().value;
 
       const data = {
-        businessName: values.businessName,
-        webLink: values.webLink,
-        email: values.email,
-        cellPhone: values.phone ? `${phoneHeader}${values.phone}` : "",
         businessHour: merchantDetail?.businessHour,
         latitude: merchantDetail?.latitude,
         longitude: merchantDetail?.longitude,
@@ -94,7 +90,15 @@ export const useProps = (_params) => {
         signinAppStyle: merchantDetail?.signinAppStyle,
         sendReviewLinkOption: merchantDetail?.sendReviewLinkOption,
         giftForNewEnabled: merchantDetail?.giftForNewEnabled,
-        receiptFooter: merchantDetail?.receiptFooter
+        receiptFooter: merchantDetail?.receiptFooter,
+        zip : merchantDetail?.zip,
+        address : merchantDetail?.address,
+        city : merchantDetail?.city,
+        stateId : merchantDetail?.stateId,
+        businessName: values?.businessName,
+        webLink: values?.webLink,
+        email: values?.email,
+        cellPhone: values?.phone ? `${phoneHeader}${values?.phone}` : "",
       };
 
       const body = await merchantSetting(data);
