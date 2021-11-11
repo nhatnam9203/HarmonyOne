@@ -74,7 +74,7 @@ export const PopupPayCompleted = React.forwardRef(
                         style={styles.iconChecked}
                         resizeMode='contain'
                     />
-                    <Text style={{ color: '#404040', fontSize: scaleFont(15) }}  >
+                    <Text style={{ color: '#404040', fontSize: scaleFont(15), marginTop: scaleHeight(15) }}  >
                         {t("Do you want to print receipt?")}
                     </Text>
                     <View style={{ flexDirection: 'row', marginTop: scaleHeight(16) }}>
@@ -93,7 +93,7 @@ export const PopupPayCompleted = React.forwardRef(
                             onPress={onHandleYESButtonPress}
                             highlight={false}
                             height={scaleHeight(48)}
-                            width={scaleWidth(169 * 2)}
+                            width={scaleWidth(100)}
                             label={t("Yes")}
                             styleButton={{
                                 borderWidth: 0,
@@ -104,7 +104,7 @@ export const PopupPayCompleted = React.forwardRef(
                             onPress={onHandleNOButtonPress}
                             highlight={false}
                             height={scaleHeight(48)}
-                            width={scaleWidth(169 * 2)}
+                            width={scaleWidth(100)}
                             label={t("No")}
                             styleButton={{
                                 borderWidth: 0,
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         borderTopWidth: 1,
         borderTopColor: "#dddddd",
-        marginTop: scaleHeight(20)
+        marginTop: scaleHeight(30)
     },
     line: {
         height: scaleHeight(48),

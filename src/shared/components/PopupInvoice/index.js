@@ -71,31 +71,33 @@ export const PopupInvoice = React.forwardRef(
     const [isProcessingPrint, setIsProcessingPrint] = React.useState(false);
     const [isShare, setIsShare] = React.useState(false);
     const [paymentMachineType, setPaymentMachineType] = React.useState(null);
-    const [isSalonApp, setIsSalonApp] = React.useState(false);
+    const [appointmentId, setAppointmentId] = React.useState("");
+    const [checkoutId, setCheckoutId] = React.useState("");
 
     /**
   |--------------------------------------------------
   | CALL API
   |--------------------------------------------------
   */
-  // const [, getGroupAppointment] = useAxiosQuery({
-  //   ...getGroupAppointmentById(appointmentId),
-  //   enabled: false,
-  //   onSuccess: async (data, response) => {
-  //     if (response?.codeNumber == 200) {
-  //       setGroupAppointment(data);
-  //     }
-  //   }
-  // });
 
-  //   const [, getInvoiceDetail] = useAxiosQuery({
-  //     ...getInvoiceDetail(checkoutId),
-  //     queryId: "getInvoiceDetail_refetch",
-  //     enabled: false,
-  //     onSuccess: (data, response) => {
-  //       setInvoiceDetail(data);
-  //     },
-  //   });
+  const [, getGroupAppointment] = useAxiosQuery({
+    ...getGroupAppointmentById(appointmentId),
+    enabled: false,
+    onSuccess: async (data, response) => {
+      if (response?.codeNumber == 200) {
+        setGroupAppointment(data);
+      }
+    }
+  });
+
+  const [, getInvoiceDetailData] = useAxiosQuery({
+    ...getInvoiceDetail(checkoutId),
+    queryId: "getInvoiceDetail_refetch",
+    enabled: false,
+    onSuccess: (data, response) => {
+      setInvoiceDetail(data);
+    },
+  });
 
     /**
   |--------------------------------------------------
@@ -424,7 +426,6 @@ export const PopupInvoice = React.forwardRef(
         isShareMode = false,
         machineType,
         title = "TICKET",
-        isSalon = false,
       }) => {
         reset();
 
@@ -438,73 +439,36 @@ export const PopupInvoice = React.forwardRef(
             printerSelect
           );
 
-          if (!portName && machineType !== "Clover") {
-            onCancel(isPrintTempt);
-            alert("Please connect to your printer! ");
-            return;
-          }
+          //hard code
+          // if (!portName && machineType !== "Clover") {
+          //   onCancel(isPrintTempt);
+          //   alert("Please connect to your printer! ");
+          //   return;
+          // }
         }
 
         setPrintTempt(isPrintTempt);
         setIsShare(isShareMode);
         setPaymentMachineType(machineType);
         setTitleInvoice(title);
-        setIsSalonApp(isSalon);
+        setAppointmentId(appointmentId);
+        setCheckoutId(checkoutId);
 
         // call api get info
-        useAxiosQuery({
-          ...getGroupAppointmentById(appointmentId),
-          enabled: false,
-          onSuccess: async (data, response) => {
-            if (response?.codeNumber == 200) {
-              setGroupAppointment(data);
-              setIsProcessingPrint(false);
-            }
-          }
-        });
+
+        const body = getGroupAppointmentById(appointmentId)
+        getGroupAppointment(appointmentId);
 
         if (checkoutId) {
-          useAxiosQuery({
-            ...getInvoiceDetail(checkoutId),
-            queryId: "getInvoiceDetail_refetch",
-            enabled: false,
-            onSuccess: (data, response) => {
-              setInvoiceDetail(data);
-              setIsProcessingPrint(false);
-            },
-          });
+          const body = getInvoiceDetail(checkoutId)
+          getInvoiceDetailData(checkoutId);
         }
-
-
-        // const body = getGroupAppointmentById(appointmentId)
-        // getGroupAppointment(body.params);
-
-        // if (checkoutId) {
-        //   const body = getInvoiceDetail(checkoutId)
-        //   getInvoiceDetail(body.params);
-        // }
         await setIsProcessingPrint(true);
 
         // show modal
         await setVisible(true);
       },
     }));
-
-    // React.useEffect(() => {
-    //   const { codeStatus, data } = groupAppointment || {};
-    //   if (statusSuccess(codeStatus)) {
-    //     setGroupAppointment(data);
-    //     setIsProcessingPrint(false);
-    //   }
-    // }, [groupAppointment]);
-
-    // React.useEffect(() => {
-    //   const { codeStatus, data } = invoiceDetail || {};
-    //   if (statusSuccess(codeStatus)) {
-    //     setInvoiceDetail(data);
-    //     setIsProcessingPrint(false);
-    //   }
-    // }, [invoiceDetail]);
 
     return (
       <Modal visible={visible} onRequestClose={() => {}} transparent={true}>
@@ -582,44 +546,27 @@ export const PopupInvoice = React.forwardRef(
                   />
 
                   {/* ------------- Staff ----------- */}
-                  {isSalonApp ? (
-                    <View style={styles.rowContent}>
-                      <View
-                        style={{
-                          width: scaleWidth(90),
-                          justifyContent: "flex-start",
-                        }}
-                      >
-                        <Text
-                          style={[
-                            layouts.fontPrintSubTitleStyle,
-                            { textAlign: "left" },
-                          ]}
-                        >{`Customer`}</Text>
-                      </View>
-                      <View style={{ flex: 1 }}>
-                        <Text
-                          style={[layouts.fontPrintStyle]}
-                        >{`: ${getCustomerName()}`}</Text>
-                      </View>
+                  <View style={styles.rowContent}>
+                    <View
+                      style={{
+                        width: scaleWidth(90),
+                        justifyContent: "flex-start",
+                      }}
+                    >
+                      <Text
+                        style={[
+                          layouts.fontPrintSubTitleStyle,
+                          { textAlign: "left" },
+                        ]}
+                      >{`Customer`}</Text>
                     </View>
-                  ) : (
-                    <View style={styles.rowContent}>
-                      <View style={{ width: scaleWidth(90) }}>
-                        <Text
-                          style={[
-                            layouts.fontPrintSubTitleStyle,
-                            { textAlign: "left" },
-                          ]}
-                        >{`Staff Name`}</Text>
-                      </View>
-                      <View style={{ flex: 1 }}>
-                        <Text
-                          style={[layouts.fontPrintStyle]}
-                        >{`: ${getInvoiceName()}`}</Text>
-                      </View>
+                    <View style={{ flex: 1 }}>
+                      <Text
+                        style={[layouts.fontPrintStyle]}
+                      >{`: ${getCustomerName()}`}</Text>
                     </View>
-                  )}
+                  </View>
+                  
 
                   {/* ------------- Invoice Date ----------- */}
                   {invoiceDetail && (

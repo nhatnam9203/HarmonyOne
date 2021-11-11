@@ -91,7 +91,8 @@ export const useProps = (props) => {
           setPayAppointmentId(data);
         }
  
-        if (methodPay.method !== "harmony") {
+        if (methodPay.method !== "harmony" 
+          && methodPay.method !== "credit_card") {
           const body = await checkoutSubmit(response.data);
           applyCheckoutSubmit(body.params);
         }
@@ -176,8 +177,12 @@ export const useProps = (props) => {
   /************************************* CALL API PAYMENT CREDIT CARD SUCCESS *************************************/
   const [, submitPaymentCreditCard] = useAxiosMutation({
     ...submitPaymentWithCreditCard(),
+    enabled: false,
+    isLoadingDefault : false,
     onSuccess: async (data, response) => {
-      dialogSuccessRef?.current?.show();
+      setTimeout(() => {
+        dialogSuccessRef?.current?.show();
+      }, 300);
     }
   });
 
@@ -278,8 +283,9 @@ export const useProps = (props) => {
    * Dejavoo
    */
   const handlePaymentByCredit = async() => {
-    //hard code
-    // popupProcessingRef?.current?.show();
+    setTimeout(() => {
+      popupProcessingRef?.current?.show();
+    }, 100);
        
     //Payment by Dejavoo
     const parameter = {
@@ -307,8 +313,7 @@ export const useProps = (props) => {
     moneyUserGiveForStaff,
     parameter
   ) =>  {
-    //hard code
-    // popupProcessingRef?.current?.hide();
+    popupProcessingRef?.current?.hide();
     console.log('start handleResponseCreditCardDejavoo')
     try {
       parseString(message, (err, result) => {
@@ -355,6 +360,7 @@ export const useProps = (props) => {
     }
   }
   const donotPrintBill = async () => {
+    console.log('donotPrintBill')
     if (connectionSignalR) {
       connectionSignalR?.stop();
     }
@@ -392,7 +398,7 @@ export const useProps = (props) => {
 
   };
 
-  openCashDrawer = async () => {
+  const openCashDrawer = async () => {
     const { portName } = getInfoFromModelNameOfPrinter(
       printerList,
       printerSelect
@@ -408,6 +414,7 @@ export const useProps = (props) => {
   };
 
   const showInvoicePrint = async (isTemptPrint = true) => {
+    console.log("showInvoicePrint")
     // -------- Pass data to Invoice --------
     dialogSuccessRef?.current?.hide();
 
@@ -420,6 +427,7 @@ export const useProps = (props) => {
   };
 
   const printBill = async () => {
+    console.log('printBill')
     const { portName } = getInfoFromModelNameOfPrinter(
       printerList,
       printerSelect
@@ -432,9 +440,10 @@ export const useProps = (props) => {
       setConnectionSignalR(null);
     }, 300);
 
-    if (paymentMachineType !== "Clover" && !portName) {
-      alert("Please connect to your printer!");
-    } else {
+    //hard code
+    // if (paymentMachineType !== "Clover" && !portName) {
+    //   alert("Please connect to your printer!");
+    // } else {
       console.log('payment method', methodPay.method)
        if(methodPay.method == "cash" 
           || methodPay.method == "other") {
@@ -445,7 +454,7 @@ export const useProps = (props) => {
           openCashDrawer(portName);
         }
         showInvoicePrint(false);
-    }
+    // }
 
     const statusSendLink = dialogSuccessRef?.current?.getStatusSendLink();
     if(statusSendLink){
