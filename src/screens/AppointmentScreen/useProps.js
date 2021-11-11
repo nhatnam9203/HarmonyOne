@@ -197,6 +197,7 @@ export const useProps = (_params) => {
     isLoadingDefault: false,
     enabled: false,
     onSuccess: (data, response) => {
+      console.log('get merchant by id : ', { response })
       dispatch(merchant.setMerchantDetail(data));
     },
   });

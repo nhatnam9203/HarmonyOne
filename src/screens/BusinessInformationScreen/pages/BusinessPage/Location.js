@@ -1,20 +1,54 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, Image } from 'react-native'
 import { images, colors, fonts } from "@shared/themes";
 import { CustomInput } from "@shared/components";
 import { slop } from "@shared/utils";
 import { View } from 'react-native-animatable';
 import { Title } from "../../Title";
+import MapView from "react-native-maps";
+import { Marker } from "react-native-maps";
 import NavigationService from '@navigation/NavigationService';
+import Geolocation from '@react-native-community/geolocation';
+
 
 export const Location = ({
     addressFull,
     latitude,
     longitude
 }) => {
+
+    const [geometric, setGeometric] = React.useState({
+        latitude: 10.75475,
+        longitude: 106.647537,
+    });
+
+    React.useEffect(() => {
+        getCurrentLocation();
+    }, []);
+
+    const getCurrentLocation = () => {
+        Geolocation.getCurrentPosition(
+            async (position) => {
+                console.log({ position });
+                const {
+                    coords
+                } = position;
+
+                setGeometric({
+                    latitude: coords?.latitude,
+                    longitude: coords?.longitude,
+                })
+            },
+            (error) => {
+                console.log(error.message);
+            },
+            { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 },
+        );
+    };
+
     return (
         <View style={styles.container}>
-            <Title text="Location" onEdit={() => { NavigationService.navigate("LocationEdit")}} />
+            <Title text="Location" onEdit={() => { NavigationService.navigate("LocationEdit") }} />
             <CustomInput
                 label='Address'
                 style={{ marginTop: scaleHeight(8) }}
@@ -22,16 +56,46 @@ export const Location = ({
                     <Text style={styles.txtItem}>{addressFull}</Text>
                 }
             />
+            <MapView
+                style={styles.map}
+                initialRegion={{
+                    latitude: latitude ? parseFloat(latitude) : geometric.latitude,
+                    longitude: longitude ? parseFloat(longitude) : geometric.longitude,
+                    latitudeDelta: 0.049,
+                    longitudeDelta: 0.04,
+                }}>
+
+                {
+                    latitude && longitude && <Marker
+                        coordinate={{ latitude: 10.75475, longitude: 106.647537 }}
+                    >
+                        <Image
+                            source={images["geo"]}
+                            resizeMode="contain"
+                            style={[styles.marker]}
+                        />
+                    </Marker>
+                }
+
+            </MapView>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        
+
     },
     txtItem: {
         fontSize: scaleFont(17),
         fontFamily: fonts.MEDIUM
-    }
+    },
+    map: {
+        width: scaleWidth(375 - 32),
+        height: scaleWidth(375 - 200)
+    },
+    marker: {
+        width: scaleWidth(35),
+        height: scaleWidth(35),
+    },
 });

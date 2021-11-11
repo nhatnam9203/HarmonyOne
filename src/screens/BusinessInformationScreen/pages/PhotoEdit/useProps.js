@@ -12,6 +12,7 @@ import {
 import { guid } from "@shared/utils";
 import { merchant } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
+import { te } from "date-fns/locale";
 
 export const useProps = (_params) => {
   const dispatch = useDispatch();
@@ -214,7 +215,6 @@ export const useProps = (_params) => {
     },
 
     onResponseCamera: async (response) => {
-      console.log('response camera : ', { response });
       let files = response?.assets ?? [];
       files = createFormData(files);
       const body = await uploadAvatarStaff(files);

@@ -60,7 +60,6 @@ export const Layout = ({
           />
           <CustomInput
             label="Contact email"
-            isRequired
             error={errors?.email}
             renderInput={() => <InputText form={form} name="email" error={errors?.email} />}
           />

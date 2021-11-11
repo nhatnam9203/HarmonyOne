@@ -55,6 +55,8 @@ export const useProps = (_params) => {
     form.setValue('address', merchantDetail?.address);
     form.setValue('city', merchantDetail?.city);
     form.setValue('zip', merchantDetail?.zip);
+    form.setValue('latitude', merchantDetail?.latitude);
+    form.setValue('longitude', merchantDetail?.longitude);
     stateRef?.current?.changeItem(merchantDetail?.stateId);
   }, []);
 
@@ -82,14 +84,14 @@ export const useProps = (_params) => {
         address : values.address,
         city : values.city,
         zip : values.zip,
-        stateId : values.stateId ? values?.stateId?.values : "0",
+        stateId : values.stateId ? values?.stateId?.value : "0",
+        latitude: values?.latitude ?? "",
+        longitude: values?.longitude ?? "",
         businessName: merchantDetail.businessName,
         webLink: merchantDetail.webLink,
         email: merchantDetail.email,
         cellPhone : merchantDetail?.cellPhone,
         businessHour: merchantDetail?.businessHour,
-        latitude: merchantDetail?.latitude,
-        longitude: merchantDetail?.longitude,
         taxService: merchantDetail?.taxService,
         taxProduct: merchantDetail?.taxProduct,
         timezone: merchantDetail?.timezone,

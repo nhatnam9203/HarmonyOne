@@ -33,7 +33,8 @@ export const WithPopupUploadMultipleImage = (WrappedComponent) => {
         const pickImage = () => {
             setTimeout(() => {
                 ImageMultiplePicker.openPicker({
-                    multiple: true
+                    multiple: true,
+                    forceJpg : true
                 }).then(response => {
                     onResponseImagePicker(response)
                 });

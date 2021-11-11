@@ -10,6 +10,7 @@ import { SingleScreenLayout } from '@shared/layouts';
 import { headerPhoneGroup } from '@shared/utils';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export const Layout = ({
     merchantDetail,
@@ -29,7 +30,7 @@ export const Layout = ({
                 isRight={false}
                 isScrollLayout={false}
                 containerStyle={{ paddingVertical: 0, paddingTop: scaleHeight(8) }}>
-                <View style={styles.content}>
+                <KeyboardAwareScrollView style={styles.content}>
                     <CustomInput
                         label="Address"
                         renderInput={() => <InputText form={form} name="address" />}
@@ -58,7 +59,15 @@ export const Layout = ({
                         label="Zip code"
                         renderInput={() => <InputText form={form} name="zip" />}
                     />
-                </View>
+                    <CustomInput
+                        label="Latitude"
+                        renderInput={() => <InputText form={form} name="latitude" />}
+                    />
+                    <CustomInput
+                        label="Longitude"
+                        renderInput={() => <InputText form={form} name="longitude" />}
+                    />
+                </KeyboardAwareScrollView>
                 <View style={styles.bottom}>
                     <Button
                         onPress={form.handleSubmit(onSubmit)}

@@ -75,5 +75,5 @@ export const settlmentEditAmountSchema = yup.object().shape({
 
 export const basicEditSchema = yup.object().shape({
     businessName: yup.string().required("required"),
-    email: yup.string().email("Invalid email"),
+    email: yup.string().email("Invalid email").nullable(),
 });

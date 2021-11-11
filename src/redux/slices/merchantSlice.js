@@ -13,7 +13,7 @@ const merchantSlice = createSlice({
     initialState: initialState,
     reducers: {
         setMerchantDetail: (state, action) => {
-            state.merchantDetail = action.payload;
+            state.merchantDetail = action.payload?.merchant ?? action.payload;
         },
         setBannerMerchant : (state, action) =>{
             state.bannersMerchant = action.payload ? action.payload : []

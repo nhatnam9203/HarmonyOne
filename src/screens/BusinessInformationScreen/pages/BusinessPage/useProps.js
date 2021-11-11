@@ -6,6 +6,9 @@ import { merchant } from "@redux/slices";
 export const useProps = (_params) => {
   const dispatch = useDispatch();
 
+  const [latitude,] = React.useState("");
+
+
   const {
     merchant: { merchantDetail = {}, bannersMerchant = [] },
     auth: { staff }
