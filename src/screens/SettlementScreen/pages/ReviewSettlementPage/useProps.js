@@ -73,6 +73,7 @@ export const useProps = (props) => {
     queryId: "fetchListStaffsSales_reviewSettlement",
     enabled: false,
     isLoadingDefault : false,
+    isStopLoading : true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(settlement.setListStaffsSales(data))
@@ -86,6 +87,7 @@ export const useProps = (props) => {
     queryId: "fetchListGiftCardSales_reviewSettlement",
     enabled: false,
     isLoadingDefault : false,
+    isStopLoading : true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(settlement.setListGiftCardSales(data))
@@ -98,6 +100,7 @@ export const useProps = (props) => {
     queryId: "fetchSettlementWating_reviewSettlement",
     enabled: false,
     isStopLoading : true,
+    isLoadingDefault : false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(settlement.setSettlementWaiting(data));

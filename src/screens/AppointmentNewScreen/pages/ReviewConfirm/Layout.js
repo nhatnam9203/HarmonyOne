@@ -62,7 +62,7 @@ export const Layout = ({
       />
       <View style={styles.line} />
       {
-        !isQuickCheckout && timeBooking !== "" && 
+        !isQuickCheckout && 
         <>
           <AppointmentTimeView
             fromTime={dateTimeView}

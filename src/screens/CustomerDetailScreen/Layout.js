@@ -43,7 +43,7 @@ export const Layout = ({
           <EditButton actions={getActionSheets()} />
         }
       >
-        <ScrollView bounces={false} style={styles.content}>
+        <ScrollView showsVerticalScrollIndicator={false} bounces={false} style={styles.content}>
           <CustomerInfo
             firstName={customerDetail?.firstName}
             lastName={customerDetail?.lastName}
