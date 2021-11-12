@@ -58,7 +58,7 @@ export const WorkingTime = React.forwardRef(({ renderTitle = null }, ref) => {
             </View>
 
             {
-                Object.entries(data).map((item, index) => (
+                data && Object.entries(data).map((item, index) => (
                     <ItemInputTime
                         ref={elRefs[index]}
                         item={item}

@@ -39,17 +39,27 @@
 			</dict>
 		</dict>
 	</dict>
+  <key>NSBluetoothAlwaysUsageDescription</key>
+  <string>Our app uses bluetooth to find, connect and transfer data between different devices</string>
+  <key>NSBluetoothPeripheralUsageDescription</key>
+  <string>Bluetooth is used to communicate with BLE devices.</string>
+  <key>NSCameraUsageDescription</key>
+  <string>$(PRODUCT_NAME) would like to use your camera to take photo for upload your resources or to scan QR code</string>
   <key>NSFaceIDUsageDescription</key>
   <string>Enabling Face ID allows you quick and secure access to your account.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Use camera for scanner</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Use camera to take photo and upload</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Use camera to take photo and upload</string>
-	<key>UIAppFonts</key>
+  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+  <string>Get your store address to show up on the Google Map</string>
+  <key>NSLocationAlwaysUsageDescription</key>
+  <string>Get your store address to show up on the Google Map</string>
+  <key>NSLocationWhenInUseUsageDescription</key>
+  <string>Get your store address to show up on the Google Map</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>$(PRODUCT_NAME) would like to your microphone (for videos)</string>
+  <key>NSPhotoLibraryAddUsageDescription</key>
+  <string>$(PRODUCT_NAME) would like to save photos to your photo gallery for upload your resources</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>$(PRODUCT_NAME) would like access to your photo gallery for upload your resources</string>
+  <key>UIAppFonts</key>
 	<array>
 		<string>MaterialIcons.ttf</string>
 		<string>MaterialCommunityIcons.ttf</string>

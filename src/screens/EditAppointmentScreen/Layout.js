@@ -8,7 +8,8 @@ import {
   TotalView,
   IconButton,
   InputSelectTime,
-  AppointmentProductItem
+  AppointmentProductItem,
+  AppointmentGiftCardItem
 } from '@shared/components';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { SingleScreenLayout } from '@shared/layouts';
@@ -92,7 +93,9 @@ export const Layout = ({
     </View>
   )
 
-  const dataList = [...appointmentEdit?.services, ...appointmentEdit?.products];
+  const dataList = [...appointmentEdit?.services, ...appointmentEdit?.products, ...appointmentEdit?.giftCards];
+
+  console.log({ dataList })
 
   return (
     <>
@@ -124,49 +127,55 @@ export const Layout = ({
                     price={data?.item?.price}
                     isDelete={true}
                   />
-                  : 
-                  (
-                    <View>
-                      <AppointmentServiceItem
-                        service={data.item}
-                        name={data.item?.serviceName ?? data.item?.name}
-                        duration={getTotalItem(data.item, "duration")}
-                        price={getTotalPrice(data.item)}
-                        isDelete={true}
-                        extras={
-                          appointmentEdit?.extras
-                            .filter(
-                              ex => ex?.bookingServiceId ? ex?.bookingServiceId == data.item?.bookingServiceId :
-                                ex?.serviceId == data.item?.serviceId
-                            )
-                            .map(ex => ({ ...ex, name: ex?.extraName ?? ex?.name }))
-                        }
-                        onPressItemReview={true}
-                        onPressItem={() => editService(data.item)}
-                      />
-
-                      <View style={styles.rowItemTime}>
-                        <Text style={styles.titleStartTime}>Start time</Text>
-                        <InputSelectTime
-                          apply={(time) => changeServiceTime(time, data?.item?.bookingServiceId)}
-                          time={dateToFormat(data?.item?.fromTime, "hh:mm A")}
-                          renderInput={() => (
-                            <View style={styles.inputSelectTime}>
-                              <Text style={styles.serviceFromtime}>
-                                {dateToFormat(data?.item?.fromTime, "hh:mm A")}
-                              </Text>
-                              <Image
-                                source={images.downarrow}
-                                style={styles.iconArrowDown}
-                                resizeMode='contain'
-                              />
-                            </View>
-                          )}
+                  : data?.item?.giftCardId ?
+                    <AppointmentGiftCardItem
+                      giftCard={data?.item}
+                      name={data?.item?.name}
+                      price={data?.item?.price}
+                      isDelete={true}
+                    /> :
+                    (
+                      <View>
+                        <AppointmentServiceItem
+                          service={data.item}
+                          name={data.item?.serviceName ?? data.item?.name}
+                          duration={getTotalItem(data.item, "duration")}
+                          price={getTotalPrice(data.item)}
+                          isDelete={true}
+                          extras={
+                            appointmentEdit?.extras
+                              .filter(
+                                ex => ex?.bookingServiceId ? ex?.bookingServiceId == data.item?.bookingServiceId :
+                                  ex?.serviceId == data.item?.serviceId
+                              )
+                              .map(ex => ({ ...ex, name: ex?.extraName ?? ex?.name }))
+                          }
+                          onPressItemReview={true}
+                          onPressItem={() => editService(data.item)}
                         />
-                      </View>
 
-                    </View>
-                  )}
+                        <View style={styles.rowItemTime}>
+                          <Text style={styles.titleStartTime}>Start time</Text>
+                          <InputSelectTime
+                            apply={(time) => changeServiceTime(time, data?.item?.bookingServiceId)}
+                            time={dateToFormat(data?.item?.fromTime, "hh:mm A")}
+                            renderInput={() => (
+                              <View style={styles.inputSelectTime}>
+                                <Text style={styles.serviceFromtime}>
+                                  {dateToFormat(data?.item?.fromTime, "hh:mm A")}
+                                </Text>
+                                <Image
+                                  source={images.downarrow}
+                                  style={styles.iconArrowDown}
+                                  resizeMode='contain'
+                                />
+                              </View>
+                            )}
+                          />
+                        </View>
+
+                      </View>
+                    )}
                 ListHeaderComponent={renderHeader()}
                 ListFooterComponent={renderFooter()}
                 keyExtractor={(item) => item?.serviceId ? item?.serviceId + "serviceItemBooking" : item?.productId + "productItemBooking"}
@@ -216,25 +225,25 @@ export const Layout = ({
 };
 
 const styles = StyleSheet.create({
-  messageAlertStyle : {
+  messageAlertStyle: {
     fontSize: scaleFont(15),
     color: "white",
     fontFamily: fonts.REGULAR
   },
 
-  titleAlertStyle : {
+  titleAlertStyle: {
     fontSize: scaleFont(19),
     color: "white",
     fontFamily: fonts.BOLD
   },
 
-  alertStyle : {
-    alignItems: "center", 
-    justifyContent: "center", 
-    padding: 16, 
-    paddingLeft: 20, 
-    paddingTop: 30, 
-    paddingBottom: 8 
+  alertStyle: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 16,
+    paddingLeft: 20,
+    paddingTop: 30,
+    paddingBottom: 8
   },
 
   buttonClose: {

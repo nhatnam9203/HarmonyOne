@@ -33,7 +33,8 @@ export const WithPopupUploadMultipleImage = (WrappedComponent) => {
         const pickImage = () => {
             setTimeout(() => {
                 ImageMultiplePicker.openPicker({
-                    multiple: true
+                    multiple: true,
+                    forceJpg : true
                 }).then(response => {
                     onResponseImagePicker(response)
                 });
@@ -56,13 +57,13 @@ export const WithPopupUploadMultipleImage = (WrappedComponent) => {
                     pickImage();
                 },
             },
-            // {
-            //     id: 'take-photo',
-            //     label: t('Launch camera'),
-            //     func: () => {
-            //         takePicture();
-            //     },
-            // },
+            {
+                id: 'take-photo',
+                label: t('Launch camera'),
+                func: () => {
+                    takePicture();
+                },
+            },
         ]
 
         const showConfirmDialog = () => {

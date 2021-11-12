@@ -97,7 +97,7 @@ export const createFormDataMulipleImage = (media) => {
   const data = new FormData();
   for (let i = 0; i < media.length; i++) {
     data.append('files[]', {
-      uri:  media[i].sourceURL,
+      uri:  media[i].path,
       name: media[i].filename ? media[i].filename : `media-${i}.jpg`,
       type: media[i].mime ? media[i].mime : 'image/jpeg',
     });
