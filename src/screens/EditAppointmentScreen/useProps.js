@@ -35,6 +35,7 @@ export const useProps = (_params) => {
   const [servicesBookingRemove, setServicesBookingRemove] = React.useState([]);
   const [extrasBookingRemove, setExtrasBookingRemove] = React.useState([]);
   const [productsBookingRemove, setProductsBookingRemove] = React.useState([]);
+  const [giftCardsBookingRemove, setGiftCardsBookingRemove] = React.useState([]);
 
 
   const [, fetchAppointmentByDate] = useAxiosQuery({
@@ -84,8 +85,8 @@ export const useProps = (_params) => {
         const tempData = {
           services: servicesBookingRemove.map(sv => ({ bookingServiceId: sv.bookingServiceId })),
           extras: extrasBookingRemove.map(ex => ({ bookingExtraId: ex.bookingExtraId })),
-          products: productsBookingRemove.map(pro => ({ bookingProductId: pro.bookingProductId })),   
-          giftCards: [],
+          products: productsBookingRemove.map(pro => ({ bookingProductId: pro.bookingProductId })),
+          giftCards: giftCardsBookingRemove.map(gift => ({ bookingGiftCardId: gift.bookingGiftCardId })),
         }
 
         const body = await removeItemAppointment(appointmentEdit?.appointmentId, tempData);
@@ -172,11 +173,18 @@ export const useProps = (_params) => {
       }
     },
 
-    deleteProduct: async(product) => {
-       dispatch(editAppointment.removeProduct(product?.productId));
-       let arrTempProductRemoved = await [...productsBookingRemove];
-       await arrTempProductRemoved.push(product);
-       await setProductsBookingRemove(arrTempProductRemoved);
+    deleteProduct: async (product) => {
+      dispatch(editAppointment.removeProduct(product?.productId));
+      let arrTempProductRemoved = await [...productsBookingRemove];
+      await arrTempProductRemoved.push(product);
+      await setProductsBookingRemove(arrTempProductRemoved);
+    },
+
+    deleteGiftCard: async (giftCard) => {
+      dispatch(editAppointment.removeGiftCard(giftCard?.giftCardId));
+      let arrrTempGiftCardsRemove = await [...giftCardsBookingRemove];
+      await arrrTempGiftCardsRemove.push(giftCard);
+      await setGiftCardsBookingRemove(arrrTempGiftCardsRemove);
     },
 
 

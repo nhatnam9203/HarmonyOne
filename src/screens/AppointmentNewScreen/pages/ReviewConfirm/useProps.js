@@ -208,7 +208,7 @@ export const useProps = (_params) => {
         merchantId: staff?.merchantId,
         userId: 0,
         customerId: customerBooking?.customerId || 0,
-        fromTime: !isQuickCheckout ? `${dayBooking} ${timeBooking}` : moment().format("MM-DD-YYYY hh:mm A"),
+        fromTime: (!isQuickCheckout && timeBooking )? `${dayBooking} ${timeBooking}` : moment().format("MM-DD-YYYY hh:mm A"),
         status: isQuickCheckout ? "checkin" : "confirm",
         categories: [],
         services: [],

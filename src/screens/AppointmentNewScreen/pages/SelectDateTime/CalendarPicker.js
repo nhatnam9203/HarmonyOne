@@ -23,8 +23,6 @@ export const CalendarPicker = React.forwardRef(({
 
     const [daySelect, setDaySelect] = React.useState(moment(dayBooking).format("YYYY-MM-DD"));
 
-    console.log({ merchantDetail, daySelect })
-
     React.useImperativeHandle(ref, () => ({
         getDaySelect: () => {
             return daySelect
