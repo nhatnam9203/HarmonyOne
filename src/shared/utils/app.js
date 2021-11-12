@@ -2,6 +2,7 @@ import moment from 'moment';
 import { images } from "../themes/resources";
 import RNFetchBlob from 'rn-fetch-blob';
 import { Platform } from "react-native";
+import PrintManager from "@lib/PrintManager";
 
 export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -578,7 +579,14 @@ export const getModalNameOfPrinter = (printers, tempModalName) => {
   return modelName;
 };
 
-
+export const checkStatusPrint = async (portType = "Bluetooth") => {
+  try {
+    const printer = await PrintManager.getInstance().portDiscovery(portType);
+    return printer ? printer : [];
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const SORT_TYPE = {
   NONE: 'none',

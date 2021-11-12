@@ -70,7 +70,7 @@ import {
   ReportOverallMarketingEfficiency,
 } from "./ReportsScreen/pages";
 import { HardwareScreen } from "./HardwareScreen";
-
+import { AddDeviceHardware } from './HardwareScreen/pages/AddDeviceHardware';
 import {
   ServiceDurationStatistic,
   GiftCardStatistic,
@@ -162,4 +162,5 @@ module.exports = {
   ChangePincodeScreen,
   NewPincodeScreen,
   HardwareScreen,
+  AddDeviceHardware,
 };

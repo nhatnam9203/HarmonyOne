@@ -140,6 +140,8 @@ export const images = {
   paymentHardware: require('@src/assets/images/pax.png'),
   printHardware: require('@src/assets/images/print_hardware.png'),
   deleteIconBanner: require('@src/assets/images/deleteIconBanner.png'),
+  radioExportSe: require('@src/assets/images/radioExportSe.png'),
+  radioExport: require('@src/assets/images/radioExport.png'),
 };
 
 export const svg = {

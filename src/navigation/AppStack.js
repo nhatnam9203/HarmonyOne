@@ -16,6 +16,7 @@ import {
   EditProfileScreen,
   SettingScreen,
   HardwareScreen,
+  AddDeviceHardware,
   NotificationScreen,
   ReviewScreen,
   MarketingScreen,
@@ -112,6 +113,7 @@ const AppStack = () => {
         <Screen {...EditProfileScreen} />
         <Screen {...SettingScreen} />
         <Screen {...HardwareScreen} />
+        <Screen {...AddDeviceHardware} />
         <Screen {...NotificationScreen} />
         <Screen {...ReviewScreen} />
         <Screen {...MarketingScreen} />

@@ -2,11 +2,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
+import {
+  getModalNameOfPrinter
+} from '@shared/utils';
 
 const reducerName = 'hpo.hardware';
 const initialState = {
   printerList: [],
   printerSelect: '',
+  printerPortType: 'Bluetooth',
   paxMachineInfo: {
     commType: '',
     name: '',
@@ -26,8 +30,8 @@ const initialState = {
   },
   dejavooMachineInfo: {
     name: '',
-    registerId: '83216002',
-    authKey: 'd4RL8FrETi',
+    registerId: '',//'83216002',
+    authKey: '',//'d4RL8FrETi',
     isSetup: false,
   },
   paymentMachineType: 'Dejavoo',
@@ -97,6 +101,20 @@ const hardwareSlice = createSlice({
         sn: '',
       };
     },
+    updatePrinterPortType: (state, action) => {
+      state.printerPortType = action.payload;
+    },
+    selectPrinter: (state, action) => {
+      state.printerSelect = action.payload;
+    },
+    updatePrinterList: (state, action) => {
+      state.printerList = action.payload
+      state.printerSelect = getModalNameOfPrinter(
+        action.payload,
+        state.printerSelect,
+      )
+    },
+
   },
 });
 const { actions, reducer } = hardwareSlice;
