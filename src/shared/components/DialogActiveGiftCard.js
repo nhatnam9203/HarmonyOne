@@ -63,7 +63,7 @@ export const DialogActiveGiftCard = React.forwardRef(
                     if (response?.data?.codeNumber == 400) {
                         Alert.alert(response?.data?.message);
                     } else {
-                        onSuccess(response?.data?.data)
+                        onSuccess(response?.data?.data, serialNumber)
                     }
                 }
             } catch (err) {

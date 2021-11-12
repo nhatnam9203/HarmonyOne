@@ -43,13 +43,19 @@ export const useProps = (_params) => {
             dialogActiveGiftCard?.current?.show();
         },
 
-        hideDialogGiftCard : () =>{
+        hideDialogGiftCard: () => {
         },
 
-        onCheckGiftCardSucces : (data) =>{
+        onCheckGiftCardSucces: (data, serialNumber) => {
             dialogActiveGiftCard?.current?.hide();
-            NavigationService.navigate(screenNames.EnterGiftCardAmount, { giftCardInfo : data });
-            console.log({ data });
+            NavigationService.navigate(
+                screenNames.EnterGiftCardAmount, {
+                    giftCardInfo: {
+                        ...data,
+                        name: "Gift card - " + serialNumber?.toString()?.substring(serialNumber?.toString()?.length - 4)
+                    }
+            }
+            );
         },
 
         selectProduct: (item) => {
