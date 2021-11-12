@@ -14,9 +14,7 @@ export const useProps = (props) => {
   const [giftCarList, setGiftCardList] = React.useState([]);
   const [giftCardSelected, setGiftCardSelected] = React.useState("");
 
-  const {
-    settlement: { listGiftCardSales = [], }
-  } = useSelector(state => state);
+  const listGiftCardSales = props?.route?.params?.listGiftCardSales || [];
 
   React.useEffect(() => {
     let tempGiftCardList = listGiftCardSales.map((s) => ({ label: s?.name, value: s?.appointmentId }));
