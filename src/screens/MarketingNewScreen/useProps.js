@@ -13,6 +13,7 @@ import {
   disablePromotionById,
   enablePromotionById,
   updatePromotionById,
+  deletePromotion
 } from "@src/apis";
 import { marketing } from "@redux/slices";
 import { isEmpty } from "lodash";
@@ -361,6 +362,14 @@ export const useProps = (props) => {
     }
   });
 
+  const [, submitDeletePromotion] = useAxiosMutation({
+    ...deletePromotion(),
+    onSuccess: (data, response) => {
+      console.log('response delete promotion : ', { response })
+      fetchPromotion();
+    }
+  });
+
   const [, submitUpdatePromotionById] = useAxiosMutation({
     ...updatePromotionById(),
     onSuccess: (data, response) => {
@@ -436,7 +445,10 @@ export const useProps = (props) => {
         id: 'delete-campaign',
         label: t('Delete'),
         textColor: colors.red,
-        func: () => { alert('chưa có api delete campaign') }
+        func: async() => { 
+          const body = await deletePromotion(promotionDetailById?.id);
+          submitDeletePromotion(body.params);
+        }
       },
     ],
 

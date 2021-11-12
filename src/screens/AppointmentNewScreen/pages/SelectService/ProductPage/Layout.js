@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, FlatList, Pressable, SectionList, Alert } from 'react-native';
 import { colors, fonts } from "@shared/themes";
-import { ListEmptyComponent } from "@shared/components";
+import { ListEmptyComponent, DialogActiveGiftCard } from "@shared/components";
 import { useSelector, useDispatch } from "react-redux";
 import { ServiceItem } from "../../../widgets";
+import { AddGiftCard } from "./AddGiftCard";
 
 export const Layout = ({
     categoryRef,
@@ -14,6 +15,10 @@ export const Layout = ({
     selectCategory,
     selectProduct,
     productsBooking,
+    dialogActiveGiftCard,
+    hideDialogGiftCard,
+    showDialogGiftCard,
+    onCheckGiftCardSucces
 }) => {
 
     const {
@@ -59,7 +64,7 @@ export const Layout = ({
                         <ServiceItem
                             service={item}
                             onPress={() => selectProduct(item)}
-                            disabled={productsBooking.find(s=>s?.productId == item?.productId)}
+                            disabled={productsBooking.find(s => s?.productId == item?.productId)}
                         />
                     }
                     renderSectionHeader={({ section }) => {
@@ -70,9 +75,16 @@ export const Layout = ({
                         )
                     }}
                     ListEmptyComponent={() => <ListEmptyComponent description={"No Product"} />}
-                    ListFooterComponent={() => <View style={{ height: scaleHeight(300) }} />}
+                    ListFooterComponent={() => <AddGiftCard onPress={showDialogGiftCard} />}
                 />
             </View>
+            <DialogActiveGiftCard
+                ref={dialogActiveGiftCard}
+                title="Enter gift card serial number"
+                onConfirmYes={() => { }}
+                onModalHide={() => { }}
+                onSuccess={onCheckGiftCardSucces}
+            />
         </View>
     )
 }

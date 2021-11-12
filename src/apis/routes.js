@@ -550,6 +550,15 @@ export const disablePromotionById = (promotionId) => ({
   }
 });
 
+export const deletePromotion = (promotionId) => ({
+  queryId: 'disablePromotionById',
+  params: {
+    url: `MerchantPromotion/${promotionId}`,
+    method: 'DELETE',
+    data : {}
+  }
+});
+
 export const enablePromotionById = (promotionId) => ({
   queryId: 'enablePromotionById',
   params: {

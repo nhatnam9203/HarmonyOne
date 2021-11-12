@@ -156,6 +156,16 @@ export const useProps = (_params) => {
         }
       }
 
+      for (let i = 0; i < appointmentEdit?.products.length; i++) {
+        if (appointmentEdit?.products[i]) {
+          price += parseFloat(formatNumberFromCurrency(appointmentEdit?.products[i].price)) * appointmentEdit?.products[i]?.quantity;
+        }
+      }
+
+      for (let i = 0; i < appointmentEdit?.giftCards.length; i++) {
+        price += formatNumberFromCurrency(appointmentEdit?.giftCards[i].price);
+      }
+
       return {
         price: formatMoney(price),
         duration: convertMinsToHrsMins(duration),

@@ -48,8 +48,6 @@ export const useProps = (props) => {
 
 
 
-
-
   /************************************* GỌI API SELECT METHOD PAY *************************************/
   const [, submitSelectPaymentMethod] = useAxiosMutation({
     ...selectPaymentMethod(),
