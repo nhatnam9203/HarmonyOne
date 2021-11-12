@@ -22,6 +22,7 @@ const ScreenNames = {
   CategoryNewScreen: 'hpo.category.new',
   EditProfileScreen: 'hpo.profile.edit',
   SettingScreen: 'hpo.setting',
+  HardwareScreen: 'hpo.hardware',
   NotificationScreen: 'hpo.notification',
   ReviewScreen: 'hpo.review',
   MarketingScreen: 'hpo.marketing',

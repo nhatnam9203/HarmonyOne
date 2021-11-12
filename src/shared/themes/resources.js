@@ -135,6 +135,9 @@ export const images = {
   danger: require('@src/assets/images/danger.png'),
   checkBox: require('@src/assets/images/check-box.png'),
   checkBoxEmpty: require('@src/assets/images/check-box-empty.png'),
+  paymentHardware: require('@src/assets/images/pax.png'),
+  printHardware: require('@src/assets/images/print_hardware.png'),
+  deleteIconBanner: require('@src/assets/images/deleteIconBanner.png'),
 };
 
 export const svg = {
