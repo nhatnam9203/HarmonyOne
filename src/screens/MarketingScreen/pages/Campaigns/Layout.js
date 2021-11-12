@@ -19,7 +19,8 @@ export const Layout = ({
     <View style={styles.container}>
 
       <FlatList
-        data={promotion.filter(obj => obj?.isDeleted == 0)}
+        // data={promotion.filter(obj => obj?.isDeleted == 0)}
+        data={promotion}
         style={styles.flatList}
         keyExtractor={(item) => "promotion" + item?.id?.toString()}
         renderItem={({ item }) =>

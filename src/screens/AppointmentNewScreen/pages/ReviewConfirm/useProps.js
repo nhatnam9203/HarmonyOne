@@ -102,8 +102,6 @@ export const useProps = (_params) => {
     },
   });
 
-  console.log({ giftCardsBooking })
-
   return {
     customerBooking,
     servicesBooking,
@@ -171,7 +169,6 @@ export const useProps = (_params) => {
     },
 
     deleteService: (service) => {
-      console.log('delete service : ', { service })
       dispatch(bookAppointment.deleteService(service));
     },
 
@@ -184,7 +181,11 @@ export const useProps = (_params) => {
     },
 
     changeDateTime: () => {
-      NavigationService.navigate(screenNames.SelectDateTime);
+      if (servicesBooking?.length > 0) {
+        NavigationService.navigate(screenNames.SelectDateTime, { isRefetchDate : true ,staffSelected: { staffId: servicesBooking[0].staffId } });
+      } else {
+        NavigationService.navigate(screenNames.SelectDateTime);
+      }
     },
 
     addMore: () => {
