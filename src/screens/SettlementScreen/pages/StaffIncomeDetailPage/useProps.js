@@ -12,13 +12,13 @@ import SendSMS from "react-native-sms";
 export const useProps = (props) => {
 
   const staffDetail = props?.route?.params?.staffDetail;
+  const listStaffSales = props?.route?.params?.listStaffSales || []
   const form = useForm();
   const stafListRef = React.useRef();
   const [staffList, setStaffList] = React.useState([]);
   const [staffSelected, setStaffSelected] = React.useState("");
 
   const {
-    settlement: { listStaffSales = [] },
     staff: { staffListByMerchant = [] }
   } = useSelector(state => state);
 

@@ -28,6 +28,7 @@ import {
 
 import moment from "moment";
 import NavigationService from '@navigation/NavigationService';
+import { Alert } from "react-native";
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
@@ -446,8 +447,9 @@ export const useProps = (props) => {
         label: t('Delete'),
         textColor: colors.red,
         func: async() => { 
-          const body = await deletePromotion(promotionDetailById?.id);
-          submitDeletePromotion(body.params);
+          Alert.alert('dang test lai')
+          // const body = await deletePromotion(promotionDetailById?.id);
+          // submitDeletePromotion(body.params);
         }
       },
     ],
