@@ -13,8 +13,6 @@ export const TimePicker = React.forwardRef(({
     timesAvailable = []
 }, ref) => {
 
-    console.log({ timesAvailable })
-
     const [timePicker, setTimePicker] = React.useState("");
 
     React.useImperativeHandle(ref, () => ({

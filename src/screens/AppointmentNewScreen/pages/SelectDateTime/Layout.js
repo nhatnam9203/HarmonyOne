@@ -17,7 +17,6 @@ export const Layout = ({
   calendarRef,
   timePickerRef,
   isRefetchDate,
-  merchantDetail
 }) => {
 
   return (
@@ -36,7 +35,7 @@ export const Layout = ({
           <View style={styles.line} />
           <TimePicker
             ref={timePickerRef}
-            timesAvailable={staffSelected ? timesAvailable : timeAvaiableRaw}
+            timesAvailable={timesAvailable}
           />
         </View>
 
