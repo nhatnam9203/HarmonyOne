@@ -88,6 +88,14 @@ export const useProps = (_params) => {
         sendReviewLinkOption: merchantDetail?.sendReviewLinkOption,
         giftForNewEnabled: merchantDetail?.giftForNewEnabled,
         receiptFooter: merchantDetail?.giftForNewEnabled,
+        zip : merchantDetail?.zip,
+        address : merchantDetail?.address,
+        city : merchantDetail?.city,
+        stateId : merchantDetail?.stateId,
+        businessName: merchantDetail?.businessName,
+        webLink: merchantDetail?.webLink,
+        email: merchantDetail?.email,
+        cellPhone : merchantDetail?.cellPhone
       }
 
       const body = await merchantSetting(data);

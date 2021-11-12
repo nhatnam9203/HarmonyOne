@@ -12,7 +12,7 @@ import {
   getMerchantById,
   getCountUnReadOfNotification,
   getStaffByMerchant,
-  getStateCity
+  getStateCity,
 } from '@src/apis';
 
 import { useNavigation } from '@react-navigation/core';

@@ -34,6 +34,7 @@ const ScreenNames = {
   SelectService: 'hpo.appointment.booking.selectService',
   SelectServiceDetail: 'hpo.appointment.booking.selectService.detail',
   SelectProductDetail: 'hpo.appointment.booking.selectProduct.detail',
+  EnterGiftCardAmount: 'hpo.appointment.booking.enterGiftCardAmount',
   SelectStaff: 'hpo.appointment.booking.selectStaff',
   SelectDateTime: 'hpo.appointment.booking.selectDateTime',
   ReviewConfirm: 'hpo.appointment.booking.reviewConfirm',

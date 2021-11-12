@@ -2,12 +2,12 @@ import React from 'react';
 import { View, StyleSheet, Text, FlatList } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { colors, fonts, layouts } from '@shared/themes';
-import { AppointmentServiceItem, AppointmentProductItem } from '@shared/components';
+import { AppointmentServiceItem, AppointmentProductItem, AppointmentGiftCardItem } from '@shared/components';
 import { formatNumberFromCurrency, formatMoney, convertMinsToHrsMins } from "@shared/utils";
 
-export const AppointmentServiceList = ({ services = [], extras = [], products = [] }) => {
+export const AppointmentServiceList = ({ services = [], extras = [], products = [], giftCards }) => {
   const { t } = useTranslation();
-
+ 
 
   const totalDuration = (service, itemType) => {
     let total = 0;
@@ -39,7 +39,7 @@ export const AppointmentServiceList = ({ services = [], extras = [], products = 
           <AppointmentServiceItem
             key={item?.bookingServiceId + "serviceItem"}
             service={item}
-            extras={extras.filter(ex=>ex.bookingServiceId == item?.bookingServiceId).map(ex => ({ ...ex, name: ex.extraName }))}
+            extras={extras.filter(ex => ex.bookingServiceId == item?.bookingServiceId).map(ex => ({ ...ex, name: ex.extraName }))}
             name={item?.serviceName}
             duration={totalDuration(item, "duration")}
             price={getTotalPrice(item)}
@@ -52,6 +52,16 @@ export const AppointmentServiceList = ({ services = [], extras = [], products = 
             key={item?.bookingProductId + "productItem"}
             product={item}
             name={item?.productName}
+            price={item?.price}
+          />
+        ))
+      }
+      {
+        giftCards?.map((item) => (
+          <AppointmentGiftCardItem
+            key={item?.bookingGiftCardId + "giftCardItem"}
+            giftCard={item}
+            name={item?.name}
             price={item?.price}
           />
         ))

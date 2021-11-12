@@ -74,7 +74,7 @@ export const DataList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                SettlementId: "Batch ID",
+                SettlementId: "Trans ID",
                 createdDate: "Date/time",
                 checkoutId: "Invoice",
                 status: "Status",

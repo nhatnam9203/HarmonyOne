@@ -15,7 +15,8 @@ import { IconButton,
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { ItemsPay } from "./ItemsPay";
-import { DialogActiveGiftCard, PopupPaymentDetail, PopupChange } from "./widgets";
+import { PopupPaymentDetail, PopupChange, DialogActiveGiftCard } from "./widgets";
+
 
 export const Layout = ({
     back,

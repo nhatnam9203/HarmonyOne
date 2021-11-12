@@ -13,11 +13,12 @@ const merchantSlice = createSlice({
     initialState: initialState,
     reducers: {
         setMerchantDetail: (state, action) => {
-            state.merchantDetail = action.payload;
+            console.log('merchat : ', { action })
+            state.merchantDetail = action.payload?.merchant ?? action.payload;
         },
         setBannerMerchant : (state, action) =>{
             state.bannersMerchant = action.payload ? action.payload : []
-        }
+        },
     },
 });
 

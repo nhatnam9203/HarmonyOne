@@ -15,7 +15,7 @@ export const TableSalesByStaff = ({
 }) => {
 
     const viewStaffIncomeDetail = (staff) => {
-        NavigationService.navigate(screenNames.StaffIncomeDetailPage, { staffDetail: staff });
+        NavigationService.navigate(screenNames.StaffIncomeDetailPage, { staffDetail: staff, listStaffSales : data });
     }
 
     return (
