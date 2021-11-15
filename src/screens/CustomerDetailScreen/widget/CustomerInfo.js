@@ -6,6 +6,7 @@ import { IconButton, ItemSelect } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { dateToFormat, DATE_SHOW_FORMAT_STRING } from '@shared/utils';
+import { isEmpty } from "lodash";
 import Collapsible from 'react-native-collapsible';
 
 const CustomerInfo = ({
@@ -41,7 +42,7 @@ const CustomerInfo = ({
 
                 <View style={styles.group(isVip)}>
                     {
-                        isVip == 1 && 
+                        isVip == 1 &&
                         <Image
                             source={images.iconVip}
                             style={styles.iconVip}
@@ -53,19 +54,19 @@ const CustomerInfo = ({
                 </View>
             </View>
 
-            <IconButton
+            {!isEmpty(note) && <IconButton
                 icon={images.iconNote}
                 iconStyle={styles.icon}
                 style={styles.rowIcon}
                 renderText={() => <Text style={styles.txtIcon}>{note}</Text>}
-            />
-            <IconButton
+            />}
+            {!isEmpty(phone) && <IconButton
                 icon={images.iconPhone}
                 iconStyle={styles.icon}
                 style={styles.rowIcon}
                 renderText={() => <Text style={styles.txtIcon}>{phone}</Text>}
-            />
-            <IconButton
+            />}
+            {!isEmpty(email) && <IconButton
                 icon={images.iconEmail}
                 iconStyle={styles.icon}
                 style={styles.rowIcon}
@@ -78,15 +79,15 @@ const CustomerInfo = ({
                         {email}
                     </Text>
                 }
-            />
+            />}
             <Collapsible collapsed={isHideDetail} duration={200}>
-                <IconButton
+                {!isEmpty(gender) && <IconButton
                     icon={images.iconGender}
                     iconStyle={styles.icon}
                     style={styles.rowIcon}
                     renderText={() => <Text style={styles.txtIcon}>{gender}</Text>}
-                />
-                <IconButton
+                />}
+                {!isEmpty(birthdate) && <IconButton
                     icon={images.iconBirthdate}
                     iconStyle={styles.icon}
                     style={styles.rowIcon}
@@ -94,21 +95,22 @@ const CustomerInfo = ({
                         {birthdate ? dateToFormat(birthdate, "MM/DD/YYYY") : ""}
                     </Text>
                     }
-                />
-                <IconButton
-                    icon={images.iconLocation}
-                    iconStyle={styles.icon}
-                    style={styles.rowIcon}
-                    renderText={() => <Text style={styles.txtIcon}>
-                        {`${addressPost.street || ''} ${addressPost?.city || ''} ${addressPost?.zip || ''} ${addressPost?.state || ''}`}
-                    </Text>}
-                />
-                <IconButton
+                />}
+                {(!isEmpty(addressPost?.street) || !isEmpty(addressPost?.city) || !isEmpty(addressPost?.zip) || !isEmpty(addressPost?.state)) &&
+                    <IconButton
+                        icon={images.iconLocation}
+                        iconStyle={styles.icon}
+                        style={styles.rowIcon}
+                        renderText={() => <Text style={styles.txtIcon}>
+                            {`${addressPost.street || ''} ${addressPost?.city || ''} ${addressPost?.zip || ''} ${addressPost?.state || ''}`}
+                        </Text>}
+                    />}
+                {!isEmpty(referrerPhone) && <IconButton
                     icon={images.iconReferer}
                     iconStyle={styles.icon}
                     style={styles.rowIcon}
                     renderText={() => <Text style={styles.txtIcon}>{referrerPhone}</Text>}
-                />
+                />}
             </Collapsible>
 
             <TouchableOpacity activeOpacity={1} onPress={toggleFullDetail}>
@@ -133,8 +135,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.15,
         shadowRadius: 2.34,
         elevation: 5,
-        marginHorizontal : scaleWidth(12),
-        marginTop : scaleWidth(16)
+        marginHorizontal: scaleWidth(12),
+        marginTop: scaleWidth(16)
     },
     content: {
         justifyContent: 'center',

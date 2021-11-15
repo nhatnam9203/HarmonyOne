@@ -119,7 +119,7 @@ const ItemInputTime = React.forwardRef(({ item, index, isEdit }, ref) => {
 
     return (
         <View key={item[0] + guid()} style={styles.rowItem}>
-            <View style={[styles.row, { width: scaleWidth(80) }]}>
+            <TouchableOpacity activeOpacity={1} onPress={()=>onChangeChecked(!isCheck)} style={[styles.row, { width: scaleWidth(80) }]}>
                 <CheckBox
                     disabled={false}
                     value={isCheck}
@@ -133,7 +133,7 @@ const ItemInputTime = React.forwardRef(({ item, index, isEdit }, ref) => {
                     style={{ width: 24, height: 24, marginRight: scaleWidth(12) }}
                 />
                 <Text style={styles.txtDayName}>{(item[0].slice(0, 3))}</Text>
-            </View>
+            </TouchableOpacity>
             <InputSelectTime
                 time={fromTime}
                 apply={time => setFromTime(time)}

@@ -74,8 +74,6 @@ export const useProps = (_params) => {
 
 
     onSubmit: async (values) => {
-      Alert.alert('đang test lại');
-      return;
       const phoneHeader = inputPhoneHeadRef?.current?.getValue().value;
 
       const data = {

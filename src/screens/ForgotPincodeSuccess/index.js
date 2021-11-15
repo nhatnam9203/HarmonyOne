@@ -13,7 +13,7 @@ const index = () => {
     }
 
     const backSignIn = () => {
-        NavigationService.navigate('LoginMID');
+        NavigationService.navigate(screenNames.PinScreen);
     }
 
     return (
