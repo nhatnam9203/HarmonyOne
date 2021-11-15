@@ -65,6 +65,7 @@ export const Layout = ({
                 <DayPicker
                   dayPicked={startDate}
                   onApply={(date) => setStartDate(date)}
+                  maxDate={moment(endDate).format("YYYY-MM-DD")}
                   componentRender={() => (
                     <View style={styles.inputDate}>
                       <Text style={styles.txtInputDate}>{moment(startDate).format("MM/DD/YYYY")}</Text>
@@ -85,6 +86,7 @@ export const Layout = ({
                 <DayPicker
                   dayPicked={endDate}
                   onApply={(date) => setEndDate(date)}
+                  minDate={moment(endDate).format("YYYY-MM-DD")}
                   componentRender={() => (
                     <View style={styles.inputDate}>
                       <Text style={styles.txtInputDate}>{moment(endDate).format("MM/DD/YYYY")}</Text>

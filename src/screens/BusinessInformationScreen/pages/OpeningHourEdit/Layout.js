@@ -18,7 +18,7 @@ export const Layout = ({
         <View style={styles.container}>
             <SingleScreenLayout
                 pageTitle={t("Opening Hour")}
-                isLeft={true}
+                isLeft={true} 
                 isRight={false}
                 isScrollLayout={false}
                 containerStyle={{ paddingVertical: 0 }}
