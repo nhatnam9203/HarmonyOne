@@ -61,13 +61,13 @@ export const Layout = ({
                     />
                     <CustomInput
                         label="Latitude"
-                        renderInput={() => <InputText form={form} name="latitude" />}
+                        renderInput={() => <InputText form={form} name="latitude" keyboardType={'numeric'} />}
                     />
                     <CustomInput
                         label="Longitude"
-                        renderInput={() => <InputText form={form} name="longitude" />}
+                        renderInput={() => <InputText form={form} name="longitude" keyboardType={'numeric'} />}
                     />
-                    <View style={{ height : scaleHeight(100) }} />
+                    <View style={{ height: scaleHeight(100) }} />
                 </KeyboardAwareScrollView>
                 <View style={styles.bottom}>
                     <Button

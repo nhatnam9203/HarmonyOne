@@ -28,7 +28,7 @@ export const BasicInformation = ({
             <Title text="Basic Informations" onEdit={() => { NavigationService.navigate("BasicEdit") }} />
 
             <CustomInput
-                label='Business name'
+                label='Business Name'
                 style={{ marginTop: scaleHeight(8) }}
                 renderInput={() =>
                     <Text style={styles.txtItem}>{businessName}</Text>
@@ -36,7 +36,7 @@ export const BasicInformation = ({
             />
             {
                 !isEmpty(cellphone) && <CustomInput
-                    label='Phone number'
+                    label='Phone Number'
                     renderInput={() =>
                         <Text style={styles.txtItem}>{cellphone}</Text>
                     }
@@ -44,7 +44,7 @@ export const BasicInformation = ({
             }
             {
                 !isEmpty(email) && <CustomInput
-                    label='Contact email'
+                    label='Contact Email'
                     renderInput={() =>
                         <Text style={styles.txtItem}>{email}</Text>
                     }

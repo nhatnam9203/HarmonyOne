@@ -14,8 +14,11 @@ import Geolocation from '@react-native-community/geolocation';
 export const Location = ({
     addressFull,
     latitude,
-    longitude
+    longitude,
+    merchantDetail,
 }) => {
+
+    console.log({ merchantDetail })
 
     const [geometric, setGeometric] = React.useState({
         latitude: 10.75475,
@@ -52,7 +55,9 @@ export const Location = ({
                 label='Address'
                 style={{ marginTop: scaleHeight(8) }}
                 renderInput={() =>
-                    <Text style={styles.txtItem}>{addressFull}</Text>
+                    <Text style={styles.txtItem}>{
+                        `${merchantDetail?.address}, ${merchantDetail?.city}, ${merchantDetail?.state?.name}, ${merchantDetail?.zip}`
+                    }</Text>
                 }
             />
             <MapView

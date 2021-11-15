@@ -36,6 +36,7 @@ export const Layout = ({
             addressFull={merchantDetail?.addressFull}
             longitude={merchantDetail?.longitude}
             latitude={merchantDetail?.latitude}
+            merchantDetail={merchantDetail}
           />
           <OpeningHour
             businessHour={merchantDetail?.businessHour}
