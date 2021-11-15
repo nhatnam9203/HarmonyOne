@@ -29,13 +29,13 @@ export const Layout = ({
         containerStyle={{ paddingVertical: 0, paddingTop: scaleHeight(8) }}>
         <View style={styles.content}>
           <CustomInput
-            label="Business name"
+            label="Business Name"
             isRequired
             error={errors?.businessName}
             renderInput={() => <InputText form={form} name="businessName" error={errors?.businessName} />}
           />
           <CustomInput
-            label="Phone number"
+            label="Phone Number"
             renderInput={() => (
               <View style={styles.row}>
                 <DropdownMenu
@@ -59,7 +59,7 @@ export const Layout = ({
             )}
           />
           <CustomInput
-            label="Contact email"
+            label="Contact Email"
             error={errors?.email}
             renderInput={() => <InputText form={form} name="email" error={errors?.email} />}
           />

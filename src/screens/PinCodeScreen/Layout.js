@@ -38,7 +38,7 @@ export const Layout = ({
           <SmoothPinCodeInput
             placeholder={<View style={styles.dotInput} />}
             mask={<View style={[styles.dotInput, { opacity: 1 }]} />}
-            textStyle={{ fontFamily : fonts.MEDIUM, fontSize : scaleFont(17) }}
+            textStyle={{ fontFamily : fonts.MEDIUM, fontSize : scaleFont(19), color : "#404040" }}
             // maskDelay={500}
             password={true}
             cellStyle={null}
