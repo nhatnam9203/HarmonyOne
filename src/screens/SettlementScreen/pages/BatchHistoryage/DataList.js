@@ -145,12 +145,12 @@ const styles = StyleSheet.create({
 
     },
     txt: {
-        fontSize: scaleFont(13),
+        fontSize: scaleFont(14),
         fontFamily: fonts.REGULAR,
         color: "#404040"
     },
     txtDate: {
-        fontSize: scaleFont(13),
+        fontSize: scaleFont(14),
         fontFamily: fonts.LIGHT,
         color: "#404040"
     },

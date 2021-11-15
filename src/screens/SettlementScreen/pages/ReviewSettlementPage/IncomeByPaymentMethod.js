@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         borderBottomColor: "#dddddd",
     },
     txtIncome: {
-        fontSize: scaleFont(14),
+        fontSize: scaleFont(16),
         color: "#404040",
         fontFamily: fonts.REGULAR
     },
