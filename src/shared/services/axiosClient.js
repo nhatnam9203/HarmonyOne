@@ -11,8 +11,8 @@ const log = (obj, message = '') => {
 
 log(Configs, 'Configs');
 export const axios = Axios.create({
-  baseURL:  Configs.API_URL,
-  // baseURL: `https://dev.harmonypayment.com/api/`,
+  // baseURL:  Configs.API_URL,
+  baseURL: `https://dev.harmonypayment.com/api/`,
   timeout: 30000,
   headers: {
     Accept: 'application/json',
@@ -32,6 +32,7 @@ axios.interceptors.request.use(
         authorization: `Bearer ${token}`,
       });
     }
+
     return config;
   },
   (error) => Promise.reject(error),

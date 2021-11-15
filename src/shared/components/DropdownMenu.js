@@ -1,7 +1,7 @@
 import React from "react";
 import { colors, fonts } from "@shared/themes";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import ModalDropdown from "react-native-modal-dropdown";
 import { images } from "@shared/themes/resources";
 
@@ -115,6 +115,7 @@ export const DropdownMenu = React.forwardRef(
             styleHeightItemDropDown,
           ]}
           renderRow={renderRow}
+          renderRowComponent={TouchableOpacity}
           renderSeparator={() => <View style={{ height: 1 }} />}
           onDropdownWillShow={onDropdownWillShow}
           onDropdownWillHide={onDropdownWillHide}
@@ -181,7 +182,6 @@ const styles = StyleSheet.create({
 
   dropDownContainerStyle: {
     borderRadius: scaleWidth(3),
-    backgroundColor: "white",
     borderWidth: scaleWidth(1),
     // borderLeftWidth: scaleWidth(1),
     // borderRightWidth: scaleWidth(1),

@@ -101,8 +101,8 @@ export const useProps = (props) => {
     },
 
     viewGiftCardSold: () => {
-      if(listGiftCardSales?.length > 0){
-        NavigationService.navigate(screenNames.GiftCardSoldPage);
+      if (listGiftCardSales?.length > 0) {
+        NavigationService.navigate(screenNames.GiftCardSoldPage, { listGiftCardSales });
       }
     }
   };

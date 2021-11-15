@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, FlatList } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
-import {slop} from "@shared/utils";
+import { slop } from "@shared/utils";
 import { images } from "@shared/themes/resources";
 import { IconButton } from "@shared/components";
 
@@ -19,6 +19,7 @@ export const Layout = ({
     <View style={styles.container}>
 
       <FlatList
+        // data={promotion.filter(obj => obj?.isDeleted == 0)}
         data={promotion}
         style={styles.flatList}
         keyExtractor={(item) => "promotion" + item?.id?.toString()}
@@ -27,12 +28,12 @@ export const Layout = ({
             icon={item?.isDisabled == 1 ? images.circleGrey : images.circleGreen}
             iconStyle={styles.iconStyle}
             style={styles.item}
-            onPress={()=>editPromotion(item)}
+            onPress={() => editPromotion(item)}
             slop={slop()}
             renderText={() => <Text style={styles.name}>{item?.name}</Text>}
           />
         }
-        ListFooterComponent={()=><View style={{ height : scaleHeight(300) }} />}
+        ListFooterComponent={() => <View style={{ height: scaleHeight(300) }} />}
       />
 
       <IconButton

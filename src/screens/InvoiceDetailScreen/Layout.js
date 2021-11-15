@@ -24,7 +24,7 @@ export const Layout = ({
 
   const items = [
     ...invoiceDetail?.basket?.extras?.map(item => ({ ...item, qty: 1, name: item?.extraName, key: item?.bookingExtraId + guid() })),
-    ...invoiceDetail?.basket?.giftCards?.map(item => ({ ...item, qty: item?.quantity, name: item?.giftCardName, key: item?.bookingGiftCardId + guid() })),
+    ...invoiceDetail?.basket?.giftCards?.map(item => ({ ...item, qty: item?.quantity, name: item?.name, key: item?.bookingGiftCardId + guid() })),
     ...invoiceDetail?.basket?.products?.map(item => ({ ...item, qty: item?.quantity, name: item?.productName, key: item?.bookingProductId + guid() })),
     ...invoiceDetail?.basket?.services?.map(item => ({ ...item, qty: 1, name: item?.serviceName, key: item?.bookingServiceId + guid() })),
   ]
@@ -58,7 +58,7 @@ export const Layout = ({
           </View>
         }
       >
-        <ViewShot style={{ flex : 1 }} ref={viewShotRef}>
+        <ViewShot style={{ flex: 1 }} ref={viewShotRef}>
           <KeyboardAwareScrollView style={styles.content}>
             <Text style={styles.invoiceNumber}>
               {`Invoice #${invoiceDetail?.code}`}
@@ -113,15 +113,17 @@ export const Layout = ({
               items.map(item => {
                 const itemPrice = parseFloat(formatNumberFromCurrency(item?.price)) * parseInt(item?.qty);
                 return (
-                  <View key={item?.key} style={[styles.row, { marginTop: scaleHeight(12), alignItems : "flex-start" }]}>
-                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(150) }]}>
-                      {item?.name}
-                    </Text>
+                  <View key={item?.key} style={[styles.row, { marginTop: scaleHeight(12), alignItems: "center" }]}>
+                    <View style={{ width: scaleWidth(150) }}>
+                      <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(130) }]}>
+                        {item?.name}
+                      </Text>
+                    </View>
 
                     <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(69) }]}>
                       $ {item?.price}
                     </Text>
-                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(69) }]}>
+                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(61) }]}>
                       {item?.qty}
                     </Text>
                     <Text style={[styles.text, { fontFamily: fonts.BOLD, width: scaleWidth(65), textAlign: "right" }]}>

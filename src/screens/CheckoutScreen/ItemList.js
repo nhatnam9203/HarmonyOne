@@ -17,7 +17,7 @@ export const ItemList = ({
         ...services.map((obj => ({ ...obj, qty: 1, name: obj?.serviceName, key: "service" + obj?.bookingServiceId }))),
         ...extras.map((obj => ({ ...obj, qty: 1, name: obj?.extraName, key: "extra" + obj?.bookingExtraId }))),
         ...products.map((obj => ({ ...obj, qty: obj?.quantity, name: obj?.productName, key: "product" + obj?.bookingProductId }))),
-        ...giftCards.map((obj => ({ ...obj, qty: obj?.quantity, name: obj?.giftCardName, key: "giftCard" + obj?.giftCardId }))),
+        ...giftCards.map((obj => ({ ...obj, qty: obj?.quantity, name: obj?.name, key: "giftCard" + obj?.giftCardId }))),
     ];
 
 
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         fontSize: scaleFont(16),
         color: "#404040",
         fontFamily: fonts.MEDIUM,
-        width: scaleWidth(290),
+        width: scaleWidth(260),
     },
     price: {
         fontSize: scaleFont(16),

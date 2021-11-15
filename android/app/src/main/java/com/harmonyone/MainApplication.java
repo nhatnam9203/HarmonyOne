@@ -1,5 +1,6 @@
 package com.harmonyone;
 
+import android.content.Intent;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -11,6 +12,13 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.microsoft.codepush.react.CodePush;
+import com.airbnb.android.react.lottie.LottiePackage;
+import com.vinzscam.reactnativefileviewer.RNFileViewerPackage;
+import com.tkporter.sendsms.SendSMSPackage;
+import cl.json.RNSharePackage;
+import cl.json.ShareApplication;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
+import com.reactnativecommunity.geolocation.GeolocationPackage;
 
 // import com.BV.LinearGradient.LinearGradientPackage;
 

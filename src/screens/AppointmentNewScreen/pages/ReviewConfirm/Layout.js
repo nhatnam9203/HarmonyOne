@@ -3,7 +3,16 @@ import { View, StyleSheet, FlatList, Text, TouchableOpacity, Image } from 'react
 import { colors, fonts, images } from "@shared/themes";
 import { Button, CustomerInfoView } from "@shared/components";
 import { HeaderBooking } from "../../widgets";
-import { AppointmentServiceItem, AppointmentProductItem, AppointmentTimeView, TotalView, IconButton, DialogSuccess } from '@shared/components';
+import {
+  AppointmentServiceItem,
+  AppointmentProductItem,
+  AppointmentTimeView,
+  AppointmentGiftCardItem,
+  TotalView,
+  IconButton,
+  DialogSuccess
+}
+  from '@shared/components';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { ButtonAddNote } from "./ButtonAddNote";
 import { guid } from "@shared/utils";
@@ -16,6 +25,7 @@ export const Layout = ({
   servicesBooking,
   productsBooking,
   extrasBooking,
+  giftCardsBooking,
   dayBooking,
   timeBooking,
   getTotalItem,
@@ -24,6 +34,7 @@ export const Layout = ({
   changeCustomer,
   deleteService,
   deleteProduct,
+  deleteGiftCard,
   changeDateTime,
   addMore,
   confirm,
@@ -34,9 +45,11 @@ export const Layout = ({
 }) => {
 
 
-  let dateTimeView = moment(`${dayBooking} ${timeBooking}`, ["YYYY-MM-DD hh:mm"]);
+  let dateTimeView = timeBooking ? moment(`${dayBooking} ${timeBooking}`, ["YYYY-MM-DD hh:mm"]) : moment();
 
-  const dataList = [...servicesBooking, ...productsBooking];
+  const dataList = [...servicesBooking, ...productsBooking, ...giftCardsBooking];
+
+
 
   const renderHeader = () => (
     <View style={{ paddingRight: scaleWidth(16) }}>
@@ -49,7 +62,7 @@ export const Layout = ({
       />
       <View style={styles.line} />
       {
-        !isQuickCheckout &&
+        !isQuickCheckout && 
         <>
           <AppointmentTimeView
             fromTime={dateTimeView}
@@ -117,14 +130,22 @@ export const Layout = ({
                 extras={extrasBooking.filter(ex => ex?.serviceId == data.item?.serviceId && ex.checked)}
                 onPressItemReview={true}
               />
-            ) : <AppointmentProductItem
-              product={data.item}
-              name={data.item?.name}
-              duration={getTotalItem(data.item, "duration")}
-              price={getTotalPrice(data.item)}
-              isDelete={true}
-              onPressItemReview={true}
-            />
+            ) :
+              data?.item?.giftCardId ?
+                <AppointmentGiftCardItem
+                  giftCard={data.item}
+                  name={data.item?.name}
+                  price={data?.item?.price}
+                  isDelete={true}
+                />
+                : <AppointmentProductItem
+                  product={data.item}
+                  name={data.item?.name}
+                  duration={getTotalItem(data.item, "duration")}
+                  price={getTotalPrice(data.item)}
+                  isDelete={true}
+                  onPressItemReview={true}
+                />
             }
             ListHeaderComponent={renderHeader()}
             ListFooterComponent={renderFooter()}
@@ -137,7 +158,7 @@ export const Layout = ({
                     icon={images.iconTrash}
                     iconStyle={styles.iconTrash}
                     style={styles.buttonDelete}
-                    onPress={() => data?.item?.serviceId ? deleteService(data.item) : deleteProduct(data.item)}
+                    onPress={() => data?.item?.serviceId ? deleteService(data.item) : data?.item?.giftCardId ? deleteGiftCard(data.item) : deleteProduct(data.item)}
                   />
                 </View>
               )
@@ -155,7 +176,7 @@ export const Layout = ({
             onPress={confirm}
             highlight={true}
             width={'100%'}
-            disabled={(servicesBooking.length + productsBooking.length) == 0}
+            disabled={(servicesBooking.length + productsBooking.length + giftCardsBooking.length) == 0}
           />
         </View>
       </View>

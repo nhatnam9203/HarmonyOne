@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, FlatList, Pressable, SectionList, Alert } from 'react-native';
 import { colors, fonts } from "@shared/themes";
-import { ListEmptyComponent } from "@shared/components";
+import { ListEmptyComponent, DialogActiveGiftCard } from "@shared/components";
 import { useSelector, useDispatch } from "react-redux";
 import { ServiceItem } from "../../../widgets";
+import { AddGiftCard } from "./AddGiftCard";
 
 export const Layout = ({
     categoryRef,
@@ -14,6 +15,10 @@ export const Layout = ({
     selectCategory,
     selectProduct,
     productsBooking,
+    dialogActiveGiftCard,
+    hideDialogGiftCard,
+    showDialogGiftCard,
+    onCheckGiftCardSucces
 }) => {
 
     const {
@@ -23,7 +28,7 @@ export const Layout = ({
 
     return (
         <View style={styles.container}>
-            <View>
+            <View style={styles.categoryListContainer}>
                 {
                     categoryList.length > 0 &&
                     <FlatList
@@ -59,7 +64,7 @@ export const Layout = ({
                         <ServiceItem
                             service={item}
                             onPress={() => selectProduct(item)}
-                            disabled={productsBooking.find(s=>s?.productId == item?.productId)}
+                            disabled={productsBooking.find(s => s?.productId == item?.productId)}
                         />
                     }
                     renderSectionHeader={({ section }) => {
@@ -69,10 +74,17 @@ export const Layout = ({
                             </Text>
                         )
                     }}
-                    ListEmptyComponent={() => <ListEmptyComponent description={"No Product"} />}
-                    ListFooterComponent={() => <View style={{ height: scaleHeight(300) }} />}
+                    // ListEmptyComponent={() => <ListEmptyComponent description={"No Product"} />}
+                    ListFooterComponent={() => <AddGiftCard onPress={showDialogGiftCard} data={data} />}
                 />
             </View>
+            <DialogActiveGiftCard
+                ref={dialogActiveGiftCard}
+                title="Enter gift card serial number"
+                onConfirmYes={() => { }}
+                onModalHide={() => { }}
+                onSuccess={onCheckGiftCardSucces}
+            />
         </View>
     )
 }
@@ -91,8 +103,8 @@ const styles = StyleSheet.create({
             marginLeft: scaleWidth(8),
             borderRadius: 20,
             paddingHorizontal: scaleWidth(14),
+            paddingVertical: scaleWidth(3),
             backgroundColor: categorySelected == categoryId ? colors.ocean_blue : "transparent",
-            height: scaleHeight(30),
             justifyContent: 'center',
             alignItems: 'center'
         }
@@ -104,12 +116,31 @@ const styles = StyleSheet.create({
             fontFamily: categorySelected == categoryId ? fonts.MEDIUM : fonts.REGULAR
         }
     },
+    categoryListContainer : {
+        shadowColor: Platform.OS == "ios" ? "#4040401A" : "#404040",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 3,
+        
+        elevation: 3,
+    },
     categoryList: {
         paddingBottom: scaleHeight(16),
         paddingTop: scaleHeight(4),
         backgroundColor: colors.white,
-        borderBottomWidth: 1,
-        borderBottomColor: '#dddddd',
+
+        shadowColor: Platform.OS == "ios" ? "#4040401A" : "#404040",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 3,
+        
+        elevation: 3,
 
     },
     sectionList: {

@@ -5,6 +5,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 import { SplashScreen, ScreenName } from '../screens';
 import { isReadyRef, navigationRef } from './NavigationService';
+import {
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 import LaunchScreen from 'react-native-splash-screen';
 import 'react-native-gesture-handler';
 
@@ -56,9 +59,14 @@ export class RootNavigation extends Component {
         onReady={() => {
           this.isReadyRef.current = true;
         }}>
-        <StatusBar barStyle="light-content" hidden />
+        <StatusBar barStyle="light-content" translucent={true} backgroundColor="transparent" />
 
-        <Navigator headerMode="none">
+        <Navigator headerMode="none"
+          screenOptions={{
+            gestureEnabled: false,
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          }}
+        >
           <Screen {...SplashScreen} />
           <Screen name="AuthStack" component={AuthStack} />
           <Screen name="HpOneStack" component={AppStack} />

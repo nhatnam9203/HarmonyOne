@@ -10,7 +10,8 @@ import { OpeningHour } from "./OpeningHour";
 import { Banners } from "./Banners";
 
 export const Layout = ({
-  merchantDetail
+  merchantDetail,
+  bannersMerchant
 }) => {
 
   const [t] = useTranslation();
@@ -40,7 +41,7 @@ export const Layout = ({
             businessHour={merchantDetail?.businessHour}
           />
           <Banners
-            banners = {merchantDetail?.banners}
+            banners={bannersMerchant}
           />
           <View style={{ height: scaleHeight(100) }} />
         </ScrollView>

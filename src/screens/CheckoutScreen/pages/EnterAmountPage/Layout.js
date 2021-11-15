@@ -68,6 +68,7 @@ export const Layout = ({
                         {
                             amountList.map(p => (
                                 <TouchableOpacity
+                                    activeOpacity={1}
                                     key={p + "amount"}
                                     onPress={() => setAmount(p)}
                                     style={[styles.itemAmount, { backgroundColor: amount == p ? "#0764B0" : "transparent" }]}

@@ -117,11 +117,16 @@ export const images = {
   emoji_4 :  require('@src/assets/images/emoji_4.png'),
   emoji_5 :  require('@src/assets/images/emoji_5.png'),
 
+  geo :  require('@src/assets/images/geo.png'),
+  baseline_place :  require('@src/assets/images/baseline_place.png'),
   visaLogo : require('@src/assets/images/visaLogo.png'),
   masterCardLogo : require('@src/assets/images/masterCardLogo.png'),
   discoverLogo : require('@src/assets/images/discoverLogo.png'),
   other_card : require('@src/assets/images/other_card.png'),
   american_express : require('@src/assets/images/american_express.png'),
+
+  tick_ic : require('@src/assets/images/tick_ic.png'),
+  checkbox_blue : require('@src/assets/images/checkbox_blue.png'),
 
   EmptyList: require('@src/assets/images/emptyList.png'),
   barTimeLine: require('@src/assets/images/barTimeLine.png'),

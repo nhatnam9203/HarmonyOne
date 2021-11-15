@@ -20,7 +20,7 @@ export const useProps = (_params) => {
   const dialogBookingRef = React.useRef();
 
   const {
-    bookAppointment: { customerBooking = {}, servicesBooking = [], extrasBooking = [], productsBooking = [] ,dayBooking, timeBooking, isQuickCheckout },
+    bookAppointment: { customerBooking = {}, servicesBooking = [], extrasBooking = [], productsBooking = [], giftCardsBooking = [], dayBooking, timeBooking, isQuickCheckout },
     appointment: { appointmentDate },
     auth: { staff },
 
@@ -30,7 +30,7 @@ export const useProps = (_params) => {
 
   const [, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
-    queryId : "etchAppointmentByDate_reviewConfirm",
+    queryId: "etchAppointmentByDate_reviewConfirm",
     isLoadingDefault: true,
     enabled: false,
     onSuccess: (data, response) => {
@@ -53,9 +53,9 @@ export const useProps = (_params) => {
         const tempData = {
           services: servicesBooking,
           extras: extrasBooking.map(ex => ({ extraId: ex.extraId })),
-          product : [],
+          product: [],
           products: [],
-          giftCards: [],
+          giftCards: giftCardsBooking.map((giftCard) => ({ giftCardId: giftCard?.giftCardId, price: giftCard?.price })),
         }
         const body = await addItemIntoAppointment(appointmentId, tempData);
         submitAddItem(body.params);
@@ -65,7 +65,7 @@ export const useProps = (_params) => {
 
   const [, fetchAppointmentById] = useAxiosQuery({
     ...getAppointmentById(appointmentIdUpdate),
-    queryId : "fetchAppointmentById_reviewConfirm",
+    queryId: "fetchAppointmentById_reviewConfirm",
     enabled: false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
@@ -107,6 +107,7 @@ export const useProps = (_params) => {
     servicesBooking,
     extrasBooking,
     productsBooking,
+    giftCardsBooking,
     dayBooking,
     timeBooking,
     dialogBookingRef,
@@ -150,6 +151,9 @@ export const useProps = (_params) => {
           duration += formatNumberFromCurrency(extrasBooking[i].duration);
         }
       }
+      for (let i = 0; i < giftCardsBooking.length; i++) {
+        price += formatNumberFromCurrency(giftCardsBooking[i].price);
+      }
 
       return {
         price: formatMoney(price),
@@ -165,16 +169,23 @@ export const useProps = (_params) => {
     },
 
     deleteService: (service) => {
-      console.log('delete service : ',{ service })
-      dispatch(bookAppointment.deleteService(service))
+      dispatch(bookAppointment.deleteService(service));
     },
 
-    deleteProduct : (product) =>{
-      dispatch(bookAppointment.deleteProduct(product))
+    deleteProduct: (product) => {
+      dispatch(bookAppointment.deleteProduct(product));
+    },
+
+    deleteGiftCard: (giftCard) => {
+      dispatch(bookAppointment.deleteGiftCard(giftCard))
     },
 
     changeDateTime: () => {
-      NavigationService.navigate(screenNames.SelectDateTime);
+      if (servicesBooking?.length > 0) {
+        NavigationService.navigate(screenNames.SelectDateTime, { isRefetchDate : true ,staffSelected: { staffId: servicesBooking[0].staffId } });
+      } else {
+        NavigationService.navigate(screenNames.SelectDateTime);
+      }
     },
 
     addMore: () => {
@@ -197,7 +208,7 @@ export const useProps = (_params) => {
         merchantId: staff?.merchantId,
         userId: 0,
         customerId: customerBooking?.customerId || 0,
-        fromTime: !isQuickCheckout ? `${dayBooking} ${timeBooking}` : moment().format("MM-DD-YYYY hh:mm A"),
+        fromTime: (!isQuickCheckout && timeBooking )? `${dayBooking} ${timeBooking}` : moment().format("MM-DD-YYYY hh:mm A"),
         status: isQuickCheckout ? "checkin" : "confirm",
         categories: [],
         services: [],

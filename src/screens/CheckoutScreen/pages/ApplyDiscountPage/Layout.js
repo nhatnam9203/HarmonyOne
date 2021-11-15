@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     textNormal: {
-        fontSize: scaleFont(13),
+        fontSize: scaleFont(15),
         fontFamily: fonts.REGULAR,
         color: "#404040"
     }

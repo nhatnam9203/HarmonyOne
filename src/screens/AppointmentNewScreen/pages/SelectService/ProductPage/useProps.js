@@ -8,11 +8,12 @@ export const useProps = (_params) => {
 
     const categoryRef = React.useRef();
     const sectionListRef = React.useRef();
+    const dialogActiveGiftCard = React.useRef();
 
     const {
         category: { category = [] },
         product: { products = [] },
-        bookAppointment : { productsBooking = [] }
+        bookAppointment: { productsBooking = [] }
     } = useSelector(state => state);
 
     const categoryList = category.filter(ct => ct?.categoryType?.toString()?.toLowerCase() == "product" && ct.isDisabled == 0);
@@ -35,8 +36,29 @@ export const useProps = (_params) => {
         categoryList,
         data,
         productsBooking,
+        dialogActiveGiftCard,
 
-        selectProduct : (item) =>{
+
+        showDialogGiftCard: () => {
+            dialogActiveGiftCard?.current?.show();
+        },
+
+        hideDialogGiftCard: () => {
+        },
+
+        onCheckGiftCardSucces: (data, serialNumber) => {
+            dialogActiveGiftCard?.current?.hide();
+            NavigationService.navigate(
+                screenNames.EnterGiftCardAmount, {
+                    giftCardInfo: {
+                        ...data,
+                        name: "Gift card - " + serialNumber?.toString()?.substring(serialNumber?.toString()?.length - 4)
+                    }
+            }
+            );
+        },
+
+        selectProduct: (item) => {
             NavigationService.navigate(screenNames.SelectProductDetail, { item });
         },
 

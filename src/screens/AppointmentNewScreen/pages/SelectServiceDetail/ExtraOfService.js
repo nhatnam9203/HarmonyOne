@@ -7,7 +7,7 @@ import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
 import { isEmpty } from "lodash";
 import CheckBox from "@react-native-community/checkbox"
 
-export const ExtraOfService = ({ extras = [], onChangeExtraService, durationService = 0, service }) => {
+export const ExtraOfService = ({ extras = [], onChangeExtraService, durationService = 0, service, servicePrice }) => {
 
     const getTotalDuration = () => {
         let total = 0;
@@ -22,7 +22,7 @@ export const ExtraOfService = ({ extras = [], onChangeExtraService, durationServ
 
     const getTotalPrice = () => {
         let total = 0;
-        total += formatNumberFromCurrency(service.price);
+        total += formatNumberFromCurrency(servicePrice);
         for (const el of extras) {
             if (el.checked) {
                 total += formatNumberFromCurrency(el.price);
@@ -67,13 +67,15 @@ const ItemExtra = ({ extra, onChangeExtraService }) => {
     }
 
     return (
-        <Pressable style={styles.wrapExtra}>
+        <Pressable onPress={() => changeChecked(!extra?.checked)} style={styles.wrapExtra}>
             <CheckBox
                 disabled={false}
                 value={extra?.checked}
-                onValueChange={(newValue) => changeChecked(newValue)}
+                tintColor={colors.ocean_blue}
+                onValueChange={(newValue) => { changeChecked(newValue) }}
                 boxType='square'
-                style={{ width: 22, height: 22, marginRight: scaleWidth(16) }}
+                tintColors={colors.ocean_blue}
+                style={{ width: scaleWidth(20), height: scaleWidth(20), marginRight: scaleWidth(16) }}
             />
 
             {

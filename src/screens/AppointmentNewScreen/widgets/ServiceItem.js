@@ -51,14 +51,14 @@ export default ServiceItem;
 
 const styles = StyleSheet.create({
     container: {
-        height: scaleHeight(90),
+
         flexDirection: 'row',
         paddingVertical: scaleHeight(16),
         borderBottomColor: '#eeeeee',
         borderBottomWidth: scaleHeight(1),
         marginHorizontal: scaleWidth(16)
     },
-    content: { flex: 1, marginLeft: scaleWidth(16), justifyContent: 'space-between' },
+    content: { flex: 1, marginLeft: scaleWidth(16), justifyContent: 'space-between',},
     textTitle: {
         fontFamily: fonts.BOLD,
         fontSize: scaleFont(17),
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
         color: colors.greyish_brown_40,
     },
     serviceImage: {
-        width: scaleHeight(60),
-        height: scaleHeight(60),
+        width: scaleHeight(70),
+        height: scaleHeight(70),
         borderRadius: scaleHeight(3),
     },
     textServiceName: {

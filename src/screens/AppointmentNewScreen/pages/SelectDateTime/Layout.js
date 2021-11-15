@@ -6,7 +6,7 @@ import { HeaderBooking } from "../../widgets";
 import { Calendar } from "react-native-calendars";
 import { CalendarPicker } from "./CalendarPicker";
 import { TimePicker } from "./TimePicker";
-import { getTimeAvaible } from "@shared/utils";
+import { timeAvaiableRaw } from "@shared/utils";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
 export const Layout = ({
@@ -16,6 +16,7 @@ export const Layout = ({
   staffSelected,
   calendarRef,
   timePickerRef,
+  isRefetchDate,
 }) => {
 
   return (
@@ -29,6 +30,7 @@ export const Layout = ({
           <CalendarPicker
             ref={calendarRef}
             staffSelected={staffSelected}
+            isRefetchDate={isRefetchDate}
           />
           <View style={styles.line} />
           <TimePicker

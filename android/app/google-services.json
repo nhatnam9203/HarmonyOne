@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "940839630894",
+    "project_id": "harmonypay-one",
+    "storage_bucket": "harmonypay-one.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940839630894:android:56a7550723fc87d9b107bf",
+        "android_client_info": {
+          "package_name": "com.harmonyone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "940839630894-b6dlv5bojj9vohufdg59dhtgq9k1l5lh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_7o6q7N19ZfCwJLMbSkQlFe4FKefSiiU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "940839630894-b6dlv5bojj9vohufdg59dhtgq9k1l5lh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

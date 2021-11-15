@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         width: scaleWidth(375/2),
         justifyContent: 'center',
         alignItems: 'center',
-        height: scaleHeight(45)
+        height: scaleHeight(55)
     },
     txtButton: {
         fontSize: scaleFont(17),

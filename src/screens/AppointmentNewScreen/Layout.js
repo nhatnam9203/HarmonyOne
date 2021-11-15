@@ -1,7 +1,10 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, View } from 'react-native';
-import { SelectService, SelectServiceDetail, SelectProductDetail, SelectStaff, SelectDateTime, ReviewConfirm } from './pages';
+import { SelectService, SelectServiceDetail, SelectProductDetail, SelectStaff, SelectDateTime, ReviewConfirm, EnterGiftCardAmount } from './pages';
+import {
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -12,6 +15,10 @@ export const Layout = () => {
         initialRouteName={screenNames.SelectService}
         swipeEnabled={false}
         headerMode="none"
+        screenOptions={{
+          cardStyleInterpolator : CardStyleInterpolators.forHorizontalIOS,
+          gestureEnabled : false
+        }}
       >
         <Screen {...SelectService} />
         <Screen {...SelectServiceDetail} />
@@ -19,6 +26,7 @@ export const Layout = () => {
         <Screen {...SelectStaff} />
         <Screen {...SelectDateTime} />
         <Screen {...ReviewConfirm} />
+        <Screen {...EnterGiftCardAmount} />
       </Navigator>
     </View>
   );

@@ -7,6 +7,9 @@ import {
   ScreenNames,
   WhatIsMerchant,
 } from '@screens';
+import {
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 import * as React from 'react';
 
 const { Screen, Navigator } = createStackNavigator();
@@ -20,6 +23,7 @@ const AuthStack = (props) => {
         screenOptions={{
           headerShown: false,
           gestureEnabled: false,
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}>
         <Screen {...LoginScreen} />
         <Screen {...PinCodeScreen} />

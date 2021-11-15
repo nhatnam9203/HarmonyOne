@@ -8,7 +8,8 @@ import {
   checkoutAppointment,
   getAppointmentByDate,
   cancelHarmonyPayment,
-  getGroupAppointmentById
+  getGroupAppointmentById,
+  sendGoogleReviewLink
 } from '@src/apis';
 import { useDispatch, useSelector } from "react-redux";
 import { dateToFormat, guid } from "@shared/utils";
@@ -44,6 +45,7 @@ export const useProps = (props) => {
   const [isCancelHarmony, changeStatusCancelHarmony] = React.useState(false);
   const [connectionSignalR, setConnectionSignalR] = React.useState(null);
   const [paymentDetail, setPaymentDetail] = React.useState(null);
+
 
 
   /************************************* GỌI API SELECT METHOD PAY *************************************/
@@ -133,6 +135,17 @@ export const useProps = (props) => {
         }, 300);
       }
     }
+  });
+
+  /************************************* SEND GOOGLE REVIEW LINK *************************************/
+ 
+  const [{  }, sendLinkGoogle] = useAxiosQuery({
+    ...sendGoogleReviewLink(appointmentDetail?.customerId, staff?.merchantId),
+    enabled: false,
+    isLoadingDefault : false,
+    onSuccess: (data, response) => {
+   
+    },
   });
 
   /************************************* HANDLE HARMONY PAYMENT SUCCESS *************************************/
@@ -271,6 +284,10 @@ export const useProps = (props) => {
 
     onOK: () => {
       fetchAppointmentByDate();
+      const statusSendLink = dialogSuccessRef?.current?.getStatusSendLink();
+      if(statusSendLink){
+        sendLinkGoogle();
+      }
     }
   }
 };

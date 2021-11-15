@@ -60,6 +60,8 @@
 	<string>Bluetooth is used to communicate with BLE devices.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to use your camera to take photo for upload your resources or to scan QR code</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Enabling Face ID allows you quick and secure access to your account.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Get your store address to show up on the Google Map</string>
 	<key>NSLocationAlwaysUsageDescription</key>

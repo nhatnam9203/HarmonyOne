@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Platform } from 'react-native';
 import { fonts, colors } from '@shared/themes';
 import { dateToFormat } from "@shared/utils";
 import moment from "moment";
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
     header: {
         width: scaleWidth(25),
         height: scaleWidth(5),
-        borderTopLeftRadius: 5,
-        borderTopRightRadius: 5,
+        borderTopLeftRadius: Platform.OS == "ios" ? 5 : 0,
+        borderTopRightRadius: Platform.OS == "ios" ? 5 : 0,
         backgroundColor: colors.ocean_blue,
         position: 'relative'
     },

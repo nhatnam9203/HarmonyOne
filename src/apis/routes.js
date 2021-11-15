@@ -284,6 +284,13 @@ export const getPastAppointmentByCustomer = (customerId, page) => ({
   },
 });
 
+export const sendGoogleReviewLink = (customerId = 0, merchantId = 0) => ({
+  queryId: `sendGoogleReviewLink`,
+  params: {
+    url: `customer/sendReviewLink?customerId=${customerId}&merchantId=${merchantId}`,
+    method: 'GET',
+  },
+});
 
 /**
  * SERVICE
@@ -543,6 +550,15 @@ export const disablePromotionById = (promotionId) => ({
   }
 });
 
+export const deletePromotion = (promotionId) => ({
+  queryId: 'disablePromotionById',
+  params: {
+    url: `MerchantPromotion/${promotionId}`,
+    method: 'DELETE',
+    data : {}
+  }
+});
+
 export const enablePromotionById = (promotionId) => ({
   queryId: 'enablePromotionById',
   params: {
@@ -591,6 +607,44 @@ export const getMerchantById = (merchantId) => ({
     method: 'GET',
   }
 });
+
+
+export const addBannerMerchant = (data) => ({
+  queryId: 'addBannerMerchant',
+  params: {
+    url: `merchantbanner`,
+    method: 'POST',
+    data
+  }
+});
+
+
+export const getBannerMerchant = (merchantId) => ({
+  queryId: 'getBannerMerchant',
+  params: {
+    url: `merchantbanner/getbymerchant/${merchantId}`,
+    method: 'GET',
+  }
+});
+
+export const deleteBannersMerchant = (data) => ({
+  queryId: 'deleteBannersMerchant',
+  params: {
+    url: `merchantbanner/multiple`,
+    method: 'DELETE',
+    data
+  }
+});
+
+// type: 'ADD_BANNER_WITH_INFO',
+// method: 'POST',
+// token: true,
+// api: `merchantbanner`,
+// body: {
+//     ...action.infoBanner,
+//     fileId: responses?.data?.fileId || 0
+// },
+// merchantId: action.merchantId
 
 
 
@@ -845,3 +899,4 @@ export const getStateCity = () => ({
     method: 'GET',   
   }
 });
+

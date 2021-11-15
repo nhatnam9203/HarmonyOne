@@ -24,6 +24,7 @@ export const Layout = ({
   setPrice,
   isEditPrice,
   setStatusEditPrice,
+  inputPriceRef
 }) => {
 
   return (
@@ -93,15 +94,17 @@ export const Layout = ({
             <View style={{ flexDirection: "row", alignItems: "center", }}>
               <View style={[styles.wrapPrice, { borderColor: isEditPrice ? "#dddddd" : "white" }]}>
                 <Text style={[styles.duration, { fontSize: scaleFont(18) }]}>
-                  $
+                  {`$ `}
                 </Text>
                 {
                   isEditPrice && 
                   <TextInputMask
+                    ref={inputPriceRef}
                     value={price}
                     onChangeText={text => setPrice(text)}
-                    style={[styles.duration, { fontSize: scaleFont(18), }]}
+                    style={[styles.duration, { fontSize: scaleFont(18),padding : 0 }]}
                     type="money"
+                    maxLength={6}
                     editable={isEditPrice}
                     options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
                   />
@@ -110,7 +113,7 @@ export const Layout = ({
                   !isEditPrice && <Text
                     style={[styles.duration, { fontSize: scaleFont(18) }]}
                   >
-                    {price}
+                     {price}
                   </Text>
                 }
               </View>
@@ -121,6 +124,9 @@ export const Layout = ({
 
                 } else {
                   setStatusEditPrice(true);
+                  setTimeout(() => {
+                    inputPriceRef?.current?._inputElement?.focus();
+                  }, 250);
                 }
               }}
               >
@@ -141,6 +147,7 @@ export const Layout = ({
             durationService={durationService}
             onChangeExtraService={onChangeExtraService}
             service={item}
+            servicePrice={price}
           />
         }
 
@@ -257,7 +264,7 @@ const styles = StyleSheet.create({
     marginRight: scaleWidth(12),
     borderWidth: 1,
     borderColor: "#dddddd",
-    height: scaleHeight(30),
+    height: scaleHeight(45),
     width: scaleWidth(100),
     justifyContent: 'flex-end',
     paddingHorizontal: 8

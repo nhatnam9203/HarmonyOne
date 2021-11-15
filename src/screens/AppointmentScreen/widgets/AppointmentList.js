@@ -17,10 +17,7 @@ const AppointmentList = ({
 
     const [t] = useTranslation();
 
-    // const temptData = sortArray(blockTimes, {
-    //     by: "appointmentId",
-    //     order: "ASC",
-    //   });
+    console.log('rener appointment list')
 
     return (
         <FlatList
@@ -36,7 +33,8 @@ const AppointmentList = ({
     );
 };
 
-export default AppointmentList;
+const TempAppointmntList = React.memo(AppointmentList);
+export default TempAppointmntList
 
 
 const styles = StyleSheet.create({

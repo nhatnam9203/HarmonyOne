@@ -184,7 +184,7 @@ export const useProps = (props) => {
       }
 
       return categoryList.filter(
-        cate => cate.isDisabled == 1 &&
+        cate => cate.isDisabled == 0 &&
           cate?.categoryType?.toString()?.toLowerCase() == "product"
       )
         .map((cate) => {

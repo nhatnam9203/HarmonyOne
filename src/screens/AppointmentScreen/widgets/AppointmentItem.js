@@ -55,7 +55,7 @@ export const AppointmentItem = ({ item, onChangeAppointmentId }) => {
 
                 <View style={styles.rowContent}>
                     <Text style={[styles.textTime, { color: getColors().textColor }]}>
-                        {`${dateToFormat(item?.fromTime,"hh:mm A")} - ${dateToFormat(item?.toTime,"hh:mm A")}`}
+                        {`${dateToFormat(item?.fromTime, "hh:mm A")} - ${dateToFormat(item?.toTime, "hh:mm A")}`}
                     </Text>
                 </View>
 
@@ -99,6 +99,15 @@ export const AppointmentItem = ({ item, onChangeAppointmentId }) => {
                             </Text>
                         ))
                     }
+                    {
+                        item?.giftCards.map((x) => (
+                            <Text
+                                key={x + guid()?.toString()}
+                                style={[styles.textPhone, styles.textService, { color: getColors().textColor, }]}>
+                                {x?.name}
+                            </Text>
+                        ))
+                    }
                 </View>
             </Pressable>
         </View>
@@ -137,8 +146,8 @@ const styles = StyleSheet.create({
     textTime: {
         fontFamily: fonts.BOLD,
         fontSize: scaleFont(20),
-        fontWeight: 'bold',
-        fontStyle: 'normal',
+        // fontWeight: 'bold',
+        // fontStyle: 'normal',
         letterSpacing: 0,
         textAlign: 'left',
         marginBottom: scaleHeight(8)

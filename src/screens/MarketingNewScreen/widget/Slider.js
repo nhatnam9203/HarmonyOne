@@ -290,7 +290,7 @@ export default class Slider extends PureComponent {
         />
         <Animated.View
           onLayout={this._measureThumb}
-          renderToHardwareTextureAndroid={true}
+          // renderToHardwareTextureAndroid={true}
           style={[
             { backgroundColor: thumbTintColor },
             mainStyles.thumb,
@@ -317,7 +317,7 @@ export default class Slider extends PureComponent {
                   style={{
                     color: "#0764B0",
                     fontSize: scaleWidth(14),
-                    fontWeight: "400",
+                    fontWeight: "500",
                   }}
                 >
                   {`${this.props.smsCount}`}

@@ -266,7 +266,8 @@ const styles = StyleSheet.create({
     marginBottom: scaleHeight(24),
     borderWidth: 1,
     borderColor: "#dddddd",
-    borderRadius: 5
+    borderRadius: 5,
+    zIndex : 9
   },
 
   iconInputDate: {

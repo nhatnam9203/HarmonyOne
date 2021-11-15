@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, Image, ScrollView, TextInput } from 'react-native';
+import { View, StyleSheet, Text, Image, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
@@ -12,7 +12,8 @@ import moment from "moment";
 export const Layout = ({
   staffSales,
   giftCardSales,
-  batchDetail
+  batchDetail,
+  viewGiftCardSold
 }) => {
 
   const [t] = useTranslation();
@@ -56,7 +57,7 @@ export const Layout = ({
           <Text style={styles.bigTitle}>Sales by staff</Text>
           <TableSalesByStaff data={staffSales} />
 
-          <View style={[styles.rowBetween, { marginTop: scaleHeight(16) }]}>
+          <TouchableOpacity onPress={viewGiftCardSold} style={[styles.rowBetween, { marginTop: scaleHeight(16) }]}>
             <Text style={[styles.title, { fontFamily: fonts.MEDIUM, color: colors.ocean_blue }]}>
               Gift Card Sold
             </Text>
@@ -64,7 +65,7 @@ export const Layout = ({
             <Text style={[styles.title, { fontFamily: fonts.MEDIUM, paddingRight: scaleWidth(16), color: colors.ocean_blue }]}>
               $ {formatMoney(giftCardTotal)}
             </Text>
-          </View>
+          </TouchableOpacity>
 
           <View style={[styles.rowBetween, { backgroundColor: "#DCF7FF", alignItems: 'center', marginTop: scaleHeight(5) }]}>
             <Text style={[styles.title, { fontFamily: fonts.MEDIUM }]}>

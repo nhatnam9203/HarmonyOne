@@ -96,6 +96,7 @@ export const Layout = ({
             services={appointmentItem?.services}
             extras={appointmentItem?.extras}
             products={appointmentItem?.products}
+            giftCards={appointmentItem?.giftCards}
           />
 
           <TotalView
