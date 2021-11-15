@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Platform, ImageBackground, PlatformColor } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FocusBar } from "@shared/components";
 import NavigationService from '@navigation/NavigationService';
 
 export const SingleScreenLayout = ({
@@ -22,6 +23,7 @@ export const SingleScreenLayout = ({
   containerStyle,
   onPressLeft,
   headerStyle,
+  barStyle = "dark-content"
 }) => {
   const [t] = useTranslation();
   const insets = useSafeAreaInsets();
@@ -36,6 +38,7 @@ export const SingleScreenLayout = ({
 
   return (
     <View style={layouts.fill}>
+      <FocusBar barStyle={barStyle} />
       <ImageBackground
         source={imageBackground}
         style={[

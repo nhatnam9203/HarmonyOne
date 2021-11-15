@@ -53,7 +53,7 @@ export const PopupActionSheet = React.forwardRef(
               ))}
             </View>
           )}
-          <View style={styles.content}>
+          <View style={[styles.content,{ borderWidth : 1, borderColor : "#dddddd" }]}>
             <ActionSheetItem key={closeAction.id} item={closeAction} onModalHide={onModalHide} />
           </View>
         </View>
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     margin: 0,
     justifyContent: 'flex-end',
     paddingHorizontal: scaleWidth(16),
-    paddingBottom: scaleHeight(16),
+    paddingBottom: scaleHeight(32),
   },
 
   container: {

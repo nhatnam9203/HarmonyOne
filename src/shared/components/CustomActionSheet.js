@@ -31,7 +31,9 @@ export const CustomActionSheet = React.forwardRef(
                 style={styles.modal}
             >
                 <View style={styles.container}>
-                    {children}
+                    <View style={{ marginBottom : scaleHeight(16) }}>
+                        {children}
+                    </View>
                 </View>
             </CustomModal>
         );
@@ -41,7 +43,6 @@ export const CustomActionSheet = React.forwardRef(
 const styles = StyleSheet.create({
     modal: {
         margin: 0,
-        padding : 0,
         justifyContent: 'flex-end',
         paddingBottom: scaleHeight(16),
     },

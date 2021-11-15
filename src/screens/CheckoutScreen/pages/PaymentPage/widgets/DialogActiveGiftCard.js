@@ -148,6 +148,7 @@ export const DialogActiveGiftCard = React.forwardRef(
                 backdropTransitionInTiming={0}
                 animationIn="zoomIn"
                 animationOut="zoomOut"
+                statusBarTranslucent
             >
                 <KeyboardAwareScrollView
                     pointerEvents={isLoading ? "none" : "auto"}

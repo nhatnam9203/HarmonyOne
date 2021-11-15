@@ -41,6 +41,7 @@ export const PopupChange = React.forwardRef(
                 backdropTransitionInTiming={0}
                 animationIn="zoomIn"
                 animationOut="zoomOut"
+                statusBarTranslucent
             >
                 <View style={styles.container}>
                     <View style={styles.header}>

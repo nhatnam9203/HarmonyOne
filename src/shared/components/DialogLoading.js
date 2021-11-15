@@ -59,6 +59,7 @@ export const DialogLoading = React.forwardRef(
                 animationIn="fadeInRight"
                 animationOut="fadeOutRight"
                 backdropColor={'rgba(64,64,64,0.5)'}
+                statusBarTranslucent
             >
                 <View style={styles.container}>
                     <Text style={styles.txtTitle}>
