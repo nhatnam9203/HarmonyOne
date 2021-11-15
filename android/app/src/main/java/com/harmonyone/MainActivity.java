@@ -1,4 +1,4 @@
-package com.harmonyone;
+package com.harmonypay.one;
 
 import com.facebook.react.ReactActivity;
 

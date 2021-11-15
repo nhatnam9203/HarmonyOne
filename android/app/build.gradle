@@ -148,11 +148,11 @@ android {
     ndkVersion "21.0.6113669"
 
     defaultConfig {
-        applicationId 'com.harmonyone'
+        applicationId 'com.harmonypay.one'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName '2.0.1'
+        versionCode 100
+        versionName '1.0.0'
         missingDimensionStrategy 'react-native-camera', 'general'
     }
     splits {
@@ -188,7 +188,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             resValue 'string', 'CodePushDeploymentKey', 'B_l2QXAf0z76ysSs7T3XU4qZ_zGl3OYK215ld'
