@@ -19,6 +19,7 @@ export const useProps = (props) => {
   const dispatch = useDispatch();
   const {
     hardware: { dejavooMachineInfo, 
+              cloverMachineInfo,
               paymentMachineType,
               printerList,
               printerSelect,

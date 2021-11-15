@@ -35,7 +35,7 @@ export const Layout = ({
                             ? images.radioExportSe 
                             : images.radioExport;
 
-    const ItemSetup = ({ title, value, placeholder, onChangeText, keyboardType, editable, style }) => {
+    const ItemSetup = ({ title, value, placeholder, onChangeText, keyboardType, style }) => {
         return (
             <View style={[{ flexDirection: 'row', marginTop: scaleHeight(20), }]} >
                 <View style={{ width: scaleWidth(140), justifyContent: 'center', }} >
@@ -54,7 +54,6 @@ export const Layout = ({
                             value={value}
                             onChangeText={(value) => onChangeText(value)}
                             keyboardType={keyboardType}
-                            editable={editable}
                         />
                     </View>
                 </View>
@@ -71,7 +70,8 @@ export const Layout = ({
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
       >
-        <KeyboardAwareScrollView style={styles.content}>
+        <KeyboardAwareScrollView 
+            style={styles.content}>
             <Text style={{
                 fontSize: scaleFont(16),
                 fontWeight: '600',

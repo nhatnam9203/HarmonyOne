@@ -22,6 +22,7 @@ export const Layout = ({
   const [t] = useTranslation();
 
   const renderNoConnected = () => {
+    console.log('renderNoConnected')
     return (
         <View style={{ marginBottom: scaleHeight(10) }} >
             <Text style={{
@@ -65,7 +66,6 @@ export const Layout = ({
 
   const renderConnected = () => {
       return (
-        <View style={{flex:1}}>
           <TouchableOpacity onPress={addDevice} style={{
               flexDirection: 'row', alignItems: 'center', width: scaleWidth(120),
               marginTop: scaleHeight(12)
@@ -82,7 +82,6 @@ export const Layout = ({
               </Text>
           </TouchableOpacity>
 
-        </View>
       );
   }
 

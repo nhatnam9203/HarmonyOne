@@ -17,23 +17,12 @@ export const Layout = ({
   paymentMachineType, 
   printerSelect,
   isSetup,
+  tempTitle,
 }) => {
 
     const [t] = useTranslation();
 
-    const temptTitle = () => {
-        let temptTitle = 'No Device'
-        if (paymentMachineType == PaymentTerminalType.Clover){
-            temptTitle = !_.get(cloverMachineInfo, 'isSetup') 
-                        ? 'No Device' 
-                        : cloverMachineInfo.name;
-        } else{
-            temptTitle = !_.get(dejavooMachineInfo, 'isSetup') 
-                        ? 'No Device' 
-                        : dejavooMachineInfo.name;
-        }
-        return temptTitle
-    }
+    
 
     
   return (
@@ -60,7 +49,7 @@ export const Layout = ({
                         {t('Payment terminal')}
                     </Text>
                     <Text style={[styles.textBox, { fontWeight: 'normal', fontSize: scaleFont(11), marginTop: scaleHeight(10) }]} >
-                        {temptTitle}
+                        {tempTitle}
                     </Text>
                 </View>
 
@@ -94,8 +83,6 @@ export const Layout = ({
                     </Text>
                 </View>
             </TouchableOpacity>
-
-
         </View>
       </SingleScreenLayout>
     </View>

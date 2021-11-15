@@ -30,7 +30,7 @@ export const useProps = (props) => {
 
     const isSetup = getIsSetup();
     setIsSetup(isSetup);
-  }, []);
+  }, [dejavooMachineInfo, cloverMachineInfo, paymentMachineType]);
 
   const getName = () => {
     let name = ''
