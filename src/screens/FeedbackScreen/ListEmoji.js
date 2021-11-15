@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
         height: scaleWidth(45),
     },
     wrapEmoji: {
-        width: scaleWidth(60),
-        height: scaleWidth(60),
+        width: scaleWidth(45),
+        height: scaleWidth(45),
         borderRadius: 600,
         shadowColor: "#000",
         shadowOffset: {

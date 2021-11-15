@@ -131,9 +131,10 @@ const styles = StyleSheet.create({
             height: 0,
         },
         shadowOpacity: 0.15,
-        shadowRadius: 3.34,
-
+        shadowRadius: 2.34,
         elevation: 5,
+        marginHorizontal : scaleWidth(12),
+        marginTop : scaleWidth(16)
     },
     content: {
         justifyContent: 'center',

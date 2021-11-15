@@ -17,6 +17,8 @@ const AppointmentList = ({
 
     const [t] = useTranslation();
 
+    console.log('rener appointment list')
+
     return (
         <FlatList
             style={styles.flatList}
@@ -31,7 +33,8 @@ const AppointmentList = ({
     );
 };
 
-export default AppointmentList;
+const TempAppointmntList = React.memo(AppointmentList);
+export default TempAppointmntList
 
 
 const styles = StyleSheet.create({

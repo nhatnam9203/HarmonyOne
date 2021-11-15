@@ -13,6 +13,7 @@ import { dateToFormat } from "@shared/utils";
 import { appointment, invoice } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService'
 import RNFetchBlob from "rn-fetch-blob";
+import Share from "react-native-share";
 
 
 export const useProps = (props) => {
@@ -116,9 +117,11 @@ export const useProps = (props) => {
           })
       
         } else {
-          const shareResponse = await Share.open({
-            url: `file://${imageUri}`,
-          });
+          viewShotRef?.current?.capture().then(async uri => {
+            const shareResponse = await Share.open({
+              url: `file://${uri}`,
+            });
+          })
         }
       } catch (error) {
         // alert(error)

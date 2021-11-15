@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: scaleWidth(16)
+    paddingBottom: scaleWidth(16)
   },
   button: {
     height: '100%',

@@ -28,7 +28,7 @@ export const Layout = ({
 
     return (
         <View style={styles.container}>
-            <View>
+            <View style={styles.categoryListContainer}>
                 {
                     categoryList.length > 0 &&
                     <FlatList
@@ -74,8 +74,8 @@ export const Layout = ({
                             </Text>
                         )
                     }}
-                    ListEmptyComponent={() => <ListEmptyComponent description={"No Product"} />}
-                    ListFooterComponent={() => <AddGiftCard onPress={showDialogGiftCard} />}
+                    // ListEmptyComponent={() => <ListEmptyComponent description={"No Product"} />}
+                    ListFooterComponent={() => <AddGiftCard onPress={showDialogGiftCard} data={data} />}
                 />
             </View>
             <DialogActiveGiftCard
@@ -103,8 +103,8 @@ const styles = StyleSheet.create({
             marginLeft: scaleWidth(8),
             borderRadius: 20,
             paddingHorizontal: scaleWidth(14),
+            paddingVertical: scaleWidth(3),
             backgroundColor: categorySelected == categoryId ? colors.ocean_blue : "transparent",
-            height: scaleHeight(30),
             justifyContent: 'center',
             alignItems: 'center'
         }
@@ -116,12 +116,31 @@ const styles = StyleSheet.create({
             fontFamily: categorySelected == categoryId ? fonts.MEDIUM : fonts.REGULAR
         }
     },
+    categoryListContainer : {
+        shadowColor: Platform.OS == "ios" ? "#4040401A" : "#404040",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 3,
+        
+        elevation: 3,
+    },
     categoryList: {
         paddingBottom: scaleHeight(16),
         paddingTop: scaleHeight(4),
         backgroundColor: colors.white,
-        borderBottomWidth: 1,
-        borderBottomColor: '#dddddd',
+
+        shadowColor: Platform.OS == "ios" ? "#4040401A" : "#404040",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 3,
+        
+        elevation: 3,
 
     },
     sectionList: {

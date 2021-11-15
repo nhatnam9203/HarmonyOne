@@ -146,8 +146,8 @@ const styles = StyleSheet.create({
     textTime: {
         fontFamily: fonts.BOLD,
         fontSize: scaleFont(20),
-        fontWeight: 'bold',
-        fontStyle: 'normal',
+        // fontWeight: 'bold',
+        // fontStyle: 'normal',
         letterSpacing: 0,
         textAlign: 'left',
         marginBottom: scaleHeight(8)

@@ -161,7 +161,7 @@ export const DialogActiveGiftCard = React.forwardRef(
 
 const styles = StyleSheet.create({
     buttonScancode: {
-        height: scaleHeight(42),
+        height: scaleHeight(50),
         width: scaleWidth(42),
         justifyContent: "center",
         alignItems: "center",
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#cccccc"
     },
     buttonSubmit: {
-        height: scaleHeight(36),
+        height: scaleHeight(40),
         width: scaleWidth(120),
         backgroundColor: colors.ocean_blue,
         borderRadius: 5,
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     textSubmit: {
         fontFamily: fonts.MEDIUM,
         color: colors.white,
-        fontSize: scaleFont(17)
+        fontSize: scaleFont(16)
     },
     header: {
         width: "100%",
@@ -269,14 +269,14 @@ const styles = StyleSheet.create({
     },
     containerInput: {
         width: scaleWidth(300),
-        height: scaleHeight(42),
+        height: scaleHeight(50),
         marginTop: scaleHeight(12),
         flexDirection: "row"
     },
     textInput: {
         flex: 1,
         borderWidth: 2,
-        fontSize: scaleFont(17),
+        fontSize: scaleFont(16),
         fontFamily: fonts.MEDIUM,
         borderColor: "#f0dfdf",
         paddingHorizontal: scaleWidth(16),
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
 
     buttonClose: {
         width: scaleWidth(28),
-        height: scaleHeight(28),
+        height: scaleWidth(28),
         borderRadius: scaleWidth(14),
         justifyContent: "center",
         alignItems: "center",
@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
         marginRight: scaleWidth(10),
         position: 'absolute',
         right: scaleWidth(0),
-        top: scaleWidth(11),
+        top: scaleHeight(12),
     },
 
     iconButtonClose: {

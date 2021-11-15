@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
 
   itemContent: {
-    height: scaleHeight(44),
+    height: scaleHeight(50),
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',

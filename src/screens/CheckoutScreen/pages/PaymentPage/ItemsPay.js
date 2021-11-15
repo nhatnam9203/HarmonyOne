@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, Pressable, Image } from 'react-native';
+import { View, StyleSheet, Text, Pressable, Image, Platform } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, CustomInput, InputText, Button } from "@shared/components";
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         width: scaleWidth((375 - 32) / 2 - 8),
         backgroundColor: "white",
         borderRadius: 5,
-        shadowColor: "#00000029",
+        shadowColor: Platform.OS == "ios" ? "#00000029" : "#585858",
         shadowOffset: {
             width: 0,
             height: 3,

@@ -170,6 +170,7 @@ export const useProps = (_params) => {
     },
   });
 
+  /************************************** GET STAFFS BY DATE SELECTED ***************************************/
   const [, fetchStaffByDate] = useAxiosQuery({
     ...getStaffByDate(
       staffInfo?.merchantId,
@@ -182,6 +183,7 @@ export const useProps = (_params) => {
     },
   });
 
+  /************************************** GET APPOINTMENT BY DATE  ***************************************/
   const [{ isLoading }, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, 'YYYY-MM-DD')),
     enabled: true,
@@ -191,6 +193,7 @@ export const useProps = (_params) => {
     },
   });
 
+  /************************************** GET MERCHANT INFO ***************************************/
   const [, fetchMerchantById] = useAxiosQuery({
     ...getMerchantById(staffInfo?.merchantId),
     queryId: "fetchMerchantById_appointmentScreen",
@@ -201,6 +204,7 @@ export const useProps = (_params) => {
     },
   });
 
+  /************************************** GET STAFFS OF MERCHANT ***************************************/
   const [, fetchStaffList] = useAxiosQuery({
     ...getStaffByMerchant(staffInfo?.merchantId),
     isLoadingDefault: true,

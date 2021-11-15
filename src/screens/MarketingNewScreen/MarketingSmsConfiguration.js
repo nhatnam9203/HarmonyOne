@@ -81,7 +81,7 @@ const MarketingSmsConfiguration = React.forwardRef(({
                         data={dataRadioButton}
                         selectedBtn={(e) => setSmsType(e?.label)}
                         box={false}
-                        style={{ flexDirection: 'row' }}
+                        style={{ flexDirection: 'row', paddingLeft : scaleWidth(5) }}
                         boxStyle={{ width: scaleWidth(140) }}
                         textStyle={{ marginLeft: scaleWidth(8), fontSize: scaleFont(16) }}
                         activeColor='#1B68AC'

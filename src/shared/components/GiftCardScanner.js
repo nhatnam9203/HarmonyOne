@@ -59,6 +59,7 @@ const styles = {
         width: scaleWidth(330),
         height: scaleWidth(330),
         backgroundColor: "white",
+        overflow : "hidden"
     },
     preview: {
         flex: 1,

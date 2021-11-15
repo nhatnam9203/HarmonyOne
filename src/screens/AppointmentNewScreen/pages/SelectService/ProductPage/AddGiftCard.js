@@ -4,7 +4,8 @@ import { colors, fonts, images } from "@shared/themes";
 import { useSelector, useDispatch } from "react-redux";
 
 export const AddGiftCard = ({
-    onPress = () => { }
+    onPress = () => { },
+    data
 }) => {
 
     const {
@@ -12,7 +13,7 @@ export const AddGiftCard = ({
     } = useSelector(state => state);
 
     return (
-        <TouchableOpacity onPress={onPress} style={styles.container}>
+        <TouchableOpacity onPress={onPress} style={[styles.container, { marginTop: data?.length > 0 ? scaleHeight(32) : 0 }]}>
             <Image source={images.iconReportGiftcard} style={styles.iconGiftCard} />
             <Text style={styles.txtAddGiftCard}>Add gift card</Text>
         </TouchableOpacity>

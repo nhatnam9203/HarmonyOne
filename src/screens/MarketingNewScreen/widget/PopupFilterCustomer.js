@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Image, StyleSheet, Text, TouchableOpacity, View, FlatList } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View, FlatList, Pressable, Platform } from "react-native";
 import { colors, fonts, layouts } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { Button, IconButton, ListEmptyComponent } from "@shared/components";
@@ -87,7 +87,7 @@ const PopupFilterCustomer = React.forwardRef(
                         <Button
                             onPress={hideModal}
                             highlight={true}
-                            height={scaleHeight(35)}
+                            height={scaleHeight(38)}
                             width={scaleWidth(130)}
                             label="Apply"
                         />
@@ -100,7 +100,7 @@ const PopupFilterCustomer = React.forwardRef(
 
 const ItemCustomer = ({ item, onChangeCheckedCustomer }) => {
     return (
-        <View style={styles.itemCustomer}>
+        <Pressable onPress={onChangeCheckedCustomer} style={styles.itemCustomer}>
             <View style={{ flexDirection: "row", alignItems: 'center' }}>
                 <CheckBox
                     disabled={false}
@@ -112,7 +112,7 @@ const ItemCustomer = ({ item, onChangeCheckedCustomer }) => {
                 <Text style={[styles.txtItem, { width: scaleWidth(120) }]}>{`${item?.firstName} ${item?.lastName}`}</Text>
             </View>
             <Text style={[styles.txtItem]}>{item?.phone}</Text>
-        </View>
+        </Pressable>
     )
 }
 
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#F1F1F1",
         justifyContent: 'flex-start',
         flexDirection: 'row',
-        paddingLeft: scaleWidth(16)
+        paddingLeft: Platform.OS == "ios" ? scaleWidth(16) : scaleWidth(32)
     },
     container: {
         backgroundColor: "#fff",

@@ -51,7 +51,7 @@ export const CalendarPicker = React.forwardRef(({
         ...staffGetAvaiableTime(),
         onSuccess: (data, response) => {
             if (response.codeNumber == 200) {
-
+                   dispatch(bookAppointment.setTimesAvailable(data));
             }
         }
     });

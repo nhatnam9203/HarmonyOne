@@ -6,6 +6,7 @@ import { HeaderBooking } from "../../widgets";
 import { ServicePage } from "./ServicePage";
 import { ProductPage } from "./ProductPage";
 
+
 const { Navigator, Screen } = createMaterialTopTabNavigator();
 
 export const Layout = ({
@@ -36,7 +37,8 @@ export const Layout = ({
               backgroundColor: colors.white,
               width: 250,
               marginHorizontal: scaleWidth(16),
-              borderBottomColor: 'transparent'
+              borderBottomColor: 'transparent',
+              elevation : 0
             },
             inactiveTintColor: "#404040",
             activeTintColor: colors.ocean_blue

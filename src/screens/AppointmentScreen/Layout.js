@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableOpacity, Platform } from 'react-native';
 import { images, layouts, fonts } from '@shared/themes';
 import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, ListEmptyComponent, NotificationIcon, DayPicker } from "@shared/components";
@@ -83,11 +83,15 @@ export const Layout = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#FCFCFC",
+    zIndex : 999
   },
   content: {
     flex: 1,
     position: 'relative',
-    backgroundColor: "#FCFCFC"
+    backgroundColor : "transparent",
+    borderTopWidth : Platform.OS == "ios" ? 1 : 0,
+    borderTopColor : "#eeeeee"
   },
 
   row: {

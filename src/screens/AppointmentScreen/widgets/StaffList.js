@@ -93,8 +93,6 @@ const styles = StyleSheet.create({
     container: {
         padding: scaleWidth(16),
         backgroundColor: "white",
-        borderTopWidth: 1,
-        borderTopColor: "#cccccc",
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
