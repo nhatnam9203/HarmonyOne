@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         elevation: 3, 
-        zIndex: 2
+        zIndex: 2,
      },
     wrapAvatar: {
         shadowColor: "#000",

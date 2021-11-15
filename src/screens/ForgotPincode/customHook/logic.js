@@ -4,6 +4,7 @@ import NavigationService from '@navigation/NavigationService';
 import { useSelector } from "react-redux";
 import { forgotPincode, useAxiosMutation } from "@src/apis";
 import AsyncStorage from "@react-native-community/async-storage";
+import { enCA } from 'date-fns/locale';
 
 const logic = () => {
     const [valueMID, setValueMID] = React.useState("");
@@ -34,9 +35,10 @@ const logic = () => {
           merchantId = merchant_code;
         }
         const data = {
-            merchantId: merchantID,
+            merchantCode: merchantID,
             email: valueMID,
         }
+        console.log('data for got pin code : ',{ data });
         const body = await forgotPincode(data);
         submitForgotPin(body.params);
     }

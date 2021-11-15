@@ -61,5 +61,6 @@ const styles = StyleSheet.create({
   containerItem: {
     transform: [{ translateY: -scaleWidth(375 / 3.5 / 2 - 15) }],
     flex : 1,
+    zIndex : 99999
   },
 });
