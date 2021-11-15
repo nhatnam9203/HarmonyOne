@@ -12,7 +12,6 @@ export const ItemSelect = ({ title = '', icon, onPress, iconRight, iconRightStyl
         <TouchableOpacity
             onLongPress={() => {
                 setFocus(true);
-                onPress();
             }}
             onPressOut={() => setFocus(false)}
             activeOpacity={1} onPress={() => onPress()}

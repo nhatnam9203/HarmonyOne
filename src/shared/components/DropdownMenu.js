@@ -1,7 +1,7 @@
 import React from "react";
 import { colors, fonts } from "@shared/themes";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity, Platform } from "react-native";
 import ModalDropdown from "react-native-modal-dropdown";
 import { images } from "@shared/themes/resources";
 
@@ -139,7 +139,7 @@ export const DropdownMenu = React.forwardRef(
             },
           }}
           adjustFrame={style => {
-            style.top = style.top - 25;
+            style.top = Platform.OS == "ios" ? style.top : style.top - 25;
             return style;
           }}
         >

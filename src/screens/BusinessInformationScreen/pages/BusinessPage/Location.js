@@ -29,7 +29,6 @@ export const Location = ({
     const getCurrentLocation = () => {
         Geolocation.getCurrentPosition(
             async (position) => {
-                console.log({ position });
                 const {
                     coords
                 } = position;
