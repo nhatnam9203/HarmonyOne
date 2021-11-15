@@ -11,6 +11,8 @@ import {
  } from "@shared/utils";
 import _ from "lodash";
 export const Layout = ({
+  name,
+  isSetup,
   cloverMachineInfo,
   dejavooMachineInfo,
   paymentMachineType,
@@ -61,20 +63,6 @@ export const Layout = ({
       );
   }
 
-  const name = () => {
-    let name = ''
-    if (paymentMachineType == PaymentTerminalType.Pax) {
-        name = _.get(paxMachineInfo, 'name')
-    } else if (paymentMachineType == PaymentTerminalType.Clover) {
-        name = _.get(cloverMachineInfo, 'name')
-    }else {
-      //Dejavoo
-      name = _.get(dejavooMachineInfo, 'name')
-    }
-    console.log('name', name)
-    return name
-  }
-
   const renderConnected = () => {
       return (
         <View style={{flex:1}}>
@@ -96,16 +84,6 @@ export const Layout = ({
 
         </View>
       );
-  }
-
-  const isSetup = () => {
-    let isSetup =  false
-    if (paymentMachineType == PaymentTerminalType.Clover){
-        isSetup = _.get(cloverMachineInfo, 'isSetup')
-    } else{
-        isSetup = _.get(dejavooMachineInfo, 'isSetup')
-    }
-    return isSetup
   }
 
   return (
@@ -148,8 +126,7 @@ export const Layout = ({
                       label={t('BACK')}
                       textColor="#6A6A6A"
                       onPress={backHomeHardware}
-                      style={{ borderWidth: 2, borderColor: 'rgb(227,227,227)', borderRadius: 2, }}
-                      styleText={{ fontSize: scaleFont(20), fontWeight: '500' }}
+                      styleText={{ fontSize: scaleFont(16), fontWeight: '500' }}
                   />
               </View>
           </View>

@@ -24,6 +24,8 @@ const ScreenNames = {
   SettingScreen: 'hpo.setting',
   HardwareScreen: 'hpo.hardware',
   AddDeviceHardware: 'hpo.hardware.add',
+  PrinterList: 'hpo.hardware.printerlist',
+  SetupHardware: 'hpo.hardware.setuphardware',
   NotificationScreen: 'hpo.notification',
   ReviewScreen: 'hpo.review',
   MarketingScreen: 'hpo.marketing',

@@ -16,6 +16,7 @@ export const Layout = ({
   dejavooMachineInfo,
   paymentMachineType, 
   printerSelect,
+  isSetup,
 }) => {
 
     const [t] = useTranslation();
@@ -32,16 +33,6 @@ export const Layout = ({
                         : dejavooMachineInfo.name;
         }
         return temptTitle
-    }
-
-    const isSetup = () => {
-        let isSetup =  false
-        if (paymentMachineType == PaymentTerminalType.Clover){
-            isSetup = _.get(cloverMachineInfo, 'isSetup')
-        } else{
-            isSetup = _.get(dejavooMachineInfo, 'isSetup')
-        }
-        return isSetup
     }
 
     

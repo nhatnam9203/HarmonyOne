@@ -11,6 +11,7 @@ import {
 } from '@shared/utils';
 
 export const useProps = (props) => {
+  const dispatch = useDispatch();
 
   const {
     hardware: { dejavooMachineInfo, 
@@ -19,10 +20,6 @@ export const useProps = (props) => {
               printerSelect,
               printerPortType, },
   } = useSelector(state => state);
-
-  const addDevice = () => {
-    // this.props.gotoSetupDevice();
-  }
 
   const selectPortType = async (type) => {
       try {
@@ -41,7 +38,6 @@ export const useProps = (props) => {
   }
 
   return {
-    paxMachineInfo,
     printerList,
     printerSelect,
     printerPortType,
@@ -52,6 +48,5 @@ export const useProps = (props) => {
       dispatch(hardware.selectPrinter(printer));
     },
     selectPortType,
-    addDevice,
   };
 };
