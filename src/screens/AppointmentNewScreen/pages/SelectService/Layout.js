@@ -5,6 +5,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { HeaderBooking } from "../../widgets";
 import { ServicePage } from "./ServicePage";
 import { ProductPage } from "./ProductPage";
+import { GiftCardPage } from "./GiftCardPage";
 
 
 const { Navigator, Screen } = createMaterialTopTabNavigator();
@@ -35,7 +36,7 @@ export const Layout = ({
             },
             style: {
               backgroundColor: colors.white,
-              width: 250,
+              width: scaleWidth(350),
               marginHorizontal: scaleWidth(16),
               borderBottomColor: 'transparent',
               elevation : 0
@@ -46,6 +47,7 @@ export const Layout = ({
         >
           <Screen {...ServicePage} />
           <Screen {...ProductPage} />
+          <Screen {...GiftCardPage} />
         </Navigator>
       </View>
     </View>

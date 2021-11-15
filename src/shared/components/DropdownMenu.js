@@ -16,7 +16,8 @@ export const DropdownMenu = React.forwardRef(
       style,
       placeholder = "Select ...",
       editable = true,
-      styleDropDown
+      styleDropDown,
+      ...props
     },
     ref
   ) => {
@@ -142,6 +143,7 @@ export const DropdownMenu = React.forwardRef(
             style.top = Platform.OS == "ios" ? style.top : style.top - 25;
             return style;
           }}
+          {...props}
         >
           <View style={[styles.dropdownContent, styleDropDown]}>
             <Text

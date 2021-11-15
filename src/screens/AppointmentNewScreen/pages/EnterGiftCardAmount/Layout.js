@@ -23,6 +23,8 @@ export const Layout = ({
 
     const [t] = useTranslation();
 
+    console.log({ giftCardInfo });
+
     return (
         <View style={styles.container}>
             <SingleScreenLayout
@@ -37,7 +39,7 @@ export const Layout = ({
                     <Text style={styles.txtTotal}>Gift Card Amount</Text>
 
                     <View style={styles.wrapPrice}>
-                        <Text style={styles.priceTotal}>{`$ ${giftCardInfo?.amount}`}</Text>
+                        <Text style={styles.priceTotal}>{ giftCardInfo?.isActive == 1 ? "$ 0.00" : `$ ${giftCardInfo?.amount}`}</Text>
                     </View>
 
                     <CustomInput
@@ -73,9 +75,9 @@ export const Layout = ({
                         }
                     </View>
 
-                    <TouchableOpacity onPress={exact} style={styles.buttonExact}>
+                    {/* <TouchableOpacity onPress={exact} style={styles.buttonExact}>
                         <Text style={styles.txtExact}>Exact</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
                 </View>
                 <View style={styles.bottom}>

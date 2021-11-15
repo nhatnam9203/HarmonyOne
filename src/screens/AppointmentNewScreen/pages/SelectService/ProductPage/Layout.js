@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, FlatList, Pressable, SectionList, Alert } from 'react-native';
 import { colors, fonts } from "@shared/themes";
-import { ListEmptyComponent, DialogActiveGiftCard } from "@shared/components";
+import { ListEmptyComponent } from "@shared/components";
 import { useSelector, useDispatch } from "react-redux";
 import { ServiceItem } from "../../../widgets";
 import { AddGiftCard } from "./AddGiftCard";
@@ -15,10 +15,6 @@ export const Layout = ({
     selectCategory,
     selectProduct,
     productsBooking,
-    dialogActiveGiftCard,
-    hideDialogGiftCard,
-    showDialogGiftCard,
-    onCheckGiftCardSucces
 }) => {
 
     const {
@@ -74,17 +70,9 @@ export const Layout = ({
                             </Text>
                         )
                     }}
-                    // ListEmptyComponent={() => <ListEmptyComponent description={"No Product"} />}
-                    ListFooterComponent={() => <AddGiftCard onPress={showDialogGiftCard} data={data} />}
+                    ListEmptyComponent={() => <ListEmptyComponent description={"No Product"} />}
                 />
             </View>
-            <DialogActiveGiftCard
-                ref={dialogActiveGiftCard}
-                title="Enter gift card serial number"
-                onConfirmYes={() => { }}
-                onModalHide={() => { }}
-                onSuccess={onCheckGiftCardSucces}
-            />
         </View>
     )
 }

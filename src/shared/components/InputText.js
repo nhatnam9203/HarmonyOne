@@ -3,7 +3,7 @@ import { colors, fonts } from '@shared/themes';
 import { images } from '@shared/themes/resources';
 import React from 'react';
 import { useController } from 'react-hook-form';
-import { StyleSheet, View, Platform , Text} from 'react-native';
+import { StyleSheet, View, Platform, Text } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 
 export const InputText = React.forwardRef(
@@ -50,7 +50,7 @@ export const InputText = React.forwardRef(
         <View
           style={[
             styles.wrapInput,
-            Platform.OS == "ios" && { height : scaleHeight(42) },
+            Platform.OS == "ios" && { height: scaleHeight(42) },
             style,
             {
               // backgroundColor : "red",
@@ -71,9 +71,9 @@ export const InputText = React.forwardRef(
             value={field.value}
             style={[styles.input, inputStyle]}
             multiline={multiline}
-            textAlignVertical={ multiline ? "top" : "center" }
+            textAlignVertical={multiline ? "top" : "center"}
             maxLength={maxLength}
-            keyboardType={keyboardType}
+            keyboardType={type == "money" ? "numeric" : keyboardType}
             onFocus={() => setFocus(true)}
             onBlur={onBlurInput}
           />
@@ -104,12 +104,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: scaleWidth(10),
   },
   input: {
-    flex : 1,
+    flex: 1,
     fontSize: scaleFont(17),
     fontFamily: fonts.REGULAR,
     color: colors.black,
-    justifyContent : "center",
-    alignItems : "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
   iconClose: {
     // width: scaleWidth(24),

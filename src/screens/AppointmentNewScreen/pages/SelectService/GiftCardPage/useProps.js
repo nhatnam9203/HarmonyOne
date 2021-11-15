@@ -8,6 +8,7 @@ export const useProps = (_params) => {
 
     const categoryRef = React.useRef();
     const sectionListRef = React.useRef();
+    const dialogActiveGiftCard = React.useRef();
 
     const {
         category: { category = [] },
@@ -29,24 +30,27 @@ export const useProps = (_params) => {
     const data = getDataList();
 
     return {
-        categoryRef,
-        sectionListRef,
-        categorySelected,
-        categoryList,
         data,
-        productsBooking,
+        dialogActiveGiftCard,
 
-        selectProduct: (item) => {
-            NavigationService.navigate(screenNames.SelectProductDetail, { item });
+
+        showDialogGiftCard: () => {
+            dialogActiveGiftCard?.current?.show();
         },
 
-        selectCategory: (categoryId) => {
-            setCategorySelected(categoryId);
-            const index = categoryList.findIndex(ct => ct?.categoryId == categoryId);
-            if (index !== -1) {
-                categoryRef?.current?.scrollToIndex({ index, animated: true });
-                sectionListRef?.current?.scrollToLocation({ sectionIndex: index, animated: true, itemIndex: 0, viewPosition: 0 });
+        hideDialogGiftCard: () => {
+        },
+
+        onCheckGiftCardSucces: (data, serialNumber) => {
+            dialogActiveGiftCard?.current?.hide();
+            NavigationService.navigate(
+                screenNames.EnterGiftCardAmount, {
+                    giftCardInfo: {
+                        ...data,
+                        name: "Gift card - " + serialNumber?.toString()?.substring(serialNumber?.toString()?.length - 4)
+                    }
             }
-        }
+            );
+        },
     };
 };

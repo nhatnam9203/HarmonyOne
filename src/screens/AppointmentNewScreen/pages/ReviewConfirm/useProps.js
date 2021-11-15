@@ -204,7 +204,7 @@ export const useProps = (_params) => {
     confirm: async () => {
 
       const data = {
-        staffId: servicesBooking[0]?.staffId || 0,
+        staffId: servicesBooking[0]?.staffId || staff?.staffId,
         merchantId: staff?.merchantId,
         userId: 0,
         customerId: customerBooking?.customerId || 0,
