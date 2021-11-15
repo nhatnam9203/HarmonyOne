@@ -82,60 +82,64 @@ export const AppStateProvider = ({ children }) => {
 
   const connectSignalR = () => {
     if (staff) {
-      const deviceId = `${DeviceInfo.getDeviceId()}_${guid()}`;
-      const urlConnect = `notification/?merchantId=${staff?.merchantId}&Title=Merchant&kind=calendar&deviceId=${deviceId}`
-      const connection = new signalR.HubConnectionBuilder()
-        .withUrl(
-          `${Configs.SOCKET_URL}notification/?merchantId=${staff?.merchantId}&Title=Merchant&kind=calendar&deviceId=${guid()}`,
-          {
-            transport:
-              signalR.HttpTransportType.LongPolling |
-              signalR.HttpTransportType.WebSockets,
+      try {
+        const deviceId = `${DeviceInfo.getDeviceId()}_${guid()}`;
+        const urlConnect = `notification/?merchantId=${staff?.merchantId}&Title=Merchant&kind=calendar&deviceId=${deviceId}`
+        const connection = new signalR.HubConnectionBuilder()
+          .withUrl(
+            `${Configs.SOCKET_URL}notification/?merchantId=${staff?.merchantId}&Title=Merchant&kind=calendar&deviceId=${guid()}`,
+            {
+              transport:
+                signalR.HttpTransportType.LongPolling |
+                signalR.HttpTransportType.WebSockets,
+            }
+          )
+          .withAutomaticReconnect([0, 2000, 10000, 30000])
+          .configureLogging(signalR.LogLevel.Information)
+          .build();
+
+        connection.on("ListWaNotification", (data) => {
+          const dataParse = JSON.parse(data);
+          const typeData = dataParse?.data?.Type;
+          if (typeData) {
+            switch (typeData) {
+              case "appointment_update":
+              case "appointment_add":
+                fetchAppointmentByDate();
+                fetchCountUnread();
+                break;
+
+              case "update_merchant":
+
+                break;
+
+              default:
+                break;
+            }
+          } else if (dataParse?.type) {
+            switch (dataParse?.type) {
+              case "staff_update":
+                fetchStaffByDate();
+                break;
+
+              default:
+                break;
+            }
           }
-        )
-        .withAutomaticReconnect([0, 2000, 10000, 30000])
-        .configureLogging(signalR.LogLevel.Information)
-        .build();
-
-      connection.on("ListWaNotification", (data) => {
-        const dataParse = JSON.parse(data);
-         const typeData = dataParse?.data?.Type;
-        if (typeData) {
-          switch (typeData) {
-            case "appointment_update":
-            case "appointment_add":
-              fetchAppointmentByDate();
-              fetchCountUnread();
-              break;
-
-            case "update_merchant":
-
-              break;
-
-            default:
-              break;
-          }
-        } else if (dataParse?.type) {
-          switch (dataParse?.type) {
-            case "staff_update":
-              fetchStaffByDate();
-              break;
-
-            default:
-              break;
-          }
-        }
-      });
-
-      connection.onclose(async (error) => {
-      });
-
-      connection.start().then(async () => {
-
-      })
-        .catch((error) => {
-
         });
+
+        connection.onclose(async (error) => {
+        });
+
+        connection.start().then(async () => {
+
+        })
+          .catch((error) => {
+
+          });
+      } catch (err) {
+        console.log({ err });
+      }
     }
   };
 

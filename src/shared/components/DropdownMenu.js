@@ -40,8 +40,8 @@ export const DropdownMenu = React.forwardRef(
         setItem(options[index]);
         modalRef.current?.select(index);
       },
-      getValue : () => item,
-      changeValue : (it) => setItem(it),
+      getValue: () => item,
+      changeValue: (it) => setItem(it),
     }));
 
     React.useEffect(() => {
@@ -122,7 +122,7 @@ export const DropdownMenu = React.forwardRef(
           onSelect={onSelect}
           disabled={!editable}
           dropdownListProps={{
-            automaticallyAdjustContentInsets: false,
+            automaticallyAdjustContentInsets: true,
             getItemLayout: (data, index) => ({
               length: height,
               offset: (height + 1) * index,
@@ -137,6 +137,10 @@ export const DropdownMenu = React.forwardRef(
                 });
               });
             },
+          }}
+          adjustFrame={style => {
+            style.top = style.top - 25;
+            return style;
           }}
         >
           <View style={[styles.dropdownContent, styleDropDown]}>
@@ -198,7 +202,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 3,
     marginTop: scaleHeight(1),
-    zIndex : 99999999
+    zIndex: 99999999,
   },
 
   dropDownItemContent: {
@@ -208,7 +212,7 @@ const styles = StyleSheet.create({
     borderWidth: scaleWidth(0),
     borderTopWidth: 0,
     borderColor: "red",
-    zIndex : 99999999
+    zIndex: 99999999
   },
 
   dropdownTerminalText: {

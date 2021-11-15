@@ -67,6 +67,7 @@ export const Layout = ({
                         label="Longitude"
                         renderInput={() => <InputText form={form} name="longitude" />}
                     />
+                    <View style={{ height : scaleHeight(100) }} />
                 </KeyboardAwareScrollView>
                 <View style={styles.bottom}>
                     <Button
