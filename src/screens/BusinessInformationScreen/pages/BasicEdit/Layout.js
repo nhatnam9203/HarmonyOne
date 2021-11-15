@@ -52,7 +52,7 @@ export const Layout = ({
                   options={{ mask: '999-999-9999' }}
                   form={form}
                   name="phone"
-                  keyboardType="numeric"
+                  keyboardType="phone-pad"
                   placeholder="012-3456-789"
                 />
               </View>

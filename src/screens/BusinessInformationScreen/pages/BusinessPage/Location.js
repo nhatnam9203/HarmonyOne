@@ -7,6 +7,7 @@ import { View } from 'react-native-animatable';
 import { Title } from "../../Title";
 import MapView from "react-native-maps";
 import { Marker } from "react-native-maps";
+import { isEmpty } from "lodash";
 import NavigationService from '@navigation/NavigationService';
 import Geolocation from '@react-native-community/geolocation';
 
@@ -18,7 +19,6 @@ export const Location = ({
     merchantDetail,
 }) => {
 
-    console.log({ merchantDetail })
 
     const [geometric, setGeometric] = React.useState({
         latitude: 10.75475,
@@ -60,11 +60,11 @@ export const Location = ({
                     }</Text>
                 }
             />
-            <MapView
+            {!isEmpty(latitude) && !isEmpty(longitude) && <MapView
                 style={styles.map}
                 initialRegion={{
-                    latitude: latitude ? parseFloat(latitude) : geometric.latitude,
-                    longitude: longitude ? parseFloat(longitude) : geometric.longitude,
+                    latitude: (latitude && latitude !== "") ? parseFloat(latitude) : geometric.latitude,
+                    longitude: (longitude && longitude !== "") ? parseFloat(longitude) : geometric.longitude,
                     latitudeDelta: 0.049,
                     longitudeDelta: 0.04,
                 }}>
@@ -81,7 +81,7 @@ export const Location = ({
                     </Marker>
                 }
 
-            </MapView>
+            </MapView>}
         </View>
     )
 }
