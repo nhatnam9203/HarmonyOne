@@ -67,6 +67,8 @@ export const useProps = (_params) => {
     ...getAppointmentById(appointmentIdUpdate),
     queryId: "fetchAppointmentById_reviewConfirm",
     enabled: false,
+    isLoadingDefault: false,
+    isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(appointment.setAppointmentDetail(data));
@@ -89,7 +91,7 @@ export const useProps = (_params) => {
 
   const [, submitAddItem] = useAxiosMutation({
     ...addItemIntoAppointment(),
-    isLoadingDefault: true,
+    isLoadingDefault: false,
     isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {

@@ -16,6 +16,7 @@ export const InvoiceList = ({
     onRefresh = () => { },
     isRefresh
 }) => {
+    console.log({ data })
     const dispatch = useDispatch();
     const { staff: { staffListByMerchant = [] } } = useSelector(state => state);
     const [t] = useTranslation();
@@ -59,7 +60,7 @@ export const InvoiceList = ({
 
     const renderItem = (key, data) => {
         switch (key) {
-            case "code":
+            case "invoiceNo":
                 return <Text style={styles.txt}>
                     #{data}
                 </Text>
@@ -101,7 +102,7 @@ export const InvoiceList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                code: "Invoice ID",
+                invoiceNo: "Invoice ID",
                 user: "Customer",
                 createdDate: "Date/time",
                 status: "Status",
@@ -109,15 +110,15 @@ export const InvoiceList = ({
                 total: "Total sales",
             }}
             whiteKeys={[
-                "code",
+                "invoiceNo",
                 "user",
                 "createdDate",
                 "status",
                 "createdById",
                 "total",
             ]}
-            primaryId="code"
-            sumTotalKey="code"
+            primaryId="invoiceNo"
+            sumTotalKey="invoiceNo"
             calcSumKeys={[
 
             ]}
@@ -126,7 +127,7 @@ export const InvoiceList = ({
             ]}
             unitKeys={{ workingHour: "hrs" }}
             sortDefault="NONE"
-            sortKey="code"
+            sortKey="invoiceNo"
             tableCellWidth={{}}
             renderCell={renderCell}
             renderActionCell={() => null}
