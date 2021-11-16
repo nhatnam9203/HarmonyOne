@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
             marginLeft: scaleWidth(8),
             borderRadius: 20,
             paddingHorizontal: scaleWidth(14),
-            paddingVertical: scaleWidth(3),
+            paddingVertical: scaleWidth(5),
             backgroundColor: categorySelected == categoryId ? colors.ocean_blue : "transparent",
             justifyContent: 'center',
             alignItems: 'center'

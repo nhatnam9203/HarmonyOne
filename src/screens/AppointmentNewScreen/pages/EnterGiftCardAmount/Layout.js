@@ -28,7 +28,7 @@ export const Layout = ({
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={t('Enter amount')}
+                pageTitle={t('Gift Card')}
                 isLeft={true}
                 isRight={false}
                 isScrollLayout={false}
@@ -36,11 +36,11 @@ export const Layout = ({
             >
                 <View style={styles.content}>
 
-                    <Text style={styles.txtTotal}>Gift Card Amount</Text>
+                    {/* <Text style={styles.txtTotal}>Gift Card Amount</Text>
 
                     <View style={styles.wrapPrice}>
                         <Text style={styles.priceTotal}>{ giftCardInfo?.isActive == 1 ? "$ 0.00" : `$ ${giftCardInfo?.amount}`}</Text>
-                    </View>
+                    </View> */}
 
                     <CustomInput
                         label='Amount'

@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
             marginLeft: scaleWidth(8),
             borderRadius: 20,
             paddingHorizontal: scaleWidth(14),
-            paddingVertical: scaleWidth(3),
+            paddingVertical: scaleWidth(5),
             backgroundColor: categorySelected == categoryId ? colors.ocean_blue : "transparent",
             justifyContent: 'center',
             alignItems: 'center'
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     },
     categoryList: {
         paddingBottom: scaleHeight(16),
-        paddingTop: scaleHeight(4),
+        paddingTop: scaleHeight(16),
         backgroundColor: colors.white,
 
         shadowColor: Platform.OS == "ios" ? "#4040401A" : "#404040",
