@@ -13,7 +13,7 @@ export const BasicInformation = ({
     onEdit = () => { },
     webLink,
     businessName,
-    cellphone,
+    phone,
     email,
 }) => {
 
@@ -35,10 +35,10 @@ export const BasicInformation = ({
                 }
             />
             {
-                !isEmpty(cellphone) && <CustomInput
+                !isEmpty(phone) && <CustomInput
                     label='Phone Number'
                     renderInput={() =>
-                        <Text style={styles.txtItem}>{cellphone}</Text>
+                        <Text style={styles.txtItem}>{phone}</Text>
                     }
                 />
             }

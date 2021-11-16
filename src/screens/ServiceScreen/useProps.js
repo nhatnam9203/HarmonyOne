@@ -159,7 +159,7 @@ export const useProps = (props) => {
         func: () => {
           NavigationService.navigate(
             screenNames.ServiceNewScreen,
-            { categoryId : category.categoryId, isNewWithCategory: true }
+            { categoryId : category.categoryId, isNewWithCategory: true , refreshService }
           );
         },
       },

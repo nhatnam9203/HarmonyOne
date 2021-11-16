@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { TouchableRipple } from "react-native-paper"
+import { useSelector } from "react-redux";
 
 export const Button = ({
   onPress,
@@ -24,6 +25,8 @@ export const Button = ({
 }) => {
   const [t] = useTranslation();
 
+  const appLoading = useSelector(state => state.app.appLoading);
+
   const ButtonRender = Platform.OS == "ios" ? Pressable : TouchableRipple;
 
   return (
@@ -36,23 +39,23 @@ export const Button = ({
         disabled && { backgroundColor: "#EEEEEE", borderColor: "#EEEEEE" },
         styleButton,
       ]}
-      disabled={disabled}
+      disabled={disabled || appLoading}
     >
       {
         isLoading ? (
           <ActivityIndicator size={'small'} color="white" />
         ) : (
-            <Text
-              fontFamily="medium"
-              style={[
-                styles.text, highlight && { color: colors.white },
-                disabled && { color: "#CCCCCC"},
-                styleText,
-              ]}
-            >
-              {label ?? t('Continue')}
-            </Text>
-          )}
+          <Text
+            fontFamily="medium"
+            style={[
+              styles.text, highlight && { color: colors.white },
+              disabled && { color: "#CCCCCC" },
+              styleText,
+            ]}
+          >
+            {label ?? t('Continue')}
+          </Text>
+        )}
     </ButtonRender>
   );
 };
@@ -71,6 +74,6 @@ const styles = StyleSheet.create({
   text: {
     ...textStyles.sf_pt_medium_500,
     color: colors.ocean_blue,
-    fontFamily : fonts.MEDIUM
+    fontFamily: fonts.MEDIUM
   },
 });

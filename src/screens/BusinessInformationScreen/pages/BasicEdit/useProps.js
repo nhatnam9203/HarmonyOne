@@ -51,7 +51,7 @@ export const useProps = (_params) => {
     form.setValue('businessName', merchantDetail?.businessName);
     form.setValue('email', merchantDetail?.email);
     form.setValue('webLink', merchantDetail?.webLink);
-    let merchantPhone = merchantDetail?.cellPhone;
+    let merchantPhone = merchantDetail?.phone;
     let phone = '';
     if (merchantPhone?.toString().includes('+84')) {
       phone = merchantPhone?.toString().slice(3);
@@ -99,7 +99,7 @@ export const useProps = (_params) => {
         businessName: values?.businessName,
         webLink: values?.webLink,
         email: values?.email,
-        cellPhone: values?.phone ? `${phoneHeader}${values?.phone}` : "",
+        phone: values?.phone ? `${phoneHeader}${values?.phone}` : "",
       };
 
       const body = await merchantSetting(data);

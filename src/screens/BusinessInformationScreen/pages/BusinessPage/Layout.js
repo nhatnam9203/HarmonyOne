@@ -31,7 +31,7 @@ export const Layout = ({
           <BasicInformation
             webLink={merchantDetail?.webLink || ""}
             businessName={merchantDetail?.businessName || ""}
-            cellphone={merchantDetail?.cellPhone || ""}
+            phone={merchantDetail?.phone || ""}
             email={merchantDetail?.email || ""}
           />
           <Location
