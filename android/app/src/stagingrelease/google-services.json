@@ -8,6 +8,50 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:126818741090:android:d0bb8183708f747d079a3b",
+        "android_client_info": {
+          "package_name": "com.harmonypay.one"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126818741090-bm3oofkcppt2lp7mms0477437acrp3gq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.harmonypay.one",
+            "certificate_hash": "32c4626041ef892d7025db47a91efaa208c63a82"
+          }
+        },
+        {
+          "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEcBBUpQXwO9spOcJ3pmfxaLNI1Can2_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "126818741090-4t70vqamddsu3kgpm99m13875k5nhqjj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hpstaff.staging"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:126818741090:android:3270a1b13425b4a0079a3b",
         "android_client_info": {
           "package_name": "com.harmonypay.one.staging"
@@ -15,11 +59,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "126818741090-0nmml8u08p7876baeq4t0dmobdsok1se.apps.googleusercontent.com",
+          "client_id": "126818741090-9cv0661gi5r7lnfgq68trdp49u3unpfm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.harmonypay.one.staging",
-            "certificate_hash": "32c4626041ef892d7025db47a91efaa208c63a82"
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
         {
