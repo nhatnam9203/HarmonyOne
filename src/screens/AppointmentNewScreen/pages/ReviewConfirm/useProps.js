@@ -70,7 +70,6 @@ export const useProps = (_params) => {
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(appointment.setAppointmentDetail(data));
-        NavigationService.navigate(screenNames.CheckoutScreen);
       }
     },
   });
@@ -81,6 +80,7 @@ export const useProps = (_params) => {
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(appointment.setGroupAppointment(data));
+        NavigationService.navigate(screenNames.CheckoutScreen);
       }
     }
   });

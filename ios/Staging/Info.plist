@@ -92,6 +92,48 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+  <key>UIAppFonts</key>
+  <array>
+    <string>MaterialIcons.ttf</string>
+    <string>MaterialCommunityIcons.ttf</string>
+    <string>SFProDisplay-Bold.ttf</string>
+    <string>SFProDisplay-Medium.ttf</string>
+    <string>SFProDisplay-Regular.ttf</string>
+    <string>SFProDisplay-Semibold.ttf</string>
+    <string>AntDesign.ttf</string>
+    <string>Entypo.ttf</string>
+    <string>EvilIcons.ttf</string>
+    <string>Feather.ttf</string>
+    <string>FontAwesome.ttf</string>
+    <string>FontAwesome5_Brands.ttf</string>
+    <string>FontAwesome5_Regular.ttf</string>
+    <string>FontAwesome5_Solid.ttf</string>
+    <string>Fontisto.ttf</string>
+    <string>Foundation.ttf</string>
+    <string>Ionicons.ttf</string>
+    <string>Octicons.ttf</string>
+    <string>SimpleLineIcons.ttf</string>
+    <string>Zocial.ttf</string>
+    <string>Net-SFProDisplay-Thin.ttf</string>
+    <string>SFProDisplay-Light.ttf</string>
+    <string>SF Pro Text Bold.ttf</string>
+    <string>SF Pro Text BoldItalic.ttf</string>
+    <string>SF Pro Text Heavy.ttf</string>
+    <string>SF Pro Text HeavyItalic.ttf</string>
+    <string>SF Pro Text Light.ttf</string>
+    <string>SF Pro Text LightItalic.ttf</string>
+    <string>SF Pro Text Medium.ttf</string>
+    <string>SF Pro Text MediumItalic.ttf</string>
+    <string>SF Pro Text Regular.ttf</string>
+    <string>SF Pro Text RegularItalic.ttf</string>
+    <string>SF Pro Text SemiBold.ttf</string>
+    <string>SF Pro Text SemiBoldItalic.ttf</string>
+    <string>SFProText-Bold.ttf</string>
+    <string>SFProText-Italic.ttf</string>
+    <string>SFProText-Light.ttf</string>
+    <string>SFProText-Medium.ttf</string>
+    <string>SFProText-Regular.ttf</string>
+  </array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>

@@ -14,11 +14,9 @@ import { appointment } from "@redux/slices";
 
 
 export const TotalView = ({
-    appointmentDetail,
     groupAppointments
 }) => {
-
-    console.log({ appointmentDetail, groupAppointments })
+    const appointmentDetail = groupAppointments?.appointments[0] || {};
     const dispatch = useDispatch();
 
     const [, fetchPromotionAppointment] = useAxiosQuery({

@@ -45,7 +45,6 @@ export const Layout = ({
             giftCards={appointmentDetail?.giftCards || []}
           />
           <TotalView
-            appointmentDetail={appointmentDetail}
             groupAppointments={groupAppointments}
           />
           <View style={{ height : scaleHeight(80) }} />
