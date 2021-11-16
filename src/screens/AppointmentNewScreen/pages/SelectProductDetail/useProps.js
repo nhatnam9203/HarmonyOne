@@ -128,7 +128,6 @@ export const useProps = ({
       const index = productsBooking.findIndex(obj => obj.productId == product.product.productId);
       if (index !== -1) {
         //edit
-        console.log('editttttt', { product })
         dispatch(bookAppointment.editProduct(product));
       } else {
         //add

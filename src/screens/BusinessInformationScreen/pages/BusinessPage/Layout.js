@@ -14,8 +14,6 @@ export const Layout = ({
   bannersMerchant
 }) => {
 
-  console.log({ merchantDetail })
-
   const [t] = useTranslation();
 
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TouchableNativeFeedback } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, CustomInput, InputText, Button } from "@shared/components";
@@ -34,7 +34,7 @@ export const Layout = ({
                 isScrollLayout={false}
                 containerStyle={{ paddingVertical: 0 }}
             >
-                <View style={styles.content}>
+                <TouchableNativeFeedback onPress={()=>Keyboard.dismiss()} style={styles.content}>
 
                     {/* <Text style={styles.txtTotal}>Gift Card Amount</Text>
 
@@ -79,7 +79,7 @@ export const Layout = ({
                         <Text style={styles.txtExact}>Exact</Text>
                     </TouchableOpacity> */}
 
-                </View>
+                </TouchableNativeFeedback>
                 <View style={styles.bottom}>
                     <Button
                         label="Add"
