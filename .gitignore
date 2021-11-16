@@ -70,6 +70,7 @@ ios/Podfile.lock
 # Recycle
 *.zip
 *.hrof
+*.hprof
 
 # configuration
 .env
