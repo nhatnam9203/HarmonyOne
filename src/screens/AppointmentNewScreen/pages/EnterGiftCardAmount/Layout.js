@@ -43,7 +43,7 @@ export const Layout = ({
                     </View> */}
 
                     <CustomInput
-                        label='Amount'
+                        label='Enter the amount'
                         error={errors?.amount}
                         renderInput={() =>
                             <InputText
@@ -82,7 +82,7 @@ export const Layout = ({
                 </View>
                 <View style={styles.bottom}>
                     <Button
-                        label="Done"
+                        label="Add"
                         onPress={form.handleSubmit(onSubmit)}
                         highlight={true}
                         width={'100%'}

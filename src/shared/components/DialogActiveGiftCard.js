@@ -111,9 +111,9 @@ export const DialogActiveGiftCard = React.forwardRef(
                             />
                         </View>
 
-                        <Text style={styles.txtTitle}>
+                        {!isScanning && <Text style={styles.txtTitle}>
                             {title}
-                        </Text>
+                        </Text>}
                         {
                             isScanning ?
                                 <View style={{ width: scaleWidth(340), height: scaleWidth(350), justifyContent: "center", alignItems: "center" }}>
