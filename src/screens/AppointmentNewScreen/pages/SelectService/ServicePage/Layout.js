@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, FlatList, Pressable, SectionList } from 'react-native';
+import { Text, View, StyleSheet, FlatList, Pressable, SectionList, Platform } from 'react-native';
 import { colors, fonts } from "@shared/themes";
 import { useSelector, useDispatch } from "react-redux";
 import { ServiceItem } from "../../../widgets";
@@ -63,7 +63,7 @@ export const Layout = ({
                             </Text>
                         )
                     }}
-                    ListFooterComponent={() => <View style={{ height: scaleHeight(300) }} />}
+                    ListFooterComponent={() => <View style={{ height: scaleHeight(0) }} />}
                 />
             </View>
         </View>
@@ -83,8 +83,8 @@ const styles = StyleSheet.create({
             marginLeft: scaleWidth(8),
             borderRadius: 20,
             paddingHorizontal: scaleWidth(14),
+            paddingVertical: scaleWidth(5),
             backgroundColor: categorySelected == categoryId ? colors.ocean_blue : "transparent",
-            height: scaleHeight(30),
             justifyContent: 'center',
             alignItems: 'center'
         }
@@ -97,20 +97,29 @@ const styles = StyleSheet.create({
         }
     },
     categoryListContainer : {
-        shadowColor: "#4040401A",
+        shadowColor: Platform.OS == "ios" ? "#4040401A" : "#404040",
         shadowOffset: {
             width: 0,
             height: 3,
         },
         shadowOpacity: 1,
-        shadowRadius: 6,
+        shadowRadius: 3,
         
-        elevation: 5,
+        elevation: 3,
     },
     categoryList: {
         paddingBottom: scaleHeight(16),
         paddingTop: scaleHeight(16),
         backgroundColor: colors.white,
+        shadowColor: Platform.OS == "ios" ? "#4040401A" : "#404040",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 3,
+        
+        elevation: 3,
     },
     sectionList: {
         flex: 1,

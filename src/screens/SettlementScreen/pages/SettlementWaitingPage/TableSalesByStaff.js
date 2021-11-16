@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         paddingBottom: scaleHeight(12)
     },
     txtTitle: {
-        fontSize: scaleFont(14),
+        fontSize: scaleFont(15),
         color: "#404040",
         fontFamily: fonts.MEDIUM
     },

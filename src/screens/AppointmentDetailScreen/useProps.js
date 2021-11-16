@@ -34,7 +34,7 @@ export const useProps = ({
 
   const {
     appointment: { appointmentDetail, appointmentDate },
-    invoice : { invoiceViewAppointmentDetail }
+    invoice: { invoiceViewAppointmentDetail }
   } = useSelector(state => state);
 
   const item = appointmentDetail;
@@ -50,7 +50,7 @@ export const useProps = ({
   const [{ }, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
     enabled: true,
-    isStopLoading : true,
+    isStopLoading: true,
     onSuccess: (data, response) => {
       dispatch(appointment.setBlockTimeBydate(data));
     },
@@ -60,7 +60,7 @@ export const useProps = ({
   const [, submitUpdateAppointmentStatus] = useAxiosMutation({
     ...updateAppointmentStatusRequest(),
     isLoadingDefault: true,
-    isStopLoading : true,
+    isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         fetchAppointmentByDate();
@@ -134,6 +134,7 @@ export const useProps = ({
     headerColor,
     canEdit,
     invoiceViewAppointmentDetail,
+    item,
     getActionSheets: () => [
       {
         id: 'edit-appointment',
@@ -168,6 +169,21 @@ export const useProps = ({
         submitUpdateAppointmentStatus(body.params);
       }
     },
+
+    getBarStyle: () => {
+      switch (item?.status) {
+        case "cancel":
+        case "unconfirm":
+        case "checkin":
+        case "paid":
+        case "void":
+        case "refund":
+          return "light-content";
+
+        default:
+          return "dark-content";
+      }
+    }
 
   };
 };

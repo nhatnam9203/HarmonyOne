@@ -26,7 +26,8 @@ const CustomerAppointments = ({
                     },
                     style: {
                         backgroundColor: colors.white,
-                        width: 250
+                        width: 250,
+                        elevation : 0
                     },
                 }}
             >
@@ -53,7 +54,7 @@ const CustomerAppointments = ({
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: scaleHeight(16),
+        margin: scaleHeight(16),
         height: scaleHeight(400),
         backgroundColor: colors.white,
     },

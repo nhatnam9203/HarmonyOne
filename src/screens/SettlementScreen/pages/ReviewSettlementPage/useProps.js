@@ -4,6 +4,7 @@ import { settlement } from "@redux/slices";
 import { useSelector, useDispatch } from "react-redux";
 import { useAxiosQuery, getListStaffsSales, getListGiftCardSales, getSettlementWating, getBatchHistory, getTransactions } from "@src/apis";
 import { app } from "@redux/slices";
+import { Platform } from "react-native";
 import { axios } from '@shared/services/axiosClient';
 import NavigationService from '@navigation/NavigationService';
 
@@ -29,17 +30,20 @@ export const useProps = (props) => {
       method: 'POST',
       data,
       onDownloadProgress: progressEvent => {
-        const total = parseFloat(progressEvent.currentTarget.responseHeaders['Content-Length'])
-        const current = progressEvent.currentTarget.response.length
-
-        let percentCompleted = Math.floor(current / total * 100);
-        setProgress(percentCompleted);
+        if(Platform.OS == "ios"){
+          const total = parseFloat(progressEvent.currentTarget.responseHeaders['Content-Length'])
+          const current = progressEvent.currentTarget.response.length
+  
+          let percentCompleted = Math.floor(current / total * 100);
+          setProgress(percentCompleted);
+        }
       }
     }
 
     try {
       const response = await axios(params);
       if (response?.data?.codeNumber == 200) {
+        setProgress(100);
         refetchSettlement();
       } else {
         Alert.alert(response?.data?.message)
@@ -57,7 +61,7 @@ export const useProps = (props) => {
     ...getBatchHistory("", "", "", "", 1),
     queryId: "fetchBatchHistory_reviewSettlement",
     enabled: false,
-    isLoadingDefault : false,
+    isLoadingDefault: false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(settlement.setBatchHistory({
@@ -72,7 +76,8 @@ export const useProps = (props) => {
     ...getListStaffsSales("", "", "", "", 1),
     queryId: "fetchListStaffsSales_reviewSettlement",
     enabled: false,
-    isLoadingDefault : false,
+    isLoadingDefault: false,
+    isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(settlement.setListStaffsSales(data))
@@ -85,7 +90,8 @@ export const useProps = (props) => {
     ...getListGiftCardSales("", "", "", "", 1),
     queryId: "fetchListGiftCardSales_reviewSettlement",
     enabled: false,
-    isLoadingDefault : false,
+    isLoadingDefault: false,
+    isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(settlement.setListGiftCardSales(data))
@@ -97,7 +103,8 @@ export const useProps = (props) => {
     ...getSettlementWating("", "", "", "", 1),
     queryId: "fetchSettlementWating_reviewSettlement",
     enabled: false,
-    isStopLoading : true,
+    isStopLoading: true,
+    isLoadingDefault: false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(settlement.setSettlementWaiting(data));
@@ -165,7 +172,7 @@ export const useProps = (props) => {
 
     viewBatch: () => {
       dialogProgressRef?.current?.hide();
-      NavigationService.navigate(screenNames.SettlementScreen,{ screen : screenNames.BatchHistoryPage });
+      NavigationService.navigate(screenNames.SettlementScreen, { screen: screenNames.BatchHistoryPage });
     },
 
     finish: () => {

@@ -32,6 +32,7 @@ axios.interceptors.request.use(
         authorization: `Bearer ${token}`,
       });
     }
+
     return config;
   },
   (error) => Promise.reject(error),
@@ -55,7 +56,7 @@ axios.interceptors.response.use(
       case 400: // thieu field
         if (codeStatus !== 2) {
           // exception cho phone not exist -> checkout
-          alert(`${message}, code ${parseInt(codeStatus)}`);
+          alert(`${message}`);
         }
 
         break;

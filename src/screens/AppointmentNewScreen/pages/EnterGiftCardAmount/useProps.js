@@ -33,7 +33,9 @@ export const useProps = (props) => {
   const [rawAmount, setRawAmount] = React.useState("0.00");
 
   React.useEffect(() => {
-    form.setValue("amount", giftCardInfo?.amount);
+    if(giftCardInfo?.isActive == 0){
+      form.setValue("amount", giftCardInfo?.amount);
+    }
   }, [giftCardInfo]);
 
   return {
@@ -53,7 +55,6 @@ export const useProps = (props) => {
       if (values.amount) {
         let tempGiftCards = [...giftCards];
         const index = tempGiftCards.findIndex(obj => obj?.giftCardId == giftCardInfo?.giftCardId);
-        console.log({ index });
         if (index !== -1) {
           tempGiftCards[index].price = values.amount;
         } else {

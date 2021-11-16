@@ -45,3 +45,4 @@ export * from "./Firebase";
 export * from "./DialogActiveGiftCard";
 export * from "./GiftCardScanner";
 export * from "./AppointmentGiftCardItem";
+export * from "./FocusBar";

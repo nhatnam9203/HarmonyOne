@@ -14,6 +14,8 @@ export const Layout = ({
   bannersMerchant
 }) => {
 
+  console.log({ merchantDetail })
+
   const [t] = useTranslation();
 
   return (
@@ -36,6 +38,7 @@ export const Layout = ({
             addressFull={merchantDetail?.addressFull}
             longitude={merchantDetail?.longitude}
             latitude={merchantDetail?.latitude}
+            merchantDetail={merchantDetail}
           />
           <OpeningHour
             businessHour={merchantDetail?.businessHour}

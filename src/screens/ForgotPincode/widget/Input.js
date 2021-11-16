@@ -30,7 +30,8 @@ const Input = ({
                     value={valueMID}
                     autoFocus={true}
                     onChangeText={onChangeMID}
-                    style={styles.textInput}
+                    style={[styles.textInput,{ padding : 0 }]}
+                    autoCapitalize='none'
                 />
             }
             <AnimatedButton

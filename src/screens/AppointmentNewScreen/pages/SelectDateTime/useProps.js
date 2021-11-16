@@ -11,12 +11,14 @@ export const useProps = ({
   const dispatch = useDispatch();
 
   const staffSelected = route?.params?.staffSelected;
+  const isRefetchDate = route?.params?.isRefetchDate;
 
   const calendarRef = React.useRef();
   const timePickerRef = React.useRef();
 
   const {
     bookAppointment: { staffsOfService = [], timesAvailable },
+    merchant : { merchantDetail },
   } = useSelector(state => state);
 
   return {
@@ -24,6 +26,8 @@ export const useProps = ({
     staffSelected,
     calendarRef,
     timePickerRef,
+    isRefetchDate,
+    merchantDetail,
 
     goToReview: () => {
       const timePicker = timePickerRef.current?.getTimePicker();

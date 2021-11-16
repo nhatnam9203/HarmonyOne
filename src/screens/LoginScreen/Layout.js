@@ -2,7 +2,7 @@ import { images, layouts, textStyles, fonts, colors } from '@shared/themes';
 import React from 'react';
 import { Image, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import { InputMerchantID } from './widgets';
-import { Button } from '@shared/components';
+import { Button, FocusBar } from '@shared/components';
 import { useTranslation } from 'react-i18next';
 
 export const Layout = ({
@@ -17,6 +17,7 @@ export const Layout = ({
 
   return (
     <View style={layouts.fill}>
+      <FocusBar barStyle={"dark-content"} /> 
       <View style={styles.container}>
         <View style={layouts.marginVertical} />
         <Text style={textStyles.sf_pt_medium_17_500}>{t('Sign In')}</Text>

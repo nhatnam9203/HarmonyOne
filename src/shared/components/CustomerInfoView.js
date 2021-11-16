@@ -56,7 +56,7 @@ export const CustomerInfoView = ({
 
 const styles = StyleSheet.create({
   container: {
-    height: scaleHeight(80),
+    height: scaleHeight(90),
     backgroundColor: colors.white,
     flexDirection: 'row',
     alignItems: 'center',
@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
 
   avatar: {
     width: scaleWidth(48),
-    height: scaleHeight(48),
-    borderRadius: scaleWidth(24),
+    height: scaleWidth(48),
+    borderRadius: scaleWidth(240),
     backgroundColor: colors.white_fa,
     justifyContent: 'center',
     alignItems: 'center',
@@ -86,8 +86,6 @@ const styles = StyleSheet.create({
   textName: {
     fontFamily: fonts.MEDIUM,
     fontSize: scaleFont(20),
-    fontWeight: '500',
-    fontStyle: 'normal',
     letterSpacing: -0.48,
     textAlign: 'left',
     color: colors.greyish_brown_40,
@@ -97,12 +95,11 @@ const styles = StyleSheet.create({
   textPhone: {
     fontFamily: fonts.REGULAR,
     fontSize: scaleFont(15),
-    fontWeight: 'normal',
-    fontStyle: 'normal',
     letterSpacing: -0.36,
     textAlign: 'left',
+    marginTop: 5,
     color: colors.bluegrey,
-    height: scaleHeight(20),
+ 
   },
 
   arrow: {

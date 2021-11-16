@@ -49,6 +49,7 @@ export const DialogConfirm = React.forwardRef(
                 backdropTransitionInTiming={0}
                 animationIn="zoomIn"
                 animationOut="zoomOut"
+                statusBarTranslucent
             >
                 <View style={styles.container}>
                     <IconButton
@@ -117,6 +118,7 @@ const styles = StyleSheet.create({
 
     modal: {
         margin: 0,
+        padding : 0
     },
 
     txtTitle: {
@@ -154,7 +156,6 @@ const styles = StyleSheet.create({
         marginTop: scaleHeight(20),
         fontSize: scaleFont(15),
         marginHorizontal: scaleWidth(16),
-        fontStyle: "normal",
         letterSpacing: 0,
         textAlign: "center",
     },

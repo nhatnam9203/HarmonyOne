@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getBannerMerchant, useAxiosQuery } from "@src/apis";
+import { getBannerMerchant, getMerchantById, useAxiosQuery } from "@src/apis";
 import { merchant } from "@redux/slices";
 
 export const useProps = (_params) => {
@@ -24,8 +24,19 @@ export const useProps = (_params) => {
     }
   });
 
+  /************************************** GET MERCHANT INFO ***************************************/
+  const [, fetchMerchantById] = useAxiosQuery({
+    ...getMerchantById(staff?.merchantId),
+    queryId: "fetchMerchantById_businessPage",
+    enabled: false,
+    onSuccess: (data, response) => {
+      dispatch(merchant.setMerchantDetail(data));
+    },
+  });
+
   React.useEffect(() => {
     fetchBannerMerchant();
+    fetchMerchantById();
   }, []);
 
 

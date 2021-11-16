@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
+    zIndex : -1
   },
 
   content: {
@@ -60,5 +61,6 @@ const styles = StyleSheet.create({
   containerItem: {
     transform: [{ translateY: -scaleWidth(375 / 3.5 / 2 - 15) }],
     flex : 1,
+    zIndex : 99999
   },
 });

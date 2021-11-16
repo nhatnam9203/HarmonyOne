@@ -37,7 +37,7 @@ export default App = () => {
           <AxiosApiProvider>
             <AppStateProvider>
               <PaperProvider>
-                <RootNavigation />
+                  <RootNavigation />
                 <FirebaseNotificationProvider token={null} />
               </PaperProvider>
             </AppStateProvider>

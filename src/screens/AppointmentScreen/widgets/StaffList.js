@@ -31,6 +31,11 @@ const StaffList = ({
                                     height={scaleWidth(48)}
                                     borderRadius={300}
                                 />
+                                <SkeletonPlaceholder.Item
+                                    width={scaleWidth(48)}
+                                    height={scaleWidth(9)}
+                                    marginTop={8}
+                                />
                             </SkeletonPlaceholder.Item>
                         </SkeletonPlaceholder>
 
@@ -93,8 +98,6 @@ const styles = StyleSheet.create({
     container: {
         padding: scaleWidth(16),
         backgroundColor: "white",
-        borderTopWidth: 1,
-        borderTopColor: "#cccccc",
         shadowColor: "#000",
         shadowOffset: {
             width: 0,

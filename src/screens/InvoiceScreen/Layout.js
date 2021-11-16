@@ -171,7 +171,8 @@ const styles = StyleSheet.create({
     marginBottom: scaleHeight(16),
     borderWidth: 1,
     borderColor: "#dddddd",
-    borderRadius: 5
+    borderRadius: 5,
+    zIndex : 2
   },
   wrapper: {
     padding: 0,

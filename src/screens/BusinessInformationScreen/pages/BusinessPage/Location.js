@@ -7,6 +7,7 @@ import { View } from 'react-native-animatable';
 import { Title } from "../../Title";
 import MapView from "react-native-maps";
 import { Marker } from "react-native-maps";
+import { isEmpty } from "lodash";
 import NavigationService from '@navigation/NavigationService';
 import Geolocation from '@react-native-community/geolocation';
 
@@ -14,8 +15,10 @@ import Geolocation from '@react-native-community/geolocation';
 export const Location = ({
     addressFull,
     latitude,
-    longitude
+    longitude,
+    merchantDetail,
 }) => {
+
 
     const [geometric, setGeometric] = React.useState({
         latitude: 10.75475,
@@ -29,7 +32,6 @@ export const Location = ({
     const getCurrentLocation = () => {
         Geolocation.getCurrentPosition(
             async (position) => {
-                console.log({ position });
                 const {
                     coords
                 } = position;
@@ -53,14 +55,16 @@ export const Location = ({
                 label='Address'
                 style={{ marginTop: scaleHeight(8) }}
                 renderInput={() =>
-                    <Text style={styles.txtItem}>{addressFull}</Text>
+                    <Text style={styles.txtItem}>{
+                        `${merchantDetail?.address}, ${merchantDetail?.city}, ${merchantDetail?.state?.name}, ${merchantDetail?.zip}`
+                    }</Text>
                 }
             />
-            <MapView
+            {!isEmpty(latitude) && !isEmpty(longitude) && <MapView
                 style={styles.map}
                 initialRegion={{
-                    latitude: latitude ? parseFloat(latitude) : geometric.latitude,
-                    longitude: longitude ? parseFloat(longitude) : geometric.longitude,
+                    latitude: (latitude && latitude !== "") ? parseFloat(latitude) : geometric.latitude,
+                    longitude: (longitude && longitude !== "") ? parseFloat(longitude) : geometric.longitude,
                     latitudeDelta: 0.049,
                     longitudeDelta: 0.04,
                 }}>
@@ -77,7 +81,7 @@ export const Location = ({
                     </Marker>
                 }
 
-            </MapView>
+            </MapView>}
         </View>
     )
 }

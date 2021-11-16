@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Image, Animated } from 'react-native'
 import { Text } from '@components';
+import { FocusBar } from "@shared/components";
 import { icon_forgot } from '@assets';
 import { Input, ButtonContinue, TextLink, ButtonBack } from './widget'
 import { animatedHook, logic } from './customHook'
@@ -32,6 +33,7 @@ const index = (props) => {
 
     return (
         <View style={styles.container}>
+            <FocusBar barStyle={"dark-content"} />
             <ButtonBack onPress={back} />
             <Text fontFamily='medium' style={styles.title}> Forgot PIN code </Text>
             <Image
@@ -39,7 +41,7 @@ const index = (props) => {
                 style={styles.logo}
                 resizeMode='contain'
             />
-            <Text fontFamily='regular' style={styles.txtSub}>  
+            <Text fontFamily='regular' style={styles.txtSub}>
                 Enter your email address, we'll send you a reset link
             </Text>
 

@@ -74,7 +74,7 @@ export const useProps = (props) => {
   ) => {
     dispatch(app.showLoading());
     const params = {
-      url:  `service/report/saleByService/export?quickFilter=&timeStart=${timeStart}&timeEnd=${timeEnd}&service=${filterType}`,
+      url:  `service/report/saleByService/export?quickFilter=&timeStart=${timeStart}&timeEnd=${timeEnd}&service=${valueFilter}`,
       method: 'GET',
     }
 

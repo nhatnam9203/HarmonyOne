@@ -58,6 +58,7 @@ export const Layout = ({
                         {
                             percents.map(p => (
                                 <TouchableOpacity
+                                    activeOpacity={1}
                                     key={p + "percent"}
                                     onPress={() => selectPercent(p)}
                                     style={[styles.itemPercent, { backgroundColor: percentSelected == p ? "#0764B0" : "transparent" }]}

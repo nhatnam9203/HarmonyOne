@@ -87,7 +87,7 @@ export const DiscountType = React.forwardRef(({
                         options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
                         placeholder="0.00"
                         maxLength={6}
-                        style={{ width: scaleWidth(235) }}
+                        style={{ width: scaleWidth(235), height : scaleWidth(42) }}
                         keyboardType={'numeric'}
                     />
                 </View>

@@ -600,6 +600,16 @@ export const addPromotionNote = (appointmentId, data) => ({
  * MERCHANT
  */
 
+
+ export const forgotPasswpordMerchant = (merchantId) => ({
+  queryId: 'forgotPasswpordMerchant',
+  params: {
+    url: `/Merchant/forgotpassword?email=${merchantId}`,
+    method: 'GET',
+  }
+});
+
+
 export const getMerchantById = (merchantId) => ({
   queryId: 'getMerchantById',
   params: {

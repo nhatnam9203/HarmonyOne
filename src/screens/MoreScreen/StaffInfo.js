@@ -38,8 +38,9 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         justifyContent: 'center',
-        zIndex: -1
-    },
+        elevation: 3, 
+        zIndex: 2,
+     },
     wrapAvatar: {
         shadowColor: "#000",
         shadowOffset: {

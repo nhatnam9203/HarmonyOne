@@ -1,0 +1,519 @@
+{
+  "project_info": {
+    "project_number": "126818741090",
+    "firebase_url": "https://harmonypay-app.firebaseio.com",
+    "project_id": "harmonypay-app",
+    "storage_bucket": "harmonypay-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126818741090:android:3270a1b13425b4a0079a3b",
+        "android_client_info": {
+          "package_name": "com.harmonypay.one.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126818741090-0nmml8u08p7876baeq4t0dmobdsok1se.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.harmonypay.one.staging",
+            "certificate_hash": "32c4626041ef892d7025db47a91efaa208c63a82"
+          }
+        },
+        {
+          "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEcBBUpQXwO9spOcJ3pmfxaLNI1Can2_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "126818741090-4t70vqamddsu3kgpm99m13875k5nhqjj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hpstaff.staging"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126818741090:android:f847882bc6b9c8fa079a3b",
+        "android_client_info": {
+          "package_name": "com.harmonypay.one.stagingrelease"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126818741090-vfub9t0t6phhpml1p2j8j821mjaajc16.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.harmonypay.one.stagingrelease",
+            "certificate_hash": "32c4626041ef892d7025db47a91efaa208c63a82"
+          }
+        },
+        {
+          "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEcBBUpQXwO9spOcJ3pmfxaLNI1Can2_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "126818741090-4t70vqamddsu3kgpm99m13875k5nhqjj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hpstaff.staging"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126818741090:android:2bb9016bbdfb79de079a3b",
+        "android_client_info": {
+          "package_name": "com.hpconsumer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126818741090-6l48ggo6ptd8tqb0s9ti49cv0eahlacm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpconsumer",
+            "certificate_hash": "809865e71407a3a947f1f72b6410a6fda038e62f"
+          }
+        },
+        {
+          "client_id": "126818741090-9a3t7fe2noc5gdbsp2v3ghs6h48mslvq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpconsumer",
+            "certificate_hash": "c126c0eb75366509e3494a2e1d5343c5f3075242"
+          }
+        },
+        {
+          "client_id": "126818741090-9tjq0bmvt5b9ft7rd41ov9ju4k89ra31.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpconsumer",
+            "certificate_hash": "2d302c739105c0aef4abd06beb9cad62f5681f6a"
+          }
+        },
+        {
+          "client_id": "126818741090-lhmstd7od13r2mvo612ho00r20nq7asv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpconsumer",
+            "certificate_hash": "42448991ffca1b5ce1c4c4d764aa8068dac6ca0c"
+          }
+        },
+        {
+          "client_id": "126818741090-ni6s6u6ej3566ji9n5hj9lkrh4d4obhh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpconsumer",
+            "certificate_hash": "aaaae163b54ff5984bac1b096d5c6e757e441fbd"
+          }
+        },
+        {
+          "client_id": "126818741090-r696tkrpu575ca8iovcqeam5ruvn708e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpconsumer",
+            "certificate_hash": "11591ba0f5a9bfda38f38e1887f1a19d24097452"
+          }
+        },
+        {
+          "client_id": "126818741090-rn4njjflt6kb3riflmf7a3bhcutto62g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpconsumer",
+            "certificate_hash": "aeaddff0a9ae32227e7b74a93994911eef54ef4c"
+          }
+        },
+        {
+          "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEcBBUpQXwO9spOcJ3pmfxaLNI1Can2_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "126818741090-4t70vqamddsu3kgpm99m13875k5nhqjj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hpstaff.staging"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126818741090:android:2fdda4c7bbbbca8f079a3b",
+        "android_client_info": {
+          "package_name": "com.hpconsumer.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126818741090-80j3ee2t3ctaohg9ca212efqo358ghu0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpconsumer.staging",
+            "certificate_hash": "aaaae163b54ff5984bac1b096d5c6e757e441fbd"
+          }
+        },
+        {
+          "client_id": "126818741090-ej77gdo410m7q6b8d12tf8ckk3baek7l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpconsumer.staging",
+            "certificate_hash": "a9f50e2de5aef7ad10c7253e870a6ff9974122b0"
+          }
+        },
+        {
+          "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEcBBUpQXwO9spOcJ3pmfxaLNI1Can2_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "126818741090-4t70vqamddsu3kgpm99m13875k5nhqjj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hpstaff.staging"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126818741090:android:bb59890860fbbf71079a3b",
+        "android_client_info": {
+          "package_name": "com.hpconsumer.stagingrelease"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126818741090-0092qpbn8kgtccj0vu8c7k71tkcpkvj9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpconsumer.stagingrelease",
+            "certificate_hash": "aaaae163b54ff5984bac1b096d5c6e757e441fbd"
+          }
+        },
+        {
+          "client_id": "126818741090-aikq6hpi2dpprlqlo4lhou5jqklu5ifu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpconsumer.stagingrelease",
+            "certificate_hash": "a9f50e2de5aef7ad10c7253e870a6ff9974122b0"
+          }
+        },
+        {
+          "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEcBBUpQXwO9spOcJ3pmfxaLNI1Can2_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "126818741090-4t70vqamddsu3kgpm99m13875k5nhqjj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hpstaff.staging"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126818741090:android:b6fe540e34d35686079a3b",
+        "android_client_info": {
+          "package_name": "com.hpmerchant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126818741090-vg561rikiarvonh9fmslv5egikun1fj3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpmerchant",
+            "certificate_hash": "3959b2d5908d2674b4369c7d578225a8eb526814"
+          }
+        },
+        {
+          "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEcBBUpQXwO9spOcJ3pmfxaLNI1Can2_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "126818741090-4t70vqamddsu3kgpm99m13875k5nhqjj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hpstaff.staging"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126818741090:android:6047fb0f16967082079a3b",
+        "android_client_info": {
+          "package_name": "com.hpstaff"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126818741090-5l1s9ohhqeqs06hvcs606ri12k76lo17.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpstaff",
+            "certificate_hash": "a9f50e2de5aef7ad10c7253e870a6ff9974122b0"
+          }
+        },
+        {
+          "client_id": "126818741090-kmksangip4gkvaku0bef4n4sct9a0a05.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpstaff",
+            "certificate_hash": "bf79ccb2fa7753e9335a812bdfbe05bd6f455943"
+          }
+        },
+        {
+          "client_id": "126818741090-o27786a554dcjdu7t7o6s4bovkcdqc2s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpstaff",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEcBBUpQXwO9spOcJ3pmfxaLNI1Can2_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "126818741090-4t70vqamddsu3kgpm99m13875k5nhqjj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hpstaff.staging"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126818741090:android:f7515ae0d6703fd1079a3b",
+        "android_client_info": {
+          "package_name": "com.hpstaff.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126818741090-d2j5m7aq0lr5klq5cnqgmi7a5vtlqqvm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpstaff.staging",
+            "certificate_hash": "a9f50e2de5aef7ad10c7253e870a6ff9974122b0"
+          }
+        },
+        {
+          "client_id": "126818741090-hded160jc50fccctl8k5deuvk6skgun3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpstaff.staging",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "126818741090-mki0mf2kjmbj8moslgcpt6rg6uqb839h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpstaff.staging",
+            "certificate_hash": "bf79ccb2fa7753e9335a812bdfbe05bd6f455943"
+          }
+        },
+        {
+          "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEcBBUpQXwO9spOcJ3pmfxaLNI1Can2_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "126818741090-4t70vqamddsu3kgpm99m13875k5nhqjj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hpstaff.staging"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126818741090:android:46be40e83c2e372e079a3b",
+        "android_client_info": {
+          "package_name": "com.hpstaff.stagingrelease"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126818741090-qah3h6fi7l1397vdfjf5535chr2494gc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpstaff.stagingrelease",
+            "certificate_hash": "bf79ccb2fa7753e9335a812bdfbe05bd6f455943"
+          }
+        },
+        {
+          "client_id": "126818741090-sujm440dg3bj9urmgaf6lol6upmngoml.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpstaff.stagingrelease",
+            "certificate_hash": "a9f50e2de5aef7ad10c7253e870a6ff9974122b0"
+          }
+        },
+        {
+          "client_id": "126818741090-uq8rvricln419kiti3nspf4s7i66lgkf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hpstaff.stagingrelease",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEcBBUpQXwO9spOcJ3pmfxaLNI1Can2_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126818741090-kph5s45c2ri38k0bhdqode8sulmgbjt6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "126818741090-4t70vqamddsu3kgpm99m13875k5nhqjj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hpstaff.staging"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -54,7 +54,8 @@ export const Layout = ({
   canEdit,
   getActionSheets,
   updateNextStatus,
-  invoiceViewAppointmentDetail
+  invoiceViewAppointmentDetail,
+  getBarStyle,
 }) => {
   const [t] = useTranslation();
 
@@ -70,6 +71,7 @@ export const Layout = ({
         {...headerColor}
         isRight={canEdit}
         isScrollLayout={false}
+        barStyle={getBarStyle()}
         headerRightComponent={() =>
           canEdit && (
             <EditButton

@@ -33,7 +33,8 @@ export const Layout = ({
   addMoreService,
   editService,
   alertRef,
-  deleteProduct
+  deleteProduct,
+  deleteGiftCard
 }) => {
 
 
@@ -94,8 +95,6 @@ export const Layout = ({
   )
 
   const dataList = [...appointmentEdit?.services, ...appointmentEdit?.products, ...appointmentEdit?.giftCards];
-
-  console.log({ dataList })
 
   return (
     <>
@@ -186,7 +185,7 @@ export const Layout = ({
                       icon={images.iconTrash}
                       iconStyle={styles.iconTrash}
                       style={styles.buttonDelete}
-                      onPress={() => data?.item?.productId ? deleteProduct(data.item) : deleteService(data.item)}
+                      onPress={() => data?.item?.productId ? deleteProduct(data.item) : data?.item?.giftCardId ?  deleteGiftCard(data.item) : deleteService(data.item)}
                     />
                   </View>
                 )}
