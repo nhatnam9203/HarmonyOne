@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, Image, Pressable, TouchableOpacity } from 'react-native';
 import { IconButton } from "@shared/components";
 import { fonts, colors, images } from "@shared/themes";
+import { TouchableRipple } from "react-native-paper"
 import { View } from 'react-native-animatable';
 
 export const ItemSelect = ({ title = '', icon, onPress, iconRight, iconRightStyle, iconLeftStyle, textStyle, style }) => {
@@ -9,10 +10,11 @@ export const ItemSelect = ({ title = '', icon, onPress, iconRight, iconRightStyl
     const [isFocus, setFocus] = React.useState(false);
 
     return (
-        <TouchableOpacity
+        <TouchableRipple
             onLongPress={() => {
                 setFocus(true);
             }}
+            rippleColor="#baefff"
             onPressOut={() => setFocus(false)}
             activeOpacity={1} onPress={() => onPress()}
         >
@@ -42,7 +44,7 @@ export const ItemSelect = ({ title = '', icon, onPress, iconRight, iconRightStyl
                     resizeMode='contain'
                 />
             </View>
-        </TouchableOpacity>
+        </TouchableRipple>
     )
 }
 

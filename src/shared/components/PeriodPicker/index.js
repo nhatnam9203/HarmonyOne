@@ -137,7 +137,6 @@ export const PeriodPicker = ({
 
   return (
     <>
-
       <TouchableOpacity
         onPress={openActionSheet}
         style={styles.buttonDateRange}

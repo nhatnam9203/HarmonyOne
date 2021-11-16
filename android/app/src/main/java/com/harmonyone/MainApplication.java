@@ -19,6 +19,7 @@ import cl.json.RNSharePackage;
 import cl.json.ShareApplication;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.reactnativecommunity.geolocation.GeolocationPackage;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 // import com.BV.LinearGradient.LinearGradientPackage;
 

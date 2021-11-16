@@ -81,7 +81,6 @@ export const Layout = ({
 const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.white,
-        paddingTop: scaleWidth(16),
         flex: 1,
         borderTopWidth: 1,
         borderTopColor: "#eeeeee"

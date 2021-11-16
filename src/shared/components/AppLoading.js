@@ -48,7 +48,7 @@ export const AppLoading = ({
           Platform.OS == "ios" ?
             <Spinner
               style={styles.spinner}
-              type={Platform.OS === 'ios' ? 'FadingCircle' : 'FadingCircleAlt'}
+              type={Platform.OS === 'ios' ? 'ChasingDots' : 'FadingCircleAlt'}
               size={scaleWidth(40)}
               color="#fff"
             /> : <ActivityIndicator color="#fff" size="large" />

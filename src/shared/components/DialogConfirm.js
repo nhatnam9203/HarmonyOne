@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
 
     modal: {
         margin: 0,
+        padding : 0
     },
 
     txtTitle: {

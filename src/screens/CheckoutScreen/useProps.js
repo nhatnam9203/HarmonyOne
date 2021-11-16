@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { appointment, bookAppointment } from "@redux/slices";
+import { BackHandler } from "react-native";
 import { useAxiosQuery, checkoutAppointment, useAxiosMutation } from "@src/apis";
 import NavigationService from "@navigation/NavigationService";
 import { Alert } from "react-native";

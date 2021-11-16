@@ -234,6 +234,7 @@ dependencies {
     implementation project(':lottie-react-native')
     implementation project(':react-native-file-viewer')
     implementation project(':react-native-share')
+    implementation project(':react-native-splash-screen')
 
 
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'

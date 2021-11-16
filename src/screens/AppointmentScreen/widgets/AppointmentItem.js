@@ -8,6 +8,8 @@ import {
     TIME_APPOINTMENT_FORMAT,
     guid,
 } from '@shared/utils';
+import { isEmpty } from "lodash";
+import { TouchableRipple } from "react-native-paper"
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 export const AppointmentItem = ({ item, onChangeAppointmentId }) => {
@@ -64,10 +66,15 @@ export const AppointmentItem = ({ item, onChangeAppointmentId }) => {
                     <Text style={[styles.textName, { color: getColors().textColor }]}>
                         {`${item?.firstName} ${item?.lastName}`}
                     </Text>
-                    <View style={styles.marginVertical} />
-                    <Text style={[styles.textPhone, { color: getColors().textColor }]}>
-                        {`${item?.phoneNumber}`}
-                    </Text>
+                    {
+                        !isEmpty(item?.phoneNumber )&&
+                        <>
+                            <View style={styles.marginVertical} />
+                            <Text style={[styles.textPhone, { color: getColors().textColor }]}>
+                                {`${item?.phoneNumber}`}
+                            </Text>
+                        </>
+                    }
                 </View>
 
                 <View style={layouts.marginVertical} />

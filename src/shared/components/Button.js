@@ -6,8 +6,10 @@ import {
   TouchableOpacity,
   Pressable,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { TouchableRipple } from "react-native-paper"
 
 export const Button = ({
   onPress,
@@ -21,8 +23,11 @@ export const Button = ({
   styleText,
 }) => {
   const [t] = useTranslation();
+
+  const ButtonRender = Platform.OS == "ios" ? Pressable : TouchableRipple;
+
   return (
-    <Pressable
+    <ButtonRender
       onPress={onPress}
       style={[
         styles.button,
@@ -48,7 +53,7 @@ export const Button = ({
               {label ?? t('Continue')}
             </Text>
           )}
-    </Pressable>
+    </ButtonRender>
   );
 };
 

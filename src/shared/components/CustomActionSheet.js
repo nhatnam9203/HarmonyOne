@@ -2,6 +2,8 @@ import React from 'react';
 import { CustomModal } from '@shared/components';
 import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import { colors, fonts } from '@shared/themes';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 export const CustomActionSheet = React.forwardRef(
     ({ onHide = () => { }, children, ...props }, ref) => {
@@ -30,11 +32,9 @@ export const CustomActionSheet = React.forwardRef(
                 onBackdropPress={onModalHide}
                 style={styles.modal}
             >
-                <View style={styles.container}>
-                    <View style={{ marginBottom : scaleHeight(16) }}>
-                        {children}
-                    </View>
-                </View>
+                <SafeAreaView style={styles.container}>
+                    {children}
+                </SafeAreaView>
             </CustomModal>
         );
     },
@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     modal: {
         margin: 0,
         justifyContent: 'flex-end',
-        paddingBottom: scaleHeight(16),
     },
 
     container: {

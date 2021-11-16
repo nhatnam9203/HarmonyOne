@@ -63,7 +63,7 @@ export const Layout = ({
                             </Text>
                         )
                     }}
-                    ListFooterComponent={() => <View style={{ height: scaleHeight(300) }} />}
+                    ListFooterComponent={() => <View style={{ height: scaleHeight(0) }} />}
                 />
             </View>
         </View>

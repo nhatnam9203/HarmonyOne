@@ -1,7 +1,7 @@
 import { colors, fonts, layouts, images } from '@shared/themes';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, Text, View, TouchableOpacity, Image, Platform, ImageBackground, PlatformColor } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, Platform, ImageBackground, PlatformColor, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FocusBar } from "@shared/components";
@@ -27,6 +27,10 @@ export const SingleScreenLayout = ({
 }) => {
   const [t] = useTranslation();
   const insets = useSafeAreaInsets();
+
+  // isRight={true}
+  // isLeft={false}
+  // isScrollLayout={false}
 
   const onGoBack = () => {
     if (onPressLeft) {

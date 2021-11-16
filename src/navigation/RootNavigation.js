@@ -10,6 +10,7 @@ import {
 } from '@react-navigation/stack';
 import LaunchScreen from 'react-native-splash-screen';
 import 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import AuthStack from './AuthStack';
 import AppStack from './AppStack';
@@ -34,44 +35,46 @@ export class RootNavigation extends Component {
   render() {
     const { theme } = this.props;
     return (
-      <NavigationContainer
-        ref={navigationRef}
-        headerMode="none"
-        screenOptions={{
-          cardOverlayEnabled: true,
-          cardStyleInterpolator: ({ current: { progress } }) => ({
-            cardStyle: {
-              opacity: progress.interpolate({
-                inputRange: [0, 0.5, 0.9, 1],
-                outputRange: [0, 0.25, 0.7, 1],
-              }),
-            },
-            overlayStyle: {
-              opacity: progress.interpolate({
-                inputRange: [0, 1],
-                outputRange: [0, 1],
-                extrapolate: 'clamp',
-              }),
-            },
-          }),
-          gestureEnabled: false,
-        }}
-        onReady={() => {
-          this.isReadyRef.current = true;
-        }}>
-        <StatusBar barStyle="light-content" translucent={true} backgroundColor="transparent" />
-
-        <Navigator headerMode="none"
+      <SafeAreaProvider>
+        <NavigationContainer
+          ref={navigationRef}
+          headerMode="none"
           screenOptions={{
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: ({ current: { progress } }) => ({
+              cardStyle: {
+                opacity: progress.interpolate({
+                  inputRange: [0, 0.5, 0.9, 1],
+                  outputRange: [0, 0.25, 0.7, 1],
+                }),
+              },
+              overlayStyle: {
+                opacity: progress.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0, 1],
+                  extrapolate: 'clamp',
+                }),
+              },
+            }),
             gestureEnabled: false,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           }}
-        >
-          <Screen {...SplashScreen} />
-          <Screen name="AuthStack" component={AuthStack} />
-          <Screen name="HpOneStack" component={AppStack} />
-        </Navigator>
-      </NavigationContainer>
+          onReady={() => {
+            this.isReadyRef.current = true;
+          }}>
+          <StatusBar barStyle="light-content" translucent={true} backgroundColor="transparent" />
+
+          <Navigator headerMode="none"
+            screenOptions={{
+              gestureEnabled: false,
+              cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            }}
+          >
+            <Screen {...SplashScreen} />
+            <Screen name="AuthStack" component={AuthStack} />
+            <Screen name="HpOneStack" component={AppStack} />
+          </Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
     )
   }
 }

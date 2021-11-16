@@ -632,9 +632,9 @@ function TableListExtended({
         alwaysBounceHorizontal={false}
         showsHorizontalScrollIndicator={isContentSmallerThanScrollView}
         showsVerticalScrollIndicator={Platform.OS == "ios" ? true : false}
-        onScroll={onScroll}
-        onMomentumScrollBegin={onMomentumScrollBegin}
-        onMomentumScrollEnd={onMomentumScrollEnd}
+        // onScroll={onScroll}
+        // onMomentumScrollBegin={onMomentumScrollBegin}
+        // onMomentumScrollEnd={onMomentumScrollEnd}
         scrollEventThrottle={16}
         onScrollEndDrag={onScrollEndDrag}
         onScrollBeginDrag={onScrollBeginDrag}

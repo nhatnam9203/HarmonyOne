@@ -172,6 +172,7 @@ export const Layout = ({
                 />
               }
             />
+            <View style={{ height : scaleHeight(100) }} /> 
         </KeyboardAwareScrollView>
         <View style={styles.bottom}>
             <Button
