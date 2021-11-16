@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { View, Image, TouchableOpacity, Animated } from 'react-native'
 import { Text } from '@components'
 import { logoHarmony, back } from '@assets'
-import { slop , scaleHeight } from '@utils'
+import { slop, scaleHeight } from '@utils'
+import { FocusBar } from "@shared/components";
 import NavigationService from '@navigation/NavigationService'
 import styles from './styles'
 
@@ -12,20 +13,20 @@ const index = () => {
     const translateY = React.useRef(new Animated.Value(scaleHeight(30))).current;
     const scale = React.useRef(new Animated.Value(1.2)).current;
 
-    React.useEffect(()=>{
+    React.useEffect(() => {
         Animated.parallel([
-            Animated.timing(translateY,{
-                toValue : 0,
-                duration : 700,
-                useNativeDriver : true
+            Animated.timing(translateY, {
+                toValue: 0,
+                duration: 700,
+                useNativeDriver: true
             }),
-            Animated.timing(scale,{
-                toValue : 1,
-                duration : 700,
-                useNativeDriver : true
+            Animated.timing(scale, {
+                toValue: 1,
+                duration: 700,
+                useNativeDriver: true
             }),
         ]).start();
-    },[]);
+    }, []);
 
     const back = () => {
         NavigationService.back();
@@ -36,6 +37,7 @@ const index = () => {
 
     return (
         <View style={styles.container}>
+            <FocusBar barStyle="dark-content" />
             <ButtonBack onPress={back} />
             <Text
                 fontFamily='medium'
@@ -53,7 +55,7 @@ const index = () => {
                 style={[
                     styles.title, {
                         marginTop: 0,
-                        transform: [{ translateY },{ scale }]
+                        transform: [{ translateY }, { scale }]
                     }
                 ]}
             >

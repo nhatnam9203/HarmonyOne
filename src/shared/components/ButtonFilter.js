@@ -49,6 +49,7 @@ export const ButtonFilter = ({
                 onBackdropPress={toggleButton}
                 animationIn="slideInRight"
                 animationOut="slideOutRight"
+                statusBarTranslucent
             >
                 <View style={styles.containerFilter}>
                     <View style={styles.header}>

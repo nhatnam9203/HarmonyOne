@@ -77,6 +77,10 @@ export const Layout = ({
                     width={scaleWidth(280)}
                     height={scaleWidth(42)}
                     styleDropDown={styles.styleDropDown}
+                    adjustFrame={style => {
+                      style.top = style.top
+                      return style;
+                    }}
                   />
                 }
               />
@@ -93,6 +97,10 @@ export const Layout = ({
                     width={scaleWidth(280)}
                     height={scaleWidth(42)}
                     styleDropDown={styles.styleDropDown}
+                    adjustFrame={style => {
+                      style.top = style.top
+                      return style;
+                    }}
                   />
                 }
               />

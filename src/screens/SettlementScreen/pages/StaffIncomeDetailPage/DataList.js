@@ -23,7 +23,7 @@ export const DataList = ({
             case "name":
                 return (
                     <Text style={[styles.txt, { fontFamily: fonts.MEDIUM, color: "#000" }]}>
-                        #{item?.name}
+                        {item?.name}
                     </Text>
                 )
             case "appointmentCode":

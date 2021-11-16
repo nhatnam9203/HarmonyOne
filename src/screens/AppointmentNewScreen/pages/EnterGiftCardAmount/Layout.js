@@ -23,10 +23,12 @@ export const Layout = ({
 
     const [t] = useTranslation();
 
+    console.log({ giftCardInfo });
+
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={t('Enter amount')}
+                pageTitle={t('Gift Card')}
                 isLeft={true}
                 isRight={false}
                 isScrollLayout={false}
@@ -34,14 +36,14 @@ export const Layout = ({
             >
                 <View style={styles.content}>
 
-                    <Text style={styles.txtTotal}>Gift Card Amount</Text>
+                    {/* <Text style={styles.txtTotal}>Gift Card Amount</Text>
 
                     <View style={styles.wrapPrice}>
-                        <Text style={styles.priceTotal}>{`$ ${giftCardInfo?.amount}`}</Text>
-                    </View>
+                        <Text style={styles.priceTotal}>{ giftCardInfo?.isActive == 1 ? "$ 0.00" : `$ ${giftCardInfo?.amount}`}</Text>
+                    </View> */}
 
                     <CustomInput
-                        label='Amount'
+                        label='Enter the amount'
                         error={errors?.amount}
                         renderInput={() =>
                             <InputText
@@ -73,14 +75,14 @@ export const Layout = ({
                         }
                     </View>
 
-                    <TouchableOpacity onPress={exact} style={styles.buttonExact}>
+                    {/* <TouchableOpacity onPress={exact} style={styles.buttonExact}>
                         <Text style={styles.txtExact}>Exact</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
                 </View>
                 <View style={styles.bottom}>
                     <Button
-                        label="Done"
+                        label="Add"
                         onPress={form.handleSubmit(onSubmit)}
                         highlight={true}
                         width={'100%'}

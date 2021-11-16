@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         width: scaleWidth(70),
     },
     containerRight: {
-        width: scaleWidth(375 - 90 - 26),
+        width: scaleWidth(375 - 90 - 30),
         justifyContent: 'space-between',
         height: scaleWidth(70),
         marginLeft: scaleWidth(16)

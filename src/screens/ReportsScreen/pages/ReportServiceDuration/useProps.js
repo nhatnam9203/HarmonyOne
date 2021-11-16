@@ -72,6 +72,7 @@ export const useProps = (props) => {
 
     try {
       const response = await axios(params);
+      console.log('response export : ', { response })
       if (response?.data?.codeNumber == 200) {
         await handleFileDownloaed(response?.data?.data, exportType, "report_service_duration");
       } else {

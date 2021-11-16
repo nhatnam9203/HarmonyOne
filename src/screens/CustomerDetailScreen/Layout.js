@@ -43,7 +43,7 @@ export const Layout = ({
           <EditButton actions={getActionSheets()} />
         }
       >
-        <ScrollView bounces={false} style={styles.content}>
+        <ScrollView showsVerticalScrollIndicator={false} bounces={false} style={styles.content}>
           <CustomerInfo
             firstName={customerDetail?.firstName}
             lastName={customerDetail?.lastName}
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: scaleWidth(16)
+    paddingBottom: scaleWidth(16)
   },
   button: {
     height: '100%',

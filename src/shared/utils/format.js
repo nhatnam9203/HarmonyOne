@@ -2,6 +2,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import { colors } from '../themes/variables';
 import { SORT_TYPE } from './app';
+import { guid } from "./app";
 
 export const DATE_FORMAT_STRING = 'MM/DD/YYYY';
 export const BIRTH_DAY_DATE_FORMAT_STRING = 'MM/DD/YYYY';
@@ -78,12 +79,12 @@ export const formatMoney = (
       i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousands) +
       (decimalCount
         ? decimal +
-          Math.abs(amount - i)
-            .toFixed(decimalCount)
-            .slice(2)
+        Math.abs(amount - i)
+          .toFixed(decimalCount)
+          .slice(2)
         : '')
     );
-  } catch (e) {}
+  } catch (e) { }
 };
 
 export const formatMoneyWithUnit = (amount, unit = '$') => {
@@ -183,3 +184,342 @@ export const sortByDate = (items, sort, sortKey) => {
 // export const roundFloatNumber = num => {
 //   return (Math.round(num * 100) / 100).toFixed(2);
 // };
+
+
+export const timeAvaiableRaw = [
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "08:00"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "08:15"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "08:30"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "08:45"
+  },
+
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "09:00"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "09:15"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "09:30"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "09:45"
+  },
+
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "10:00"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "10:15"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "10:30"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "10:45"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "11:00"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "11:15"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "11:30"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "11:45"
+  },
+
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "12:00"
+  },
+
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "12:15"
+  },
+
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "12:30"
+  },
+
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "12:45"
+  },
+
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "13:00"
+  },
+
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "13:15"
+  },
+
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "13:30"
+  },
+
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "13:45"
+  },
+
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "14:00"
+  },
+
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "14:15"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "14:30"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "14:45"
+  },
+
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "15:00"
+  },
+
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "15:15"
+  },
+
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "15:30"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "15:45"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "16:00"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "16:15"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "16:30"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "16:45"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "17:00"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "17:15"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "17:30"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "17:45"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "18:00"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "18:15"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "18:30"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "18:45"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "19:00"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "19:15"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "19:30"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "19:45"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "20:00"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "20:15"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "20:30"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "20:45"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "21:00"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "21:15"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "21:30"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "21:45"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "22:00"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "22:15"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "22:30"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "22:45"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "23:00"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "23:15"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "23:30"
+  },
+  {
+    "id": guid(),
+    "isBooked": false,
+    "time": "23:45"
+  },
+]

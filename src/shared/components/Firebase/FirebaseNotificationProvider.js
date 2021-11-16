@@ -73,7 +73,7 @@ const FirebaseNotificationProvider = () => {
 
   const onClickedNotifyMessage = () => {
     if (token) {
-      NavigationServices.navigate("HpOneHomeStack");
+      NavigationService.navigate("HpOneHomeStack");
       notifyService?.resetBadgeNumber();
     } else {
       NavigationService.navigate("AuthStack");

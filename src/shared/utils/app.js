@@ -3,6 +3,7 @@ import { images } from "../themes/resources";
 import RNFetchBlob from 'rn-fetch-blob';
 import { Platform } from "react-native";
 import PrintManager from "@lib/PrintManager";
+import Share from "react-native-share"
 
 export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -98,7 +99,7 @@ export const createFormDataMulipleImage = (media) => {
   const data = new FormData();
   for (let i = 0; i < media.length; i++) {
     data.append('files[]', {
-      uri:  media[i].path,
+      uri: media[i].path,
       name: media[i].filename ? media[i].filename : `media-${i}.jpg`,
       type: media[i].mime ? media[i].mime : 'image/jpeg',
     });
@@ -282,9 +283,9 @@ export const getContentDate = (timeStart, timeEnd) => {
     }
     if (
       moment().subtract('months', 1).startOf('months').format('MM/DD/YYYY') ==
-        timeStart &&
+      timeStart &&
       moment().subtract('months', 1).endOf('months').format('MM/DD/YYYY') ==
-        timeEnd
+      timeEnd
     ) {
       text = 'Last month';
     }
@@ -298,7 +299,7 @@ export const getContentDate = (timeStart, timeEnd) => {
   return text;
 };
 
-export const arrDateFilter = ["Today","Yesterday","This month","Last month","This week","Last week"];
+export const arrDateFilter = ["Today", "Yesterday", "This month", "Last month", "This week", "Last week"];
 
 export const getConditionIdByTitle = (title) => {
   let id;
@@ -426,17 +427,6 @@ export const handleFileDownloaed = async (path, exportType, fileName) => {
   const dirs = RNFetchBlob.fs.dirs;
   const extension = exportType;
 
-  const params = {
-    title: `${fileName}.${extension}`,
-    fileCache: true,
-    appendExt: `${extension}`,
-    useDownloadManager: true,
-    mediaScannable: true,
-    notification: true,
-    description: 'File downloaded by download manager.',
-    path: `${dirs.DocumentDir}/${fileName}.${extension}`,
-  }
-
   const fileDownload = await RNFetchBlob.config({
     title: `${fileName}.${extension}`,
     fileCache: true,
@@ -453,8 +443,11 @@ export const handleFileDownloaed = async (path, exportType, fileName) => {
   if (Platform.OS === 'ios') {
     await RNFetchBlob.ios.previewDocument(pathFileInventory)
   } else {
-    const android = await RNFetchBlob.android;
-    await android.actionViewIntent(pathFileInventory, 'application/vnd.android.package-archive')
+    const shareResponse = await Share.open({
+      url: `file://${pathFileInventory}`
+    });
+    // const android = await RNFetchBlob.android;
+    // await android.actionViewIntent(pathFileInventory, 'application/vnd.android.package-archive')
   }
 }
 

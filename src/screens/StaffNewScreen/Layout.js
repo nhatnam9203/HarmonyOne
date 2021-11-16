@@ -224,7 +224,8 @@ export const Layout = ({
             ref={payoutWithCashRef}
           />
 
-        </KeyboardAwareScrollView>
+          <View style={{ height : scaleHeight(100) }} />
+        </KeyboardAwareScrollView >
       </SingleScreenLayout>
       <View style={styles.bottom}>
         <Button
@@ -248,7 +249,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   content: {
-    flex: 1,
+    flexGrow: 1,
     paddingHorizontal: scaleWidth(15),
   },
 

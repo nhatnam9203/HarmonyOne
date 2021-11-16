@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
 
   logo: {
     width: scaleWidth(80),
-    height: scaleHeight(80),
+    height: scaleWidth(80),
     marginTop: scaleHeight(30)
   },
 
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
 
   dotInput: {
     width: scaleWidth(20),
-    height: scaleHeight(20),
+    height: scaleWidth(20),
     borderRadius: scaleWidth(10),
     backgroundColor: '#7B99BA',
     opacity: 0.3,

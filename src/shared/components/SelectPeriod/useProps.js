@@ -6,7 +6,7 @@ import {
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { useWatch } from "react-hook-form";
-import { getContentDate } from "@shared/utils";
+import { getContentDate, arrDateFilter } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
 
@@ -83,6 +83,19 @@ export const useProps = (props) => {
       calendarViewRef?.current?.setCurrentMonthCalendar(end);
     }
   }, [dateRange]);
+
+  React.useEffect(() => {
+    const contentDate = getContentDate(
+      moment(startDate).format("MM/DD/YYYY"),
+      moment(endDate).format("MM/DD/YYYY"), 
+    );
+
+    const isIncludes = arrDateFilter.includes(contentDate);
+
+    if(!isIncludes){
+      dateRangeRef?.current?.changeItemNoExist({ label : "Custom", value : "custom" })
+    }
+  }, [startDate, endDate])
 
 
   React.useEffect(() => {

@@ -12,17 +12,19 @@ export const OpeningHour = ({
 }) => {
     return (
         <View style={styles.container}>
-            <Title text="Opening hour" onEdit={()=>{ NavigationService.navigate("OpeningHourEdit") }} />
+            <Title text="Opening hour" onEdit={() => { NavigationService.navigate("OpeningHourEdit") }} />
             {
-                businessHour && Object.entries(businessHour).map((obj,index) => {
-                    return (
-                        <View key={obj[0] +"businessHour"} style={styles.row}>
-                            <Text style={styles.txt}>{obj[0]}</Text>
-                            <Text style={styles.txt}>
-                                {`${Object.values(businessHour)[index].timeStart} - ${Object.values(businessHour)[index].timeEnd}`}
-                            </Text>
-                        </View>
-                    )
+                businessHour && Object.entries(businessHour).map((obj, index) => {
+                    if (obj[1]?.isCheck) {
+                        return (
+                            <View key={obj[0] + "businessHour"} style={styles.row}>
+                                <Text style={styles.txt}>{obj[0]}</Text>
+                                <Text style={styles.txt}>
+                                    {`${Object.values(businessHour)[index].timeStart} - ${Object.values(businessHour)[index].timeEnd}`}
+                                </Text>
+                            </View>
+                        )
+                    } else return null;
                 })
             }
         </View>
@@ -40,7 +42,7 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginVertical : scaleHeight(8)
+        marginVertical: scaleHeight(8)
     },
     txt: {
         fontSize: scaleFont(15),

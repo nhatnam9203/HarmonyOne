@@ -1,9 +1,10 @@
 import { colors, fonts, layouts, images } from '@shared/themes';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, Text, View, TouchableOpacity, Image, Platform, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, Platform, ImageBackground, PlatformColor, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FocusBar } from "@shared/components";
 import NavigationService from '@navigation/NavigationService';
 
 export const SingleScreenLayout = ({
@@ -22,9 +23,14 @@ export const SingleScreenLayout = ({
   containerStyle,
   onPressLeft,
   headerStyle,
+  barStyle = "dark-content"
 }) => {
   const [t] = useTranslation();
   const insets = useSafeAreaInsets();
+
+  // isRight={true}
+  // isLeft={false}
+  // isScrollLayout={false}
 
   const onGoBack = () => {
     if (onPressLeft) {
@@ -36,6 +42,7 @@ export const SingleScreenLayout = ({
 
   return (
     <View style={layouts.fill}>
+      <FocusBar barStyle={barStyle} />
       <ImageBackground
         source={imageBackground}
         style={[
@@ -113,14 +120,15 @@ const styles = StyleSheet.create({
     width: '100%',
     height: scaleHeight(100),
     backgroundColor: colors.white,
-    shadowColor: '#0000000D',
+    shadowColor: Platform.OS == "ios" ? '#0000000D' : "#000000",
     shadowOffset: {
       width: 0,
       height: 3,
     },
     shadowRadius: 1,
     shadowOpacity: 5,
-    elevation: 5,
+    elevation: 3,
+
     paddingTop: scaleHeight(20),
     paddingBottom: scaleHeight(4),
     flexDirection: 'row',

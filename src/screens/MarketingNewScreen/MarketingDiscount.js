@@ -51,10 +51,10 @@ const MarketingDiscount = ({
                         name="promotionValue"
                         placeholder="0.00"
                         defaultValue="0.00"
-                        style={{ width: scaleWidth(235) }}
+                        style={{ width: scaleWidth(235), height: scaleWidth(42), }}
                         type="money"
                         options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
-                        onBlur={()=>form.setValue("message",defaultMessage())}
+                        onBlur={() => form.setValue("message", defaultMessage())}
                     />
                 </View>
             }

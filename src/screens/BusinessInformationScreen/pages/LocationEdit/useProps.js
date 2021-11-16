@@ -77,8 +77,7 @@ export const useProps = (_params) => {
 
 
     onSubmit: async (values) => {
-      Alert.alert('đang test lại');
-      return;
+
       const data = {
         
         address : values.address,

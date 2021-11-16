@@ -77,19 +77,20 @@ const styles = StyleSheet.create({
     rightItem: {
         display: 'flex',
         justifyContent: 'space-between',
-        marginLeft: scaleWidth(15)
+        marginLeft: scaleWidth(16),
+        paddingVertical: scaleHeight(4)
     },
     letter: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        width: scaleWidth(47),
-        height: scaleWidth(47),
+        width: scaleWidth(60),
+        height: scaleWidth(60),
         borderRadius: 500,
         backgroundColor: '#FAFAFA'
     },
     firstLetter: {
-        fontSize: scaleFont(23),
+        fontSize: scaleFont(26),
         fontWeight: "bold",
         color: "#1366AE",
         fontFamily: fonts.MEDIUM

@@ -1,7 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { appointment, bookAppointment } from "@redux/slices";
+import { BackHandler } from "react-native";
 import { useAxiosQuery, checkoutAppointment, useAxiosMutation } from "@src/apis";
+import { useRoute, useIsFocused } from '@react-navigation/native';
+import { useAndroidBackHandler } from "react-navigation-backhandler";
 import NavigationService from "@navigation/NavigationService";
 import { Alert } from "react-native";
 
@@ -12,7 +15,10 @@ export const useProps = (props) => {
   const {
     appointment: { appointmentDetail, groupAppointments = [] },
     bookAppointment: { isQuickCheckout }
-  } = useSelector(state => state)
+  } = useSelector(state => state);
+
+  const route = useRoute();
+  const isFocused = useIsFocused();
 
   const [, submitCheckoutAppointment] = useAxiosMutation({
     ...checkoutAppointment(),
@@ -22,6 +28,18 @@ export const useProps = (props) => {
       }
     }
   });
+
+  useAndroidBackHandler(() => {
+    const routeName = route.name;
+    if (routeName == screenNames.CheckoutScreen && isQuickCheckout) {
+      // do something
+      NavigationService.navigate(screenNames.AppointmentScreen);
+      return true;
+    }
+
+    return false;
+  });
+
 
   return {
     appointmentDetail,

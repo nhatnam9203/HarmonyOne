@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         shadowRadius: 3.34,
 
         elevation: 5,
-        marginTop: scaleHeight(16)
+        margin: scaleHeight(16),
     },
     header: {
         borderBottomWidth: 1,

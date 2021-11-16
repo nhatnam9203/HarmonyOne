@@ -113,6 +113,7 @@ export const InputSelect = React.forwardRef(({
 
 const styles = StyleSheet.create({
     containerInput: {
+        zIndex : 2
     },
     label: {
         fontSize: scaleFont(16),

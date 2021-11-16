@@ -68,7 +68,7 @@ export const DialogActiveGiftCard = React.forwardRef(
                     }
                     const response = await axios(params);
                     if (response?.data?.codeNumber == 400) {
-                        Alert.alert(response?.data?.message);
+                        // Alert.alert(response?.data?.message);
                     } else {
                         setTitlePage("Gift Card Details");
                         setGiftcardPaymentInfo(response?.data?.data);
@@ -148,6 +148,7 @@ export const DialogActiveGiftCard = React.forwardRef(
                 backdropTransitionInTiming={0}
                 animationIn="zoomIn"
                 animationOut="zoomOut"
+                statusBarTranslucent
             >
                 <KeyboardAwareScrollView
                     pointerEvents={isLoading ? "none" : "auto"}

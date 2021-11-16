@@ -3,7 +3,7 @@ import { colors, fonts } from '@shared/themes';
 import { images } from '@shared/themes/resources';
 import React from 'react';
 import { useController } from 'react-hook-form';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Platform, Text } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 
 export const InputText = React.forwardRef(
@@ -50,8 +50,10 @@ export const InputText = React.forwardRef(
         <View
           style={[
             styles.wrapInput,
+            Platform.OS == "ios" && { height: scaleHeight(42) },
             style,
             {
+              // backgroundColor : "red",
               borderColor: isFocus
                 ? colors.ocean_blue
                 : error
@@ -69,12 +71,13 @@ export const InputText = React.forwardRef(
             value={field.value}
             style={[styles.input, inputStyle]}
             multiline={multiline}
-            textAlignVertical="top"
+            textAlignVertical={multiline ? "top" : "center"}
             maxLength={maxLength}
-            keyboardType={keyboardType}
+            keyboardType={type == "money" ? "numeric" : keyboardType}
             onFocus={() => setFocus(true)}
             onBlur={onBlurInput}
           />
+          {/* <Text>hgfghf</Text> */}
           {renderRight
             ? renderRight()
             : field?.value?.length > 0 && (
@@ -92,15 +95,8 @@ export const InputText = React.forwardRef(
 
 const styles = StyleSheet.create({
   containerInput: {},
-  label: {
-    fontSize: scaleFont(16),
-    color: '#7A98BB',
-    marginBottom: scaleHeight(10),
-    fontFamily: fonts.REGULAR,
-  },
   wrapInput: {
     width: '100%',
-    height: scaleWidth(42),
     borderWidth: 1,
     borderColor: '#cccccc',
     flexDirection: 'row',
@@ -112,10 +108,12 @@ const styles = StyleSheet.create({
     fontSize: scaleFont(17),
     fontFamily: fonts.REGULAR,
     color: colors.black,
+    justifyContent: "center",
+    alignItems: "center",
   },
   iconClose: {
-    width: scaleWidth(24),
-    height: scaleWidth(24),
+    // width: scaleWidth(24),
+    // height: scaleWidth(24),
   },
   required: {
     color: 'red',

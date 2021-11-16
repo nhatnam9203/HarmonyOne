@@ -1,5 +1,6 @@
-package com.harmonyone;
+package com.harmonypay.one;
 
+import android.content.Intent;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -12,6 +13,14 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.microsoft.codepush.react.CodePush;
+import com.airbnb.android.react.lottie.LottiePackage;
+import com.vinzscam.reactnativefileviewer.RNFileViewerPackage;
+import com.tkporter.sendsms.SendSMSPackage;
+import cl.json.RNSharePackage;
+import cl.json.ShareApplication;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
+import com.reactnativecommunity.geolocation.GeolocationPackage;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 // import com.BV.LinearGradient.LinearGradientPackage;
 
@@ -72,7 +81,7 @@ public class MainApplication extends Application implements ReactApplication {
          * We use reflection here to pick up the class that initializes Flipper, since
          * Flipper library is not available in release mode
          */
-        Class<?> aClass = Class.forName("com.harmonyone.ReactNativeFlipper");
+        Class<?> aClass = Class.forName("com.harmonypay.one.ReactNativeFlipper");
         aClass.getMethod("initializeFlipper", Context.class, ReactInstanceManager.class).invoke(null, context,
             reactInstanceManager);
       } catch (ClassNotFoundException e) {

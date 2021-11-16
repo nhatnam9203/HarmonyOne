@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import { images, layouts, textStyles, fonts, colors } from '@shared/themes';
-import { Button } from '@shared/components';
+import { Button, FocusBar } from '@shared/components';
 import { useTranslation } from 'react-i18next';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 
@@ -17,6 +17,7 @@ export const Layout = ({
 
   return (
     <View style={layouts.fill}>
+      <FocusBar barStyle={"dark-content"} />
       <View style={styles.container}>
         <View style={layouts.marginVertical} />
         <Text style={textStyles.sf_pt_medium_17_500}>{t('Sign In')}</Text>
@@ -38,6 +39,7 @@ export const Layout = ({
           <SmoothPinCodeInput
             placeholder={<View style={styles.dotInput} />}
             mask={<View style={[styles.dotInput, { opacity: 1 }]} />}
+            textStyle={{ fontFamily: fonts.MEDIUM, fontSize: scaleFont(19), color: "#404040" }}
             // maskDelay={500}
             password={true}
             cellStyle={null}
@@ -100,8 +102,8 @@ const styles = StyleSheet.create({
 
   dotInput: {
     width: scaleWidth(20),
-    height: scaleHeight(20),
-    borderRadius: scaleWidth(10),
+    height: scaleWidth(20),
+    borderRadius: scaleWidth(300),
     backgroundColor: '#7B99BA',
     opacity: 0.3,
   },

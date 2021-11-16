@@ -15,7 +15,8 @@ import {
   Text,
   View,
   Dimensions, TouchableOpacity,
-  Alert
+  Alert,
+  Platform
 } from "react-native";
 import { StickyForm } from "react-native-largelist-v3";
 import { NormalHeader } from "react-native-spring-scrollview/NormalHeader";
@@ -314,7 +315,8 @@ function TableListExtended({
     }
   };
 
-  const onMomentumScrollEnd = () => {
+  const onMomentumScrollEnd = (e) => {
+    console.log('on moment scroll end', { e})
     autoScroll();
   };
 
@@ -626,18 +628,19 @@ function TableListExtended({
         renderHeader={renderHeader}
         renderSection={renderSection}
         renderIndexPath={renderItem}
-        // bounces={false}
 
         alwaysBounceHorizontal={false}
         showsHorizontalScrollIndicator={isContentSmallerThanScrollView}
-        showsVerticalScrollIndicator={true}
-        onScroll={onScroll}
-        onMomentumScrollBegin={onMomentumScrollBegin}
-        onMomentumScrollEnd={onMomentumScrollEnd}
+        showsVerticalScrollIndicator={Platform.OS == "ios" ? true : false}
+        // onScroll={onScroll}
+        // onMomentumScrollBegin={onMomentumScrollBegin}
+        // onMomentumScrollEnd={onMomentumScrollEnd}
         scrollEventThrottle={16}
         onScrollEndDrag={onScrollEndDrag}
         onScrollBeginDrag={onScrollBeginDrag}
         directionalLockEnabled={true}
+        // bounces={true}
+        alwaysBounceHorizontal={false}
         showsHorizontalScrollIndicator={false}
         renderFooter={() => <View style={{ height: 20 }} />}
         onRefresh={() => {

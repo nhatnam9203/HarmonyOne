@@ -85,7 +85,7 @@ const editAppointment = createSlice({
             state.appointmentEdit = tempAppointment;
         },
 
-        removeProduct : (state, action) =>{
+        removeProduct: (state, action) => {
 
             const productId = action.payload;
             let tempAppointment = {
@@ -97,6 +97,22 @@ const editAppointment = createSlice({
             tempAppointment = {
                 ...tempAppointment,
                 products: tempProduct,
+            }
+
+            state.appointmentEdit = tempAppointment;
+        },
+
+        removeGiftCard: (state, action) => {
+            const giftCardId = action.payload;
+            let tempAppointment = {
+                ...state.appointmentEdit,
+            }
+            let tempGiftCard = tempAppointment.giftCards || [];
+
+            tempGiftCard = tempGiftCard.filter(sv => sv.giftCardId !== giftCardId);
+            tempAppointment = {
+                ...tempAppointment,
+                giftCards: tempGiftCard,
             }
 
             state.appointmentEdit = tempAppointment;
@@ -118,9 +134,9 @@ const editAppointment = createSlice({
             tempServices.push(service);
             tempExtras = [
                 ...tempExtras.filter(ex => ({ ...ex, status: 1 })),
-                ...extras.map(ex=>({ ...ex, status : 1 }))
+                ...extras.map(ex => ({ ...ex, status: 1 }))
             ];
-            
+
             tempAppointment = {
                 ...tempAppointment,
                 services: tempServices,

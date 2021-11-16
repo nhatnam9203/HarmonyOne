@@ -6,32 +6,201 @@ import { IconButton, ListEmptyComponent } from "@shared/components";
 import { AppointmentItem } from "./AppointmentItem";
 import { useTranslation } from "react-i18next";
 import { guid } from "@shared/utils";
-import sortArray from "sort-array";
+import { axios } from '@shared/services/axiosClient';
+import { dateToFormat } from '@shared/utils';
+import { useDispatch, useSelector } from 'react-redux';
 
-const AppointmentList = ({
-    blockTimes = [],
-    onChangeAppointmentId,
-    isRefresh,
-    onRefresh,
-}) => {
+import {
+    useAxiosQuery,
+    getAppointmentByDate,
+    getAppointmentById,
+    getInvoiceDetail,
+    getStaffByDate
+} from '@src/apis';
+
+import {
+    appointment,
+    invoice,
+    app,
+    staff as staffAction
+} from '@redux/slices';
+
+import sortArray from "sort-array";
+import NavigationService from '@navigation/NavigationService';
+
+const AppointmentList = React.forwardRef(({ }, ref) => {
+    const dispatch = useDispatch();
+
+    const {
+        appointmentsByDate = [],
+        blockTimes = [],
+        appointmentDetail,
+        appointmentDate
+    } = useSelector(state => state.appointment);
+    const {
+        staff
+    } = useSelector(state => state.auth)
 
     const [t] = useTranslation();
+
+    const [isRefresh, setRefresh] = React.useState(false);
+    const [appointmentDetailId, setAppointmentDetailId] = React.useState('');
+    const [staffSelected, setStaffSelected] = React.useState('');
+    const [blockTimesVisibile, setBlockTimesVisible] = React.useState([]);
+    const [tempStatus, setTempStatus] = React.useState("");
+
+    React.useImperativeHandle(ref, () => ({
+        setDate: (datePicked) => {
+            setDate(datePicked);
+        },
+        setStaffSelected: (staffId) => {
+            setStaffSelected(staffId)
+        }
+    }))
+
+
+    /************************************** REFRESH BLOCK TIMES  ***************************************/
+    React.useEffect(() => {
+        if (isRefresh) {
+            fetchAppointmentByDate();
+        }
+    }, [isRefresh]);
+
+    /************************************** GET LIST BLOCK TIMES  ***************************************/
+    React.useEffect(() => {
+        if (staffSelected) {
+            let temp = blockTimes.filter(
+                (blockTime) => blockTime?.staffId == staffSelected,
+            );
+            setBlockTimesVisible(temp);
+        } else {
+            setBlockTimesVisible(blockTimes);
+        }
+    }, [staffSelected, appointmentDate, blockTimes]);
+
+    /************************************** GET APPOINTMENT DETAIL  ***************************************/
+    React.useEffect(() => {
+        if (appointmentDetailId) {
+            fetchAppointmentById();
+        }
+    }, [appointmentDetailId]);
+
+
+
+    const setDate = (date) => {
+        if (
+            dateToFormat(date, 'YYYY-MM-DD') ==
+            dateToFormat(appointmentDate, 'YYYY-MM-DD')
+        ) {
+            fetchAppointmentByDate();
+            fetchStaffByDate();
+        } else {
+            dispatch(appointment.setAppointmentDate(date));
+        }
+    };
+
+
+    /************************************** GET STAFFS BY DATE SELECTED ***************************************/
+    const [, fetchStaffByDate] = useAxiosQuery({
+        ...getStaffByDate(
+            staff?.merchantId,
+            dateToFormat(appointmentDate, 'YYYY-MM-DD'),
+        ),
+        enabled: true,
+        onSuccess: (data, response) => {
+            dispatch(staffAction.setStaffByDate(data));
+        },
+    });
+
+
+    /************************************** GET APPOINTMENT BY DATE  ***************************************/
+    const [{ isLoading }, fetchAppointmentByDate] = useAxiosQuery({
+        ...getAppointmentByDate(dateToFormat(appointmentDate, 'YYYY-MM-DD')),
+        enabled: true,
+        onSuccess: (data, response) => {
+            dispatch(appointment.setBlockTimeBydate(data));
+            setRefresh(false);
+        },
+    });
+
+    const [, fetchAppointmentById] = useAxiosQuery({
+        ...getAppointmentById(appointmentDetailId),
+        enabled: true,
+        isStopLoading: tempStatus == "paid" ? true : false,
+        onSuccess: (data, response) => {
+            if (response?.codeNumber == 200) {
+                dispatch(appointment.setAppointmentDetail(data));
+                if (data?.status == "paid") {
+                    getInvoiceDetail(data?.checkoutId);
+                } else {
+                    NavigationService.navigate(screenNames.AppointmentDetailScreen, {
+                        refreshFromScreen,
+                    });
+                }
+            }
+        },
+    });
+
+    const getInvoiceDetail = async (checkoutId) => {
+        if (checkoutId) {
+            dispatch(app.showLoading());
+            const params = {
+                url: `checkout/${checkoutId}`,
+                method: 'GET',
+            }
+
+            try {
+                const response = await axios(params);
+                if (response?.data?.codeNumber == 200) {
+                    dispatch(invoice.setInvoiceViewAppointmentDetail(response?.data?.data));
+                    NavigationService.navigate(screenNames.AppointmentDetailScreen, {
+                        refreshFromScreen,
+                    });
+                }
+
+            } catch (err) {
+
+            } finally {
+                dispatch(app.hideLoading());
+            }
+        }
+    }
+
+    const refreshFromScreen = () => {
+        fetchAppointmentByDate();
+    };
+
+
+    const onChangeAppointmentId = (appointmentId, status) => {
+        setTempStatus(status);
+        if (appointmentId == appointmentDetailId) {
+            fetchAppointmentById();
+        } else {
+            setAppointmentDetailId(appointmentId);
+        }
+    }
+
+    const onRefresh = () => {
+        setRefresh(true);
+    }
 
     return (
         <FlatList
             style={styles.flatList}
-            data={blockTimes}
+            data={blockTimesVisibile}
             renderItem={({ item }) => <AppointmentItem item={item} onChangeAppointmentId={onChangeAppointmentId} />}
             refreshing={isRefresh}
             onRefresh={onRefresh}
             keyExtractor={(item) => item?.appointmentId?.toString() + guid() + 'appointment'}
             ListEmptyComponent={() => <ListEmptyComponent description={t('No Appointments')} image={images.iconNotFound} />}
-            ListFooterComponent={()=><View style={{ height : scaleHeight(100) }} />}
+            ListFooterComponent={() => <View style={{ height: scaleHeight(100) }} />}
         />
     );
-};
+});
 
-export default AppointmentList;
+
+const TempAppointmntList = React.memo(AppointmentList);
+export default TempAppointmntList
 
 
 const styles = StyleSheet.create({
@@ -40,3 +209,4 @@ const styles = StyleSheet.create({
         paddingTop: scaleHeight(12)
     },
 });
+

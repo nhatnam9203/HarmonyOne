@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableOpacity, Platform } from 'react-native';
 import { images, layouts, fonts } from '@shared/themes';
 import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, ListEmptyComponent, NotificationIcon, DayPicker } from "@shared/components";
@@ -15,17 +15,14 @@ import moment from "moment";
 
 export const Layout = ({
   staffsByDate,
-  appointmentsByDate,
-  blockTimesVisibile,
+
   date,
-  setDate,
   visibleDatePicker,
   setVisibleDatePicker,
   selectStaff,
   staffSelected,
-  onChangeAppointmentId,
-  isRefresh,
-  onRefresh,
+  appointmentListRef,
+
   addAppointment,
   isLoading
 }) => {
@@ -41,13 +38,13 @@ export const Layout = ({
         containerStyle={{ paddingVertical: 0 }}
         headerLeftComponent={() =>
           <IconCalendar
-            onPress={() => setDate(moment().format("YYYY-MM-DD"))}
+            onPress={() => appointmentListRef?.current?.setDate(moment().format("YYYY-MM-DD"))}
           />
         }
         headerCenterComponent={() =>
           <DayPicker
             dayPicked={date}
-            onApply={datePicked => setDate(datePicked)}
+            onApply={datePicked => appointmentListRef?.current?.setDate(datePicked)}
           />
         }
         headerRightComponent={() =>
@@ -62,10 +59,7 @@ export const Layout = ({
             isLoading={isLoading}
           />
           <AppointmentList
-            blockTimes={blockTimesVisibile}
-            onChangeAppointmentId={onChangeAppointmentId}
-            isRefresh={isRefresh}
-            onRefresh={onRefresh}
+            ref={appointmentListRef}
           />
         </View>
 
@@ -83,11 +77,15 @@ export const Layout = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#FCFCFC",
+    zIndex: 999
   },
   content: {
     flex: 1,
     position: 'relative',
-    backgroundColor: "#FCFCFC"
+    backgroundColor: "transparent",
+    borderTopWidth: Platform.OS == "ios" ? 1 : 0,
+    borderTopColor: "#eeeeee"
   },
 
   row: {
@@ -131,3 +129,4 @@ const styles = StyleSheet.create({
     tintColor: "black",
   }
 });
+

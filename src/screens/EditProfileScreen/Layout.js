@@ -172,6 +172,7 @@ export const Layout = ({
                 />
               }
             />
+            <View style={{ height : scaleHeight(100) }} /> 
         </KeyboardAwareScrollView>
         <View style={styles.bottom}>
             <Button
@@ -263,7 +264,7 @@ const styles = StyleSheet.create({
   },
 
   inputPhone: {
-    width: scaleWidth(250),
+    width: scaleWidth(247),
     height: scaleWidth(42),
     borderWidth: 1,
     borderColor: '#dddddd',

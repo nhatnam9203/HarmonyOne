@@ -447,9 +447,8 @@ export const useProps = (props) => {
         label: t('Delete'),
         textColor: colors.red,
         func: async() => { 
-          Alert.alert('dang test lai')
-          // const body = await deletePromotion(promotionDetailById?.id);
-          // submitDeletePromotion(body.params);
+          const body = await deletePromotion(promotionDetailById?.id);
+          submitDeletePromotion(body.params);
         }
       },
     ],

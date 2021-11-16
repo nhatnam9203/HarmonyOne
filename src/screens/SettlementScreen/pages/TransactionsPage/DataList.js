@@ -26,10 +26,10 @@ export const DataList = ({
             case "createdDate":
                 return (
                     <View>
-                        <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR }]}>
+                        <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, fontSize : scaleFont(13) }]}>
                             {moment(item?.createdDate).format("MM/DD/YYYY")}
                         </Text>
-                        <Text style={[styles.txtDate, { fontFamily: fonts.LIGHT }]}>
+                        <Text style={[styles.txtDate, { fontFamily: fonts.LIGHT, fontSize : scaleFont(13) }]}>
                             {moment(item?.createdDate).format("hh:mm A")}
                         </Text>
                     </View>
@@ -41,7 +41,7 @@ export const DataList = ({
                     </Text>
                 )
             case "status":
-                return <Text style={[styles.txt, { fontFamily: fonts.REGULAR, color: "#404040" }]}>
+                return <Text style={[styles.txt, { fontFamily: fonts.REGULAR, color: "#404040" , fontSize : scaleFont(13)}]}>
                     {item?.status}
                 </Text>
             case "payment":
@@ -121,12 +121,12 @@ const styles = StyleSheet.create({
 
     },
     txt: {
-        fontSize: scaleFont(13),
+        fontSize: scaleFont(14),
         fontFamily: fonts.REGULAR,
         color: "#404040"
     },
     txtDate: {
-        fontSize: scaleFont(13),
+        fontSize: scaleFont(14),
         fontFamily: fonts.LIGHT,
         color: "#404040"
     },

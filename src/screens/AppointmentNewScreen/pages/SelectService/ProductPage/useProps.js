@@ -8,7 +8,6 @@ export const useProps = (_params) => {
 
     const categoryRef = React.useRef();
     const sectionListRef = React.useRef();
-    const dialogActiveGiftCard = React.useRef();
 
     const {
         category: { category = [] },
@@ -36,21 +35,6 @@ export const useProps = (_params) => {
         categoryList,
         data,
         productsBooking,
-        dialogActiveGiftCard,
-
-
-        showDialogGiftCard: () => {
-            dialogActiveGiftCard?.current?.show();
-        },
-
-        hideDialogGiftCard : () =>{
-        },
-
-        onCheckGiftCardSucces : (data) =>{
-            dialogActiveGiftCard?.current?.hide();
-            NavigationService.navigate(screenNames.EnterGiftCardAmount, { giftCardInfo : data });
-            console.log({ data });
-        },
 
         selectProduct: (item) => {
             NavigationService.navigate(screenNames.SelectProductDetail, { item });
