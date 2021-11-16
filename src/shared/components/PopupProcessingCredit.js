@@ -30,10 +30,8 @@ export const PopupProcessingCredit = React.forwardRef(
         };
 
         const onHandleYESButtonPress = () => {
-            hideModal();
             if (onConfirmYes && typeof onConfirmYes === "function") {
                 onConfirmYes();
-                hideModal();
             }
         };
 
@@ -67,7 +65,7 @@ export const PopupProcessingCredit = React.forwardRef(
 
                         <View style={styles.indicator} >
                             <ActivityIndicator
-                                size={'large'}
+                                size={'small'}
                                 color="rgb(83,157,209)"
 
                             />

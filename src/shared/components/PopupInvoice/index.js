@@ -84,6 +84,7 @@ export const PopupInvoice = React.forwardRef(
     ...getGroupAppointmentById(appointmentId),
     enabled: false,
     onSuccess: async (data, response) => {
+      console.log('getGroupAppointment', appointmentId)
       if (response?.codeNumber == 200) {
         setGroupAppointment(data);
       }

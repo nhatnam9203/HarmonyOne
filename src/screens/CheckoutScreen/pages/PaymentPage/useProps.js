@@ -71,6 +71,7 @@ export const useProps = (props) => {
   const [connectionSignalR, setConnectionSignalR] = React.useState(null);
   const [paymentDetail, setPaymentDetail] = React.useState(null);
   const [errorMessageFromPax, setErrorMessageFromPax] = React.useState("");
+  const [isSubmitCheckoutCreditCard, setIsSubmitCheckoutCreditCard] = React.useState(false);
 
 
  /************************************* useEffect *************************************/
@@ -134,8 +135,15 @@ export const useProps = (props) => {
     queryId : "refetchGroupAppointment",
     enabled: false,
     onSuccess: async (data, response) => {
+      console.log('fetchGroupApointmentById')
       if (response?.codeNumber == 200) {
         dispatch(appointment.setGroupAppointment(data));
+        if (isSubmitCheckoutCreditCard) {
+          setIsSubmitCheckoutCreditCard(false);
+          const body = checkoutSubmit(payAppointmentId);
+          applyCheckoutSubmit(body.params);
+          
+        }
       }
     }
   });
@@ -148,6 +156,7 @@ export const useProps = (props) => {
     queryId : "fetchByDate_checkoutPage",
     enabled: false,
     onSuccess: (data, response) => {
+      console.log('fetchAppointmentByDate')
       dispatch(appointment.setBlockTimeBydate(data));
       NavigationService.navigate(screenNames.AppointmentScreen);
       dispatch(bookAppointment.resetBooking());
@@ -160,6 +169,11 @@ export const useProps = (props) => {
     ...cancelHarmonyPayment(),
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
+        if (methodPay.method === "credit_card") {
+          setTimeout(() => {
+            popupErrorMessageRef?.current?.show();
+          }, 300);
+        }
         console.log('setMethodPay null')
         setMethodPay(null);
         setPayAppointmentId(null);
@@ -180,8 +194,9 @@ export const useProps = (props) => {
     enabled: false,
     isLoadingDefault : false,
     onSuccess: async (data, response) => {
-      const body = await checkoutSubmit(payAppointmentId);
-      applyCheckoutSubmit(body.params);
+      setIsSubmitCheckoutCreditCard(true);
+      fetchGroupApointmentById();
+      
     }
   });
 
@@ -313,6 +328,7 @@ export const useProps = (props) => {
     parameter
   ) =>  {
     popupProcessingRef?.current?.hide();
+    
     console.log('start handleResponseCreditCardDejavoo')
     try {
       parseString(message, (err, result) => {
@@ -329,14 +345,15 @@ export const useProps = (props) => {
               status: "transaction fail",
               note: resultTxt,
             }
+            setErrorMessageFromPax(resultTxt);
             const body = cancelHarmonyPayment(payAppointmentId, data)
             console.log('cancel', body)
             submitCancelHarmonyPayment(body.params);
           }
-          setTimeout(() => {
-            setErrorMessageFromPax(resultTxt);
-            popupErrorMessageRef?.current?.show();
-          }, 300);
+          // setTimeout(() => {
+          //   setErrorMessageFromPax(resultTxt);
+          //   popupErrorMessageRef?.current?.show();
+          // }, 300);
         } else {
           console.log('handleResponseCreditCardDejavoo success', payAppointmentId)
           const SN = _.get(result, 'xmp.response.0.SN.0');
@@ -417,12 +434,15 @@ export const useProps = (props) => {
     // -------- Pass data to Invoice --------
     dialogSuccessRef?.current?.hide();
 
-    invoiceRef.current?.showAppointmentReceipt({
-      appointmentId: groupAppointments?.mainAppointmentId,
-      checkoutId: paymentDetail?.invoiceNo,
-      isPrintTempt: isTemptPrint,
-      machineType: paymentMachineType,
-    });
+    setTimeout(() => {
+      invoiceRef.current?.showAppointmentReceipt({
+        appointmentId: groupAppointments?.mainAppointmentId,
+        checkoutId: paymentDetail?.invoiceNo,
+        isPrintTempt: isTemptPrint,
+        machineType: paymentMachineType,
+      });
+    }, 300);
+    
   };
 
   const printBill = async () => {
@@ -518,16 +538,10 @@ export const useProps = (props) => {
         dialogActiveGiftCard?.current?.hide();
       }, 200);
     },
-
-    // onOK: () => {
-    //   fetchAppointmentByDate();
-    //   const statusSendLink = dialogSuccessRef?.current?.getStatusSendLink();
-    //   if(statusSendLink){
-    //     sendLinkGoogle();
-    //   }
-    // },
     onCancelTransactionCredit: () => {
-      alert("Please wait!")
+      setTimeout(() => {
+        alert("Please wait!")
+      }, 300);
     },
     printBill,
     donotPrintBill,
