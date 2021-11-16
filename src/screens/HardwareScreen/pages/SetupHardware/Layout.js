@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, Keyboard } 
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors, images } from "@shared/themes";
-import { Button } from "@shared/components";
+import { Button, SettingTextInput } from "@shared/components";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { 
     PaymentTerminalType,
@@ -35,40 +35,12 @@ export const Layout = ({
                             ? images.radioExportSe 
                             : images.radioExport;
 
-    const ItemSetup = ({ title, value, placeholder, onChangeText, keyboardType, style }) => {
-        return (
-            <View style={[{ flexDirection: 'row', marginTop: scaleHeight(20), }]} >
-                <View style={{ width: scaleWidth(140), justifyContent: 'center', }} >
-                    <Text style={{ fontSize: scaleFont(13), color: 'rgb(42,42,42)' }} >
-                        {title}
-                    </Text>
-                </View>
-                <View style={[{ flex: 1, },]} >
-                    <View style={[{
-                        height: scaleHeight(35), width: '85%', borderColor: 'rgb(227,227,227)',
-                        borderWidth: scaleWidth(1), paddingHorizontal: scaleHeight(10)
-                    }, style]} >
-                        <TextInput
-                            style={{ flex: 1, fontSize: scaleFont(14) }}
-                            placeholder={placeholder}
-                            value={value}
-                            onChangeText={(value) => onChangeText(value)}
-                            keyboardType={keyboardType}
-                        />
-                    </View>
-                </View>
-            </View>
-        );
-
-    }
-                            
-  
   return (
     <View style={styles.container}>
       <SingleScreenLayout
         pageTitle={t('Hardwares')}      
         isScrollLayout={false}
-        containerStyle={{ paddingVertical: 0 }}
+        containerStyle={{ paddingVertical: 0, justifyContent: 'space-between' }}
       >
         <KeyboardAwareScrollView 
             style={styles.content}>
@@ -128,17 +100,17 @@ export const Layout = ({
             <View>
                 {
                     (terminalName === PaymentTerminalType.Dejavoo) &&
-                    <ItemSetup
+                    <SettingTextInput
                         title={t('Name')}
                         placeholder={t('Device name')}
                         value={name}
-                        onChangeText={name => changeName(name)}
+                        onChangeText={changeName}
                     />
                 }
 
                 {
                     terminalName === PaymentTerminalType.Clover &&
-                    <ItemSetup
+                    <SettingTextInput
                         title={t('Serial Number')}
                         placeholder={t('Serial Number')}
                         value={serialNumber}
@@ -148,13 +120,13 @@ export const Layout = ({
 
                 {
                     terminalName === PaymentTerminalType.Dejavoo && <>
-                        <ItemSetup
+                        <SettingTextInput
                             title={t('Register ID')}
                             placeholder={t('Register ID')}
                             value={registerId}
                             onChangeText={registerId => changeRegisterId(registerId)}
                         />
-                        <ItemSetup
+                        <SettingTextInput
                             title={t('Auth Key')}
                             placeholder={t('Auth Key')}
                             value={authKey}
@@ -165,7 +137,7 @@ export const Layout = ({
 
                 {
                     terminalName === PaymentTerminalType.Clover ? <>
-                        <ItemSetup
+                        <SettingTextInput
                             title={t('IP Address')}
                             placeholder={"192.168.1.1"}
                             value={ip}
@@ -173,7 +145,7 @@ export const Layout = ({
                             keyboardType="numeric"
                         />
 
-                        <ItemSetup
+                        <SettingTextInput
                             title={t('Port')}
                             placeholder={'12345'}
                             value={port}
@@ -198,7 +170,7 @@ export const Layout = ({
                     onPress={cancelSetupPax}
                     styleText={{ fontSize: scaleFont(16), fontWeight: '500' }}
                 />
-                <View style={{ width: scaleWidth(100) }} />
+                <View style={{ width: scaleWidth(50) }} />
                 <Button
                     width={scaleWidth(130)}
                     height={50}

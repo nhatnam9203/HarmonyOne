@@ -49,3 +49,4 @@ export * from "./PopupInvoice";
 export * from "./DialogActiveGiftCard";
 export * from "./GiftCardScanner";
 export * from "./AppointmentGiftCardItem";
+export * from "./SettingTextInput";
