@@ -180,9 +180,8 @@ export const useProps = (props) => {
     enabled: false,
     isLoadingDefault : false,
     onSuccess: async (data, response) => {
-      setTimeout(() => {
-        dialogSuccessRef?.current?.show();
-      }, 300);
+      const body = await checkoutSubmit(payAppointmentId);
+      applyCheckoutSubmit(body.params);
     }
   });
 
