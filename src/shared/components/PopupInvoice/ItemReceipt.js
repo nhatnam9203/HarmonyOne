@@ -1,4 +1,4 @@
-import { formatMoney } from "@utils";
+import { formatMoney } from "@shared/utils";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 

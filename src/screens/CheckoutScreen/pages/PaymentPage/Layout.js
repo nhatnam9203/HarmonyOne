@@ -127,7 +127,7 @@ export const Layout = ({
 
             <PopupInvoice
                 ref={invoiceRef}
-                cancelInvoicePrint={() => cancelInvoicePrint()} 
+                cancelInvoicePrint={cancelInvoicePrint} 
             />
 
         </View>

@@ -85,7 +85,6 @@ export const PopupInvoice = React.forwardRef(
     ...getGroupAppointmentById(appointmentId),
     enabled: false,
     onSuccess: async (data, response) => {
-      console.log('getGroupAppointment', appointmentId)
       if (response?.codeNumber == 200) {
         setGroupAppointment(data);
       }
@@ -106,11 +105,6 @@ export const PopupInvoice = React.forwardRef(
   | FUNCTION
   |--------------------------------------------------
   */
-
-    const hideModal = () => {
-      setOpen(false);
-      onModalHide();
-    };
 
     const reset = async () => {
       setGroupAppointment(null);
@@ -272,7 +266,6 @@ export const PopupInvoice = React.forwardRef(
     };
 
     const onCancel = (temp) => {
-      hideModal();
       if (
         cancelInvoicePrint &&
         typeof cancelInvoicePrint === "function" &&
@@ -386,7 +379,6 @@ export const PopupInvoice = React.forwardRef(
           }
         }
       } catch (error) {
-        console.log(`Printer error with ${error}`);
         alert(`Printer error with ${error}`);
         onCancel();
       }
@@ -409,7 +401,6 @@ export const PopupInvoice = React.forwardRef(
           });
         }
       } catch (error) {
-        console.log(error);
         await setVisible(false);
       }
     };
@@ -441,12 +432,11 @@ export const PopupInvoice = React.forwardRef(
             printerSelect
           );
 
-          //hard code
-          // if (!portName && machineType !== "Clover") {
-          //   onCancel(isPrintTempt);
-          //   alert("Please connect to your printer! ");
-          //   return;
-          // }
+          if (!portName && machineType !== "Clover") {
+            onCancel(isPrintTempt);
+            alert("Please connect to your printer! ");
+            return;
+          }
         }
 
         setPrintTempt(isPrintTempt);

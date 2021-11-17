@@ -18,6 +18,7 @@ import {
   guid,
   stringIsEmptyOrWhiteSpaces,
   getInfoFromModelNameOfPrinter,
+  PaymentTerminalType
  } from "@shared/utils";
 import PrintManager from "@lib/PrintManager";
 import {
@@ -111,6 +112,7 @@ export const useProps = (props) => {
         );
         if (dueAmount == 0) {
           dialogSuccessRef?.current?.show();
+          
           return;
         }
         if (dueAmount < 0) {
@@ -122,7 +124,6 @@ export const useProps = (props) => {
           fetchGroupApointmentById();
           setPaymentDetail(response?.data);
           popupPaymentDetailRef?.current?.show();
-          console.log('set setMethodPay null')
           setMethodPay(null);
         }
       }
@@ -135,7 +136,6 @@ export const useProps = (props) => {
     queryId : "refetchGroupAppointment",
     enabled: false,
     onSuccess: async (data, response) => {
-      console.log('fetchGroupApointmentById')
       if (response?.codeNumber == 200) {
         dispatch(appointment.setGroupAppointment(data));
         if (isSubmitCheckoutCreditCard) {
@@ -156,7 +156,6 @@ export const useProps = (props) => {
     queryId : "fetchByDate_checkoutPage",
     enabled: false,
     onSuccess: (data, response) => {
-      console.log('fetchAppointmentByDate')
       dispatch(appointment.setBlockTimeBydate(data));
       NavigationService.navigate(screenNames.AppointmentScreen);
       dispatch(bookAppointment.resetBooking());
@@ -174,7 +173,6 @@ export const useProps = (props) => {
             popupErrorMessageRef?.current?.show();
           }, 300);
         }
-        console.log('setMethodPay null')
         setMethodPay(null);
         setPayAppointmentId(null);
         changeStatusCancelHarmony(false);
@@ -213,7 +211,6 @@ export const useProps = (props) => {
 
   /************************************* HANDLE HARMONY PAYMENT SUCCESS *************************************/
   const handleHarmonyPayment = (checkoutPayment) => {
-    console.log('setMethodPay null')
     setMethodPay(null);
     setPayAppointmentId(null);
     changeStatusCancelHarmony(false);
@@ -310,9 +307,7 @@ export const useProps = (props) => {
       invNum: `${groupAppointments?.checkoutGroupId || 0}`,
       dejavooMachineInfo,
     };
-    console.log(parameter)
     const responses = await requestTransactionDejavoo(parameter)
-    console.log(responses)
     handleResponseCreditCardDejavoo(
       responses,
       true,
@@ -329,17 +324,14 @@ export const useProps = (props) => {
   ) =>  {
     popupProcessingRef?.current?.hide();
     
-    console.log('start handleResponseCreditCardDejavoo')
     try {
       parseString(message, (err, result) => {
-        console.log('handleResponseCreditCardDejavoo', err, result)
         if (err || _.get(result, 'xmp.response.0.ResultCode.0') != 0) {
           let detailMessage = _.get(result, 'xmp.response.0.RespMSG.0', "").replace(/%20/g, " ")
           detailMessage = !stringIsEmptyOrWhiteSpaces(detailMessage) ? `: ${detailMessage}` : detailMessage
           
           const resultTxt = `${_.get(result, 'xmp.response.0.Message.0')}${detailMessage}`
                             || "Transaction failed";
-          console.log('handleResponseCreditCardDejavoo fale', payAppointmentId)
           if (payAppointmentId) {
             const data = {
               status: "transaction fail",
@@ -347,15 +339,9 @@ export const useProps = (props) => {
             }
             setErrorMessageFromPax(resultTxt);
             const body = cancelHarmonyPayment(payAppointmentId, data)
-            console.log('cancel', body)
             submitCancelHarmonyPayment(body.params);
           }
-          // setTimeout(() => {
-          //   setErrorMessageFromPax(resultTxt);
-          //   popupErrorMessageRef?.current?.show();
-          // }, 300);
         } else {
-          console.log('handleResponseCreditCardDejavoo success', payAppointmentId)
           const SN = _.get(result, 'xmp.response.0.SN.0');
           if(!stringIsEmptyOrWhiteSpaces(SN)){
             dispatch(hardware.setDejavooMachineSN(SN));
@@ -367,16 +353,13 @@ export const useProps = (props) => {
                                                     moneyUserGiveForStaff,
                                                     "dejavoo",
                                                     parameter)
-          console.log('submitPaymentWithCreditCard', body.params)
           submitPaymentCreditCard(body.params);
         }
       });
     } catch (error) {
-      console.log(error)
     }
   }
   const donotPrintBill = async () => {
-    console.log('donotPrintBill')
     if (connectionSignalR) {
       connectionSignalR?.stop();
     }
@@ -386,7 +369,6 @@ export const useProps = (props) => {
     
     dialogSuccessRef?.current?.hide()
 
-    console.log('methodPay', methodPay.method)    
     if (methodPay.method === "cash" || methodPay.method === "other") {
       const { portName } = getInfoFromModelNameOfPrinter(
         printerList,
@@ -402,7 +384,6 @@ export const useProps = (props) => {
       }
     } 
 
-    console.log('setMethodPay null')
     setMethodPay(null);
     setPayAppointmentId(null);
 
@@ -430,7 +411,6 @@ export const useProps = (props) => {
   };
 
   const showInvoicePrint = async (isTemptPrint = true) => {
-    console.log("showInvoicePrint")
     // -------- Pass data to Invoice --------
     dialogSuccessRef?.current?.hide();
 
@@ -446,7 +426,6 @@ export const useProps = (props) => {
   };
 
   const printBill = async () => {
-    console.log('printBill')
     const { portName } = getInfoFromModelNameOfPrinter(
       printerList,
       printerSelect
@@ -459,11 +438,9 @@ export const useProps = (props) => {
       setConnectionSignalR(null);
     }, 300);
 
-    //hard code
-    // if (paymentMachineType !== "Clover" && !portName) {
-    //   alert("Please connect to your printer!");
-    // } else {
-      console.log('payment method', methodPay.method)
+    if (paymentMachineType !== PaymentTerminalType.Clover && !portName) {
+      alert("Please connect to your printer!");
+    } else {
        if(methodPay.method == "cash" 
           || methodPay.method == "other") {
         //Will open when integrate clover
@@ -473,7 +450,7 @@ export const useProps = (props) => {
           openCashDrawer(portName);
         }
         showInvoicePrint(false);
-    // }
+    }
 
     const statusSendLink = dialogSuccessRef?.current?.getStatusSendLink();
     if(statusSendLink){
@@ -496,7 +473,6 @@ export const useProps = (props) => {
     paymentDetail,
 
     onChangeMethodPay: (item) => {
-      console.log('setMethodPay', item)
       setMethodPay(item);
       if (item?.method == "giftcard") {
         dialogActiveGiftCard?.current?.show();
