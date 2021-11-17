@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TouchableNativeFeedback } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, CustomInput, InputText, Button } from "@shared/components";
@@ -28,22 +28,22 @@ export const Layout = ({
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={t('Enter amount')}
+                pageTitle={t('Gift Card')}
                 isLeft={true}
                 isRight={false}
                 isScrollLayout={false}
                 containerStyle={{ paddingVertical: 0 }}
             >
-                <View style={styles.content}>
+                <TouchableNativeFeedback onPress={()=>Keyboard.dismiss()} style={styles.content}>
 
-                    <Text style={styles.txtTotal}>Gift Card Amount</Text>
+                    {/* <Text style={styles.txtTotal}>Gift Card Amount</Text>
 
                     <View style={styles.wrapPrice}>
                         <Text style={styles.priceTotal}>{ giftCardInfo?.isActive == 1 ? "$ 0.00" : `$ ${giftCardInfo?.amount}`}</Text>
-                    </View>
+                    </View> */}
 
                     <CustomInput
-                        label='Amount'
+                        label='Enter the amount'
                         error={errors?.amount}
                         renderInput={() =>
                             <InputText
@@ -79,10 +79,10 @@ export const Layout = ({
                         <Text style={styles.txtExact}>Exact</Text>
                     </TouchableOpacity> */}
 
-                </View>
+                </TouchableNativeFeedback>
                 <View style={styles.bottom}>
                     <Button
-                        label="Done"
+                        label="Add"
                         onPress={form.handleSubmit(onSubmit)}
                         highlight={true}
                         width={'100%'}

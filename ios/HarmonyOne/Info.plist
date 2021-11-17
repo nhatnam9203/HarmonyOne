@@ -95,6 +95,11 @@
 		<string>SF Pro Text RegularItalic.ttf</string>
 		<string>SF Pro Text SemiBold.ttf</string>
 		<string>SF Pro Text SemiBoldItalic.ttf</string>
+		<string>SFProText-Bold.ttf</string>
+		<string>SFProText-Italic.ttf</string>
+		<string>SFProText-Light.ttf</string>
+		<string>SFProText-Medium.ttf</string>
+		<string>SFProText-Regular.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

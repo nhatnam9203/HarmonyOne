@@ -10,6 +10,19 @@ import NavigationService from '@navigation/NavigationService';
 import ViewShot from "react-native-view-shot";
 import moment from "moment";
 
+const switchMethodText = (method) => {
+
+  switch (method) {
+    case "other":
+      return "Other - Check";
+    case "cash":
+      return "Cash"
+
+    default:
+      return method;
+  }
+}
+
 
 export const Layout = ({
   invoiceDetail,
@@ -196,7 +209,7 @@ export const Layout = ({
                   key={pay?.checkoutPaymentId + "checkoutPaymentId"}
                   style={[styles.row, { marginTop: scaleHeight(12), justifyContent: "space-between" }]}>
                   <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
-                    Entry method: {pay?.paymentMethod}
+                    Entry method: {switchMethodText(pay?.paymentMethod)}
                   </Text>
                   <Text style={[styles.text, { fontFamily: fonts.MEDIUM, marginLeft: scaleWidth(16) }]}>
                     $ {pay?.amount}

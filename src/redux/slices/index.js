@@ -16,6 +16,7 @@ import editAppointmentSlice from "./editAppointmentSlice";
 import invoiceSlice from "./invoiceSlice";
 import settlementSlice from "./settlementSlice";
 import reportSlice from "./reportSlice";
+import hardwareSlice from "./hardwareSlice";
 import dataLocalSlice from "./dataLocalSlice";
 
 const rootReducers = Object.assign(
@@ -39,7 +40,8 @@ const rootReducers = Object.assign(
     invoice : invoiceSlice.reducer,
     settlement : settlementSlice.reducer,
     report : reportSlice.reducer,
-    dataLocal : dataLocalSlice.reducer
+    hardware: hardwareSlice.reducer,
+    dataLocal : dataLocalSlice.reducer,
   },
 );
 
@@ -63,5 +65,6 @@ module.exports = {
   invoice : invoiceSlice.actions,
   settlement : settlementSlice.actions,
   report : reportSlice.actions,
-  dataLocal : dataLocalSlice.actions
+  hardware: hardwareSlice.actions,
+  dataLocal : dataLocalSlice.actions,
 };

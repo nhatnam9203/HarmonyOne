@@ -62,7 +62,6 @@ export const useProps = (props) => {
 
 
   return {
-
     form,
     errors,
     amount,

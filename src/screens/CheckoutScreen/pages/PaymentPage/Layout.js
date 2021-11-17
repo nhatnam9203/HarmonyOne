@@ -2,7 +2,16 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { IconButton, CustomInput, InputText, Button, DialogSuccess, DialogLoading } from "@shared/components";
+import { IconButton, 
+         CustomInput, 
+         InputText, 
+         Button, 
+         DialogSuccess, 
+         PopupProcessingCredit,
+         PopupErrorMessage, 
+         PopupPayCompleted,
+         PopupInvoice,
+        } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { ItemsPay } from "./ItemsPay";
@@ -18,12 +27,22 @@ export const Layout = ({
     dialogSuccessRef,
     popupChangeRef,
     popupPaymentDetailRef,
+    popupProcessingRef,
+    popupErrorMessageRef,
+    invoiceRef,
+    errorMessageFromPax,
     dialogActiveGiftCard,
     onOK,
     onPayGiftCard,
     isCancelHarmony,
     cancelHarmonyPay,
     paymentDetail,
+    onCancelTransactionCredit,
+    printBill,
+    donotPrintBill,
+    merchant,
+    groupAppointments,
+    cancelInvoicePrint,
 }) => {
 
     const [t] = useTranslation();
@@ -82,10 +101,33 @@ export const Layout = ({
                 />
             </SingleScreenLayout>
 
-            <DialogLoading
+            {/* <DialogLoading
                 ref={dialogSuccessRef}
                 title="Transaction completed"
                 onConfirmYes={() => onOK()}
+            /> */}
+
+            <PopupProcessingCredit
+                ref={popupProcessingRef}
+                onConfirmYes={() => onCancelTransactionCredit()}
+            />
+
+            <PopupErrorMessage
+                ref={popupErrorMessageRef}
+                title={t("Trasaction Fail")}
+                message={errorMessageFromPax}
+            />
+
+            <PopupPayCompleted
+                ref={dialogSuccessRef}
+                title="Transaction completed"
+                onConfirmYes={printBill}
+                onConfirmNo={donotPrintBill}
+            />
+
+            <PopupInvoice
+                ref={invoiceRef}
+                cancelInvoicePrint={cancelInvoicePrint} 
             />
 
         </View>

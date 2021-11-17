@@ -202,7 +202,7 @@ android {
         }
         stagingrelease {
             initWith release
-            // applicationIdSuffix '.stagingrelease'
+            applicationIdSuffix '.staging'
             matchingFallbacks =  ['release']
             resValue 'string', 'CodePushDeploymentKey', 'ORxuy8VaacDQhXYEWxIJjPB8Xc2g4rsCzqxcm'
             resValue 'string', 'app_name', '@string/app_name_staging'

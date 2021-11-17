@@ -11,12 +11,14 @@ import {
 } from "@src/apis";
 import { useDispatch } from "react-redux";
 import { appointment } from "@redux/slices";
+import { isEmpty } from "lodash";
 
 
 export const TotalView = ({
-    appointmentDetail,
     groupAppointments
 }) => {
+
+    const appointmentDetail = !isEmpty(groupAppointments) ? groupAppointments?.appointments[0] : {};
     const dispatch = useDispatch();
 
     const [, fetchPromotionAppointment] = useAxiosQuery({
@@ -121,11 +123,11 @@ export const TotalView = ({
                 groupAppointments?.checkoutPayments && groupAppointments?.checkoutPayments?.length > 0 &&
                 groupAppointments?.checkoutPayments?.map(item => (
                     <View style={styles.row}>
-                        <Text style={[styles.text, { fontFamily: fonts.MEDIUM}]}>
+                        <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                             Paid
-                            <Text style={{ fontFamily : fonts.REGULAR }}>{` (${item?.paymentMethod})`}</Text>
+                            <Text style={{ fontFamily: fonts.REGULAR }}>{` (${item?.paymentMethod})`}</Text>
                         </Text>
-                        <Text style={[styles.text, { fontFamily: fonts.MEDIUM}]}>
+                        <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                             {`$ ${item.amount}`}
                         </Text>
                     </View>

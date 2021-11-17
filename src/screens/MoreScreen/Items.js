@@ -74,7 +74,9 @@ export const items = [
   {
     title: "Hardware",
     icon: images.iconHardware,
-    onPress: () => { }
+    onPress: () => { 
+      NavigationService.navigate(screenNames.HardwareScreen)
+    }
   },
   {
     title: "Settings",

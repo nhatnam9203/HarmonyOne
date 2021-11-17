@@ -2,6 +2,7 @@ package com.harmonypay.one;
 
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen; // here
+import android.os.Bundle; // required for onCreate parameter
 
 public class MainActivity extends ReactActivity {
 

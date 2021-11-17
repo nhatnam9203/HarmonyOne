@@ -12,6 +12,7 @@ const initialState = {
   groupAppointments: [],
   promotionAppointment: [],
   discount : [],
+  startProcessingPax: false,
 };
 
 const appointmentSlice = createSlice({

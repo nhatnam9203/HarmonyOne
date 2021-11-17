@@ -32,9 +32,9 @@ export const CustomActionSheet = React.forwardRef(
                 onBackdropPress={onModalHide}
                 style={styles.modal}
             >
-                <SafeAreaView style={styles.container}>
+                <View style={styles.container}>
                     {children}
-                </SafeAreaView>
+                </View>
             </CustomModal>
         );
     },
@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 0,
-        width: '100%',
     },
 
     content: {

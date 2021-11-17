@@ -53,6 +53,11 @@ export const useProps = (_params) => {
 
   const [, submitReadNotification] = useAxiosMutation({
     ...maskNotiAsReadById(),
+    onSuccess : (data, response) =>{
+      if(response?.codeNumber == 200){
+        fetchCountUnread();
+      }
+    }
   });
 
   const [, submitReadAllNotification] = useAxiosMutation({

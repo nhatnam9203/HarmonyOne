@@ -103,6 +103,7 @@ export const images = {
   iconReportService: require('@src/assets/images/iconReportService.png'),
   iconReportGiftcard: require('@src/assets/images/iconReportGiftcard.png'),
   iconReportProduct: require('@src/assets/images/iconReportProduct.png'),
+  loa: require('@src/assets/images/loa.png'),
   sortDown: require('@src/assets/images/down.png'),
   sortUp: require('@src/assets/images/up.png'),
   sortNone: require('@src/assets/images/sort_none.png'),
@@ -134,7 +135,14 @@ export const images = {
   buttonPlus: require('@src/assets/home/button_plus.png'),
   arrowRight: require('@src/assets/images/arrowRight.png'),
   treedot: require('@src/assets/home/treedot.png'),
-
+  danger: require('@src/assets/images/danger.png'),
+  checkBox: require('@src/assets/images/check-box.png'),
+  checkBoxEmpty: require('@src/assets/images/check-box-empty.png'),
+  paymentHardware: require('@src/assets/images/pax.png'),
+  printHardware: require('@src/assets/images/print_hardware.png'),
+  deleteIconBanner: require('@src/assets/images/deleteIconBanner.png'),
+  radioExportSe: require('@src/assets/images/radioExportSe.png'),
+  radioExport: require('@src/assets/images/radioExport.png'),
 };
 
 export const svg = {

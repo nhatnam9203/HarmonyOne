@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native'
 import { fonts, colors } from '@shared/themes';
 import { removeAccent, guid } from "@shared/utils";
 import { images } from "@shared/themes/resources";
@@ -52,7 +52,7 @@ export const InputState = ({
     return (
         <View style={[
             styles.containerInput,
-            { marginBottom: data?.length > 0 ? scaleHeight(data.length * 20 + 20) : 0 }
+            { marginBottom: (data?.length > 0 && Platform.OS == "ios") ? scaleHeight(data.length * 20 + 20) : 0 }
         ]}>
             {
                 field.value?.length > 0 &&
@@ -89,12 +89,12 @@ export const InputState = ({
                     paddingRight: scaleWidth(45),
                     borderColor: isFocus ? colors.ocean_blue : "#cccccc"
                 }}
-                style={{ flex: 1, fontSize: scaleWidth(16), padding: 0, color: "#000" }}
+                style={{ fontSize: scaleWidth(16), padding: 0, color: "#000" }}
                 onFocus={() => setFocus(true)}
                 onBlur={() => setFocus(false)}
                 keyExtractor={(item, index) => `${item}_${index}`}
                 listContainerStyle={{
-                    borderWidth: 0
+                    borderWidth: 0,
                 }}
             />
 
@@ -107,11 +107,13 @@ export const InputState = ({
 const styles = StyleSheet.create({
     containerInput: {
         position: 'relative',
-        marginBottom: scaleHeight(20)
+
+        // marginBottom: scaleHeight(20)
     },
 
     wrapItem: {
-        height: scaleWidth(35),
+        height: scaleWidth(42),
+        width : scaleWidth(375),
         backgroundColor: "white",
         zIndex: 9999,
         justifyContent: 'center',
