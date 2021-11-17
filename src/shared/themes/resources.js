@@ -134,7 +134,14 @@ export const images = {
   buttonPlus: require('@src/assets/home/button_plus.png'),
   arrowRight: require('@src/assets/images/arrowRight.png'),
   treedot: require('@src/assets/home/treedot.png'),
-
+  danger: require('@src/assets/images/danger.png'),
+  checkBox: require('@src/assets/images/check-box.png'),
+  checkBoxEmpty: require('@src/assets/images/check-box-empty.png'),
+  paymentHardware: require('@src/assets/images/pax.png'),
+  printHardware: require('@src/assets/images/print_hardware.png'),
+  deleteIconBanner: require('@src/assets/images/deleteIconBanner.png'),
+  radioExportSe: require('@src/assets/images/radioExportSe.png'),
+  radioExport: require('@src/assets/images/radioExport.png'),
 };
 
 export const svg = {

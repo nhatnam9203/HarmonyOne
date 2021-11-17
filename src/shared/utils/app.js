@@ -2,6 +2,7 @@ import moment from 'moment';
 import { images } from "../themes/resources";
 import RNFetchBlob from 'rn-fetch-blob';
 import { Platform } from "react-native";
+import PrintManager from "@lib/PrintManager";
 import Share from "react-native-share"
 
 export const sleep = (ms) => {
@@ -450,8 +451,144 @@ export const handleFileDownloaed = async (path, exportType, fileName) => {
   }
 }
 
+export const getTitleSendLinkGoogle = (value) => {
+  let title = "";
+  switch (value) {
+    case "auto":
+      title = "Automatic";
+      break;
+    case "manual":
+      title = "Manually";
+      break;
+    case "off":
+      title = "Off";
+      break;
+    default:
+      title = "Manually";
+  }
+  return title;
+};
+
+export const stringIsEmptyOrWhiteSpaces = (str) => {
+  return str == null || str == undefined || (typeof str === 'string' && str.trim().length == 0)
+}
+
+export const getStaffNameForInvoice = (profileStaffLogin = {}, basket = []) => {
+  // const staffNameLogin = profileStaffLogin.displayName ? profileStaffLogin.displayName : "";
+
+  let staffArr = [];
+  for (let i = 0; i < basket.length; i++) {
+    if (basket[i].type === "Service") {
+      let temptName =
+        basket[i].staff && basket[i].staff.displayName
+          ? basket[i].staff.displayName
+          : "";
+      staffArr.push(temptName);
+    }
+  }
+
+  const staffs = [...new Set(staffArr)];
+  return staffs.length > 0 ? staffs.join(", ") : "";
+};
+
+export const getPaymentString = (type) => {
+  let method = "";
+  switch (type) {
+    case "harmony":
+      method = "HarmonyPay";
+      break;
+    case "cash":
+      method = "Cash";
+      break;
+    case "credit_card":
+      method = "Credit Cards";
+      break;
+    case "other":
+      method = "Other - Check";
+      break;
+    case "giftcard":
+      method = "Gift Card";
+      break;
+
+    default:
+      method = "Debit Cards";
+  }
+  return method;
+};
+
+export const getInfoFromModelNameOfPrinter = (
+  printers = [],
+  modelName = []
+) => {
+  let emulation = "";
+  let widthPaper = "";
+  let portName = "";
+
+  for (let i = 0; i < printers.length; i++) {
+    const printer = printers[i];
+    if (printer.modelName == modelName) {
+      portName = printer.portName;
+      break;
+    }
+  }
+
+  if (portName) {
+    const tempPortName = `${modelName}`.toLowerCase();
+    if (tempPortName.indexOf("pop") != -1) {
+      emulation = "StarPRNT";
+      widthPaper = "400";
+    } else if (tempPortName.indexOf("tsp") != -1) {
+      emulation = "StarGraphic";
+      widthPaper = "576";
+    }
+  }
+
+  return { portName, emulation, widthPaper };
+};
+
+export const getPortNameOfPrinter = (printers = [], modelName = "") => {
+  let portName = "";
+  for (let i = 0; i < printers.length; i++) {
+    const printer = printers[i];
+    if (printer.modelName == modelName) {
+      portName = printer.portName;
+      break;
+    }
+  }
+  if (portName) {
+  }
+  return portName;
+};
+
+export const getModalNameOfPrinter = (printers, tempModalName) => {
+  let modelName = "";
+  for (let i = 0; i < printers.length; i++) {
+    const printer = printers[i];
+    if (printer.modelName == tempModalName) {
+      modelName = printer.modelName;
+      break;
+    }
+  }
+  return modelName;
+};
+
+export const checkStatusPrint = async (portType = "Bluetooth") => {
+  try {
+    const printer = await PrintManager.getInstance().portDiscovery(portType);
+    return printer ? printer : [];
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const SORT_TYPE = {
   NONE: 'none',
   ASC: 'asc',
   DESC: 'desc',
 };
+
+export const PaymentTerminalType = {
+  Clover: "Clover",
+  Pax: "Pax",
+  Dejavoo: "Dejavoo",
+}

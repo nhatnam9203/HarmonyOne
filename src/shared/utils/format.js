@@ -50,6 +50,11 @@ export const formatNumberFromCurrency = currency => {
   return Number(`${currency}`.replace(/[^0-9.-]+/g, ''));
 };
 
+export const formatWithMoment = (data, key) => {
+  const temtFormatDate = moment.parseZone(data).format(key);
+  return temtFormatDate != "Invalid date" ? temtFormatDate : "";
+};
+
 export const formatMoney = (
   number,
   decimalCount = 2,

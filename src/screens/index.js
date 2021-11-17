@@ -69,7 +69,12 @@ import {
   ReportOverallPaymentMethod,
   ReportOverallMarketingEfficiency,
 } from "./ReportsScreen/pages";
-
+import { HardwareScreen } from "./HardwareScreen";
+import { 
+  AddDeviceHardware,
+  PrinterList, 
+  SetupHardware,
+} from './HardwareScreen/pages';
 import {
   ServiceDurationStatistic,
   GiftCardStatistic,
@@ -159,5 +164,9 @@ module.exports = {
   MarketingEfficiencyStatistic,
   FeedbackScreen,
   ChangePincodeScreen,
-  NewPincodeScreen
+  NewPincodeScreen,
+  HardwareScreen,
+  AddDeviceHardware,
+  PrinterList,
+  SetupHardware,
 };

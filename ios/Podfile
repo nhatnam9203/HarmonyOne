@@ -12,6 +12,8 @@ target 'HarmonyOne' do
     :hermes_enabled => false
   )
 
+  pod 'RNStarPrnt', :path => '../node_modules/react-native-star-prnt'
+
   target 'HarmonyOneTests' do
     inherit! :complete
     # Pods for testing
