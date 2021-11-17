@@ -16,6 +16,7 @@ import {
   getStaffNameForInvoice,
   PaymentTerminalType,
   stringIsEmptyOrWhiteSpaces,
+  formatMoney,
  } from "@shared/utils";
 import React from "react";
 import {
@@ -647,7 +648,6 @@ export const PopupInvoice = React.forwardRef(
                           key={index}
                           item={receiptItem}
                           index={index}
-                          type={profile.type}
                           textStyle={[layouts.fontPrintStyle]}
                         />
                       )
