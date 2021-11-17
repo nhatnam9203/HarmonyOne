@@ -22,6 +22,7 @@ export const Button = ({
   label,
   styleButton,
   styleText,
+  isTurnOff = false
 }) => {
   const [t] = useTranslation();
 
@@ -39,7 +40,7 @@ export const Button = ({
         disabled && { backgroundColor: "#EEEEEE", borderColor: "#EEEEEE" },
         styleButton,
       ]}
-      disabled={disabled || appLoading}
+      disabled={disabled || appLoading || isTurnOff}
     >
       {
         isLoading ? (

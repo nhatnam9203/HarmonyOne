@@ -134,7 +134,7 @@ export const InvoiceList = ({
             unitKeys={{ workingHour: "hrs" }}
             sortDefault="NONE"
             sortKey="invoiceNo"
-            tableCellWidth={{ user: scaleWidth(200) }}
+            tableCellWidth={{ user: scaleWidth(180) }}
             renderCell={renderCell}
             renderActionCell={() => null}
             isRefreshing={isRefresh}

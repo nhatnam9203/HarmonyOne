@@ -12,6 +12,7 @@ export const Layout = ({
   isLoading,
   forgotPinCode,
   useAnotherMID,
+  isQuickLogin
 }) => {
   const [t] = useTranslation();
 
@@ -47,7 +48,7 @@ export const Layout = ({
             cellSize={scaleWidth(26)}
             value={pinCode}
             onTextChange={onChangeInputCode}
-            autoFocus={true}
+            autoFocus={isQuickLogin ? false : true}
           />
         </View>
         <View style={styles.marginHeight} />

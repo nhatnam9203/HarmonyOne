@@ -28,18 +28,24 @@ export const useProps = (_params) => {
   } = useSelector(state => state);
 
   const [appointmentIdUpdate, setAppointmentId] = React.useState(0);
+  const [isDisabledConfirm, setDisabledConfirm] = React.useState(false);
 
   const [, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
     queryId: "etchAppointmentByDate_reviewConfirm",
-    isLoadingDefault: true,
+    isStopLoading: true,
+    isLoadingDefault: false,
     enabled: false,
     onSuccess: (data, response) => {
       dispatch(appointment.setBlockTimeBydate(data));
       if (isQuickCheckout) {
         NavigationService.navigate(screenNames.CheckoutScreen);
+        setTimeout(() => {
+          setDisabledConfirm(true);
+        }, 500);
       } else {
         dialogBookingRef?.current?.show();
+        setDisabledConfirm(true);
       }
     },
   });
@@ -112,7 +118,7 @@ export const useProps = (_params) => {
           status: response?.data.status,
           categories: response?.data.categories,
           services: reduceServices(
-            [...response?.data.services].map(obj => ({ ...obj, fromTime : obj?.fromTime })),
+            [...response?.data.services].map(obj => ({ ...obj, fromTime: obj?.fromTime })),
             response?.data?.extras
           ),
           extras: response?.data.extras,
@@ -165,6 +171,7 @@ export const useProps = (_params) => {
     timeBooking,
     dialogBookingRef,
     isQuickCheckout,
+    isDisabledConfirm,
 
     getTotalItem: (service, itemType) => {
       let total = 0;
@@ -269,6 +276,7 @@ export const useProps = (_params) => {
         products: productsBooking,
       }
 
+      setDisabledConfirm(true);
       const body = await addAppointment(data);
       submitAddAppointment(body.params);
     },

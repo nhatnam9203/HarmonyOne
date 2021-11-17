@@ -109,6 +109,7 @@ export const useProps = (_params) => {
     onChangeInputCode: (val) => {
       setPinCode(val);
     },
+    isQuickLogin ,
     pinCode,
 
     loginStaff: () => {

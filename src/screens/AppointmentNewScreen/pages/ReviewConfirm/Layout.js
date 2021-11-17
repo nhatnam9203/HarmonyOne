@@ -41,7 +41,8 @@ export const Layout = ({
   dialogBookingRef,
   onOK,
   isQuickCheckout,
-  onPressBack
+  onPressBack,
+  isDisabledConfirm
 }) => {
 
 
@@ -62,7 +63,7 @@ export const Layout = ({
       />
       <View style={styles.line} />
       {
-        !isQuickCheckout && 
+        !isQuickCheckout &&
         <>
           <AppointmentTimeView
             fromTime={dateTimeView}
@@ -176,6 +177,7 @@ export const Layout = ({
             onPress={confirm}
             highlight={true}
             width={'100%'}
+            isTurnOff={isDisabledConfirm}
             disabled={(servicesBooking.length + productsBooking.length + giftCardsBooking.length) == 0}
           />
         </View>
