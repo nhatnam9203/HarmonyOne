@@ -103,6 +103,7 @@ export const images = {
   iconReportService: require('@src/assets/images/iconReportService.png'),
   iconReportGiftcard: require('@src/assets/images/iconReportGiftcard.png'),
   iconReportProduct: require('@src/assets/images/iconReportProduct.png'),
+  loa: require('@src/assets/images/loa.png'),
   sortDown: require('@src/assets/images/down.png'),
   sortUp: require('@src/assets/images/up.png'),
   sortNone: require('@src/assets/images/sort_none.png'),

@@ -13,7 +13,7 @@ const StaffList = ({
     selectStaff = () => { },
     isLoading,
 }) => {
-    if (staffsByDate.length === 0) {
+    if (staffsByDate?.length === 0) {
         return <View style={[styles.container, { width: "100%", height: scaleWidth(61) }]} />
     }
     return (
