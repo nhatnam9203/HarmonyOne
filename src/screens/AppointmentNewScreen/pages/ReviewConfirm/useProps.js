@@ -9,7 +9,8 @@ import {
   useAxiosQuery,
   getAppointmentById,
   addItemIntoAppointment,
-  getGroupAppointmentById
+  getGroupAppointmentById,
+  updateAppointment
 } from "@src/apis";
 import { dateToFormat } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
@@ -43,20 +44,52 @@ export const useProps = (_params) => {
     },
   });
 
+
+  const reduceServices = (services, extras = []) => {
+    for (let i = 0; i < services.length; i++) {
+      if (i === 0) {
+        services[i].fromTime = (!isQuickCheckout && timeBooking) ? `${dayBooking} ${timeBooking}` : moment().format("MM-DD-YYYY hh:mm A");
+
+      } else if (i > 0) {
+        let tempService = services[i - 1];
+        services[i].fromTime = moment(tempService.fromTime).add('minutes', tempService.duration);
+        const ex = extras.find(ex => ex.bookingServiceId === tempService.bookingServiceId);
+        if (ex) {
+          const duration = tempService.duration + ex.duration;
+          services[i].fromTime = moment(tempService.fromTime).add('minutes', duration);
+        }
+        services[i].fromTime = `${moment(services[i].fromTime).format("YYYY-MM-DD")}T${moment(services[i].fromTime).format("HH:mm")}:00`;
+      }
+    }
+    return services;
+  }
+
+
+  const [, submitUpdateAppointment] = useAxiosMutation({
+    ...updateAppointment(),
+    queryId: "fetchAppointmentById_reviewConfirm",
+    isStopLoading: true,
+    isLoadingDefault: false,
+    onSuccess: async (data, response) => {
+      if (response?.codeNumber == 200) {
+
+      }
+    }
+  });
+
   const [, submitAddAppointment] = useAxiosMutation({
     ...addAppointment(),
     isStopLoading: true,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
         const appointmentId = response?.data;
-        setAppointmentId(appointmentId)
+        setAppointmentId(appointmentId);
         const tempData = {
           services: servicesBooking,
           extras: extrasBooking.map(ex => ({ extraId: ex.extraId })),
-          product: [],
           products: [],
           giftCards: giftCardsBooking.map((giftCard) => ({ giftCardId: giftCard?.giftCardId, price: giftCard?.price })),
-        }
+        };
         const body = await addItemIntoAppointment(appointmentId, tempData);
         submitAddItem(body.params);
       }
@@ -69,15 +102,33 @@ export const useProps = (_params) => {
     enabled: false,
     isLoadingDefault: false,
     isStopLoading: true,
-    onSuccess: (data, response) => {
+    onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
-        dispatch(appointment.setAppointmentDetail(data));
+        dispatch(appointment.setAppointmentDetail(response?.data));
+
+        const data = {
+          staffId: response?.data.staffId,
+          fromTime: response?.data.fromTime,
+          status: response?.data.status,
+          categories: response?.data.categories,
+          services: reduceServices(
+            [...response?.data.services].map(obj => ({ ...obj, fromTime : obj?.fromTime })),
+            response?.data?.extras
+          ),
+          extras: response?.data.extras,
+          products: response?.data.products,
+          giftCards: response?.data.giftCards
+        };
+
+        const body = await updateAppointment(appointmentIdUpdate, data);
+        submitUpdateAppointment(body.params);
       }
     },
   });
 
   const [, fetchGroupApointmentById] = useAxiosQuery({
     ...getGroupAppointmentById(appointmentIdUpdate),
+    queryId: "fetchGroupApointmentById_reviewConfirm",
     enabled: false,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
@@ -95,9 +146,9 @@ export const useProps = (_params) => {
     isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
+        fetchAppointmentById();
         fetchAppointmentByDate();
         if (isQuickCheckout) {
-          fetchAppointmentById();
           fetchGroupApointmentById();
         }
       }
@@ -184,7 +235,7 @@ export const useProps = (_params) => {
 
     changeDateTime: () => {
       if (servicesBooking?.length > 0) {
-        NavigationService.navigate(screenNames.SelectDateTime, { isRefetchDate : true ,staffSelected: { staffId: servicesBooking[0].staffId } });
+        NavigationService.navigate(screenNames.SelectDateTime, { isRefetchDate: true, staffSelected: { staffId: servicesBooking[0].staffId } });
       } else {
         NavigationService.navigate(screenNames.SelectDateTime);
       }
@@ -210,7 +261,7 @@ export const useProps = (_params) => {
         merchantId: staff?.merchantId,
         userId: 0,
         customerId: customerBooking?.customerId || 0,
-        fromTime: (!isQuickCheckout && timeBooking )? `${dayBooking} ${timeBooking}` : moment().format("MM-DD-YYYY hh:mm A"),
+        fromTime: (!isQuickCheckout && timeBooking) ? `${dayBooking} ${timeBooking}` : moment().format("MM-DD-YYYY hh:mm A"),
         status: isQuickCheckout ? "checkin" : "confirm",
         categories: [],
         services: [],

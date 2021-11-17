@@ -16,11 +16,9 @@ export const InvoiceList = ({
     onRefresh = () => { },
     isRefresh
 }) => {
-    console.log({ data })
     const dispatch = useDispatch();
     const { staff: { staffListByMerchant = [] } } = useSelector(state => state);
     const [t] = useTranslation();
-
 
     const onRowPress = ({ key, row, column, item }) => {
         getInvoiceDetail(item?.checkoutId);
@@ -52,17 +50,17 @@ export const InvoiceList = ({
 
         return (
             <TouchableOpacity onPress={() => getInvoiceDetail(item?.checkoutId)}>
-                { renderItem(key, data)}
+                {renderItem(key, data, item)}
             </TouchableOpacity>
         )
 
     };
 
-    const renderItem = (key, data) => {
+    const renderItem = (key, data, item) => {
         switch (key) {
             case "invoiceNo":
                 return <Text style={styles.txt}>
-                    #{data}
+                    {data}
                 </Text>
             case "createdDate":
                 return (
@@ -87,9 +85,16 @@ export const InvoiceList = ({
                     $ {data}
                 </Text>
             case "user":
-                return <Text style={styles.userName}>
-                    {`${data?.firstName} ${data?.lastName}`}
-                </Text>
+                return (
+                    <View>
+                        <Text style={styles.userName}>
+                            {`${data?.firstName} ${data?.lastName}`}
+                        </Text>
+                        <Text style={[styles.userName,{ color : "#404040", fontFamily : fonts.REGULAR }]}>
+                            {`# ${item?.code}`}
+                        </Text>
+                    </View>
+                )
             default:
                 const staff = staffListByMerchant.find(s => s.staffId == data);
                 return <Text style={styles.txt}>
@@ -104,18 +109,19 @@ export const InvoiceList = ({
             tableHead={{
                 invoiceNo: "Invoice ID",
                 user: "Customer",
-                createdDate: "Date/time",
                 status: "Status",
+                createdDate: "Date/time",
                 createdById: "Created by",
                 total: "Total sales",
             }}
             whiteKeys={[
                 "invoiceNo",
                 "user",
-                "createdDate",
                 "status",
+                "createdDate",
                 "createdById",
                 "total",
+                "code"
             ]}
             primaryId="invoiceNo"
             sumTotalKey="invoiceNo"
@@ -128,7 +134,7 @@ export const InvoiceList = ({
             unitKeys={{ workingHour: "hrs" }}
             sortDefault="NONE"
             sortKey="invoiceNo"
-            tableCellWidth={{}}
+            tableCellWidth={{ user: scaleWidth(200) }}
             renderCell={renderCell}
             renderActionCell={() => null}
             isRefreshing={isRefresh}

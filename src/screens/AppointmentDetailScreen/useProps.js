@@ -173,7 +173,6 @@ export const useProps = ({
     getBarStyle: () => {
       switch (item?.status) {
         case "cancel":
-        case "unconfirm":
         case "checkin":
         case "paid":
         case "void":

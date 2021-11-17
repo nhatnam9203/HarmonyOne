@@ -154,14 +154,11 @@ export const Layout = ({
                                         style={{ width: scaleWidth(165) }}
                                     />
                                 </View>
-                                <View>
                                     <InputState
                                         form={form}
                                         name="state"
                                         placeholder="State"
-                                        style={{ width: scaleWidth(165) }}
                                     />
-                                </View>
                             </View>
                         }
                     />

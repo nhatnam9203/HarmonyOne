@@ -28,9 +28,11 @@ export const colors = {
 export const fonts = {
   REGULAR: 'SFProText-Regular',
   MEDIUM: 'SFProText-Medium',
+  MEDIUM_PRO: 'SFProDisplay-Medium',
   LIGHT: 'SFProText-Light',
   ITALIC: 'SFProText-Italic',
   BOLD: 'SFProText-Bold',
+  BOLD_PRO: 'SFProDisplay-Bold',
   ROBOTO: 'Roboto',
 };
 

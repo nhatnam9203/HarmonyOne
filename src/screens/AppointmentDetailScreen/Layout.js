@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
   },
 
   bottom: {
-    padding: scaleWidth(16),
+    paddingHorizontal: scaleWidth(16),
     width: scaleWidth(375),
   }
 
