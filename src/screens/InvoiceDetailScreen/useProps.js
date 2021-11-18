@@ -32,7 +32,7 @@ export const useProps = (props) => {
       if (response?.codeNumber == 200) {
         dispatch(invoice.updateStatusInvoiceSuccess(invoiceDetail));
         fetchInvoiceDetail();
-        fetchAppointmentByDate();
+        // fetchAppointmentByDate();
       }
     },
   });
