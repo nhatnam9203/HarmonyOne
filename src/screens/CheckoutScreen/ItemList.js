@@ -13,14 +13,6 @@ export const ItemList = ({
 
     const [t] = useTranslation();
 
-    let itemList = [
-        ...services.map((obj => ({ ...obj, qty: 0, name: obj?.serviceName, key: "service" + obj?.bookingServiceId }))),
-        ...extras.map((obj => ({ ...obj, qty: 0, name: obj?.extraName, key: "extra" + obj?.bookingExtraId }))),
-        ...products.map((obj => ({ ...obj, qty: obj?.quantity, name: obj?.productName, key: "product" + obj?.bookingProductId }))),
-        ...giftCards.map((obj => ({ ...obj, qty: obj?.quantity, name: obj?.name, key: "giftCard" + obj?.giftCardId }))),
-    ];
-
-
     const renderItem = (item) => {
         const priceShow = parseFloat(formatNumberFromCurrency(item?.price)) * parseInt(item?.qty);
         return (
@@ -31,7 +23,7 @@ export const ItemList = ({
                         {`$ ${formatMoney(priceShow)}`}
                     </Text>
                 </View>
-                { item?.qty > 0 && <Text style={styles.qty}>{ `${item?.qty} item`}</Text>}
+                {(item?.productId || item?.giftCardId )&& <Text style={styles.qty}>{`${item?.qty} item`}</Text>}
             </View>
         )
     }
@@ -40,9 +32,27 @@ export const ItemList = ({
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Items</Text>
+            <Text style={styles.title}>Services</Text>
             {
-                itemList.map((item) => (
+                services.map((obj => ({ ...obj, qty: 1, name: obj?.serviceName, key: "service" + obj?.bookingServiceId }))).map((item) => (
+                    renderItem(item)
+                ))
+            }
+            <Text style={styles.title}>Extras</Text>
+            {
+                extras.map((obj => ({ ...obj, qty: 1, name: obj?.extraName, key: "extra" + obj?.bookingExtraId }))).map((item) => (
+                    renderItem(item)
+                ))
+            }
+            <Text style={styles.title}>Products</Text>
+            {
+                products.map((obj => ({ ...obj, qty: obj?.quantity, name: obj?.productName, key: "product" + obj?.bookingProductId }))).map((item) => (
+                    renderItem(item)
+                ))
+            }
+            <Text style={styles.title}>Gift cards</Text>
+            {
+                giftCards.map((obj => ({ ...obj, qty: obj?.quantity, name: obj?.name, key: "giftCard" + obj?.giftCardId }))).map((item) => (
                     renderItem(item)
                 ))
             }
@@ -55,7 +65,6 @@ export const ItemList = ({
 const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.white,
-        marginTop: scaleHeight(16),
     },
     content: {
         flex: 1,
@@ -85,6 +94,7 @@ const styles = StyleSheet.create({
         color: "#404040",
         fontFamily: fonts.BOLD,
         marginLeft: scaleWidth(16),
+        marginTop: scaleHeight(24)
 
     },
     row: {

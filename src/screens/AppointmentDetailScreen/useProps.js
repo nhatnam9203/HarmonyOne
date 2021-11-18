@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from "react-redux";
 import {
   updateAppointmentStatusRequest,
+  updateAppointment,
   getAppointmentByDate,
   useAxiosMutation,
   useAxiosQuery,
@@ -67,6 +68,18 @@ export const useProps = ({
         fetchAppointmentById();
       }
     },
+  });
+
+  const [, submitUpdateAppointment] = useAxiosMutation({
+    ...updateAppointment(),
+    queryId : "updateAppointment_appointmentDetailScreen",
+    isStopLoading: true,
+    onSuccess: async (data, response) => {
+      if (response?.codeNumber == 200) {
+        fetchAppointmentByDate();
+        fetchAppointmentById();
+      }
+    }
   });
 
   const [, fetchGroupApointmentById] = useAxiosQuery({
@@ -162,11 +175,20 @@ export const useProps = ({
       if (appointmentItem.status == "checkin") {
         checkOut();
       } else {
+
         const data = {
-          status: nextStatus[appointmentItem?.status]
-        }
-        const body = await updateAppointmentStatusRequest(appointmentItem?.appointmentId, data);
-        submitUpdateAppointmentStatus(body.params);
+          staffId: appointmentItem.staffId,
+          fromTime: appointmentItem.fromTime,
+          status: nextStatus[appointmentItem?.status],
+          categories: appointmentItem.categories,
+          services: appointmentItem.services,
+          extras: appointmentItem.extras,
+          products: appointmentItem.products,
+          giftCards: appointmentItem.giftCards
+        };
+  
+        const body = await updateAppointment(appointmentItem.appointmentId, data);
+        submitUpdateAppointment(body.params);
       }
     },
 

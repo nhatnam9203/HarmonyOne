@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, CustomInput, InputText, Button } from "@shared/components";
@@ -26,7 +26,7 @@ export const Layout = ({
     const [t] = useTranslation();
 
     const valueChange =
-    formatNumberFromCurrency(groupAppointments?.dueAmount) - formatNumberFromCurrency(moneyGiveForStaff) < 0 ?
+        formatNumberFromCurrency(groupAppointments?.dueAmount) - formatNumberFromCurrency(moneyGiveForStaff) < 0 ?
             formatNumberFromCurrency(groupAppointments?.dueAmount) - formatNumberFromCurrency(moneyGiveForStaff) : "0.00"
 
 
@@ -39,60 +39,62 @@ export const Layout = ({
                 isScrollLayout={false}
                 containerStyle={{ paddingVertical: 0 }}
             >
-                <View style={styles.content}>
+                <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
+                    <View style={styles.content}>
 
-                    <Text style={styles.txtTotal}>Amount due</Text>
+                        <Text style={styles.txtTotal}>Amount due</Text>
 
-                    <View style={styles.wrapPrice}>
-                        <Text style={styles.priceTotal}>{`$ ${groupAppointments?.dueAmount}`}</Text>
+                        <View style={styles.wrapPrice}>
+                            <Text style={styles.priceTotal}>{`$ ${groupAppointments?.dueAmount}`}</Text>
+                        </View>
+
+                        <CustomInput
+                            label='Amount'
+                            error={errors?.amount}
+                            renderInput={() =>
+                                <InputText
+                                    form={form}
+                                    name="amount"
+                                    error={errors?.amount}
+                                    defaultValue="0.00"
+                                    defaultValueRemove="0.00"
+                                    type="money"
+                                    options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
+                                    style={{ alignItems: "center" }}
+                                    renderLeft={() => <Text style={styles.dollar}>$</Text>}
+                                />}
+                        />
+
+                        <View style={styles.containerPercent}>
+                            {
+                                amountList.map(p => (
+                                    <TouchableOpacity
+                                        activeOpacity={1}
+                                        key={p + "amount"}
+                                        onPress={() => setAmount(p)}
+                                        style={[styles.itemAmount, { backgroundColor: amount == p ? "#0764B0" : "transparent" }]}
+                                    >
+                                        <Text style={[styles.txtAmount, { color: amount == p ? "white" : "#0764B0" }]}>
+                                            {`${p}`}
+                                        </Text>
+                                    </TouchableOpacity>
+                                ))
+                            }
+                        </View>
+
+                        <TouchableOpacity onPress={exact} style={styles.buttonExact}>
+                            <Text style={styles.txtExact}>Exact</Text>
+                        </TouchableOpacity>
+
+                        <View style={{ flexDirection: "row", alignItems: "center", marginTop: scaleHeight(16) }}>
+                            <Text style={styles.txtChange}>Change:</Text>
+                            <Text style={[styles.txtChange, styles.txtChangePrice]}>
+                                {`$ ${formatMoney(valueChange).toString().replace("-", "")}`}
+                            </Text>
+                        </View>
+
                     </View>
-
-                    <CustomInput
-                        label='Amount'
-                        error={errors?.amount}
-                        renderInput={() =>
-                            <InputText
-                                form={form}
-                                name="amount"
-                                error={errors?.amount}
-                                defaultValue="0.00"
-                                defaultValueRemove="0.00"
-                                type="money"
-                                options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
-                                style={{ alignItems: "center" }}
-                                renderLeft={() => <Text style={styles.dollar}>$</Text>}
-                            />}
-                    />
-
-                    <View style={styles.containerPercent}>
-                        {
-                            amountList.map(p => (
-                                <TouchableOpacity
-                                    activeOpacity={1}
-                                    key={p + "amount"}
-                                    onPress={() => setAmount(p)}
-                                    style={[styles.itemAmount, { backgroundColor: amount == p ? "#0764B0" : "transparent" }]}
-                                >
-                                    <Text style={[styles.txtAmount, { color: amount == p ? "white" : "#0764B0" }]}>
-                                        {`${p}`}
-                                    </Text>
-                                </TouchableOpacity>
-                            ))
-                        }
-                    </View>
-
-                    <TouchableOpacity onPress={exact} style={styles.buttonExact}>
-                        <Text style={styles.txtExact}>Exact</Text>
-                    </TouchableOpacity>
-
-                    <View style={{ flexDirection: "row", alignItems: "center", marginTop: scaleHeight(16) }}>
-                        <Text style={styles.txtChange}>Change:</Text>
-                        <Text style={[styles.txtChange, styles.txtChangePrice]}>
-                            {`$ ${formatMoney(valueChange).toString().replace("-","")}`}
-                        </Text>
-                    </View>
-
-                </View>
+                </TouchableWithoutFeedback>
                 <View style={styles.bottom}>
                     <Button
                         label="Done"
@@ -192,7 +194,7 @@ const styles = StyleSheet.create({
         color: "#4AD100",
         fontFamily: fonts.BOLD,
         textAlign: "center",
-        color : "red"
+        color: "red"
     },
     txtSelectPayment: {
         textAlign: "center",

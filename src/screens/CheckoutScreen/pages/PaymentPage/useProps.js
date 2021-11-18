@@ -528,5 +528,10 @@ export const useProps = (props) => {
     cancelInvoicePrint: () => {
       fetchAppointmentByDate();
     },
+
+    onOK: () => {
+      fetchAppointmentByDate();
+    }
+
   }
 };

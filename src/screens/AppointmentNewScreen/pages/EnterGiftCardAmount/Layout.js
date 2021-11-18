@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard, TouchableNativeFeedback } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, CustomInput, InputText, Button } from "@shared/components";
@@ -34,52 +34,54 @@ export const Layout = ({
                 isScrollLayout={false}
                 containerStyle={{ paddingVertical: 0 }}
             >
-                <TouchableNativeFeedback onPress={()=>Keyboard.dismiss()} style={styles.content}>
+                <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                    <View style={styles.content}>
 
-                    {/* <Text style={styles.txtTotal}>Gift Card Amount</Text>
+                        {/* <Text style={styles.txtTotal}>Gift Card Amount</Text>
 
                     <View style={styles.wrapPrice}>
                         <Text style={styles.priceTotal}>{ giftCardInfo?.isActive == 1 ? "$ 0.00" : `$ ${giftCardInfo?.amount}`}</Text>
                     </View> */}
 
-                    <CustomInput
-                        label='Enter the amount'
-                        error={errors?.amount}
-                        renderInput={() =>
-                            <InputText
-                                form={form}
-                                name="amount"
-                                error={errors?.amount}
-                                defaultValue="0.00"
-                                defaultValueRemove="0.00"
-                                type="money"
-                                options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
-                                style={{ alignItems: "center" }}
-                                renderLeft={() => <Text style={styles.dollar}>$</Text>}
-                            />}
-                    />
+                        <CustomInput
+                            label='Enter the amount'
+                            error={errors?.amount}
+                            renderInput={() =>
+                                <InputText
+                                    form={form}
+                                    name="amount"
+                                    error={errors?.amount}
+                                    defaultValue="0.00"
+                                    defaultValueRemove="0.00"
+                                    type="money"
+                                    options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
+                                    style={{ alignItems: "center" }}
+                                    renderLeft={() => <Text style={styles.dollar}>$</Text>}
+                                />}
+                        />
 
-                    <View style={styles.containerPercent}>
-                        {
-                            amountList.map(p => (
-                                <TouchableOpacity
-                                    key={p + "amount"}
-                                    onPress={() => setAmount(p)}
-                                    style={[styles.itemAmount, { backgroundColor: amount == p ? "#0764B0" : "transparent" }]}
-                                >
-                                    <Text style={[styles.txtAmount, { color: amount == p ? "white" : "#0764B0" }]}>
-                                        {`${p}`}
-                                    </Text>
-                                </TouchableOpacity>
-                            ))
-                        }
-                    </View>
+                        <View style={styles.containerPercent}>
+                            {
+                                amountList.map(p => (
+                                    <TouchableOpacity
+                                        key={p + "amount"}
+                                        onPress={() => setAmount(p)}
+                                        style={[styles.itemAmount, { backgroundColor: amount == p ? "#0764B0" : "transparent" }]}
+                                    >
+                                        <Text style={[styles.txtAmount, { color: amount == p ? "white" : "#0764B0" }]}>
+                                            {`${p}`}
+                                        </Text>
+                                    </TouchableOpacity>
+                                ))
+                            }
+                        </View>
 
-                    {/* <TouchableOpacity onPress={exact} style={styles.buttonExact}>
+                        {/* <TouchableOpacity onPress={exact} style={styles.buttonExact}>
                         <Text style={styles.txtExact}>Exact</Text>
                     </TouchableOpacity> */}
 
-                </TouchableNativeFeedback>
+                    </View>
+                </TouchableWithoutFeedback>
                 <View style={styles.bottom}>
                     <Button
                         label="Add"
