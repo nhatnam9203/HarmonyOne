@@ -10,6 +10,7 @@ export const useAxiosMutation = ({
   onLoginError,
   isLoadingDefault = true,
   isStopLoading = false,
+  isReturnError = true
 }) => {
   const dispatch = useDispatch();
 
@@ -30,13 +31,15 @@ export const useAxiosMutation = ({
             response?.message
           ) {
             dispatch(app.hideLoading());
-            dispatch(
-              app.setError({
-                isError: true,
-                messageError: response?.message,
-                errorType: "error",
-                titleError: "Alert",
-              }));
+            if(isReturnError){
+              dispatch(
+                app.setError({
+                  isError: true,
+                  messageError: response?.message,
+                  errorType: "error",
+                  titleError: "Alert",
+                }));
+            }
             if(onLoginError && typeof onLoginError == "function"){
               onLoginError(response?.message);
             }

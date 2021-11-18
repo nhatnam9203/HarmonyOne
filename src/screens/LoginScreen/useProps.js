@@ -24,8 +24,13 @@ export const useProps = (_params) => {
   const [{ isLoading }, login] = useAxiosMutation({
     ...merchantLogin(merchantID),
     isLoadingDefault: false,
+    isReturnError : false,
     onLoginError: (msg) => {
-      setTextMessage(msg);
+      if (msg == "Cant found your item") {
+        setTextMessage("Your MID does not exist.");
+      } else {
+        setTextMessage(msg);
+      }
     },
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
@@ -100,7 +105,7 @@ export const useProps = (_params) => {
         firebaseToken,
         deviceId: DeviceInfo.getUniqueId(),
       };
-      const body = await merchantLogin(merchantID,data);
+      const body = await merchantLogin(merchantID, data);
       login(body.params);
     },
 
