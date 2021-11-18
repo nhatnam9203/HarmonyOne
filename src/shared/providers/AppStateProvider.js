@@ -4,7 +4,7 @@ import { app, staff as staffAction, appointment, notification } from '@redux/sli
 import { AppLoading } from '@shared/components/AppLoading';
 import { getDeviceId, getDeviceName } from '@shared/services/Device';
 import { guid } from "@shared/utils";
-import { images, colors } from "@shared/themes";
+import { images, colors, fonts } from "@shared/themes";
 import { getStaffByDate, getAppointmentByDate, useAxiosQuery, getCountUnReadOfNotification } from "@src/apis";
 import { StyleSheet, Image, Platform } from "react-native";
 import VersionCheck from 'react-native-version-check';
