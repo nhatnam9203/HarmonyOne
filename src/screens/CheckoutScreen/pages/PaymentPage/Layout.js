@@ -2,16 +2,18 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { IconButton, 
-         CustomInput, 
-         InputText, 
-         Button, 
-         DialogSuccess, 
-         PopupProcessingCredit,
-         PopupErrorMessage, 
-         PopupPayCompleted,
-         PopupInvoice,
-        } from "@shared/components";
+import {
+    IconButton,
+    CustomInput,
+    InputText,
+    Button,
+    DialogSuccess,
+    PopupProcessingCredit,
+    PopupProcessing,
+    PopupErrorMessage,
+    PopupPayCompleted,
+    PopupInvoice,
+} from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { ItemsPay } from "./ItemsPay";
@@ -28,6 +30,7 @@ export const Layout = ({
     popupChangeRef,
     popupPaymentDetailRef,
     popupProcessingRef,
+    popupPayProcessingRef,
     popupErrorMessageRef,
     invoiceRef,
     errorMessageFromPax,
@@ -112,6 +115,10 @@ export const Layout = ({
                 onConfirmYes={() => onCancelTransactionCredit()}
             />
 
+            <PopupProcessing
+                ref={popupPayProcessingRef}
+            />
+
             <PopupErrorMessage
                 ref={popupErrorMessageRef}
                 title={t("Trasaction Fail")}
@@ -127,7 +134,7 @@ export const Layout = ({
 
             <PopupInvoice
                 ref={invoiceRef}
-                cancelInvoicePrint={cancelInvoicePrint} 
+                cancelInvoicePrint={cancelInvoicePrint}
             />
 
         </View>

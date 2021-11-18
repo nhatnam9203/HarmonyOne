@@ -50,6 +50,7 @@ export const useProps = (props) => {
   const popupChangeRef = React.useRef();
   const popupProcessingRef = React.useRef();
   const popupErrorMessageRef = React.useRef();
+  const popupPayProcessingRef = React.useRef();
   const invoiceRef = React.useRef(null);
 
   /************************************* SELECTOR *************************************/
@@ -87,6 +88,7 @@ export const useProps = (props) => {
   const [, submitSelectPaymentMethod] = useAxiosMutation({
     ...selectPaymentMethod(),
     isStopLoading: true,
+    isLoadingDefault: false,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
         if (methodPay.method == "harmony"
@@ -106,27 +108,33 @@ export const useProps = (props) => {
   /************************************* GỌI API CHECKOUT SUBMIT *************************************/
   const [, applyCheckoutSubmit] = useAxiosMutation({
     ...checkoutSubmit(),
+    isLoadingDefault: false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         const dueAmount = parseFloat(
           response?.data?.checkoutPaymentResponse?.dueAmount || 0
         );
-        if (dueAmount == 0) {
-          dialogSuccessRef?.current?.show();
 
-          return;
-        }
-        if (dueAmount < 0) {
-          setPaymentDetail(response?.data);
-          popupChangeRef?.current?.show();
-          return;
-        }
-        if (dueAmount > 0) {
-          fetchGroupApointmentById();
-          setPaymentDetail(response?.data);
-          popupPaymentDetailRef?.current?.show();
-          setMethodPay(null);
-        }
+        popupPayProcessingRef?.current?.hide();
+
+        setTimeout(() => {
+          if (dueAmount == 0) {
+            dialogSuccessRef?.current?.show();
+
+            return;
+          }
+          if (dueAmount < 0) {
+            setPaymentDetail(response?.data);
+            popupChangeRef?.current?.show();
+            return;
+          }
+          if (dueAmount > 0) {
+            fetchGroupApointmentById();
+            setPaymentDetail(response?.data);
+            popupPaymentDetailRef?.current?.show();
+            setMethodPay(null);
+          }
+        }, 500);
       }
     }
   });
@@ -286,8 +294,20 @@ export const useProps = (props) => {
       amount,
       giftCardId: 0,
     }
+    popupPayProcessingRef?.current?.show();
     const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
     submitSelectPaymentMethod(body.params);
+  }
+
+  const backToHome = () => {
+    setMethodPay(null);
+    setPayAppointmentId(null);
+    fetchAppointmentByDate();
+
+    const statusSendLink = dialogSuccessRef?.current?.getStatusSendLink();
+    if (statusSendLink) {
+      sendLinkGoogle();
+    }
   }
 
   /**
@@ -360,6 +380,7 @@ export const useProps = (props) => {
     } catch (error) {
     }
   }
+
   const donotPrintBill = async () => {
     if (connectionSignalR) {
       connectionSignalR?.stop();
@@ -385,14 +406,7 @@ export const useProps = (props) => {
       }
     }
 
-    setMethodPay(null);
-    setPayAppointmentId(null);
-
-    fetchAppointmentByDate();
-    const statusSendLink = dialogSuccessRef?.current?.getStatusSendLink();
-    if (statusSendLink) {
-      sendLinkGoogle();
-    }
+    backToHome();
 
   };
 
@@ -440,13 +454,8 @@ export const useProps = (props) => {
     }, 300);
 
     if (paymentMachineType !== PaymentTerminalType.Clover && !portName) {
-      setMethodPay(null);
-      setPayAppointmentId(null);
-      fetchAppointmentByDate();
-      const statusSendLink = dialogSuccessRef?.current?.getStatusSendLink();
-      if (statusSendLink) {
-        sendLinkGoogle();
-      }
+      backToHome();
+
       setTimeout(() => {
         alert("Please connect to your cash drawer .");
       }, 700);
@@ -477,6 +486,7 @@ export const useProps = (props) => {
     popupChangeRef,
     isCancelHarmony,
     paymentDetail,
+    popupPayProcessingRef,
 
     onChangeMethodPay: (item) => {
       setMethodPay(item);
