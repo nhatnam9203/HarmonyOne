@@ -179,8 +179,14 @@ export const useProps = (_params) => {
           appointmentListRef?.current?.setStaffSelected(staffId)
         }
       } else {
-        if(staffId !== staffInfo?.staffId){
-          Alert.alert('Only Manager has the permision view appointments of other staff');
+        if (staffId !== staffInfo?.staffId) {
+          dispatch(app.setError({
+            isError: true,
+            messageError: "Only Manager has the permision view appointments of other staff",
+            errorType: "error",
+            titleError: "Manager permission",
+          }));
+          // Alert.alert('Only Manager has the permision view appointments of other staff');
         }
       }
     },

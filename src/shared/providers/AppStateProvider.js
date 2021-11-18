@@ -4,8 +4,9 @@ import { app, staff as staffAction, appointment, notification } from '@redux/sli
 import { AppLoading } from '@shared/components/AppLoading';
 import { getDeviceId, getDeviceName } from '@shared/services/Device';
 import { guid } from "@shared/utils";
+import { images, colors } from "@shared/themes";
 import { getStaffByDate, getAppointmentByDate, useAxiosQuery, getCountUnReadOfNotification } from "@src/apis";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Image, Platform } from "react-native";
 import VersionCheck from 'react-native-version-check';
 import Configs from '@src/config';
 import DeviceInfo from "react-native-device-info";
@@ -21,7 +22,13 @@ export const AppStateProvider = ({ children }) => {
 
   const appLoading = useSelector((state) => state.app.appLoading);
   const {
-    app: { isHome = false, isError, },
+    app: {
+      isHome = false,
+      isError = false,
+      messageError = "",
+      errorType = "info",
+      titleError = "",
+    },
     auth: { staff },
     appointment: {
       appointmentDate,
@@ -147,6 +154,31 @@ export const AppStateProvider = ({ children }) => {
     }
   };
 
+  React.useEffect(() => {
+    if (isError) {
+      alertRef?.current?.alertWithType(errorType, titleError, messageError);
+    }
+  }, [isError]);
+
+  // isError = false,
+  // messageError = "",
+  // errorType = "info",
+  // titleError = "",
+
+  React.useEffect(() => {
+    resetAlert()
+  }, []);
+
+  const resetAlert = () => {
+    dispatch(
+      app.setError({
+        isError: false,
+        messageError: "",
+        errorType: "info",
+        titleError: "",
+      }));
+  }
+
 
   // React useEffect
   React.useEffect(() => {
@@ -163,18 +195,19 @@ export const AppStateProvider = ({ children }) => {
       {children}
       <AppLoading loading={appLoading} onCancelLoading={onCancelLoading} />
       <DropdownAlert
+        onClose={() => {
+          resetAlert();
+        }}
         ref={alertRef}
         closeInterval={2000}
         infoColor="#1B68AC"
+        errorColor={colors.red}
         titleStyle={styles.titleAlertStyle}
         messageStyle={styles.messageAlertStyle}
         defaultContainer={styles.alertStyle}
-        // renderImage={() => <Image source={images.harmonyPay} style={styles.iconHarmonyPay} />}
+        containerStyle={styles.containerStyle}
+        renderImage={() => <Image source={images.harmonyPay} style={styles.iconHarmonyPay} />}
       />
-      {/* <ExportLoading
-        loading={exportLoading}
-        onCancelLoading={onCancelExportLoading}
-      /> */}
     </AppStateContext.Provider>
   );
 };
@@ -192,13 +225,26 @@ const styles = StyleSheet.create({
     fontFamily: fonts.BOLD
   },
 
+  containerStyle: {
+    justifyContent : "center",
+    alignItems : "center",
+    backgroundColor : "blue"
+  },
+
   alertStyle: {
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
     paddingLeft: 20,
-    paddingTop: 30,
-    paddingBottom: 8
+    paddingVertical : 5,
+    // paddingBottom: 8
   },
+
+  iconHarmonyPay: {
+    width: scaleWidth(45),
+    height: scaleWidth(45),
+    tintColor: "white",
+    marginTop : Platform.OS == "ios" ? scaleWidth(5) : scaleWidth(15)
+  }
 
 });

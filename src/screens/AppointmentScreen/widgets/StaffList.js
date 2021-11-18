@@ -65,6 +65,13 @@ const StaffList = React.forwardRef(({
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
                         ref={scrollViewStaffs}
+                        initialScrollIndex={0}
+                        onScrollToIndexFailed={info => {
+                            const wait = new Promise(resolve => setTimeout(resolve, 500));
+                            wait.then(() => {
+                                scrollViewStaffs.current?.scrollToIndex({ index: 0, animated: true });
+                            });
+                        }}
                     />
             }
 

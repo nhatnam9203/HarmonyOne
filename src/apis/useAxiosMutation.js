@@ -31,6 +31,14 @@ export const useAxiosMutation = ({
             onLoginError &&
             typeof onLoginError === 'function'
           ) {
+            dispatch(app.hideLoading());
+            dispatch(
+              app.setError({
+                isError: true,
+                messageError: response?.message,
+                errorType: "error",
+                titleError: "Alert",
+              }));
             onLoginError(response?.message);
           }
         }
@@ -56,6 +64,7 @@ export const useAxiosMutation = ({
 
     if (isLoading) {
       // show app loading hereF
+
       dispatch(app.showLoading());
     }
 
