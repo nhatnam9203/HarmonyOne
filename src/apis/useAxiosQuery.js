@@ -38,11 +38,19 @@ export const useAxiosQuery = ({
           }
         } else {
           if (
-            response?.message &&
-            onLoginError &&
-            typeof onLoginError === 'function'
+            response?.message
           ) {
-            onLoginError(response?.message);
+            dispatch(app.hideLoading());
+            dispatch(
+              app.setError({
+                isError: true,
+                messageError: response?.message,
+                errorType: "error",
+                titleError: "Alert",
+              }));
+            if(onLoginError && typeof onLoginError == "function"){
+              onLoginError(response?.message);
+            }
           }
         }
       },
