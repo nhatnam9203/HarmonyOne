@@ -38,19 +38,19 @@ export const ItemList = ({
                     renderItem(item)
                 ))
             }
-            <Text style={styles.title}>Extras</Text>
+            {extras.length > 0 && <Text style={styles.title}>Extras</Text>}
             {
                 extras.map((obj => ({ ...obj, qty: 1, name: obj?.extraName, key: "extra" + obj?.bookingExtraId }))).map((item) => (
                     renderItem(item)
                 ))
             }
-            <Text style={styles.title}>Products</Text>
+            { products.length > 0 && <Text style={styles.title}>Products</Text>}
             {
                 products.map((obj => ({ ...obj, qty: obj?.quantity, name: obj?.productName, key: "product" + obj?.bookingProductId }))).map((item) => (
                     renderItem(item)
                 ))
             }
-            <Text style={styles.title}>Gift cards</Text>
+            { giftCards.length > 0 && <Text style={styles.title}>Gift cards</Text>}
             {
                 giftCards.map((obj => ({ ...obj, qty: obj?.quantity, name: obj?.name, key: "giftCard" + obj?.giftCardId }))).map((item) => (
                     renderItem(item)

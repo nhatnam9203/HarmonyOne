@@ -439,7 +439,9 @@ export const useProps = (props) => {
     }, 300);
 
     if (paymentMachineType !== PaymentTerminalType.Clover && !portName) {
-      alert("Please connect to your printer!");
+      setTimeout(() => {
+        alert("Please connect to your cash drawer.");
+      }, 700);
     } else {
        if(methodPay.method == "cash" 
           || methodPay.method == "other") {
