@@ -415,7 +415,7 @@ export const useProps = (props) => {
     dialogSuccessRef?.current?.hide();
 
     setTimeout(() => {
-      invoiceRef.current?.showAppointmentReceipt({
+      invoiceRef.current?.showAppopintmentReceipt({
         appointmentId: groupAppointments?.mainAppointmentId,
         checkoutId: paymentDetail?.invoiceNo,
         isPrintTempt: isTemptPrint,
@@ -451,7 +451,9 @@ export const useProps = (props) => {
         }
         showInvoicePrint(false);
     }
-
+    setMethodPay(null);
+    setPayAppointmentId(null);ß
+    fetchAppointmentByDate();
     const statusSendLink = dialogSuccessRef?.current?.getStatusSendLink();
     if(statusSendLink){
       sendLinkGoogle();

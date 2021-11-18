@@ -93,22 +93,27 @@ export const PopupPayCompleted = React.forwardRef(
                             onPress={onHandleYESButtonPress}
                             highlight={false}
                             height={scaleHeight(48)}
-                            width={scaleWidth(100)}
+                            width={"50%"}
                             label={t("Yes")}
                             styleButton={{
                                 borderWidth: 0,
                                 backgroundColor: "transparent"
                             }}
                         />
+                        <View style={{ height : "100%", width : 1, backgroundColor : "#dddddd" }} />
                          <Button
                             onPress={onHandleNOButtonPress}
                             highlight={false}
                             height={scaleHeight(48)}
-                            width={scaleWidth(100)}
+                            width={"50%"}
                             label={t("No")}
                             styleButton={{
                                 borderWidth: 0,
                                 backgroundColor: "transparent"
+                            }}
+                            styleText={{
+                                color : "red",
+                                fontFamily : fonts.MEDIUM
                             }}
                         />
                     </View>
@@ -194,7 +199,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         borderTopWidth: 1,
         borderTopColor: "#dddddd",
-        marginTop: scaleHeight(30)
+        marginTop: scaleHeight(24)
     },
     line: {
         height: scaleHeight(48),

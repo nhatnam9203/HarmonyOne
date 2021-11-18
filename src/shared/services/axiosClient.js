@@ -30,7 +30,7 @@ axios.interceptors.request.use(
     if (token) {
       config.headers = Object.assign({}, config.headers, {
         authorization: `Bearer ${token}`,
-      });
+      }); 
     }
 
     return config;

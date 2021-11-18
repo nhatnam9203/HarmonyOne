@@ -28,7 +28,9 @@ import {
 import sortArray from "sort-array";
 import NavigationService from '@navigation/NavigationService';
 
-const AppointmentList = React.forwardRef(({ }, ref) => {
+const AppointmentList = React.forwardRef(({
+    staffListRef
+}, ref) => {
     const dispatch = useDispatch();
 
     const {
@@ -48,6 +50,7 @@ const AppointmentList = React.forwardRef(({ }, ref) => {
     const [staffSelected, setStaffSelected] = React.useState('');
     const [blockTimesVisibile, setBlockTimesVisible] = React.useState([]);
     const [tempStatus, setTempStatus] = React.useState("");
+    const [isMounted, setMounted] = React.useState(false);
 
     React.useImperativeHandle(ref, () => ({
         setDate: (datePicked) => {
@@ -109,6 +112,13 @@ const AppointmentList = React.forwardRef(({ }, ref) => {
         enabled: true,
         onSuccess: (data, response) => {
             dispatch(staffAction.setStaffByDate(data));
+            if (!isMounted) {
+                const index = data?.findIndex(obj => obj?.staffId == staff?.staffId);
+                if (index && index !== -1) {
+                    staffListRef?.current?.scrollToIndex(index);
+                }
+            }
+            setMounted(true);
         },
     });
 

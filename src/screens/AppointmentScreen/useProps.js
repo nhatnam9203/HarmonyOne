@@ -34,6 +34,8 @@ import { dateToFormat } from '@shared/utils';
 import { axios } from '@shared/services/axiosClient';
 import moment from 'moment';
 import NavigationService from '@navigation/NavigationService';
+import { isEmpty, set } from "lodash";
+import { Alert } from 'react-native';
 
 export const useProps = (_params) => {
   const dispatch = useDispatch();
@@ -43,6 +45,7 @@ export const useProps = (_params) => {
   const [staffSelected, setStaffSelected] = React.useState('');
   const [firstLoading, setFirstLoading] = React.useState(true);
   const appointmentListRef = React.useRef();
+  const staffListRef = React.useRef();
 
   const {
     staff: { staffsByDate = [] },
@@ -134,6 +137,14 @@ export const useProps = (_params) => {
     },
   });
 
+  React.useEffect(() => {
+    if (isEmpty(staffSelected)) {
+      setStaffSelected(staffInfo?.staffId);
+      setTimeout(() => {
+        appointmentListRef?.current?.setStaffSelected(staffInfo?.staffId);
+      }, 500);
+    }
+  }, [staffInfo]);
 
 
   React.useEffect(() => {
@@ -155,15 +166,22 @@ export const useProps = (_params) => {
     staffSelected,
     isLoading: firstLoading,
     appointmentListRef,
+    staffListRef,
 
 
     selectStaff: (staffId) => {
-      if (staffId == staffSelected) {
-        setStaffSelected('');
-        appointmentListRef?.current?.setStaffSelected('')
+      if (staffInfo?.roleName?.toString()?.toLowerCase() == "manager") {
+        if (staffId == staffSelected) {
+          setStaffSelected('');
+          appointmentListRef?.current?.setStaffSelected('')
+        } else {
+          setStaffSelected(staffId);
+          appointmentListRef?.current?.setStaffSelected(staffId)
+        }
       } else {
-        setStaffSelected(staffId);
-        appointmentListRef?.current?.setStaffSelected(staffId)
+        if(staffId !== staffInfo?.staffId){
+          Alert.alert('Only Manager has the permision view appointments of other staff');
+        }
       }
     },
 

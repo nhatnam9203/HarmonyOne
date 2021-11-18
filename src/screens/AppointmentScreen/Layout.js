@@ -22,9 +22,11 @@ export const Layout = ({
   selectStaff,
   staffSelected,
   appointmentListRef,
+  staffListRef,
 
   addAppointment,
-  isLoading
+  isLoading,
+  
 }) => {
 
   const [t] = useTranslation();
@@ -57,9 +59,11 @@ export const Layout = ({
             selectStaff={selectStaff}
             staffSelected={staffSelected}
             isLoading={isLoading}
+            ref={staffListRef}
           />
           <AppointmentList
             ref={appointmentListRef}
+            staffListRef={staffListRef}
           />
         </View>
 

@@ -55,6 +55,13 @@ export const AppointmentItem = ({ item, onChangeAppointmentId }) => {
                     styles.contentShadow,
                 ]}>
 
+                <View style={[styles.rowContent,{ position : 'absolute', right : scaleWidth(16), bottom : scaleWidth(16) }]}>
+                    <Text style={[styles.textTime, { color: getColors().textColor, fontFamily : fonts.LIGHT, fontSize : scaleFont(15) }]}>
+                        {`# ${item?.code?.toString().substr(item?.code?.length - 4)}`}
+                    </Text>
+                </View>
+
+
                 <View style={styles.rowContent}>
                     <Text style={[styles.textTime, { color: getColors().textColor }]}>
                         {`${dateToFormat(item?.fromTime, "hh:mm A")} - ${dateToFormat(item?.toTime, "hh:mm A")}`}
@@ -67,7 +74,7 @@ export const AppointmentItem = ({ item, onChangeAppointmentId }) => {
                         {`${item?.firstName} ${item?.lastName}`}
                     </Text>
                     {
-                        !isEmpty(item?.phoneNumber )&&
+                        !isEmpty(item?.phoneNumber) &&
                         <>
                             <View style={styles.marginVertical} />
                             <Text style={[styles.textPhone, { color: getColors().textColor }]}>
@@ -177,7 +184,7 @@ const styles = StyleSheet.create({
     },
 
     textService: {
-        fontFamily: fonts.LIGHT,
+        fontFamily: fonts.REGULAR,
         marginBottom: scaleHeight(8)
     }
 });

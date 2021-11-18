@@ -85,7 +85,7 @@ export const Layout = ({
                                 discount.map((obj) => (
                                     <View key={guid()} style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: scaleHeight(8) }}>
                                         <Text style={styles.txtDiscount}>{obj?.merchantPromotion?.name}</Text>
-                                        <Text style={[styles.txtDiscount, { color: "#51CF26" }]}>{`$ ${obj?.discount}`}</Text>
+                                        <Text style={[styles.txtDiscount, { color: "#51CF26", fontFamily : fonts.MEDIUM }]}>{`$ ${obj?.discount}`}</Text>
                                     </View>
                                 ))
                             }

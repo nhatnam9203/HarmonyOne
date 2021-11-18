@@ -5,10 +5,12 @@ import { AppLoading } from '@shared/components/AppLoading';
 import { getDeviceId, getDeviceName } from '@shared/services/Device';
 import { guid } from "@shared/utils";
 import { getStaffByDate, getAppointmentByDate, useAxiosQuery, getCountUnReadOfNotification } from "@src/apis";
+import { StyleSheet } from "react-native";
 import VersionCheck from 'react-native-version-check';
 import Configs from '@src/config';
 import DeviceInfo from "react-native-device-info";
 import moment from "moment";
+import DropdownAlert from 'react-native-dropdownalert';
 
 const signalR = require("@microsoft/signalr");
 
@@ -19,13 +21,15 @@ export const AppStateProvider = ({ children }) => {
 
   const appLoading = useSelector((state) => state.app.appLoading);
   const {
-    app: { isHome = false },
+    app: { isHome = false, isError, },
     auth: { staff },
     appointment: {
       appointmentDate,
     },
 
   } = useSelector(state => state);
+
+  const alertRef = React.useRef();
 
 
   const [, fetchStaffByDate] = useAxiosQuery({
@@ -158,6 +162,15 @@ export const AppStateProvider = ({ children }) => {
     <AppStateContext.Provider value={{}}>
       {children}
       <AppLoading loading={appLoading} onCancelLoading={onCancelLoading} />
+      <DropdownAlert
+        ref={alertRef}
+        closeInterval={2000}
+        infoColor="#1B68AC"
+        titleStyle={styles.titleAlertStyle}
+        messageStyle={styles.messageAlertStyle}
+        defaultContainer={styles.alertStyle}
+        // renderImage={() => <Image source={images.harmonyPay} style={styles.iconHarmonyPay} />}
+      />
       {/* <ExportLoading
         loading={exportLoading}
         onCancelLoading={onCancelExportLoading}
@@ -165,3 +178,27 @@ export const AppStateProvider = ({ children }) => {
     </AppStateContext.Provider>
   );
 };
+
+const styles = StyleSheet.create({
+  messageAlertStyle: {
+    fontSize: scaleFont(15),
+    color: "white",
+    fontFamily: fonts.REGULAR
+  },
+
+  titleAlertStyle: {
+    fontSize: scaleFont(19),
+    color: "white",
+    fontFamily: fonts.BOLD
+  },
+
+  alertStyle: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 16,
+    paddingLeft: 20,
+    paddingTop: 30,
+    paddingBottom: 8
+  },
+
+});

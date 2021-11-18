@@ -74,7 +74,7 @@ export const Layout = ({
         <ViewShot style={{ flex: 1 }} ref={viewShotRef}>
           <KeyboardAwareScrollView style={styles.content}>
             <Text style={styles.invoiceNumber}>
-              {`Invoice #${invoiceDetail?.code}`}
+              {`Invoice #${invoiceDetail?.invoiceNo}`}
             </Text>
             <View style={[styles.row, { marginTop: scaleHeight(12) }]}>
               <View style={styles.circleStatus(invoiceDetail?.status)} />

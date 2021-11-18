@@ -14,8 +14,8 @@ export const ItemList = ({
     const [t] = useTranslation();
 
     let itemList = [
-        ...services.map((obj => ({ ...obj, qty: 1, name: obj?.serviceName, key: "service" + obj?.bookingServiceId }))),
-        ...extras.map((obj => ({ ...obj, qty: 1, name: obj?.extraName, key: "extra" + obj?.bookingExtraId }))),
+        ...services.map((obj => ({ ...obj, qty: 0, name: obj?.serviceName, key: "service" + obj?.bookingServiceId }))),
+        ...extras.map((obj => ({ ...obj, qty: 0, name: obj?.extraName, key: "extra" + obj?.bookingExtraId }))),
         ...products.map((obj => ({ ...obj, qty: obj?.quantity, name: obj?.productName, key: "product" + obj?.bookingProductId }))),
         ...giftCards.map((obj => ({ ...obj, qty: obj?.quantity, name: obj?.name, key: "giftCard" + obj?.giftCardId }))),
     ];
@@ -31,7 +31,7 @@ export const ItemList = ({
                         {`$ ${formatMoney(priceShow)}`}
                     </Text>
                 </View>
-                <Text style={styles.qty}>{`${item?.qty} item`}</Text>
+                { item?.qty > 0 && <Text style={styles.qty}>{ `${item?.qty} item`}</Text>}
             </View>
         )
     }
