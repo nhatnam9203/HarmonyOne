@@ -27,9 +27,7 @@ export const useAxiosMutation = ({
           }
         } else {
           if (
-            response?.message &&
-            onLoginError &&
-            typeof onLoginError === 'function'
+            response?.message
           ) {
             dispatch(app.hideLoading());
             dispatch(
@@ -39,7 +37,9 @@ export const useAxiosMutation = ({
                 errorType: "error",
                 titleError: "Alert",
               }));
-            onLoginError(response?.message);
+            if(onLoginError && typeof onLoginError == "function"){
+              onLoginError(response?.message);
+            }
           }
         }
       },
