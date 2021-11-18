@@ -117,24 +117,22 @@ export const useProps = (props) => {
 
         popupPayProcessingRef?.current?.hide();
 
-        setTimeout(() => {
-          if (dueAmount == 0) {
-            dialogSuccessRef?.current?.show();
+        if (dueAmount == 0) {
+          dialogSuccessRef?.current?.show();
 
-            return;
-          }
-          if (dueAmount < 0) {
-            setPaymentDetail(response?.data);
-            popupChangeRef?.current?.show();
-            return;
-          }
-          if (dueAmount > 0) {
-            fetchGroupApointmentById();
-            setPaymentDetail(response?.data);
-            popupPaymentDetailRef?.current?.show();
-            setMethodPay(null);
-          }
-        }, 500);
+          return;
+        }
+        if (dueAmount < 0) {
+          setPaymentDetail(response?.data);
+          popupChangeRef?.current?.show();
+          return;
+        }
+        if (dueAmount > 0) {
+          fetchGroupApointmentById();
+          setPaymentDetail(response?.data);
+          popupPaymentDetailRef?.current?.show();
+          setMethodPay(null);
+        }
       }
     }
   });

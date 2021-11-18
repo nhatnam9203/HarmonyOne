@@ -1,18 +1,17 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { 
-    Image, 
-    StyleSheet, 
-    Text, 
+import {
+    Image,
+    StyleSheet,
+    Text,
     TouchableOpacity,
-    View, 
-    ActivityIndicator, 
+    View,
+    ActivityIndicator,
 } from "react-native";
 import { colors, fonts, layouts } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { Button } from "./Button";
 import { IconButton } from "./IconButton";
-import Modal from "react-native-modal";
 
 
 export const PopupProcessing = React.forwardRef(
@@ -38,23 +37,15 @@ export const PopupProcessing = React.forwardRef(
             show: () => {
                 setOpen(true);
             },
-            hide : () =>{
+            hide: () => {
                 setOpen(false);
             }
         }));
 
-        return (
-            <Modal
-                style={styles.modal}
-                isVisible={open}
-                onRequestClose={hideModal}
-                backdropTransitionOutTiming={0}
-                backdropTransitionInTiming={0}
-                animationIn="fadeInRight"
-                animationOut="fadeOutRight"
-                backdropColor={'rgba(64,64,64,0.5)'}
-            >
-                <View style={styles.container} >
+        if (open) {
+            return (
+                <View style={styles.wrapContainer}>
+                    <View style={styles.container} >
                         <Text style={styles.title} >
                             {"Please wait"}
                         </Text>
@@ -68,20 +59,31 @@ export const PopupProcessing = React.forwardRef(
                                 color="rgb(83,157,209)"
                             />
                         </View>
-
                     </View>
-            </Modal>
-        );
+                </View>
+            );
+        } else {
+            return null;
+        }
     }
 );
 
 const styles = StyleSheet.create({
+    wrapContainer: {
+        position: "absolute",
+        top: 0,
+        width: scaleWidth(375),
+        bottom: 0,
+        backgroundColor: 'rgba(64,64,64,0.5)',
+        justifyContent: "center",
+        alignItems: "center"
+    },
     container: {
         backgroundColor: "#fff",
         alignItems: "center",
         alignSelf: "center",
         width: scaleWidth(340),
-        height : scaleHeight(180),
+        height: scaleHeight(180),
         paddingTop: scaleWidth(20),
         borderRadius: scaleHeight(5),
         position: 'relative',
@@ -91,15 +93,15 @@ const styles = StyleSheet.create({
         margin: 0,
     },
 
-    title: { 
-        color: '#0764B0', 
-        fontSize: scaleFont(18), 
-        fontWeight: 'bold' 
+    title: {
+        color: '#0764B0',
+        fontSize: scaleFont(18),
+        fontWeight: 'bold'
     },
     content: {
-         color: '#404040', 
-         fontSize: scaleFont(15), 
-         marginTop: scaleHeight(4) 
+        color: '#404040',
+        fontSize: scaleFont(15),
+        marginTop: scaleHeight(4)
     },
     indicator: {
         flex: 1,
