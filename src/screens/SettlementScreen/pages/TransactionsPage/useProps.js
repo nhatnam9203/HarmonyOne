@@ -33,7 +33,9 @@ export const useProps = (props) => {
   const getDataList = async (
     key = "", timeStart = "", timeEnd = "", quickFilter = "", page = 1, isFirstLoad
   ) => {
-    dispatch(app.showLoading());
+    if(!isFirstLoad){
+      dispatch(app.showLoading());
+    }
 
     const params = {
       url: `settlement/transaction?status=&timeStart=${timeStart}&timeEnd=${timeEnd}&key=${key}&quickFilter=${quickFilter}&page=${page}`,

@@ -5,9 +5,8 @@ import {
   getListStaffsSales,
   getListGiftCardSales,
   getSettlementWating,
-  getGiftCardSalesBySettlementId
 } from "@src/apis";
-import { settlement } from "@redux/slices";
+import { settlement, app } from "@redux/slices";
 import { useSelector, useDispatch } from "react-redux";
 import { useQueries } from 'react-query';
 
@@ -16,7 +15,8 @@ import NavigationService from '@navigation/NavigationService';
 export const useProps = (props) => {
   const dispatch = useDispatch();
 
-  const [valueNote, setValueNote] = React.useState("66876");
+  const [valueNote, setValueNote] = React.useState("");
+  const [countFetchhing, setCountFetching] = React.useState(0);
 
   const {
     settlement: {
@@ -27,25 +27,15 @@ export const useProps = (props) => {
     }
   } = useSelector(state => state);
 
-  const [, fetchGiftCardSalesBySettlementId] = useAxiosQuery({
-    ...getGiftCardSalesBySettlementId(),
-    queryId: "fetchGiftCardSalesBySettlementId_settlementWaiting",
-    enabled: false,
-    onSuccess: (data, response) => {
-      console.log('get list giftcard sales : ', { response })
-      if (response?.codeNumber == 200) {
-        dispatch(settlement.setListGiftCardSales(data))
-      }
-    }
-  });
-
   const [, fetchListGiftCardSales] = useAxiosQuery({
     ...getListGiftCardSales(),
     queryId: "fetchListGiftCardSales_settlementWaiting",
     enabled: false,
+    isLoadingDefault: false,
+    isStopLoading: true,
     onSuccess: (data, response) => {
-      console.log('get list giftcard sales : ', { response })
       if (response?.codeNumber == 200) {
+        setCountFetching(count => count++);
         dispatch(settlement.setListGiftCardSales(data))
       }
     }
@@ -55,11 +45,12 @@ export const useProps = (props) => {
     ...getListStaffsSales(),
     queryId: "fetchListStaffsSales_settlementWaiting",
     enabled: false,
+    isLoadingDefault: false,
     isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
+        setCountFetching(count => count++);
         dispatch(settlement.setListStaffsSales(data));
-        fetchSettlementWating();
       }
     }
   });
@@ -68,18 +59,28 @@ export const useProps = (props) => {
     ...getSettlementWating(),
     queryId: "fetchSettlementWating_settlementWaiting",
     enabled: false,
+    isLoadingDefault: false,
     isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
-        console.log('get settlement wauting: ', { response })
+        setCountFetching(count => count++);
         dispatch(settlement.setSettlementWaiting(data));
         setValueNote(data?.note || "");
       }
     }
   });
 
+  React.useEffect(() => {
+    if (countFetchhing == 3) {
+      dispatch(app.hideLoading());
+      setCountFetching(0);
+    }
+  }, [countFetchhing]);
+
 
   React.useEffect(() => {
+    dispatch(app.showLoading());
+    fetchSettlementWating();
     fetchListStaffsSales();
     fetchListGiftCardSales();
   }, []);

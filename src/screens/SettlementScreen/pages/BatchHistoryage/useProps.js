@@ -31,7 +31,9 @@ export const useProps = (props) => {
   const getDataList = async (
     key = "", timeStart = "", timeEnd = "", quickFilter = "", page = 1, isfirstLoad
   ) => {
-    dispatch(app.showLoading());
+    if(!isfirstLoad){
+      dispatch(app.showLoading());
+    }
 
     const params = {
       url: `settlement/search?key=${key}&timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=${quickFilter}&page=${page}&row=10&api-version=1.1`,
