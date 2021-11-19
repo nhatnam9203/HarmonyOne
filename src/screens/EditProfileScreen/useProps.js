@@ -40,15 +40,20 @@ export const useProps = (props) => {
     setImageUrl(staff?.imageUrl);
 
     let staffPhone = staff?.phone;
+
     let phone = '';
     if (staffPhone?.toString().includes('+84')) {
       phone = staffPhone?.toString().slice(3);
-      setValue('phone', phone);
-      inputPhoneHeadRef?.current?.changeValue({ label: '+84', value: '+84' });
+      if (phone !== 'undefined' && phone) {
+        setValue('phone', phone);
+        inputPhoneHeadRef?.current?.changeValue({ label: '+84', value: '+84' });
+      }
     } else {
       phone = staffPhone?.toString().slice(2);
-      setValue('phone', phone);
-      inputPhoneHeadRef?.current?.changeValue({ label: '+1', value: '+1' });
+      if (phone !== 'undefined' && phone) {
+        setValue('phone', phone);
+        inputPhoneHeadRef?.current?.changeValue({ label: '+1', value: '+1' });
+      }
     }
   }, []);
 
@@ -98,6 +103,7 @@ export const useProps = (props) => {
     },
 
     onSubmit: async (values) => {
+
       const phoneHeader = inputPhoneHeadRef?.current?.getValue().value;
 
       const data = {

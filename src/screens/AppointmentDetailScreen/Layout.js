@@ -59,6 +59,8 @@ export const Layout = ({
 }) => {
   const [t] = useTranslation();
 
+  console.log({ appointmentItem })
+
 
   const getPrice = (price) => {
     return formatMoneyWithUnit(price);

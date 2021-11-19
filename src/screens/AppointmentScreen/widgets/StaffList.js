@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, Text, ActivityIndicator, FlatList } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity, Text, ActivityIndicator, FlatList, Platform } from 'react-native';
 import { images, colors, fonts } from '@shared/themes';
 import { IconButton, CustomImage } from "@shared/components";
 import { isElement, isEmpty } from "lodash";
@@ -133,14 +133,13 @@ const styles = StyleSheet.create({
     container: {
         padding: scaleWidth(16),
         backgroundColor: "white",
-        shadowColor: "#000",
+        shadowColor: Platform.OS == "ios" ? '#0000000D' : "#000000",
         shadowOffset: {
-            width: 0,
-            height: 3,
+          width: 0,
+          height: 3,
         },
-        shadowOpacity: 0.05,
-        shadowRadius: 0.84,
-
+        shadowRadius: 5,
+        shadowOpacity: 1,
         elevation: 3,
     },
     content: {

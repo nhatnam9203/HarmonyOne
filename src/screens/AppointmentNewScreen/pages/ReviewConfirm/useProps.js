@@ -273,7 +273,8 @@ export const useProps = (_params) => {
         categories: [],
         services: [],
         extras: [],
-        products: productsBooking,
+        giftCards : [],
+        products: [],
       }
 
       setDisabledConfirm(true);

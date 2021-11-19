@@ -10,12 +10,13 @@ const initialState = {
     servicesBooking: [],
     productsBooking: [],
     extrasBooking: [],
-    giftCardsBooking : [],
+    giftCardsBooking: [],
     dayBooking: moment(),
     timeBooking: "",
     notesBooking: "",
     isAddMore: false,
     isQuickCheckout: false,
+    isBooking: false,
 };
 
 const bookAppointmentSlice = createSlice({
@@ -40,7 +41,7 @@ const bookAppointmentSlice = createSlice({
         setProductsBooking: (state, action) => {
             state.productsBooking = action.payload;
         },
-        setGiftCardsBooking : (state, action) =>{
+        setGiftCardsBooking: (state, action) => {
             state.giftCardsBooking = action.payload;
         },
 
@@ -142,6 +143,10 @@ const bookAppointmentSlice = createSlice({
             state.isQuickCheckout = action.payload;
         },
 
+        setStatusBooking : (state, action) => {
+            state.isBooking = action.payload;
+        },
+
         resetBooking: (state, action) => {
             state.staffsOfService = [];
             state.timesAvailable = [];
@@ -155,6 +160,7 @@ const bookAppointmentSlice = createSlice({
             state.notesBooking = "";
             state.isAddMore = false;
             state.isQuickCheckout = false;
+            state.isBooking = false;
         }
     },
 });

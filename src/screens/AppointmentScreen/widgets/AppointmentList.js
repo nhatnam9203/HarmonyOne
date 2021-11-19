@@ -115,7 +115,10 @@ const AppointmentList = React.forwardRef(({
             if (!isMounted) {
                 const index = data?.findIndex(obj => obj?.staffId == staff?.staffId);
                 if (index && index !== -1) {
-                    staffListRef?.current?.scrollToIndex(index);
+                    const roleName = staff?.roleName?.toString()?.toLowerCase();
+                    if (roleName == "admin" || roleName == "manager") {
+                        staffListRef?.current?.scrollToIndex(index);
+                    }
                 }
             }
             setMounted(true);

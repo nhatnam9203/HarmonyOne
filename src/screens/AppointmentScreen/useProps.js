@@ -167,6 +167,7 @@ export const useProps = (_params) => {
     isLoading: firstLoading,
     appointmentListRef,
     staffListRef,
+    staffInfo,
 
 
     selectStaff: (staffId) => {

@@ -1,10 +1,11 @@
 import React from "react";
-import { getStaffOfService, useAxiosQuery } from "@src/apis";
+import { getStaffOfService, useAxiosQuery, staffGetAvaiableTime , useAxiosMutation} from "@src/apis";
 import { useSelector, useDispatch } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
 import { isEmpty } from "lodash";
 import { bookAppointment } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
+import moment from "moment";
 
 
 export const useProps = ({
@@ -22,17 +23,29 @@ export const useProps = ({
   const inputPriceRef = React.useRef();
 
 
-  const { bookAppointment: {
-    servicesBooking = [],
-    extrasBooking = [],
-  } } = useSelector(state => state);
+  const {
+    bookAppointment: {
+      servicesBooking = [],
+      extrasBooking = [],
+      isQuickCheckout,
+      isAddMore,
+      dayBooking,
+    },
+    auth: { staff },
+    staff: { staffListByMerchant = [] },
+  } = useSelector(state => state);
 
   const [durationService, setDurationService] = React.useState(0);
   const [extrasService, setExtrasService] = React.useState([]);
 
   const [price, setPrice] = React.useState("");
   const [isEditPrice, setStatusEditPrice] = React.useState(false);
-  
+
+
+  const getStaffSelected = () => {
+    return staffListByMerchant?.find(s => s?.staffId == staff?.staffId);
+  }
+
 
   React.useEffect(() => {
 
@@ -120,6 +133,18 @@ export const useProps = ({
     dispatch(bookAppointment.setExtrasBooking(tempExtrasBooking));
   }
 
+
+  /****************************** GET TIME AVAIABLE BY STAFF  ******************************/
+  const [, submitGetStaffAvailable] = useAxiosMutation({
+    ...staffGetAvaiableTime(),
+    onSuccess: (data, response) => {
+      if (response.codeNumber == 200) {
+        dispatch(bookAppointment.setTimesAvailable(data));
+        NavigationService.navigate(screenNames.SelectDateTime, { staffSelected: getStaffSelected() });
+      }
+    }
+  });
+
   /* FETCH STAFF AVAILABLE OF SERVICE */
   const [, fetchStaffAvaiable] = useAxiosQuery({
     ...getStaffOfService(item?.serviceId),
@@ -131,7 +156,43 @@ export const useProps = ({
         await NavigationService.navigate(screenNames.SelectStaff, { serviceSelected: item });
       }
     }
-  })
+  });
+
+  const goToDateTime = async () => {
+
+    const staffSelected = getStaffSelected();
+
+    await addService();
+    await dispatch(bookAppointment.setStafsfOfService(data));
+
+    if (isAddMore) {
+      dispatch(bookAppointment.updateStatusAddMore(false));
+      dispatch(bookAppointment.updateStaffService({ service: item, staff: staffSelected }));
+      NavigationService.navigate(screenNames.ReviewConfirm);
+      return;
+    }
+
+
+    /**************************** UPDATE STAFF CHO SERVICE *****************************/
+    dispatch(bookAppointment.updateStaffService({ service: item, staff: staffSelected }));
+    /**************************** QUICK CHECKOUT KHONG CAN CHON DATE TIME *****************************/
+    if (isQuickCheckout) {
+      NavigationService.navigate(screenNames.ReviewConfirm);
+      return;
+    }
+
+    /**************************** GET TIME AVAILABLE CHO STAFF DUOC CHON *****************************/
+    const data = {
+      date: moment(dayBooking).format("YYYY-MM-DD"),
+      merchantId: staff?.merchantId,
+      appointmentId: 0,
+      timezone: new Date().getTimezoneOffset(),
+    };
+    console.log({ data, staffSelected })
+    const body = await staffGetAvaiableTime(staffSelected?.staffId, data);
+    submitGetStaffAvailable(body.params);
+  };
+
 
   return {
     item,
@@ -146,7 +207,12 @@ export const useProps = ({
     inputPriceRef,
 
     goToSelectStaff: () => {
-      fetchStaffAvaiable();
+      const roleName = staff?.roleName?.toString()?.toLowerCase();
+      if (roleName == "admin" || roleName == "manager") {
+        fetchStaffAvaiable();
+      } else {
+        goToDateTime();
+      }
     },
 
     goToReview: () => {

@@ -21,6 +21,7 @@ export const AppStateProvider = ({ children }) => {
   const dispatch = useDispatch();
 
   const appLoading = useSelector((state) => state.app.appLoading);
+
   const {
     app: {
       isHome = false,
@@ -91,7 +92,11 @@ export const AppStateProvider = ({ children }) => {
     // await dispatch(appMerchant.setDeviceInfo({ deviceId, deviceName }));
   };
 
-  const connectSignalR = () => {
+  const updateAppointmentRealTime = () => {
+
+  }
+
+  const connectSignalR = (statusBooking) => {
     if (staff) {
       try {
         const deviceId = `${DeviceInfo.getDeviceId()}_${guid()}`;
@@ -110,6 +115,7 @@ export const AppStateProvider = ({ children }) => {
           .build();
 
         connection.on("ListWaNotification", (data) => {
+
           const dataParse = JSON.parse(data);
           const typeData = dataParse?.data?.Type;
           if (typeData) {
@@ -137,6 +143,7 @@ export const AppStateProvider = ({ children }) => {
                 break;
             }
           }
+
         });
 
         connection.onclose(async (error) => {
@@ -201,7 +208,7 @@ export const AppStateProvider = ({ children }) => {
         ref={alertRef}
         closeInterval={2000}
         infoColor="#1B68AC"
-        errorColor={colors.red}
+        errorColor={"#DB0000"}
         titleStyle={styles.titleAlertStyle}
         messageStyle={styles.messageAlertStyle}
         defaultContainer={styles.alertStyle}
@@ -226,9 +233,9 @@ const styles = StyleSheet.create({
   },
 
   containerStyle: {
-    justifyContent : "center",
-    alignItems : "center",
-    backgroundColor : "blue"
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "blue"
   },
 
   alertStyle: {
@@ -236,7 +243,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 16,
     paddingLeft: 20,
-    paddingVertical : 5,
+    paddingVertical: 5,
     // paddingBottom: 8
   },
 
@@ -244,7 +251,7 @@ const styles = StyleSheet.create({
     width: scaleWidth(45),
     height: scaleWidth(45),
     tintColor: "white",
-    marginTop : Platform.OS == "ios" ? scaleWidth(5) : scaleWidth(15)
+    marginTop: Platform.OS == "ios" ? scaleWidth(5) : scaleWidth(15)
   }
 
 });

@@ -5,15 +5,20 @@ import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, ItemSelect, NotificationIcon } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
-import { items } from "./Items";
+import { items, itemsRoleManagerAdmin } from "./Items";
 import { StaffInfo } from "./StaffInfo";
 
 export const Layout = ({
   onEditProfile,
-  goToNotification
+  goToNotification,
+  staff
 }) => {
 
   const [t] = useTranslation();
+  
+  const roleName = staff?.roleName?.toString()?.toLowerCase();
+
+  const itremsRender = (roleName == "admin" || roleName == "manager") ? itemsRoleManagerAdmin : items;
 
   return (
     <View style={styles.container}>
@@ -30,7 +35,7 @@ export const Layout = ({
           <StaffInfo onEditProfile={onEditProfile} />
           <ScrollView style={styles.containerItem}>
             {
-              items.map((item) => (
+              itremsRender.map((item) => (
                 <ItemSelect
                   key={item.title}
                   title={item.title}
