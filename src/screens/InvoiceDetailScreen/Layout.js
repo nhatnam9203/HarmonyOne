@@ -18,7 +18,11 @@ const switchMethodText = (method) => {
     case "cash":
       return "Cash";
     case "giftcard":
-      return "Gift Card"
+      return "Gift Card";
+    case "credit_card":
+      return "Credit Card";
+    case "harmony":
+      return "Harmony";
 
     default:
       return method;
@@ -76,7 +80,7 @@ export const Layout = ({
         <ViewShot style={{ flex: 1 }} ref={viewShotRef}>
           <KeyboardAwareScrollView style={styles.content}>
             <Text style={styles.invoiceNumber}>
-              {`Invoice #${invoiceDetail?.invoiceNo}`}
+              {`Invoice #${invoiceDetail?.checkoutId}`}
             </Text>
             <View style={[styles.row, { marginTop: scaleHeight(12) }]}>
               <View style={styles.circleStatus(invoiceDetail?.status)} />

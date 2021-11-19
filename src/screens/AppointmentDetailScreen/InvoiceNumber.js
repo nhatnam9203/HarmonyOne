@@ -17,7 +17,7 @@ export const InvoiceNumber = ({
             </Text>
             <Text style={styles.invoiceNumber}>{`Invoice : `}
               <Text style={{ color: colors.ocean_blue, fontFamily: fonts.BOLD }}>
-                #{invoiceViewAppointmentDetail?.invoiceNo}
+                #{invoiceViewAppointmentDetail?.checkoutId}
               </Text>
             </Text>
           </View>

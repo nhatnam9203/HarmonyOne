@@ -9,6 +9,8 @@ import {
 } from "@src/apis";
 import { settlement } from "@redux/slices";
 import { useSelector, useDispatch } from "react-redux";
+import { useQueries } from 'react-query';
+
 import NavigationService from '@navigation/NavigationService';
 
 export const useProps = (props) => {

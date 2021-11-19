@@ -171,24 +171,12 @@ export const useProps = (_params) => {
 
 
     selectStaff: (staffId) => {
-      if (staffInfo?.roleName?.toString()?.toLowerCase() == "manager") {
-        if (staffId == staffSelected) {
-          setStaffSelected('');
-          appointmentListRef?.current?.setStaffSelected('')
-        } else {
-          setStaffSelected(staffId);
-          appointmentListRef?.current?.setStaffSelected(staffId)
-        }
+      if (staffId == staffSelected) {
+        setStaffSelected('');
+        appointmentListRef?.current?.setStaffSelected('')
       } else {
-        if (staffId !== staffInfo?.staffId) {
-          dispatch(app.setError({
-            isError: true,
-            messageError: "Only Manager has the permision view appointments of other staff",
-            errorType: "error",
-            titleError: "Manager permission",
-          }));
-          // Alert.alert('Only Manager has the permision view appointments of other staff');
-        }
+        setStaffSelected(staffId);
+        appointmentListRef?.current?.setStaffSelected(staffId)
       }
     },
 
