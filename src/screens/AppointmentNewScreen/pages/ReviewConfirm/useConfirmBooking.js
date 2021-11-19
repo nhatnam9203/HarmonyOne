@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatNumberFromCurrency, formatMoney, convertMinsToHrsMins } from "@shared/utils";
-import { bookAppointment, appointment, app } from "@redux/slices";
+import { bookAppointment, appointment } from "@redux/slices";
 import {
   addAppointment,
   useAxiosMutation,
@@ -16,7 +16,7 @@ import { dateToFormat } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
 
-export const useProps = (_params) => {
+const useConfirmBooking = (_params) => {
   const dispatch = useDispatch();
   const dialogBookingRef = React.useRef();
 
@@ -38,7 +38,6 @@ export const useProps = (_params) => {
     enabled: false,
     onSuccess: (data, response) => {
       dispatch(appointment.setBlockTimeBydate(data));
-      dispatch(app.startSignalR());
       if (isQuickCheckout) {
         NavigationService.navigate(screenNames.CheckoutScreen);
         setTimeout(() => {
@@ -74,19 +73,18 @@ export const useProps = (_params) => {
 
   const [, submitUpdateAppointment] = useAxiosMutation({
     ...updateAppointment(),
-    queryId: "updateAppointment_reviewConfirm",
+    queryId: "fetchAppointmentById_reviewConfirm",
     isStopLoading: true,
     isLoadingDefault: false,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
-        dispatch(app.hideLoading());
+
       }
     }
   });
 
   const [, submitAddAppointment] = useAxiosMutation({
     ...addAppointment(),
-    isLoadingDefault: false,
     isStopLoading: true,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
@@ -95,7 +93,7 @@ export const useProps = (_params) => {
         const tempData = {
           services: servicesBooking,
           extras: extrasBooking.map(ex => ({ extraId: ex.extraId })),
-          products: productsBooking,
+          products: [],
           giftCards: giftCardsBooking.map((giftCard) => ({ giftCardId: giftCard?.giftCardId, price: giftCard?.price })),
         };
         const body = await addItemIntoAppointment(appointmentId, tempData);
@@ -275,11 +273,10 @@ export const useProps = (_params) => {
         categories: [],
         services: [],
         extras: [],
-        giftCards: [],
+        giftCards : [],
         products: [],
       }
-      dispatch(app.showLoading());
-      dispatch(app.stopSignalR());
+
       setDisabledConfirm(true);
       const body = await addAppointment(data);
       submitAddAppointment(body.params);
@@ -293,3 +290,5 @@ export const useProps = (_params) => {
     }
   };
 };
+
+export default useConfirmBooking;

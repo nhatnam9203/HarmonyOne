@@ -25,7 +25,9 @@ const initialState = {
   messageError: "",
   errorType: "info",
   titleError: "",
+  isSignalR: true,
 };
+
 let appSlice = createSlice({
   name: reducerName,
   initialState: initialState,
@@ -57,7 +59,17 @@ let appSlice = createSlice({
 
     setStatusHomeScreen: (state, action) => {
       state.isHome = action.payload;
-    }
+    },
+
+
+    startSignalR: (state, action) => {
+      state.isSignalR = true;
+    },
+
+    stopSignalR: (state, action) => {
+      state.isSignalR = false;
+    },
+
   },
 });
 

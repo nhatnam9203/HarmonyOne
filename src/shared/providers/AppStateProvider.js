@@ -21,6 +21,9 @@ export const AppStateProvider = ({ children }) => {
   const dispatch = useDispatch();
 
   const appLoading = useSelector((state) => state.app.appLoading);
+  const isSignalR = useSelector((state) => state.app.isSignalR);
+
+  const [connectionSignalR, setConnectSignalR] = React.useState(false);
 
   const {
     app: {
@@ -47,6 +50,7 @@ export const AppStateProvider = ({ children }) => {
     ),
     enabled: false,
     isLoadingDefault: false,
+    isStopLoading: true,
     onSuccess: (data, response) => {
       dispatch(staffAction.setStaffByDate(data));
     },
@@ -56,6 +60,7 @@ export const AppStateProvider = ({ children }) => {
     ...getAppointmentByDate(moment(appointmentDate).format("YYYY-MM-DD")),
     enabled: false,
     isLoadingDefault: false,
+    isStopLoading: true,
     onSuccess: (data, response) => {
       dispatch(appointment.setBlockTimeBydate(data));
     },
@@ -65,6 +70,7 @@ export const AppStateProvider = ({ children }) => {
     ...getCountUnReadOfNotification(),
     enabled: false,
     isLoadingDefault: false,
+    isStopLoading: true,
     onSuccess: (data, response) => {
       dispatch(notification.setCountUnread(data));
     },
@@ -92,9 +98,6 @@ export const AppStateProvider = ({ children }) => {
     // await dispatch(appMerchant.setDeviceInfo({ deviceId, deviceName }));
   };
 
-  const updateAppointmentRealTime = () => {
-
-  }
 
   const connectSignalR = (statusBooking) => {
     if (staff) {
@@ -110,12 +113,11 @@ export const AppStateProvider = ({ children }) => {
                 signalR.HttpTransportType.WebSockets,
             }
           )
-          .withAutomaticReconnect([0, 2000, 10000, 30000])
+          // .withAutomaticReconnect([0, 2000, 10000, 30000])
           .configureLogging(signalR.LogLevel.Information)
           .build();
 
         connection.on("ListWaNotification", (data) => {
-
           const dataParse = JSON.parse(data);
           const typeData = dataParse?.data?.Type;
           if (typeData) {
@@ -150,16 +152,29 @@ export const AppStateProvider = ({ children }) => {
         });
 
         connection.start().then(async () => {
-
+          setConnectSignalR(connection);
         })
           .catch((error) => {
-
+            connectionSignalR?.start();
           });
       } catch (err) {
+        if(connectionSignalR){
+          connectionSignalR?.start();
+        }
         console.log({ err });
       }
     }
   };
+
+  React.useEffect(() => {
+    if (connectionSignalR) {
+      if (isSignalR) {
+        connectionSignalR?.start();
+      } else {
+        connectionSignalR?.stop();
+      }
+    }
+  }, [isSignalR]);
 
   React.useEffect(() => {
     if (isError) {
