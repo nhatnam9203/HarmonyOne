@@ -10,11 +10,14 @@ import {
 import { settlement } from "@redux/slices";
 import { useSelector, useDispatch } from "react-redux";
 import NavigationService from '@navigation/NavigationService';
+import { PaymentTerminalType } from "@shared/utils";
+import _ from "lodash";
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
 
   const [valueNote, setValueNote] = React.useState("66876");
+  const [terminalId, setTerminalId] = React.useState(null);
 
   const {
     settlement: {
@@ -22,7 +25,12 @@ export const useProps = (props) => {
       listStaffSales = [],
       listGiftCardSales = [],
 
-    }
+    },
+    hardware: { 
+      cloverMachineInfo, 
+      dejavooMachineInfo, 
+      paymentMachineType 
+    },
   } = useSelector(state => state);
 
   const [, fetchGiftCardSalesBySettlementId] = useAxiosQuery({
@@ -38,7 +46,7 @@ export const useProps = (props) => {
   });
 
   const [, fetchListGiftCardSales] = useAxiosQuery({
-    ...getListGiftCardSales(),
+    ...getListGiftCardSales(terminalId),
     queryId: "fetchListGiftCardSales_settlementWaiting",
     enabled: false,
     onSuccess: (data, response) => {
@@ -50,26 +58,29 @@ export const useProps = (props) => {
   });
 
   const [, fetchListStaffsSales] = useAxiosQuery({
-    ...getListStaffsSales(),
+    ...getListStaffsSales(terminalId),
     queryId: "fetchListStaffsSales_settlementWaiting",
     enabled: false,
     isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(settlement.setListStaffsSales(data));
-        fetchSettlementWating();
+        // const terminalType = paymentMachineType ? paymentMachineType.toLowerCase() : ""
+        // console.log('fetch settle waiting', terminalId, terminalType)
+        // const body = getSettlementWating(terminalId, terminalType)
+        // fetchSettlementWating(body.params);
       }
     }
   });
 
   const [, fetchSettlementWating] = useAxiosQuery({
-    ...getSettlementWating(),
+    ...getSettlementWating(terminalId, paymentMachineType.toLowerCase()),
     queryId: "fetchSettlementWating_settlementWaiting",
     enabled: false,
     isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
-        console.log('get settlement wauting: ', { response })
+        console.log('fetchSettlementWating', response)
         dispatch(settlement.setSettlementWaiting(data));
         setValueNote(data?.note || "");
       }
@@ -78,9 +89,35 @@ export const useProps = (props) => {
 
 
   React.useEffect(() => {
-    fetchListStaffsSales();
-    fetchListGiftCardSales();
+    console.log('useEffect')
+    let terminalId = null
+    if (paymentMachineType == PaymentTerminalType.Clover
+        && _.get(cloverMachineInfo, 'isSetup')) {
+          terminalId = _.get(cloverMachineInfo, 'serialNumber')
+    } else if (paymentMachineType == PaymentTerminalType.Dejavoo
+              && _.get(dejavooMachineInfo, 'isSetup')) {
+        terminalId = _.get(dejavooMachineInfo, 'sn')
+    }
+    setTerminalId(terminalId)
+   
   }, []);
+
+  React.useEffect(() => {
+
+    const body = getListStaffsSales(terminalId);
+    console.log('params',body.params)
+    fetchListStaffsSales(body.params);
+
+    const bodyGiftCard = getListGiftCardSales(terminalId)
+    console.log('params',bodyGiftCard.params)
+    fetchListGiftCardSales(bodyGiftCard.params);
+
+    const terminalType = paymentMachineType ? paymentMachineType.toLowerCase() : ""
+    const bodySettleWaiting = getSettlementWating(terminalId, terminalType)
+    console.log('params',bodySettleWaiting.params)
+    fetchSettlementWating(bodySettleWaiting.params);
+    
+  }, [terminalId]);
 
   return {
     settlementWaiting,

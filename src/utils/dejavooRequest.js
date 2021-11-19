@@ -68,7 +68,7 @@ export const requestTransactionDejavoo = async (params) => {
     return response
   };
 
-  export const requestSettlementDejavoo = async () => {
+  export const requestSettlementDejavoo = async (params) => {
     const dejavooMachineInfo = _.get(params, 'dejavooMachineInfo');
     const param = `<request>`+
                 `<AuthKey>${_.get(dejavooMachineInfo, 'authKey')}</AuthKey>`+

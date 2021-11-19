@@ -7,8 +7,8 @@ import {
   IconButton, 
   CustomerInfoView,
   PopupProcessingCredit,
-  PopupErrorMessage, 
   PopupInvoice,
+  DialogConfirm,
  } from "@shared/components";
 import { fonts, images, colors } from '@shared/themes';
 import { guid, formatNumberFromCurrency, formatMoney } from "@shared/utils";
@@ -37,10 +37,11 @@ export const Layout = ({
   voidRefundInvoice,
   viewShotRef,
   popupProcessingRef,
-  popupErrorMessageRef,
+  popupConfirmPrintRef,
   invoiceRef,
   shareInvoice,
   printInvoice,
+  cancelInvoicePrint,
 }) => {
 
   const [t] = useTranslation();
@@ -237,16 +238,17 @@ export const Layout = ({
           onConfirmYes={() => onCancelTransactionCredit()}
       />
 
-      <PopupErrorMessage
-          ref={popupErrorMessageRef}
-          title={t("Trasaction Fail")}
-          message={errorMessageFromPax}
-      />
-
       <PopupInvoice
           ref={invoiceRef}
           cancelInvoicePrint={cancelInvoicePrint} 
       />
+      <DialogConfirm
+        ref={popupConfirmPrintRef}
+        title={t('Confirmation')}
+        titleContent={t("Do you want to print receipt?")}
+        onConfirmYes={printInvoice}
+      />
+      
       {
         isVisibleButton &&
         <View style={styles.bottom}>

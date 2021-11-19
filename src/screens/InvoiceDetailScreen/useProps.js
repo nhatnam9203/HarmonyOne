@@ -8,7 +8,9 @@ import {
   getAppointmentByDate,
   getInvoiceDetail,
 } from '@src/apis';
-import { dateToFormat, PaymentTerminalType } from "@shared/utils";
+import { dateToFormat, 
+  PaymentTerminalType, 
+  stringIsEmptyOrWhiteSpaces } from "@shared/utils";
 
 import { appointment, invoice } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService'
@@ -20,6 +22,7 @@ import {
   requestTransactionDejavoo,
 } from "@utils";
 import { parseString } from 'react-native-xml2js';
+import { InvoiceDetailScreen } from ".";
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
@@ -27,12 +30,16 @@ export const useProps = (props) => {
 
   const viewShotRef = React.useRef();
   const popupProcessingRef = React.useRef();
-  const popupErrorMessageRef = React.useRef();
   const invoiceRef = React.useRef(null);
+  const popupConfirmPrintRef = React.useRef();
 
   const {
     invoice: { invoiceDetail },
-    appointment: { appointmentDate }
+    appointment: { appointmentDate },
+    hardware: { 
+      paymentMachineType,
+      dejavooMachineInfo
+     },
   } = useSelector(state => state);
 
   const [, submitChangeStatusTransaction] = useAxiosMutation({
@@ -64,44 +71,37 @@ export const useProps = (props) => {
     },
   });
 
-  handleResultRefundTransactionDejavoo = async (responses) => {
+  const handleResultRefundTransactionDejavoo = async (responses) => {
     popupProcessingRef?.current?.hide();
 
     parseString(responses, (err, result) => {
-      if (err || l.get(result, "xmp.response.0.ResultCode.0") != 0) {
-        let detailMessage = l
-          .get(result, "xmp.response.0.RespMSG.0", "")
+      if (err || _.get(result, "xmp.response.0.ResultCode.0") != 0) {
+        let detailMessage = _.get(result, "xmp.response.0.RespMSG.0", "")
           .replace(/%20/g, " ");
         detailMessage = !stringIsEmptyOrWhiteSpaces(detailMessage)
           ? `: ${detailMessage}`
           : detailMessage;
 
         const resultTxt =
-          `${l.get(result, "xmp.response.0.Message.0")}${detailMessage}` ||
+          `${_.get(result, "xmp.response.0.Message.0")}${detailMessage}` ||
           "Error";
         setTimeout(() => {
           alert(resultTxt);
         }, 300);
+          
       } else {
-        // this.props.actions.invoice.changeStatustransaction(
-        //   invoiceDetail.checkoutId,
-        //   this.getParamsSearch(),
-        //   responses,
-        //   "dejavoo"
-        // );
         const data = {
           responseData: responses,
           paymentTerminal: "dejavoo",
-          sn: null,
         };
-        const body = await changeStatustransaction(invoiceDetail?.checkoutId, data);
+        const body = changeStatustransaction(invoiceDetail?.checkoutId, data);
         submitChangeStatusTransaction(body.params);
       }
     });
   };
 
   const handleVoidRefundCreditCard = () => {
-    const paymentInformation =
+      const paymentInformation =
         invoiceDetail?.paymentInformation[0]?.responseData || {};
       const method = _.get(
         invoiceDetail,
@@ -115,7 +115,7 @@ export const useProps = (props) => {
           if (paymentMachineType == PaymentTerminalType.Dejavoo) {
             if (method != "Dejavoo") {
               popupProcessingRef?.current?.hide();
-              alert(localize("Your transaction is invalid", language));
+              alert(t("Your transaction is invalid"));
               return;
             }
             const amount = _.get(
@@ -137,6 +137,7 @@ export const useProps = (props) => {
                   amount: parseFloat(amount).toFixed(2),
                   RefId: transactionId,
                   invNum: `${invNum}`,
+                  dejavooMachineInfo,
                 };
                 requestTransactionDejavoo(params).then((responses) => {
                   handleResultRefundTransactionDejavoo(responses);
@@ -144,11 +145,11 @@ export const useProps = (props) => {
               }
             });
           } 
-        }else if (invoiceDetail?.status === "complete") {
+        } else if (invoiceDetail?.status === "complete") {
            if (paymentMachineType == PaymentTerminalType.Dejavoo) {
             if (method != "Dejavoo") {
               popupProcessingRef?.current?.hide();
-              alert(localize("Your transaction is invalid", language));
+              alert(t("Your transaction is invalid"));
               return;
             }
             const amount = _.get(
@@ -169,6 +170,7 @@ export const useProps = (props) => {
                   amount: parseFloat(amount).toFixed(2),
                   RefId: transactionId,
                   invNum: `${invNum}`,
+                  dejavooMachineInfo,
                 };
                 requestTransactionDejavoo(params).then((responses) => {
                   handleResultRefundTransactionDejavoo(responses);
@@ -177,6 +179,7 @@ export const useProps = (props) => {
             });
           } 
         }
+      }
   }
 
   let isDebitPayment = false;
@@ -205,7 +208,7 @@ export const useProps = (props) => {
     isDebitPayment,
     viewShotRef,
     popupProcessingRef,
-    popupErrorMessageRef,
+    popupConfirmPrintRef,
     invoiceRef,
     voidRefundInvoice: async () => {
       if (invoiceDetail?.paymentMethod !== "credit_card") {
@@ -241,7 +244,21 @@ export const useProps = (props) => {
     },
 
     printInvoice : async() =>{
-      Alert.alert('tich máy Dejavoo');
+      setTimeout(() => {
+        invoiceRef.current?.showAppointmentReceipt({
+          appointmentId: invoiceDetail?.appointmentId,
+          checkoutId: invoiceDetail?.invoiceNo,
+          isPrintTempt: false,
+          machineType: paymentMachineType,
+        });
+      }, 300);
+    },
+    cancelInvoicePrint: () => {
+    },
+    onCancelTransactionCredit: () => {
+      setTimeout(() => {
+        alert("Please wait!")
+      }, 300);
     },
   }
 };
