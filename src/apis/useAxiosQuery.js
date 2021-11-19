@@ -31,8 +31,9 @@ export const useAxiosQuery = ({
       enabled,
       retry: false,
       onSuccess: (response) => {
-        console.log({ status, data })
-        dispatch(app?.hideLoading());
+        if(!isStopLoading){
+          dispatch(app?.hideLoading());
+        }
         if (response?.codeNumber == 200 || response?.codeNumber == 404 || response?.codeNumber == 201) {
           if (onSuccess && typeof onSuccess === 'function') {
             onSuccess(response?.data, response);

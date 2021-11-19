@@ -14,6 +14,7 @@ export const useProps = (props) => {
   const dialogProgressRef = React.useRef();
 
   const [progress, setProgress] = React.useState(0);
+  const [countFetchhing, setCountFetching] = React.useState(0);
 
   const {
     settlement: {
@@ -30,10 +31,10 @@ export const useProps = (props) => {
       method: 'POST',
       data,
       onDownloadProgress: progressEvent => {
-        if(Platform.OS == "ios"){
+        if (Platform.OS == "ios") {
           const total = parseFloat(progressEvent.currentTarget.responseHeaders['Content-Length'])
           const current = progressEvent.currentTarget.response.length
-  
+
           let percentCompleted = Math.floor(current / total * 100);
           setProgress(percentCompleted);
         }
@@ -62,8 +63,10 @@ export const useProps = (props) => {
     queryId: "fetchBatchHistory_reviewSettlement",
     enabled: false,
     isLoadingDefault: false,
+    isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
+        setCountFetching(count => count++);
         dispatch(settlement.setBatchHistory({
           ...response,
           currentPage: 1
@@ -80,6 +83,7 @@ export const useProps = (props) => {
     isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
+        setCountFetching(count => count++);
         dispatch(settlement.setListStaffsSales(data))
       }
     },
@@ -94,6 +98,7 @@ export const useProps = (props) => {
     isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
+        setCountFetching(count => count++);
         dispatch(settlement.setListGiftCardSales(data))
       }
     },
@@ -103,22 +108,25 @@ export const useProps = (props) => {
     ...getSettlementWating("", "", "", "", 1),
     queryId: "fetchSettlementWating_reviewSettlement",
     enabled: false,
-    isStopLoading: true,
     isLoadingDefault: false,
+    isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
+        setCountFetching(count => count++);
         dispatch(settlement.setSettlementWaiting(data));
-        fetchBatchHistory();
       }
     },
   });
 
   const [, fetchTransactions] = useAxiosQuery({
     ...getTransactions(),
-    queryId: "fetchTransactions_reviewSettlement",
+    queryId: "fetchTransactions_reviewSettlementPage",
     enabled: false,
+    isLoadingDefault: false,
+    isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
+        setCountFetching(count => count++);
         dispatch(
           settlement.setTransactions({
             ...response,
@@ -127,12 +135,20 @@ export const useProps = (props) => {
       }
     },
   });
+  React.useEffect(() => {
+    console.log({ countFetchhing });
+    if (countFetchhing == 3) {
+      dispatch(app.hideLoading());
+      setCountFetching(0);
+    }
+  }, [countFetchhing]);
 
   const refetchSettlement = () => {
     fetchSettlementWating();
     fetchTransactions();
     fetchListStaffsSales();
     fetchListGiftCardSales();
+    // fetchBatchHistory();
   }
 
 
