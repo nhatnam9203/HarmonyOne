@@ -2,10 +2,10 @@
 import React from "react";
 import { settlement } from "@redux/slices";
 import { useSelector, useDispatch } from "react-redux";
-import { useAxiosQuery, getListStaffsSales, getListGiftCardSales, getSettlementWating, getBatchHistory, getTransactions } from "@src/apis";
 import { app } from "@redux/slices";
 import { Platform } from "react-native";
 import { axios } from '@shared/services/axiosClient';
+import useRefetchSettlementWaiting from "./useRefetchSettlementWaiting";
 import NavigationService from '@navigation/NavigationService';
 
 export const useProps = (props) => {
@@ -15,6 +15,8 @@ export const useProps = (props) => {
 
   const [progress, setProgress] = React.useState(0);
   const [countFetchhing, setCountFetching] = React.useState(0);
+
+  const [refetchSettlementWaiting] = useRefetchSettlementWaiting();
 
   const {
     settlement: {
@@ -45,7 +47,7 @@ export const useProps = (props) => {
       const response = await axios(params);
       if (response?.data?.codeNumber == 200) {
         setProgress(100);
-        refetchSettlement();
+        refetchSettlementWaiting();
       } else {
         Alert.alert(response?.data?.message)
       }
@@ -53,102 +55,7 @@ export const useProps = (props) => {
     } catch (err) {
 
     } finally {
-      // dispatch(app.hideLoading());
     }
-  }
-
-
-  const [, fetchBatchHistory] = useAxiosQuery({
-    ...getBatchHistory("", "", "", "", 1),
-    queryId: "fetchBatchHistory_reviewSettlement",
-    enabled: false,
-    isLoadingDefault: false,
-    isStopLoading: true,
-    onSuccess: (data, response) => {
-      if (response?.codeNumber == 200) {
-        setCountFetching(count => count++);
-        dispatch(settlement.setBatchHistory({
-          ...response,
-          currentPage: 1
-        }));
-      }
-    },
-  });
-
-  const [, fetchListStaffsSales] = useAxiosQuery({
-    ...getListStaffsSales("", "", "", "", 1),
-    queryId: "fetchListStaffsSales_reviewSettlement",
-    enabled: false,
-    isLoadingDefault: false,
-    isStopLoading: true,
-    onSuccess: (data, response) => {
-      if (response?.codeNumber == 200) {
-        setCountFetching(count => count++);
-        dispatch(settlement.setListStaffsSales(data))
-      }
-    },
-  });
-
-
-  const [, fetchListGiftCardSales] = useAxiosQuery({
-    ...getListGiftCardSales("", "", "", "", 1),
-    queryId: "fetchListGiftCardSales_reviewSettlement",
-    enabled: false,
-    isLoadingDefault: false,
-    isStopLoading: true,
-    onSuccess: (data, response) => {
-      if (response?.codeNumber == 200) {
-        setCountFetching(count => count++);
-        dispatch(settlement.setListGiftCardSales(data))
-      }
-    },
-  });
-
-  const [, fetchSettlementWating] = useAxiosQuery({
-    ...getSettlementWating("", "", "", "", 1),
-    queryId: "fetchSettlementWating_reviewSettlement",
-    enabled: false,
-    isLoadingDefault: false,
-    isStopLoading: true,
-    onSuccess: (data, response) => {
-      if (response?.codeNumber == 200) {
-        setCountFetching(count => count++);
-        dispatch(settlement.setSettlementWaiting(data));
-      }
-    },
-  });
-
-  const [, fetchTransactions] = useAxiosQuery({
-    ...getTransactions(),
-    queryId: "fetchTransactions_reviewSettlementPage",
-    enabled: false,
-    isLoadingDefault: false,
-    isStopLoading: true,
-    onSuccess: (data, response) => {
-      if (response?.codeNumber == 200) {
-        setCountFetching(count => count++);
-        dispatch(
-          settlement.setTransactions({
-            ...response,
-            currentPage: 1
-          }));
-      }
-    },
-  });
-  React.useEffect(() => {
-    console.log({ countFetchhing });
-    if (countFetchhing == 3) {
-      dispatch(app.hideLoading());
-      setCountFetching(0);
-    }
-  }, [countFetchhing]);
-
-  const refetchSettlement = () => {
-    fetchSettlementWating();
-    fetchTransactions();
-    fetchListStaffsSales();
-    fetchListGiftCardSales();
-    // fetchBatchHistory();
   }
 
 

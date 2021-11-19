@@ -16,7 +16,6 @@ export const useAxiosMutation = ({
 
   const postRequest = async (body = null) => {
     const response = body ? await axios(body) : await axios(params);
-    console.log({ body, response })
     return response?.data;
   };
 
