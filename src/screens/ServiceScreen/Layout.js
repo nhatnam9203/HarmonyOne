@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     color: "#404040",
     marginVertical: scaleHeight(16),
     marginTop: scaleHeight(24),
-    fontFamily: fonts.MEDIUM,
+    fontFamily: fonts.BOLD,
     fontSize: scaleFont(20)
   },
 });

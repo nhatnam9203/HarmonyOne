@@ -16,7 +16,9 @@ const switchMethodText = (method) => {
     case "other":
       return "Other - Check";
     case "cash":
-      return "Cash"
+      return "Cash";
+    case "giftcard":
+      return "Gift Card"
 
     default:
       return method;
