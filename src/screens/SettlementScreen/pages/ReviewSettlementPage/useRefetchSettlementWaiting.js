@@ -102,9 +102,9 @@ const useRefetchSettlementWaiting = () => {
 
     const refetchSettlementWaiting = () => {
         fetchSettlementWating();
+        fetchTransactions();
         fetchListStaffsSales();
         fetchListGiftCardSales();
-        fetchTransactions();
         fetchBatchHistory();
     }
 

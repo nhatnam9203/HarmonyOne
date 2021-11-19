@@ -21,6 +21,7 @@ export const Layout = ({
     groupAppointments,
     moneyGiveForStaff,
     exact,
+    isTurnOff
 }) => {
 
     const [t] = useTranslation();
@@ -101,6 +102,7 @@ export const Layout = ({
                         onPress={form.handleSubmit(onSubmit)}
                         highlight={true}
                         width={'100%'}
+                        isTurnOff={isTurnOff}
                     />
                 </View>
             </SingleScreenLayout>

@@ -5,7 +5,7 @@ import { colors, fonts, layouts } from "@shared/themes";
 import { Button, IconButton } from "@shared/components";
 import { images } from "@shared/themes/resources";
 import { app } from "@redux/slices";
-import { formatMoney, formatNumberFromCurrency, slop } from "@shared/utils";
+import { formatMoney, formatNumberFromCurrency, slop, guid } from "@shared/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { isEmpty } from "lodash";
 import Modal from "react-native-modal";
@@ -86,7 +86,7 @@ export const PopupPaymentDetail = React.forwardRef(
                             paymentDetail?.checkoutPaymentResponse?.paidAmounts &&
                             paymentDetail?.checkoutPaymentResponse?.paidAmounts?.length > 0 &&
                             paymentDetail?.checkoutPaymentResponse?.paidAmounts?.map((obj) => (
-                                <View style={[styles.row]}>
+                                <View key={guid()} style={[styles.row]}>
                                     <Text style={[styles.txt]}>{`Paid (${obj.paymentMethod})`}</Text>
                                     <Text style={[styles.txt, { fontFamily: fonts.BOLD, color: "#000" }]}>{`$ ${obj.amount}`}</Text>
                                 </View>

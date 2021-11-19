@@ -122,7 +122,7 @@ export const TotalView = ({
             {
                 groupAppointments?.checkoutPayments && groupAppointments?.checkoutPayments?.length > 0 &&
                 groupAppointments?.checkoutPayments?.map(item => (
-                    <View style={styles.row}>
+                    <View key={item?.checkoutPaymentId + "checkoutPaymentId"} style={styles.row}>
                         <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                             Paid
                             <Text style={{ fontFamily: fonts.REGULAR }}>{` (${item?.paymentMethod})`}</Text>
