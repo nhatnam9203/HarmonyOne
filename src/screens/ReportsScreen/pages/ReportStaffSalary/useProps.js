@@ -23,6 +23,8 @@ export const useProps = (props) => {
     }
   } = useSelector(state => state);
 
+  const roleName = staff?.roleName?.toString()?.toLowerCase();
+
   /********************************* STATE  ********************************* */
   const [currentPage, setCurrentPage] = React.useState(1);
   const [isRefresh, setRefresh] = React.useState(false);
@@ -107,6 +109,8 @@ export const useProps = (props) => {
 
     staffSalary,
     staffSalary_pages,
+    roleName,
+    staff,
     exportFile : ()=>exportFile("csv"),
 
 

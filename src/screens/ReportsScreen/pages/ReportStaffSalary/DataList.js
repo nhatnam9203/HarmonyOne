@@ -5,7 +5,6 @@ import { app, invoice } from "@redux/slices";
 import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
-import { useSelector } from "react-redux";
 import moment from "moment";
 
 
@@ -15,20 +14,17 @@ export const DataList = ({
     onRefresh = () => { },
     isRefresh,
     endLoadMore,
+    roleName,
+    staff,
 }) => {
 
-    const staff = useSelector(state => state.auth?.staff);
-
     const getData = () => {
-        const roleNamme = staff?.roleName?.toString()?.toLowerCase();
-        if (roleNamme == "managrer" || roleNamme == "admin") {
+        if (roleName == "managrer" || roleName == "admin") {
             return data;
         } else {
             return data.filter(obj => obj?.staffId == staff?.staffId);
         }
     }
-
-    console.log({ data, subData : getData(), staff })
 
     const renderCell = ({ key, row, column, item }) => {
         const data = item[key];

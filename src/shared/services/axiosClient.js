@@ -61,7 +61,6 @@ axios.interceptors.response.use(
 
         // break;
       default:
-        console.log('response default');
         break;
     }
 
