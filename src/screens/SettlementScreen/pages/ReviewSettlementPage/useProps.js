@@ -37,7 +37,7 @@ export const useProps = (props) => {
   const proccessingSettlement = () => {
     setTimeout(() => {
       const body = {
-        TerminalId: null,
+        terminalId: terminalId,
         paymentByHarmony: settlementWaiting.paymentByHarmony,
         paymentByCreditCard: settlementWaiting.paymentByCreditCard,
         paymentByCash: settlementWaiting.paymentByCash,
