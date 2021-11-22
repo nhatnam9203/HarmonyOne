@@ -53,7 +53,7 @@ export const Layout = ({
             icon={images.iconArrow}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
-            onPress={() => Linking.openURL(harmonyLink)}
+            onPress={() => NavigationService.navigate(screenNames.FaqPage)}
             renderText={() => <Text style={styles.txtItem}>{t('Help & FAQ')}</Text>}
           />
           <IconButton
@@ -73,14 +73,14 @@ export const Layout = ({
             icon={images.iconArrow}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
-            onPress={() => Linking.openURL(harmonyLink)}
+            onPress={() => NavigationService.navigate(screenNames.Privacy)}
             renderText={() => <Text style={styles.txtItem}>{t('Privacy policy')}</Text>}
           />
           <IconButton
             icon={images.iconArrow}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
-            onPress={() => Linking.openURL(harmonyLink)}
+            onPress={() => NavigationService.navigate(screenNames.TermOfService)}
             renderText={() => <Text style={styles.txtItem}>{t('Terms')}</Text>}
           />
           <View style={styles.seperateLine} />
@@ -119,7 +119,7 @@ const SwitchButton = ({ value, toggle }) => {
   return (
     <Switch
       value={value}
-      onValueChange={()=>toggle()}
+      onValueChange={() => toggle()}
       color={colors.ocean_blue}
     />
   )

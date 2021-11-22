@@ -92,6 +92,9 @@ const ScreenNames = {
   FeedbackScreen : "hpo.feedback",
   ChangePincodeScreen : "hpo.pincode.change",
   NewPincodeScreen : "hpo.pincode.change.new",
+  TermOfService : "hpo.setting.term.service",
+  Privacy : "hpo.setting.privacy",
+  FaqPage : "hpo.setting.faq",
 };
 
 module.exports = { ScreenNames };

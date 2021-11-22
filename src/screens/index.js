@@ -86,6 +86,7 @@ import {
   PaymentStatistic,
   MarketingEfficiencyStatistic,
 } from "./ReportsScreen/subPages";
+import { TermOfService, Privacy, FaqPage } from "./SettingScreen/pages";
 
 
 module.exports = {
@@ -169,4 +170,7 @@ module.exports = {
   AddDeviceHardware,
   PrinterList,
   SetupHardware,
+  TermOfService,
+  Privacy,
+  FaqPage
 };
