@@ -417,7 +417,7 @@ export const useProps = (props) => {
     setTimeout(() => {
       invoiceRef.current?.showAppointmentReceipt({
         appointmentId: groupAppointments?.mainAppointmentId,
-        checkoutId: paymentDetail?.invoiceNo,
+        checkoutId: paymentDetail?.checkoutId,
         isPrintTempt: isTemptPrint,
         machineType: paymentMachineType,
       });

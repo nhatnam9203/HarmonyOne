@@ -96,10 +96,10 @@ export const ItemHeaderReceipt = ({ textStyle }) => {
 const styles = StyleSheet.create({
   content: { flexDirection: "row", paddingVertical: scaleHeight(0) },
 
-  textStyle: { fontSize: scaleFont(15), fontWeight: "400", textAlign: "left" },
+  textStyle: { fontSize: scaleFont(13), fontWeight: "400", textAlign: "left" },
 
   headerStyle: {
-    fontSize: scaleFont(15),
+    fontSize: scaleFont(13),
     fontWeight: "500",
     textAlign: "left",
   },

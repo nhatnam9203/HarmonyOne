@@ -49,6 +49,9 @@ export const useProps = (props) => {
         dispatch(invoice.updateStatusInvoiceSuccess(invoiceDetail));
         fetchInvoiceDetail();
         fetchAppointmentByDate();
+        setTimeout(() => {
+          popupConfirmPrintRef?.current?.show();
+        }, 200);
       }
     },
   });
@@ -245,9 +248,10 @@ export const useProps = (props) => {
 
     printInvoice : async() =>{
       setTimeout(() => {
+        console.log('invoiceDetail', invoiceDetail)
         invoiceRef.current?.showAppointmentReceipt({
           appointmentId: invoiceDetail?.appointmentId,
-          checkoutId: invoiceDetail?.invoiceNo,
+          checkoutId: invoiceDetail?.checkoutId,
           isPrintTempt: false,
           machineType: paymentMachineType,
         });
