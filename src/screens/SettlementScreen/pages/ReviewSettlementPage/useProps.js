@@ -51,13 +51,11 @@ export const useProps = (props) => {
         isConnectPax: settlementWaiting.isConnectPax,
         paymentTerminal: settlementWaiting.paymentTerminal
       }
-      console.log('proccessingSettlement', body)
       submitCloseSettlement(body);
     }, 400);
   }
 
   const closeSettlement = async() => {
-    console.log('closeSettlement')
     dialogProgressRef?.current?.show();
 
     if(paymentMachineType == PaymentTerminalType.Dejavoo 
@@ -66,7 +64,6 @@ export const useProps = (props) => {
           dejavooMachineInfo,
         };
       const responses = await requestSettlementDejavoo(parameter);
-      console.log('requestSettlementDejavoo', responses)
       parseString(responses, (err, result) => {
           if (err || _.get(result, 'xmp.response.0.ResultCode.0') != 0) {
             const resultTxt = `${_.get(result, 'xmp.response.0.Message.0')}`
@@ -116,7 +113,6 @@ export const useProps = (props) => {
         }
       }
     }
-    console.log('close settlement', params)
     try {
      
       const response = await axios(params);
