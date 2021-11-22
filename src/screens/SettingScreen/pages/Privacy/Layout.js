@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
   },
 
   contentTerms: {
-    fontSize: scaleFont(13),
+    fontSize: scaleFont(14),
     color: "#000000",
     marginTop: scaleHeight(12),
     fontWeight: "400",

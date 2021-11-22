@@ -27,7 +27,7 @@ export const axios = Axios.create({
 axios.interceptors.request.use(
   async (config) => {
     const token = await getAuthToken();
-    if (token) {
+    if (token) { 
       config.headers = Object.assign({}, config.headers, {
         authorization: `Bearer ${token}`,
       }); 
