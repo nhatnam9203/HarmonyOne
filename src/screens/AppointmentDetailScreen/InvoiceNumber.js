@@ -13,7 +13,7 @@ export const InvoiceNumber = ({
             <View style={{ marginTop : scaleHeight(8)}}>
             <Text style={styles.invoiceNumber}>{`Paid at`}</Text>
             <Text style={styles.invoiceNumber}>
-              {moment(invoiceViewAppointmentDetail?.createdDate).format("hh:mm A, ddddd, MM/DD/YYYY")}
+              {moment(invoiceViewAppointmentDetail?.createdDate).format("hh:mm A, dddd, MM/DD/YYYY")}
             </Text>
             <Text style={styles.invoiceNumber}>{`Invoice : `}
               <Text style={{ color: colors.ocean_blue, fontFamily: fonts.BOLD }}>

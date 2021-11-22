@@ -127,6 +127,8 @@ export const AppStateProvider = ({ children }) => {
                 fetchAppointmentByDate();
                 fetchCountUnread();
                 break;
+              case "appointment_checkout":
+                fetchAppointmentByDate();
 
               case "update_merchant":
 
@@ -158,7 +160,7 @@ export const AppStateProvider = ({ children }) => {
             connectionSignalR?.start();
           });
       } catch (err) {
-        if(connectionSignalR){
+        if (connectionSignalR) {
           connectionSignalR?.start();
         }
         console.log({ err });

@@ -121,7 +121,6 @@ export const InvoiceList = ({
                 "createdDate",
                 "createdById",
                 "total",
-                "code"
             ]}
             primaryId="checkoutId"
             sumTotalKey="checkoutId"
