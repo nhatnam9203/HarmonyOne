@@ -14,6 +14,16 @@ import { useSelector, useDispatch } from "react-redux";
 const useRefetchSettlementWaiting = () => {
     const dispatch = useDispatch();
 
+    const {
+        hardware: { 
+            cloverMachineInfo, 
+            dejavooMachineInfo, 
+            paymentMachineType 
+        },
+    } = useSelector(state => state);
+
+    const [terminalId, setTerminalId] = React.useState(null);
+
     const [responseListGiftCardSales, setResponseListGiftCardSales] = React.useState(null);
     const [responseListStaffSales, setResponseListStaffSales] = React.useState(null);
     const [responseSettlementWaiting, setResponseSettlementWaiting] = React.useState(null);
@@ -101,12 +111,33 @@ const useRefetchSettlementWaiting = () => {
 
 
     const refetchSettlementWaiting = () => {
-        fetchSettlementWating();
         fetchTransactions();
-        fetchListStaffsSales();
-        fetchListGiftCardSales();
         fetchBatchHistory();
+
+        const body = getListStaffsSales(terminalId);
+        fetchListStaffsSales(body.params);
+
+        const bodyGiftCard = getListGiftCardSales(terminalId)
+        fetchListGiftCardSales(bodyGiftCard.params);
+
+        const terminalType = paymentMachineType ? paymentMachineType.toLowerCase() : ""
+        const bodySettleWaiting = getSettlementWating(terminalId, terminalType)
+        fetchSettlementWating(bodySettleWaiting.params);
     }
+
+    React.useEffect(() => {
+        let terminalId = null
+        if (paymentMachineType == PaymentTerminalType.Clover
+            && _.get(cloverMachineInfo, 'isSetup')) {
+                terminalId = _.get(cloverMachineInfo, 'serialNumber')
+        } else if (paymentMachineType == PaymentTerminalType.Dejavoo
+                    && _.get(dejavooMachineInfo, 'isSetup')) {
+            terminalId = _.get(dejavooMachineInfo, 'sn')
+        }
+        setTerminalId(terminalId)
+    }, []);
+    
+     
 
 
     React.useEffect(() => {

@@ -868,7 +868,7 @@ export const getListGiftCardSales = (terminalID = null) => ({
 export const getSettlementWating = (terminalID = null, paymentTerminal = "pax") => ({
   queryId: 'getSettlementWating',
   params: {
-    url: `settlement/waiting?sn=null&paymentTerminal=pax`,
+    url: `settlement/waiting?sn=${terminalID}&paymentTerminal=${paymentTerminal}`,
     method: 'GET',
   }
 });
