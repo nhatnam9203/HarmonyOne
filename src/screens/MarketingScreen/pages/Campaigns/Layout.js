@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, Text, FlatList } from 'react-native';
+import { View, StyleSheet, Text, FlatList, Image } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
 import { slop } from "@shared/utils";
 import { images } from "@shared/themes/resources";
 import { IconButton } from "@shared/components";
+
 
 export const Layout = ({
   newMarketing,
@@ -19,8 +20,7 @@ export const Layout = ({
     <View style={styles.container}>
 
       <FlatList
-        // data={promotion.filter(obj => obj?.isDeleted == 0)}
-        data={promotion}
+        data={promotion.filter(obj => obj?.isDeleted == 0)}
         style={styles.flatList}
         keyExtractor={(item) => "promotion" + item?.id?.toString()}
         renderItem={({ item }) =>
@@ -34,6 +34,7 @@ export const Layout = ({
           />
         }
         ListFooterComponent={() => <View style={{ height: scaleHeight(300) }} />}
+        ListEmptyComponent={() => <EmptyCampaign />}
       />
 
       <IconButton
@@ -46,6 +47,20 @@ export const Layout = ({
   );
 };
 
+const EmptyCampaign = () => {
+  return (
+    <View style={{ alignItems: "center", paddingTop: scaleHeight(32) }}>
+      <Image source={images.loa} style={styles.loa} />
+      <Text style={styles.emptyText}>
+        You have not created any campaigns yet.
+      </Text>
+      <Text style={styles.emptyText}>
+        Touch the button below to create a new
+      </Text>
+    </View>
+  )
+}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -55,6 +70,18 @@ const styles = StyleSheet.create({
 
   flatList: {
     flex: 1
+  },
+
+  emptyText: {
+    fontSize: scaleFont(16),
+    color: "#404040",
+    fontFamily: fonts.REGULAR
+  },
+
+  loa: {
+    width: scaleWidth(70),
+    height: scaleWidth(70),
+    marginBottom: scaleHeight(20)
   },
 
   addIcon: {

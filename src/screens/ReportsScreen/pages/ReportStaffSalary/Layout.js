@@ -26,7 +26,9 @@ export const Layout = ({
   staffSalary,
   staffSalary_pages,
   actionSheetExports,
-  exportFile
+  exportFile,
+  roleName,
+  staff
 }) => {
 
   const [t] = useTranslation();
@@ -49,9 +51,10 @@ export const Layout = ({
     <View style={styles.container}>
       <SingleScreenLayout
         pageTitle={t('Staff salary')}
-        isLeft={true}
-        isRight={true}
+        isLeft={(roleName == "admin" || roleName == "manager") ? true : false}
+        isRight={(roleName == "admin" || roleName == "manager") ? true : false}
         headerRightComponent={() =>
+          (roleName == "admin" || roleName == "manager") &&
           <IconButton
             icon={images.iconExport}
             iconStyle={styles.iconExport}
@@ -79,6 +82,8 @@ export const Layout = ({
             onRefresh={onRefresh}
             isRefresh={isRefresh}
             endLoadMore={currentPage >= staffSalary_pages}
+            roleName={roleName}
+            staff={staff}
           />
 
         </View>

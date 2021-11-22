@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image, FlatList, } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image, FlatList, Platform } from 'react-native';
 import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, SearchInput, AppointmentServiceItem, Button, NotificationIcon } from "@shared/components";
 import { fonts, colors, images } from '@shared/themes';
@@ -7,6 +7,7 @@ import { slop } from "@shared/utils";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import CheckBox from "@react-native-community/checkbox";
+
 
 export const Layout = ({
   valueSearch,
@@ -53,21 +54,29 @@ export const Layout = ({
             keyExtractor={(item, index) => item.extraId.toString() + "extra manage"}
             style={styles.flatList}
             renderItem={({ item }) =>
-              <TouchableOpacity 
-              onPress={()=>selectExtra(item)}
-              style={styles.rowItem}>
-                <CheckBox
-                  disabled={true}
-                  value={item?.checked}
-                  onValueChange={() => { }}
-                  boxType='square'
-                  onFillColor={colors.ocean_blue}
-                  onCheckColor={colors.white}
-                  onTintColor="transparent"
-                  onAnimationType='one-stroke'
-                  offAnimationType='one-stroke'
-                  style={{ width: 21, height: 21, marginRight: scaleWidth(16) }}
-                />
+              <TouchableOpacity
+                onPress={() => selectExtra(item)}
+                style={styles.rowItem}
+              >
+                {
+                  Platform.OS == "ios" ?
+                    <CheckBox
+                      disabled={true}
+                      value={item?.checked}
+                      onValueChange={() => { }}
+                      boxType='square'
+                      onFillColor={colors.ocean_blue}
+                      onCheckColor={colors.white}
+                      onTintColor="transparent"
+                      onAnimationType='one-stroke'
+                      offAnimationType='one-stroke'
+                      style={{ width: 21, height: 21, marginRight: scaleWidth(16) }}
+                    /> :
+                    <Image
+                      source={item?.checked ? images.checkBox : images.checkBoxEmpty}
+                      style={styles.imageCheckbox}
+                    />
+                }
                 <Text style={styles.txtItem}>
                   {item?.name}
                 </Text>
@@ -101,7 +110,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     position: 'relative',
-    paddingTop : scaleHeight(16)
+    paddingTop: scaleHeight(16)
   },
 
   flatList: {
@@ -147,15 +156,21 @@ const styles = StyleSheet.create({
     width: scaleWidth(375),
   },
 
-  iconAdd : {
-    tintColor : "#333",
+  iconAdd: {
+    tintColor: "#333",
     width: scaleWidth(19),
     height: scaleWidth(19),
   },
-  buttonAdd:{
-    height : "100%",
-    justifyContent : "center",
-    width : scaleWidth(37)
+  buttonAdd: {
+    height: "100%",
+    justifyContent: "center",
+    width: scaleWidth(37)
+  },
+
+  imageCheckbox : {
+    width: scaleWidth(25), 
+    height: scaleWidth(25), 
+    marginRight: scaleWidth(15) 
   }
 
 });

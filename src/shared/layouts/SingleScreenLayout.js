@@ -125,8 +125,8 @@ const styles = StyleSheet.create({
       width: 0,
       height: 3,
     },
-    shadowRadius: 1,
-    shadowOpacity: 5,
+    shadowRadius: 5,
+    shadowOpacity: 1,
     elevation: 3,
 
     paddingTop: scaleHeight(20),

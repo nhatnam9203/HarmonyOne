@@ -20,8 +20,14 @@ const initialState = {
   rememberMID: false,
   exportLoading: false,
   exportType: '',
-  isHome : false,
+  isHome: false,
+  isError: false,
+  messageError: "",
+  errorType: "info",
+  titleError: "",
+  isSignalR: true,
 };
+
 let appSlice = createSlice({
   name: reducerName,
   initialState: initialState,
@@ -42,9 +48,28 @@ let appSlice = createSlice({
       },
     },
 
-    setStatusHomeScreen : (state , action) =>{
+    setError: {
+      reducer: (state, action) => {
+        state.isError = action.payload?.isError;
+        state.messageError = action.payload?.messageError;
+        state.errorType = action.payload?.errorType;
+        state.titleError = action.payload?.titleError;
+      }
+    },
+
+    setStatusHomeScreen: (state, action) => {
       state.isHome = action.payload;
-    }
+    },
+
+
+    startSignalR: (state, action) => {
+      state.isSignalR = true;
+    },
+
+    stopSignalR: (state, action) => {
+      state.isSignalR = false;
+    },
+
   },
 });
 

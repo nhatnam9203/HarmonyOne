@@ -167,7 +167,7 @@ const AssignServices = React.forwardRef(({
     const actionSheetRef = React.useRef();
 
     React.useEffect(() => {
-        if(!isEdit){
+        if (!isEdit) {
             const data = getDataList();
             setDataServices(data);
             setDataServicesSaved(data);
@@ -238,19 +238,10 @@ const AssignServices = React.forwardRef(({
                 borderBottomColor: "#eeeeee"
             }]}>
                 <TouchableOpacity onPress={() => selectCategories(section)}>
-                    <CheckBox
-                        disabled={false}
-                        value={section?.selected}
-                        onValueChange={() => { }}
-                        boxType='square'
-                        onFillColor={colors.ocean_blue}
-                        onCheckColor={colors.white}
-                        onTintColor="transparent"
-                        onAnimationType='one-stroke'
-                        offAnimationType='one-stroke'
-                        lineWidth={1}
-                        animationDuration={0.3}
-                        style={{ width: 24, height: 24, marginRight: scaleWidth(15) }}
+                    <Image
+                        source={section?.selected ? images.checkBox : images.checkBoxEmpty}
+                        style={{ width: scaleWidth(27), height: scaleWidth(27), resizeMode: 'contain', marginRight: scaleWidth(16) }}
+                        resizeMode='contain'
                     />
                 </TouchableOpacity>
 
@@ -282,19 +273,10 @@ const AssignServices = React.forwardRef(({
                 style={[styles.rowSection, { marginVertical: scaleHeight(14), marginLeft: scaleWidth(32) }]}
                 activeOpacity={1}
             >
-                <CheckBox
-                    disabled={false}
-                    value={service.selected}
-                    onValueChange={() => { }}
-                    boxType='square'
-                    onFillColor={colors.ocean_blue}
-                    onCheckColor={colors.white}
-                    onTintColor="transparent"
-                    onAnimationType='one-stroke'
-                    offAnimationType='one-stroke'
-                    lineWidth={1}
-                    animationDuration={0.3}
-                    style={{ width: 24, height: 24, }}
+                <Image
+                    source={service?.selected ? images.checkBox : images.checkBoxEmpty}
+                    style={{ width: scaleWidth(27), height: scaleWidth(27), resizeMode: 'contain', }}
+                    resizeMode='contain'
                 />
                 <Text
                     style={[styles.serviceName, { flexWrap: 'wrap', width: scaleWidth(280) }]}

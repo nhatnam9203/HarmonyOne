@@ -44,6 +44,7 @@ export const InputDate = React.forwardRef(({
                 onCancel={() => {
                     setOpen(false)
                 }}
+                androidVariant='iosClone'
             />
 
         </View>

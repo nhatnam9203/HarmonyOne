@@ -23,5 +23,6 @@ export const useProps = (_params) => {
     onEditProfile: () => {
       NavigationService.navigate(screenNames.EditProfileScreen);
     },
+    staff,
   };
 };

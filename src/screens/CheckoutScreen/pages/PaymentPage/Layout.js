@@ -2,16 +2,18 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { IconButton, 
-         CustomInput, 
-         InputText, 
-         Button, 
-         DialogSuccess, 
-         PopupProcessingCredit,
-         PopupErrorMessage, 
-         PopupPayCompleted,
-         PopupInvoice,
-        } from "@shared/components";
+import {
+    IconButton,
+    CustomInput,
+    InputText,
+    Button,
+    DialogSuccess,
+    PopupProcessingCredit,
+    PopupProcessing,
+    PopupErrorMessage,
+    PopupPayCompleted,
+    PopupInvoice,
+} from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { ItemsPay } from "./ItemsPay";
@@ -28,6 +30,7 @@ export const Layout = ({
     popupChangeRef,
     popupPaymentDetailRef,
     popupProcessingRef,
+    popupPayProcessingRef,
     popupErrorMessageRef,
     invoiceRef,
     errorMessageFromPax,
@@ -48,89 +51,95 @@ export const Layout = ({
     const [t] = useTranslation();
 
     return (
-        <View style={styles.container}>
-            <SingleScreenLayout
-                pageTitle={t('Check out')}
-                isLeft={true}
-                isRight={false}
-                isScrollLayout={false}
-                containerStyle={{ paddingVertical: 0 }}
-            >
-                <View style={styles.content}>
-                    <Text style={styles.txtTotal}>Total</Text>
+        <>
+            <View style={styles.container}>
+                <SingleScreenLayout
+                    pageTitle={t('Check out')}
+                    isLeft={true}
+                    isRight={false}
+                    isScrollLayout={false}
+                    containerStyle={{ paddingVertical: 0 }}
+                >
+                    <View style={styles.content}>
+                        <Text style={styles.txtTotal}>Total</Text>
 
-                    <View style={styles.wrapPrice}>
-                        <Text style={styles.priceTotal}>{`$ ${appointmentDetail?.total}`}</Text>
+                        <View style={styles.wrapPrice}>
+                            <Text style={styles.priceTotal}>{`$ ${appointmentDetail?.total}`}</Text>
+                        </View>
+
+                        <Text style={styles.txtSelectPayment}>
+                            Select payment method
+                        </Text>
+
+                        <ItemsPay
+                            methodPay={methodPay}
+                            onChangeMethodPay={isCancelHarmony ? () => { } : onChangeMethodPay}
+                        />
                     </View>
 
-                    <Text style={styles.txtSelectPayment}>
-                        Select payment method
-                    </Text>
+                    <View style={styles.bottom}>
+                        <Button
+                            label={isCancelHarmony ? "Cancel" : "Charge"}
+                            onPress={isCancelHarmony ? cancelHarmonyPay : onSubmitPayment}
+                            highlight={true}
+                            width={'100%'}
+                            disabled={methodPay == "" || !methodPay}
+                        />
+                    </View>
 
-                    <ItemsPay
-                        methodPay={methodPay}
-                        onChangeMethodPay={isCancelHarmony ? () => { } : onChangeMethodPay}
+                    <DialogActiveGiftCard
+                        ref={dialogActiveGiftCard}
+                        title="Enter gift card serial number"
+                        onConfirmYes={() => { }}
+                        onModalHide={() => onChangeMethodPay("")}
+                        onPayGiftCard={onPayGiftCard}
                     />
-                </View>
-
-                <View style={styles.bottom}>
-                    <Button
-                        label={isCancelHarmony ? "Cancel" : "Charge"}
-                        onPress={isCancelHarmony ? cancelHarmonyPay : onSubmitPayment}
-                        highlight={true}
-                        width={'100%'}
-                        disabled={methodPay == "" || !methodPay}
+                    <PopupPaymentDetail
+                        ref={popupPaymentDetailRef}
+                        paymentDetail={paymentDetail}
                     />
-                </View>
+                    <PopupChange
+                        ref={popupChangeRef}
+                        paymentDetail={paymentDetail}
+                        onOK={onOK}
+                    />
+                </SingleScreenLayout>
 
-                <DialogActiveGiftCard
-                    ref={dialogActiveGiftCard}
-                    title="Enter gift card serial number"
-                    onConfirmYes={() => { }}
-                    onModalHide={() => onChangeMethodPay("")}
-                    onPayGiftCard={onPayGiftCard}
-                />
-                <PopupPaymentDetail
-                    ref={popupPaymentDetailRef}
-                    paymentDetail={paymentDetail}
-                />
-                <PopupChange
-                    ref={popupChangeRef}
-                    paymentDetail={paymentDetail}
-                    onOK={onOK}
-                />
-            </SingleScreenLayout>
-
-            {/* <DialogLoading
+                {/* <DialogLoading
                 ref={dialogSuccessRef}
                 title="Transaction completed"
                 onConfirmYes={() => onOK()}
             /> */}
 
-            <PopupProcessingCredit
-                ref={popupProcessingRef}
-                onConfirmYes={() => onCancelTransactionCredit()}
-            />
+                <PopupProcessingCredit
+                    ref={popupProcessingRef}
+                    onConfirmYes={() => onCancelTransactionCredit()}
+                />
 
-            <PopupErrorMessage
-                ref={popupErrorMessageRef}
-                title={t("Trasaction Fail")}
-                message={errorMessageFromPax}
-            />
+                <PopupProcessing
+                    ref={popupPayProcessingRef}
+                />
 
-            <PopupPayCompleted
-                ref={dialogSuccessRef}
-                title="Transaction completed"
-                onConfirmYes={printBill}
-                onConfirmNo={donotPrintBill}
-            />
+                <PopupErrorMessage
+                    ref={popupErrorMessageRef}
+                    title={t("Trasaction Fail")}
+                    message={errorMessageFromPax}
+                />
 
-            <PopupInvoice
-                ref={invoiceRef}
-                cancelInvoicePrint={cancelInvoicePrint} 
-            />
+                <PopupPayCompleted
+                    ref={dialogSuccessRef}
+                    title="Transaction completed"
+                    onConfirmYes={printBill}
+                    onConfirmNo={donotPrintBill}
+                />
 
-        </View>
+                <PopupInvoice
+                    ref={invoiceRef}
+                    cancelInvoicePrint={cancelInvoicePrint}
+                />
+
+            </View>
+        </>
     );
 };
 
@@ -139,7 +148,8 @@ export const Layout = ({
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "white",
+        backgroundColor : "white",
+        position: "relative",
     },
     txtTotal: {
         fontSize: scaleFont(17),

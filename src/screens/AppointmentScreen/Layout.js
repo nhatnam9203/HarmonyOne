@@ -7,7 +7,7 @@ import { IconButton, ListEmptyComponent, NotificationIcon, DayPicker } from "@sh
 import { AppointmentItem } from "./widgets";
 import { useTranslation } from "react-i18next";
 import { WithPopupActionSheet, WithPopupDatePicker } from '@shared/HOC';
-import { StaffList, AppointmentList, IconCalendar } from "./widgets";
+import { StaffList, AppointmentList, IconCalendar, StaffInfoLogin } from "./widgets";
 import { dateToFormat } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 import moment from "moment";
@@ -22,12 +22,25 @@ export const Layout = ({
   selectStaff,
   staffSelected,
   appointmentListRef,
+  staffListRef,
 
   addAppointment,
-  isLoading
+  isLoading,
+  staffInfo
+
 }) => {
 
   const [t] = useTranslation();
+
+  const roleName = staffInfo?.roleName?.toString()?.toLowerCase();
+
+  const getStaffList = () => {
+    if (roleName == "manager" || roleName == "admin") {
+      return staffsByDate;
+    } else {
+      return staffsByDate.filter(staff => staff?.staffId == staffInfo?.staffId);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -52,14 +65,20 @@ export const Layout = ({
         }
       >
         <View style={styles.content}>
-          <StaffList
-            staffsByDate={staffsByDate}
-            selectStaff={selectStaff}
-            staffSelected={staffSelected}
-            isLoading={isLoading}
-          />
+          {
+            (roleName == "admin" || roleName == "manager") ?
+            <StaffList
+              staffsByDate={getStaffList()}
+              selectStaff={selectStaff}
+              staffSelected={staffSelected}
+              isLoading={isLoading}
+              ref={staffListRef}
+            /> : 
+            <StaffInfoLogin staffInfo={staffInfo} />
+          }
           <AppointmentList
             ref={appointmentListRef}
+            staffListRef={staffListRef}
           />
         </View>
 

@@ -29,6 +29,7 @@ export const useProps = (props) => {
   } = useSelector(state => state);
 
   const [amount, setAmountSelected] = React.useState("");
+  const [isTurnOff, setTurnOffButton] = React.useState(false);
 
   const [, fetchAppointmentById] = useAxiosQuery({
     ...getAppointmentById(appointmentDetail?.appointmentId),
@@ -69,14 +70,19 @@ export const useProps = (props) => {
     appointmentDetail,
     groupAppointments,
     moneyGiveForStaff,
+    isTurnOff,
     back: () => {
       NavigationService.back();
     },
 
     onSubmit: async (values) => {
       if (values.amount) {
+        setTurnOffButton(true);
         props?.route?.params?.handlePayment(values?.amount);
         NavigationService.navigate(screenNames.PaymentPage);
+        setTimeout(() => {
+          setTurnOffButton(false);
+        }, 1000);
       }
     },
 

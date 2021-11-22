@@ -63,6 +63,9 @@ export const useProps = (_params) => {
       }
       NavigationService.replace('HpOneStack');
     },
+    onLoginError : (message)=>{
+      console.log({ message })
+    },
   });
 
   const initialMerchantID = async () => {
@@ -109,7 +112,7 @@ export const useProps = (_params) => {
     onChangeInputCode: (val) => {
       setPinCode(val);
     },
-    isQuickLogin ,
+    isQuickLogin,
     pinCode,
 
     loginStaff: () => {

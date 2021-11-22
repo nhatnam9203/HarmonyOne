@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     margin: 0,
     justifyContent: 'flex-end',
     paddingHorizontal: scaleWidth(16),
+    paddingBottom : scaleWidth(16),
   },
 
   container: {

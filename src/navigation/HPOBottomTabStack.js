@@ -6,13 +6,21 @@ import {
   CustomersScreen,
   MoreScreen,
   ServiceScreen,
-  CheckoutTabScreen
+  CheckoutTabScreen,
+  ReportStaffSalary
 } from '@src/screens';
 import { CustomBottomBar } from '@shared/components';
+import { useSelector } from "react-redux";
 
 const { Screen, Navigator } = createBottomTabNavigator();
 
 export const HPOBottomTabStack = () => {
+
+  const staff = useSelector(state => state.auth.staff);
+  const roleName = staff?.roleName?.toString()?.toLowerCase();
+
+  const isViewReport = roleName == "admin" || roleName == "manager";
+
   return (
     <Navigator
       headerMode="none"
@@ -20,7 +28,7 @@ export const HPOBottomTabStack = () => {
       tabBar={(props) => <CustomBottomBar {...props} />}
     >
       <Screen {...AppointmentScreen} />
-      <Screen {...ReportsScreen} />
+      {isViewReport ? <Screen {...ReportsScreen} /> : <Screen {...ReportStaffSalary} />}
       <Screen {...CheckoutTabScreen} />
       <Screen {...MoreScreen} />
     </Navigator>

@@ -1,6 +1,31 @@
 import NavigationService from '@navigation/NavigationService';
 import { images } from "@shared/themes/resources";
+
 export const items = [
+  {
+    title: "Reviews",
+    icon: images.iconReview,
+    onPress: () => {
+      NavigationService.navigate(screenNames.ReviewScreen)
+    }
+  },
+  {
+    title: "Hardware",
+    icon: images.iconHardware,
+    onPress: () => { 
+      NavigationService.navigate(screenNames.HardwareScreen)
+    }
+  },
+  {
+    title: "Settings",
+    icon: images.iconSetting,
+    onPress: () => {
+      NavigationService.navigate(screenNames.SettingScreen)
+    }
+  },
+];
+
+export const itemsRoleManagerAdmin = [
   {
     title: "Business Informations",
     icon: images.iconBusiness,

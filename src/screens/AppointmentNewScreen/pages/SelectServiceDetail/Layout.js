@@ -156,7 +156,7 @@ export const Layout = ({
       </ScrollView>
       <View style={styles.bottom}>
         <Button
-          label="Save"
+          label="Next"
           onPress={isEditItem ? goToReview : goToSelectStaff}
           highlight={true}
           width={'100%'}

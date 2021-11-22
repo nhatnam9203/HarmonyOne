@@ -30,7 +30,8 @@
     "new:component": "npx ts-node ./scripts/createComponent.js",
     "open:iPhone": "open -a Simulator --args -CurrentDeviceUDID  53F9D553-5104-45BD-B8FF-B51315D499EC",
     "pod:clean": "cd ios && pod deintegrate && rm -rf ~/Library/Caches/CocoaPods && rm -rf Pods && rm -rf ~/Library/Developer/Xcode/DerivedData/* && rm -rf Podfile.lock",
-    "push-history:ios-staging": "appcenter codepush deployment history -a HarmonyPayment/HPOne-iOS Staging"
+    "push-history:ios-staging": "appcenter codepush deployment history -a HarmonyPayment/HPOne-iOS Staging",
+    "build:android-bundle-release": "cd android && ./gradlew bundleRelease"
   },
   "dependencies": {
     "@breeffy/react-native-calendar": "^0.4.1",

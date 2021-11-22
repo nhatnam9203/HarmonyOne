@@ -15,6 +15,7 @@ import { service, product, category, extra, app } from '@redux/slices';
 import { useSelector, useDispatch } from "react-redux";
 import { colors } from "@shared/themes";
 import { useTranslation } from "react-i18next";
+import Share from "react-native-share";
 
 import NavigationService from '@navigation/NavigationService';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -113,8 +114,11 @@ export const useProps = (props) => {
     if (Platform.OS === 'ios') {
       await RNFetchBlob.ios.previewDocument(pathFileInventory)
     } else {
-      const android = await RNFetchBlob.android;
-      await android.actionViewIntent(pathFileInventory, 'application/vnd.android.package-archive')
+      // const android = await RNFetchBlob.android;
+      // await android.actionViewIntent(pathFileInventory, 'application/vnd.android.package-archive')
+      const shareResponse = await Share.open({
+        url: `file://${pathFileInventory}`
+      });
     }
     dispatch(app.hideLoading());
   }

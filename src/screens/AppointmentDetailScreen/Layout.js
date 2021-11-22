@@ -59,7 +59,6 @@ export const Layout = ({
 }) => {
   const [t] = useTranslation();
 
-
   const getPrice = (price) => {
     return formatMoneyWithUnit(price);
   };
@@ -67,7 +66,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Appointment details')}
+        pageTitle={`${t('Appointment')} #${appointmentItem?.code?.toString().substring(appointmentItem?.code?.length - 4)}`}
         {...headerColor}
         isRight={canEdit}
         isScrollLayout={false}

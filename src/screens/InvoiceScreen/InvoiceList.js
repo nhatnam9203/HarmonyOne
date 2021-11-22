@@ -58,9 +58,9 @@ export const InvoiceList = ({
 
     const renderItem = (key, data, item) => {
         switch (key) {
-            case "invoiceNo":
+            case "checkoutId":
                 return <Text style={styles.txt}>
-                    {data}
+                    # {data}
                 </Text>
             case "createdDate":
                 return (
@@ -107,7 +107,7 @@ export const InvoiceList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                invoiceNo: "Invoice ID",
+                checkoutId: "Invoice ID",
                 user: "Customer",
                 status: "Status",
                 createdDate: "Date/time",
@@ -115,16 +115,15 @@ export const InvoiceList = ({
                 total: "Total sales",
             }}
             whiteKeys={[
-                "invoiceNo",
+                "checkoutId",
                 "user",
                 "status",
                 "createdDate",
                 "createdById",
                 "total",
-                "code"
             ]}
-            primaryId="invoiceNo"
-            sumTotalKey="invoiceNo"
+            primaryId="checkoutId"
+            sumTotalKey="checkoutId"
             calcSumKeys={[
 
             ]}
@@ -133,7 +132,7 @@ export const InvoiceList = ({
             ]}
             unitKeys={{ workingHour: "hrs" }}
             sortDefault="NONE"
-            sortKey="invoiceNo"
+            sortKey="checkoutId"
             tableCellWidth={{ user: scaleWidth(180) }}
             renderCell={renderCell}
             renderActionCell={() => null}

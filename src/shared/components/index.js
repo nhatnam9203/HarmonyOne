@@ -44,6 +44,7 @@ export * from './CustomTableList';
 export * from "./Firebase";
 export * from "./PopupErrorMessage";
 export * from "./PopupProcessingCredit";
+export * from "./PopupProcessing";
 export * from "./PopupPayCompleted";
 export * from "./PopupInvoice";
 export * from "./DialogActiveGiftCard";

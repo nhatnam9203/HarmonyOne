@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     rightItem: {
         display: 'flex',
         justifyContent: 'space-between',
-        marginLeft: scaleWidth(16),
+        marginLeft: scaleWidth(18),
         paddingVertical: scaleHeight(4)
     },
     letter: {
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FAFAFA'
     },
     firstLetter: {
-        fontSize: scaleFont(26),
+        fontSize: scaleFont(23),
         fontWeight: "bold",
         color: "#1366AE",
         fontFamily: fonts.MEDIUM

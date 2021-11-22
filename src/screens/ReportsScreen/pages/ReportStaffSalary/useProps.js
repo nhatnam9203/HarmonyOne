@@ -23,6 +23,8 @@ export const useProps = (props) => {
     }
   } = useSelector(state => state);
 
+  const roleName = staff?.roleName?.toString()?.toLowerCase();
+
   /********************************* STATE  ********************************* */
   const [currentPage, setCurrentPage] = React.useState(1);
   const [isRefresh, setRefresh] = React.useState(false);
@@ -107,6 +109,8 @@ export const useProps = (props) => {
 
     staffSalary,
     staffSalary_pages,
+    roleName,
+    staff,
     exportFile : ()=>exportFile("csv"),
 
 
@@ -129,7 +133,7 @@ export const useProps = (props) => {
       setRefresh(true);
       setCurrentPage(1);
       getDataList(
-        moment().startOf('week').format("MM/DD/YYYY"), moment().endOf('week').format("MM/DD/YYYY"), "", 1
+        timeStart, timeEnd, "", 1
       );
     },
 

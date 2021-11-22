@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatNumberFromCurrency, formatMoney, convertMinsToHrsMins } from "@shared/utils";
-import { bookAppointment, appointment } from "@redux/slices";
+import { bookAppointment, appointment, app } from "@redux/slices";
 import {
   addAppointment,
   useAxiosMutation,
@@ -38,6 +38,7 @@ export const useProps = (_params) => {
     enabled: false,
     onSuccess: (data, response) => {
       dispatch(appointment.setBlockTimeBydate(data));
+      dispatch(app.startSignalR());
       if (isQuickCheckout) {
         NavigationService.navigate(screenNames.CheckoutScreen);
         setTimeout(() => {
@@ -73,18 +74,19 @@ export const useProps = (_params) => {
 
   const [, submitUpdateAppointment] = useAxiosMutation({
     ...updateAppointment(),
-    queryId: "fetchAppointmentById_reviewConfirm",
+    queryId: "updateAppointment_reviewConfirm",
     isStopLoading: true,
     isLoadingDefault: false,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
-
+        dispatch(app.hideLoading());
       }
     }
   });
 
   const [, submitAddAppointment] = useAxiosMutation({
     ...addAppointment(),
+    isLoadingDefault: false,
     isStopLoading: true,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
@@ -93,7 +95,7 @@ export const useProps = (_params) => {
         const tempData = {
           services: servicesBooking,
           extras: extrasBooking.map(ex => ({ extraId: ex.extraId })),
-          products: [],
+          products: productsBooking,
           giftCards: giftCardsBooking.map((giftCard) => ({ giftCardId: giftCard?.giftCardId, price: giftCard?.price })),
         };
         const body = await addItemIntoAppointment(appointmentId, tempData);
@@ -273,9 +275,11 @@ export const useProps = (_params) => {
         categories: [],
         services: [],
         extras: [],
-        products: productsBooking,
+        giftCards: [],
+        products: [],
       }
-
+      dispatch(app.showLoading());
+      dispatch(app.stopSignalR());
       setDisabledConfirm(true);
       const body = await addAppointment(data);
       submitAddAppointment(body.params);

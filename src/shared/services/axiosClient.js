@@ -11,8 +11,8 @@ const log = (obj, message = '') => {
 
 log(Configs, 'Configs');
 export const axios = Axios.create({
-  // baseURL:  Configs.API_URL,
-  baseURL: `https://dev.harmonypayment.com/api/`,
+  baseURL:  Configs.API_URL,
+  // baseURL: `https://dev.harmonypayment.com/api/`,
   timeout: 30000,
   headers: {
     Accept: 'application/json',
@@ -30,7 +30,7 @@ axios.interceptors.request.use(
     if (token) {
       config.headers = Object.assign({}, config.headers, {
         authorization: `Bearer ${token}`,
-      });
+      }); 
     }
 
     return config;
@@ -53,16 +53,17 @@ axios.interceptors.response.use(
       case 404: // not found
         console.log(`${message} , code ${parseInt(codeStatus)}`);
         break;
-      case 400: // thieu field
-        if (codeStatus !== 2) {
-          // exception cho phone not exist -> checkout
-          alert(`${message}`);
-        }
+      // case 400: // thieu field
+      //   if (codeStatus !== 2) {
+      //     // exception cho phone not exist -> checkout
+      //     alert(`${message}`);
+      //   }
 
-        break;
+        // break;
       default:
         break;
     }
+
 
     return response;
   },

@@ -14,7 +14,17 @@ export const DataList = ({
     onRefresh = () => { },
     isRefresh,
     endLoadMore,
+    roleName,
+    staff,
 }) => {
+
+    const getData = () => {
+        if (roleName == "managrer" || roleName == "admin") {
+            return data;
+        } else {
+            return data.filter(obj => obj?.staffId == staff?.staffId);
+        }
+    }
 
     const renderCell = ({ key, row, column, item }) => {
         const data = item[key];
@@ -79,7 +89,7 @@ export const DataList = ({
 
     return (
         <CustomTable
-            tableData={data}
+            tableData={getData()}
             tableHead={{
                 name: "Staff name",
                 serviceSales: "Service sales",
@@ -137,12 +147,12 @@ export const DataList = ({
             heightSection={50}
             isRenderSection={true}
 
-            headStyle={{ color : colors.ocean_blue , fontSize : scaleFont(15)}}
+            headStyle={{ color: colors.ocean_blue, fontSize: scaleFont(15) }}
             unitKeys={{ salary: "", }}
             maxColumnCount={3}
             sortDefault="NONE"
             sortKey="name"
-            tableCellWidth={{ discountByStaff : scaleWidth(150), netServiceSales : scaleWidth(150), refundAmount : scaleWidth(140) }}
+            tableCellWidth={{ discountByStaff: scaleWidth(150), netServiceSales: scaleWidth(150), refundAmount: scaleWidth(140) }}
             renderCell={renderCell}
             renderActionCell={() => null}
             isRefreshing={isRefresh}
@@ -151,7 +161,7 @@ export const DataList = ({
             endLoadMore={() => { }}
             maxColumnCount={3}
             styleFirstCell={styles.firstCell}
-            styleFirstSection={[styles.firstCell,{ backgroundColor: '#fafafa' }]}
+            styleFirstSection={[styles.firstCell, { backgroundColor: '#fafafa' }]}
         />
     )
 }
@@ -179,7 +189,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.MEDIUM,
         color: colors.ocean_blue
     },
-    firstCell : {
+    firstCell: {
         shadowColor: "#C5C5C5",
         shadowOffset: {
             width: 2,

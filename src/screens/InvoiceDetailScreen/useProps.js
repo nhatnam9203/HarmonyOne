@@ -47,11 +47,12 @@ export const useProps = (props) => {
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(invoice.updateStatusInvoiceSuccess(invoiceDetail));
+        NavigationService.back();
         fetchInvoiceDetail();
-        fetchAppointmentByDate();
         setTimeout(() => {
           popupConfirmPrintRef?.current?.show();
         }, 200);
+        // fetchAppointmentByDate();
       }
     },
   });

@@ -16,23 +16,23 @@ const { Screen, Navigator } = createStackNavigator();
 
 const AuthStack = (props) => {
 
-    return (
-      <Navigator
-        headerMode="none"
-        initialRouteName={ScreenNames.LoginScreen}
-        screenOptions={{
-          headerShown: false,
-          gestureEnabled: false,
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-        }}>
-        <Screen {...LoginScreen} />
-        <Screen {...PinCodeScreen} />
+  return (
+    <Navigator
+      headerMode="none"
+      initialRouteName={ScreenNames.LoginScreen}
+      screenOptions={{
+        headerShown: false,
+        gestureEnabled: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}>
+      <Screen {...LoginScreen} />
+      <Screen {...PinCodeScreen} />
 
-        <Screen name="ForgotPincode" component={ForgotPincode} />
-        <Screen name="ForgotPincodeSuccess" component={ForgotPincodeSuccess} />
-        <Screen name="WhatIsMerchant" component={WhatIsMerchant} />
-      </Navigator>
-    );
+      <Screen name="ForgotPincode" component={ForgotPincode} />
+      <Screen name="ForgotPincodeSuccess" component={ForgotPincodeSuccess} />
+      <Screen name="WhatIsMerchant" component={WhatIsMerchant} />
+    </Navigator>
+  );
 };
 
 export default AuthStack;

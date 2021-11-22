@@ -13,22 +13,23 @@ import {
   sendGoogleReviewLink,
 } from '@src/apis';
 import { useDispatch, useSelector } from "react-redux";
-import { 
-  dateToFormat, 
+import {
+  dateToFormat,
   guid,
   stringIsEmptyOrWhiteSpaces,
   getInfoFromModelNameOfPrinter,
   PaymentTerminalType
- } from "@shared/utils";
+} from "@shared/utils";
 import PrintManager from "@lib/PrintManager";
 import {
   requestTransactionDejavoo,
 } from "@utils";
-import { bookAppointment, 
-  appointment, 
-  app, 
+import {
+  bookAppointment,
+  appointment,
+  app,
   hardware,
- } from "@redux/slices";
+} from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 import { Alert } from 'react-native';
 import { isEmpty, method } from "lodash";
@@ -49,19 +50,20 @@ export const useProps = (props) => {
   const popupChangeRef = React.useRef();
   const popupProcessingRef = React.useRef();
   const popupErrorMessageRef = React.useRef();
+  const popupPayProcessingRef = React.useRef();
   const invoiceRef = React.useRef(null);
 
   /************************************* SELECTOR *************************************/
   const {
-    appointment: { appointmentDetail, 
-                  groupAppointments = [], 
-                  appointmentDate, 
-                  startProcessingPax },
+    appointment: { appointmentDetail,
+      groupAppointments = [],
+      appointmentDate,
+      startProcessingPax },
     auth: { staff },
-    hardware: { dejavooMachineInfo, 
-              paymentMachineType,
-              printerList,
-              printerSelect, },
+    hardware: { dejavooMachineInfo,
+      paymentMachineType,
+      printerList,
+      printerSelect, },
     merchant: { merchantDetail },
   } = useSelector(state => state);
 
@@ -75,10 +77,10 @@ export const useProps = (props) => {
   const [isSubmitCheckoutCreditCard, setIsSubmitCheckoutCreditCard] = React.useState(false);
 
 
- /************************************* useEffect *************************************/
- React.useEffect(() => {
+  /************************************* useEffect *************************************/
+  React.useEffect(() => {
     if (payAppointmentId && methodPay.method === "credit_card") {
-        handlePaymentByCredit();
+      handlePaymentByCredit();
     }
   }, [payAppointmentId]);
 
@@ -86,14 +88,15 @@ export const useProps = (props) => {
   const [, submitSelectPaymentMethod] = useAxiosMutation({
     ...selectPaymentMethod(),
     isStopLoading: true,
+    isLoadingDefault: false,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
-        if (methodPay.method == "harmony" 
+        if (methodPay.method == "harmony"
           || methodPay.method == "credit_card") {
           setPayAppointmentId(data);
         }
- 
-        if (methodPay.method !== "harmony" 
+
+        if (methodPay.method !== "harmony"
           && methodPay.method !== "credit_card") {
           const body = await checkoutSubmit(response.data);
           applyCheckoutSubmit(body.params);
@@ -105,14 +108,18 @@ export const useProps = (props) => {
   /************************************* GỌI API CHECKOUT SUBMIT *************************************/
   const [, applyCheckoutSubmit] = useAxiosMutation({
     ...checkoutSubmit(),
+    isLoadingDefault: false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         const dueAmount = parseFloat(
           response?.data?.checkoutPaymentResponse?.dueAmount || 0
         );
+
+        popupPayProcessingRef?.current?.hide();
+
         if (dueAmount == 0) {
           dialogSuccessRef?.current?.show();
-          
+
           return;
         }
         if (dueAmount < 0) {
@@ -130,10 +137,10 @@ export const useProps = (props) => {
     }
   });
 
-    /************************************* GỌI API GET GROUP APPOINTMENT BY ID *************************************/
+  /************************************* GỌI API GET GROUP APPOINTMENT BY ID *************************************/
   const [, fetchGroupApointmentById] = useAxiosQuery({
     ...getGroupAppointmentById(appointmentDetail?.appointmentId),
-    queryId : "refetchGroupAppointment",
+    queryId: "refetchGroupAppointment",
     enabled: false,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
@@ -142,7 +149,7 @@ export const useProps = (props) => {
           setIsSubmitCheckoutCreditCard(false);
           const body = checkoutSubmit(payAppointmentId);
           applyCheckoutSubmit(body.params);
-          
+
         }
       }
     }
@@ -150,10 +157,10 @@ export const useProps = (props) => {
 
 
   /************************************* FETCH APPOINTMENT BY DATE *************************************/
- 
-  const [{  }, fetchAppointmentByDate] = useAxiosQuery({
+
+  const [{ }, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, 'YYYY-MM-DD')),
-    queryId : "fetchByDate_checkoutPage",
+    queryId: "fetchByDate_checkoutPage",
     enabled: false,
     onSuccess: (data, response) => {
       dispatch(appointment.setBlockTimeBydate(data));
@@ -190,22 +197,22 @@ export const useProps = (props) => {
   const [, submitPaymentCreditCard] = useAxiosMutation({
     ...submitPaymentWithCreditCard(),
     enabled: false,
-    isLoadingDefault : false,
+    isLoadingDefault: false,
     onSuccess: async (data, response) => {
       setIsSubmitCheckoutCreditCard(true);
       fetchGroupApointmentById();
-      
+
     }
   });
 
   /************************************* SEND GOOGLE REVIEW LINK *************************************/
- 
-  const [{  }, sendLinkGoogle] = useAxiosQuery({
+
+  const [{ }, sendLinkGoogle] = useAxiosQuery({
     ...sendGoogleReviewLink(appointmentDetail?.customerId, staff?.merchantId),
     enabled: false,
-    isLoadingDefault : false,
+    isLoadingDefault: false,
     onSuccess: (data, response) => {
-   
+
     },
   });
 
@@ -285,19 +292,33 @@ export const useProps = (props) => {
       amount,
       giftCardId: 0,
     }
+    if(methodPay.method !== "credit_card"){
+      popupPayProcessingRef?.current?.show();
+    }
     const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
     submitSelectPaymentMethod(body.params);
+  }
+
+  const backToHome = () => {
+    setMethodPay(null);
+    setPayAppointmentId(null);
+    fetchAppointmentByDate();
+
+    const statusSendLink = dialogSuccessRef?.current?.getStatusSendLink();
+    if (statusSendLink) {
+      sendLinkGoogle();
+    }
   }
 
   /**
    * Handle payment by credit card
    * Dejavoo
    */
-  const handlePaymentByCredit = async() => {
+  const handlePaymentByCredit = async () => {
     setTimeout(() => {
       popupProcessingRef?.current?.show();
     }, 100);
-       
+
     //Payment by Dejavoo
     const parameter = {
       tenderType: "Credit",
@@ -321,17 +342,17 @@ export const useProps = (props) => {
     online,
     moneyUserGiveForStaff,
     parameter
-  ) =>  {
+  ) => {
     popupProcessingRef?.current?.hide();
-    
+
     try {
       parseString(message, (err, result) => {
         if (err || _.get(result, 'xmp.response.0.ResultCode.0') != 0) {
           let detailMessage = _.get(result, 'xmp.response.0.RespMSG.0', "").replace(/%20/g, " ")
           detailMessage = !stringIsEmptyOrWhiteSpaces(detailMessage) ? `: ${detailMessage}` : detailMessage
-          
+
           const resultTxt = `${_.get(result, 'xmp.response.0.Message.0')}${detailMessage}`
-                            || "Transaction failed";
+            || "Transaction failed";
           if (payAppointmentId) {
             const data = {
               status: "transaction fail",
@@ -343,22 +364,23 @@ export const useProps = (props) => {
           }
         } else {
           const SN = _.get(result, 'xmp.response.0.SN.0');
-          if(!stringIsEmptyOrWhiteSpaces(SN)){
+          if (!stringIsEmptyOrWhiteSpaces(SN)) {
             dispatch(hardware.setDejavooMachineSN(SN));
           }
           const messageTemp = message.replace(/\n/g, "")
           const body = submitPaymentWithCreditCard(staff?.merchantId || 0,
-                                                    messageTemp,
-                                                    payAppointmentId,
-                                                    moneyUserGiveForStaff,
-                                                    "dejavoo",
-                                                    parameter)
+            messageTemp,
+            payAppointmentId,
+            moneyUserGiveForStaff,
+            "dejavoo",
+            parameter)
           submitPaymentCreditCard(body.params);
         }
       });
     } catch (error) {
     }
   }
+
   const donotPrintBill = async () => {
     if (connectionSignalR) {
       connectionSignalR?.stop();
@@ -366,7 +388,7 @@ export const useProps = (props) => {
     setTimeout(() => {
       setConnectionSignalR(null);
     }, 300);
-    
+
     dialogSuccessRef?.current?.hide()
 
     if (methodPay.method === "cash" || methodPay.method === "other") {
@@ -382,16 +404,9 @@ export const useProps = (props) => {
           alert("Please connect to your cash drawer.");
         }, 700);
       }
-    } 
-
-    setMethodPay(null);
-    setPayAppointmentId(null);
-
-    fetchAppointmentByDate();
-    const statusSendLink = dialogSuccessRef?.current?.getStatusSendLink();
-    if(statusSendLink){
-      sendLinkGoogle();
     }
+
+    backToHome();
 
   };
 
@@ -415,14 +430,14 @@ export const useProps = (props) => {
     dialogSuccessRef?.current?.hide();
 
     setTimeout(() => {
-      invoiceRef.current?.showAppointmentReceipt({
+      invoiceRef.current?.showAppopintmentReceipt({
         appointmentId: groupAppointments?.mainAppointmentId,
         checkoutId: paymentDetail?.checkoutId,
         isPrintTempt: isTemptPrint,
         machineType: paymentMachineType,
       });
     }, 300);
-    
+
   };
 
   const printBill = async () => {
@@ -439,25 +454,25 @@ export const useProps = (props) => {
     }, 300);
 
     if (paymentMachineType !== PaymentTerminalType.Clover && !portName) {
-      alert("Please connect to your printer!");
+      backToHome();
+
+      setTimeout(() => {
+        alert("Please connect to your cash drawer .");
+      }, 700);
     } else {
-       if(methodPay.method == "cash" 
-          || methodPay.method == "other") {
+      if (methodPay.method == "cash"
+        || methodPay.method == "other") {
         //Will open when integrate clover
         // if (paymentMachineType === "Clover") {
         //   openCashDrawerClover();
         // } else {
-          openCashDrawer(portName);
-        }
-        showInvoicePrint(false);
+        openCashDrawer(portName);
+      }
+      showInvoicePrint(false);
     }
 
-    const statusSendLink = dialogSuccessRef?.current?.getStatusSendLink();
-    if(statusSendLink){
-      sendLinkGoogle();
-    }
   };
-  
+
   return {
     appointmentDetail,
     methodPay,
@@ -471,6 +486,7 @@ export const useProps = (props) => {
     popupChangeRef,
     isCancelHarmony,
     paymentDetail,
+    popupPayProcessingRef,
 
     onChangeMethodPay: (item) => {
       setMethodPay(item);
@@ -526,5 +542,10 @@ export const useProps = (props) => {
     cancelInvoicePrint: () => {
       fetchAppointmentByDate();
     },
+
+    onOK: () => {
+      fetchAppointmentByDate();
+    }
+
   }
 };

@@ -5,10 +5,11 @@ import {
   getListStaffsSales,
   getListGiftCardSales,
   getSettlementWating,
-  getGiftCardSalesBySettlementId
 } from "@src/apis";
-import { settlement } from "@redux/slices";
+import { settlement, app } from "@redux/slices";
 import { useSelector, useDispatch } from "react-redux";
+import { useQueries } from 'react-query';
+import useFetchSettlementWaiting from "./useFetchSettlementWaiting";
 import NavigationService from '@navigation/NavigationService';
 import { PaymentTerminalType } from "@shared/utils";
 import _ from "lodash";
@@ -16,8 +17,11 @@ import _ from "lodash";
 export const useProps = (props) => {
   const dispatch = useDispatch();
 
-  const [valueNote, setValueNote] = React.useState("66876");
   const [terminalId, setTerminalId] = React.useState(null);
+  const [valueNote, setValueNote] = React.useState("");
+  const [countFetchhing, setCountFetching] = React.useState(0);
+
+  const [noteValue] = useFetchSettlementWaiting();
 
   const {
     settlement: {
@@ -38,7 +42,6 @@ export const useProps = (props) => {
     queryId: "fetchGiftCardSalesBySettlementId_settlementWaiting",
     enabled: false,
     onSuccess: (data, response) => {
-      console.log('get list giftcard sales : ', { response })
       if (response?.codeNumber == 200) {
         dispatch(settlement.setListGiftCardSales(data))
       }
@@ -50,7 +53,6 @@ export const useProps = (props) => {
     queryId: "fetchListGiftCardSales_settlementWaiting",
     enabled: false,
     onSuccess: (data, response) => {
-      console.log('get list giftcard sales : ', { response })
       if (response?.codeNumber == 200) {
         dispatch(settlement.setListGiftCardSales(data))
       }
@@ -65,10 +67,6 @@ export const useProps = (props) => {
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(settlement.setListStaffsSales(data));
-        // const terminalType = paymentMachineType ? paymentMachineType.toLowerCase() : ""
-        // console.log('fetch settle waiting', terminalId, terminalType)
-        // const body = getSettlementWating(terminalId, terminalType)
-        // fetchSettlementWating(body.params);
       }
     }
   });
@@ -80,16 +78,19 @@ export const useProps = (props) => {
     isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
-        console.log('fetchSettlementWating', response)
         dispatch(settlement.setSettlementWaiting(data));
         setValueNote(data?.note || "");
       }
     }
   });
 
+  React.useEffect(() => {
+    if (noteValue) {
+      setValueNote(noteValue);
+    }
+  }, [noteValue])
 
   React.useEffect(() => {
-    console.log('useEffect')
     let terminalId = null
     if (paymentMachineType == PaymentTerminalType.Clover
         && _.get(cloverMachineInfo, 'isSetup')) {
@@ -102,19 +103,17 @@ export const useProps = (props) => {
    
   }, []);
 
+
   React.useEffect(() => {
 
     const body = getListStaffsSales(terminalId);
-    console.log('params',body.params)
     fetchListStaffsSales(body.params);
 
     const bodyGiftCard = getListGiftCardSales(terminalId)
-    console.log('params',bodyGiftCard.params)
     fetchListGiftCardSales(bodyGiftCard.params);
 
     const terminalType = paymentMachineType ? paymentMachineType.toLowerCase() : ""
     const bodySettleWaiting = getSettlementWating(terminalId, terminalType)
-    console.log('params',bodySettleWaiting.params)
     fetchSettlementWating(bodySettleWaiting.params);
     
   }, [terminalId]);

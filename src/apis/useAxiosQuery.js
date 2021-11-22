@@ -24,25 +24,35 @@ export const useAxiosQuery = ({
     return response?.data;
   };
 
-  const { refetch, status, isError, isFetching, data } = useQuery(
+  const { refetch, status, isError, isFetching, data, } = useQuery(
     [queryId, params],
     () => requestGet(),
     {
       enabled,
       retry: false,
       onSuccess: (response) => {
-        dispatch(app?.hideLoading());
+        if(!isStopLoading){
+          dispatch(app?.hideLoading());
+        }
         if (response?.codeNumber == 200 || response?.codeNumber == 404 || response?.codeNumber == 201) {
           if (onSuccess && typeof onSuccess === 'function') {
             onSuccess(response?.data, response);
           }
         } else {
           if (
-            response?.message &&
-            onLoginError &&
-            typeof onLoginError === 'function'
+            response?.message
           ) {
-            onLoginError(response?.message);
+            dispatch(app.hideLoading());
+            dispatch(
+              app.setError({
+                isError: true,
+                messageError: response?.message,
+                errorType: "error",
+                titleError: "Alert",
+              }));
+            if (onLoginError && typeof onLoginError == "function") {
+              onLoginError(response?.message);
+            }
           }
         }
       },
@@ -61,17 +71,16 @@ export const useAxiosQuery = ({
   );
 
   React.useEffect(() => {
-    if (!isLoadingDefault) {
-      return;
-    }
-    if (isFetching) {
-      // show app loading here
-      dispatch(app?.showLoading());
-    }
+    if (isLoadingDefault) {
+      if (isFetching) {
+        // show app loading here
+        dispatch(app?.showLoading());
+      }
 
-    if (!isFetching && !isStopLoading) {
-      // hide app loading here
-      dispatch(app?.hideLoading());
+      if (!isFetching && !isStopLoading) {
+        // hide app loading here
+        dispatch(app?.hideLoading());
+      }
     }
   }, [data, dispatch, isLoadingDefault, isError, isFetching]);
 

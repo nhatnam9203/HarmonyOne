@@ -10,6 +10,7 @@ export const useAxiosMutation = ({
   onLoginError,
   isLoadingDefault = true,
   isStopLoading = false,
+  isReturnError = true
 }) => {
   const dispatch = useDispatch();
 
@@ -27,11 +28,21 @@ export const useAxiosMutation = ({
           }
         } else {
           if (
-            response?.message &&
-            onLoginError &&
-            typeof onLoginError === 'function'
+            response?.message
           ) {
-            onLoginError(response?.message);
+            dispatch(app.hideLoading());
+            if(isReturnError){
+              dispatch(
+                app.setError({
+                  isError: true,
+                  messageError: response?.message,
+                  errorType: "error",
+                  titleError: "Alert",
+                }));
+            }
+            if(onLoginError && typeof onLoginError == "function"){
+              onLoginError(response?.message);
+            }
           }
         }
       },
@@ -56,6 +67,7 @@ export const useAxiosMutation = ({
 
     if (isLoading) {
       // show app loading hereF
+
       dispatch(app.showLoading());
     }
 
