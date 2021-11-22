@@ -3,7 +3,7 @@ import React from "react";
 import { settlement } from "@redux/slices";
 import { useSelector, useDispatch } from "react-redux";
 import { app } from "@redux/slices";
-import { Platform } from "react-native";
+import { Platform, Alert } from "react-native";
 import { axios } from '@shared/services/axiosClient';
 import useRefetchSettlementWaiting from "./useRefetchSettlementWaiting";
 import NavigationService from '@navigation/NavigationService';
@@ -27,10 +27,10 @@ export const useProps = (props) => {
     settlement: {
       settlementWaiting = {},
     },
-    hardware: { 
-      cloverMachineInfo, 
-      dejavooMachineInfo, 
-      paymentMachineType 
+    hardware: {
+      cloverMachineInfo,
+      dejavooMachineInfo,
+      paymentMachineType
     },
   } = useSelector(state => state);
 
@@ -55,43 +55,43 @@ export const useProps = (props) => {
     }, 400);
   }
 
-  const closeSettlement = async() => {
+  const closeSettlement = async () => {
     dialogProgressRef?.current?.show();
 
-    if(paymentMachineType == PaymentTerminalType.Dejavoo 
-      && _.get(dejavooMachineInfo, "isSetup")) { 
-        const parameter = {
-          dejavooMachineInfo,
-        };
+    if (paymentMachineType == PaymentTerminalType.Dejavoo
+      && _.get(dejavooMachineInfo, "isSetup")) {
+      const parameter = {
+        dejavooMachineInfo,
+      };
       const responses = await requestSettlementDejavoo(parameter);
       parseString(responses, (err, result) => {
-          if (err || _.get(result, 'xmp.response.0.ResultCode.0') != 0) {
-            const resultTxt = `${_.get(result, 'xmp.response.0.Message.0')}`
-                              || "Error";
-            dialogProgressRef?.current?.hide();  
+        if (err || _.get(result, 'xmp.response.0.ResultCode.0') != 0) {
+          const resultTxt = `${_.get(result, 'xmp.response.0.Message.0')}`
+            || "Error";
+          dialogProgressRef?.current?.hide();
 
-            setTimeout(()=>{
-              alert(resultTxt)
-            }, 200)
+          setTimeout(() => {
+            alert(resultTxt)
+          }, 200)
 
-          } else {
-              proccessingSettlement();
-          }
+        } else {
+          proccessingSettlement();
+        }
       })
 
     } else {
       Alert.alert(
-          'Unable to connect to payment terminal or not found any transaction on your payment terminal, Do you want to continue without payment terminal?',
-          '',
-          [
-              {
-                  text: 'Cancel',
-                  onPress: () => { },
-                  style: 'cancel'
-              },
-              { text: 'OK', onPress: () => proccessingSettlement() }
-          ],
-          { cancelable: false }
+        'Unable to connect to payment terminal or not found any transaction on your payment terminal, Do you want to continue without payment terminal?',
+        '',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => { dialogProgressRef?.current?.hide(); },
+            style: 'cancel'
+          },
+          { text: 'OK', onPress: () => proccessingSettlement() }
+        ],
+        { cancelable: false }
       );
     }
   }
@@ -114,7 +114,7 @@ export const useProps = (props) => {
       }
     }
     try {
-     
+
       const response = await axios(params);
       if (response?.data?.codeNumber == 200) {
         setProgress(100);
