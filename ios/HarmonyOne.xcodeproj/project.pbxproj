@@ -52,6 +52,9 @@
 		43B8129134A943EAAEA9EE01 /* SFProText-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 48C8B9AA32BC47B0B60068B2 /* SFProText-Italic.ttf */; };
 		4B946B66A715420E87C8AEC0 /* SFProDisplay-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F1F668B16E94BA9AEDFB75A /* SFProDisplay-Light.ttf */; };
 		52F3853803564CD6AFA1F543 /* SF Pro Text SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A522A122DD124720AB90C23E /* SF Pro Text SemiBoldItalic.ttf */; };
+		5308B386274BBC2900A6DB2E /* CloverConnector in Resources */ = {isa = PBXBuildFile; fileRef = 5308B385274BBC2900A6DB2E /* CloverConnector */; };
+		533642CC274BAA0B007CCB7B /* clover.m in Sources */ = {isa = PBXBuildFile; fileRef = 533642CA274BAA0B007CCB7B /* clover.m */; };
+		533642CD274BAA0B007CCB7B /* CloverManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533642CB274BAA0B007CCB7B /* CloverManager.swift */; };
 		53CBD55727395016002A7DB3 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53CBD55627395016002A7DB3 /* CoreBluetooth.framework */; };
 		53CBD5592739502F002A7DB3 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53CBD5582739502F002A7DB3 /* ExternalAccessory.framework */; };
 		5D0B36B7CCB64A1BA827584E /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6AACA0D074D45279AB59577 /* SFProDisplay-Semibold.ttf */; };
@@ -123,6 +126,10 @@
 		51A860A8EA1D44A7A3C35C87 /* SF Pro Text BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF Pro Text BoldItalic.ttf"; path = "../src/assets/fonts/SF Pro Text BoldItalic.ttf"; sourceTree = "<group>"; };
 		528225F1AB0A4C0C80C7208C /* SFProText-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-Bold.ttf"; path = "../src/assets/fonts/SFProText-Bold.ttf"; sourceTree = "<group>"; };
 		52CDC51710F74612B957A76F /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		5308B385274BBC2900A6DB2E /* CloverConnector */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CloverConnector; sourceTree = "<group>"; };
+		533642C9274BAA0B007CCB7B /* clover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = clover.h; path = clover/clover.h; sourceTree = "<group>"; };
+		533642CA274BAA0B007CCB7B /* clover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = clover.m; path = clover/clover.m; sourceTree = "<group>"; };
+		533642CB274BAA0B007CCB7B /* CloverManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CloverManager.swift; path = clover/CloverManager.swift; sourceTree = "<group>"; };
 		53CBD55627395016002A7DB3 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		53CBD5582739502F002A7DB3 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		5507EF7BCD464D2988033438 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
@@ -258,6 +265,16 @@
 			path = Staging;
 			sourceTree = "<group>";
 		};
+		533642C8274BA9F9007CCB7B /* clover */ = {
+			isa = PBXGroup;
+			children = (
+				533642C9274BAA0B007CCB7B /* clover.h */,
+				533642CA274BAA0B007CCB7B /* clover.m */,
+				533642CB274BAA0B007CCB7B /* CloverManager.swift */,
+			);
+			name = clover;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,6 +285,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				5308B385274BBC2900A6DB2E /* CloverConnector */,
+				533642C8274BA9F9007CCB7B /* clover */,
 				368DE93F26B26AD50095C324 /* File.swift */,
 				362C8D5A26B248B500CB63F0 /* Staging */,
 				13B07FAE1A68108700A75B9A /* HarmonyOne */,
@@ -549,6 +568,7 @@
 				52F3853803564CD6AFA1F543 /* SF Pro Text SemiBoldItalic.ttf in Resources */,
 				DFE188CF36AF43E59EC0CC42 /* SFProText-Bold.ttf in Resources */,
 				43B8129134A943EAAEA9EE01 /* SFProText-Italic.ttf in Resources */,
+				5308B386274BBC2900A6DB2E /* CloverConnector in Resources */,
 				129864E737C84DB29212DCDC /* SFProText-Light.ttf in Resources */,
 				0D36D0642C33427799407EA7 /* SFProText-Medium.ttf in Resources */,
 				126C0AC3D6D54F509D0882A9 /* SFProText-Regular.ttf in Resources */,
@@ -1015,7 +1035,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				533642CD274BAA0B007CCB7B /* CloverManager.swift in Sources */,
 				368DE94026B26AD50095C324 /* File.swift in Sources */,
+				533642CC274BAA0B007CCB7B /* clover.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1370,7 +1392,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1431,7 +1453,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
