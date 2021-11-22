@@ -17,7 +17,6 @@ import _ from "lodash";
 export const useProps = (props) => {
   const dispatch = useDispatch();
 
-  const [terminalId, setTerminalId] = React.useState(null);
   const [valueNote, setValueNote] = React.useState("");
   const [countFetchhing, setCountFetching] = React.useState(0);
 
@@ -30,93 +29,13 @@ export const useProps = (props) => {
       listGiftCardSales = [],
 
     },
-    hardware: { 
-      cloverMachineInfo, 
-      dejavooMachineInfo, 
-      paymentMachineType 
-    },
   } = useSelector(state => state);
-
-  const [, fetchGiftCardSalesBySettlementId] = useAxiosQuery({
-    ...getGiftCardSalesBySettlementId(),
-    queryId: "fetchGiftCardSalesBySettlementId_settlementWaiting",
-    enabled: false,
-    onSuccess: (data, response) => {
-      if (response?.codeNumber == 200) {
-        dispatch(settlement.setListGiftCardSales(data))
-      }
-    }
-  });
-
-  const [, fetchListGiftCardSales] = useAxiosQuery({
-    ...getListGiftCardSales(terminalId),
-    queryId: "fetchListGiftCardSales_settlementWaiting",
-    enabled: false,
-    onSuccess: (data, response) => {
-      if (response?.codeNumber == 200) {
-        dispatch(settlement.setListGiftCardSales(data))
-      }
-    }
-  });
-
-  const [, fetchListStaffsSales] = useAxiosQuery({
-    ...getListStaffsSales(terminalId),
-    queryId: "fetchListStaffsSales_settlementWaiting",
-    enabled: false,
-    isStopLoading: true,
-    onSuccess: (data, response) => {
-      if (response?.codeNumber == 200) {
-        dispatch(settlement.setListStaffsSales(data));
-      }
-    }
-  });
-
-  const [, fetchSettlementWating] = useAxiosQuery({
-    ...getSettlementWating(terminalId, paymentMachineType.toLowerCase()),
-    queryId: "fetchSettlementWating_settlementWaiting",
-    enabled: false,
-    isStopLoading: true,
-    onSuccess: (data, response) => {
-      if (response?.codeNumber == 200) {
-        dispatch(settlement.setSettlementWaiting(data));
-        setValueNote(data?.note || "");
-      }
-    }
-  });
 
   React.useEffect(() => {
     if (noteValue) {
       setValueNote(noteValue);
     }
   }, [noteValue])
-
-  React.useEffect(() => {
-    let terminalId = null
-    if (paymentMachineType == PaymentTerminalType.Clover
-        && _.get(cloverMachineInfo, 'isSetup')) {
-          terminalId = _.get(cloverMachineInfo, 'serialNumber')
-    } else if (paymentMachineType == PaymentTerminalType.Dejavoo
-              && _.get(dejavooMachineInfo, 'isSetup')) {
-        terminalId = _.get(dejavooMachineInfo, 'sn')
-    }
-    setTerminalId(terminalId)
-   
-  }, []);
-
-
-  React.useEffect(() => {
-
-    const body = getListStaffsSales(terminalId);
-    fetchListStaffsSales(body.params);
-
-    const bodyGiftCard = getListGiftCardSales(terminalId)
-    fetchListGiftCardSales(bodyGiftCard.params);
-
-    const terminalType = paymentMachineType ? paymentMachineType.toLowerCase() : ""
-    const bodySettleWaiting = getSettlementWating(terminalId, terminalType)
-    fetchSettlementWating(bodySettleWaiting.params);
-    
-  }, [terminalId]);
 
   return {
     settlementWaiting,

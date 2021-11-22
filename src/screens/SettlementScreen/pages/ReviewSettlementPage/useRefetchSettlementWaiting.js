@@ -10,6 +10,8 @@ import {
 } from "@src/apis";
 import { settlement, app } from "@redux/slices";
 import { useSelector, useDispatch } from "react-redux";
+import { PaymentTerminalType } from "@shared/utils";
+import _ from "lodash";
 
 const useRefetchSettlementWaiting = () => {
     const dispatch = useDispatch();
@@ -46,7 +48,7 @@ const useRefetchSettlementWaiting = () => {
     });
 
     const [, fetchListStaffsSales] = useAxiosQuery({
-        ...getListStaffsSales(),
+        ...getListStaffsSales(terminalId),
         queryId: "fetchListStaffsSales_settlementWaiting",
         enabled: false,
         isLoadingDefault: false,
@@ -60,7 +62,7 @@ const useRefetchSettlementWaiting = () => {
     });
 
     const [, fetchSettlementWating] = useAxiosQuery({
-        ...getSettlementWating(),
+        ...getSettlementWating(terminalId, paymentMachineType.toLowerCase()),
         queryId: "fetchSettlementWating_settlementWaiting",
         enabled: false,
         isLoadingDefault: false,
