@@ -12,7 +12,11 @@ import {
   submitPaymentWithCreditCard,
   sendGoogleReviewLink,
 } from '@src/apis';
-import { useDispatch, useSelector } from "react-redux";
+import { 
+  useDispatch, 
+  useSelector,
+  NativeEventEmitter,
+ } from "react-redux";
 import {
   dateToFormat,
   guid,
@@ -37,11 +41,15 @@ import { parseString } from 'react-native-xml2js';
 import _ from 'lodash';
 import Configs from '@src/config';
 const signalR = require("@microsoft/signalr");
+const { clover } = NativeModules;
+const { persistor, store } = configureStore();
 
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
-
+   //ADD LISTENER FROM CLOVER MODULE
+   let eventEmitter = new NativeEventEmitter(clover);
+   let subscriptions = []
 
   /************************************* REF *************************************/
   const dialogSuccessRef = React.useRef();
@@ -51,7 +59,8 @@ export const useProps = (props) => {
   const popupProcessingRef = React.useRef();
   const popupErrorMessageRef = React.useRef();
   const popupPayProcessingRef = React.useRef();
-  const invoiceRef = React.useRef(null);
+  const invoiceRef = React.useRef();
+  const popupConfirmDuplicateRef = React.useRef();
 
   /************************************* SELECTOR *************************************/
   const {
@@ -76,13 +85,107 @@ export const useProps = (props) => {
   const [errorMessageFromPax, setErrorMessageFromPax] = React.useState("");
   const [isSubmitCheckoutCreditCard, setIsSubmitCheckoutCreditCard] = React.useState(false);
 
-
   /************************************* useEffect *************************************/
+  React.useEffect(() => {
+    registerEvents()
+
+    return function cleanup() {
+      unregisterEvents();
+    };
+  }, []);
+
   React.useEffect(() => {
     if (payAppointmentId && methodPay.method === "credit_card") {
       handlePaymentByCredit();
     }
   }, [payAppointmentId]);
+
+  /************************************* Integrate Clover *************************************/
+  const registerEvents = () => {
+    clover.changeListenerStatus(true)
+    subscriptions = [
+        eventEmitter.addListener('paymentSuccess', data => {
+        dispatch(actions.appointment.isProcessPaymentClover(false))
+        handleResponseCreditCardForCloverSuccess(data)
+      }),
+      eventEmitter.addListener('paymentFail', data => {
+        dispatch(actions.appointment.isProcessPaymentClover(false))
+        handleResponseCreditCardForCloverFailed(_.get(data, 'errorMessage'))
+        
+       }),
+      eventEmitter.addListener('pairingCode', data => {
+        if(data){
+          const text = `Pairing code: ${_.get(data, 'pairingCode')}`
+          const { appointment } = store.getState();
+          const { isProcessPaymentClover } = appointment;
+
+          if(isProcessPaymentClover) {
+            popupPayProcessingRef?.current?.hide();
+          }
+        }
+      }),
+      eventEmitter.addListener('pairingSuccess', data => {
+        dispatch(hardware.setCloverToken(
+          _.get(data, 'token')
+        ));
+    
+        const { appointment } = store.getState();
+        const { isProcessPaymentClover } = appointment;
+        if(isProcessPaymentClover) {
+          popupPayProcessingRef?.current?.show();
+        }
+       
+      }),
+
+      eventEmitter.addListener('confirmPayment', () => {
+        popupPayProcessingRef?.current?.hide();
+        popupConfirmDuplicateRef?.current?.show();
+      }),
+
+      eventEmitter.addListener('deviceDisconnected', () => {
+        const { appointment } = store.getState();
+        const { isProcessPaymentClover } = appointment;
+        if(isProcessPaymentClover) {
+          dispatch(actions.appointment.isProcessPaymentClover(false))
+          handleResponseCreditCardForCloverFailed("No connected device")
+        }
+      }),
+    ]
+  }
+
+  const unregisterEvents = () => {
+    subscriptions.forEach(e => e.remove())
+    subscriptions = []
+  }
+
+  const handleResponseCreditCardForCloverSuccess = async (message) => {
+    setVisibleProcessingCredit(false)
+    const { hardware, auth, appointment } = store.getState();
+    const { cloverMachineInfo } = hardware;
+    const { staff } = auth;
+    const { payAppointmentId } = appointment;
+    let messageUpdate = {...message,
+                sn: _.get(cloverMachineInfo, 'serialNumber')}
+      const body = submitPaymentWithCreditCard(
+        staff?.merchantId || 0,
+        messageUpdate,
+        payAppointmentId,
+        groupAppointments?.dueAmount,
+        "clover")
+      submitPaymentCreditCard(body.params);
+  }
+
+  const handleResponseCreditCardForCloverFailed = async (errorMessage) => {
+    const { appointment } = store.getState();
+    const { payAppointmentId } = appointment;
+
+    popupPayProcessingRef?.current?.hide();
+    if (payAppointmentId) {
+      setErrorMessageFromPax(errorMessage);
+      const body = cancelHarmonyPayment(payAppointmentId, data)
+      submitCancelHarmonyPayment(body.params);
+    }
+  }
 
   /************************************* GỌI API SELECT METHOD PAY *************************************/
   const [, submitSelectPaymentMethod] = useAxiosMutation({
@@ -481,6 +584,7 @@ export const useProps = (props) => {
     popupProcessingRef,
     popupErrorMessageRef,
     invoiceRef,
+    popupConfirmDuplicateRef,
     errorMessageFromPax,
     dialogActiveGiftCard,
     popupChangeRef,
@@ -545,7 +649,16 @@ export const useProps = (props) => {
 
     onOK: () => {
       fetchAppointmentByDate();
-    }
+    },
+    confirmPaymentClover: () => {
+      clover.confirmPayment();
+      popupProcessingRef?.current?.show();
+      popupConfirmDuplicateRef?.current?.hide();
+    },
+    rejectPaymentClover: () => {
+      clover.rejectPayment()
+      popupConfirmDuplicateRef?.current?.hide();
+    },
 
   }
 };

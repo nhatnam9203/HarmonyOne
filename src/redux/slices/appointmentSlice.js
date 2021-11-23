@@ -13,6 +13,7 @@ const initialState = {
   promotionAppointment: [],
   discount : [],
   startProcessingPax: false,
+  isProcessPaymentClover: false,
 };
 
 const appointmentSlice = createSlice({
@@ -50,7 +51,9 @@ const appointmentSlice = createSlice({
       };
       state.groupAppointments = tempGroupAppointment;
     },
-
+    isProcessPaymentClover: (state, action) => {
+      state.isProcessPaymentClover = action.payload;
+    }
   },
 });
 

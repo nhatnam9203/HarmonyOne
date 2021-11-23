@@ -52,7 +52,227 @@
 		43B8129134A943EAAEA9EE01 /* SFProText-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 48C8B9AA32BC47B0B60068B2 /* SFProText-Italic.ttf */; };
 		4B946B66A715420E87C8AEC0 /* SFProDisplay-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F1F668B16E94BA9AEDFB75A /* SFProDisplay-Light.ttf */; };
 		52F3853803564CD6AFA1F543 /* SF Pro Text SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A522A122DD124720AB90C23E /* SF Pro Text SemiBoldItalic.ttf */; };
-		5308B386274BBC2900A6DB2E /* CloverConnector in Resources */ = {isa = PBXBuildFile; fileRef = 5308B385274BBC2900A6DB2E /* CloverConnector */; };
+		5308B3D5274CA1A100A6DB2E /* PrintManualRefundDeclineReceiptMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B38B274CA19B00A6DB2E /* PrintManualRefundDeclineReceiptMessage.swift */; };
+		5308B3D6274CA1A100A6DB2E /* CloverDeviceLogMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B38C274CA19B00A6DB2E /* CloverDeviceLogMessage.swift */; };
+		5308B3D7274CA1A100A6DB2E /* Points.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B38D274CA19B00A6DB2E /* Points.swift */; };
+		5308B3D8274CA1A100A6DB2E /* RetrievePaymentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B38E274CA19B00A6DB2E /* RetrievePaymentResponse.swift */; };
+		5308B3D9274CA1A100A6DB2E /* PrintPaymentMerchantCopyReceiptMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B38F274CA19B00A6DB2E /* PrintPaymentMerchantCopyReceiptMessage.swift */; };
+		5308B3DA274CA1A100A6DB2E /* SaleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B390274CA19B00A6DB2E /* SaleResponse.swift */; };
+		5308B3DB274CA1A100A6DB2E /* CapturePreAuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B391274CA19B00A6DB2E /* CapturePreAuthRequest.swift */; };
+		5308B3DC274CA1A100A6DB2E /* SetCustomerInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B392274CA19B00A6DB2E /* SetCustomerInfoRequest.swift */; };
+		5308B3DD274CA1A100A6DB2E /* MessageToActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B393274CA19B00A6DB2E /* MessageToActivity.swift */; };
+		5308B3DE274CA1A100A6DB2E /* VaultCardRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B394274CA19C00A6DB2E /* VaultCardRequest.swift */; };
+		5308B3DF274CA1A100A6DB2E /* PrintPaymentDeclineReceiptMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B395274CA19C00A6DB2E /* PrintPaymentDeclineReceiptMessage.swift */; };
+		5308B3E0274CA1A100A6DB2E /* IncrementPreauthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B396274CA19C00A6DB2E /* IncrementPreauthRequest.swift */; };
+		5308B3E1274CA1A100A6DB2E /* CustomActivityRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B397274CA19C00A6DB2E /* CustomActivityRequest.swift */; };
+		5308B3E2274CA1A100A6DB2E /* RetrieveDeviceStatusRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B398274CA19C00A6DB2E /* RetrieveDeviceStatusRequest.swift */; };
+		5308B3E3274CA1A100A6DB2E /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B399274CA19C00A6DB2E /* TransactionType.swift */; };
+		5308B3E4274CA1A100A6DB2E /* PreAuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B39A274CA19C00A6DB2E /* PreAuthResponse.swift */; };
+		5308B3E5274CA1A100A6DB2E /* ManualRefundRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B39B274CA19C00A6DB2E /* ManualRefundRequest.swift */; };
+		5308B3E6274CA1A100A6DB2E /* RetrieveDeviceStatusResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B39C274CA19C00A6DB2E /* RetrieveDeviceStatusResponse.swift */; };
+		5308B3E7274CA1A100A6DB2E /* ManualRefundResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B39D274CA19D00A6DB2E /* ManualRefundResponse.swift */; };
+		5308B3E8274CA1A100A6DB2E /* VaultCardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B39E274CA19D00A6DB2E /* VaultCardResponse.swift */; };
+		5308B3E9274CA1A100A6DB2E /* VoidCreditRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B39F274CA19D00A6DB2E /* VoidCreditRequest.swift */; };
+		5308B3EA274CA1A100A6DB2E /* PreAuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3A0274CA19D00A6DB2E /* PreAuthRequest.swift */; };
+		5308B3EB274CA1A100A6DB2E /* PrintPaymentReceiptMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3A1274CA19D00A6DB2E /* PrintPaymentReceiptMessage.swift */; };
+		5308B3EC274CA1A100A6DB2E /* RetrievePendingPaymentsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3A2274CA19D00A6DB2E /* RetrievePendingPaymentsResponse.swift */; };
+		5308B3ED274CA1A100A6DB2E /* VoidPaymentRefundRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3A3274CA19D00A6DB2E /* VoidPaymentRefundRequest.swift */; };
+		5308B3EE274CA1A100A6DB2E /* RegisterForCustomerProvidedDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3A4274CA19D00A6DB2E /* RegisterForCustomerProvidedDataRequest.swift */; };
+		5308B3EF274CA1A100A6DB2E /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3A5274CA19E00A6DB2E /* AuthRequest.swift */; };
+		5308B3F0274CA1A100A6DB2E /* RefundPaymentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3A6274CA19E00A6DB2E /* RefundPaymentResponse.swift */; };
+		5308B3F1274CA1A100A6DB2E /* ReadCardDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3A7274CA19E00A6DB2E /* ReadCardDataResponse.swift */; };
+		5308B3F2274CA1A100A6DB2E /* VoidPaymentRefundResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3A8274CA19E00A6DB2E /* VoidPaymentRefundResponse.swift */; };
+		5308B3F3274CA1A100A6DB2E /* DisplayReceiptOptionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3A9274CA19E00A6DB2E /* DisplayReceiptOptionsResponse.swift */; };
+		5308B3F4274CA1A100A6DB2E /* CustomerProvidedDataEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3AA274CA19E00A6DB2E /* CustomerProvidedDataEvent.swift */; };
+		5308B3F5274CA1A100A6DB2E /* TipAdjustAuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3AB274CA19E00A6DB2E /* TipAdjustAuthResponse.swift */; };
+		5308B3F6274CA1A100A6DB2E /* Signature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3AC274CA19E00A6DB2E /* Signature.swift */; };
+		5308B3F7274CA1A100A6DB2E /* Img.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3AD274CA19E00A6DB2E /* Img.swift */; };
+		5308B3F8274CA1A100A6DB2E /* CloseoutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3AE274CA19E00A6DB2E /* CloseoutRequest.swift */; };
+		5308B3F9274CA1A100A6DB2E /* CapturePreAuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3AF274CA19E00A6DB2E /* CapturePreAuthResponse.swift */; };
+		5308B3FA274CA1A100A6DB2E /* MessageFromActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3B0274CA19E00A6DB2E /* MessageFromActivity.swift */; };
+		5308B3FB274CA1A100A6DB2E /* ResetDeviceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3B1274CA19E00A6DB2E /* ResetDeviceResponse.swift */; };
+		5308B3FC274CA1A100A6DB2E /* ResultStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3B2274CA19E00A6DB2E /* ResultStatus.swift */; };
+		5308B3FD274CA1A100A6DB2E /* TransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3B3274CA19E00A6DB2E /* TransactionRequest.swift */; };
+		5308B3FE274CA1A100A6DB2E /* RegionalExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3B4274CA19E00A6DB2E /* RegionalExtras.swift */; };
+		5308B3FF274CA1A100A6DB2E /* PrintRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3B5274CA19F00A6DB2E /* PrintRequest.swift */; };
+		5308B400274CA1A100A6DB2E /* PaymentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3B6274CA19F00A6DB2E /* PaymentResponse.swift */; };
+		5308B401274CA1A100A6DB2E /* RefundPaymentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3B7274CA19F00A6DB2E /* RefundPaymentRequest.swift */; };
+		5308B402274CA1A100A6DB2E /* RetrievePaymentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3B8274CA19F00A6DB2E /* RetrievePaymentRequest.swift */; };
+		5308B403274CA1A100A6DB2E /* VerifySignatureRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3B9274CA19F00A6DB2E /* VerifySignatureRequest.swift */; };
+		5308B404274CA1A100A6DB2E /* BaseActivityMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3BA274CA19F00A6DB2E /* BaseActivityMessage.swift */; };
+		5308B405274CA1A100A6DB2E /* VoidPaymentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3BB274CA19F00A6DB2E /* VoidPaymentRequest.swift */; };
+		5308B406274CA1A100A6DB2E /* ReadCardDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3BC274CA19F00A6DB2E /* ReadCardDataRequest.swift */; };
+		5308B407274CA1A100A6DB2E /* PrintJobStatusResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3BD274CA19F00A6DB2E /* PrintJobStatusResponse.swift */; };
+		5308B408274CA1A100A6DB2E /* PrintJobStatusRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3BE274CA19F00A6DB2E /* PrintJobStatusRequest.swift */; };
+		5308B409274CA1A100A6DB2E /* InvalidStateTransitionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3BF274CA19F00A6DB2E /* InvalidStateTransitionResponse.swift */; };
+		5308B40A274CA1A100A6DB2E /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3C0274CA19F00A6DB2E /* BaseResponse.swift */; };
+		5308B40B274CA1A100A6DB2E /* BaseTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3C1274CA19F00A6DB2E /* BaseTransactionRequest.swift */; };
+		5308B40C274CA1A100A6DB2E /* RetrievePrintersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3C2274CA19F00A6DB2E /* RetrievePrintersRequest.swift */; };
+		5308B40D274CA1A100A6DB2E /* RetrievePrintersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3C3274CA19F00A6DB2E /* RetrievePrintersResponse.swift */; };
+		5308B40E274CA1A100A6DB2E /* PrintRefundPaymentReceiptMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3C4274CA1A000A6DB2E /* PrintRefundPaymentReceiptMessage.swift */; };
+		5308B40F274CA1A100A6DB2E /* PrintManualRefundReceiptMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3C5274CA1A000A6DB2E /* PrintManualRefundReceiptMessage.swift */; };
+		5308B410274CA1A100A6DB2E /* VoidCreditResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3C6274CA1A000A6DB2E /* VoidCreditResponse.swift */; };
+		5308B411274CA1A100A6DB2E /* MerchantInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3C7274CA1A000A6DB2E /* MerchantInfo.swift */; };
+		5308B412274CA1A100A6DB2E /* VoidPaymentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3C8274CA1A000A6DB2E /* VoidPaymentResponse.swift */; };
+		5308B413274CA1A100A6DB2E /* SaleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3C9274CA1A000A6DB2E /* SaleRequest.swift */; };
+		5308B414274CA1A100A6DB2E /* CloverDeviceErrorEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3CA274CA1A000A6DB2E /* CloverDeviceErrorEvent.swift */; };
+		5308B415274CA1A100A6DB2E /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3CB274CA1A000A6DB2E /* Point.swift */; };
+		5308B416274CA1A100A6DB2E /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3CC274CA1A000A6DB2E /* AuthResponse.swift */; };
+		5308B417274CA1A100A6DB2E /* DisplayReceiptOptionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3CD274CA1A000A6DB2E /* DisplayReceiptOptionsRequest.swift */; };
+		5308B418274CA1A100A6DB2E /* IncrementPreauthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3CE274CA1A000A6DB2E /* IncrementPreauthResponse.swift */; };
+		5308B419274CA1A100A6DB2E /* CustomActivityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3CF274CA1A000A6DB2E /* CustomActivityResponse.swift */; };
+		5308B41A274CA1A100A6DB2E /* ResultStatusEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3D0274CA1A100A6DB2E /* ResultStatusEnum.swift */; };
+		5308B41B274CA1A100A6DB2E /* ShowPaymentReceiptOptionsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3D1274CA1A100A6DB2E /* ShowPaymentReceiptOptionsRequest.swift */; };
+		5308B41C274CA1A100A6DB2E /* TipAdjustAuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3D2274CA1A100A6DB2E /* TipAdjustAuthRequest.swift */; };
+		5308B41D274CA1A100A6DB2E /* CloseoutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3D3274CA1A100A6DB2E /* CloseoutResponse.swift */; };
+		5308B41E274CA1A100A6DB2E /* OpenCashDrawerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B3D4274CA1A100A6DB2E /* OpenCashDrawerRequest.swift */; };
+		5308B423274CA1DD00A6DB2E /* CloverTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B420274CA1DC00A6DB2E /* CloverTransport.swift */; };
+		5308B424274CA1DD00A6DB2E /* CloverTransportObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B421274CA1DC00A6DB2E /* CloverTransportObserver.swift */; };
+		5308B425274CA1DD00A6DB2E /* CloverDeviceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B422274CA1DC00A6DB2E /* CloverDeviceConfiguration.swift */; };
+		5308B429274CA20C00A6DB2E /* WebSocketCloverTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B427274CA20C00A6DB2E /* WebSocketCloverTransport.swift */; };
+		5308B42A274CA20C00A6DB2E /* WebSocketDeviceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B428274CA20C00A6DB2E /* WebSocketDeviceConfiguration.swift */; };
+		5308B43E274CA25B00A6DB2E /* CloverConnectorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B42B274CA25A00A6DB2E /* CloverConnectorFactory.swift */; };
+		5308B43F274CA25B00A6DB2E /* DefaultCloverConnectorListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B42C274CA25A00A6DB2E /* DefaultCloverConnectorListener.swift */; };
+		5308B440274CA25B00A6DB2E /* PairingDeviceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B42D274CA25A00A6DB2E /* PairingDeviceConfiguration.swift */; };
+		5308B441274CA25B00A6DB2E /* CCLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B42E274CA25A00A6DB2E /* CCLog.swift */; };
+		5308B442274CA25B00A6DB2E /* PairingResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B42F274CA25A00A6DB2E /* PairingResponseMessage.swift */; };
+		5308B443274CA25B00A6DB2E /* CloverDeviceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B430274CA25A00A6DB2E /* CloverDeviceFactory.swift */; };
+		5308B444274CA25B00A6DB2E /* DefaultCloverDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B431274CA25A00A6DB2E /* DefaultCloverDevice.swift */; };
+		5308B445274CA25B00A6DB2E /* PairingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B432274CA25A00A6DB2E /* PairingRequest.swift */; };
+		5308B446274CA25B00A6DB2E /* ResultCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B433274CA25A00A6DB2E /* ResultCode.swift */; };
+		5308B447274CA25B00A6DB2E /* PairingCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B434274CA25A00A6DB2E /* PairingCode.swift */; };
+		5308B448274CA25B00A6DB2E /* CloverDeviceObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B435274CA25B00A6DB2E /* CloverDeviceObserver.swift */; };
+		5308B449274CA25B00A6DB2E /* CloverConnectorBroadcaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B436274CA25B00A6DB2E /* CloverConnectorBroadcaster.swift */; };
+		5308B44A274CA25B00A6DB2E /* PairingCodeMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B437274CA25B00A6DB2E /* PairingCodeMessage.swift */; };
+		5308B44B274CA25B00A6DB2E /* PairingRequestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B438274CA25B00A6DB2E /* PairingRequestMessage.swift */; };
+		5308B44C274CA25B00A6DB2E /* PairingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B439274CA25B00A6DB2E /* PairingResponse.swift */; };
+		5308B44D274CA25B00A6DB2E /* ICloverConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B43A274CA25B00A6DB2E /* ICloverConnector.swift */; };
+		5308B44E274CA25B00A6DB2E /* CloverDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B43B274CA25B00A6DB2E /* CloverDevice.swift */; };
+		5308B44F274CA25B00A6DB2E /* DefaultCloverConnectorV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B43C274CA25B00A6DB2E /* DefaultCloverConnectorV2.swift */; };
+		5308B450274CA25B00A6DB2E /* ICloverConnectorListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B43D274CA25B00A6DB2E /* ICloverConnectorListener.swift */; };
+		5308B453274CA27E00A6DB2E /* ListWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B452274CA27E00A6DB2E /* ListWrapper.swift */; };
+		5308B457274CA48300A6DB2E /* TransformTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B455274CA48300A6DB2E /* TransformTypes.swift */; };
+		5308B458274CA48300A6DB2E /* CLVModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B456274CA48300A6DB2E /* CLVModels.swift */; };
+		5308B469274CA4AB00A6DB2E /* Inventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B45A274CA4A900A6DB2E /* Inventory.swift */; };
+		5308B46A274CA4AB00A6DB2E /* Loyalty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B45B274CA4A900A6DB2E /* Loyalty.swift */; };
+		5308B46B274CA4AB00A6DB2E /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B45C274CA4A900A6DB2E /* Order.swift */; };
+		5308B46C274CA4AB00A6DB2E /* Apps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B45D274CA4A900A6DB2E /* Apps.swift */; };
+		5308B46D274CA4AB00A6DB2E /* Customers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B45E274CA4A900A6DB2E /* Customers.swift */; };
+		5308B46E274CA4AB00A6DB2E /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B45F274CA4A900A6DB2E /* Device.swift */; };
+		5308B46F274CA4AB00A6DB2E /* Cash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B460274CA4A900A6DB2E /* Cash.swift */; };
+		5308B470274CA4AB00A6DB2E /* Hours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B461274CA4AA00A6DB2E /* Hours.swift */; };
+		5308B471274CA4AB00A6DB2E /* Developer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B462274CA4AA00A6DB2E /* Developer.swift */; };
+		5308B472274CA4AB00A6DB2E /* Payments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B463274CA4AA00A6DB2E /* Payments.swift */; };
+		5308B473274CA4AB00A6DB2E /* Employees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B464274CA4AA00A6DB2E /* Employees.swift */; };
+		5308B474274CA4AB00A6DB2E /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B465274CA4AA00A6DB2E /* Account.swift */; };
+		5308B475274CA4AB00A6DB2E /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B466274CA4AA00A6DB2E /* Base.swift */; };
+		5308B476274CA4AB00A6DB2E /* Merchant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B467274CA4AA00A6DB2E /* Merchant.swift */; };
+		5308B477274CA4AB00A6DB2E /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B468274CA4AA00A6DB2E /* Printer.swift */; };
+		5308B482274CA4E200A6DB2E /* DisplayDiscount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B479274CA4E100A6DB2E /* DisplayDiscount.swift */; };
+		5308B483274CA4E200A6DB2E /* TxStartResponseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B47A274CA4E100A6DB2E /* TxStartResponseResult.swift */; };
+		5308B484274CA4E200A6DB2E /* DisplayPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B47B274CA4E200A6DB2E /* DisplayPayment.swift */; };
+		5308B485274CA4E200A6DB2E /* VoidReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B47C274CA4E200A6DB2E /* VoidReason.swift */; };
+		5308B486274CA4E200A6DB2E /* TxState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B47D274CA4E200A6DB2E /* TxState.swift */; };
+		5308B487274CA4E200A6DB2E /* DisplayOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B47E274CA4E200A6DB2E /* DisplayOrder.swift */; };
+		5308B488274CA4E200A6DB2E /* DisplayLineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B47F274CA4E200A6DB2E /* DisplayLineItem.swift */; };
+		5308B489274CA4E200A6DB2E /* DisplayModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B480274CA4E200A6DB2E /* DisplayModification.swift */; };
+		5308B48A274CA4E200A6DB2E /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B481274CA4E200A6DB2E /* ErrorCode.swift */; };
+		5308B491274CA50E00A6DB2E /* AddDiscountAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B48C274CA50E00A6DB2E /* AddDiscountAction.swift */; };
+		5308B492274CA50E00A6DB2E /* AddLineItemAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B48D274CA50E00A6DB2E /* AddLineItemAction.swift */; };
+		5308B493274CA50E00A6DB2E /* OrderActionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B48E274CA50E00A6DB2E /* OrderActionResponse.swift */; };
+		5308B494274CA50E00A6DB2E /* RemoveDiscountAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B48F274CA50E00A6DB2E /* RemoveDiscountAction.swift */; };
+		5308B495274CA50E00A6DB2E /* RemoveLineItemAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B490274CA50E00A6DB2E /* RemoveLineItemAction.swift */; };
+		5308B498274CA53600A6DB2E /* DisplayOrderModifiedOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B497274CA53600A6DB2E /* DisplayOrderModifiedOperation.swift */; };
+		5308B4F4274CA57700A6DB2E /* RetrievePaymentResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B49A274CA56F00A6DB2E /* RetrievePaymentResponseMessage.swift */; };
+		5308B4F5274CA57700A6DB2E /* OrderActionRemoveDiscountMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B49B274CA56F00A6DB2E /* OrderActionRemoveDiscountMessage.swift */; };
+		5308B4F6274CA57700A6DB2E /* ShowReceiptOptionsMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B49C274CA56F00A6DB2E /* ShowReceiptOptionsMessage.swift */; };
+		5308B4F7274CA57700A6DB2E /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B49D274CA56F00A6DB2E /* Method.swift */; };
+		5308B4F8274CA57700A6DB2E /* UiStateMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B49E274CA56F00A6DB2E /* UiStateMessage.swift */; };
+		5308B4F9274CA57700A6DB2E /* RetrievePaymentRequestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B49F274CA56F00A6DB2E /* RetrievePaymentRequestMessage.swift */; };
+		5308B4FA274CA57700A6DB2E /* FinishCancelMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4A0274CA57000A6DB2E /* FinishCancelMessage.swift */; };
+		5308B4FB274CA57700A6DB2E /* PartialAuthMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4A1274CA57000A6DB2E /* PartialAuthMessage.swift */; };
+		5308B4FC274CA57700A6DB2E /* PrintJobStatusResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4A2274CA57000A6DB2E /* PrintJobStatusResponseMessage.swift */; };
+		5308B4FD274CA57700A6DB2E /* ExternalDeviceStateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4A3274CA57000A6DB2E /* ExternalDeviceStateData.swift */; };
+		5308B4FE274CA57700A6DB2E /* BreakMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4A4274CA57000A6DB2E /* BreakMessage.swift */; };
+		5308B4FF274CA57700A6DB2E /* CustomerInfoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4A5274CA57000A6DB2E /* CustomerInfoMessage.swift */; };
+		5308B500274CA57700A6DB2E /* ActivityResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4A6274CA57000A6DB2E /* ActivityResponseMessage.swift */; };
+		5308B501274CA57700A6DB2E /* PaymentPrintMerchantCopyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4A7274CA57000A6DB2E /* PaymentPrintMerchantCopyMessage.swift */; };
+		5308B502274CA57700A6DB2E /* ActivityMessageFromActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4A8274CA57000A6DB2E /* ActivityMessageFromActivity.swift */; };
+		5308B503274CA57700A6DB2E /* DiscoveryRequestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4A9274CA57100A6DB2E /* DiscoveryRequestMessage.swift */; };
+		5308B504274CA57700A6DB2E /* RefundRequestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4AA274CA57100A6DB2E /* RefundRequestMessage.swift */; };
+		5308B505274CA57700A6DB2E /* AcknowledgementMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4AB274CA57100A6DB2E /* AcknowledgementMessage.swift */; };
+		5308B506274CA57700A6DB2E /* CustomerProvidedDataMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4AC274CA57100A6DB2E /* CustomerProvidedDataMessage.swift */; };
+		5308B507274CA57700A6DB2E /* DataProviderConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4AD274CA57100A6DB2E /* DataProviderConfig.swift */; };
+		5308B508274CA57700A6DB2E /* CapturePreAuthRequestMessageV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4AE274CA57100A6DB2E /* CapturePreAuthRequestMessageV1.swift */; };
+		5308B509274CA57700A6DB2E /* CloseoutResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4AF274CA57100A6DB2E /* CloseoutResponseMessage.swift */; };
+		5308B50A274CA57700A6DB2E /* RefundPaymentPrintMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4B0274CA57100A6DB2E /* RefundPaymentPrintMessage.swift */; };
+		5308B50B274CA57700A6DB2E /* RemoteMessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4B1274CA57100A6DB2E /* RemoteMessageType.swift */; };
+		5308B50C274CA57700A6DB2E /* TipAddedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4B2274CA57200A6DB2E /* TipAddedMessage.swift */; };
+		5308B50D274CA57700A6DB2E /* CardDataResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4B3274CA57200A6DB2E /* CardDataResponseMessage.swift */; };
+		5308B50E274CA57700A6DB2E /* RetrieveDeviceStatusRequestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4B4274CA57200A6DB2E /* RetrieveDeviceStatusRequestMessage.swift */; };
+		5308B50F274CA57700A6DB2E /* RetrievePrintersRequestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4B5274CA57200A6DB2E /* RetrievePrintersRequestMessage.swift */; };
+		5308B510274CA57700A6DB2E /* TipAdjustResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4B6274CA57200A6DB2E /* TipAdjustResponseMessage.swift */; };
+		5308B511274CA57700A6DB2E /* DeclineCreditPrintMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4B7274CA57200A6DB2E /* DeclineCreditPrintMessage.swift */; };
+		5308B512274CA57700A6DB2E /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4B8274CA57200A6DB2E /* Message.swift */; };
+		5308B513274CA57700A6DB2E /* PaymentVoidedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4B9274CA57200A6DB2E /* PaymentVoidedMessage.swift */; };
+		5308B514274CA57700A6DB2E /* VaultCardMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4BA274CA57300A6DB2E /* VaultCardMessage.swift */; };
+		5308B515274CA57700A6DB2E /* IncrementPreauthMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4BB274CA57300A6DB2E /* IncrementPreauthMessage.swift */; };
+		5308B516274CA57700A6DB2E /* DiscoveryResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4BC274CA57300A6DB2E /* DiscoveryResponseMessage.swift */; };
+		5308B517274CA57700A6DB2E /* CapturePreAuthResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4BD274CA57300A6DB2E /* CapturePreAuthResponseMessage.swift */; };
+		5308B518274CA57700A6DB2E /* ConfirmPaymentMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4BE274CA57300A6DB2E /* ConfirmPaymentMessage.swift */; };
+		5308B519274CA57700A6DB2E /* ResetDeviceResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4BF274CA57300A6DB2E /* ResetDeviceResponseMessage.swift */; };
+		5308B51A274CA57700A6DB2E /* VoidPaymentResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4C0274CA57300A6DB2E /* VoidPaymentResponseMessage.swift */; };
+		5308B51B274CA57700A6DB2E /* RemoteMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4C1274CA57300A6DB2E /* RemoteMessage.swift */; };
+		5308B51C274CA57700A6DB2E /* OrderUpdateMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4C2274CA57300A6DB2E /* OrderUpdateMessage.swift */; };
+		5308B51D274CA57700A6DB2E /* DeviceStatusRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4C3274CA57300A6DB2E /* DeviceStatusRequest.swift */; };
+		5308B51E274CA57700A6DB2E /* OpenCashDrawerMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4C4274CA57300A6DB2E /* OpenCashDrawerMessage.swift */; };
+		5308B51F274CA57700A6DB2E /* PaymentConfirmedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4C5274CA57300A6DB2E /* PaymentConfirmedMessage.swift */; };
+		5308B520274CA57700A6DB2E /* TxStartResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4C6274CA57400A6DB2E /* TxStartResponseMessage.swift */; };
+		5308B521274CA57700A6DB2E /* OrderActionAddDiscountMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4C7274CA57400A6DB2E /* OrderActionAddDiscountMessage.swift */; };
+		5308B522274CA57700A6DB2E /* RetrievePrintersResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4C8274CA57400A6DB2E /* RetrievePrintersResponseMessage.swift */; };
+		5308B523274CA57700A6DB2E /* RefundResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4C9274CA57400A6DB2E /* RefundResponseMessage.swift */; };
+		5308B524274CA57700A6DB2E /* TerminalMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4CA274CA57400A6DB2E /* TerminalMessage.swift */; };
+		5308B525274CA57700A6DB2E /* SignatureVerifiedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4CB274CA57400A6DB2E /* SignatureVerifiedMessage.swift */; };
+		5308B526274CA57700A6DB2E /* TxStateMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4CC274CA57400A6DB2E /* TxStateMessage.swift */; };
+		5308B527274CA57700A6DB2E /* TextPrintMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4CD274CA57400A6DB2E /* TextPrintMessage.swift */; };
+		5308B528274CA57700A6DB2E /* RetrieveDeviceStatusResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4CE274CA57400A6DB2E /* RetrieveDeviceStatusResponseMessage.swift */; };
+		5308B529274CA57700A6DB2E /* VoidPaymentMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4CF274CA57400A6DB2E /* VoidPaymentMessage.swift */; };
+		5308B52A274CA57700A6DB2E /* PaymentPrintMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4D0274CA57400A6DB2E /* PaymentPrintMessage.swift */; };
+		5308B52B274CA57700A6DB2E /* IncrementPreauthResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4D1274CA57400A6DB2E /* IncrementPreauthResponseMessage.swift */; };
+		5308B52C274CA57700A6DB2E /* CreditPrintMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4D2274CA57400A6DB2E /* CreditPrintMessage.swift */; };
+		5308B52D274CA57700A6DB2E /* CardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4D3274CA57400A6DB2E /* CardData.swift */; };
+		5308B52E274CA57700A6DB2E /* TxStartRequestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4D4274CA57500A6DB2E /* TxStartRequestMessage.swift */; };
+		5308B52F274CA57700A6DB2E /* ShowReceiptOptionsResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4D5274CA57500A6DB2E /* ShowReceiptOptionsResponseMessage.swift */; };
+		5308B530274CA57700A6DB2E /* PrintJobStatusRequestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4D6274CA57500A6DB2E /* PrintJobStatusRequestMessage.swift */; };
+		5308B531274CA57700A6DB2E /* ActivityRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4D7274CA57500A6DB2E /* ActivityRequest.swift */; };
+		5308B532274CA57700A6DB2E /* OrderActionResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4D8274CA57500A6DB2E /* OrderActionResponseMessage.swift */; };
+		5308B533274CA57700A6DB2E /* RetrievePendingPaymentsResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4D9274CA57500A6DB2E /* RetrievePendingPaymentsResponseMessage.swift */; };
+		5308B534274CA57700A6DB2E /* ImagePrintMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4DA274CA57500A6DB2E /* ImagePrintMessage.swift */; };
+		5308B535274CA57700A6DB2E /* PayIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4DB274CA57500A6DB2E /* PayIntent.swift */; };
+		5308B536274CA57700A6DB2E /* RegisterForCustomerProvidedDataMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4DC274CA57500A6DB2E /* RegisterForCustomerProvidedDataMessage.swift */; };
+		5308B537274CA57700A6DB2E /* TipAdjustMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4DD274CA57500A6DB2E /* TipAdjustMessage.swift */; };
+		5308B538274CA57700A6DB2E /* KeyPressMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4DE274CA57500A6DB2E /* KeyPressMessage.swift */; };
+		5308B539274CA57700A6DB2E /* CloverDeviceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4DF274CA57500A6DB2E /* CloverDeviceEvent.swift */; };
+		5308B53A274CA57700A6DB2E /* OrderActionRemoveLineItemMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4E0274CA57500A6DB2E /* OrderActionRemoveLineItemMessage.swift */; };
+		5308B53B274CA57700A6DB2E /* InvalidStateTransitionResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4E1274CA57500A6DB2E /* InvalidStateTransitionResponseMessage.swift */; };
+		5308B53C274CA57700A6DB2E /* KeyPress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4E2274CA57500A6DB2E /* KeyPress.swift */; };
+		5308B53D274CA57700A6DB2E /* VaultCardResponseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4E3274CA57600A6DB2E /* VaultCardResponseMessage.swift */; };
+		5308B53E274CA57700A6DB2E /* CardDataRequestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4E4274CA57600A6DB2E /* CardDataRequestMessage.swift */; };
+		5308B53F274CA57700A6DB2E /* CashbackSelectedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4E5274CA57600A6DB2E /* CashbackSelectedMessage.swift */; };
+		5308B540274CA57700A6DB2E /* DeclinePaymentPrintMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4E6274CA57600A6DB2E /* DeclinePaymentPrintMessage.swift */; };
+		5308B541274CA57700A6DB2E /* ConfirmPaymentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4E7274CA57600A6DB2E /* ConfirmPaymentRequest.swift */; };
+		5308B542274CA57700A6DB2E /* InputOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4E8274CA57600A6DB2E /* InputOption.swift */; };
+		5308B543274CA57700A6DB2E /* PendingPaymentEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4E9274CA57600A6DB2E /* PendingPaymentEntry.swift */; };
+		5308B544274CA57700A6DB2E /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4EA274CA57600A6DB2E /* Challenge.swift */; };
+		5308B545274CA57700A6DB2E /* ShowWelcomeScreenMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4EB274CA57600A6DB2E /* ShowWelcomeScreenMessage.swift */; };
+		5308B546274CA57700A6DB2E /* CloseoutRequestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4EC274CA57600A6DB2E /* CloseoutRequestMessage.swift */; };
+		5308B547274CA57700A6DB2E /* ShowThankYouScreenMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4ED274CA57600A6DB2E /* ShowThankYouScreenMessage.swift */; };
+		5308B548274CA57700A6DB2E /* RetrievePendingPaymentsRequestMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4EE274CA57600A6DB2E /* RetrievePendingPaymentsRequestMessage.swift */; };
+		5308B549274CA57700A6DB2E /* ExternalDeviceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4EF274CA57600A6DB2E /* ExternalDeviceState.swift */; };
+		5308B54A274CA57700A6DB2E /* OrderActionAddLineItemMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4F0274CA57600A6DB2E /* OrderActionAddLineItemMessage.swift */; };
+		5308B54B274CA57700A6DB2E /* ActivityMessageToActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4F1274CA57700A6DB2E /* ActivityMessageToActivity.swift */; };
+		5308B54C274CA57700A6DB2E /* FinishOkMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4F2274CA57700A6DB2E /* FinishOkMessage.swift */; };
+		5308B54D274CA57700A6DB2E /* ShowPaymentReceiptOptionsMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5308B4F3274CA57700A6DB2E /* ShowPaymentReceiptOptionsMessage.swift */; };
 		533642CC274BAA0B007CCB7B /* clover.m in Sources */ = {isa = PBXBuildFile; fileRef = 533642CA274BAA0B007CCB7B /* clover.m */; };
 		533642CD274BAA0B007CCB7B /* CloverManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533642CB274BAA0B007CCB7B /* CloverManager.swift */; };
 		53CBD55727395016002A7DB3 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53CBD55627395016002A7DB3 /* CoreBluetooth.framework */; };
@@ -126,7 +346,228 @@
 		51A860A8EA1D44A7A3C35C87 /* SF Pro Text BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF Pro Text BoldItalic.ttf"; path = "../src/assets/fonts/SF Pro Text BoldItalic.ttf"; sourceTree = "<group>"; };
 		528225F1AB0A4C0C80C7208C /* SFProText-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-Bold.ttf"; path = "../src/assets/fonts/SFProText-Bold.ttf"; sourceTree = "<group>"; };
 		52CDC51710F74612B957A76F /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
-		5308B385274BBC2900A6DB2E /* CloverConnector */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CloverConnector; sourceTree = "<group>"; };
+		5308B38B274CA19B00A6DB2E /* PrintManualRefundDeclineReceiptMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintManualRefundDeclineReceiptMessage.swift; sourceTree = "<group>"; };
+		5308B38C274CA19B00A6DB2E /* CloverDeviceLogMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloverDeviceLogMessage.swift; sourceTree = "<group>"; };
+		5308B38D274CA19B00A6DB2E /* Points.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Points.swift; sourceTree = "<group>"; };
+		5308B38E274CA19B00A6DB2E /* RetrievePaymentResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrievePaymentResponse.swift; sourceTree = "<group>"; };
+		5308B38F274CA19B00A6DB2E /* PrintPaymentMerchantCopyReceiptMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintPaymentMerchantCopyReceiptMessage.swift; sourceTree = "<group>"; };
+		5308B390274CA19B00A6DB2E /* SaleResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaleResponse.swift; sourceTree = "<group>"; };
+		5308B391274CA19B00A6DB2E /* CapturePreAuthRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePreAuthRequest.swift; sourceTree = "<group>"; };
+		5308B392274CA19B00A6DB2E /* SetCustomerInfoRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCustomerInfoRequest.swift; sourceTree = "<group>"; };
+		5308B393274CA19B00A6DB2E /* MessageToActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageToActivity.swift; sourceTree = "<group>"; };
+		5308B394274CA19C00A6DB2E /* VaultCardRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaultCardRequest.swift; sourceTree = "<group>"; };
+		5308B395274CA19C00A6DB2E /* PrintPaymentDeclineReceiptMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintPaymentDeclineReceiptMessage.swift; sourceTree = "<group>"; };
+		5308B396274CA19C00A6DB2E /* IncrementPreauthRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncrementPreauthRequest.swift; sourceTree = "<group>"; };
+		5308B397274CA19C00A6DB2E /* CustomActivityRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomActivityRequest.swift; sourceTree = "<group>"; };
+		5308B398274CA19C00A6DB2E /* RetrieveDeviceStatusRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrieveDeviceStatusRequest.swift; sourceTree = "<group>"; };
+		5308B399274CA19C00A6DB2E /* TransactionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionType.swift; sourceTree = "<group>"; };
+		5308B39A274CA19C00A6DB2E /* PreAuthResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreAuthResponse.swift; sourceTree = "<group>"; };
+		5308B39B274CA19C00A6DB2E /* ManualRefundRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManualRefundRequest.swift; sourceTree = "<group>"; };
+		5308B39C274CA19C00A6DB2E /* RetrieveDeviceStatusResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrieveDeviceStatusResponse.swift; sourceTree = "<group>"; };
+		5308B39D274CA19D00A6DB2E /* ManualRefundResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManualRefundResponse.swift; sourceTree = "<group>"; };
+		5308B39E274CA19D00A6DB2E /* VaultCardResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaultCardResponse.swift; sourceTree = "<group>"; };
+		5308B39F274CA19D00A6DB2E /* VoidCreditRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoidCreditRequest.swift; sourceTree = "<group>"; };
+		5308B3A0274CA19D00A6DB2E /* PreAuthRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreAuthRequest.swift; sourceTree = "<group>"; };
+		5308B3A1274CA19D00A6DB2E /* PrintPaymentReceiptMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintPaymentReceiptMessage.swift; sourceTree = "<group>"; };
+		5308B3A2274CA19D00A6DB2E /* RetrievePendingPaymentsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrievePendingPaymentsResponse.swift; sourceTree = "<group>"; };
+		5308B3A3274CA19D00A6DB2E /* VoidPaymentRefundRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoidPaymentRefundRequest.swift; sourceTree = "<group>"; };
+		5308B3A4274CA19D00A6DB2E /* RegisterForCustomerProvidedDataRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterForCustomerProvidedDataRequest.swift; sourceTree = "<group>"; };
+		5308B3A5274CA19E00A6DB2E /* AuthRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
+		5308B3A6274CA19E00A6DB2E /* RefundPaymentResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefundPaymentResponse.swift; sourceTree = "<group>"; };
+		5308B3A7274CA19E00A6DB2E /* ReadCardDataResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadCardDataResponse.swift; sourceTree = "<group>"; };
+		5308B3A8274CA19E00A6DB2E /* VoidPaymentRefundResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoidPaymentRefundResponse.swift; sourceTree = "<group>"; };
+		5308B3A9274CA19E00A6DB2E /* DisplayReceiptOptionsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayReceiptOptionsResponse.swift; sourceTree = "<group>"; };
+		5308B3AA274CA19E00A6DB2E /* CustomerProvidedDataEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerProvidedDataEvent.swift; sourceTree = "<group>"; };
+		5308B3AB274CA19E00A6DB2E /* TipAdjustAuthResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipAdjustAuthResponse.swift; sourceTree = "<group>"; };
+		5308B3AC274CA19E00A6DB2E /* Signature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signature.swift; sourceTree = "<group>"; };
+		5308B3AD274CA19E00A6DB2E /* Img.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Img.swift; sourceTree = "<group>"; };
+		5308B3AE274CA19E00A6DB2E /* CloseoutRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseoutRequest.swift; sourceTree = "<group>"; };
+		5308B3AF274CA19E00A6DB2E /* CapturePreAuthResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePreAuthResponse.swift; sourceTree = "<group>"; };
+		5308B3B0274CA19E00A6DB2E /* MessageFromActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageFromActivity.swift; sourceTree = "<group>"; };
+		5308B3B1274CA19E00A6DB2E /* ResetDeviceResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetDeviceResponse.swift; sourceTree = "<group>"; };
+		5308B3B2274CA19E00A6DB2E /* ResultStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultStatus.swift; sourceTree = "<group>"; };
+		5308B3B3274CA19E00A6DB2E /* TransactionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionRequest.swift; sourceTree = "<group>"; };
+		5308B3B4274CA19E00A6DB2E /* RegionalExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionalExtras.swift; sourceTree = "<group>"; };
+		5308B3B5274CA19F00A6DB2E /* PrintRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintRequest.swift; sourceTree = "<group>"; };
+		5308B3B6274CA19F00A6DB2E /* PaymentResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentResponse.swift; sourceTree = "<group>"; };
+		5308B3B7274CA19F00A6DB2E /* RefundPaymentRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefundPaymentRequest.swift; sourceTree = "<group>"; };
+		5308B3B8274CA19F00A6DB2E /* RetrievePaymentRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrievePaymentRequest.swift; sourceTree = "<group>"; };
+		5308B3B9274CA19F00A6DB2E /* VerifySignatureRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifySignatureRequest.swift; sourceTree = "<group>"; };
+		5308B3BA274CA19F00A6DB2E /* BaseActivityMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseActivityMessage.swift; sourceTree = "<group>"; };
+		5308B3BB274CA19F00A6DB2E /* VoidPaymentRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoidPaymentRequest.swift; sourceTree = "<group>"; };
+		5308B3BC274CA19F00A6DB2E /* ReadCardDataRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadCardDataRequest.swift; sourceTree = "<group>"; };
+		5308B3BD274CA19F00A6DB2E /* PrintJobStatusResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintJobStatusResponse.swift; sourceTree = "<group>"; };
+		5308B3BE274CA19F00A6DB2E /* PrintJobStatusRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintJobStatusRequest.swift; sourceTree = "<group>"; };
+		5308B3BF274CA19F00A6DB2E /* InvalidStateTransitionResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvalidStateTransitionResponse.swift; sourceTree = "<group>"; };
+		5308B3C0274CA19F00A6DB2E /* BaseResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		5308B3C1274CA19F00A6DB2E /* BaseTransactionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTransactionRequest.swift; sourceTree = "<group>"; };
+		5308B3C2274CA19F00A6DB2E /* RetrievePrintersRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrievePrintersRequest.swift; sourceTree = "<group>"; };
+		5308B3C3274CA19F00A6DB2E /* RetrievePrintersResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrievePrintersResponse.swift; sourceTree = "<group>"; };
+		5308B3C4274CA1A000A6DB2E /* PrintRefundPaymentReceiptMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintRefundPaymentReceiptMessage.swift; sourceTree = "<group>"; };
+		5308B3C5274CA1A000A6DB2E /* PrintManualRefundReceiptMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintManualRefundReceiptMessage.swift; sourceTree = "<group>"; };
+		5308B3C6274CA1A000A6DB2E /* VoidCreditResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoidCreditResponse.swift; sourceTree = "<group>"; };
+		5308B3C7274CA1A000A6DB2E /* MerchantInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MerchantInfo.swift; sourceTree = "<group>"; };
+		5308B3C8274CA1A000A6DB2E /* VoidPaymentResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoidPaymentResponse.swift; sourceTree = "<group>"; };
+		5308B3C9274CA1A000A6DB2E /* SaleRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaleRequest.swift; sourceTree = "<group>"; };
+		5308B3CA274CA1A000A6DB2E /* CloverDeviceErrorEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloverDeviceErrorEvent.swift; sourceTree = "<group>"; };
+		5308B3CB274CA1A000A6DB2E /* Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
+		5308B3CC274CA1A000A6DB2E /* AuthResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		5308B3CD274CA1A000A6DB2E /* DisplayReceiptOptionsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayReceiptOptionsRequest.swift; sourceTree = "<group>"; };
+		5308B3CE274CA1A000A6DB2E /* IncrementPreauthResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncrementPreauthResponse.swift; sourceTree = "<group>"; };
+		5308B3CF274CA1A000A6DB2E /* CustomActivityResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomActivityResponse.swift; sourceTree = "<group>"; };
+		5308B3D0274CA1A100A6DB2E /* ResultStatusEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultStatusEnum.swift; sourceTree = "<group>"; };
+		5308B3D1274CA1A100A6DB2E /* ShowPaymentReceiptOptionsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowPaymentReceiptOptionsRequest.swift; sourceTree = "<group>"; };
+		5308B3D2274CA1A100A6DB2E /* TipAdjustAuthRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipAdjustAuthRequest.swift; sourceTree = "<group>"; };
+		5308B3D3274CA1A100A6DB2E /* CloseoutResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseoutResponse.swift; sourceTree = "<group>"; };
+		5308B3D4274CA1A100A6DB2E /* OpenCashDrawerRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenCashDrawerRequest.swift; sourceTree = "<group>"; };
+		5308B420274CA1DC00A6DB2E /* CloverTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloverTransport.swift; sourceTree = "<group>"; };
+		5308B421274CA1DC00A6DB2E /* CloverTransportObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloverTransportObserver.swift; sourceTree = "<group>"; };
+		5308B422274CA1DC00A6DB2E /* CloverDeviceConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloverDeviceConfiguration.swift; sourceTree = "<group>"; };
+		5308B427274CA20C00A6DB2E /* WebSocketCloverTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketCloverTransport.swift; sourceTree = "<group>"; };
+		5308B428274CA20C00A6DB2E /* WebSocketDeviceConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketDeviceConfiguration.swift; sourceTree = "<group>"; };
+		5308B42B274CA25A00A6DB2E /* CloverConnectorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloverConnectorFactory.swift; sourceTree = "<group>"; };
+		5308B42C274CA25A00A6DB2E /* DefaultCloverConnectorListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultCloverConnectorListener.swift; sourceTree = "<group>"; };
+		5308B42D274CA25A00A6DB2E /* PairingDeviceConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairingDeviceConfiguration.swift; sourceTree = "<group>"; };
+		5308B42E274CA25A00A6DB2E /* CCLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCLog.swift; sourceTree = "<group>"; };
+		5308B42F274CA25A00A6DB2E /* PairingResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairingResponseMessage.swift; sourceTree = "<group>"; };
+		5308B430274CA25A00A6DB2E /* CloverDeviceFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloverDeviceFactory.swift; sourceTree = "<group>"; };
+		5308B431274CA25A00A6DB2E /* DefaultCloverDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultCloverDevice.swift; sourceTree = "<group>"; };
+		5308B432274CA25A00A6DB2E /* PairingRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairingRequest.swift; sourceTree = "<group>"; };
+		5308B433274CA25A00A6DB2E /* ResultCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultCode.swift; sourceTree = "<group>"; };
+		5308B434274CA25A00A6DB2E /* PairingCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairingCode.swift; sourceTree = "<group>"; };
+		5308B435274CA25B00A6DB2E /* CloverDeviceObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloverDeviceObserver.swift; sourceTree = "<group>"; };
+		5308B436274CA25B00A6DB2E /* CloverConnectorBroadcaster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloverConnectorBroadcaster.swift; sourceTree = "<group>"; };
+		5308B437274CA25B00A6DB2E /* PairingCodeMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairingCodeMessage.swift; sourceTree = "<group>"; };
+		5308B438274CA25B00A6DB2E /* PairingRequestMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairingRequestMessage.swift; sourceTree = "<group>"; };
+		5308B439274CA25B00A6DB2E /* PairingResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairingResponse.swift; sourceTree = "<group>"; };
+		5308B43A274CA25B00A6DB2E /* ICloverConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICloverConnector.swift; sourceTree = "<group>"; };
+		5308B43B274CA25B00A6DB2E /* CloverDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloverDevice.swift; sourceTree = "<group>"; };
+		5308B43C274CA25B00A6DB2E /* DefaultCloverConnectorV2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultCloverConnectorV2.swift; sourceTree = "<group>"; };
+		5308B43D274CA25B00A6DB2E /* ICloverConnectorListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICloverConnectorListener.swift; sourceTree = "<group>"; };
+		5308B451274CA27E00A6DB2E /* CloverConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloverConnector.h; sourceTree = "<group>"; };
+		5308B452274CA27E00A6DB2E /* ListWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListWrapper.swift; sourceTree = "<group>"; };
+		5308B455274CA48300A6DB2E /* TransformTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformTypes.swift; sourceTree = "<group>"; };
+		5308B456274CA48300A6DB2E /* CLVModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLVModels.swift; sourceTree = "<group>"; };
+		5308B45A274CA4A900A6DB2E /* Inventory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Inventory.swift; sourceTree = "<group>"; };
+		5308B45B274CA4A900A6DB2E /* Loyalty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loyalty.swift; sourceTree = "<group>"; };
+		5308B45C274CA4A900A6DB2E /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		5308B45D274CA4A900A6DB2E /* Apps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Apps.swift; sourceTree = "<group>"; };
+		5308B45E274CA4A900A6DB2E /* Customers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customers.swift; sourceTree = "<group>"; };
+		5308B45F274CA4A900A6DB2E /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		5308B460274CA4A900A6DB2E /* Cash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cash.swift; sourceTree = "<group>"; };
+		5308B461274CA4AA00A6DB2E /* Hours.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hours.swift; sourceTree = "<group>"; };
+		5308B462274CA4AA00A6DB2E /* Developer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Developer.swift; sourceTree = "<group>"; };
+		5308B463274CA4AA00A6DB2E /* Payments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Payments.swift; sourceTree = "<group>"; };
+		5308B464274CA4AA00A6DB2E /* Employees.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Employees.swift; sourceTree = "<group>"; };
+		5308B465274CA4AA00A6DB2E /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		5308B466274CA4AA00A6DB2E /* Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = "<group>"; };
+		5308B467274CA4AA00A6DB2E /* Merchant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Merchant.swift; sourceTree = "<group>"; };
+		5308B468274CA4AA00A6DB2E /* Printer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
+		5308B479274CA4E100A6DB2E /* DisplayDiscount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayDiscount.swift; sourceTree = "<group>"; };
+		5308B47A274CA4E100A6DB2E /* TxStartResponseResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxStartResponseResult.swift; sourceTree = "<group>"; };
+		5308B47B274CA4E200A6DB2E /* DisplayPayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayPayment.swift; sourceTree = "<group>"; };
+		5308B47C274CA4E200A6DB2E /* VoidReason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoidReason.swift; sourceTree = "<group>"; };
+		5308B47D274CA4E200A6DB2E /* TxState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxState.swift; sourceTree = "<group>"; };
+		5308B47E274CA4E200A6DB2E /* DisplayOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayOrder.swift; sourceTree = "<group>"; };
+		5308B47F274CA4E200A6DB2E /* DisplayLineItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayLineItem.swift; sourceTree = "<group>"; };
+		5308B480274CA4E200A6DB2E /* DisplayModification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayModification.swift; sourceTree = "<group>"; };
+		5308B481274CA4E200A6DB2E /* ErrorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
+		5308B48C274CA50E00A6DB2E /* AddDiscountAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddDiscountAction.swift; sourceTree = "<group>"; };
+		5308B48D274CA50E00A6DB2E /* AddLineItemAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLineItemAction.swift; sourceTree = "<group>"; };
+		5308B48E274CA50E00A6DB2E /* OrderActionResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderActionResponse.swift; sourceTree = "<group>"; };
+		5308B48F274CA50E00A6DB2E /* RemoveDiscountAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveDiscountAction.swift; sourceTree = "<group>"; };
+		5308B490274CA50E00A6DB2E /* RemoveLineItemAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveLineItemAction.swift; sourceTree = "<group>"; };
+		5308B497274CA53600A6DB2E /* DisplayOrderModifiedOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayOrderModifiedOperation.swift; sourceTree = "<group>"; };
+		5308B49A274CA56F00A6DB2E /* RetrievePaymentResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrievePaymentResponseMessage.swift; sourceTree = "<group>"; };
+		5308B49B274CA56F00A6DB2E /* OrderActionRemoveDiscountMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderActionRemoveDiscountMessage.swift; sourceTree = "<group>"; };
+		5308B49C274CA56F00A6DB2E /* ShowReceiptOptionsMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowReceiptOptionsMessage.swift; sourceTree = "<group>"; };
+		5308B49D274CA56F00A6DB2E /* Method.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
+		5308B49E274CA56F00A6DB2E /* UiStateMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UiStateMessage.swift; sourceTree = "<group>"; };
+		5308B49F274CA56F00A6DB2E /* RetrievePaymentRequestMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrievePaymentRequestMessage.swift; sourceTree = "<group>"; };
+		5308B4A0274CA57000A6DB2E /* FinishCancelMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishCancelMessage.swift; sourceTree = "<group>"; };
+		5308B4A1274CA57000A6DB2E /* PartialAuthMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartialAuthMessage.swift; sourceTree = "<group>"; };
+		5308B4A2274CA57000A6DB2E /* PrintJobStatusResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintJobStatusResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4A3274CA57000A6DB2E /* ExternalDeviceStateData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalDeviceStateData.swift; sourceTree = "<group>"; };
+		5308B4A4274CA57000A6DB2E /* BreakMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakMessage.swift; sourceTree = "<group>"; };
+		5308B4A5274CA57000A6DB2E /* CustomerInfoMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerInfoMessage.swift; sourceTree = "<group>"; };
+		5308B4A6274CA57000A6DB2E /* ActivityResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4A7274CA57000A6DB2E /* PaymentPrintMerchantCopyMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentPrintMerchantCopyMessage.swift; sourceTree = "<group>"; };
+		5308B4A8274CA57000A6DB2E /* ActivityMessageFromActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityMessageFromActivity.swift; sourceTree = "<group>"; };
+		5308B4A9274CA57100A6DB2E /* DiscoveryRequestMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryRequestMessage.swift; sourceTree = "<group>"; };
+		5308B4AA274CA57100A6DB2E /* RefundRequestMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefundRequestMessage.swift; sourceTree = "<group>"; };
+		5308B4AB274CA57100A6DB2E /* AcknowledgementMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcknowledgementMessage.swift; sourceTree = "<group>"; };
+		5308B4AC274CA57100A6DB2E /* CustomerProvidedDataMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerProvidedDataMessage.swift; sourceTree = "<group>"; };
+		5308B4AD274CA57100A6DB2E /* DataProviderConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProviderConfig.swift; sourceTree = "<group>"; };
+		5308B4AE274CA57100A6DB2E /* CapturePreAuthRequestMessageV1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePreAuthRequestMessageV1.swift; sourceTree = "<group>"; };
+		5308B4AF274CA57100A6DB2E /* CloseoutResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseoutResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4B0274CA57100A6DB2E /* RefundPaymentPrintMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefundPaymentPrintMessage.swift; sourceTree = "<group>"; };
+		5308B4B1274CA57100A6DB2E /* RemoteMessageType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteMessageType.swift; sourceTree = "<group>"; };
+		5308B4B2274CA57200A6DB2E /* TipAddedMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipAddedMessage.swift; sourceTree = "<group>"; };
+		5308B4B3274CA57200A6DB2E /* CardDataResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDataResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4B4274CA57200A6DB2E /* RetrieveDeviceStatusRequestMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrieveDeviceStatusRequestMessage.swift; sourceTree = "<group>"; };
+		5308B4B5274CA57200A6DB2E /* RetrievePrintersRequestMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrievePrintersRequestMessage.swift; sourceTree = "<group>"; };
+		5308B4B6274CA57200A6DB2E /* TipAdjustResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipAdjustResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4B7274CA57200A6DB2E /* DeclineCreditPrintMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeclineCreditPrintMessage.swift; sourceTree = "<group>"; };
+		5308B4B8274CA57200A6DB2E /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		5308B4B9274CA57200A6DB2E /* PaymentVoidedMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentVoidedMessage.swift; sourceTree = "<group>"; };
+		5308B4BA274CA57300A6DB2E /* VaultCardMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaultCardMessage.swift; sourceTree = "<group>"; };
+		5308B4BB274CA57300A6DB2E /* IncrementPreauthMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncrementPreauthMessage.swift; sourceTree = "<group>"; };
+		5308B4BC274CA57300A6DB2E /* DiscoveryResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4BD274CA57300A6DB2E /* CapturePreAuthResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePreAuthResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4BE274CA57300A6DB2E /* ConfirmPaymentMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmPaymentMessage.swift; sourceTree = "<group>"; };
+		5308B4BF274CA57300A6DB2E /* ResetDeviceResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetDeviceResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4C0274CA57300A6DB2E /* VoidPaymentResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoidPaymentResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4C1274CA57300A6DB2E /* RemoteMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteMessage.swift; sourceTree = "<group>"; };
+		5308B4C2274CA57300A6DB2E /* OrderUpdateMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderUpdateMessage.swift; sourceTree = "<group>"; };
+		5308B4C3274CA57300A6DB2E /* DeviceStatusRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceStatusRequest.swift; sourceTree = "<group>"; };
+		5308B4C4274CA57300A6DB2E /* OpenCashDrawerMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenCashDrawerMessage.swift; sourceTree = "<group>"; };
+		5308B4C5274CA57300A6DB2E /* PaymentConfirmedMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentConfirmedMessage.swift; sourceTree = "<group>"; };
+		5308B4C6274CA57400A6DB2E /* TxStartResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxStartResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4C7274CA57400A6DB2E /* OrderActionAddDiscountMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderActionAddDiscountMessage.swift; sourceTree = "<group>"; };
+		5308B4C8274CA57400A6DB2E /* RetrievePrintersResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrievePrintersResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4C9274CA57400A6DB2E /* RefundResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefundResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4CA274CA57400A6DB2E /* TerminalMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalMessage.swift; sourceTree = "<group>"; };
+		5308B4CB274CA57400A6DB2E /* SignatureVerifiedMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureVerifiedMessage.swift; sourceTree = "<group>"; };
+		5308B4CC274CA57400A6DB2E /* TxStateMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxStateMessage.swift; sourceTree = "<group>"; };
+		5308B4CD274CA57400A6DB2E /* TextPrintMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextPrintMessage.swift; sourceTree = "<group>"; };
+		5308B4CE274CA57400A6DB2E /* RetrieveDeviceStatusResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrieveDeviceStatusResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4CF274CA57400A6DB2E /* VoidPaymentMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoidPaymentMessage.swift; sourceTree = "<group>"; };
+		5308B4D0274CA57400A6DB2E /* PaymentPrintMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentPrintMessage.swift; sourceTree = "<group>"; };
+		5308B4D1274CA57400A6DB2E /* IncrementPreauthResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncrementPreauthResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4D2274CA57400A6DB2E /* CreditPrintMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditPrintMessage.swift; sourceTree = "<group>"; };
+		5308B4D3274CA57400A6DB2E /* CardData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardData.swift; sourceTree = "<group>"; };
+		5308B4D4274CA57500A6DB2E /* TxStartRequestMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxStartRequestMessage.swift; sourceTree = "<group>"; };
+		5308B4D5274CA57500A6DB2E /* ShowReceiptOptionsResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowReceiptOptionsResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4D6274CA57500A6DB2E /* PrintJobStatusRequestMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintJobStatusRequestMessage.swift; sourceTree = "<group>"; };
+		5308B4D7274CA57500A6DB2E /* ActivityRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityRequest.swift; sourceTree = "<group>"; };
+		5308B4D8274CA57500A6DB2E /* OrderActionResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderActionResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4D9274CA57500A6DB2E /* RetrievePendingPaymentsResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrievePendingPaymentsResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4DA274CA57500A6DB2E /* ImagePrintMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePrintMessage.swift; sourceTree = "<group>"; };
+		5308B4DB274CA57500A6DB2E /* PayIntent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayIntent.swift; sourceTree = "<group>"; };
+		5308B4DC274CA57500A6DB2E /* RegisterForCustomerProvidedDataMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterForCustomerProvidedDataMessage.swift; sourceTree = "<group>"; };
+		5308B4DD274CA57500A6DB2E /* TipAdjustMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipAdjustMessage.swift; sourceTree = "<group>"; };
+		5308B4DE274CA57500A6DB2E /* KeyPressMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyPressMessage.swift; sourceTree = "<group>"; };
+		5308B4DF274CA57500A6DB2E /* CloverDeviceEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloverDeviceEvent.swift; sourceTree = "<group>"; };
+		5308B4E0274CA57500A6DB2E /* OrderActionRemoveLineItemMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderActionRemoveLineItemMessage.swift; sourceTree = "<group>"; };
+		5308B4E1274CA57500A6DB2E /* InvalidStateTransitionResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvalidStateTransitionResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4E2274CA57500A6DB2E /* KeyPress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyPress.swift; sourceTree = "<group>"; };
+		5308B4E3274CA57600A6DB2E /* VaultCardResponseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaultCardResponseMessage.swift; sourceTree = "<group>"; };
+		5308B4E4274CA57600A6DB2E /* CardDataRequestMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDataRequestMessage.swift; sourceTree = "<group>"; };
+		5308B4E5274CA57600A6DB2E /* CashbackSelectedMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CashbackSelectedMessage.swift; sourceTree = "<group>"; };
+		5308B4E6274CA57600A6DB2E /* DeclinePaymentPrintMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeclinePaymentPrintMessage.swift; sourceTree = "<group>"; };
+		5308B4E7274CA57600A6DB2E /* ConfirmPaymentRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmPaymentRequest.swift; sourceTree = "<group>"; };
+		5308B4E8274CA57600A6DB2E /* InputOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputOption.swift; sourceTree = "<group>"; };
+		5308B4E9274CA57600A6DB2E /* PendingPaymentEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingPaymentEntry.swift; sourceTree = "<group>"; };
+		5308B4EA274CA57600A6DB2E /* Challenge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
+		5308B4EB274CA57600A6DB2E /* ShowWelcomeScreenMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowWelcomeScreenMessage.swift; sourceTree = "<group>"; };
+		5308B4EC274CA57600A6DB2E /* CloseoutRequestMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseoutRequestMessage.swift; sourceTree = "<group>"; };
+		5308B4ED274CA57600A6DB2E /* ShowThankYouScreenMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowThankYouScreenMessage.swift; sourceTree = "<group>"; };
+		5308B4EE274CA57600A6DB2E /* RetrievePendingPaymentsRequestMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetrievePendingPaymentsRequestMessage.swift; sourceTree = "<group>"; };
+		5308B4EF274CA57600A6DB2E /* ExternalDeviceState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalDeviceState.swift; sourceTree = "<group>"; };
+		5308B4F0274CA57600A6DB2E /* OrderActionAddLineItemMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderActionAddLineItemMessage.swift; sourceTree = "<group>"; };
+		5308B4F1274CA57700A6DB2E /* ActivityMessageToActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityMessageToActivity.swift; sourceTree = "<group>"; };
+		5308B4F2274CA57700A6DB2E /* FinishOkMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishOkMessage.swift; sourceTree = "<group>"; };
+		5308B4F3274CA57700A6DB2E /* ShowPaymentReceiptOptionsMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowPaymentReceiptOptionsMessage.swift; sourceTree = "<group>"; };
 		533642C9274BAA0B007CCB7B /* clover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = clover.h; path = clover/clover.h; sourceTree = "<group>"; };
 		533642CA274BAA0B007CCB7B /* clover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = clover.m; path = clover/clover.m; sourceTree = "<group>"; };
 		533642CB274BAA0B007CCB7B /* CloverManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CloverManager.swift; path = clover/CloverManager.swift; sourceTree = "<group>"; };
@@ -265,6 +706,323 @@
 			path = Staging;
 			sourceTree = "<group>";
 		};
+		5308B387274C9FC100A6DB2E /* CloverConnector */ = {
+			isa = PBXGroup;
+			children = (
+				5308B388274CA15C00A6DB2E /* Classes */,
+			);
+			path = CloverConnector;
+			sourceTree = "<group>";
+		};
+		5308B388274CA15C00A6DB2E /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				5308B499274CA54E00A6DB2E /* remotepaylib */,
+				5308B478274CA4BF00A6DB2E /* orders */,
+				5308B454274CA45F00A6DB2E /* Models */,
+				5308B451274CA27E00A6DB2E /* CloverConnector.h */,
+				5308B452274CA27E00A6DB2E /* ListWrapper.swift */,
+				5308B389274CA16A00A6DB2E /* cloverconnector */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		5308B389274CA16A00A6DB2E /* cloverconnector */ = {
+			isa = PBXGroup;
+			children = (
+				5308B42E274CA25A00A6DB2E /* CCLog.swift */,
+				5308B436274CA25B00A6DB2E /* CloverConnectorBroadcaster.swift */,
+				5308B42B274CA25A00A6DB2E /* CloverConnectorFactory.swift */,
+				5308B43B274CA25B00A6DB2E /* CloverDevice.swift */,
+				5308B430274CA25A00A6DB2E /* CloverDeviceFactory.swift */,
+				5308B435274CA25B00A6DB2E /* CloverDeviceObserver.swift */,
+				5308B42C274CA25A00A6DB2E /* DefaultCloverConnectorListener.swift */,
+				5308B43C274CA25B00A6DB2E /* DefaultCloverConnectorV2.swift */,
+				5308B431274CA25A00A6DB2E /* DefaultCloverDevice.swift */,
+				5308B43A274CA25B00A6DB2E /* ICloverConnector.swift */,
+				5308B43D274CA25B00A6DB2E /* ICloverConnectorListener.swift */,
+				5308B434274CA25A00A6DB2E /* PairingCode.swift */,
+				5308B437274CA25B00A6DB2E /* PairingCodeMessage.swift */,
+				5308B42D274CA25A00A6DB2E /* PairingDeviceConfiguration.swift */,
+				5308B432274CA25A00A6DB2E /* PairingRequest.swift */,
+				5308B438274CA25B00A6DB2E /* PairingRequestMessage.swift */,
+				5308B439274CA25B00A6DB2E /* PairingResponse.swift */,
+				5308B42F274CA25A00A6DB2E /* PairingResponseMessage.swift */,
+				5308B433274CA25A00A6DB2E /* ResultCode.swift */,
+				5308B41F274CA1B100A6DB2E /* Transport */,
+				5308B38A274CA17700A6DB2E /* api */,
+			);
+			path = cloverconnector;
+			sourceTree = "<group>";
+		};
+		5308B38A274CA17700A6DB2E /* api */ = {
+			isa = PBXGroup;
+			children = (
+				5308B3A5274CA19E00A6DB2E /* AuthRequest.swift */,
+				5308B3CC274CA1A000A6DB2E /* AuthResponse.swift */,
+				5308B3BA274CA19F00A6DB2E /* BaseActivityMessage.swift */,
+				5308B3C0274CA19F00A6DB2E /* BaseResponse.swift */,
+				5308B3C1274CA19F00A6DB2E /* BaseTransactionRequest.swift */,
+				5308B391274CA19B00A6DB2E /* CapturePreAuthRequest.swift */,
+				5308B3AF274CA19E00A6DB2E /* CapturePreAuthResponse.swift */,
+				5308B3AE274CA19E00A6DB2E /* CloseoutRequest.swift */,
+				5308B3D3274CA1A100A6DB2E /* CloseoutResponse.swift */,
+				5308B3CA274CA1A000A6DB2E /* CloverDeviceErrorEvent.swift */,
+				5308B38C274CA19B00A6DB2E /* CloverDeviceLogMessage.swift */,
+				5308B397274CA19C00A6DB2E /* CustomActivityRequest.swift */,
+				5308B3CF274CA1A000A6DB2E /* CustomActivityResponse.swift */,
+				5308B3AA274CA19E00A6DB2E /* CustomerProvidedDataEvent.swift */,
+				5308B3CD274CA1A000A6DB2E /* DisplayReceiptOptionsRequest.swift */,
+				5308B3A9274CA19E00A6DB2E /* DisplayReceiptOptionsResponse.swift */,
+				5308B3AD274CA19E00A6DB2E /* Img.swift */,
+				5308B396274CA19C00A6DB2E /* IncrementPreauthRequest.swift */,
+				5308B3CE274CA1A000A6DB2E /* IncrementPreauthResponse.swift */,
+				5308B3BF274CA19F00A6DB2E /* InvalidStateTransitionResponse.swift */,
+				5308B39B274CA19C00A6DB2E /* ManualRefundRequest.swift */,
+				5308B39D274CA19D00A6DB2E /* ManualRefundResponse.swift */,
+				5308B3C7274CA1A000A6DB2E /* MerchantInfo.swift */,
+				5308B3B0274CA19E00A6DB2E /* MessageFromActivity.swift */,
+				5308B393274CA19B00A6DB2E /* MessageToActivity.swift */,
+				5308B3D4274CA1A100A6DB2E /* OpenCashDrawerRequest.swift */,
+				5308B3B6274CA19F00A6DB2E /* PaymentResponse.swift */,
+				5308B3CB274CA1A000A6DB2E /* Point.swift */,
+				5308B38D274CA19B00A6DB2E /* Points.swift */,
+				5308B3A0274CA19D00A6DB2E /* PreAuthRequest.swift */,
+				5308B39A274CA19C00A6DB2E /* PreAuthResponse.swift */,
+				5308B3BE274CA19F00A6DB2E /* PrintJobStatusRequest.swift */,
+				5308B3BD274CA19F00A6DB2E /* PrintJobStatusResponse.swift */,
+				5308B38B274CA19B00A6DB2E /* PrintManualRefundDeclineReceiptMessage.swift */,
+				5308B3C5274CA1A000A6DB2E /* PrintManualRefundReceiptMessage.swift */,
+				5308B395274CA19C00A6DB2E /* PrintPaymentDeclineReceiptMessage.swift */,
+				5308B38F274CA19B00A6DB2E /* PrintPaymentMerchantCopyReceiptMessage.swift */,
+				5308B3A1274CA19D00A6DB2E /* PrintPaymentReceiptMessage.swift */,
+				5308B3C4274CA1A000A6DB2E /* PrintRefundPaymentReceiptMessage.swift */,
+				5308B3B5274CA19F00A6DB2E /* PrintRequest.swift */,
+				5308B3BC274CA19F00A6DB2E /* ReadCardDataRequest.swift */,
+				5308B3A7274CA19E00A6DB2E /* ReadCardDataResponse.swift */,
+				5308B3B7274CA19F00A6DB2E /* RefundPaymentRequest.swift */,
+				5308B3A6274CA19E00A6DB2E /* RefundPaymentResponse.swift */,
+				5308B3B4274CA19E00A6DB2E /* RegionalExtras.swift */,
+				5308B3A4274CA19D00A6DB2E /* RegisterForCustomerProvidedDataRequest.swift */,
+				5308B3B1274CA19E00A6DB2E /* ResetDeviceResponse.swift */,
+				5308B3B2274CA19E00A6DB2E /* ResultStatus.swift */,
+				5308B3D0274CA1A100A6DB2E /* ResultStatusEnum.swift */,
+				5308B398274CA19C00A6DB2E /* RetrieveDeviceStatusRequest.swift */,
+				5308B39C274CA19C00A6DB2E /* RetrieveDeviceStatusResponse.swift */,
+				5308B3B8274CA19F00A6DB2E /* RetrievePaymentRequest.swift */,
+				5308B38E274CA19B00A6DB2E /* RetrievePaymentResponse.swift */,
+				5308B3A2274CA19D00A6DB2E /* RetrievePendingPaymentsResponse.swift */,
+				5308B3C2274CA19F00A6DB2E /* RetrievePrintersRequest.swift */,
+				5308B3C3274CA19F00A6DB2E /* RetrievePrintersResponse.swift */,
+				5308B3C9274CA1A000A6DB2E /* SaleRequest.swift */,
+				5308B390274CA19B00A6DB2E /* SaleResponse.swift */,
+				5308B392274CA19B00A6DB2E /* SetCustomerInfoRequest.swift */,
+				5308B3D1274CA1A100A6DB2E /* ShowPaymentReceiptOptionsRequest.swift */,
+				5308B3AC274CA19E00A6DB2E /* Signature.swift */,
+				5308B3D2274CA1A100A6DB2E /* TipAdjustAuthRequest.swift */,
+				5308B3AB274CA19E00A6DB2E /* TipAdjustAuthResponse.swift */,
+				5308B3B3274CA19E00A6DB2E /* TransactionRequest.swift */,
+				5308B399274CA19C00A6DB2E /* TransactionType.swift */,
+				5308B394274CA19C00A6DB2E /* VaultCardRequest.swift */,
+				5308B39E274CA19D00A6DB2E /* VaultCardResponse.swift */,
+				5308B3B9274CA19F00A6DB2E /* VerifySignatureRequest.swift */,
+				5308B39F274CA19D00A6DB2E /* VoidCreditRequest.swift */,
+				5308B3C6274CA1A000A6DB2E /* VoidCreditResponse.swift */,
+				5308B3A3274CA19D00A6DB2E /* VoidPaymentRefundRequest.swift */,
+				5308B3A8274CA19E00A6DB2E /* VoidPaymentRefundResponse.swift */,
+				5308B3BB274CA19F00A6DB2E /* VoidPaymentRequest.swift */,
+				5308B3C8274CA1A000A6DB2E /* VoidPaymentResponse.swift */,
+			);
+			path = api;
+			sourceTree = "<group>";
+		};
+		5308B41F274CA1B100A6DB2E /* Transport */ = {
+			isa = PBXGroup;
+			children = (
+				5308B426274CA1EA00A6DB2E /* Web Socket */,
+				5308B422274CA1DC00A6DB2E /* CloverDeviceConfiguration.swift */,
+				5308B420274CA1DC00A6DB2E /* CloverTransport.swift */,
+				5308B421274CA1DC00A6DB2E /* CloverTransportObserver.swift */,
+			);
+			path = Transport;
+			sourceTree = "<group>";
+		};
+		5308B426274CA1EA00A6DB2E /* Web Socket */ = {
+			isa = PBXGroup;
+			children = (
+				5308B427274CA20C00A6DB2E /* WebSocketCloverTransport.swift */,
+				5308B428274CA20C00A6DB2E /* WebSocketDeviceConfiguration.swift */,
+			);
+			path = "Web Socket";
+			sourceTree = "<group>";
+		};
+		5308B454274CA45F00A6DB2E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5308B459274CA48E00A6DB2E /* Extensions */,
+				5308B456274CA48300A6DB2E /* CLVModels.swift */,
+				5308B455274CA48300A6DB2E /* TransformTypes.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5308B459274CA48E00A6DB2E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5308B465274CA4AA00A6DB2E /* Account.swift */,
+				5308B45D274CA4A900A6DB2E /* Apps.swift */,
+				5308B466274CA4AA00A6DB2E /* Base.swift */,
+				5308B460274CA4A900A6DB2E /* Cash.swift */,
+				5308B45E274CA4A900A6DB2E /* Customers.swift */,
+				5308B462274CA4AA00A6DB2E /* Developer.swift */,
+				5308B45F274CA4A900A6DB2E /* Device.swift */,
+				5308B464274CA4AA00A6DB2E /* Employees.swift */,
+				5308B461274CA4AA00A6DB2E /* Hours.swift */,
+				5308B45A274CA4A900A6DB2E /* Inventory.swift */,
+				5308B45B274CA4A900A6DB2E /* Loyalty.swift */,
+				5308B467274CA4AA00A6DB2E /* Merchant.swift */,
+				5308B45C274CA4A900A6DB2E /* Order.swift */,
+				5308B463274CA4AA00A6DB2E /* Payments.swift */,
+				5308B468274CA4AA00A6DB2E /* Printer.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5308B478274CA4BF00A6DB2E /* orders */ = {
+			isa = PBXGroup;
+			children = (
+				5308B496274CA51C00A6DB2E /* operations */,
+				5308B48B274CA4F300A6DB2E /* action */,
+				5308B479274CA4E100A6DB2E /* DisplayDiscount.swift */,
+				5308B47F274CA4E200A6DB2E /* DisplayLineItem.swift */,
+				5308B480274CA4E200A6DB2E /* DisplayModification.swift */,
+				5308B47E274CA4E200A6DB2E /* DisplayOrder.swift */,
+				5308B47B274CA4E200A6DB2E /* DisplayPayment.swift */,
+				5308B481274CA4E200A6DB2E /* ErrorCode.swift */,
+				5308B47A274CA4E100A6DB2E /* TxStartResponseResult.swift */,
+				5308B47D274CA4E200A6DB2E /* TxState.swift */,
+				5308B47C274CA4E200A6DB2E /* VoidReason.swift */,
+			);
+			path = orders;
+			sourceTree = "<group>";
+		};
+		5308B48B274CA4F300A6DB2E /* action */ = {
+			isa = PBXGroup;
+			children = (
+				5308B48C274CA50E00A6DB2E /* AddDiscountAction.swift */,
+				5308B48D274CA50E00A6DB2E /* AddLineItemAction.swift */,
+				5308B48E274CA50E00A6DB2E /* OrderActionResponse.swift */,
+				5308B48F274CA50E00A6DB2E /* RemoveDiscountAction.swift */,
+				5308B490274CA50E00A6DB2E /* RemoveLineItemAction.swift */,
+			);
+			path = action;
+			sourceTree = "<group>";
+		};
+		5308B496274CA51C00A6DB2E /* operations */ = {
+			isa = PBXGroup;
+			children = (
+				5308B497274CA53600A6DB2E /* DisplayOrderModifiedOperation.swift */,
+			);
+			path = operations;
+			sourceTree = "<group>";
+		};
+		5308B499274CA54E00A6DB2E /* remotepaylib */ = {
+			isa = PBXGroup;
+			children = (
+				5308B4AB274CA57100A6DB2E /* AcknowledgementMessage.swift */,
+				5308B4A8274CA57000A6DB2E /* ActivityMessageFromActivity.swift */,
+				5308B4F1274CA57700A6DB2E /* ActivityMessageToActivity.swift */,
+				5308B4D7274CA57500A6DB2E /* ActivityRequest.swift */,
+				5308B4A6274CA57000A6DB2E /* ActivityResponseMessage.swift */,
+				5308B4A4274CA57000A6DB2E /* BreakMessage.swift */,
+				5308B4AE274CA57100A6DB2E /* CapturePreAuthRequestMessageV1.swift */,
+				5308B4BD274CA57300A6DB2E /* CapturePreAuthResponseMessage.swift */,
+				5308B4D3274CA57400A6DB2E /* CardData.swift */,
+				5308B4E4274CA57600A6DB2E /* CardDataRequestMessage.swift */,
+				5308B4B3274CA57200A6DB2E /* CardDataResponseMessage.swift */,
+				5308B4E5274CA57600A6DB2E /* CashbackSelectedMessage.swift */,
+				5308B4EA274CA57600A6DB2E /* Challenge.swift */,
+				5308B4EC274CA57600A6DB2E /* CloseoutRequestMessage.swift */,
+				5308B4AF274CA57100A6DB2E /* CloseoutResponseMessage.swift */,
+				5308B4DF274CA57500A6DB2E /* CloverDeviceEvent.swift */,
+				5308B4BE274CA57300A6DB2E /* ConfirmPaymentMessage.swift */,
+				5308B4E7274CA57600A6DB2E /* ConfirmPaymentRequest.swift */,
+				5308B4D2274CA57400A6DB2E /* CreditPrintMessage.swift */,
+				5308B4A5274CA57000A6DB2E /* CustomerInfoMessage.swift */,
+				5308B4AC274CA57100A6DB2E /* CustomerProvidedDataMessage.swift */,
+				5308B4AD274CA57100A6DB2E /* DataProviderConfig.swift */,
+				5308B4B7274CA57200A6DB2E /* DeclineCreditPrintMessage.swift */,
+				5308B4E6274CA57600A6DB2E /* DeclinePaymentPrintMessage.swift */,
+				5308B4C3274CA57300A6DB2E /* DeviceStatusRequest.swift */,
+				5308B4A9274CA57100A6DB2E /* DiscoveryRequestMessage.swift */,
+				5308B4BC274CA57300A6DB2E /* DiscoveryResponseMessage.swift */,
+				5308B4EF274CA57600A6DB2E /* ExternalDeviceState.swift */,
+				5308B4A3274CA57000A6DB2E /* ExternalDeviceStateData.swift */,
+				5308B4A0274CA57000A6DB2E /* FinishCancelMessage.swift */,
+				5308B4F2274CA57700A6DB2E /* FinishOkMessage.swift */,
+				5308B4DA274CA57500A6DB2E /* ImagePrintMessage.swift */,
+				5308B4BB274CA57300A6DB2E /* IncrementPreauthMessage.swift */,
+				5308B4D1274CA57400A6DB2E /* IncrementPreauthResponseMessage.swift */,
+				5308B4E8274CA57600A6DB2E /* InputOption.swift */,
+				5308B4E1274CA57500A6DB2E /* InvalidStateTransitionResponseMessage.swift */,
+				5308B4E2274CA57500A6DB2E /* KeyPress.swift */,
+				5308B4DE274CA57500A6DB2E /* KeyPressMessage.swift */,
+				5308B4B8274CA57200A6DB2E /* Message.swift */,
+				5308B49D274CA56F00A6DB2E /* Method.swift */,
+				5308B4C4274CA57300A6DB2E /* OpenCashDrawerMessage.swift */,
+				5308B4C7274CA57400A6DB2E /* OrderActionAddDiscountMessage.swift */,
+				5308B4F0274CA57600A6DB2E /* OrderActionAddLineItemMessage.swift */,
+				5308B49B274CA56F00A6DB2E /* OrderActionRemoveDiscountMessage.swift */,
+				5308B4E0274CA57500A6DB2E /* OrderActionRemoveLineItemMessage.swift */,
+				5308B4D8274CA57500A6DB2E /* OrderActionResponseMessage.swift */,
+				5308B4C2274CA57300A6DB2E /* OrderUpdateMessage.swift */,
+				5308B4A1274CA57000A6DB2E /* PartialAuthMessage.swift */,
+				5308B4DB274CA57500A6DB2E /* PayIntent.swift */,
+				5308B4C5274CA57300A6DB2E /* PaymentConfirmedMessage.swift */,
+				5308B4A7274CA57000A6DB2E /* PaymentPrintMerchantCopyMessage.swift */,
+				5308B4D0274CA57400A6DB2E /* PaymentPrintMessage.swift */,
+				5308B4B9274CA57200A6DB2E /* PaymentVoidedMessage.swift */,
+				5308B4E9274CA57600A6DB2E /* PendingPaymentEntry.swift */,
+				5308B4D6274CA57500A6DB2E /* PrintJobStatusRequestMessage.swift */,
+				5308B4A2274CA57000A6DB2E /* PrintJobStatusResponseMessage.swift */,
+				5308B4B0274CA57100A6DB2E /* RefundPaymentPrintMessage.swift */,
+				5308B4AA274CA57100A6DB2E /* RefundRequestMessage.swift */,
+				5308B4C9274CA57400A6DB2E /* RefundResponseMessage.swift */,
+				5308B4DC274CA57500A6DB2E /* RegisterForCustomerProvidedDataMessage.swift */,
+				5308B4C1274CA57300A6DB2E /* RemoteMessage.swift */,
+				5308B4B1274CA57100A6DB2E /* RemoteMessageType.swift */,
+				5308B4BF274CA57300A6DB2E /* ResetDeviceResponseMessage.swift */,
+				5308B4B4274CA57200A6DB2E /* RetrieveDeviceStatusRequestMessage.swift */,
+				5308B4CE274CA57400A6DB2E /* RetrieveDeviceStatusResponseMessage.swift */,
+				5308B49F274CA56F00A6DB2E /* RetrievePaymentRequestMessage.swift */,
+				5308B49A274CA56F00A6DB2E /* RetrievePaymentResponseMessage.swift */,
+				5308B4EE274CA57600A6DB2E /* RetrievePendingPaymentsRequestMessage.swift */,
+				5308B4D9274CA57500A6DB2E /* RetrievePendingPaymentsResponseMessage.swift */,
+				5308B4B5274CA57200A6DB2E /* RetrievePrintersRequestMessage.swift */,
+				5308B4C8274CA57400A6DB2E /* RetrievePrintersResponseMessage.swift */,
+				5308B4F3274CA57700A6DB2E /* ShowPaymentReceiptOptionsMessage.swift */,
+				5308B49C274CA56F00A6DB2E /* ShowReceiptOptionsMessage.swift */,
+				5308B4D5274CA57500A6DB2E /* ShowReceiptOptionsResponseMessage.swift */,
+				5308B4ED274CA57600A6DB2E /* ShowThankYouScreenMessage.swift */,
+				5308B4EB274CA57600A6DB2E /* ShowWelcomeScreenMessage.swift */,
+				5308B4CB274CA57400A6DB2E /* SignatureVerifiedMessage.swift */,
+				5308B4CA274CA57400A6DB2E /* TerminalMessage.swift */,
+				5308B4CD274CA57400A6DB2E /* TextPrintMessage.swift */,
+				5308B4B2274CA57200A6DB2E /* TipAddedMessage.swift */,
+				5308B4DD274CA57500A6DB2E /* TipAdjustMessage.swift */,
+				5308B4B6274CA57200A6DB2E /* TipAdjustResponseMessage.swift */,
+				5308B4D4274CA57500A6DB2E /* TxStartRequestMessage.swift */,
+				5308B4C6274CA57400A6DB2E /* TxStartResponseMessage.swift */,
+				5308B4CC274CA57400A6DB2E /* TxStateMessage.swift */,
+				5308B49E274CA56F00A6DB2E /* UiStateMessage.swift */,
+				5308B4BA274CA57300A6DB2E /* VaultCardMessage.swift */,
+				5308B4E3274CA57600A6DB2E /* VaultCardResponseMessage.swift */,
+				5308B4CF274CA57400A6DB2E /* VoidPaymentMessage.swift */,
+				5308B4C0274CA57300A6DB2E /* VoidPaymentResponseMessage.swift */,
+			);
+			path = remotepaylib;
+			sourceTree = "<group>";
+		};
 		533642C8274BA9F9007CCB7B /* clover */ = {
 			isa = PBXGroup;
 			children = (
@@ -285,7 +1043,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				5308B385274BBC2900A6DB2E /* CloverConnector */,
+				5308B387274C9FC100A6DB2E /* CloverConnector */,
 				533642C8274BA9F9007CCB7B /* clover */,
 				368DE93F26B26AD50095C324 /* File.swift */,
 				362C8D5A26B248B500CB63F0 /* Staging */,
@@ -568,7 +1326,6 @@
 				52F3853803564CD6AFA1F543 /* SF Pro Text SemiBoldItalic.ttf in Resources */,
 				DFE188CF36AF43E59EC0CC42 /* SFProText-Bold.ttf in Resources */,
 				43B8129134A943EAAEA9EE01 /* SFProText-Italic.ttf in Resources */,
-				5308B386274BBC2900A6DB2E /* CloverConnector in Resources */,
 				129864E737C84DB29212DCDC /* SFProText-Light.ttf in Resources */,
 				0D36D0642C33427799407EA7 /* SFProText-Medium.ttf in Resources */,
 				126C0AC3D6D54F509D0882A9 /* SFProText-Regular.ttf in Resources */,
@@ -1034,11 +1791,232 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5308B3E8274CA1A100A6DB2E /* VaultCardResponse.swift in Sources */,
+				5308B408274CA1A100A6DB2E /* PrintJobStatusRequest.swift in Sources */,
+				5308B446274CA25B00A6DB2E /* ResultCode.swift in Sources */,
+				5308B3F2274CA1A100A6DB2E /* VoidPaymentRefundResponse.swift in Sources */,
+				5308B546274CA57700A6DB2E /* CloseoutRequestMessage.swift in Sources */,
+				5308B44D274CA25B00A6DB2E /* ICloverConnector.swift in Sources */,
+				5308B532274CA57700A6DB2E /* OrderActionResponseMessage.swift in Sources */,
+				5308B535274CA57700A6DB2E /* PayIntent.swift in Sources */,
+				5308B3FD274CA1A100A6DB2E /* TransactionRequest.swift in Sources */,
+				5308B41C274CA1A100A6DB2E /* TipAdjustAuthRequest.swift in Sources */,
+				5308B543274CA57700A6DB2E /* PendingPaymentEntry.swift in Sources */,
+				5308B4F8274CA57700A6DB2E /* UiStateMessage.swift in Sources */,
+				5308B495274CA50E00A6DB2E /* RemoveLineItemAction.swift in Sources */,
+				5308B483274CA4E200A6DB2E /* TxStartResponseResult.swift in Sources */,
+				5308B418274CA1A100A6DB2E /* IncrementPreauthResponse.swift in Sources */,
+				5308B404274CA1A100A6DB2E /* BaseActivityMessage.swift in Sources */,
+				5308B3FF274CA1A100A6DB2E /* PrintRequest.swift in Sources */,
+				5308B43F274CA25B00A6DB2E /* DefaultCloverConnectorListener.swift in Sources */,
+				5308B523274CA57700A6DB2E /* RefundResponseMessage.swift in Sources */,
+				5308B3FC274CA1A100A6DB2E /* ResultStatus.swift in Sources */,
+				5308B521274CA57700A6DB2E /* OrderActionAddDiscountMessage.swift in Sources */,
+				5308B419274CA1A100A6DB2E /* CustomActivityResponse.swift in Sources */,
+				5308B50D274CA57700A6DB2E /* CardDataResponseMessage.swift in Sources */,
+				5308B429274CA20C00A6DB2E /* WebSocketCloverTransport.swift in Sources */,
+				5308B3E0274CA1A100A6DB2E /* IncrementPreauthRequest.swift in Sources */,
+				5308B3DC274CA1A100A6DB2E /* SetCustomerInfoRequest.swift in Sources */,
+				5308B445274CA25B00A6DB2E /* PairingRequest.swift in Sources */,
+				5308B3D8274CA1A100A6DB2E /* RetrievePaymentResponse.swift in Sources */,
+				5308B3DF274CA1A100A6DB2E /* PrintPaymentDeclineReceiptMessage.swift in Sources */,
+				5308B400274CA1A100A6DB2E /* PaymentResponse.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				5308B547274CA57700A6DB2E /* ShowThankYouScreenMessage.swift in Sources */,
+				5308B3EB274CA1A100A6DB2E /* PrintPaymentReceiptMessage.swift in Sources */,
+				5308B484274CA4E200A6DB2E /* DisplayPayment.swift in Sources */,
+				5308B492274CA50E00A6DB2E /* AddLineItemAction.swift in Sources */,
+				5308B472274CA4AB00A6DB2E /* Payments.swift in Sources */,
+				5308B53E274CA57700A6DB2E /* CardDataRequestMessage.swift in Sources */,
+				5308B520274CA57700A6DB2E /* TxStartResponseMessage.swift in Sources */,
+				5308B528274CA57700A6DB2E /* RetrieveDeviceStatusResponseMessage.swift in Sources */,
+				5308B51C274CA57700A6DB2E /* OrderUpdateMessage.swift in Sources */,
+				5308B469274CA4AB00A6DB2E /* Inventory.swift in Sources */,
+				5308B425274CA1DD00A6DB2E /* CloverDeviceConfiguration.swift in Sources */,
+				5308B449274CA25B00A6DB2E /* CloverConnectorBroadcaster.swift in Sources */,
+				5308B526274CA57700A6DB2E /* TxStateMessage.swift in Sources */,
+				5308B3EF274CA1A100A6DB2E /* AuthRequest.swift in Sources */,
+				5308B474274CA4AB00A6DB2E /* Account.swift in Sources */,
+				5308B524274CA57700A6DB2E /* TerminalMessage.swift in Sources */,
+				5308B40E274CA1A100A6DB2E /* PrintRefundPaymentReceiptMessage.swift in Sources */,
+				5308B4FA274CA57700A6DB2E /* FinishCancelMessage.swift in Sources */,
+				5308B3E6274CA1A100A6DB2E /* RetrieveDeviceStatusResponse.swift in Sources */,
+				5308B3E7274CA1A100A6DB2E /* ManualRefundResponse.swift in Sources */,
+				5308B4F9274CA57700A6DB2E /* RetrievePaymentRequestMessage.swift in Sources */,
+				5308B505274CA57700A6DB2E /* AcknowledgementMessage.swift in Sources */,
+				5308B40C274CA1A100A6DB2E /* RetrievePrintersRequest.swift in Sources */,
+				5308B406274CA1A100A6DB2E /* ReadCardDataRequest.swift in Sources */,
+				5308B471274CA4AB00A6DB2E /* Developer.swift in Sources */,
+				5308B46D274CA4AB00A6DB2E /* Customers.swift in Sources */,
+				5308B504274CA57700A6DB2E /* RefundRequestMessage.swift in Sources */,
+				5308B3F4274CA1A100A6DB2E /* CustomerProvidedDataEvent.swift in Sources */,
+				5308B542274CA57700A6DB2E /* InputOption.swift in Sources */,
+				5308B54B274CA57700A6DB2E /* ActivityMessageToActivity.swift in Sources */,
+				5308B4F7274CA57700A6DB2E /* Method.swift in Sources */,
+				5308B409274CA1A100A6DB2E /* InvalidStateTransitionResponse.swift in Sources */,
+				5308B3F1274CA1A100A6DB2E /* ReadCardDataResponse.swift in Sources */,
+				5308B508274CA57700A6DB2E /* CapturePreAuthRequestMessageV1.swift in Sources */,
+				5308B50C274CA57700A6DB2E /* TipAddedMessage.swift in Sources */,
+				5308B416274CA1A100A6DB2E /* AuthResponse.swift in Sources */,
+				5308B3D5274CA1A100A6DB2E /* PrintManualRefundDeclineReceiptMessage.swift in Sources */,
+				5308B530274CA57700A6DB2E /* PrintJobStatusRequestMessage.swift in Sources */,
+				5308B3EA274CA1A100A6DB2E /* PreAuthRequest.swift in Sources */,
+				5308B502274CA57700A6DB2E /* ActivityMessageFromActivity.swift in Sources */,
+				5308B512274CA57700A6DB2E /* Message.swift in Sources */,
+				5308B3E4274CA1A100A6DB2E /* PreAuthResponse.swift in Sources */,
+				5308B549274CA57700A6DB2E /* ExternalDeviceState.swift in Sources */,
+				5308B410274CA1A100A6DB2E /* VoidCreditResponse.swift in Sources */,
+				5308B412274CA1A100A6DB2E /* VoidPaymentResponse.swift in Sources */,
+				5308B401274CA1A100A6DB2E /* RefundPaymentRequest.swift in Sources */,
+				5308B3EC274CA1A100A6DB2E /* RetrievePendingPaymentsResponse.swift in Sources */,
+				5308B493274CA50E00A6DB2E /* OrderActionResponse.swift in Sources */,
+				5308B51D274CA57700A6DB2E /* DeviceStatusRequest.swift in Sources */,
+				5308B538274CA57700A6DB2E /* KeyPressMessage.swift in Sources */,
+				5308B3F7274CA1A100A6DB2E /* Img.swift in Sources */,
+				5308B405274CA1A100A6DB2E /* VoidPaymentRequest.swift in Sources */,
+				5308B510274CA57700A6DB2E /* TipAdjustResponseMessage.swift in Sources */,
+				5308B41D274CA1A100A6DB2E /* CloseoutResponse.swift in Sources */,
+				5308B4FD274CA57700A6DB2E /* ExternalDeviceStateData.swift in Sources */,
+				5308B3EE274CA1A100A6DB2E /* RegisterForCustomerProvidedDataRequest.swift in Sources */,
+				5308B509274CA57700A6DB2E /* CloseoutResponseMessage.swift in Sources */,
+				5308B52A274CA57700A6DB2E /* PaymentPrintMessage.swift in Sources */,
+				5308B3DA274CA1A100A6DB2E /* SaleResponse.swift in Sources */,
+				5308B41B274CA1A100A6DB2E /* ShowPaymentReceiptOptionsRequest.swift in Sources */,
+				5308B53C274CA57700A6DB2E /* KeyPress.swift in Sources */,
+				5308B458274CA48300A6DB2E /* CLVModels.swift in Sources */,
+				5308B444274CA25B00A6DB2E /* DefaultCloverDevice.swift in Sources */,
+				5308B52B274CA57700A6DB2E /* IncrementPreauthResponseMessage.swift in Sources */,
+				5308B413274CA1A100A6DB2E /* SaleRequest.swift in Sources */,
+				5308B40F274CA1A100A6DB2E /* PrintManualRefundReceiptMessage.swift in Sources */,
+				5308B424274CA1DD00A6DB2E /* CloverTransportObserver.swift in Sources */,
+				5308B41E274CA1A100A6DB2E /* OpenCashDrawerRequest.swift in Sources */,
+				5308B539274CA57700A6DB2E /* CloverDeviceEvent.swift in Sources */,
+				5308B44C274CA25B00A6DB2E /* PairingResponse.swift in Sources */,
+				5308B477274CA4AB00A6DB2E /* Printer.swift in Sources */,
+				5308B476274CA4AB00A6DB2E /* Merchant.swift in Sources */,
+				5308B3FE274CA1A100A6DB2E /* RegionalExtras.swift in Sources */,
+				5308B44F274CA25B00A6DB2E /* DefaultCloverConnectorV2.swift in Sources */,
+				5308B48A274CA4E200A6DB2E /* ErrorCode.swift in Sources */,
+				5308B52D274CA57700A6DB2E /* CardData.swift in Sources */,
+				5308B3DB274CA1A100A6DB2E /* CapturePreAuthRequest.swift in Sources */,
+				5308B4FF274CA57700A6DB2E /* CustomerInfoMessage.swift in Sources */,
+				5308B3F3274CA1A100A6DB2E /* DisplayReceiptOptionsResponse.swift in Sources */,
+				5308B3FB274CA1A100A6DB2E /* ResetDeviceResponse.swift in Sources */,
+				5308B402274CA1A100A6DB2E /* RetrievePaymentRequest.swift in Sources */,
+				5308B4F6274CA57700A6DB2E /* ShowReceiptOptionsMessage.swift in Sources */,
+				5308B450274CA25B00A6DB2E /* ICloverConnectorListener.swift in Sources */,
 				533642CD274BAA0B007CCB7B /* CloverManager.swift in Sources */,
+				5308B44E274CA25B00A6DB2E /* CloverDevice.swift in Sources */,
+				5308B53D274CA57700A6DB2E /* VaultCardResponseMessage.swift in Sources */,
+				5308B42A274CA20C00A6DB2E /* WebSocketDeviceConfiguration.swift in Sources */,
+				5308B441274CA25B00A6DB2E /* CCLog.swift in Sources */,
+				5308B43E274CA25B00A6DB2E /* CloverConnectorFactory.swift in Sources */,
+				5308B46C274CA4AB00A6DB2E /* Apps.swift in Sources */,
+				5308B52F274CA57700A6DB2E /* ShowReceiptOptionsResponseMessage.swift in Sources */,
+				5308B525274CA57700A6DB2E /* SignatureVerifiedMessage.swift in Sources */,
+				5308B53A274CA57700A6DB2E /* OrderActionRemoveLineItemMessage.swift in Sources */,
+				5308B54C274CA57700A6DB2E /* FinishOkMessage.swift in Sources */,
+				5308B527274CA57700A6DB2E /* TextPrintMessage.swift in Sources */,
+				5308B51F274CA57700A6DB2E /* PaymentConfirmedMessage.swift in Sources */,
+				5308B407274CA1A100A6DB2E /* PrintJobStatusResponse.swift in Sources */,
+				5308B3DD274CA1A100A6DB2E /* MessageToActivity.swift in Sources */,
+				5308B4FB274CA57700A6DB2E /* PartialAuthMessage.swift in Sources */,
+				5308B44B274CA25B00A6DB2E /* PairingRequestMessage.swift in Sources */,
+				5308B494274CA50E00A6DB2E /* RemoveDiscountAction.swift in Sources */,
+				5308B3D9274CA1A100A6DB2E /* PrintPaymentMerchantCopyReceiptMessage.swift in Sources */,
+				5308B3FA274CA1A100A6DB2E /* MessageFromActivity.swift in Sources */,
+				5308B4F4274CA57700A6DB2E /* RetrievePaymentResponseMessage.swift in Sources */,
+				5308B4FE274CA57700A6DB2E /* BreakMessage.swift in Sources */,
+				5308B457274CA48300A6DB2E /* TransformTypes.swift in Sources */,
+				5308B415274CA1A100A6DB2E /* Point.swift in Sources */,
+				5308B3F9274CA1A100A6DB2E /* CapturePreAuthResponse.swift in Sources */,
+				5308B3E1274CA1A100A6DB2E /* CustomActivityRequest.swift in Sources */,
+				5308B423274CA1DD00A6DB2E /* CloverTransport.swift in Sources */,
+				5308B51A274CA57700A6DB2E /* VoidPaymentResponseMessage.swift in Sources */,
+				5308B519274CA57700A6DB2E /* ResetDeviceResponseMessage.swift in Sources */,
+				5308B503274CA57700A6DB2E /* DiscoveryRequestMessage.swift in Sources */,
+				5308B50A274CA57700A6DB2E /* RefundPaymentPrintMessage.swift in Sources */,
+				5308B3F5274CA1A100A6DB2E /* TipAdjustAuthResponse.swift in Sources */,
+				5308B411274CA1A100A6DB2E /* MerchantInfo.swift in Sources */,
+				5308B500274CA57700A6DB2E /* ActivityResponseMessage.swift in Sources */,
+				5308B540274CA57700A6DB2E /* DeclinePaymentPrintMessage.swift in Sources */,
+				5308B491274CA50E00A6DB2E /* AddDiscountAction.swift in Sources */,
+				5308B4FC274CA57700A6DB2E /* PrintJobStatusResponseMessage.swift in Sources */,
+				5308B507274CA57700A6DB2E /* DataProviderConfig.swift in Sources */,
+				5308B522274CA57700A6DB2E /* RetrievePrintersResponseMessage.swift in Sources */,
+				5308B44A274CA25B00A6DB2E /* PairingCodeMessage.swift in Sources */,
+				5308B3E5274CA1A100A6DB2E /* ManualRefundRequest.swift in Sources */,
+				5308B473274CA4AB00A6DB2E /* Employees.swift in Sources */,
+				5308B486274CA4E200A6DB2E /* TxState.swift in Sources */,
+				5308B498274CA53600A6DB2E /* DisplayOrderModifiedOperation.swift in Sources */,
+				5308B533274CA57700A6DB2E /* RetrievePendingPaymentsResponseMessage.swift in Sources */,
+				5308B513274CA57700A6DB2E /* PaymentVoidedMessage.swift in Sources */,
+				5308B482274CA4E200A6DB2E /* DisplayDiscount.swift in Sources */,
+				5308B488274CA4E200A6DB2E /* DisplayLineItem.swift in Sources */,
+				5308B3D6274CA1A100A6DB2E /* CloverDeviceLogMessage.swift in Sources */,
+				5308B515274CA57700A6DB2E /* IncrementPreauthMessage.swift in Sources */,
+				5308B529274CA57700A6DB2E /* VoidPaymentMessage.swift in Sources */,
+				5308B506274CA57700A6DB2E /* CustomerProvidedDataMessage.swift in Sources */,
+				5308B3D7274CA1A100A6DB2E /* Points.swift in Sources */,
+				5308B40A274CA1A100A6DB2E /* BaseResponse.swift in Sources */,
+				5308B53B274CA57700A6DB2E /* InvalidStateTransitionResponseMessage.swift in Sources */,
+				5308B50E274CA57700A6DB2E /* RetrieveDeviceStatusRequestMessage.swift in Sources */,
+				5308B453274CA27E00A6DB2E /* ListWrapper.swift in Sources */,
+				5308B3ED274CA1A100A6DB2E /* VoidPaymentRefundRequest.swift in Sources */,
+				5308B40D274CA1A100A6DB2E /* RetrievePrintersResponse.swift in Sources */,
+				5308B516274CA57700A6DB2E /* DiscoveryResponseMessage.swift in Sources */,
+				5308B518274CA57700A6DB2E /* ConfirmPaymentMessage.swift in Sources */,
+				5308B501274CA57700A6DB2E /* PaymentPrintMerchantCopyMessage.swift in Sources */,
+				5308B3DE274CA1A100A6DB2E /* VaultCardRequest.swift in Sources */,
+				5308B40B274CA1A100A6DB2E /* BaseTransactionRequest.swift in Sources */,
 				368DE94026B26AD50095C324 /* File.swift in Sources */,
+				5308B52E274CA57700A6DB2E /* TxStartRequestMessage.swift in Sources */,
+				5308B4F5274CA57700A6DB2E /* OrderActionRemoveDiscountMessage.swift in Sources */,
+				5308B51E274CA57700A6DB2E /* OpenCashDrawerMessage.swift in Sources */,
+				5308B50B274CA57700A6DB2E /* RemoteMessageType.swift in Sources */,
+				5308B46A274CA4AB00A6DB2E /* Loyalty.swift in Sources */,
+				5308B443274CA25B00A6DB2E /* CloverDeviceFactory.swift in Sources */,
+				5308B489274CA4E200A6DB2E /* DisplayModification.swift in Sources */,
+				5308B545274CA57700A6DB2E /* ShowWelcomeScreenMessage.swift in Sources */,
+				5308B53F274CA57700A6DB2E /* CashbackSelectedMessage.swift in Sources */,
+				5308B531274CA57700A6DB2E /* ActivityRequest.swift in Sources */,
+				5308B448274CA25B00A6DB2E /* CloverDeviceObserver.swift in Sources */,
+				5308B447274CA25B00A6DB2E /* PairingCode.swift in Sources */,
+				5308B442274CA25B00A6DB2E /* PairingResponseMessage.swift in Sources */,
+				5308B487274CA4E200A6DB2E /* DisplayOrder.swift in Sources */,
+				5308B541274CA57700A6DB2E /* ConfirmPaymentRequest.swift in Sources */,
+				5308B470274CA4AB00A6DB2E /* Hours.swift in Sources */,
+				5308B414274CA1A100A6DB2E /* CloverDeviceErrorEvent.swift in Sources */,
+				5308B3E3274CA1A100A6DB2E /* TransactionType.swift in Sources */,
+				5308B3F6274CA1A100A6DB2E /* Signature.swift in Sources */,
 				533642CC274BAA0B007CCB7B /* clover.m in Sources */,
+				5308B54D274CA57700A6DB2E /* ShowPaymentReceiptOptionsMessage.swift in Sources */,
+				5308B514274CA57700A6DB2E /* VaultCardMessage.swift in Sources */,
+				5308B3E2274CA1A100A6DB2E /* RetrieveDeviceStatusRequest.swift in Sources */,
+				5308B51B274CA57700A6DB2E /* RemoteMessage.swift in Sources */,
+				5308B544274CA57700A6DB2E /* Challenge.swift in Sources */,
+				5308B46F274CA4AB00A6DB2E /* Cash.swift in Sources */,
+				5308B54A274CA57700A6DB2E /* OrderActionAddLineItemMessage.swift in Sources */,
+				5308B41A274CA1A100A6DB2E /* ResultStatusEnum.swift in Sources */,
+				5308B537274CA57700A6DB2E /* TipAdjustMessage.swift in Sources */,
+				5308B46E274CA4AB00A6DB2E /* Device.swift in Sources */,
+				5308B475274CA4AB00A6DB2E /* Base.swift in Sources */,
+				5308B440274CA25B00A6DB2E /* PairingDeviceConfiguration.swift in Sources */,
+				5308B536274CA57700A6DB2E /* RegisterForCustomerProvidedDataMessage.swift in Sources */,
+				5308B403274CA1A100A6DB2E /* VerifySignatureRequest.swift in Sources */,
+				5308B548274CA57700A6DB2E /* RetrievePendingPaymentsRequestMessage.swift in Sources */,
+				5308B3E9274CA1A100A6DB2E /* VoidCreditRequest.swift in Sources */,
+				5308B517274CA57700A6DB2E /* CapturePreAuthResponseMessage.swift in Sources */,
+				5308B417274CA1A100A6DB2E /* DisplayReceiptOptionsRequest.swift in Sources */,
+				5308B46B274CA4AB00A6DB2E /* Order.swift in Sources */,
+				5308B485274CA4E200A6DB2E /* VoidReason.swift in Sources */,
+				5308B511274CA57700A6DB2E /* DeclineCreditPrintMessage.swift in Sources */,
+				5308B534274CA57700A6DB2E /* ImagePrintMessage.swift in Sources */,
+				5308B52C274CA57700A6DB2E /* CreditPrintMessage.swift in Sources */,
+				5308B3F0274CA1A100A6DB2E /* RefundPaymentResponse.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				5308B50F274CA57700A6DB2E /* RetrievePrintersRequestMessage.swift in Sources */,
+				5308B3F8274CA1A100A6DB2E /* CloseoutRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1412,7 +2390,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
-					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1466,7 +2443,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
-					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
