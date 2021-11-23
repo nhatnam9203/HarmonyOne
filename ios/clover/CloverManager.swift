@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CloverConnector
 
 @objc public protocol CloverManagerDelegate {
   func paymentSuccess(response: NSDictionary)

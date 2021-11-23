@@ -51,7 +51,7 @@ const appointmentSlice = createSlice({
       };
       state.groupAppointments = tempGroupAppointment;
     },
-    isProcessPaymentClover: (state, action) => {
+    setIsProcessPaymentClover: (state, action) => {
       state.isProcessPaymentClover = action.payload;
     }
   },

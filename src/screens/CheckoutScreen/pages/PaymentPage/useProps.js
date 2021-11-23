@@ -15,14 +15,17 @@ import {
 import { 
   useDispatch, 
   useSelector,
-  NativeEventEmitter,
  } from "react-redux";
 import {
   dateToFormat,
   guid,
   stringIsEmptyOrWhiteSpaces,
   getInfoFromModelNameOfPrinter,
-  PaymentTerminalType
+  PaymentTerminalType,
+  REMOTE_APP_ID,
+  APP_NAME,
+  POS_SERIAL,
+  formatNumberFromCurrency,
 } from "@shared/utils";
 import PrintManager from "@lib/PrintManager";
 import {
@@ -35,11 +38,16 @@ import {
   hardware,
 } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
-import { Alert } from 'react-native';
+import { 
+  Alert, 
+  NativeEventEmitter, 
+  NativeModules,
+} from 'react-native';
 import { isEmpty, method } from "lodash";
 import { parseString } from 'react-native-xml2js';
 import _ from 'lodash';
 import Configs from '@src/config';
+import configureStore from '@src/redux/store';
 const signalR = require("@microsoft/signalr");
 const { clover } = NativeModules;
 const { persistor, store } = configureStore();
@@ -67,9 +75,11 @@ export const useProps = (props) => {
     appointment: { appointmentDetail,
       groupAppointments = [],
       appointmentDate,
-      startProcessingPax },
+      startProcessingPax,
+     },
     auth: { staff },
     hardware: { dejavooMachineInfo,
+      cloverMachineInfo,
       paymentMachineType,
       printerList,
       printerSelect, },
@@ -84,6 +94,7 @@ export const useProps = (props) => {
   const [paymentDetail, setPaymentDetail] = React.useState(null);
   const [errorMessageFromPax, setErrorMessageFromPax] = React.useState("");
   const [isSubmitCheckoutCreditCard, setIsSubmitCheckoutCreditCard] = React.useState(false);
+  // const [isProcessPaymentClover, setIsProcessPaymentClover] = React.useState(false);
 
   /************************************* useEffect *************************************/
   React.useEffect(() => {
@@ -105,21 +116,24 @@ export const useProps = (props) => {
     clover.changeListenerStatus(true)
     subscriptions = [
         eventEmitter.addListener('paymentSuccess', data => {
-        dispatch(actions.appointment.isProcessPaymentClover(false))
+        store.dispatch(appointment.setIsProcessPaymentClover(false))
+        // setIsProcessPaymentClover(false)
         handleResponseCreditCardForCloverSuccess(data)
       }),
       eventEmitter.addListener('paymentFail', data => {
-        dispatch(actions.appointment.isProcessPaymentClover(false))
+        store.dispatch(appointment.setIsProcessPaymentClover(false))
+      //  setIsProcessPaymentClover(false)
         handleResponseCreditCardForCloverFailed(_.get(data, 'errorMessage'))
         
        }),
       eventEmitter.addListener('pairingCode', data => {
+        console.log('payment pairingCode')
         if(data){
-          const text = `Pairing code: ${_.get(data, 'pairingCode')}`
-          const { appointment } = store.getState();
           const { isProcessPaymentClover } = appointment;
 
+          console.log('isProcessPaymentClover', isProcessPaymentClover)
           if(isProcessPaymentClover) {
+            console.log('popupPayProcessingRef hide')
             popupPayProcessingRef?.current?.hide();
           }
         }
@@ -146,7 +160,8 @@ export const useProps = (props) => {
         const { appointment } = store.getState();
         const { isProcessPaymentClover } = appointment;
         if(isProcessPaymentClover) {
-          dispatch(actions.appointment.isProcessPaymentClover(false))
+          store.dispatch(appointment.setIsProcessPaymentClover(false))
+          // setIsProcessPaymentClover(false)
           handleResponseCreditCardForCloverFailed("No connected device")
         }
       }),
@@ -159,7 +174,7 @@ export const useProps = (props) => {
   }
 
   const handleResponseCreditCardForCloverSuccess = async (message) => {
-    setVisibleProcessingCredit(false)
+    popupPayProcessingRef?.current?.hide();
     const { hardware, auth, appointment } = store.getState();
     const { cloverMachineInfo } = hardware;
     const { staff } = auth;
@@ -221,7 +236,9 @@ export const useProps = (props) => {
         popupPayProcessingRef?.current?.hide();
 
         if (dueAmount == 0) {
-          dialogSuccessRef?.current?.show();
+          setTimeout(() => {
+            dialogSuccessRef?.current?.show();
+          }, 200)
 
           return;
         }
@@ -422,22 +439,47 @@ export const useProps = (props) => {
       popupProcessingRef?.current?.show();
     }, 100);
 
-    //Payment by Dejavoo
-    const parameter = {
-      tenderType: "Credit",
-      transType: "Sale",
-      amount: Number(groupAppointments?.dueAmount).toFixed(2),
-      RefId: payAppointmentId,
-      invNum: `${groupAppointments?.checkoutGroupId || 0}`,
-      dejavooMachineInfo,
-    };
-    const responses = await requestTransactionDejavoo(parameter)
-    handleResponseCreditCardDejavoo(
-      responses,
-      true,
-      groupAppointments?.dueAmount,
-      parameter
-    );
+    if (paymentMachineType == PaymentTerminalType.Clover){
+      //Payment by Clover
+      const moneyCreditCard = Number(
+        formatNumberFromCurrency(Number(groupAppointments?.dueAmount)) * 100
+      ).toFixed(2);
+      const port = _.get(cloverMachineInfo, 'port') ? _.get(cloverMachineInfo, 'port') : 80
+      const url = `wss://${_.get(cloverMachineInfo, 'ip')}:${port}/remote_pay`
+      store.dispatch(appointment.setIsProcessPaymentClover(true))
+      // setIsProcessPaymentClover(true);
+
+      clover.sendTransaction({
+        url,
+        remoteAppId: REMOTE_APP_ID,
+        appName: APP_NAME,
+        posSerial: POS_SERIAL,
+        token: _.get(cloverMachineInfo, 'token') ? _.get(cloverMachineInfo, 'token', '') : "",
+        // tipMode: isTipOnPaxMachine ? 'ON_SCREEN_BEFORE_PAYMENT' : 'NO_TIP',
+        tipMode: 'ON_SCREEN_BEFORE_PAYMENT',
+        amount: `${parseFloat(moneyCreditCard)}`,
+        externalId: `${payAppointmentId}`
+      })
+
+    } else {
+      //Payment by Dejavoo
+      const parameter = {
+        tenderType: "Credit",
+        transType: "Sale",
+        amount: Number(groupAppointments?.dueAmount).toFixed(2),
+        RefId: payAppointmentId,
+        invNum: `${groupAppointments?.checkoutGroupId || 0}`,
+        dejavooMachineInfo,
+      };
+      const responses = await requestTransactionDejavoo(parameter)
+      handleResponseCreditCardDejavoo(
+        responses,
+        true,
+        groupAppointments?.dueAmount,
+        parameter
+      );
+    }
+    
   }
 
   const handleResponseCreditCardDejavoo = async (
