@@ -40,7 +40,6 @@ export const useProps = (props) => {
     return false;
   });
 
-
   return {
     appointmentDetail,
     groupAppointments,

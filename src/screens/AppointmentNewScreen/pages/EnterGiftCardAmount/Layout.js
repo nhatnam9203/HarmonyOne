@@ -23,8 +23,6 @@ export const Layout = ({
 
     const [t] = useTranslation();
 
-    console.log({ giftCardInfo });
-
     return (
         <View style={styles.container}>
             <SingleScreenLayout
