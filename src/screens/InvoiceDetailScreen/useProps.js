@@ -22,7 +22,6 @@ import {
   requestTransactionDejavoo,
 } from "@utils";
 import { parseString } from 'react-native-xml2js';
-import { InvoiceDetailScreen } from ".";
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
