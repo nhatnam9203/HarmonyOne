@@ -8,6 +8,7 @@ import {
 import PrintManager from "@lib/PrintManager";
 import Share from "react-native-share";
 import configureStore from '@src/redux/store';
+import _ from "lodash";
 const { persistor, store } = configureStore();
 const { clover } = NativeModules;
 
@@ -595,8 +596,8 @@ export const checkStatusPrint = async (portType = "Bluetooth") => {
 export const doPrintClover = (imageUri) => {
   const { hardware } = store.getState();
   const { cloverMachineInfo } = hardware;
-  const port = l.get(cloverMachineInfo, 'port') ? l.get(cloverMachineInfo, 'port') : 80
-  const url = `wss://${l.get(cloverMachineInfo, 'ip')}:${port}/remote_pay`
+  const port = _.get(cloverMachineInfo, 'port') ? _.get(cloverMachineInfo, 'port') : 80
+  const url = `wss://${_.get(cloverMachineInfo, 'ip')}:${port}/remote_pay`
   
   const printInfo = {
     imageUri,
@@ -604,7 +605,7 @@ export const doPrintClover = (imageUri) => {
     remoteAppId: REMOTE_APP_ID,
     appName: APP_NAME,
     posSerial: POS_SERIAL,
-    token: l.get(cloverMachineInfo, 'token') ? l.get(cloverMachineInfo, 'token', '') : "",
+    token: _.get(cloverMachineInfo, 'token') ? _.get(cloverMachineInfo, 'token', '') : "",
   }
   clover.doPrintWithConnect(printInfo)
 }
