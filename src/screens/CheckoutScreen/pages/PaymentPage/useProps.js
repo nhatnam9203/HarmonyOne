@@ -114,11 +114,11 @@ export const useProps = (props) => {
     clover.changeListenerStatus(true)
     subscriptions = [
         eventEmitter.addListener('paymentSuccess', data => {
-        store.dispatch(appointment.setIsProcessPaymentClover(false))
+        dispatch(appointment.setIsProcessPaymentClover(false))
         handleResponseCreditCardForCloverSuccess(data)
       }),
       eventEmitter.addListener('paymentFail', data => {
-        store.dispatch(appointment.setIsProcessPaymentClover(false))
+        dispatch(appointment.setIsProcessPaymentClover(false))
         handleResponseCreditCardForCloverFailed(_.get(data, 'errorMessage'))
        }),
       eventEmitter.addListener('pairingCode', data => {
@@ -152,7 +152,7 @@ export const useProps = (props) => {
       eventEmitter.addListener('deviceDisconnected', () => {
         const { appointment: { isProcessPaymentClover } } = store.getState();
         if(isProcessPaymentClover) {
-          store.dispatch(appointment.setIsProcessPaymentClover(false))
+          dispatch(appointment.setIsProcessPaymentClover(false))
           handleResponseCreditCardForCloverFailed("No connected device")
         }
       }),
@@ -443,24 +443,26 @@ export const useProps = (props) => {
 
     if (paymentMachineType == PaymentTerminalType.Clover){
       //Payment by Clover
-      const moneyCreditCard = Number(
-        formatNumberFromCurrency(Number(groupAppointments?.dueAmount)) * 100
-      ).toFixed(2);
-      const port = _.get(cloverMachineInfo, 'port') ? _.get(cloverMachineInfo, 'port') : 80
-      const url = `wss://${_.get(cloverMachineInfo, 'ip')}:${port}/remote_pay`
-      store.dispatch(appointment.setIsProcessPaymentClover(true))
+      if (Platform.OS === 'ios') {
+        const moneyCreditCard = Number(
+          formatNumberFromCurrency(Number(groupAppointments?.dueAmount)) * 100
+        ).toFixed(2);
+        const port = _.get(cloverMachineInfo, 'port') ? _.get(cloverMachineInfo, 'port') : 80
+        const url = `wss://${_.get(cloverMachineInfo, 'ip')}:${port}/remote_pay`
+        dispatch(appointment.setIsProcessPaymentClover(true))
 
-      clover.sendTransaction({
-        url,
-        remoteAppId: REMOTE_APP_ID,
-        appName: APP_NAME,
-        posSerial: POS_SERIAL,
-        token: _.get(cloverMachineInfo, 'token') ? _.get(cloverMachineInfo, 'token', '') : "",
-        // tipMode: isTipOnPaxMachine ? 'ON_SCREEN_BEFORE_PAYMENT' : 'NO_TIP',
-        tipMode: 'ON_SCREEN_BEFORE_PAYMENT',
-        amount: `${parseFloat(moneyCreditCard)}`,
-        externalId: `${payAppointmentId}`
-      })
+        clover.sendTransaction({
+          url,
+          remoteAppId: REMOTE_APP_ID,
+          appName: APP_NAME,
+          posSerial: POS_SERIAL,
+          token: _.get(cloverMachineInfo, 'token') ? _.get(cloverMachineInfo, 'token', '') : "",
+          // tipMode: isTipOnPaxMachine ? 'ON_SCREEN_BEFORE_PAYMENT' : 'NO_TIP',
+          tipMode: 'ON_SCREEN_BEFORE_PAYMENT',
+          amount: `${parseFloat(moneyCreditCard)}`,
+          externalId: `${payAppointmentId}`
+        })
+      }
 
     } else {
       //Payment by Dejavoo
