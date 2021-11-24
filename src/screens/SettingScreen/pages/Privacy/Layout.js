@@ -14,7 +14,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Terms of Service')}
+        pageTitle={t('Privacy policy')}
         isRight={false}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
@@ -252,6 +252,5 @@ const styles = StyleSheet.create({
     color: "#000000",
     marginTop: scaleHeight(12),
     fontWeight: "400",
-    textAlign : ""
   }
 });
