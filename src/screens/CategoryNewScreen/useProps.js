@@ -21,6 +21,8 @@ export const useProps = (props) => {
   const categoryEdit = props?.route?.params?.categoryEdit;
   const inputCategoryRef = React.useRef();
 
+  const categoryAddNew =  props?.route?.params?.categoryAddNew;
+
   const [, submitAddCategory] = useAxiosMutation({
     ...addCategory(),
     isLoadingDefault: true,
@@ -51,6 +53,12 @@ export const useProps = (props) => {
       if (item) {
         inputCategoryRef?.current?.changeValue(item);
       }
+    } else {
+      if (categoryAddNew == "service") {
+        inputCategoryRef?.current?.changeValue({ label: "Service", value: "Service" });
+      } else {
+        inputCategoryRef?.current?.changeValue({ label: "Product", value: "Product" });
+      }
     }
   }, []);
 
@@ -67,9 +75,9 @@ export const useProps = (props) => {
       const categoryType = inputCategoryRef?.current?.getValue()?.value;
 
       const data = {
-        categoryType,
+        categoryType : isEdit ? categoryEdit.categoryType : categoryAddNew,
         name: categoryName,
-        isShowSignInApp: false,
+        isShowSignInApp: isEdit ? categoryEdit.isShowSignInApp : false,
       }
 
       if (isEdit) {

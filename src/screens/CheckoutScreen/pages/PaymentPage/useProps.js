@@ -228,6 +228,7 @@ export const useProps = (props) => {
     isLoadingDefault: false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
+
         const dueAmount = parseFloat(
           response?.data?.checkoutPaymentResponse?.dueAmount || 0
         );

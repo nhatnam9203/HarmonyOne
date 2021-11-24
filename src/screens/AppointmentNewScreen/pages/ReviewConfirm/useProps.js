@@ -113,7 +113,6 @@ export const useProps = (_params) => {
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(appointment.setAppointmentDetail(response?.data));
-
         const data = {
           staffId: response?.data.staffId,
           fromTime: response?.data.fromTime,
@@ -128,6 +127,12 @@ export const useProps = (_params) => {
           giftCards: response?.data.giftCards
         };
 
+        if (isQuickCheckout) {
+          setTimeout(() => {
+            fetchGroupApointmentById();
+          }, 300);
+        }
+
         const body = await updateAppointment(appointmentIdUpdate, data);
         submitUpdateAppointment(body.params);
       }
@@ -140,6 +145,7 @@ export const useProps = (_params) => {
     enabled: false,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
+        console.log('response group appointment : ', { data });
         dispatch(appointment.setGroupAppointment(data));
         NavigationService.navigate(screenNames.CheckoutScreen);
       }
@@ -156,9 +162,6 @@ export const useProps = (_params) => {
       if (response?.codeNumber == 200) {
         fetchAppointmentById();
         fetchAppointmentByDate();
-        if (isQuickCheckout) {
-          fetchGroupApointmentById();
-        }
       }
     },
   });

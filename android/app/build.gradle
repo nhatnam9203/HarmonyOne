@@ -139,6 +139,12 @@ apply from: '../../node_modules/react-native-vector-icons/fonts.gradle'
 
 android {
     // compileSdkVersion compileSdkVersion
+
+    lintOptions {
+          checkReleaseBuilds false
+          abortOnError false
+    }
+
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     compileOptions {
@@ -151,7 +157,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 100
-        versionName '1.0.0'
+        versionName '1.0.1'
         missingDimensionStrategy 'react-native-camera', 'general'
     }
     splits {

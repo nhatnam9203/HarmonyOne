@@ -84,7 +84,7 @@ export const useProps = (props) => {
 
   const newCategory = () => {
     NavigationService.navigate(
-      screenNames.CategoryNewScreen, { refreshCategory }
+      screenNames.CategoryNewScreen, { refreshCategory , categoryAddNew : "Service" }
     );
   }
 
@@ -128,7 +128,7 @@ export const useProps = (props) => {
         });
       }
 
-      return categoryList.filter(cate => cate.isDisabled == 0).map((cate) => {
+      return categoryList.filter(cate => cate.isDisabled == 0 && cate?.categoryType == "Service").map((cate) => {
         const dataList = servicesList.filter((sv) => (sv.categoryId == cate.categoryId));
         return {
           category: cate,
@@ -142,7 +142,7 @@ export const useProps = (props) => {
     },
 
     newService: () => {
-      NavigationService.navigate(screenNames.ServiceNewScreen, { refreshService });
+      NavigationService.navigate(screenNames.ServiceNewScreen, { refreshService  });
     },
 
     editService: (item) => {

@@ -66,7 +66,7 @@ export const Layout = ({
                         <Text style={styles.txtTotal}>Total</Text>
 
                         <View style={styles.wrapPrice}>
-                            <Text style={styles.priceTotal}>{`$ ${appointmentDetail?.total}`}</Text>
+                            <Text style={styles.priceTotal}>{`$ ${groupAppointments?.appointments[0].total}`}</Text>
                         </View>
 
                         <Text style={styles.txtSelectPayment}>

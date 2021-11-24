@@ -36,7 +36,7 @@ const ProductSalary = React.forwardRef(({},ref) => {
                 <CheckBox
                     disabled={false}
                     value={status}
-                    onValueChange={() => { }}
+                    onValueChange={(newValue) => { setStatus(newValue) }}
                     boxType='square'
                     onFillColor={colors.ocean_blue}
                     onCheckColor={colors.white}

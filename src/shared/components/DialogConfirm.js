@@ -27,7 +27,6 @@ export const DialogConfirm = React.forwardRef(
             hideModal();
             if (onConfirmNo && typeof onConfirmNo === "function") {
                 onConfirmNo();
-                hideModal();
             }
         };
 
@@ -35,7 +34,6 @@ export const DialogConfirm = React.forwardRef(
             hideModal();
             if (onConfirmYes && typeof onConfirmYes === "function") {
                 onConfirmYes();
-                hideModal();
             }
         };
 
@@ -85,7 +83,7 @@ export const DialogConfirm = React.forwardRef(
                         />
                         <View style={styles.line} />
                         <Button
-                            onPress={hideModal}
+                            onPress={onHandleNOButtonPress}
                             highlight={false}
                             height={scaleHeight(48)}
                             width={scaleWidth(169)}
@@ -123,7 +121,7 @@ const styles = StyleSheet.create({
 
     modal: {
         margin: 0,
-        padding : 0
+        padding: 0
     },
 
     txtTitle: {
