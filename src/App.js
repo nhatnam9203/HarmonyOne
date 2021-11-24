@@ -23,6 +23,9 @@ import {
  } from "@shared/components";
 import { getAuthToken } from '@shared/storages/authToken';
 import _, { set } from "lodash";
+import {
+  hardware,
+} from "@redux/slices";
 
 const { clover } = NativeModules;
 
@@ -54,26 +57,22 @@ export default App = () => {
     clover.changeListenerStatus(true)
     subscriptions = [
         eventEmitter.addListener("pairingCode", (data) => {
-          console.log('App pairingCode')
           if (data) {
             const { invoice, hardware } = store.getState();
             const { paymentMachineType } = hardware;
             const text = `Pairing code: ${_.get(data, "pairingCode")}`;
-            console.log('paymentMachineType', paymentMachineType)
             if(paymentMachineType == "Clover" ) {
               setPairingCode(text)
 
               setTimeout(() => {
-              console.log('popupPairingRef show')
-                // popupPairingRef?.current?.show()
+                popupPairingRef?.current?.show()
               }, 500)
               
             }
           }
         }),
         eventEmitter.addListener("pairingSuccess", (data) => {
-          console.log('App pairingSuccess')
-          const { invoice, hardware } = store.getState();
+          const { hardware } = store.getState();
           const { paymentMachineType } = hardware;
           store.dispatch(hardware.setCloverToken(_.get(data, "token")));
           if(paymentMachineType == "Clover" ) {

@@ -14,6 +14,7 @@ const initialState = {
   discount : [],
   startProcessingPax: false,
   isProcessPaymentClover: false,
+  payAppointmentId: null,
 };
 
 const appointmentSlice = createSlice({
@@ -53,7 +54,10 @@ const appointmentSlice = createSlice({
     },
     setIsProcessPaymentClover: (state, action) => {
       state.isProcessPaymentClover = action.payload;
-    }
+    },
+    setPayAppointmentId: (state, action) => {
+      state.payAppointmentId = action.payload;
+    },
   },
 });
 

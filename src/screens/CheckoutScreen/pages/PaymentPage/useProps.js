@@ -64,7 +64,6 @@ export const useProps = (props) => {
   const dialogActiveGiftCard = React.useRef();
   const popupPaymentDetailRef = React.useRef();
   const popupChangeRef = React.useRef();
-  const popupProcessingRef = React.useRef();
   const popupErrorMessageRef = React.useRef();
   const popupPayProcessingRef = React.useRef();
   const invoiceRef = React.useRef();
@@ -94,7 +93,6 @@ export const useProps = (props) => {
   const [paymentDetail, setPaymentDetail] = React.useState(null);
   const [errorMessageFromPax, setErrorMessageFromPax] = React.useState("");
   const [isSubmitCheckoutCreditCard, setIsSubmitCheckoutCreditCard] = React.useState(false);
-  // const [isProcessPaymentClover, setIsProcessPaymentClover] = React.useState(false);
 
   /************************************* useEffect *************************************/
   React.useEffect(() => {
@@ -117,23 +115,17 @@ export const useProps = (props) => {
     subscriptions = [
         eventEmitter.addListener('paymentSuccess', data => {
         store.dispatch(appointment.setIsProcessPaymentClover(false))
-        // setIsProcessPaymentClover(false)
         handleResponseCreditCardForCloverSuccess(data)
       }),
       eventEmitter.addListener('paymentFail', data => {
         store.dispatch(appointment.setIsProcessPaymentClover(false))
-      //  setIsProcessPaymentClover(false)
         handleResponseCreditCardForCloverFailed(_.get(data, 'errorMessage'))
-        
        }),
       eventEmitter.addListener('pairingCode', data => {
-        console.log('payment pairingCode')
+        const { appointment: { isProcessPaymentClover } } = store.getState();
         if(data){
-          const { isProcessPaymentClover } = appointment;
 
-          console.log('isProcessPaymentClover', isProcessPaymentClover)
           if(isProcessPaymentClover) {
-            console.log('popupPayProcessingRef hide')
             popupPayProcessingRef?.current?.hide();
           }
         }
@@ -146,22 +138,24 @@ export const useProps = (props) => {
         const { appointment } = store.getState();
         const { isProcessPaymentClover } = appointment;
         if(isProcessPaymentClover) {
-          popupPayProcessingRef?.current?.show();
+          setTimeout(() => {
+            popupPayProcessingRef?.current?.show();
+          }, 200)
         }
        
       }),
 
       eventEmitter.addListener('confirmPayment', () => {
         popupPayProcessingRef?.current?.hide();
-        popupConfirmDuplicateRef?.current?.show();
+        setTimeout(() => {
+          popupConfirmDuplicateRef?.current?.show();
+        }, 200)
       }),
 
       eventEmitter.addListener('deviceDisconnected', () => {
-        const { appointment } = store.getState();
-        const { isProcessPaymentClover } = appointment;
+        const { appointment: { isProcessPaymentClover } } = store.getState();
         if(isProcessPaymentClover) {
           store.dispatch(appointment.setIsProcessPaymentClover(false))
-          // setIsProcessPaymentClover(false)
           handleResponseCreditCardForCloverFailed("No connected device")
         }
       }),
@@ -197,6 +191,10 @@ export const useProps = (props) => {
     popupPayProcessingRef?.current?.hide();
     if (payAppointmentId) {
       setErrorMessageFromPax(errorMessage);
+      const data = {
+        status: "transaction fail",
+        note: errorMessage,
+      }
       const body = cancelHarmonyPayment(payAppointmentId, data)
       submitCancelHarmonyPayment(body.params);
     }
@@ -212,6 +210,7 @@ export const useProps = (props) => {
         if (methodPay.method == "harmony"
           || methodPay.method == "credit_card") {
           setPayAppointmentId(data);
+          dispatch(appointment.setPayAppointmentId(data))
         }
 
         if (methodPay.method !== "harmony"
@@ -302,6 +301,7 @@ export const useProps = (props) => {
         }
         setMethodPay(null);
         setPayAppointmentId(null);
+        dispatch(appointment.setPayAppointmentId(null))
         changeStatusCancelHarmony(false);
         if (connectionSignalR) {
           connectionSignalR?.stop();
@@ -340,6 +340,7 @@ export const useProps = (props) => {
   const handleHarmonyPayment = (checkoutPayment) => {
     setMethodPay(null);
     setPayAppointmentId(null);
+    dispatch(appointment.setPayAppointmentId(null))
     changeStatusCancelHarmony(false);
     dialogSuccessRef?.current?.show();
   }
@@ -412,9 +413,7 @@ export const useProps = (props) => {
       amount,
       giftCardId: 0,
     }
-    if(methodPay.method !== "credit_card"){
-      popupPayProcessingRef?.current?.show();
-    }
+    
     const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
     submitSelectPaymentMethod(body.params);
   }
@@ -422,6 +421,7 @@ export const useProps = (props) => {
   const backToHome = () => {
     setMethodPay(null);
     setPayAppointmentId(null);
+    dispatch(appointment.setPayAppointmentId(null))
     fetchAppointmentByDate();
 
     const statusSendLink = dialogSuccessRef?.current?.getStatusSendLink();
@@ -436,7 +436,7 @@ export const useProps = (props) => {
    */
   const handlePaymentByCredit = async () => {
     setTimeout(() => {
-      popupProcessingRef?.current?.show();
+      popupPayProcessingRef?.current?.show();
     }, 100);
 
     if (paymentMachineType == PaymentTerminalType.Clover){
@@ -447,7 +447,6 @@ export const useProps = (props) => {
       const port = _.get(cloverMachineInfo, 'port') ? _.get(cloverMachineInfo, 'port') : 80
       const url = `wss://${_.get(cloverMachineInfo, 'ip')}:${port}/remote_pay`
       store.dispatch(appointment.setIsProcessPaymentClover(true))
-      // setIsProcessPaymentClover(true);
 
       clover.sendTransaction({
         url,
@@ -488,7 +487,7 @@ export const useProps = (props) => {
     moneyUserGiveForStaff,
     parameter
   ) => {
-    popupProcessingRef?.current?.hide();
+    popupPayProcessingRef?.current?.hide();
 
     try {
       parseString(message, (err, result) => {
@@ -623,7 +622,6 @@ export const useProps = (props) => {
     methodPay,
     dialogSuccessRef,
     popupPaymentDetailRef,
-    popupProcessingRef,
     popupErrorMessageRef,
     invoiceRef,
     popupConfirmDuplicateRef,
@@ -676,11 +674,6 @@ export const useProps = (props) => {
         dialogActiveGiftCard?.current?.hide();
       }, 200);
     },
-    onCancelTransactionCredit: () => {
-      setTimeout(() => {
-        alert("Please wait!")
-      }, 300);
-    },
     printBill,
     donotPrintBill,
     merchant: merchantDetail,
@@ -694,8 +687,11 @@ export const useProps = (props) => {
     },
     confirmPaymentClover: () => {
       clover.confirmPayment();
-      popupProcessingRef?.current?.show();
       popupConfirmDuplicateRef?.current?.hide();
+      setTimeout(() => {
+        popupPayProcessingRef?.current?.show();
+      }, 200);
+
     },
     rejectPaymentClover: () => {
       clover.rejectPayment()

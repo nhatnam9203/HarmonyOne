@@ -30,7 +30,6 @@ export const Layout = ({
     dialogSuccessRef,
     popupChangeRef,
     popupPaymentDetailRef,
-    popupProcessingRef,
     popupPayProcessingRef,
     popupErrorMessageRef,
     invoiceRef,
@@ -42,7 +41,6 @@ export const Layout = ({
     isCancelHarmony,
     cancelHarmonyPay,
     paymentDetail,
-    onCancelTransactionCredit,
     printBill,
     donotPrintBill,
     merchant,
@@ -108,11 +106,6 @@ export const Layout = ({
                         onOK={onOK}
                     />
                 </SingleScreenLayout>
-
-                <PopupProcessingCredit
-                    ref={popupProcessingRef}
-                    onConfirmYes={() => onCancelTransactionCredit()}
-                />
 
                 <PopupProcessing
                     ref={popupPayProcessingRef}
