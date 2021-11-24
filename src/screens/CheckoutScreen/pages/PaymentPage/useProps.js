@@ -415,6 +415,10 @@ export const useProps = (props) => {
       giftCardId: 0,
     }
     
+    if(methodPay.method !== "credit_card"){
+      popupPayProcessingRef?.current?.show();
+    }
+    
     const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
     submitSelectPaymentMethod(body.params);
   }
