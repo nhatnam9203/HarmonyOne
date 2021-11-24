@@ -127,6 +127,9 @@ export const useProps = (props) => {
   }
 
 
+  console.log({ categoryList })
+
+
   return {
     form,
     errors,
@@ -184,8 +187,6 @@ export const useProps = (props) => {
           extrasSelection.filter(ex => ex.checked),
         fileId,
       }
-
-      console.log({ data });
 
       // api bị lỗi không thêm mới extra từ extralist có sẵn được,
       // phần này bên pos là tạo mới extra tự nhập tay vô , ko phải chọn từ extra list có sẵn, design chỗ này khác với POS.

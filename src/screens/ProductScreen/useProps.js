@@ -205,7 +205,7 @@ export const useProps = (props) => {
     },
 
     newProduct: () => {
-      NavigationService.navigate(screenNames.ProductNewScreen, { refreshProduct });
+      NavigationService.navigate(screenNames.ProductNewScreen, { refreshProduct , categoryAddNew : "Product"});
     },
 
     editProduct: (item) => {
