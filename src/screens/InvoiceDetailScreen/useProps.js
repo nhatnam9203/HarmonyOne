@@ -157,7 +157,9 @@ export const useProps = (props) => {
         const { invoice: { isProcessVoidPaymentClover } } = store.getState();
         if(isProcessVoidPaymentClover) {
           dispatch(invoice.setIsProcessVoidPaymentClover(false))
-          handleResponseCreditCardForCloverFailed("No connected device")
+          handleResultVoidTransactionCloverFailed(
+            t("No connected device")
+          );
         }
       }),
     ]

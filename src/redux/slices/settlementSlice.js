@@ -19,6 +19,7 @@ const initialState = {
     settlementWaiting: {},
     listStaffSales: [],
     listGiftCardSales: [],
+    isProcessCloseBatchClover: false,
 
 };
 
@@ -92,7 +93,10 @@ const settlemtSlice = createSlice({
                 note: action.payload
             };
             state.settlementWaiting = tempSettlementWating;
-        }
+        },
+        setIsProcessCloseBatchClover: (state, action) => {
+            state.isProcessCloseBatchClover = action.payload;
+        },
     },
 });
 
