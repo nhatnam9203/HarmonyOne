@@ -253,7 +253,7 @@ export const Layout = ({
         title={t('Confirmation')}
         titleContent={t("Do you want to print receipt?")}
         onConfirmYes={printInvoice}
-        onPressNo={()=>NavigationService.back()}
+        onConfirmNo={()=>NavigationService.back()}
       />
       
       {
