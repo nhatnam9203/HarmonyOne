@@ -131,9 +131,6 @@ export const useProps = (props) => {
         }
       }),
       eventEmitter.addListener('pairingSuccess', data => {
-        dispatch(hardware.setCloverToken(
-          _.get(data, 'token')
-        ));
     
         const { appointment } = store.getState();
         const { isProcessPaymentClover } = appointment;

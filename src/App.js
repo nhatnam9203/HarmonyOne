@@ -72,8 +72,7 @@ export default App = () => {
           }
         }),
         eventEmitter.addListener("pairingSuccess", (data) => {
-          const { hardware } = store.getState();
-          const { paymentMachineType } = hardware;
+          const { hardware: { paymentMachineType } } = store.getState();
           store.dispatch(hardware.setCloverToken(_.get(data, "token")));
           if(paymentMachineType == "Clover" ) {
             setPairingCode("")

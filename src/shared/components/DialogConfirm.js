@@ -38,6 +38,9 @@ export const DialogConfirm = React.forwardRef(
         };
 
         React.useImperativeHandle(ref, () => ({
+            hide: () => {
+                setOpen(false);
+            },
             show: () => {
                 setOpen(true);
             },
