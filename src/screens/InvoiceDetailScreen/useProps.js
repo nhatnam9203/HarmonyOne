@@ -1,5 +1,10 @@
 import React from "react";
-import { Alert, Platform } from "react-native";
+import { 
+  Alert, 
+  Platform, 
+  NativeEventEmitter,
+  NativeModules,
+ } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import {
   useAxiosMutation,
@@ -22,10 +27,15 @@ import {
   requestTransactionDejavoo,
 } from "@utils";
 import { parseString } from 'react-native-xml2js';
+const { clover } = NativeModules;
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
   const [t] = useTranslation();
+
+   //ADD LISTENER FROM CLOVER MODULE
+   let eventEmitter = new NativeEventEmitter(clover);
+   let subscriptions = [];
 
   const viewShotRef = React.useRef();
   const popupProcessingRef = React.useRef();

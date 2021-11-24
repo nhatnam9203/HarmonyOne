@@ -13,6 +13,7 @@ import {
     PopupErrorMessage,
     PopupPayCompleted,
     PopupInvoice,
+    DialogConfirm,
 } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
@@ -29,10 +30,10 @@ export const Layout = ({
     dialogSuccessRef,
     popupChangeRef,
     popupPaymentDetailRef,
-    popupProcessingRef,
     popupPayProcessingRef,
     popupErrorMessageRef,
     invoiceRef,
+    popupConfirmDuplicateRef,
     errorMessageFromPax,
     dialogActiveGiftCard,
     onOK,
@@ -40,12 +41,13 @@ export const Layout = ({
     isCancelHarmony,
     cancelHarmonyPay,
     paymentDetail,
-    onCancelTransactionCredit,
     printBill,
     donotPrintBill,
     merchant,
     groupAppointments,
     cancelInvoicePrint,
+    confirmPaymentClover,
+    rejectPaymentClover,
 }) => {
 
     const [t] = useTranslation();
@@ -105,17 +107,6 @@ export const Layout = ({
                     />
                 </SingleScreenLayout>
 
-                {/* <DialogLoading
-                ref={dialogSuccessRef}
-                title="Transaction completed"
-                onConfirmYes={() => onOK()}
-            /> */}
-
-                <PopupProcessingCredit
-                    ref={popupProcessingRef}
-                    onConfirmYes={() => onCancelTransactionCredit()}
-                />
-
                 <PopupProcessing
                     ref={popupPayProcessingRef}
                 />
@@ -136,6 +127,14 @@ export const Layout = ({
                 <PopupInvoice
                     ref={invoiceRef}
                     cancelInvoicePrint={cancelInvoicePrint}
+                />
+
+                <DialogConfirm
+                    ref={popupConfirmDuplicateRef}
+                    title={t('Verify payment')}
+                    titleContent={t("This may be a duplicate, do you want to accept this payment?")}
+                    onConfirmYes={confirmPaymentClover}
+                    onConfirmNo={rejectPaymentClover}
                 />
 
             </View>

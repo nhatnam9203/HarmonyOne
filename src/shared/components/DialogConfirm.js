@@ -10,7 +10,7 @@ import Modal from "react-native-modal";
 export const DialogConfirm = React.forwardRef(
     ({
         onConfirmYes = () => { },
-        onPressNo = () => { },
+        onConfirmNo = () => { },
         title = "",
         titleContent = "",
         onModalHide = () => { },
@@ -25,20 +25,17 @@ export const DialogConfirm = React.forwardRef(
 
         const onHandleNOButtonPress = () => {
             hideModal();
+            if (onConfirmNo && typeof onConfirmNo === "function") {
+                onConfirmNo();
+            }
         };
 
         const onHandleYESButtonPress = () => {
             hideModal();
             if (onConfirmYes && typeof onConfirmYes === "function") {
                 onConfirmYes();
-                hideModal();
             }
         };
-
-        const onHandleNoButtonPress = () => {
-            onPressNo();
-            hideModal();
-        }
 
         React.useImperativeHandle(ref, () => ({
             show: () => {
@@ -86,7 +83,7 @@ export const DialogConfirm = React.forwardRef(
                         />
                         <View style={styles.line} />
                         <Button
-                            onPress={onHandleNoButtonPress}
+                            onPress={onHandleNOButtonPress}
                             highlight={false}
                             height={scaleHeight(48)}
                             width={scaleWidth(169)}
