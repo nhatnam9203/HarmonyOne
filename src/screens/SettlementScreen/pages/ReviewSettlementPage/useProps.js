@@ -17,12 +17,13 @@ import { requestSettlementDejavoo } from "@utils";
 import _ from "lodash";
 import { parseString } from 'react-native-xml2js';
 import configureStore from '@src/redux/store';
+import { useTranslation } from "react-i18next";
 const { clover } = NativeModules;
 const { persistor, store } = configureStore();
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
-
+  const [t] = useTranslation();
   //ADD LISTENER FROM CLOVER MODULE
   let eventEmitter = new NativeEventEmitter(clover);
   let subscriptions = [];
@@ -62,13 +63,14 @@ export const useProps = (props) => {
       eventEmitter.addListener('closeoutSuccess', data => {
         dispatch(settlement.setIsProcessCloseBatchClover(false))
         dialogProgressRef?.current?.hide();
-        proccessingSettlement();
+        proccessingSettlement(false);
        }),
       eventEmitter.addListener('closeoutFail', data => {
         dialogProgressRef?.current?.hide();
         dispatch(settlement.setIsProcessCloseBatchClover(false))
+
         setTimeout(() => {
-          alert(_.get(data, 'errorMessage'))
+          confirmCloseoutWithoutPaymentTerminal();
         }, 200)
       }),
       eventEmitter.addListener('pairingCode', data => {
@@ -93,6 +95,7 @@ export const useProps = (props) => {
       eventEmitter.addListener('deviceDisconnected', () => {
         const { settlement: { isProcessCloseBatchClover } } = store.getState();
         if(isProcessCloseBatchClover) {
+          dialogProgressRef?.current?.hide();
           dispatch(settlement.setIsProcessCloseBatchClover(false))
           setTimeout(() => {
             alert(t("No connected device"))
@@ -108,7 +111,10 @@ export const useProps = (props) => {
   }
 
 
-  const proccessingSettlement = () => {
+  const proccessingSettlement = (isPaymentWithoutPaymentTerminal = false) => {
+    const amountPaymentCreditCard = isPaymentWithoutPaymentTerminal ? 
+                                    settlementWaiting.paymentByCreditCard
+                                    : 0.0
     setTimeout(() => {
       const body = {
         terminalId: terminalId,
@@ -145,11 +151,11 @@ export const useProps = (props) => {
           dialogProgressRef?.current?.hide();
 
           setTimeout(() => {
-            alert(resultTxt)
+            confirmCloseoutWithoutPaymentTerminal();
           }, 200)
 
         } else {
-          proccessingSettlement();
+          proccessingSettlement(false);
         }
       })
 
@@ -170,22 +176,25 @@ export const useProps = (props) => {
             })
         }
     } else {
-      Alert.alert(
-        'Unable to connect to payment terminal or not found any transaction on your payment terminal, Do you want to continue without payment terminal?',
-        '',
-        [
-          {
-            text: 'Cancel',
-            onPress: () => { dialogProgressRef?.current?.hide(); },
-            style: 'cancel'
-          },
-          { text: 'OK', onPress: () => proccessingSettlement() }
-        ],
-        { cancelable: false }
-      );
+      confirmCloseoutWithoutPaymentTerminal();
     }
   }
 
+  const confirmCloseoutWithoutPaymentTerminal = () => {
+    Alert.alert(
+      'Unable to connect to payment terminal or not found any transaction on your payment terminal, Do you want to continue without payment terminal?',
+      '',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => { dialogProgressRef?.current?.hide(); },
+          style: 'cancel'
+        },
+        { text: 'OK', onPress: () => proccessingSettlement(true) }
+      ],
+      { cancelable: false }
+    );
+  }
 
   const submitCloseSettlement = async (data) => {
     dispatch(app.showLoading());
@@ -209,6 +218,7 @@ export const useProps = (props) => {
       if (response?.data?.codeNumber == 200) {
         setProgress(100);
         refetchSettlementWaiting();
+        NavigationService.back();
       } else {
         Alert.alert(response?.data?.message)
       }

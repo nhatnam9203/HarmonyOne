@@ -182,7 +182,7 @@ export const useProps = (props) => {
       responseData: result,
       paymentTerminal: "clover",
     };
-    const body = changeStatustransaction(invoiceDetail?.checkoutId, data);
+    const body = await changeStatustransaction(invoiceDetail?.checkoutId, data);
     submitChangeStatusTransaction(body.params);
   };
 
