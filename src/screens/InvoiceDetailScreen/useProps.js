@@ -157,7 +157,9 @@ export const useProps = (props) => {
         const { invoice: { isProcessVoidPaymentClover } } = store.getState();
         if(isProcessVoidPaymentClover) {
           dispatch(invoice.setIsProcessVoidPaymentClover(false))
-          handleResponseCreditCardForCloverFailed("No connected device")
+          handleResultVoidTransactionCloverFailed(
+            t("No connected device")
+          );
         }
       }),
     ]
@@ -180,7 +182,7 @@ export const useProps = (props) => {
       responseData: result,
       paymentTerminal: "clover",
     };
-    const body = changeStatustransaction(invoiceDetail?.checkoutId, data);
+    const body = await changeStatustransaction(invoiceDetail?.checkoutId, data);
     submitChangeStatusTransaction(body.params);
   };
 

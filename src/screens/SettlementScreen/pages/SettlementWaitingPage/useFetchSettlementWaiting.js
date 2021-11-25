@@ -87,25 +87,21 @@ const useFetchSettlementWaiting = () => {
 
     React.useEffect(() => {
         dispatch(app.showLoading());
-
-        const body = getListStaffsSales(terminalId);
-        fetchListStaffsSales(body.params);
-
-        const bodyGiftCard = getListGiftCardSales(terminalId)
-        fetchListGiftCardSales(bodyGiftCard.params);
-
-        const terminalType = paymentMachineType ? paymentMachineType.toLowerCase() : ""
-        const bodySettleWaiting = getSettlementWating(terminalId, terminalType)
-        fetchSettlementWating(bodySettleWaiting.params);
+        getData();
     
     }, [terminalId]);
 
-    // React.useEffect(() => {
-    //     dispatch(app.showLoading());
-    //     fetchSettlementWating();
-    //     fetchListStaffsSales();
-    //     fetchListGiftCardSales();
-    // }, []);
+    const getData = async () => {
+        const body = await getListStaffsSales(terminalId);
+        fetchListStaffsSales(body.params);
+
+        const bodyGiftCard = await getListGiftCardSales(terminalId)
+        fetchListGiftCardSales(bodyGiftCard.params);
+
+        const terminalType = paymentMachineType ? paymentMachineType.toLowerCase() : ""
+        const bodySettleWaiting = await getSettlementWating(terminalId, terminalType)
+        fetchSettlementWating(bodySettleWaiting.params);
+    }
 
     React.useEffect(() => {
         if (responseListStaffSales && responseListGiftCardSales && responseSettlementWaiting) {
