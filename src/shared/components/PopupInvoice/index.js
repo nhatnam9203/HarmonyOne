@@ -17,6 +17,7 @@ import {
   PaymentTerminalType,
   stringIsEmptyOrWhiteSpaces,
   formatMoney,
+  doPrintClover,
  } from "@shared/utils";
 import React from "react";
 import {
@@ -207,6 +208,9 @@ export const PopupInvoice = React.forwardRef(
       if (invoiceDetail) {
         return invoiceDetail?.checkoutPayments?.slice(0).reverse() || [];
       }
+      console.log('data', groupAppointment, groupAppointment?.paymentMethods?.length > 0
+      ? groupAppointment?.paymentMethods
+      : groupAppointment?.checkoutPayments)
 
       return groupAppointment?.paymentMethods?.length > 0
         ? groupAppointment?.paymentMethods
@@ -447,20 +451,22 @@ export const PopupInvoice = React.forwardRef(
         setCheckoutId(checkoutId);
 
         // call api get info
-
-        const body = getGroupAppointmentById(appointmentId)
-        getGroupAppointment(body.params);
-
-        if (checkoutId) {
-          const bodyInvoice = getInvoiceDetail(checkoutId)
-          getInvoiceDetailData(bodyInvoice.params);
-        }
-        await setIsProcessingPrint(true);
+        getData();
 
         // show modal
         await setVisible(true);
       },
     }));
+
+    const getData = async(checkoutId) => {
+      const body = await getGroupAppointmentById(appointmentId)
+      getGroupAppointment(body.params);
+
+      if (checkoutId) {
+        const bodyInvoice = await getInvoiceDetail(checkoutId)
+        getInvoiceDetailData(bodyInvoice.params);
+      }
+    }
 
     return (
       <Modal visible={visible} onRequestClose={() => {}} transparent={true}>
@@ -845,7 +851,7 @@ export const PopupInvoice = React.forwardRef(
                   {isSignature && !printTempt && (
                     <View
                       style={{
-                        height: scaleHeight(15),
+                        height: scaleHeight(30),
                         flexDirection: "row",
                         marginTop: scaleHeight(15),
                       }}
@@ -859,7 +865,6 @@ export const PopupInvoice = React.forwardRef(
                         <Text
                           style={[
                             styles.fontPrintStyle,
-                            { fontSize: scaleFont(18), fontWeight: "600" },
                           ]}
                         >
                           {"Signature:"}
@@ -893,7 +898,6 @@ export const PopupInvoice = React.forwardRef(
                         <Text
                           style={[
                             styles.fontPrintStyle,
-                            { fontSize: scaleFont(18), fontWeight: "600" },
                           ]}
                         >
                           {"Signature:"}
@@ -967,6 +971,7 @@ export const PopupInvoice = React.forwardRef(
                 label={"CANCEL"}
                 textColor="#404040"
                 onPress={onCancel}
+                styleText={{fontSize: scaleFont(13)}}
               />
               <View style={{ width: scaleWidth(35) }} />
               <Button
@@ -974,6 +979,7 @@ export const PopupInvoice = React.forwardRef(
                 label={isShare ? "SHARE" : "PRINT"}
                 textColor="#fff"
                 onPress={isShare ? onShareProcess : onPrintProcess}
+                styleText={{fontSize: scaleFont(13)}}
               />
             </View>
 
@@ -1036,6 +1042,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
+    marginBottom: scaleHeight(20),
+    marginTop: scaleHeight(20),
   },
 
   marginVertical: { height: scaleHeight(10) },

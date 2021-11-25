@@ -172,7 +172,7 @@ export const useProps = (props) => {
     const { payAppointmentId } = appointment;
     let messageUpdate = {...message,
                 sn: _.get(cloverMachineInfo, 'serialNumber')}
-      const body = submitPaymentWithCreditCard(
+      const body = await submitPaymentWithCreditCard(
         staff?.merchantId || 0,
         messageUpdate,
         payAppointmentId,
@@ -232,6 +232,7 @@ export const useProps = (props) => {
 
         popupPayProcessingRef?.current?.hide();
 
+        console.log('dueAmount', dueAmount)
         if (dueAmount == 0) {
           setTimeout(() => {
             dialogSuccessRef?.current?.show();
@@ -264,7 +265,7 @@ export const useProps = (props) => {
         dispatch(appointment.setGroupAppointment(data));
         if (isSubmitCheckoutCreditCard) {
           setIsSubmitCheckoutCreditCard(false);
-          const body = checkoutSubmit(payAppointmentId);
+          const body = await checkoutSubmit(payAppointmentId);
           applyCheckoutSubmit(body.params);
 
         }
@@ -530,6 +531,7 @@ export const useProps = (props) => {
   }
 
   const donotPrintBill = async () => {
+    console.log('donotPrintBill')
     if (connectionSignalR) {
       connectionSignalR?.stop();
     }
@@ -548,9 +550,13 @@ export const useProps = (props) => {
       if (portName) {
         openCashDrawer(portName);
       } else {
-        setTimeout(() => {
-          alert("Please connect to your cash drawer.");
-        }, 700);
+        if (paymentMachineType == PaymentTerminalType.Clover) {
+          openCashDrawerClover();
+        } else {
+          setTimeout(() => {
+            alert("Please connect to your cash drawer.");
+          }, 700);
+        }
       }
     }
 
@@ -578,13 +584,13 @@ export const useProps = (props) => {
     dialogSuccessRef?.current?.hide();
 
     setTimeout(() => {
-      invoiceRef.current?.showAppopintmentReceipt({
+      invoiceRef.current?.showAppointmentReceipt({
         appointmentId: groupAppointments?.mainAppointmentId,
         checkoutId: paymentDetail?.checkoutId,
         isPrintTempt: isTemptPrint,
         machineType: paymentMachineType,
       });
-    }, 300);
+    }, 700);
 
   };
 
@@ -605,21 +611,40 @@ export const useProps = (props) => {
       backToHome();
 
       setTimeout(() => {
-        alert("Please connect to your cash drawer .");
+        alert("Please connect to your printer!");
       }, 700);
     } else {
       if (methodPay.method == "cash"
         || methodPay.method == "other") {
-        //Will open when integrate clover
-        // if (paymentMachineType === "Clover") {
-        //   openCashDrawerClover();
-        // } else {
-        openCashDrawer(portName);
+        if (paymentMachineType === PaymentTerminalType.Clover) {
+          openCashDrawerClover();
+        } else {
+          openCashDrawer(portName);
+        }
       }
+
       showInvoicePrint(false);
     }
 
   };
+
+  const openCashDrawerClover = () => {
+    const port = _.get(cloverMachineInfo, "port")
+      ? _.get(cloverMachineInfo, "port")
+      : 80;
+    const url = `wss://${_.get(cloverMachineInfo, "ip")}:${port}/remote_pay`;
+
+    clover.openCashDrawer({
+      url,
+      remoteAppId: REMOTE_APP_ID,
+      appName: APP_NAME,
+      posSerial: POS_SERIAL,
+      token: _.get(cloverMachineInfo, "token")
+        ? _.get(cloverMachineInfo, "token", "")
+        : "",
+    });
+  }
+
 
   return {
     appointmentDetail,
@@ -683,10 +708,12 @@ export const useProps = (props) => {
     merchant: merchantDetail,
     groupAppointments,
     cancelInvoicePrint: () => {
+      console.log("cancelInvoicePrint")
       fetchAppointmentByDate();
     },
 
     onOK: () => {
+      console.log("onOK")
       fetchAppointmentByDate();
     },
     confirmPaymentClover: () => {
