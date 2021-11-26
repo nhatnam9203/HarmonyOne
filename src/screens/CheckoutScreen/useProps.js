@@ -49,7 +49,6 @@ export const useProps = (props) => {
     },
 
     onPressBack: () => {
-      console.log('onPressBack')
       if (isQuickCheckout) {
         NavigationService.navigate(screenNames.AppointmentScreen)
         dispatch(bookAppointment.resetBooking());

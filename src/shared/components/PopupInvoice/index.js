@@ -81,9 +81,9 @@ export const PopupInvoice = React.forwardRef(
   | CALL API
   |--------------------------------------------------
   */
-
-  const [, getGroupAppointment] = useAxiosQuery({
+  const [, fetchGroupApointmentById] = useAxiosQuery({
     ...getGroupAppointmentById(appointmentId),
+    queryId: "fetchGroupApointmentById",
     enabled: false,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
@@ -92,9 +92,9 @@ export const PopupInvoice = React.forwardRef(
     }
   });
 
-  const [, getInvoiceDetailData] = useAxiosQuery({
+  const [, fetchInvoiceDetailData] = useAxiosQuery({
     ...getInvoiceDetail(checkoutId),
-    queryId: "getInvoiceDetail_refetch",
+    queryId: "fetchInvoiceDetailData",
     enabled: false,
     onSuccess: (data, response) => {
       setInvoiceDetail(data);
@@ -208,9 +208,6 @@ export const PopupInvoice = React.forwardRef(
       if (invoiceDetail) {
         return invoiceDetail?.checkoutPayments?.slice(0).reverse() || [];
       }
-      console.log('data', groupAppointment, groupAppointment?.paymentMethods?.length > 0
-      ? groupAppointment?.paymentMethods
-      : groupAppointment?.checkoutPayments)
 
       return groupAppointment?.paymentMethods?.length > 0
         ? groupAppointment?.paymentMethods
@@ -460,11 +457,11 @@ export const PopupInvoice = React.forwardRef(
 
     const getData = async(checkoutId) => {
       const body = await getGroupAppointmentById(appointmentId)
-      getGroupAppointment(body.params);
+      fetchGroupApointmentById(body.params);
 
       if (checkoutId) {
         const bodyInvoice = await getInvoiceDetail(checkoutId)
-        getInvoiceDetailData(bodyInvoice.params);
+        fetchInvoiceDetailData(bodyInvoice.params);
       }
     }
 

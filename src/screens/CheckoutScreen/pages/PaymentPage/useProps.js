@@ -232,7 +232,6 @@ export const useProps = (props) => {
 
         popupPayProcessingRef?.current?.hide();
 
-        console.log('dueAmount', dueAmount)
         if (dueAmount == 0) {
           setTimeout(() => {
             dialogSuccessRef?.current?.show();
@@ -419,6 +418,7 @@ export const useProps = (props) => {
     
     const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
     submitSelectPaymentMethod(body.params);
+    
   }
 
   const backToHome = () => {
@@ -531,7 +531,6 @@ export const useProps = (props) => {
   }
 
   const donotPrintBill = async () => {
-    console.log('donotPrintBill')
     if (connectionSignalR) {
       connectionSignalR?.stop();
     }
@@ -708,12 +707,10 @@ export const useProps = (props) => {
     merchant: merchantDetail,
     groupAppointments,
     cancelInvoicePrint: () => {
-      console.log("cancelInvoicePrint")
       fetchAppointmentByDate();
     },
 
     onOK: () => {
-      console.log("onOK")
       fetchAppointmentByDate();
     },
     confirmPaymentClover: () => {
