@@ -111,7 +111,7 @@ export const Layout = ({
             <View style={{ flexDirection: 'row', justifyContent: 'center' }} >
                 <Button
                     width={scaleWidth(130)}
-                    height={50}
+                    height={scaleHeight(50)}
                     backgroundColor="#F1F1F1"
                     label={t('BACK')}
                     textColor="#6A6A6A"
