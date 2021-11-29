@@ -215,10 +215,6 @@ export const PopupInvoice = React.forwardRef(
       if (invoiceDetail) {
         return invoiceDetail?.checkoutPayments?.slice(0).reverse() || [];
       }
-      console.log(groupAppointment)
-      console.log('getCheckoutPaymentMethods', groupAppointment?.paymentMethods?.length > 0
-      ? groupAppointment?.paymentMethods
-      : groupAppointment?.checkoutPayments)
 
       return groupAppointment?.paymentMethods?.length > 0
         ? groupAppointment?.paymentMethods
