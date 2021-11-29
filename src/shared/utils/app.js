@@ -1,13 +1,25 @@
 import moment from 'moment';
 import { images } from "../themes/resources";
 import RNFetchBlob from 'rn-fetch-blob';
-import { Platform } from "react-native";
+import { 
+  Platform,
+  NativeModules,
+ } from "react-native";
 import PrintManager from "@lib/PrintManager";
-import Share from "react-native-share"
+import Share from "react-native-share";
+import configureStore from '@src/redux/store';
+import _ from "lodash";
+const { persistor, store } = configureStore();
+const { clover } = NativeModules;
 
 export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
+
+/*---Clover----*/
+export const REMOTE_APP_ID = '1MHMKSTW4HZ2P.BRXKQHNH5T1BW'
+export const APP_NAME = 'HarmonyPOS'
+export const POS_SERIAL = "POS"
 
 export const APPOINTMENT_STATUS = {
   COMPLETE: 'complete',
@@ -580,6 +592,23 @@ export const checkStatusPrint = async (portType = "Bluetooth") => {
     throw error;
   }
 };
+
+export const doPrintClover = (imageUri) => {
+  const { hardware } = store.getState();
+  const { cloverMachineInfo } = hardware;
+  const port = _.get(cloverMachineInfo, 'port') ? _.get(cloverMachineInfo, 'port') : 80
+  const url = `wss://${_.get(cloverMachineInfo, 'ip')}:${port}/remote_pay`
+  
+  const printInfo = {
+    imageUri,
+    url,
+    remoteAppId: REMOTE_APP_ID,
+    appName: APP_NAME,
+    posSerial: POS_SERIAL,
+    token: _.get(cloverMachineInfo, 'token') ? _.get(cloverMachineInfo, 'token', '') : "",
+  }
+  clover.doPrintWithConnect(printInfo)
+}
 
 export const SORT_TYPE = {
   NONE: 'none',

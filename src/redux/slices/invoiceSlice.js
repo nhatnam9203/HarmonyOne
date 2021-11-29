@@ -8,7 +8,8 @@ const initialState = {
     pages: 0,
     count: 0,
     invoiceDetail: {},
-    invoiceViewAppointmentDetail: {}
+    invoiceViewAppointmentDetail: {},
+    isProcessVoidPaymentClover: false,
 };
 
 const invoiceSlice = createSlice({
@@ -43,7 +44,10 @@ const invoiceSlice = createSlice({
                 }
             }
             state.invoiceList = temp;
-        }
+        },
+        setIsProcessVoidPaymentClover: (state, action) => {
+            state.isProcessVoidPaymentClover = action.payload;
+        },
     },
 });
 

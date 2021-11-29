@@ -47,6 +47,7 @@ export * from "./PopupProcessingCredit";
 export * from "./PopupProcessing";
 export * from "./PopupPayCompleted";
 export * from "./PopupInvoice";
+export * from "./PopupPairingCode";
 export * from "./DialogActiveGiftCard";
 export * from "./GiftCardScanner";
 export * from "./AppointmentGiftCardItem";
