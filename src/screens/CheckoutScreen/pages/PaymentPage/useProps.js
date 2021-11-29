@@ -193,7 +193,7 @@ export const useProps = (props) => {
         status: "transaction fail",
         note: errorMessage,
       }
-      const body = cancelHarmonyPayment(payAppointmentId, data)
+      const body = await cancelHarmonyPayment(payAppointmentId, data)
       submitCancelHarmonyPayment(body.params);
     }
   }
@@ -226,6 +226,7 @@ export const useProps = (props) => {
     isLoadingDefault: false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
+        setPaymentDetail(response?.data)
 
         const dueAmount = parseFloat(
           response?.data?.checkoutPaymentResponse?.dueAmount || 0
@@ -334,7 +335,6 @@ export const useProps = (props) => {
     enabled: false,
     isLoadingDefault: false,
     onSuccess: (data, response) => {
-
     },
   });
 
@@ -428,7 +428,6 @@ export const useProps = (props) => {
   }
 
   const backToHome = () => {
-    console.log("backToHome")
     setMethodPay(null);
     setPayAppointmentId(null);
     dispatch(appointment.setPayAppointmentId(null))
@@ -592,7 +591,7 @@ export const useProps = (props) => {
     setTimeout(() => {
       invoiceRef.current?.showAppointmentReceipt({
         appointmentId: groupAppointments?.mainAppointmentId,
-        checkoutId: paymentDetail?.checkoutId,
+        checkoutId: paymentDetail?.checkoutPaymentResponse?.invoiceNo,
         isPrintTempt: isTemptPrint,
         machineType: paymentMachineType,
       });
@@ -613,7 +612,6 @@ export const useProps = (props) => {
       setConnectionSignalR(null);
     }, 300);
 
-    console.log("print bill", paymentMachineType)
     if ((paymentMachineType !== PaymentTerminalType.Clover && !portName)
       || !(paymentMachineType === PaymentTerminalType.Clover
         && _.get(cloverMachineInfo, "isSetup"))) {

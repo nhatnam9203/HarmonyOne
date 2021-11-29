@@ -70,10 +70,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignSelf: "center",
         width: scaleWidth(340),
-        height: scaleHeight(180),
-        paddingTop: scaleWidth(20),
+        height: scaleHeight(150),
         borderRadius: scaleHeight(5),
-        position: 'relative',
+        justifyContent: 'center'
     },
 
     modal: {

@@ -140,6 +140,7 @@ export const useProps = (props) => {
           if(isProcessVoidPaymentClover) {
             popupProcessingRef?.current?.hide();
           }
+          invoiceRef.current?.hide();
         }
       }),
       eventEmitter.addListener('pairingSuccess', data => {
@@ -160,6 +161,7 @@ export const useProps = (props) => {
           handleResultVoidTransactionCloverFailed(
             t("No connected device")
           );
+          clover.cancelTransaction();
         }
       }),
     ]

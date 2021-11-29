@@ -100,6 +100,7 @@ export const useProps = (props) => {
           setTimeout(() => {
             alert(t("No connected device"))
           }, 200)
+          clover.cancelTransaction();
         }
       }),
     ]

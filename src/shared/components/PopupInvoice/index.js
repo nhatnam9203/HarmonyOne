@@ -459,23 +459,18 @@ export const PopupInvoice = React.forwardRef(
         setCheckoutId(checkoutId);
 
         // call api get info
-        getData();
+        const body = await getGroupAppointmentById(appointmentId)
+        fetchGroupApointmentById(body.params);
+  
+        if (checkoutId) {
+          const bodyInvoice = await getInvoiceDetail(checkoutId)
+          fetchInvoiceDetailData(bodyInvoice.params);
+        }
 
         // show modal
         await setVisible(true);
       },
     }));
-
-    const getData = async(checkoutId) => {
-      const body = await getGroupAppointmentById(appointmentId)
-      fetchGroupApointmentById(body.params);
-
-      if (checkoutId) {
-        console.log('checkoutId', checkoutId)
-        const bodyInvoice = await getInvoiceDetail(checkoutId)
-        fetchInvoiceDetailData(bodyInvoice.params);
-      }
-    }
 
     return (
       <Modal visible={visible} onRequestClose={() => {}} transparent={true}>
