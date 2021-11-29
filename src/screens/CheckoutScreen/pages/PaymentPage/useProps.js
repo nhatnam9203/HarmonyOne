@@ -154,6 +154,7 @@ export const useProps = (props) => {
         if(isProcessPaymentClover) {
           dispatch(appointment.setIsProcessPaymentClover(false))
           handleResponseCreditCardForCloverFailed("No connected device")
+          clover.cancelTransaction();
         }
       }),
     ]
@@ -259,6 +260,9 @@ export const useProps = (props) => {
     ...getGroupAppointmentById(appointmentDetail?.appointmentId),
     queryId: "refetchGroupAppointment",
     enabled: false,
+    isStopLoading: true,
+    isLoadingDefault: false,
+    isFetching: false,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(appointment.setGroupAppointment(data));
@@ -413,7 +417,9 @@ export const useProps = (props) => {
     }
     
     if(methodPay.method !== "credit_card"){
-      popupPayProcessingRef?.current?.show();
+      setTimeout(() => {
+        popupPayProcessingRef?.current?.show();
+      }, 100);
     }
     
     const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
@@ -422,6 +428,7 @@ export const useProps = (props) => {
   }
 
   const backToHome = () => {
+    console.log("backToHome")
     setMethodPay(null);
     setPayAppointmentId(null);
     dispatch(appointment.setPayAppointmentId(null))
@@ -606,7 +613,10 @@ export const useProps = (props) => {
       setConnectionSignalR(null);
     }, 300);
 
-    if (paymentMachineType !== PaymentTerminalType.Clover && !portName) {
+    console.log("print bill", paymentMachineType)
+    if ((paymentMachineType !== PaymentTerminalType.Clover && !portName)
+      || !(paymentMachineType === PaymentTerminalType.Clover
+        && _.get(cloverMachineInfo, "isSetup"))) {
       backToHome();
 
       setTimeout(() => {
@@ -707,7 +717,7 @@ export const useProps = (props) => {
     merchant: merchantDetail,
     groupAppointments,
     cancelInvoicePrint: () => {
-      fetchAppointmentByDate();
+      backToHome();
     },
 
     onOK: () => {

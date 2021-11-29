@@ -8,7 +8,7 @@ import {
  import _ from "lodash";
 
 export const useProps = (_params) => {
-
+  const dispatch = useDispatch();
   /************************************* SELECTOR *************************************/
   const {
     hardware: { dejavooMachineInfo, 

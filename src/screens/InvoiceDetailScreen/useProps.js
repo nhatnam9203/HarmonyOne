@@ -425,7 +425,6 @@ export const useProps = (props) => {
 
     printInvoice : async() =>{
       setTimeout(() => {
-        console.log('invoiceDetail', invoiceDetail)
         invoiceRef.current?.showAppointmentReceipt({
           appointmentId: invoiceDetail?.appointmentId,
           checkoutId: invoiceDetail?.checkoutId,
