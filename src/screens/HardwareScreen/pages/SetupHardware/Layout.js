@@ -163,7 +163,7 @@ export const Layout = ({
             <View style={{ flexDirection: 'row', justifyContent: 'center' }} >
                 <Button
                     width={scaleWidth(130)}
-                    height={50}
+                    height={scaleHeight(50)}
                     backgroundColor="#F1F1F1"
                     label={t('CANCEL')}
                     textColor="#6A6A6A"
@@ -173,7 +173,7 @@ export const Layout = ({
                 <View style={{ width: scaleWidth(50) }} />
                 <Button
                     width={scaleWidth(130)}
-                    height={50}
+                    height={scaleHeight(50)}
                     backgroundColor="#0764B0"
                     label={t('SAVE')}
                     textColor="#fff"
