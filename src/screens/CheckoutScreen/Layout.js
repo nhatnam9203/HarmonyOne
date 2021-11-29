@@ -53,7 +53,6 @@ export const Layout = ({
         <View style={styles.bottom}>
           <Button
             onPress={selectPayment}
-            height={scaleHeight(48)}
             width='100%'
             label={t('Select payment')}
             highlight={true}

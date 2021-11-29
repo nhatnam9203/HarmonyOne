@@ -91,14 +91,8 @@ const styles = StyleSheet.create({
         width: scaleWidth(340),
         paddingTop: scaleWidth(20),
         borderRadius: scaleHeight(5),
-        // shadowColor: "#004080bf",
-        // shadowOffset: {
-        //     width: 0,
-        //     height: 0,
-        // },
-        // shadowRadius: 10,
-        // shadowOpacity: 1,
         position: 'relative',
+
     },
 
     iconChecked : {

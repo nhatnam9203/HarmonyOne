@@ -11,7 +11,6 @@ import NavigationService from '@navigation/NavigationService'
 const { Screen, Navigator } = createMaterialTopTabNavigator();
 
 export const Layout = ({
-
 }) => {
 
   const [t] = useTranslation();
@@ -31,17 +30,17 @@ export const Layout = ({
             headerMode="none"
             initialRouteName={screenNames.Campaigns}
             tabBarOptions={{
-              tabStyle : {
-                borderBottomColor : "#eeeeee",
-                borderBottomWidth : 1,
+              tabStyle: {
+                borderBottomColor: "#eeeeee",
+                borderBottomWidth: 1,
               },
               activeTintColor: colors.ocean_blue,
               inactiveTintColor: colors.greyish_brown_40,
               indicatorStyle: {
                 height: 5,
                 backgroundColor: colors.ocean_blue,
-                width: scaleWidth(375/2 - 32),
-                marginLeft : scaleWidth(16)
+                width: scaleWidth(375 / 2 - 32),
+                marginLeft: scaleWidth(16)
               },
               labelStyle: {
                 fontFamily: fonts.REGULAR,
@@ -61,6 +60,7 @@ export const Layout = ({
           </Navigator>
         </View>
       </SingleScreenLayout>
+
     </View>
   );
 };

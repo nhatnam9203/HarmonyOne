@@ -26,46 +26,62 @@ const MarketingCondition = React.forwardRef(({
 }, ref) => {
 
 
-    const { 
-        service : { services },
-     } = useSelector(state=>state);
+    const {
+        service: { services },
+        product: { products }
+    } = useSelector(state => state);
 
 
     const [condition, setCondition] = React.useState("No condition");
     const conditionRef = React.useRef();
+
     const [serviceSelected, setServiceSelected] = React.useState([]);
+    const [productSelected, setProductSelected] = React.useState([]);
     const [numberOfTimesApply, setNumberOfTimesApply] = React.useState("");
 
     const removeService = (service) => {
-        let tepmServices = serviceSelected.filter(s => s.serviceId !== service.serviceId);
-        setServiceSelected(tepmServices);
-        const message = defaultMessage(tepmServices);
+        let tempServices = serviceSelected.filter(s => s.serviceId !== service.serviceId);
+        setServiceSelected(tempServices);
+        let tempList = [...tempServices, ...productSelected];
+        const message = defaultMessage(tempList);
         form.setValue("message", message);
     }
+
+    const removeProduct = (pro) => {
+        let tempProducts = productSelected.filter(s => s.productId !== pro.productId);
+        setProductSelected(tempProducts);
+        let tempList = [...serviceSelected, ...tempProducts];
+        const message = defaultMessage(tempList);
+        form.setValue("message", message);
+    }
+
 
     React.useImperativeHandle(ref, () => ({
         getConditionValue: () => {
             const objCondition = conditionList.find(obj => obj.label == condition);
             return objCondition;
         },
-        getServices : () =>{
+        getServices: () => {
             return serviceSelected;
         },
-        getNumberOfTimesApply : () =>{
+        getProducts: () => {
+            return productSelected;
+        },
+        getNumberOfTimesApply: () => {
             return numberOfTimesApply;
         },
-        setCondition : (dt) =>{
-            const obj = conditionList.find(item=>item?.label == dt);
+        setCondition: (dt) => {
+            const obj = conditionList.find(item => item?.label == dt);
             setCondition(dt);
-            if(obj){
-                form.setValue("condition",obj);
+            if (obj) {
+                form.setValue("condition", obj);
             }
         },
 
-        setNumberOfTimesApply : (dt) =>{
+        setNumberOfTimesApply: (dt) => {
             setNumberOfTimesApply(dt)
         },
-        
+
         setServiceSelected: (arrServices = []) => {
             let temp = [];
             for (let i = 0; i < services.length; i++) {
@@ -73,7 +89,7 @@ const MarketingCondition = React.forwardRef(({
                     if (services[i].serviceId == arrServices[j]) {
                         const tempService = {
                             ...services[i],
-                            selected : true,
+                            selected: true,
                         }
                         temp.push(tempService);
                     }
@@ -81,15 +97,33 @@ const MarketingCondition = React.forwardRef(({
             }
             setServiceSelected(temp);
         },
+
+        setProductSelected: (arrProducts = []) => {
+            let temp = [];
+            for (let i = 0; i < products.length; i++) {
+                for (let j = 0; j < arrProducts.length; j++) {
+                    if (products[i].productId == arrProducts[j]) {
+                        const tempProduct = {
+                            ...products[i],
+                            selected: true,
+                        }
+                        temp.push(tempProduct);
+                    }
+                }
+            }
+            setProductSelected(temp);
+        },
     }));
 
-    React.useEffect(()=>{
+    React.useEffect(() => {
         calculatorsmsMoney(valueSlider);
-    },[condition,serviceSelected]);
+    }, [condition, serviceSelected, productSelected]);
 
-    const onChangeServiceSelected = (services) => {
+    const onChangeServiceSelected = (services, products) => {
         setServiceSelected(services);
-        const message = defaultMessage(services);
+        setProductSelected(products);
+        let tempList = [...services, ...products];
+        const message = defaultMessage(tempList);
         form.setValue("message", message);
     }
 
@@ -116,8 +150,9 @@ const MarketingCondition = React.forwardRef(({
             {
                 <Collapsible collapsed={!(condition == "Using specific services")} duration={200}>
                     <InputService
-                        apply={onChangeServiceSelected}
+                        apply={(arrService, arrProduct) => onChangeServiceSelected(arrService, arrProduct)}
                         serviceSelected={serviceSelected}
+                        productSelected={productSelected}
                     />
                     <View style={styles.containerServices}>
                         {
@@ -137,7 +172,24 @@ const MarketingCondition = React.forwardRef(({
                                     </TouchableOpacity>
                                 </View>
                             ))
-
+                        }
+                        {
+                            productSelected.map((pro) => (
+                                <View
+                                    style={styles.wrapService}
+                                    key={"productSelected" + pro.productId}
+                                >
+                                    <Text style={styles.service}>{pro?.name}</Text>
+                                    <TouchableOpacity onPress={() => removeProduct(pro)}>
+                                        <AntDesign
+                                            style={{ marginLeft: scaleWidth(16) }}
+                                            name="closecircle"
+                                            size={scaleWidth(15)}
+                                            color='#7B99BA'
+                                        />
+                                    </TouchableOpacity>
+                                </View>
+                            ))
                         }
                     </View>
                 </Collapsible>

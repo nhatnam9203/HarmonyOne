@@ -17,10 +17,10 @@ const useRefetchSettlementWaiting = () => {
     const dispatch = useDispatch();
 
     const {
-        hardware: { 
-            cloverMachineInfo, 
-            dejavooMachineInfo, 
-            paymentMachineType 
+        hardware: {
+            cloverMachineInfo,
+            dejavooMachineInfo,
+            paymentMachineType
         },
     } = useSelector(state => state);
 
@@ -131,15 +131,15 @@ const useRefetchSettlementWaiting = () => {
         let terminalId = null
         if (paymentMachineType == PaymentTerminalType.Clover
             && _.get(cloverMachineInfo, 'isSetup')) {
-                terminalId = _.get(cloverMachineInfo, 'serialNumber')
+            terminalId = _.get(cloverMachineInfo, 'serialNumber')
         } else if (paymentMachineType == PaymentTerminalType.Dejavoo
-                    && _.get(dejavooMachineInfo, 'isSetup')) {
+            && _.get(dejavooMachineInfo, 'isSetup')) {
             terminalId = _.get(dejavooMachineInfo, 'sn')
         }
         setTerminalId(terminalId)
     }, []);
-    
-     
+
+
 
 
     React.useEffect(() => {

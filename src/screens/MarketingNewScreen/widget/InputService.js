@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView, SectionList } from 'react-native';
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
-import { CustomInput, InputSelect, CustomActionSheet, IconButton, Button, SearchInput } from "@shared/components";
+import { CustomInput, InputSelect, CustomActionSheet, IconButton, Button, SearchInput, ListEmptyComponent } from "@shared/components";
 import { useForm, useController } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { slop, guid } from "@shared/utils";
@@ -11,28 +11,37 @@ import Collapsible from "react-native-collapsible";
 import Accordion from "react-native-collapsible/Accordion";
 import CheckBox from "@react-native-community/checkbox"
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
+
 
 const InputService = ({
     apply = () => { },
     cancel = () => { },
     serviceSelected,
+    productSelected = [],
 }) => {
     const {
         service: { services },
         category: { category },
+        product: { products }
     } = useSelector(state => state);
 
     const [condition, setCondition] = React.useState("No condition");
-    const [dataServices, setDataServices] = React.useState([]);
     const [activeSections, setActiveSections] = React.useState([]);
+    const [activeSectionsProduct, setActiveSectionsProduct] = React.useState([]);
 
-    const [dataServicesSaved, setDataServicesSaved] = React.useState([]);
+    const [dataServices, setDataServices] = React.useState([]);
+
+    const [dataProducts, setDataProducts] = React.useState([]);
+
     const [isEdit, setIsEdit] = React.useState(false);
     const [categoriesEdit, setCategoriesEdit] = React.useState([]);
 
+    const [valueSearch, setValueSearch] = React.useState("");
+
     const serviceRef = React.useRef();
 
-    // const getDataList = () => {
+    // const getDataListService = () => {
     //     return category.filter(cate => {
     //         return services.filter((sv) => (sv.categoryId == cate.categoryId)).length > 0
     //     }).map((cate) => ({
@@ -45,11 +54,12 @@ const InputService = ({
     //     }))
     // };
 
-    const getDataList = () => {
+    const getDataListService = () => {
         return category.filter(obj => obj.categoryType.toString().toLowerCase() === "service").map((cate) => ({
             selected: false,
             categoryId: cate.categoryId,
             name: cate.name,
+            categoryType: cate?.categoryType,
             staffServices:
                 services
                     .filter(sv => sv.categoryId === cate.categoryId)
@@ -63,10 +73,35 @@ const InputService = ({
     };
 
 
+    const getDataListProduct = () => {
+        return category.filter(obj => obj.categoryType.toString().toLowerCase() === "product").map((cate) => ({
+            selected: false,
+            categoryId: cate.categoryId,
+            name: cate.name,
+            categoryType: cate?.categoryType,
+            staffServices:
+                products
+                    .filter(sv => sv.categoryId === cate.categoryId)
+                    .map((pro) => ({
+                        selected: false,
+                        name: pro.name,
+                        productId: pro.productId,
+                        categoryId: pro.categoryId
+                    }))
+        }));
+    };
+
+
+
     const selectCategories = (section) => {
+
         let tempServiceList = [...dataServices];
+        let tempProductList = [...dataProducts];
+
         const { selected, categoryId } = section;
-        tempServiceList = tempServiceList.map((cate) => ({
+        let tempList = section.categoryType == "Service" ? tempServiceList : tempProductList;
+
+        tempList = tempList.map((cate) => ({
             ...cate,
             selected: cate.categoryId === categoryId ? !selected : cate.selected,
             staffServices:
@@ -80,7 +115,11 @@ const InputService = ({
         if (selected === true) {
             //   this.setState({ isSelectAllCategories: false })
         }
-        setDataServices(tempServiceList);
+        if (section.categoryType == "Service") {
+            setDataServices(tempList);
+        } else {
+            setDataProducts(tempList);
+        }
     }
 
     const selectServiceOfCategories = (service) => {
@@ -104,6 +143,28 @@ const InputService = ({
         setDataServices(tempServiceList)
     }
 
+    const selectProductOfCategories = (service) => {
+        let tempProductList = [...dataProducts];
+        const { selected, categoryId, productId } = service;
+
+        tempProductList = tempProductList.map(cate => {
+            let { staffServices } = cate;
+            return ({
+                ...cate,
+                selected: checkStatuCategory(staffServices, selected, categoryId, cate),
+                staffServices:
+                    cate.staffServices
+                        .filter(sv => sv.categoryId === cate.categoryId)
+                        .map((sv) => ({
+                            ...sv,
+                            selected: sv.productId === productId ? !selected : sv.selected
+                        }))
+            })
+        });
+        setDataProducts(tempProductList)
+    }
+
+
     const checkStatuCategory = (staffServices = [], selected, categoryId, cate) => {
         if (cate.categoryId === categoryId) {
             let status = !selected;
@@ -120,49 +181,67 @@ const InputService = ({
     }
 
 
-    const checkSerice = (service) => {
-        let check = false;
-        for (let i = 0; i < serviceSelected.length; i++) {
-            if (service.serviceId == serviceSelected[i].serviceId) {
-                check = true;
-                break;
-            }
-        }
+    // const checkSerice = (service) => {
+    //     let check = false;
+    //     for (let i = 0; i < serviceSelected.length; i++) {
+    //         if (service.serviceId == serviceSelected[i].serviceId) {
+    //             check = true;
+    //             break;
+    //         }
+    //     }
 
-        return check;
-    }
+    //     return check;
+    // }
 
 
     const form = useForm();
-    // const { setValue } = form;
-    // const errors = form.formState.errors;
-
     const [isFocus, setFocus] = React.useState(false);
     const actionSheetRef = React.useRef();
 
     const { field } = useController({
         control: form.control,
         defaultValue: "",
-        name : "inputService"
+        name: "inputService"
     })
 
     const openActionSheet = () => {
-        let data = getDataList();
-        for(let i = 0 ; i < data.length; i++){
-            for(let j = 0; j< data[i].staffServices.length ; j++){
+        let data = getDataListService();
+
+        for (let i = 0; i < data.length; i++) {
+            for (let j = 0; j < data[i].staffServices.length; j++) {
                 const item = data[i].staffServices[j];
-                if(checkItemExisted(item)){
+                if (checkServiceExisted(item)) {
                     data[i].staffServices[j].selected = true;
                     data[i].selected = true;
                 }
             }
         }
+
+        let productData = getDataListProduct();
+
+        for (let i = 0; i < productData.length; i++) {
+            for (let j = 0; j < productData[i].staffServices.length; j++) {
+                const item = productData[i].staffServices[j];
+                if (checkProductExisted(item)) {
+                    productData[i].staffServices[j].selected = true;
+                    productData[i].selected = true;
+                }
+            }
+        }
+
         setDataServices(data);
+        setDataProducts(productData);
+        setValueSearch("");
         actionSheetRef?.current?.show();
     }
 
-    const checkItemExisted = (service) =>{
-        const item = serviceSelected.find(obj=>obj?.serviceId == service?.serviceId);
+    const checkServiceExisted = (service) => {
+        const item = serviceSelected.find(obj => obj?.serviceId == service?.serviceId);
+        return item;
+    }
+
+    const checkProductExisted = (pro) => {
+        const item = productSelected.find(obj => obj?.productId == pro?.productId);
         return item;
     }
 
@@ -175,38 +254,52 @@ const InputService = ({
         closeActionSheet();
     }
 
-    const selectService = (service) => {
-        let tempData = [...dataServices];
-        for (let i = 0; i < tempData.length; i++) {
-            if (tempData[i].category.categoryId == service.categoryId) {
-                let datas = tempData[i].data;
-                for (let j = 0; j < tempData[i].data.length; j++) {
-                    if (tempData[i].data[j].serviceId == service.serviceId) {
-                        tempData[i].data[j].checked = !tempData[i].data[j].checked;
-                    }
+    // const selectService = (service) => {
+    //     let tempData = [...dataServices];
+    //     for (let i = 0; i < tempData.length; i++) {
+    //         if (tempData[i].category.categoryId == service.categoryId) {
+    //             let datas = tempData[i].data;
+    //             for (let j = 0; j < tempData[i].data.length; j++) {
+    //                 if (tempData[i].data[j].serviceId == service.serviceId) {
+    //                     tempData[i].data[j].checked = !tempData[i].data[j].checked;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     setDataServices(tempData);
+    // }
+
+
+    const filterItem = (arrFilter = []) => {
+        const arrSaved = [];
+        for (let i = 0; i < arrFilter.length; i++) {
+            for (let j = 0; j < arrFilter[i].staffServices.length; j++) {
+                const el = arrFilter[i].staffServices[j];
+                if (arrFilter[i].staffServices[j].selected) {
+                    arrSaved.push(arrFilter[i].staffServices[j]);
                 }
             }
         }
-        setDataServices(tempData);
+        return arrSaved;
     }
 
     const onApply = () => {
-        const services = [];
-        for (let i = 0; i < dataServices.length; i++) {
-            for (let j = 0; j < dataServices[i].staffServices.length; j++) {
-                const el =  dataServices[i].staffServices[j];
-                if (dataServices[i].staffServices[j].selected) {
-                    services.push(dataServices[i].staffServices[j]);
-                }
-            }
-        }
-        apply(services);
+        let services = [];
+        let products = [];
+        services = filterItem(dataServices);
+        products = filterItem(dataProducts);
+
+        apply(services, products);
         closeActionSheet();
     }
 
 
     const onChangeSection = (section) => {
         setActiveSections(section)
+    }
+
+    const onChangeSectionProduct = (section) => {
+        setActiveSectionsProduct(section)
     }
 
 
@@ -257,7 +350,7 @@ const InputService = ({
     const renderContent = (section) => {
         return section?.staffServices?.map(service => (
             <TouchableOpacity
-                onPress={() => selectServiceOfCategories(service)}
+                onPress={() => section?.categoryType == "Service" ? selectServiceOfCategories(service) : selectProductOfCategories(service)}
                 key={"service" + service.categoryId + guid()}
                 style={[styles.rowSection, { marginVertical: scaleHeight(14), marginLeft: scaleWidth(32) }]}
                 activeOpacity={1}
@@ -285,7 +378,40 @@ const InputService = ({
         ))
     };
 
-    const dataList = getDataList();
+    const getDataFilter = () => {
+        let serviceList = dataServices;
+        let productList = dataProducts;
+        if (valueSearch) {
+            serviceList = serviceList.filter((e) => {
+                if (e !== null) {
+                    return (
+                        e.name
+                            .trim()
+                            .toLowerCase()
+                            .indexOf(valueSearch.toLowerCase()) !== -1
+                    );
+                }
+                return null;
+            });
+
+            productList = productList.filter((e) => {
+                if (e !== null) {
+                    return (
+                        e.name
+                            .trim()
+                            .toLowerCase()
+                            .indexOf(valueSearch.toLowerCase()) !== -1
+                    );
+                }
+                return null;
+            });
+        }
+
+        return {
+            serviceList,
+            productList,
+        }
+    }
 
     return (
         <>
@@ -293,7 +419,7 @@ const InputService = ({
             <TouchableOpacity onPress={openActionSheet} style={[styles.containerInput]}>
                 <View style={styles.wrapInput}>
                     <Text style={[styles.value, { fontSize: scaleFont(15) }]}>
-                        {`${serviceSelected.length} items picked`}
+                        {`${serviceSelected.length + productSelected?.length} items picked`}
                     </Text>
                     <Image
                         style={[styles.icon]}
@@ -304,23 +430,26 @@ const InputService = ({
                         <View style={styles.contentActionSheet}>
 
                             <SingleScreenLayout
-                                pageTitle={"Select service"}
+                                pageTitle={"Service / Product"}
                                 isLeft={true}
                                 isRight={false}
                                 isScrollLayout={false}
-                                onPressLeft={()=>actionSheetRef?.current?.hide()}
+                                onPressLeft={() => actionSheetRef?.current?.hide()}
                                 containerStyle={{ paddingVertical: 0, paddingTop: scaleHeight(20) }}
                             >
                                 <SearchInput
-                                    placeholder="Search by service name"
-                                    value={""}
-                                    onChangeText={() => { }}
-                                    removeText={() => { }}
+                                    placeholder="Search by name"
+                                    value={valueSearch}
+                                    onChangeText={(text) => { setValueSearch(text) }}
+                                    removeText={() => { setValueSearch("") }}
                                 />
 
                                 <ScrollView style={{ paddingTop: scaleHeight(16) }}>
+                                    <View style={{ flexDirection: "row", alignItems: "center", paddingLeft: scaleWidth(16) }}>
+                                        <Text style={styles.txtSubTitle}>Service</Text>
+                                    </View>
                                     <Accordion
-                                        sections={dataServices}
+                                        sections={getDataFilter().serviceList}
                                         activeSections={activeSections}
                                         touchableComponent={TouchableOpacity}
                                         expandMultiple={true}
@@ -329,35 +458,35 @@ const InputService = ({
                                         onChange={onChangeSection}
                                         duration={300}
                                     />
-                                    <View style={{ height: scaleHeight(100) }} />
+
+                                    <View style={{ flexDirection: "row", alignItems: "center", marginTop: scaleHeight(16), paddingLeft: scaleWidth(16) }}>
+                                        <Text style={styles.txtSubTitle}>Product</Text>
+                                    </View>
+
+                                    {
+                                        dataProducts?.length > 0 ? <Accordion
+                                            sections={getDataFilter().productList}
+                                            activeSections={activeSectionsProduct}
+                                            touchableComponent={TouchableOpacity}
+                                            expandMultiple={true}
+                                            renderHeader={renderHeader}
+                                            renderContent={renderContent}
+                                            onChange={onChangeSectionProduct}
+                                            duration={300}
+                                        />
+                                            :
+                                            <View style={{ alignItems: "center", justifyContent: "center", marginVertical: scaleHeight(20) }}>
+                                                <Image style={styles.imageStyle} source={images.EmptyList} resizeMode='contain' />
+                                                <Text style={styles.txtNoProduct}>No Products</Text>
+                                            </View>
+                                    }
+
+
+
                                 </ScrollView>
 
                             </SingleScreenLayout>
 
-                            {/* <View style={[styles.row, { borderBottomWidth: 1, borderBottomColor: '#dddddd', paddingBottom: scaleHeight(12) }]}>
-                                <Text style={styles.title}>
-                                    {'Select service'}
-                                </Text>
-                                <IconButton
-                                    iconStyle={styles.iconClose}
-                                    icon={images.iconClose}
-                                    onPress={closeActionSheet}
-                                />
-                            </View>
-
-                            <ScrollView style={styles.scrollView}>
-                                {
-                                    dataServices.map((it) =>
-                                        <ItemService
-                                            item={it}
-                                            key={it?.category?.categoryId + "categoryItem" + guid()}
-                                            onPress={(serviceItem) => {
-                                                selectService(serviceItem)
-                                            }}
-                                        />)
-                                }
-                                <View style={{ height: scaleHeight(100) }} />
-                            </ScrollView> */}
 
                             <View style={styles.bottomStyle}>
                                 <Button
@@ -381,6 +510,23 @@ export default InputService;
 
 
 const styles = StyleSheet.create({
+    txtNoProduct: {
+        fontSize: scaleFont(16),
+        fontFamily: fonts.REGULAR,
+        marginTop: scaleHeight(16),
+        marginBottom: scaleHeight(40)
+    },
+    imageStyle: {
+        width: scaleWidth(60),
+        height: scaleWidth(60)
+
+    },
+    txtSubTitle: {
+        fontSize: scaleFont(19),
+        fontFamily: fonts.BOLD,
+        color: "#404040",
+        marginBottom: scaleHeight(12)
+    },
     containerInput: {
         marginBottom: scaleHeight(16)
     },
@@ -459,7 +605,7 @@ const styles = StyleSheet.create({
         color: '#404040',
         fontFamily: fonts.REGULAR,
         width: scaleWidth(300),
-        marginLeft : scaleWidth(16)
+        marginLeft: scaleWidth(16)
     },
 
     categoryName: {
@@ -480,7 +626,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-evenly",
         alignItems: "center",
         flexDirection: "row",
-        padding : scaleWidth(16)
+        padding: scaleWidth(16)
     },
 
     line: {

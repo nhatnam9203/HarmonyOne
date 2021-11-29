@@ -5,7 +5,9 @@ import { colors, fonts, layouts, images } from '@shared/themes';
 
 export const TotalView = ({
     duration = "0",
-    price = "0.00"
+    price = "0.00",
+    tax,
+    discount,
 }) => {
     const [t] = useTranslation();
 
@@ -40,7 +42,7 @@ export const TotalView = ({
 };
 
 const styles = StyleSheet.create({
- 
+
     totalContent: {
         flex: 0,
     },

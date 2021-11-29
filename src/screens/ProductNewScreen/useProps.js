@@ -132,6 +132,8 @@ export const useProps = (props) => {
     return true;
   }
 
+  console.log({ categoryList })
+
 
   return {
     form,
@@ -150,7 +152,7 @@ export const useProps = (props) => {
     },
 
     getDataSelectCategory: () => {
-      return categoryList.filter(cate => (cate.categoryType === "Product")).map((cate) => ({
+      return categoryList.filter(cate => ( cate.isDisabled == 0 && cate.categoryType == "Product")).map((cate) => ({
         ...cate,
         label: cate.name,
         value: cate.categoryId,

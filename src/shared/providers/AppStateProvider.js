@@ -102,11 +102,10 @@ export const AppStateProvider = ({ children }) => {
   const connectSignalR = (statusBooking) => {
     if (staff) {
       try {
-        const deviceId = `${DeviceInfo.getDeviceId()}_${guid()}`;
-        const urlConnect = `notification/?merchantId=${staff?.merchantId}&Title=Merchant&kind=calendar&deviceId=${deviceId}`
+        const deviceId = `${DeviceInfo.getUniqueId()}`;
         const connection = new signalR.HubConnectionBuilder()
           .withUrl(
-            `${Configs.SOCKET_URL}notification/?merchantId=${staff?.merchantId}&Title=Merchant&kind=calendar&deviceId=${guid()}`,
+            `${Configs.SOCKET_URL}notification/?merchantId=${staff?.merchantId}&Title=Merchant&kind=calendar&deviceId=${deviceId}`,
             {
               transport:
                 signalR.HttpTransportType.LongPolling |
@@ -224,7 +223,7 @@ export const AppStateProvider = ({ children }) => {
         }}
         ref={alertRef}
         closeInterval={2000}
-        infoColor="#1B68AC" 
+        infoColor="#1B68AC"
         errorColor={"#DB0000"}
         titleStyle={styles.titleAlertStyle}
         messageStyle={styles.messageAlertStyle}

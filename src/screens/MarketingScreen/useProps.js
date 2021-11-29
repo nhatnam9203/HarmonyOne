@@ -6,9 +6,9 @@ import NavigationService from '@navigation/NavigationService'
 
 export const useProps = (_params) => {
 
+
   const [t] = useTranslation();
 
   return {
-    
   };
 };

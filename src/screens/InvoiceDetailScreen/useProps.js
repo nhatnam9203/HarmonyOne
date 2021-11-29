@@ -200,7 +200,7 @@ export const useProps = (props) => {
   const handleResultRefundTransactionDejavoo = async (responses) => {
     popupProcessingRef?.current?.hide();
 
-    parseString(responses, (err, result) => {
+    parseString(responses, async(err, result) => {
       if (err || _.get(result, "xmp.response.0.ResultCode.0") != 0) {
         let detailMessage = _.get(result, "xmp.response.0.RespMSG.0", "")
           .replace(/%20/g, " ");
@@ -220,7 +220,7 @@ export const useProps = (props) => {
           responseData: responses,
           paymentTerminal: "dejavoo",
         };
-        const body = changeStatustransaction(invoiceDetail?.checkoutId, data);
+        const body = await changeStatustransaction(invoiceDetail?.checkoutId, data);
         submitChangeStatusTransaction(body.params);
       }
     });

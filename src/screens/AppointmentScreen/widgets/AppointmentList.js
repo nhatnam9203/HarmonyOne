@@ -46,7 +46,7 @@ const AppointmentList = React.forwardRef(({
     const [t] = useTranslation();
 
     const [isRefresh, setRefresh] = React.useState(false);
-    const [appointmentDetailId, setAppointmentDetailId] = React.useState('');
+    const [appointmentDetailId, setAppointmentDetailId] = React.useState(null);
     const [staffSelected, setStaffSelected] = React.useState('');
     const [blockTimesVisibile, setBlockTimesVisible] = React.useState([]);
     const [tempStatus, setTempStatus] = React.useState("");
@@ -138,7 +138,7 @@ const AppointmentList = React.forwardRef(({
 
     const [, fetchAppointmentById] = useAxiosQuery({
         ...getAppointmentById(appointmentDetailId),
-        enabled: true,
+        enabled: appointmentDetailId ? true : false,
         isStopLoading: tempStatus == "paid" ? true : false,
         onSuccess: (data, response) => {
             if (response?.codeNumber == 200) {
