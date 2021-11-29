@@ -15,6 +15,7 @@ import {
 import { dateToFormat } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
+import useConfirmBooking from "./useConfirmBooking";
 
 export const useProps = (_params) => {
   const dispatch = useDispatch();
@@ -30,6 +31,13 @@ export const useProps = (_params) => {
   const [appointmentIdUpdate, setAppointmentId] = React.useState(0);
   const [isDisabledConfirm, setDisabledConfirm] = React.useState(false);
 
+  const [fetchAppointmentById] = useConfirmBooking({
+    isQuickCheckout,
+    timeBooking,
+    dayBooking,
+    appointmentIdUpdate
+  });
+
   const [, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
     queryId: "etchAppointmentByDate_reviewConfirm",
@@ -38,51 +46,16 @@ export const useProps = (_params) => {
     enabled: false,
     onSuccess: (data, response) => {
       dispatch(appointment.setBlockTimeBydate(data));
-      dispatch(app.startSignalR());
-      if (isQuickCheckout) {
-        NavigationService.navigate(screenNames.CheckoutScreen);
-        setTimeout(() => {
-          setDisabledConfirm(true);
-        }, 500);
-      } else {
+      if (!isQuickCheckout) {
+        dispatch(app.hideLoading());
         dialogBookingRef?.current?.show();
-        setDisabledConfirm(true);
       }
     },
-  });
-
-
-  const reduceServices = (services, extras = []) => {
-    for (let i = 0; i < services.length; i++) {
-      if (i === 0) {
-        services[i].fromTime = (!isQuickCheckout && timeBooking) ? `${dayBooking} ${timeBooking}` : moment().format("MM-DD-YYYY hh:mm A");
-
-      } else if (i > 0) {
-        let tempService = services[i - 1];
-        services[i].fromTime = moment(tempService.fromTime).add('minutes', tempService.duration);
-        const ex = extras.find(ex => ex.bookingServiceId === tempService.bookingServiceId);
-        if (ex) {
-          const duration = tempService.duration + ex.duration;
-          services[i].fromTime = moment(tempService.fromTime).add('minutes', duration);
-        }
-        services[i].fromTime = `${moment(services[i].fromTime).format("YYYY-MM-DD")}T${moment(services[i].fromTime).format("HH:mm")}:00`;
-      }
-    }
-    return services;
-  }
-
-
-  const [, submitUpdateAppointment] = useAxiosMutation({
-    ...updateAppointment(),
-    queryId: "updateAppointment_reviewConfirm",
-    isStopLoading: true,
-    isLoadingDefault: false,
-    onSuccess: async (data, response) => {
-      if (response?.codeNumber == 200) {
-        dispatch(app.hideLoading());
-      }
+    onLoginError: () => {
+      setDisabledConfirm(false);
     }
   });
+
 
   const [, submitAddAppointment] = useAxiosMutation({
     ...addAppointment(),
@@ -101,57 +74,11 @@ export const useProps = (_params) => {
         const body = await addItemIntoAppointment(appointmentId, tempData);
         submitAddItem(body.params);
       }
-    }
-  });
-
-  const [, fetchAppointmentById] = useAxiosQuery({
-    ...getAppointmentById(appointmentIdUpdate),
-    queryId: "fetchAppointmentById_reviewConfirm",
-    enabled: false,
-    isLoadingDefault: false,
-    isStopLoading: true,
-    onSuccess: async (data, response) => {
-      if (response?.codeNumber == 200) {
-        dispatch(appointment.setAppointmentDetail(response?.data));
-        const data = {
-          staffId: response?.data.staffId,
-          fromTime: response?.data.fromTime,
-          status: response?.data.status,
-          categories: response?.data.categories,
-          services: reduceServices(
-            [...response?.data.services].map(obj => ({ ...obj, fromTime: obj?.fromTime })),
-            response?.data?.extras
-          ),
-          extras: response?.data.extras,
-          products: response?.data.products,
-          giftCards: response?.data.giftCards
-        };
-
-        if (isQuickCheckout) {
-          setTimeout(() => {
-            fetchGroupApointmentById();
-          }, 300);
-        }
-
-        const body = await updateAppointment(appointmentIdUpdate, data);
-        submitUpdateAppointment(body.params);
-      }
     },
-  });
-
-  const [, fetchGroupApointmentById] = useAxiosQuery({
-    ...getGroupAppointmentById(appointmentIdUpdate),
-    queryId: "fetchGroupApointmentById_reviewConfirm",
-    enabled: false,
-    onSuccess: async (data, response) => {
-      if (response?.codeNumber == 200) {
-        console.log('response group appointment : ', { data });
-        dispatch(appointment.setGroupAppointment(data));
-        NavigationService.navigate(screenNames.CheckoutScreen);
-      }
+    onLoginError: () => {
+      setDisabledConfirm(false);
     }
   });
-
 
 
   const [, submitAddItem] = useAxiosMutation({
@@ -160,10 +87,18 @@ export const useProps = (_params) => {
     isStopLoading: true,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
-        fetchAppointmentById();
-        fetchAppointmentByDate();
+        if (!isQuickCheckout && servicesBooking.length < 2) {
+          dispatch(app.startSignalR());
+          fetchAppointmentByDate();
+        } else {
+          fetchAppointmentById();
+          fetchAppointmentByDate();
+        }
       }
     },
+    onLoginError: () => {
+      setDisabledConfirm(false);
+    }
   });
 
   return {
@@ -203,6 +138,8 @@ export const useProps = (_params) => {
     getAllTotal: () => {
       let price = 0;
       let duration = 0;
+
+
       for (let i = 0; i < servicesBooking.length; i++) {
         price += formatNumberFromCurrency(servicesBooking[i].price);
         duration += servicesBooking[i].duration;

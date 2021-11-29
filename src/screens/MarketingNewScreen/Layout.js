@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
-import { IconButton, CustomInput, InputText, InputSelect, InputDate, ButtonUpload, Button } from "@shared/components";
+import { IconButton, CustomInput, InputText, InputSelect, InputDate, ButtonUpload, Button, DialogConfirm } from "@shared/components";
 import { WithPopupActionSheet } from "@shared/HOC";
 import { Switch } from "react-native-paper";
 import { RadioButton } from 'react-native-paper';
@@ -70,9 +70,17 @@ export const Layout = ({
   isEdit,
   disableCampaign,
   enableCampaign,
+
+  isSchedule,
+  setIsSchedule,
+  dialogConfirmRef,
+  dialogSendMessageRef,
+  onDeleteCampaign,
+  saveAndStartCampaign,
 }) => {
 
   const [t] = useTranslation();
+
 
   return (
     <View style={styles.container}>
@@ -80,7 +88,7 @@ export const Layout = ({
         <SingleScreenLayout
           pageTitle={isViewDetail ? t("Campaign detail") : isEdit ? t("Edit campaign") : t("New campaign")}
           isLeft={true}
-          isRight={true}
+          isRight={isViewDetail ? true : false}
           isScrollLayout={false}
           containerStyle={{ paddingVertical: 0 }}
           headerRightComponent={() =>
@@ -161,11 +169,18 @@ export const Layout = ({
                 </>
               }
 
-              <IconButton
+              {/* <IconButton
                 iconComponent={() => <Switch color={colors.ocean_blue} onValueChange={setDisabled} value={isDisabled} />}
                 iconStyle={styles.iconStyle}
                 style={styles.rowReverse}
                 renderText={() => <Text style={styles.txtItem}>{t('Active')}</Text>}
+              /> */}
+
+              <IconButton
+                iconComponent={() => <Switch color={colors.ocean_blue} onValueChange={setIsSchedule} value={isSchedule} />}
+                iconStyle={styles.iconStyle}
+                style={styles.rowReverse}
+                renderText={() => <Text style={styles.txtItem}>{t('Auto send message')}</Text>}
               />
 
               {
@@ -192,12 +207,39 @@ export const Layout = ({
               width={'100%'}
               styleButton={{ backgroundColor: !isDisabled ? colors.ocean_blue : "red", borderWidth: 0 }}
             /> :
-            <Button
-              label="Save"
-              onPress={handleCampaign}
-              highlight={true}
-              width={'100%'}
-            />
+            isEdit ?
+              <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                <Button
+                  label="Save"
+                  onPress={handleCampaign}
+                  highlight={true}
+                  width={scaleWidth(120)}
+                />
+                <Button
+                  label="Save and start campaign"
+                  onPress={() => { dialogSendMessageRef?.current?.show() }}
+                  highlight={true}
+                  disabled={!(!isSchedule && isEdit)}
+                  width={scaleWidth(200)}
+                />
+              </View>
+              :
+
+              <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                <Button
+                  label="Save"
+                  onPress={handleCampaign}
+                  highlight={true}
+                  width={scaleWidth(120)}
+                />
+                <Button
+                  label="Save and send campaign"
+                  onPress={() => { }}
+                  highlight={true}
+                  disabled={true}
+                  width={scaleWidth(200)}
+                />
+              </View>
         }
       </View>
 
@@ -214,6 +256,27 @@ export const Layout = ({
         messageStyle={styles.messageAlertStyle}
         defaultContainer={styles.alertStyle}
         renderImage={() => <Image source={images.harmonyPay} style={styles.iconHarmonyPay} />}
+      />
+
+      <DialogConfirm
+        ref={dialogConfirmRef}
+        title={t("Warning !")}
+        titleContent={
+          t("Are you sure you want to Delete this Campaign ?")
+        }
+        onConfirmYes={onDeleteCampaign}
+        onModalHide={() => { }}
+      />
+
+
+      <DialogConfirm
+        ref={dialogSendMessageRef}
+        title={t("Warning !")}
+        titleContent={
+          t("Are you sure you want to send message for this Campaign ?")
+        }
+        onConfirmYes={saveAndStartCampaign}
+        onModalHide={() => { }}
       />
 
     </View>

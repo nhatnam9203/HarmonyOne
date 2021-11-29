@@ -42,7 +42,7 @@ export const Layout = ({
   onOK,
   isQuickCheckout,
   onPressBack,
-  isDisabledConfirm
+  isDisabledConfirm,
 }) => {
 
 

@@ -5,13 +5,16 @@ import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
 import { slop } from "@shared/utils";
 import { images } from "@shared/themes/resources";
-import { IconButton } from "@shared/components";
+import { IconButton, DialogConfirm, Button } from "@shared/components";
 
 
 export const Layout = ({
   newMarketing,
   promotion,
-  editPromotion
+  editPromotion,
+  dialogSendMessageRef,
+  setPromotionIdSend,
+  sendPromotionById,
 }) => {
 
   const [t] = useTranslation();
@@ -25,12 +28,35 @@ export const Layout = ({
         keyExtractor={(item) => "promotion" + item?.id?.toString()}
         renderItem={({ item }) =>
           <IconButton
-            icon={item?.isDisabled == 1 ? images.circleGrey : images.circleGreen}
-            iconStyle={styles.iconStyle}
+            iconComponent={() => (
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                {
+                  item?.isDisabled == 0 ?
+                    <Button
+                      label="Send"
+                      onPress={() => {
+                        setPromotionIdSend(item?.id)
+                        dialogSendMessageRef?.current?.show();
+                      }}
+                      highlight={true}
+                      width={scaleWidth(80)}
+                      height={scaleWidth(35)}
+                      styleButton={{ marginRight: scaleWidth(16) }}
+                      styleText={{ fontSize: scaleFont(14) }}
+                    /> : null
+                }
+                <Image
+                  style={styles.iconStyle}
+                  source={item?.isDisabled == 1 ? images.circleGrey : images.circleGreen}
+                />
+              </View>
+            )}
             style={styles.item}
             onPress={() => editPromotion(item)}
             slop={slop()}
-            renderText={() => <Text style={styles.name}>{item?.name}</Text>}
+            renderText={() =>
+              <Text style={styles.name}>{item?.name}</Text>
+            }
           />
         }
         ListFooterComponent={() => <View style={{ height: scaleHeight(300) }} />}
@@ -42,6 +68,17 @@ export const Layout = ({
         iconStyle={styles.addIcon}
         onPress={newMarketing}
         style={styles.btnAdd}
+      />
+
+
+      <DialogConfirm
+        ref={dialogSendMessageRef}
+        title={t("Warning !")}
+        titleContent={
+          t("Are you sure you want to send message for this Campaign ?")
+        }
+        onConfirmYes={sendPromotionById}
+        onModalHide={() => { }}
       />
     </View>
   );

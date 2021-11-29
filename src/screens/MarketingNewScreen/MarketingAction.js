@@ -22,23 +22,35 @@ const MarketingAction = React.forwardRef(({
     valueSlider,
 }, ref) => {
 
-    const { 
-        service : { services },
-        category : { category }
-     } = useSelector(state=>state);
+    const {
+        service: { services },
+        category: { category },
+        product : { products }
+    } = useSelector(state => state);
 
     const [condition, setAction] = React.useState("Discount for whole cart");
     const conditionRef = React.useRef();
 
     const [serviceSelected, setServiceSelected] = React.useState([]);
+    const [productSelected, setProductSelected] = React.useState([]);
     const [categorySelected, setCategorySelected] = React.useState([]);
 
     const removeService = (service) => {
-        let tepmServices = serviceSelected.filter(s => s.serviceId !== service.serviceId);
-        setServiceSelected(tepmServices);
-        const message = defaultMessage(null, tepmServices);
+        let tempServices = serviceSelected.filter(s => s.serviceId !== service.serviceId);
+        setServiceSelected(tempServices);
+        let tempList = [...tempServices, ...productSelected];
+        const message = defaultMessage(null, tempList);
         form.setValue("message", message);
     }
+
+    const removeProduct = (pro) => {
+        let tempProducts = productSelected.filter(s => s.productId !== pro.productId);
+        setProductSelected(tempProducts);
+        let tempList = [...serviceSelected, ...tempProducts];
+        const message = defaultMessage(null, tempList);
+        form.setValue("message", message);
+    }
+
 
     const removeCategory = (category) => {
         let tempCategory = categorySelected.filter(c => c.categoryId !== category.categoryId);
@@ -47,11 +59,14 @@ const MarketingAction = React.forwardRef(({
         form.setValue("message", message);
     }
 
-    const onChangeServiceSelected = (services) => {
+    const onChangeServiceSelected = (services, products) => {
         setServiceSelected(services);
-        const message = defaultMessage(null, services);
+        setProductSelected(products);
+        let tempList = [...services, ...products];
+        const message = defaultMessage(null, tempList);
         form.setValue("message", message);
     }
+
 
     const onChangeCategorySelected = (categories) => {
         setCategorySelected(categories);
@@ -66,6 +81,9 @@ const MarketingAction = React.forwardRef(({
         },
         getServices: () => {
             return serviceSelected;
+        },
+        getProducts: () => {
+            return productSelected;
         },
         getCategories: () => {
             return categorySelected;
@@ -85,13 +103,29 @@ const MarketingAction = React.forwardRef(({
                     if (services[i].serviceId == arrServices[j]) {
                         const tempService = {
                             ...services[i],
-                            selected : true,
+                            selected: true,
                         }
                         temp.push(tempService);
                     }
                 }
             }
             setServiceSelected(temp);
+        },
+
+        setProductSelected: (arrProducts = []) => {
+            let temp = [];
+            for (let i = 0; i < products.length; i++) {
+                for (let j = 0; j < arrProducts.length; j++) {
+                    if (products[i].productId == arrProducts[j]) {
+                        const tempProduct = {
+                            ...products[i],
+                            selected: true,
+                        }
+                        temp.push(tempProduct);
+                    }
+                }
+            }
+            setProductSelected(temp);
         },
 
         setCategories: (arrCategories) => {
@@ -101,7 +135,7 @@ const MarketingAction = React.forwardRef(({
                     if (category[i].categoryId == arrCategories[j]) {
                         const tempCategory = {
                             ...category[i],
-                            selected : true,
+                            selected: true,
                         }
                         temp.push(tempCategory);
                     }
@@ -117,6 +151,12 @@ const MarketingAction = React.forwardRef(({
         calculatorsmsMoney(valueSlider);
     }, [condition, serviceSelected, categorySelected]);
 
+    const resetValue = () => {
+        setProductSelected([]);
+        setCategorySelected([]);
+        setServiceSelected([]);
+    }
+
 
     return (
         <>
@@ -131,7 +171,8 @@ const MarketingAction = React.forwardRef(({
                         items={actionList}
                         defaultValue={'1'}
                         onSelect={(item) => {
-                            setAction(item.label)
+                            setAction(item.label);
+                            resetValue();
                         }}
                     />
 
@@ -141,8 +182,9 @@ const MarketingAction = React.forwardRef(({
             {
                 <Collapsible collapsed={!(condition == "Discount for specific services")} duration={200}>
                     <InputService
-                        apply={onChangeServiceSelected}
+                        apply={(arrService, arrProduct) => onChangeServiceSelected(arrService, arrProduct)}
                         serviceSelected={serviceSelected}
+                        productSelected={productSelected}
                     />
                     <View style={styles.containerServices}>
                         {
@@ -163,6 +205,24 @@ const MarketingAction = React.forwardRef(({
                                 </View>
                             ))
 
+                        }
+                        {
+                            productSelected.map((pro) => (
+                                <View
+                                    style={styles.wrapService}
+                                    key={"productSelected" + pro.productId}
+                                >
+                                    <Text style={styles.service}>{pro?.name}</Text>
+                                    <TouchableOpacity onPress={() => removeProduct(pro)}>
+                                        <AntDesign
+                                            style={{ marginLeft: scaleWidth(16) }}
+                                            name="closecircle"
+                                            size={scaleWidth(15)}
+                                            color='#7B99BA'
+                                        />
+                                    </TouchableOpacity>
+                                </View>
+                            ))
                         }
                     </View>
                 </Collapsible>

@@ -1,20 +1,24 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { colors } from "@shared/themes";
-import { getPromotionMerchant, useAxiosQuery } from "@src/apis";
+import { getPromotionMerchant, useAxiosQuery, sendStartPromotionById, useAxiosMutation } from "@src/apis";
 import { useDispatch, useSelector } from "react-redux";
 import { marketing, app } from "@redux/slices";
 import { axios } from '@shared/services/axiosClient';
 import NavigationService from '@navigation/NavigationService';
 
+
 export const useProps = (_params) => {
   const dispatch = useDispatch();
   const [t] = useTranslation();
+  const dialogSendMessageRef = React.useRef();
 
   const {
     marketing: { promotion = [] },
     auth: { staff }
   } = useSelector(state => state);
+
+  const [promotionIdSend, setPromotionIdSend] = React.useState(null);
 
   const [, fetchPromotion] = useAxiosQuery({
     ...getPromotionMerchant(),
@@ -25,6 +29,18 @@ export const useProps = (_params) => {
         dispatch(marketing.setPromotion(data));
       }
     },
+  });
+
+  const [, submitSendPromotionById] = useAxiosMutation({
+    ...sendStartPromotionById(),
+    queryId: "submitSendPromotionById_campaignScreen",
+    onSuccess: (data, response) => {
+      fetchPromotion();
+    },
+
+    onLoginError: () => {
+
+    }
   });
 
   const getCampaignDetail = async (promotionId) => {
@@ -53,14 +69,24 @@ export const useProps = (_params) => {
 
   return {
     promotion,
+    dialogSendMessageRef,
+    setPromotionIdSend,
 
     newMarketing: () => {
       NavigationService.navigate(screenNames.MarketingNewScreen);
+      dispatch(marketing.setPromotionDetailById(null));
     },
 
     editPromotion: (item) => {
-      NavigationService.navigate(screenNames.MarketingNewScreen, { merchantPromotionId: item?.id, isViewDetail : true, });
+      NavigationService.navigate(screenNames.MarketingNewScreen, { merchantPromotionId: item?.id, isViewDetail: true, });
       getCampaignDetail(item?.id);
+    },
+
+    sendPromotionById: async () => {
+      if (promotionIdSend) {
+        const body = await sendStartPromotionById(promotionIdSend);
+        submitSendPromotionById(body.params);
+      }
     }
   };
 };

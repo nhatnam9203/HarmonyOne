@@ -533,6 +533,16 @@ export const updatePromotionById = (promotionId, data) => ({
   }
 });
 
+export const sendStartPromotionById = (promotionId) => ({
+  queryId: 'sendStartPromotionById',
+  params: {
+    url: `MerchantPromotion/sendPromotion/${promotionId}`,
+    method: 'POST',
+    data : {},
+  }
+});
+
+
 export const getPromotionDetailById = (promotionId) => ({
   queryId: 'getPromotionDetailById',
   params: {
@@ -553,7 +563,7 @@ export const disablePromotionById = (promotionId) => ({
 export const deletePromotion = (promotionId) => ({
   queryId: 'disablePromotionById',
   params: {
-    url: `MerchantPromotion/${promotionId}`,
+    url: `MerchantPromotion/${promotionId}?api-version=1.2`,
     method: 'DELETE',
     data : {}
   }

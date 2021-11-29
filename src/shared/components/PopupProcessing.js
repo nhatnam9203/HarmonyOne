@@ -74,9 +74,10 @@ const styles = StyleSheet.create({
         top: 0,
         width: scaleWidth(375),
         bottom: 0,
-        backgroundColor: 'rgba(64,64,64,0.5)',
+        backgroundColor: 'rgba(64,64,64,0.2)',
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        elevation : 999
     },
     container: {
         backgroundColor: "#fff",

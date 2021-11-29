@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { appointment, bookAppointment } from "@redux/slices";
+import { appointment, bookAppointment, app } from "@redux/slices";
 import { BackHandler } from "react-native";
 import { useAxiosQuery, checkoutAppointment, useAxiosMutation } from "@src/apis";
 import { useRoute, useIsFocused } from '@react-navigation/native';
@@ -44,8 +44,18 @@ export const useProps = (props) => {
     appointmentDetail,
     groupAppointments,
     selectPayment: async () => {
-      const body = await checkoutAppointment(appointmentDetail?.appointmentId);
-      submitCheckoutAppointment(body.params);
+      if (Array.isArray(groupAppointments?.appointments) && groupAppointments?.appointments?.length > 1) {
+        dispatch(
+          app.setError({
+            isError: true,
+            messageError: "Harmone One is not pay multiple appointment. Please use Harmony POS app.",
+            errorType: "error",
+            titleError: "Alert",
+          }));
+      } else {
+        const body = await checkoutAppointment(appointmentDetail?.appointmentId);
+        submitCheckoutAppointment(body.params);
+      }
     },
 
     onPressBack: () => {

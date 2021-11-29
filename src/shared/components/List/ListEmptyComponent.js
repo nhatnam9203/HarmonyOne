@@ -20,14 +20,12 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 100,
+    marginVertical: scaleHeight(80),
   },
 
   textStyle: {
     fontFamily: fonts.REGULAR,
     fontSize: scaleFont(17),
-    fontWeight: 'normal',
-    fontStyle: 'normal',
     letterSpacing: 0,
     textAlign: 'center',
     color: colors.VERY_LIGHT_PINK_C_5,
