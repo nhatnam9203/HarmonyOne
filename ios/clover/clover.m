@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "clover.h"
-//#import "HarmonyOne-Swift.h"
+#import "HarmonyOne-Swift.h"
 //#import "Staging-Swift.h"
-#import "Dev-Swift.h"
+//#import "Dev-Swift.h"
 
 static NSString* paymentSuccess               = @"paymentSuccess";
 static NSString* paymentFail               = @"paymentFail";
