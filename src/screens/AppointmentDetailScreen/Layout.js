@@ -56,6 +56,7 @@ export const Layout = ({
   updateNextStatus,
   invoiceViewAppointmentDetail,
   getBarStyle,
+  getInvoiceDetail
 }) => {
   const [t] = useTranslation();
 
@@ -108,6 +109,7 @@ export const Layout = ({
           <InvoiceNumber
             invoiceViewAppointmentDetail={invoiceViewAppointmentDetail}
             appointmentItem={appointmentItem}
+            getInvoiceDetail={getInvoiceDetail}
           />
         </ScrollView>
 

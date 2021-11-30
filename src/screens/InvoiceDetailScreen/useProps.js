@@ -12,6 +12,7 @@ import {
   changeStatustransaction,
   getAppointmentByDate,
   getInvoiceDetail,
+  getAppointmentById
 } from '@src/apis';
 import { dateToFormat, 
   PaymentTerminalType, 
@@ -48,6 +49,9 @@ export const useProps = (props) => {
   const invoiceRef = React.useRef(null);
   const popupConfirmPrintRef = React.useRef();
 
+  const isAppointmentDetail = props?.route?.params?.isAppointmentDetail || null;
+  const appointmentItem = props?.route?.params?.appointmentItem || null;
+
   const {
     invoice: { invoiceDetail, isProcessVoidPaymentClover },
     appointment: { appointmentDate },
@@ -66,10 +70,24 @@ export const useProps = (props) => {
         // NavigationService.back();
         popupConfirmPrintRef?.current?.show();
         fetchInvoiceDetail();
+        if(isAppointmentDetail){
+          fetchAppointmentById();
+        }
         // fetchAppointmentByDate();
       }
     },
   });
+
+  const [, fetchAppointmentById] = useAxiosQuery({
+    ...getAppointmentById(appointmentItem.appointmentId),
+    queryId : "getAppointmentById_InvoiceDetail",
+    enabled: false,
+    onSuccess: (data, response) => {
+        if (response?.codeNumber == 200) {
+            dispatch(appointment.setAppointmentDetail(data));
+        }
+    },
+});
 
   const [, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
@@ -444,3 +462,4 @@ export const useProps = (props) => {
     },
   }
 };
+

@@ -93,78 +93,6 @@ const InputService = ({
 
 
 
-    const selectCategories = (section) => {
-
-        let tempServiceList = [...dataServices];
-        let tempProductList = [...dataProducts];
-
-        const { selected, categoryId } = section;
-        let tempList = section.categoryType == "Service" ? tempServiceList : tempProductList;
-
-        tempList = tempList.map((cate) => ({
-            ...cate,
-            selected: cate.categoryId === categoryId ? !selected : cate.selected,
-            staffServices:
-                cate.staffServices
-                    .filter(sv => sv.categoryId === cate.categoryId)
-                    .map((sv) => ({
-                        ...sv,
-                        selected: sv.categoryId === categoryId ? !selected : sv.selected
-                    }))
-        }));
-        if (selected === true) {
-            //   this.setState({ isSelectAllCategories: false })
-        }
-        if (section.categoryType == "Service") {
-            setDataServices(tempList);
-        } else {
-            setDataProducts(tempList);
-        }
-    }
-
-    const selectServiceOfCategories = (service) => {
-        let tempServiceList = [...dataServices];
-        const { selected, categoryId, serviceId } = service;
-
-        tempServiceList = tempServiceList.map(cate => {
-            let { staffServices } = cate;
-            return ({
-                ...cate,
-                selected: checkStatuCategory(staffServices, selected, categoryId, cate),
-                staffServices:
-                    cate.staffServices
-                        .filter(sv => sv.categoryId === cate.categoryId)
-                        .map((sv) => ({
-                            ...sv,
-                            selected: sv.serviceId === serviceId ? !selected : sv.selected
-                        }))
-            })
-        });
-        setDataServices(tempServiceList)
-    }
-
-    const selectProductOfCategories = (service) => {
-        let tempProductList = [...dataProducts];
-        const { selected, categoryId, productId } = service;
-
-        tempProductList = tempProductList.map(cate => {
-            let { staffServices } = cate;
-            return ({
-                ...cate,
-                selected: checkStatuCategory(staffServices, selected, categoryId, cate),
-                staffServices:
-                    cate.staffServices
-                        .filter(sv => sv.categoryId === cate.categoryId)
-                        .map((sv) => ({
-                            ...sv,
-                            selected: sv.productId === productId ? !selected : sv.selected
-                        }))
-            })
-        });
-        setDataProducts(tempProductList)
-    }
-
-
     const checkStatuCategory = (staffServices = [], selected, categoryId, cate) => {
         if (cate.categoryId === categoryId) {
             let status = !selected;
@@ -302,6 +230,77 @@ const InputService = ({
         setActiveSectionsProduct(section)
     }
 
+    const tickCategories = (section) =>{
+        let tempServiceList = [...dataServices];
+        let tempProductList = [...dataProducts];
+
+        const { selected, categoryId } = section;
+        let tempList = section.categoryType == "Service" ? tempServiceList : tempProductList;
+
+        tempList = tempList.map((cate) => ({
+            ...cate,
+            selected: cate.categoryId === categoryId ? !selected : cate.selected,
+            staffServices:
+                cate.staffServices
+                    .filter(sv => sv.categoryId === cate.categoryId)
+                    .map((sv) => ({
+                        ...sv,
+                        selected: sv.categoryId === categoryId ? !selected : sv.selected
+                    }))
+        }));
+        if (selected === true) {
+            //   this.setState({ isSelectAllCategories: false })
+        }
+        if (section.categoryType == "Service") {
+            setDataServices(tempList);
+        } else {
+            setDataProducts(tempList);
+        }
+    }
+
+    const tickService = (service) => {
+        let tempServiceList = [...dataServices];
+        const { selected, categoryId, serviceId } = service;
+
+        tempServiceList = tempServiceList.map(cate => {
+            let { staffServices } = cate;
+            return ({
+                ...cate,
+                selected: checkStatuCategory(staffServices, selected, categoryId, cate),
+                staffServices:
+                    cate.staffServices
+                        .filter(sv => sv.categoryId === cate.categoryId)
+                        .map((sv) => ({
+                            ...sv,
+                            selected: sv.serviceId === serviceId ? !selected : sv.selected
+                        }))
+            })
+        });
+        setDataServices(tempServiceList)
+    }
+
+    const tickProduct = (service) => {
+        let tempProductList = [...dataProducts];
+        const { selected, categoryId, productId } = service;
+
+        tempProductList = tempProductList.map(cate => {
+            let { staffServices } = cate;
+            return ({
+                ...cate,
+                selected: checkStatuCategory(staffServices, selected, categoryId, cate),
+                staffServices:
+                    cate.staffServices
+                        .filter(sv => sv.categoryId === cate.categoryId)
+                        .map((sv) => ({
+                            ...sv,
+                            selected: sv.productId === productId ? !selected : sv.selected
+                        }))
+            })
+        });
+        setDataProducts(tempProductList)
+    }
+
+
 
     const renderHeader = (section, _, isActive) => {
         return (
@@ -310,7 +309,7 @@ const InputService = ({
                 paddingVertical: scaleHeight(12),
                 borderBottomColor: "#eeeeee",
             }]}>
-                <TouchableOpacity onPress={() => selectCategories(section)}>
+                <TouchableOpacity onPress={() => tickCategories(section)}>
                     <CheckBox
                         disabled={false}
                         value={section?.selected}
@@ -350,7 +349,7 @@ const InputService = ({
     const renderContent = (section) => {
         return section?.staffServices?.map(service => (
             <TouchableOpacity
-                onPress={() => section?.categoryType == "Service" ? selectServiceOfCategories(service) : selectProductOfCategories(service)}
+                onPress={() => section?.categoryType == "Service" ? tickService(service) : tickProduct(service)}
                 key={"service" + service.categoryId + guid()}
                 style={[styles.rowSection, { marginVertical: scaleHeight(14), marginLeft: scaleWidth(32) }]}
                 activeOpacity={1}
