@@ -35,8 +35,8 @@ export const useProps = (props) => {
   const invoiceRef = React.useRef(null);
   const popupConfirmPrintRef = React.useRef();
 
-  const isAppointmentDetail = props?.route?.params?.isAppointmentDetail;
-  const appointmentItem = props?.route?.params?.appointmentItem;
+  const isAppointmentDetail = props?.route?.params?.isAppointmentDetail || null;
+  const appointmentItem = props?.route?.params?.appointmentItem || null;
 
   const {
     invoice: { invoiceDetail },
