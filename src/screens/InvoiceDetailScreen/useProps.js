@@ -79,7 +79,7 @@ export const useProps = (props) => {
   });
 
   const [, fetchAppointmentById] = useAxiosQuery({
-    ...getAppointmentById(appointmentItem.appointmentId),
+    ...getAppointmentById(appointmentItem?.appointmentId),
     queryId : "getAppointmentById_InvoiceDetail",
     enabled: false,
     onSuccess: (data, response) => {
