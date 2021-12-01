@@ -110,11 +110,13 @@ export const useProps = (props) => {
   /************************************* useEffect *************************************/
 
   React.useEffect(() => {
-    registerEvents()
+    if (Platform.OS === "ios") {
+      registerEvents()
 
-    return function cleanup() {
-      unregisterEvents();
-    };
+      return function cleanup() {
+        unregisterEvents();
+      };
+    }
   }, []);
 
   /****************** Integrate Clover **************************/

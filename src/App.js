@@ -55,9 +55,7 @@ export default App = () => {
   const [pairingCode, setPairingCode] = React.useState("");
 
   const registerEvents = () => {
-    if(Platform.OS === "ios") {
-      clover.changeListenerStatus(true)
-    }
+    clover.changeListenerStatus(true)
     subscriptions = [
         eventEmitter.addListener("pairingCode", (data) => {
           if (data) {
@@ -95,12 +93,13 @@ export default App = () => {
   }
 
   React.useEffect(() => {
+    if (Platform.OS === "ios") {
+      registerEvents();
 
-    registerEvents();
-
-    return function cleanup() {
-      unregisterEvents();
-    };
+      return function cleanup() {
+        unregisterEvents();
+      };
+    }
 
   }, []);
 
