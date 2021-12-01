@@ -45,11 +45,11 @@ const styles = StyleSheet.create({
     color: 'rgb(42,42,42)' 
   },
   viewTextInput: {
-      height: scaleHeight(35), 
+      height: scaleHeight(50), 
       width: '60%',
       borderColor: 'rgb(227,227,227)',
       borderWidth: scaleWidth(1), 
-      paddingHorizontal: scaleHeight(10)
+      justifyContent: 'center', 
   },
   border: { 
     borderWidth: 1, 
