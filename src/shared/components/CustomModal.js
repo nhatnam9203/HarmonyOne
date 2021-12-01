@@ -8,7 +8,7 @@ export const CustomModal = ({ children, ...props }) => {
       transparent={true}
       backdropColor={'rgba(0,0,0,0.2)'}
       hasBackdrop={true}
-      statusBarTranslucent
+      statusBarTranslucent={false}
       //   backdropOpacity={0.3}
       backdropTransitionOutTiming={0}
       backdropTransitionInTiming={0}>

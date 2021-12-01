@@ -32,7 +32,6 @@ export const Layout = ({
                 <View style={styles.bottom}>
                     <Button
                         onPress={onSave}
-                        height={scaleHeight(48)}
                         width='100%'
                         label={t('Save')}
                         highlight={true}
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
 
     bottom: {
         paddingHorizontal: scaleWidth(16),
-        paddingBottom: scaleHeight(32)
+        paddingBottom: scaleHeight(16)
     },
 
     inputPhone: {
