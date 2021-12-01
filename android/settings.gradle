@@ -1,4 +1,6 @@
 rootProject.name = 'HarmonyOne'
+include ':react-native-camera'
+project(':react-native-camera').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-camera/android')
 include ':react-native-star-prnt'
 project(':react-native-star-prnt').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-star-prnt/android')
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)

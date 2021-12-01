@@ -12,6 +12,7 @@ import {
   YellowBox,
   NativeModules,
   NativeEventEmitter,
+  Platform,
  } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { Provider } from 'react-redux';
@@ -54,7 +55,9 @@ export default App = () => {
   const [pairingCode, setPairingCode] = React.useState("");
 
   const registerEvents = () => {
-    clover.changeListenerStatus(true)
+    if(Platform.OS === "ios") {
+      clover.changeListenerStatus(true)
+    }
     subscriptions = [
         eventEmitter.addListener("pairingCode", (data) => {
           if (data) {
@@ -84,7 +87,9 @@ export default App = () => {
   }
 
   const unregisterEvents = () => {
-    clover.changeListenerStatus(false)
+    if(Platform.OS === "ios") {
+      clover.changeListenerStatus(false)
+    }
     subscriptions.forEach(e => e.remove())
     subscriptions = []
   }

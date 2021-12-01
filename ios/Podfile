@@ -18,6 +18,8 @@ target 'HarmonyOne' do
   pod 'Starscream', :git => 'https://github.com/clover/Starscream.git', :branch => 'queuePriority-3.0.0'
   pod 'CloverConnector', :git => 'https://github.com/clover/remote-pay-ios.git', :tag => '4.0.0'
 
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
   target 'HarmonyOneTests' do
     inherit! :complete
     # Pods for testing
