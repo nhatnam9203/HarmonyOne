@@ -716,6 +716,30 @@ export const changeStylist = (appointmentId, data) => ({
   }
 });
 
+export const getNotifyRoleStaff = (staffId, page) => ({
+  queryId: 'getNotifyRoleStaff',
+  params: {
+    url: `notificationStaff/bystaff/${staffId}?page=${page}`,
+    method: 'GET',
+  }
+});
+
+export const disableNotifyRoleStaff = (notifyId) => ({
+  queryId: 'disableNotifyRoleStaff',
+  params: {
+    url: `notificationstaff/disabled/` + notifyId,
+    method: 'DELETE',
+  }
+});
+
+export const deleteNotifyRoleStaff = (notifyId) => ({
+  queryId: 'deleteNotifyRoleStaff',
+  params: {
+    url: `notificationstaff/deleted/` + notifyId,
+    method: 'DELETE',
+  }
+});
+
 
 /**
  * PAYMENT
