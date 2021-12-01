@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView, SectionList } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView, SectionList, Platform } from 'react-native';
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { CustomInput, InputSelect, CustomActionSheet, IconButton, Button, SearchInput, ListEmptyComponent } from "@shared/components";
@@ -230,7 +230,7 @@ const InputService = ({
         setActiveSectionsProduct(section)
     }
 
-    const tickCategories = (section) =>{
+    const tickCategories = (section) => {
         let tempServiceList = [...dataServices];
         let tempProductList = [...dataProducts];
 
@@ -310,20 +310,29 @@ const InputService = ({
                 borderBottomColor: "#eeeeee",
             }]}>
                 <TouchableOpacity onPress={() => tickCategories(section)}>
-                    <CheckBox
-                        disabled={false}
-                        value={section?.selected}
-                        onValueChange={() => { }}
-                        boxType='square'
-                        onFillColor={colors.ocean_blue}
-                        onCheckColor={colors.white}
-                        onTintColor="transparent"
-                        onAnimationType='one-stroke'
-                        offAnimationType='one-stroke'
-                        lineWidth={1}
-                        animationDuration={0.3}
-                        style={{ width: 24, height: 24, marginRight: scaleWidth(15) }}
-                    />
+                    {
+                        Platform.OS == "ios" ?
+                            <CheckBox
+                                disabled={false}
+                                value={section?.selected}
+                                onValueChange={() => { }}
+                                boxType='square'
+                                onFillColor={colors.ocean_blue}
+                                onCheckColor={colors.white}
+                                onTintColor="transparent"
+                                onAnimationType='one-stroke'
+                                offAnimationType='one-stroke'
+                                lineWidth={1}
+                                animationDuration={0.3}
+                                style={{ width: 24, height: 24, marginRight: scaleWidth(15) }}
+                            />
+                            :
+                            <Image
+                                source={section?.selected ? images.checkBox : images.checkBoxEmpty}
+                                style={{ width: scaleWidth(27), height: scaleWidth(27), resizeMode: 'contain', marginRight: scaleWidth(16) }}
+                                resizeMode='contain'
+                            />
+                    }
                 </TouchableOpacity>
 
                 <View style={styles.rowHeaderRight}>
@@ -354,20 +363,29 @@ const InputService = ({
                 style={[styles.rowSection, { marginVertical: scaleHeight(14), marginLeft: scaleWidth(32) }]}
                 activeOpacity={1}
             >
-                <CheckBox
-                    disabled={false}
-                    value={service.selected}
-                    onValueChange={() => { }}
-                    boxType='square'
-                    onFillColor={colors.ocean_blue}
-                    onCheckColor={colors.white}
-                    onTintColor="transparent"
-                    onAnimationType='one-stroke'
-                    offAnimationType='one-stroke'
-                    lineWidth={1}
-                    animationDuration={0.3}
-                    style={{ width: 24, height: 24, }}
-                />
+                {
+                    Platform.OS == "ios" ?
+                        <CheckBox
+                            disabled={false}
+                            value={service.selected}
+                            onValueChange={() => { }}
+                            boxType='square'
+                            onFillColor={colors.ocean_blue}
+                            onCheckColor={colors.white}
+                            onTintColor="transparent"
+                            onAnimationType='one-stroke'
+                            offAnimationType='one-stroke'
+                            lineWidth={1}
+                            animationDuration={0.3}
+                            style={{ width: 24, height: 24, }}
+                        /> :
+                        <Image
+                            source={section?.selected ? images.checkBox : images.checkBoxEmpty}
+                            style={{ width: scaleWidth(27), height: scaleWidth(27), resizeMode: 'contain', marginRight: scaleWidth(16) }}
+                            resizeMode='contain'
+                        />
+
+                }
                 <Text
                     style={[styles.serviceName, { flexWrap: 'wrap', width: scaleWidth(280) }]}
                 >
