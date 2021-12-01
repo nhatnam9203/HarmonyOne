@@ -48,11 +48,13 @@ export const useProps = (props) => {
   } = useSelector(state => state);
 
   React.useEffect(() => {
-    registerEvents()
+    if (Platform.OS === "ios") {
+      registerEvents()
 
-    return function cleanup() {
-      unregisterEvents();
-    };
+      return function cleanup() {
+        unregisterEvents();
+      };
+    }
   }, []);
 
   /****************** Integrate Clover **************************/

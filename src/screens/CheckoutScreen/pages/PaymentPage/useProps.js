@@ -42,6 +42,7 @@ import {
   Alert, 
   NativeEventEmitter, 
   NativeModules,
+  Platform,
 } from 'react-native';
 import { isEmpty, method } from "lodash";
 import { parseString } from 'react-native-xml2js';
@@ -96,11 +97,14 @@ export const useProps = (props) => {
 
   /************************************* useEffect *************************************/
   React.useEffect(() => {
-    registerEvents()
+    if (Platform.OS === "ios") {
+      registerEvents()
 
-    return function cleanup() {
-      unregisterEvents();
-    };
+      return function cleanup() {
+        unregisterEvents();
+      };
+    }
+    
   }, []);
 
   React.useEffect(() => {

@@ -14,8 +14,9 @@ import {
 } from "@src/apis";
 
 import { APPOINTMENT_STATUS, getColorForStatus, dateToFormat } from '@shared/utils';
-import { appointment, editAppointment } from "@redux/slices";
+import { appointment, editAppointment, invoice, app } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
+import { axios } from '@shared/services/axiosClient';
 
 const NoNeedEdit = [
   APPOINTMENT_STATUS.PAID,
@@ -46,6 +47,27 @@ export const useProps = ({
     headTintColor: colors.black,
   });
   const [canEdit, setCanEdit] = React.useState(false);
+
+  const getInvoiceDetail = async (checkoutId) => {
+    dispatch(app.showLoading());
+    const params = {
+        url: `checkout/${checkoutId}`,
+        method: 'GET',
+    }
+
+    try {
+        const response = await axios(params);
+        if (response?.data?.codeNumber == 200) {
+            dispatch(invoice.setInvoiceDetail(response?.data?.data));
+            NavigationService.navigate(screenNames.InvoiceDetailScreen,{ isAppointmentDetail : true, appointmentItem  });
+        }
+
+    } catch (err) {
+
+    } finally {
+        dispatch(app.hideLoading());
+    }
+}
 
 
   const [{ }, fetchAppointmentByDate] = useAxiosQuery({
@@ -148,6 +170,8 @@ export const useProps = ({
     canEdit,
     invoiceViewAppointmentDetail,
     item,
+    getInvoiceDetail,
+
     getActionSheets: () => [
       {
         id: 'edit-appointment',

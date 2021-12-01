@@ -380,7 +380,7 @@ export const PopupInvoice = React.forwardRef(
             }
           } else {
             if (paymentMachineType == "Clover") {
-              if (doPrintClover && typeof doPrintClover === "function") {
+              if (Platform.OS === "ios") {
                 doPrintClover(imageUri);
               }
             }
