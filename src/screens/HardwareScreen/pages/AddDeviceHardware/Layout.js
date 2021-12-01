@@ -46,7 +46,8 @@ export const Layout = ({
                     <Text style={{
                         fontSize: scaleFont(14),
                         color: '#0764B0',
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
+                        height: scaleHeight(20),
                     }} >
                         +
                     </Text>
