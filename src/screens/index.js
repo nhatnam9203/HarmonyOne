@@ -21,6 +21,7 @@ import { CategoryNewScreen } from "./CategoryNewScreen";
 import { EditProfileScreen } from "./EditProfileScreen";
 import { SettingScreen } from "./SettingScreen";
 import { NotificationScreen } from "./NotificationScreen";
+import { NotificationRoleStaffScreen } from "./NotificationRoleStaffScreen";
 import { ReviewScreen } from "./ReviewScreen";
 import { MarketingScreen } from "./MarketingScreen";
 import { MarketingNewScreen } from "./MarketingNewScreen";

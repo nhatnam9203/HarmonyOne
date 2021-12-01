@@ -49,7 +49,7 @@ export const Layout = ({
           />
           <View style={{ height : scaleHeight(80) }} />
         </ScrollView>
-
+ 
         <View style={styles.bottom}>
           <Button
             onPress={selectPayment}
