@@ -36,10 +36,15 @@ export const useProps = (props) => {
     timeStart = "", timeEnd = "", quickFilter = "custom", page = 1,
   ) => {
     dispatch(app.showLoading());
-    const params = {
+    const params = (roleName == "admin" || roleName == "manager") ? {
       url: `staff/salary?timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=${quickFilter}&page=${page}`,
       method: 'GET',
     }
+      :
+      {
+        url: `staff/salary/${staff?.staffId}?timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=${quickFilter}&page=${page}`,
+        method: 'GET',
+      }
 
     try {
       const response = await axios(params);
@@ -74,7 +79,7 @@ export const useProps = (props) => {
     try {
       const response = await axios(params);
       if (response?.data?.codeNumber == 200) {
-        await handleFileDownloaed(response?.data?.data?.path, exportType,"report_staff_salary");
+        await handleFileDownloaed(response?.data?.data?.path, exportType, "report_staff_salary");
       } else {
         Alert.alert(response?.data?.message)
       }
@@ -111,7 +116,7 @@ export const useProps = (props) => {
     staffSalary_pages,
     roleName,
     staff,
-    exportFile : ()=>exportFile("csv"),
+    exportFile: () => exportFile("csv"),
 
 
     onSubmitSearch: () => {

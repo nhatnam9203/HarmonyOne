@@ -173,5 +173,6 @@ module.exports = {
   SetupHardware,
   TermOfService,
   Privacy,
-  FaqPage
+  FaqPage,
+  NotificationRoleStaffScreen
 };

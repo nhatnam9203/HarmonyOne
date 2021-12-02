@@ -45,13 +45,12 @@ export const AppLoading = ({
     <View style={styles.container}>
       <View style={styles.loadingBg}>
         {
-          Platform.OS == "ios" ?
             <Spinner
               style={styles.spinner}
-              type={Platform.OS === 'ios' ? 'ChasingDots' : 'FadingCircleAlt'}
+              type={Platform.OS === 'ios' ? 'ChasingDots' : 'ChasingDots'}
               size={scaleWidth(40)}
               color="#fff"
-            /> : <ActivityIndicator color="#fff" size="large" />
+            />
         }
        </View>
     </View>

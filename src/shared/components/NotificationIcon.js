@@ -10,18 +10,28 @@ export const NotificationIcon = ({
 
 }) => {
 
-    const { notification: { countUnread = 0 } } = useSelector(state => state);
-    let count = parseInt(countUnread) > 99 ? "+99" : countUnread;
+    const {
+        notification: { countUnread = 0, countUnread_roleStaff = 0 },
+        auth: { staff }
+    } = useSelector(state => state);
+
+    const roleName = staff?.roleName?.toString()?.toLowerCase();
+    let count = (roleName == "admin" || roleName == "manager") ? countUnread : countUnread_roleStaff;
+    count = parseInt(count) > 99 ? "+99" : count;
 
     const goToNotificationPage = () => {
-        NavigationService.navigate(screenNames.NotificationScreen);
+        if(roleName == "admin" || roleName == "manager"){
+            NavigationService.navigate(screenNames.NotificationScreen);
+        }else{
+            NavigationService.navigate(screenNames.NotificationRoleStaffScreen);
+        }
     }
 
     return (
         <Pressable onPress={goToNotificationPage} style={styles.button}>
             <View style={{ position: "relative" }}>
                 {
-                    parseInt(countUnread) > 0 &&
+                    parseInt(count) > 0 &&
                     <View style={styles.wrapCount}>
                         <Text style={styles.countUnread}>{count}</Text>
                     </View>

@@ -380,8 +380,8 @@ const InputService = ({
                             style={{ width: 24, height: 24, }}
                         /> :
                         <Image
-                            source={section?.selected ? images.checkBox : images.checkBoxEmpty}
-                            style={{ width: scaleWidth(27), height: scaleWidth(27), resizeMode: 'contain', marginRight: scaleWidth(16) }}
+                            source={service?.selected ? images.checkBox : images.checkBoxEmpty}
+                            style={{ width: scaleWidth(27), height: scaleWidth(27), resizeMode: 'contain', marginRight: scaleWidth(8) }}
                             resizeMode='contain'
                         />
 

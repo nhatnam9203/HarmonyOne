@@ -39,8 +39,6 @@ export const useProps = ({
     invoice: { invoiceViewAppointmentDetail }
   } = useSelector(state => state);
 
-  console.log({ appointmentDetail })
-
   const item = appointmentDetail;
 
   const [appointmentItem, setAppointmentItem] = React.useState(null);

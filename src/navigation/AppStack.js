@@ -20,6 +20,7 @@ import {
   PrinterList,
   SetupHardware,
   NotificationScreen,
+  NotificationRoleStaffScreen,
   ReviewScreen,
   MarketingScreen,
   MarketingNewScreen,
@@ -122,6 +123,7 @@ const AppStack = () => {
         <Screen {...PrinterList} />
         <Screen {...SetupHardware} />
         <Screen {...NotificationScreen} />
+        <Screen {...NotificationRoleStaffScreen} />
         <Screen {...ReviewScreen} />
         <Screen {...MarketingScreen} />
         <Screen {...MarketingNewScreen} />

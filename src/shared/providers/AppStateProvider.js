@@ -5,7 +5,7 @@ import { AppLoading } from '@shared/components/AppLoading';
 import { getDeviceId, getDeviceName } from '@shared/services/Device';
 import { guid } from "@shared/utils";
 import { images, colors, fonts } from "@shared/themes";
-import { getStaffByDate, getAppointmentByDate, useAxiosQuery, getCountUnReadOfNotification } from "@src/apis";
+import { getStaffByDate, getAppointmentByDate, useAxiosQuery, getCountUnReadOfNotification, getNotifyRoleStaff } from "@src/apis";
 import { StyleSheet, Image, Platform } from "react-native";
 import VersionCheck from 'react-native-version-check';
 import Configs from '@src/config';
@@ -25,6 +25,7 @@ export const AppStateProvider = ({ children }) => {
 
   const [connectionSignalR, setConnectSignalR] = React.useState(false);
 
+
   const {
     app: {
       isHome = false,
@@ -41,6 +42,8 @@ export const AppStateProvider = ({ children }) => {
   } = useSelector(state => state);
 
   const alertRef = React.useRef();
+
+  const roleName = staff?.roleName?.toString()?.toLowerCase()
 
 
   const [, fetchStaffByDate] = useAxiosQuery({
@@ -73,6 +76,18 @@ export const AppStateProvider = ({ children }) => {
     isStopLoading: true,
     onSuccess: (data, response) => {
       dispatch(notification.setCountUnread(data));
+    },
+  });
+
+  const [, fetchCountUnreadRoleStaff] = useAxiosQuery({
+    ...getNotifyRoleStaff(staff?.staffId, 1),
+    queryId: "fetchCountUnreadRoleStaff_AppStateProvider",
+    isLoadingDefault: false,
+    enabled: false,
+    onSuccess: (data, response) => {
+      dispatch(notification.setCountUnread_roleStaff({
+        ...response,
+      }));
     },
   });
 
@@ -124,7 +139,11 @@ export const AppStateProvider = ({ children }) => {
               case "appointment_update":
               case "appointment_add":
                 fetchAppointmentByDate();
-                fetchCountUnread();
+                if (roleName == "admin" || roleName == "manager") {
+                  fetchCountUnread();
+                } else {
+                  fetchCountUnreadRoleStaff();
+                }
                 break;
               case "appointment_checkout":
                 fetchAppointmentByDate();

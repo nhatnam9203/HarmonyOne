@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: scaleHeight(100),
     backgroundColor: colors.white,
-    shadowColor: Platform.OS == "ios" ? '#0000000D' : "#000000",
+    shadowColor: Platform.OS == "ios" ? '#0000000D' : "#000",
     shadowOffset: {
       width: 0,
       height: 3,

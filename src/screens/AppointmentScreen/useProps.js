@@ -12,6 +12,7 @@ import {
   getCountUnReadOfNotification,
   getStaffByMerchant,
   getStateCity,
+  getNotifyRoleStaff
 } from '@src/apis';
 
 import { useNavigation } from '@react-navigation/core';
@@ -115,6 +116,19 @@ export const useProps = (_params) => {
     },
   });
 
+    /************************************** fetchCountUnreadRoleStaff ***************************************/
+  const [, fetchCountUnreadRoleStaff] = useAxiosQuery({
+    ...getNotifyRoleStaff(staffInfo?.staffId, 1),
+    queryId: "fetchCountUnreadRoleStaff_AppointmentScreen",
+    isLoadingDefault: false,
+    enabled: false,
+    onSuccess: (data, response) => {
+      dispatch(notification.setCountUnread_roleStaff({
+        ...response,
+      }));
+    },
+  });
+
   /************************************** GET MERCHANT INFO ***************************************/
   const [, fetchMerchantById] = useAxiosQuery({
     ...getMerchantById(staffInfo?.merchantId),
@@ -148,12 +162,17 @@ export const useProps = (_params) => {
 
 
   React.useEffect(() => {
+    const roleName = staffInfo?.roleName?.toString()?.toLowerCase();
     getCategoryList();
     getServiceList();
     getProductList();
     getExtraList();
     fetchMerchantById();
-    fetchCountUnread();
+    if (roleName == "admin" || roleName == "manager") {
+      fetchCountUnread();
+    } else {
+      fetchCountUnreadRoleStaff();
+    }
     fetchStaffList();
     fetchStateCity();
   }, []);
