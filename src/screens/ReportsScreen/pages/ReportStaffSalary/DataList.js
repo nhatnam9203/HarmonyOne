@@ -19,7 +19,7 @@ export const DataList = ({
 }) => {
 
     const getData = () => {
-        if (roleName == "managrer" || roleName == "admin") {
+        if (roleName == "manager" || roleName == "admin") {
             return data;
         } else {
             return data.filter(obj => obj?.staffId == staff?.staffId);

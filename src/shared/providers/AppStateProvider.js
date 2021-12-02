@@ -127,7 +127,7 @@ export const AppStateProvider = ({ children }) => {
   const connectSignalR = (statusBooking) => {
     if (staff) {
       try {
-        const deviceId = `${DeviceInfo.getUniqueId()}`;
+        const deviceId = `${DeviceInfo.getUniqueId()}_${guid()}`;
         const connection = new signalR.HubConnectionBuilder()
           .withUrl(
             `${Configs.SOCKET_URL}notification/?merchantId=${staff?.merchantId}&Title=Merchant&kind=calendar&deviceId=${deviceId}`,
@@ -142,12 +142,14 @@ export const AppStateProvider = ({ children }) => {
           .build();
 
         connection.on("ListWaNotification", (data) => {
+          console.log({ data })
           const dataParse = JSON.parse(data);
           const typeData = dataParse?.data?.Type;
           if (typeData) {
             switch (typeData) {
               case "appointment_update":
               case "appointment_add":
+                console.log('add appointment')
                 fetchAppointmentByDate();
                 if (roleName == "admin" || roleName == "manager") {
                   fetchCountUnread();
