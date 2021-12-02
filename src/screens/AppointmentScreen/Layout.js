@@ -26,7 +26,7 @@ export const Layout = ({
 
   addAppointment,
   isLoading,
-  staffInfo
+  staffInfo,
 
 }) => {
 

@@ -12,7 +12,7 @@ import { isEmpty } from "lodash";
 import { TouchableRipple } from "react-native-paper"
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-export const AppointmentItem = ({ item, onChangeAppointmentId }) => {
+export const AppointmentItem = ({ item, onChangeAppointmentId, roleName }) => {
 
     const navigation = useNavigation();
 
@@ -74,7 +74,7 @@ export const AppointmentItem = ({ item, onChangeAppointmentId }) => {
                         {`${item?.firstName} ${item?.lastName}`}
                     </Text>
                     {
-                        !isEmpty(item?.phoneNumber) &&
+                        !isEmpty(item?.phoneNumber) && (roleName == "admin" || roleName == "manager") &&
                         <>
                             <View style={styles.marginVertical} />
                             <Text style={[styles.textPhone, { color: getColors().textColor }]}>

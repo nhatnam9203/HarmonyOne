@@ -14,8 +14,11 @@ export const useProps = (props) => {
 
   const {
     appointment: { appointmentDetail, groupAppointments = [] },
-    bookAppointment: { isQuickCheckout }
+    bookAppointment: { isQuickCheckout },
+    auth : { staff }
   } = useSelector(state => state);
+
+  const roleName = staff?.roleName?.toString()?.toLowerCase();
 
   const route = useRoute();
   const isFocused = useIsFocused();
@@ -43,6 +46,7 @@ export const useProps = (props) => {
   return {
     appointmentDetail,
     groupAppointments,
+    roleName,
     selectPayment: async () => {
       if (Array.isArray(groupAppointments?.appointments) && groupAppointments?.appointments?.length > 1) {
         dispatch(

@@ -41,7 +41,10 @@ const AppointmentList = React.forwardRef(({
     } = useSelector(state => state.appointment);
     const {
         staff
-    } = useSelector(state => state.auth)
+    } = useSelector(state => state.auth);
+
+    const roleName = staff?.roleName?.toString()?.toLowerCase();
+
 
     const [t] = useTranslation();
 
@@ -201,7 +204,7 @@ const AppointmentList = React.forwardRef(({
         <FlatList
             style={styles.flatList}
             data={blockTimesVisibile}
-            renderItem={({ item }) => <AppointmentItem item={item} onChangeAppointmentId={onChangeAppointmentId} />}
+            renderItem={({ item }) => <AppointmentItem roleName={roleName} item={item} onChangeAppointmentId={onChangeAppointmentId} />}
             refreshing={isRefresh}
             onRefresh={onRefresh}
             keyExtractor={(item) => item?.appointmentId?.toString() + guid() + 'appointment'}

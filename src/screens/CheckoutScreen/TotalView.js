@@ -15,7 +15,8 @@ import { isEmpty } from "lodash";
 
 
 export const TotalView = ({
-    groupAppointments
+    groupAppointments,
+    roleName
 }) => {
 
     const appointmentDetail = !isEmpty(groupAppointments) ? groupAppointments?.appointments[0] : {};
@@ -38,7 +39,9 @@ export const TotalView = ({
     }
 
     const addDiscount = () => {
-        fetchPromotionAppointment();
+        if(roleName == "admin" || roleName == "manager"){
+            fetchPromotionAppointment();
+        }
     }
 
     const discount = appointmentDetail?.discount ?? "0.00";
@@ -57,6 +60,7 @@ export const TotalView = ({
                     parseFloat(discount) > 0 ?
                         <TouchableOpacity
                             onPress={addDiscount}
+                            activeOpacity={1}
                             style={{ flexDirection: "row", alignItems: "center" }}
                         >
                             <Text style={[styles.text, { marginRight: 5 }]}>

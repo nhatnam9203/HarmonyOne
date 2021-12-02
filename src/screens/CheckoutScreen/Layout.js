@@ -12,7 +12,8 @@ export const Layout = ({
   appointmentDetail,
   groupAppointments,
   selectPayment,
-  onPressBack
+  onPressBack,
+  roleName
 }) => {
 
   const [t] = useTranslation();
@@ -46,6 +47,7 @@ export const Layout = ({
           />
           <TotalView
             groupAppointments={groupAppointments}
+            roleName={roleName}
           />
           <View style={{ height : scaleHeight(80) }} />
         </ScrollView>
