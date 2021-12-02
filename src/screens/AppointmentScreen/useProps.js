@@ -12,7 +12,8 @@ import {
   getCountUnReadOfNotification,
   getStaffByMerchant,
   getStateCity,
-  getNotifyRoleStaff
+  getNotifyRoleStaff,
+  reportGetStaffSalaryByStaff
 } from '@src/apis';
 
 import { useNavigation } from '@react-navigation/core';
@@ -116,7 +117,18 @@ export const useProps = (_params) => {
     },
   });
 
-    /************************************** fetchCountUnreadRoleStaff ***************************************/
+  /************************************** reportGetStaffSalaryByStaff ***************************************/
+  const [, fetchReportGetStaffSalaryByStaff] = useAxiosQuery({
+    ...reportGetStaffSalaryByStaff(staffInfo?.staffId, moment(appointmentDate).format("MM/DD/YYYY"), moment(appointmentDate).format("MM/DD/YYYY"), 1),
+    queryId: "freportGetStaffSalaryByStaff_AppointmentScreen",
+    isLoadingDefault: false,
+    enabled: true,
+    onSuccess: (data, response) => {
+      dispatch(staff.setSalaryStaffLogin(data));
+    },
+  });
+
+  /************************************** fetchCountUnreadRoleStaff ***************************************/
   const [, fetchCountUnreadRoleStaff] = useAxiosQuery({
     ...getNotifyRoleStaff(staffInfo?.staffId, 1),
     queryId: "fetchCountUnreadRoleStaff_AppointmentScreen",

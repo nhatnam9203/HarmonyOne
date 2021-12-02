@@ -6,6 +6,7 @@ const reducerName = 'hpo.staff';
 const initialState = {
     staffsByDate: [],
     staffListByMerchant : [],
+    salaryStaffLogin : {},
 };
 
 const staffSlice = createSlice({
@@ -17,6 +18,9 @@ const staffSlice = createSlice({
         },
         setStaffListByMerchant : (state,action) =>{
             state.staffListByMerchant = action.payload;
+        },
+        setSalaryStaffLogin : (state, action) =>{
+            state.salaryStaffLogin = action.payload;
         }
     },
 });

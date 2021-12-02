@@ -13,17 +13,7 @@ const StaffInfoLgin = ({
     staffInfo
 }) => {
     const blockTimes = useSelector(state => state.appointment.blockTimes) || [];
-
-    const getIncomeStaff = () => {
-        let total = 0;
-
-        for (let i = 0; i < blockTimes.length; i++) {
-            if (blockTimes[i]?.staffId == staffInfo?.staffId && blockTimes[i]?.status == "paid") {
-                total += formatNumberFromCurrency(blockTimes[i].total);
-            }
-        }
-        return formatMoney(total);
-    }
+    const salaryStaffLogin = useSelector(state=>state.staff.salaryStaffLogin);
 
     return (
         <View style={styles.container}>
@@ -40,7 +30,7 @@ const StaffInfoLgin = ({
 
             <View style={{ paddingTop: scaleWidth(4), alignItems: "flex-end" }}>
                 {/* <Text style={styles.income}>Income</Text> */}
-                <Text style={styles.amountIncome}>$ {getIncomeStaff()}</Text>
+                <Text style={styles.amountIncome}>$ {salaryStaffLogin?.salary || "0.00"}</Text>
             </View>
         </View>
     );

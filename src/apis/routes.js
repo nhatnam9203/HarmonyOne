@@ -538,7 +538,7 @@ export const sendStartPromotionById = (promotionId) => ({
   params: {
     url: `MerchantPromotion/sendPromotion/${promotionId}`,
     method: 'POST',
-    data : {},
+    data: {},
   }
 });
 
@@ -565,7 +565,7 @@ export const deletePromotion = (promotionId) => ({
   params: {
     url: `MerchantPromotion/${promotionId}?api-version=1.2`,
     method: 'DELETE',
-    data : {}
+    data: {}
   }
 });
 
@@ -611,7 +611,7 @@ export const addPromotionNote = (appointmentId, data) => ({
  */
 
 
- export const forgotPasswpordMerchant = (merchantId) => ({
+export const forgotPasswpordMerchant = (merchantId) => ({
   queryId: 'forgotPasswpordMerchant',
   params: {
     url: `/Merchant/forgotpassword?email=${merchantId}`,
@@ -790,10 +790,10 @@ export const cancelHarmonyPayment = (payAppointmentId, data) => ({
 });
 
 
-export const submitPaymentWithCreditCard = (merchantId, 
+export const submitPaymentWithCreditCard = (merchantId,
   responseData, checkoutPaymentId, moneyUserGiveForStaff,
   paymentTerminal, paymentData) => ({
-    
+
     queryId: 'submitPaymentWithCreditCard',
     params: {
       url: `paymentTransaction`,
@@ -808,7 +808,7 @@ export const submitPaymentWithCreditCard = (merchantId,
         paymentData
       }
     }
-})
+  })
 
 /**
  * MERCHANT SETTING
@@ -959,7 +959,16 @@ export const getStateCity = () => ({
   queryId: 'getStateCity',
   params: {
     url: `state`,
-    method: 'GET',   
+    method: 'GET',
   }
 });
+
+export const reportGetStaffSalaryByStaff = (staffId, timeStart, timeEnd, page = 1) => ({
+  queryId: 'reportGetStaffSalaryByStaff',
+  params: {
+    url: `staff/salary/${staffId}?timeStart=${timeStart}&timeEnd=${timeEnd}&quickFilter=&page=${page}`,
+    method: 'GET',
+  }
+});
+
 

@@ -5,7 +5,7 @@ import { AppLoading } from '@shared/components/AppLoading';
 import { getDeviceId, getDeviceName } from '@shared/services/Device';
 import { guid } from "@shared/utils";
 import { images, colors, fonts } from "@shared/themes";
-import { getStaffByDate, getAppointmentByDate, useAxiosQuery, getCountUnReadOfNotification, getNotifyRoleStaff } from "@src/apis";
+import { getStaffByDate, getAppointmentByDate, useAxiosQuery, getCountUnReadOfNotification, getNotifyRoleStaff, reportGetStaffSalaryByStaff } from "@src/apis";
 import { StyleSheet, Image, Platform } from "react-native";
 import VersionCheck from 'react-native-version-check';
 import Configs from '@src/config';
@@ -43,7 +43,17 @@ export const AppStateProvider = ({ children }) => {
 
   const alertRef = React.useRef();
 
-  const roleName = staff?.roleName?.toString()?.toLowerCase()
+  const roleName = staff?.roleName?.toString()?.toLowerCase();
+
+  const [, fetchReportGetStaffSalaryByStaff] = useAxiosQuery({
+    ...reportGetStaffSalaryByStaff(staff?.staffId, moment(appointmentDate).format("MM/DD/YYYY"), moment(appointmentDate).format("MM/DD/YYYY"), 1),
+    queryId: "freportGetStaffSalaryByStaff_AppStateProvider",
+    isLoadingDefault: false,
+    enabled: false,
+    onSuccess: (data, response) => {
+      dispatch(staffAction.setSalaryStaffLogin(data));
+    },
+  });
 
 
   const [, fetchStaffByDate] = useAxiosQuery({
@@ -159,6 +169,11 @@ export const AppStateProvider = ({ children }) => {
             switch (dataParse?.type) {
               case "staff_update":
                 fetchStaffByDate();
+                if (roleName == "admin" || roleName == "manager") {
+               
+                } else {
+                  fetchReportGetStaffSalaryByStaff();
+                }
                 break;
 
               default:
