@@ -548,9 +548,9 @@ export const useProps = (props) => {
       setConnectionSignalR(null);
     }, 300);
 
-    dialogSuccessRef?.current?.hide()
+    dialogSuccessRef?.current?.hide();
 
-    if (methodPay.method === "cash" || methodPay.method === "other") {
+    if (methodPay?.method === "cash" || methodPay?.method === "other") {
       const { portName } = getInfoFromModelNameOfPrinter(
         printerList,
         printerSelect
