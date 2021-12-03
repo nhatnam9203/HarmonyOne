@@ -118,14 +118,17 @@ export const useProps = (props) => {
     const amountPaymentCreditCard = isPaymentWithoutPaymentTerminal ? 
                                     settlementWaiting.paymentByCreditCard
                                     : 0.0
+    const totalSettle = isPaymentWithoutPaymentTerminal ? 
+                        settlementWaiting.total - settlementWaiting.paymentByCreditCard
+                        : settlementWaiting.total
     setTimeout(() => {
       const body = {
         terminalId: terminalId,
         paymentByHarmony: settlementWaiting.paymentByHarmony,
-        paymentByCreditCard: settlementWaiting.paymentByCreditCard,
+        paymentByCreditCard: amountPaymentCreditCard,
         paymentByCash: settlementWaiting.paymentByCash,
         otherPayment: settlementWaiting.otherPayment,
-        total: settlementWaiting.total,
+        total: totalSettle,
         note: settlementWaiting.note,
         checkout: settlementWaiting.checkout,
         discount: settlementWaiting.discount,

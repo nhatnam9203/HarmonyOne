@@ -20,6 +20,7 @@ const customerSlice = createSlice({
             state.customerDetail = action.payload;
         },
         setCustomerList : (state,action) =>{
+            console.log({ action });
             if (action?.payload?.currentPage == 1) {
                 state.customerList = action?.payload?.data;
             } else {

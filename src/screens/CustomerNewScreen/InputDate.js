@@ -24,7 +24,7 @@ export const InputDate = React.forwardRef(({
     return (
         <View style={[styles.containerInput]}>
             <TouchableOpacity onPress={()=>setOpen(true)} style={[styles.wrapInput, style]}>
-                <Text style={styles.txtDate}>{moment(date).format("YYYY-MM-DD")}</Text>
+                <Text style={styles.txtDate}>{moment(date).format("MM/DD/YYYY")}</Text>
                 <Image
                     source={images.iconCalendar}
                     style={styles.icon}

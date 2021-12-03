@@ -3,7 +3,7 @@ import { Alert, Image, StyleSheet, Text, TouchableOpacity, View, Pressable } fro
 import { colors, fonts, images, layouts } from '@shared/themes';
 import { formatPhoneNumber } from '@shared/utils';
 import { getCustomerInfoById, useAxiosQuery } from "@src/apis";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector} from "react-redux";
 import { customer as customerAction } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 
@@ -17,6 +17,10 @@ export const CustomerInfoView = ({
 }) => {
   const dispatch = useDispatch();
 
+  const staff = useSelector(state => state.auth.staff);
+
+  const roleName = staff?.roleName?.toString()?.toLowerCase();
+ 
   const [, getCustomerById] = useAxiosQuery({
     ...getCustomerInfoById(customerId),
     isLoadingDefault: true,
@@ -36,7 +40,9 @@ export const CustomerInfoView = ({
       onPress();
       return;
     }
-    customerId !== 0 && getCustomerById();
+    if(customerId !== 0 && roleName !== "staff"){
+      getCustomerById();
+    }
   }
 
   return (
@@ -49,7 +55,7 @@ export const CustomerInfoView = ({
         <Text style={styles.textName}>{`${firstName} ${lastName}`}</Text>
         <Text style={styles.textPhone}>{`${phoneNumber}`}</Text>
       </View>
-      {isButtonRight && customerId !== 0 && <Image source={images.iconArrow} style={styles.arrow} />}
+      {isButtonRight && customerId !== 0 && roleName !== "staff" && <Image source={images.iconArrow} style={styles.arrow} />}
     </Pressable>
   );
 };

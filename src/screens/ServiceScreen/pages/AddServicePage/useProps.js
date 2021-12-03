@@ -133,7 +133,7 @@ export const useProps = (props) => {
         const dataList = servicesList.filter((sv) => (sv.categoryId == cate.categoryId));
         return {
           category: cate,
-          data: servicesList.filter((sv) => (sv.categoryId == cate.categoryId)),
+          data: servicesList.filter((sv) => ( sv.isDisabled == 0 && sv.categoryId == cate.categoryId)),
         }
       });
     },

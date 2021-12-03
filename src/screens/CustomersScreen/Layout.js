@@ -26,11 +26,25 @@ export const Layout = ({
     onRefreshCustomer,
     addCustomer,
     refreshFromScreen,
-    closeBookAppointment
+    closeBookAppointment,
+    roleName
 }) => {
 
 
     const [t] = useTranslation();
+
+    const filterConditionData = () => {
+        if ((isQuickCheckout || isBookAppointment) && roleName == "staff") {
+            // if (valueSearch.length < 4) {
+            //     return [];
+            // } else {
+            //     return customerList;
+            // }
+            return customerList
+        } else {
+            return customerList;
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -81,7 +95,7 @@ export const Layout = ({
                         initialNumToRender={20}
                         maxToRenderPerBatch={5}
                         ItemSeparatorComponent={() => <View style={styles.seperateLine} />}
-                        ListEmptyComponent={() => <ListEmptyComponent image={images.iconNotFound} description={t('Not found customer')} />}
+                        ListEmptyComponent={() => roleName == "staff" ? null : <ListEmptyComponent image={images.iconNotFound} description={t('Not found customer')} />}
                         ListFooterComponent={() =>
                             <View style={styles.itemLoadMore}>
                                 {

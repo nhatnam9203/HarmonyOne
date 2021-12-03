@@ -44,7 +44,7 @@ export const useProps = (props) => {
         isLoadingDefault: true,
         onSuccess: (data, response) => {
             if (response?.codeNumber == 200) {
-                props?.route?.params?.refreshFromScreen();
+                props?.route?.params?.refreshFromScreen(data?.phone);
                 NavigationService.back();
             }
         }

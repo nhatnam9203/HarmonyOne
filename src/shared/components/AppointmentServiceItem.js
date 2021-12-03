@@ -115,9 +115,9 @@ export const AppointmentServiceItem = ({
                         </Text>
 
                         {
-                            service.displayName &&
+                            (service.displayName || service?.staff?.displayName) &&
                             <Text style={[styles.textServiceDuration, { fontFamily: fonts.MEDIUM, marginLeft: scaleWidth(15) }]}>
-                                {service?.displayName}
+                                {service?.displayName || service?.staff?.displayName}
                             </Text>
                         }
                     </View>
