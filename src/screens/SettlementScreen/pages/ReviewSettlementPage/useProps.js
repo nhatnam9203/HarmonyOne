@@ -114,11 +114,11 @@ export const useProps = (props) => {
   }
 
 
-  const proccessingSettlement = (isPaymentWithoutPaymentTerminal = false) => {
-    const amountPaymentCreditCard = isPaymentWithoutPaymentTerminal ? 
-                                    settlementWaiting.paymentByCreditCard
-                                    : 0.0
-    const totalSettle = isPaymentWithoutPaymentTerminal ? 
+  const proccessingSettlement = (isSettlementWithoutPaymentTerminal = false) => {
+    const amountPaymentCreditCard = isSettlementWithoutPaymentTerminal ? 
+                                    0.0
+                                    : settlementWaiting.paymentByCreditCard
+    const totalSettle = isSettlementWithoutPaymentTerminal ? 
                         settlementWaiting.total - settlementWaiting.paymentByCreditCard
                         : settlementWaiting.total
     setTimeout(() => {
