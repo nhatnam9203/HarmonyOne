@@ -264,8 +264,9 @@ const styles = StyleSheet.create({
     marginRight: scaleWidth(12),
     borderWidth: 1,
     borderColor: "#dddddd",
-    height: scaleHeight(45),
-    width: scaleWidth(100),
+    paddingVertical : scaleWidth(8),
+    // height: scaleHeight(45),
+    width: scaleWidth(120),
     justifyContent: 'flex-end',
     paddingHorizontal: 8
   }
