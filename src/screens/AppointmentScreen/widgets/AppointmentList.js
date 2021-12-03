@@ -89,8 +89,7 @@ const AppointmentList = React.forwardRef(({
                 tempAppointments = [
                     ...tempAppointments,
                     ...appointmentAnotherStaff
-                ];
-                console.log({ tempAppointments })
+                ].sort((a, b) => b.appointmentId - a.appointmentId);
             }
 
             setBlockTimesVisible(tempAppointments);
