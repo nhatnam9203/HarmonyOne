@@ -75,14 +75,44 @@ const AppointmentList = React.forwardRef(({
     /************************************** GET LIST BLOCK TIMES  ***************************************/
     React.useEffect(() => {
         if (staffSelected) {
-            let temp = blockTimes.filter(
+            let tempAppointments = blockTimes.filter(
                 (blockTime) => blockTime?.staffId == staffSelected,
             );
-            setBlockTimesVisible(temp);
+
+            let appointmentAnotherStaff = blockTimes.filter(
+                (blockTime) => blockTime?.staffId !== staffSelected,
+            );
+
+            appointmentAnotherStaff = findServiceInAnotherAppointment(appointmentAnotherStaff);
+
+            if(appointmentAnotherStaff?.length > 0){
+                tempAppointments = [
+                    ...tempAppointments,
+                    ...appointmentAnotherStaff
+                ];
+                console.log({ tempAppointments })
+            }
+
+            setBlockTimesVisible(tempAppointments);
         } else {
             setBlockTimesVisible(blockTimes);
         }
     }, [staffSelected, appointmentDate, blockTimes]);
+
+
+    const findServiceInAnotherAppointment = (appointments = []) => {
+        let tempArr = [];
+        for (let i = 0; i < appointments.length; i++) {
+            const services = appointments[i]?.services || [];
+            for (const sv of services) {
+                if (sv?.staffId == staffSelected) {
+                    tempArr.push(appointments[i]);
+                    continue;
+                }
+            }
+        }
+        return tempArr;
+    }
 
     /************************************** GET APPOINTMENT DETAIL  ***************************************/
     React.useEffect(() => {
