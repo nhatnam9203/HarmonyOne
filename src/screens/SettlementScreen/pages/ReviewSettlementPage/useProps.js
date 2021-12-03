@@ -125,7 +125,7 @@ export const useProps = (props) => {
       const body = {
         terminalId: terminalId,
         paymentByHarmony: settlementWaiting.paymentByHarmony,
-        paymentByCreditCard: settlementWaiting.paymentByCreditCard,
+        paymentByCreditCard: amountPaymentCreditCard,
         paymentByCash: settlementWaiting.paymentByCash,
         otherPayment: settlementWaiting.otherPayment,
         total: totalSettle,
