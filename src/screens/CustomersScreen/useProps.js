@@ -19,9 +19,11 @@ export const useProps = (props) => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [isRefresh, setRefresh] = React.useState(false);
   const [isLoadingDefault, setLoadingDefault] = React.useState(true);
+  const [isAddCustomer, setIsAddCustomer] = React.useState(false);
 
   const {
-    customer: { customerList = [], pages }
+    customer: { customerList = [], pages },
+    auth: { staff }
   } = useSelector(state => state);
 
   const navigation = useNavigation();
@@ -31,27 +33,62 @@ export const useProps = (props) => {
     isLoadingDefault,
     enabled: true,
     onSuccess: (data, response) => {
-      dispatch(customer.setCustomerList({
-        ...response,
-        currentPage
-      }));
-      setLoadingDefault(false);
+
+      if (isAddCustomer) {
+        dispatch(customer.setCustomerList({
+          ...response,
+          data: [
+            { ...data[0] }
+          ],
+          currentPage
+        }));
+        setLoadingDefault(false);
+        setIsAddCustomer(false);
+      } else {
+        if ((isQuickCheckout || isBookAppointment) && roleName == "staff") {
+          if (valueSearch.length < 4) {
+            dispatch(customer.setCustomerList({
+              ...response,
+              data: [],
+              currentPage
+            }));
+            setLoadingDefault(false);
+          } else {
+            dispatch(customer.setCustomerList({
+              ...response,
+              currentPage
+            }));
+            setLoadingDefault(false);
+          }
+        } else {
+          dispatch(customer.setCustomerList({
+            ...response,
+            currentPage
+          }));
+          setLoadingDefault(false);
+        }
+      }
     },
   });
 
   const refreshFromScreen = () => {
     setLoadingDefault(true);
+    if ((isQuickCheckout || isBookAppointment) && roleName == "staff") {
+      setIsAddCustomer(true);
+    }
     setRefresh(true);
     setCurrentPage(1);
     setValueSearch("");
   }
 
-  React.useEffect( () => {
+  React.useEffect(() => {
     if (isRefresh) {
-       refetch();
+      refetch();
     }
     setRefresh(false);
   }, [isRefresh, currentPage]);
+
+  const roleName = staff?.roleName?.toString()?.toLowerCase();
 
   return {
     valueSearch,
@@ -62,6 +99,7 @@ export const useProps = (props) => {
     isBookAppointment,
     isReviewConfirm,
     isQuickCheckout,
+    roleName,
 
     refreshFromScreen,
 
