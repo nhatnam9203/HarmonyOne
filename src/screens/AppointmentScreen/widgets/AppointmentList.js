@@ -9,13 +9,15 @@ import { guid } from "@shared/utils";
 import { axios } from '@shared/services/axiosClient';
 import { dateToFormat } from '@shared/utils';
 import { useDispatch, useSelector } from 'react-redux';
+import moment  from 'moment';
 
 import {
     useAxiosQuery,
     getAppointmentByDate,
     getAppointmentById,
     getInvoiceDetail,
-    getStaffByDate
+    getStaffByDate,
+    reportGetStaffSalaryByStaff
 } from '@src/apis';
 
 import {
@@ -62,13 +64,28 @@ const AppointmentList = React.forwardRef(({
         setStaffSelected: (staffId) => {
             setStaffSelected(staffId)
         }
-    }))
+    }));
+
+    /************************************** reportGetStaffSalaryByStaff ***************************************/
+    const [, fetchReportGetStaffSalaryByStaff] = useAxiosQuery({
+        ...reportGetStaffSalaryByStaff(staff?.staffId, moment(appointmentDate).format("MM/DD/YYYY"), moment(appointmentDate).format("MM/DD/YYYY"), 1),
+        queryId: "freportGetStaffSalaryByStaff_AppointmentScreen",
+        isLoadingDefault: false,
+        enabled: true,
+        onSuccess: (data, response) => {
+            dispatch(staffAction.setSalaryStaffLogin(data));
+        },
+    });
+
 
 
     /************************************** REFRESH BLOCK TIMES  ***************************************/
     React.useEffect(() => {
         if (isRefresh) {
             fetchAppointmentByDate();
+            if (roleName == "staff") {
+                fetchReportGetStaffSalaryByStaff();
+            }
         }
     }, [isRefresh]);
 
@@ -85,7 +102,7 @@ const AppointmentList = React.forwardRef(({
 
             appointmentAnotherStaff = findServiceInAnotherAppointment(appointmentAnotherStaff);
 
-            if(appointmentAnotherStaff?.length > 0){
+            if (appointmentAnotherStaff?.length > 0) {
                 tempAppointments = [
                     ...tempAppointments,
                     ...appointmentAnotherStaff
@@ -95,7 +112,7 @@ const AppointmentList = React.forwardRef(({
             setBlockTimesVisible(tempAppointments);
         } else {
             setBlockTimesVisible(blockTimes);
-         }
+        }
     }, [staffSelected, appointmentDate, blockTimes]);
 
 
