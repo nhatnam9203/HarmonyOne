@@ -18,6 +18,10 @@ import _ from "lodash";
 import { parseString } from 'react-native-xml2js';
 import configureStore from '@src/redux/store';
 import { useTranslation } from "react-i18next";
+import {
+  useAxiosQuery,
+  getSettlementWating,
+} from "@src/apis";
 const { clover } = NativeModules;
 const { persistor, store } = configureStore();
 
@@ -27,15 +31,6 @@ export const useProps = (props) => {
   //ADD LISTENER FROM CLOVER MODULE
   let eventEmitter = new NativeEventEmitter(clover);
   let subscriptions = [];
-
-  const dialogProgressRef = React.useRef();
-
-  const [progress, setProgress] = React.useState(0);
-  const [terminalId, setTerminalId] = React.useState(null);
-  const [countFetchhing, setCountFetching] = React.useState(0);
-
-  const [refetchSettlementWaiting] = useRefetchSettlementWaiting();
-
   const {
     settlement: {
       settlementWaiting = {},
@@ -46,6 +41,55 @@ export const useProps = (props) => {
       paymentMachineType
     },
   } = useSelector(state => state);
+
+  const dialogProgressRef = React.useRef();
+
+  const [progress, setProgress] = React.useState(0);
+  const [terminalId, setTerminalId] = React.useState(null);
+  const [countFetchhing, setCountFetching] = React.useState(0);
+  const [settlementWaitingWithoutTerminal, setSettlementWaitingWithoutTerminal] = React.useState(null);
+
+  const [refetchSettlementWaiting] = useRefetchSettlementWaiting();
+
+  const [, fetchSettlementWatingWithOutTerminal] = useAxiosQuery({
+    ...getSettlementWating(null, paymentMachineType.toLowerCase()),
+    queryId: "fetchSettlementWating_WithOutTerminal",
+    enabled: false,
+    isLoadingDefault: false,
+    isStopLoading: true,
+    onSuccess: (data, response) => {
+        if (response?.codeNumber == 200) {
+          if (response?.data?.total > 0) {
+            setTimeout(() => {
+              const body = {
+                terminalId: null,
+                paymentByHarmony: response?.data?.paymentByHarmony,
+                paymentByCreditCard: 0.00,
+                paymentByCash: response?.data?.paymentByCash,
+                otherPayment: response?.data?.otherPayment,
+                total: response?.data?.total,
+                note: response?.data?.note,
+                checkout: response?.data?.checkout,
+                discount: response?.data?.discount,
+                paymentByCashStatistic: response?.data?.paymentByCashStatistic,
+                otherPaymentStatistic: response?.data?.otherPaymentStatistic,
+                isConnectPax: false,
+                paymentTerminal: response?.data?.paymentTerminal
+              }
+              submitCloseSettlement(body);
+            });
+          } else {
+            setProgress(100);
+            refetchSettlementWaiting();
+            NavigationService.back();
+          }
+          
+        }
+        
+    }
+});
+
+  
 
   React.useEffect(() => {
     if (Platform.OS === "ios") {
@@ -63,17 +107,24 @@ export const useProps = (props) => {
     clover.changeListenerStatus(true)
     subscriptions = [
       eventEmitter.addListener('closeoutSuccess', data => {
-        dispatch(settlement.setIsProcessCloseBatchClover(false))
-        dialogProgressRef?.current?.hide();
-        proccessingSettlement(false);
+        const { settlement: { isProcessCloseBatchClover } } = store.getState();
+        if(isProcessCloseBatchClover) {
+          dispatch(settlement.setIsProcessCloseBatchClover(false))
+          dialogProgressRef?.current?.hide();
+          proccessingSettlement();
+        }
+        
        }),
       eventEmitter.addListener('closeoutFail', data => {
-        dialogProgressRef?.current?.hide();
-        dispatch(settlement.setIsProcessCloseBatchClover(false))
+        const { settlement: { isProcessCloseBatchClover } } = store.getState();
+        if(isProcessCloseBatchClover) {
+          // dialogProgressRef?.current?.hide();
+          // dispatch(settlement.setIsProcessCloseBatchClover(false))
 
-        setTimeout(() => {
-          confirmCloseoutWithoutPaymentTerminal();
-        }, 200)
+          setTimeout(() => {
+            confirmCloseoutWithoutPaymentTerminal();
+          }, 200)
+        }
       }),
       eventEmitter.addListener('pairingCode', data => {
         const { settlement: { isProcessCloseBatchClover } } = store.getState();
@@ -103,6 +154,9 @@ export const useProps = (props) => {
             alert(t("No connected device"))
           }, 200)
           clover.cancelTransaction();
+          setTimeout(() => {
+            confirmCloseoutWithoutPaymentTerminal();
+          }, 200)
         }
       }),
     ]
@@ -114,21 +168,16 @@ export const useProps = (props) => {
   }
 
 
-  const proccessingSettlement = (isSettlementWithoutPaymentTerminal = false) => {
-    const amountPaymentCreditCard = isSettlementWithoutPaymentTerminal ? 
-                                    0.0
-                                    : settlementWaiting.paymentByCreditCard
-    const totalSettle = isSettlementWithoutPaymentTerminal ? 
-                        settlementWaiting.total - settlementWaiting.paymentByCreditCard
-                        : settlementWaiting.total
+  const proccessingSettlement = () => {
+    
     setTimeout(() => {
       const body = {
         terminalId: terminalId,
         paymentByHarmony: settlementWaiting.paymentByHarmony,
-        paymentByCreditCard: amountPaymentCreditCard,
+        paymentByCreditCard: settlementWaiting.paymentByCreditCard,
         paymentByCash: settlementWaiting.paymentByCash,
         otherPayment: settlementWaiting.otherPayment,
-        total: totalSettle,
+        total: settlementWaiting.total,
         note: settlementWaiting.note,
         checkout: settlementWaiting.checkout,
         discount: settlementWaiting.discount,
@@ -143,6 +192,7 @@ export const useProps = (props) => {
 
   const closeSettlement = async () => {
     dialogProgressRef?.current?.show();
+    setProgress(50);
 
     if (paymentMachineType == PaymentTerminalType.Dejavoo
       && _.get(dejavooMachineInfo, "isSetup")) {
@@ -161,7 +211,7 @@ export const useProps = (props) => {
           }, 200)
 
         } else {
-          proccessingSettlement(false);
+          proccessingSettlement();
         }
       })
 
@@ -196,7 +246,14 @@ export const useProps = (props) => {
           onPress: () => { dialogProgressRef?.current?.hide(); },
           style: 'cancel'
         },
-        { text: 'OK', onPress: () => proccessingSettlement(true) }
+        { text: 'OK', onPress: async () => {
+          if (paymentMachineType != PaymentTerminalType.Pax) {
+            const body = await getSettlementWating(null, paymentMachineType.toLowerCase())
+            fetchSettlementWatingWithOutTerminal(body.params);
+          }else{
+            proccessingSettlement() 
+          }
+        }}
       ],
       { cancelable: false }
     );
