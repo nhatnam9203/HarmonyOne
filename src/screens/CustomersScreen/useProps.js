@@ -19,7 +19,7 @@ export const useProps = (props) => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [isRefresh, setRefresh] = React.useState(false);
   const [isLoadingDefault, setLoadingDefault] = React.useState(true);
-  const [isAddCustomer, setIsAddCustomer] = React.useState(false);
+
 
   const {
     customer: { customerList = [], pages },
@@ -33,49 +33,16 @@ export const useProps = (props) => {
     isLoadingDefault,
     enabled: true,
     onSuccess: (data, response) => {
-
-      if (isAddCustomer) {
-        dispatch(customer.setCustomerList({
-          ...response,
-          data: [
-            { ...data[0] }
-          ],
-          currentPage
-        }));
-        setLoadingDefault(false);
-        setIsAddCustomer(false);
-      } else {
-        if ((isQuickCheckout || isBookAppointment) && roleName == "staff") {
-          if (valueSearch.length < 4) {
-            dispatch(customer.setCustomerList({
-              ...response,
-              data: [],
-              currentPage
-            }));
-            setLoadingDefault(false);
-          } else {
-            dispatch(customer.setCustomerList({
-              ...response,
-              currentPage
-            }));
-            setLoadingDefault(false);
-          }
-        } else {
-          dispatch(customer.setCustomerList({
-            ...response,
-            currentPage
-          }));
-          setLoadingDefault(false);
-        }
-      }
+      dispatch(customer.setCustomerList({
+        ...response,
+        currentPage
+      }));
+      setLoadingDefault(false);
     },
   });
 
   const refreshFromScreen = () => {
     setLoadingDefault(true);
-    if ((isQuickCheckout || isBookAppointment) && roleName == "staff") {
-      setIsAddCustomer(true);
-    }
     setRefresh(true);
     setCurrentPage(1);
     setValueSearch("");
