@@ -17,6 +17,7 @@ export const DropdownMenu = React.forwardRef(
       placeholder = "Select ...",
       editable = true,
       styleDropDown,
+      textStyle,
       ...props
     },
     ref
@@ -150,6 +151,7 @@ export const DropdownMenu = React.forwardRef(
               style={[
                 styles.dropdownTerminalText,
                 item?.label && { color: colors.GREYISH_BROWN },
+                textStyle
               ]}
             >
               {item?.label ?? placeholder}

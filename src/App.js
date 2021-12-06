@@ -45,7 +45,7 @@ const { persistor, store } = configureStore();
 
 export default App = () => {
 
-  const popupPairingRef = React.useRef(null);
+  const popupPairingRef = React.useRef();
 
   //ADD LISTENER FROM CLOVER MODULE
   let eventEmitter = new NativeEventEmitter(clover);

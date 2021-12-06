@@ -22,7 +22,6 @@ export const Layout = ({
   const [t] = useTranslation();
 
   const renderNoConnected = () => {
-    console.log('renderNoConnected')
     return (
         <View style={{ marginBottom: scaleHeight(10) }} >
             <Text style={{

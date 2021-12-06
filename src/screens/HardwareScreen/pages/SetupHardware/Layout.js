@@ -3,13 +3,20 @@ import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, Keyboard } 
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors, images } from "@shared/themes";
-import { Button, SettingTextInput } from "@shared/components";
+import { 
+    Button, 
+    SettingTextInput, 
+    DropdownMenu, 
+    CustomInput 
+} from "@shared/components";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { 
     PaymentTerminalType,
    } from "@shared/utils";
 
 export const Layout = ({
+    terminalListRef,
+    terminalIdList,
     name,
     ip,
     port,
@@ -26,6 +33,7 @@ export const Layout = ({
     changeAuthKey,
     changeIp,
     changePort,
+    setTerminalId,
 }) => {
   const [t] = useTranslation();
   const tempCheckClover = terminalName === PaymentTerminalType.Clover 
@@ -155,7 +163,30 @@ export const Layout = ({
                     </> : null
                 }
 
+                <View style={styles.terminalView}>
+                    <Text style={{
+                        fontSize: scaleFont(13), 
+                        color: 'rgb(42,42,42)',
+                        width: '40%',
+                        }} >
+
+                        {t('Select Terminal ID')}
+                    </Text>
+                    <DropdownMenu
+                        ref={terminalListRef}
+                        items={terminalIdList}
+                        onChangeValue={setTerminalId}
+                        defaultIndex={0}
+                        width={scaleWidth(200)}
+                        height={scaleHeight(50)}
+                        styleDropDown={styles.styleDropDown}
+                        textStyle={styles.dropdownText}
+                    />
+                </View>
+
                 <View style={{ height: scaleHeight(400) }} />
+
+               
             </View>
         </KeyboardAwareScrollView>
          {/* ------- Footer -------- */}
@@ -167,7 +198,7 @@ export const Layout = ({
                     backgroundColor="#F1F1F1"
                     label={t('CANCEL')}
                     textColor="#6A6A6A"
-                    onPress={cancelSetupPax}
+                    onPress={() => cancelSetupPax()}
                     styleText={{ fontSize: scaleFont(16), fontWeight: '500' }}
                 />
                 <View style={{ width: scaleWidth(50) }} />
@@ -177,7 +208,7 @@ export const Layout = ({
                     backgroundColor="#0764B0"
                     label={t('SAVE')}
                     textColor="#fff"
-                    onPress={setupPaymentTerminal}
+                    onPress={() => setupPaymentTerminal()}
                     styleText={{ fontSize: scaleFont(16), fontWeight: '500' }}
                 />
             </View>
@@ -205,4 +236,19 @@ const styles = StyleSheet.create({
     paddingBottom: scaleHeight(30),
     alignItems: 'center'
   },
+  styleDropDown: {
+    height: scaleHeight(50), 
+    width: '100%',
+    borderColor: 'rgb(227,227,227)',
+    borderWidth: scaleWidth(1), 
+    justifyContent: 'center',
+  },
+  terminalView: {
+    flexDirection:'row', 
+    alignItems: 'center',
+    marginTop: scaleHeight(20),
+  },
+  dropdownText:{
+    fontSize: scaleFont(14), 
+  }
 });

@@ -17,6 +17,19 @@ import {
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
+
+  const terminalListRef = React.useRef();
+  const terminalIdList = [
+    { label: 'SUPPORT ONLY' }, { label: 'Terminal 1 (MAIN)' }, { label: 'Terminal 2' }, { label: 'Terminal 3' }, { label: 'Terminal 4' },
+    { label: 'Terminal 5' }, { label: 'Terminal 6' }, { label: 'Terminal 7' }, { label: 'Terminal 8' },
+    { label: 'Terminal 9' }, { label: 'Terminal 10' }, { label: 'Terminal 11' }, { label: 'Terminal 12' }, { label: 'Terminal 13' },
+    { label: 'Terminal 14' }, { label: 'Terminal 15' },
+    { label: 'Terminal 16' }, { label: 'Terminal 17' }, { label: 'Terminal 18' },
+    { label: 'Terminal 19' }, { label: 'Terminal 20' }, { label: 'Terminal 21' }, { label: 'Terminal 22' },
+    { label: 'Terminal 23' }, { label: 'Terminal 24' }, { label: 'Terminal 25' }, { label: 'Terminal 26' }, { label: 'Terminal 27' },
+    { label: 'Terminal 28' }, { label: 'Terminal 29' }, { label: 'Terminal 30' }
+];
+
   const {
     hardware: { dejavooMachineInfo, 
               cloverMachineInfo,
@@ -33,6 +46,7 @@ export const useProps = (props) => {
     const [serialNumber, setSerialNumber] = React.useState("");
     const [registerId, setRegisterId] = React.useState("");
     const [authKey, setAuthKey] = React.useState("");
+    const [terminalId, setTerminalId] = React.useState(null);
 
     React.useEffect(() => {
       let nameTemp = ""
@@ -64,7 +78,7 @@ export const useProps = (props) => {
       setAuthKey(authKeyTemp)
     }, []);
 
-    setupPaymentTerminal = () => {
+    const setupPaymentTerminal = () => {
      
      if (terminalName == PaymentTerminalType.Dejavoo){
           if (stringIsEmptyOrWhiteSpaces(registerId) 
@@ -93,7 +107,7 @@ export const useProps = (props) => {
       
   }
 
-  cancelSetupPax = async () => {
+  const cancelSetupPax = async () => {
       let name = ""
       let ip = ""
       let port = ""
@@ -122,7 +136,7 @@ export const useProps = (props) => {
       NavigationService.back();
   }
 
-  setTerminal = (terminalNameTemp) => () => {
+  const setTerminal = (terminalNameTemp) => () => {
     if(terminalNameTemp != terminalName) {
         let tempName = name 
         let tempIp = ip
@@ -150,6 +164,8 @@ export const useProps = (props) => {
   }
 
   return {
+    terminalListRef,
+    terminalIdList,
     name,
     ip,
     port,
@@ -177,6 +193,9 @@ export const useProps = (props) => {
     },
     changePort: (port) => {
       setPort(port);
+    },
+    setTerminalId: (terminalId) => {
+      setTerminalId(terminalId)
     }
   };
 };
