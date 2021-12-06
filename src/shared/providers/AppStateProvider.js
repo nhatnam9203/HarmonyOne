@@ -142,11 +142,20 @@ export const AppStateProvider = ({ children }) => {
           .build();
 
         connection.on("ListWaNotification", (data) => {
+          console.log({ data })
           const dataParse = JSON.parse(data);
           const typeData = dataParse?.data?.Type;
           if (typeData) {
             switch (typeData) {
               case "appointment_update":
+                fetchAppointmentByDate();
+                if (roleName == "admin" || roleName == "manager") {
+                  fetchCountUnread();
+                } else {
+                  fetchCountUnreadRoleStaff();
+                  fetchReportGetStaffSalaryByStaff();
+                }
+                break;
               case "appointment_add":
                 fetchAppointmentByDate();
                 if (roleName == "admin" || roleName == "manager") {
@@ -156,6 +165,9 @@ export const AppStateProvider = ({ children }) => {
                 }
                 break;
               case "appointment_checkout":
+                if (roleName == "staff") {
+                  fetchReportGetStaffSalaryByStaff();
+                }
                 fetchAppointmentByDate();
 
               case "update_merchant":
@@ -170,7 +182,7 @@ export const AppStateProvider = ({ children }) => {
               case "staff_update":
                 fetchStaffByDate();
                 if (roleName == "admin" || roleName == "manager") {
-               
+
                 } else {
                   fetchReportGetStaffSalaryByStaff();
                 }

@@ -60,6 +60,7 @@ export const Layout = ({
         lastName={customerBooking?.lastName}
         phoneNumber={customerBooking?.phone}
         onPress={changeCustomer}
+        isShowPhone={true}
       />
       <View style={styles.line} />
       {

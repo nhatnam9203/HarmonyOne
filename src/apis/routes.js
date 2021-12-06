@@ -234,6 +234,16 @@ export const getAppointmentByDate = (date) => ({
 /**
  * CUSTOMER
  */
+
+
+export const customerGetByPhone = (phoneNumber) => ({
+  queryId: 'customerGetByPhone',
+  params: {
+    url: ` customer/getbyphone/${phoneNumber}`,
+    method: 'GET',
+  },
+});
+
 export const getListCustomer = (key = '', page = 1) => ({
   queryId: 'getListCustomer',
   params: {

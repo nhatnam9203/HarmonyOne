@@ -58,6 +58,7 @@ export const useProps = (_params) => {
     },
   } = useSelector((state) => state);
 
+  const roleName = staffInfo?.roleName?.toString()?.toLowerCase();
 
   const [, fetchCountUnread] = useAxiosQuery({
     ...getCountUnReadOfNotification(),
@@ -174,7 +175,6 @@ export const useProps = (_params) => {
 
 
   React.useEffect(() => {
-    const roleName = staffInfo?.roleName?.toString()?.toLowerCase();
     getCategoryList();
     getServiceList();
     getProductList();
@@ -212,9 +212,15 @@ export const useProps = (_params) => {
     },
 
     addAppointment: () => {
-      NavigationService.navigate(screenNames.CustomersScreen, {
-        isBookAppointment: true,
-      });
+      if (roleName == "staff") {
+        NavigationService.navigate(screenNames.CustomerNewRoleStaff, {
+          isBookAppointment: true,
+        });
+      } else {
+        NavigationService.navigate(screenNames.CustomersScreen, {
+          isBookAppointment: true,
+        });
+      }
       dispatch(bookAppointment.resetBooking());
     },
   };

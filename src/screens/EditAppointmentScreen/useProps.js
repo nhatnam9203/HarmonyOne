@@ -38,6 +38,8 @@ export const useProps = (_params) => {
   const [giftCardsBookingRemove, setGiftCardsBookingRemove] = React.useState([]);
 
 
+  const roleName = staff?.roleName?.toString()?.toLowerCase();
+
   const [, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
     enabled: false,
@@ -117,6 +119,7 @@ export const useProps = (_params) => {
     appointmentDetail,
     appointmentEdit,
     alertRef,
+    roleName,
 
     getTotalItem: (service, itemType) => {
       let total = 0;

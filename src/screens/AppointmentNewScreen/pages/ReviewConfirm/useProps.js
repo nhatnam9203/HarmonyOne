@@ -31,6 +31,8 @@ export const useProps = (_params) => {
   const [appointmentIdUpdate, setAppointmentId] = React.useState(0);
   const [isDisabledConfirm, setDisabledConfirm] = React.useState(false);
 
+  const roleName = staff?.roleName?.toString()?.toLowerCase();
+
   const [fetchAppointmentById] = useConfirmBooking({
     isQuickCheckout,
     timeBooking,
@@ -113,6 +115,7 @@ export const useProps = (_params) => {
     isQuickCheckout,
     isDisabledConfirm,
 
+
     getTotalItem: (service, itemType) => {
       let total = 0;
       total += parseInt(service[itemType])
@@ -164,10 +167,17 @@ export const useProps = (_params) => {
     },
 
     changeCustomer: () => {
-      NavigationService.navigate(
-        screenNames.CustomersScreen,
-        { isBookAppointment: true, isReviewConfirm: true }
-      );
+      if (roleName == "staff") {
+        NavigationService.navigate(
+          screenNames.CustomerNewRoleStaff,
+          { isBookAppointment: true, isReviewConfirm: true }
+        );
+      } else {
+        NavigationService.navigate(
+          screenNames.CustomersScreen,
+          { isBookAppointment: true, isReviewConfirm: true }
+        );
+      }
     },
 
     deleteService: (service) => {

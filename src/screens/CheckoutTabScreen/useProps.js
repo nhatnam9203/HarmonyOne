@@ -8,30 +8,42 @@ export const useProps = (props) => {
   const dispatch = useDispatch();
 
   const {
-    bookAppointment : { customerBooking }
-  } = useSelector(state => state); 
+    bookAppointment: { customerBooking },
+    auth: { staff }
+  } = useSelector(state => state);
+
+  const roleName = staff?.roleName?.toString()?.toLowerCase();
 
   return {
 
     customerBooking,
 
     addCustomer: () => {
-      NavigationService.navigate(screenNames.CustomersScreen, { isQuickCheckout: true });
+      if (roleName == "staff") {
+        NavigationService.navigate(screenNames.CustomerNewRoleStaff, { isQuickCheckout: true });
+      } else {
+        NavigationService.navigate(screenNames.CustomersScreen, { isQuickCheckout: true });
+      }
+
       dispatch(bookAppointment.resetBooking());
       setTimeout(() => {
         dispatch(bookAppointment.setQuickCheckout(true));
       }, 300);
     },
 
-    changeCustomer : () =>{
-      NavigationService.navigate(screenNames.CustomersScreen, { isQuickCheckout: true });
+    changeCustomer: () => {
+      if (roleName == "staff") {
+        NavigationService.navigate(screenNames.CustomerNewRoleStaff, { isQuickCheckout: true, isChangeCustomer: true, customerId: customerBooking?.customerId });
+      } else {
+        NavigationService.navigate(screenNames.CustomersScreen, { isQuickCheckout: true });
+      }
     },
 
-    deleteCustomer : () =>{
+    deleteCustomer: () => {
       dispatch(bookAppointment.setCustomerBooking({}));
     },
 
-    addService : () =>{
+    addService: () => {
       dispatch(bookAppointment.setQuickCheckout(true));
       NavigationService.navigate(screenNames.AppointmentNewScreen);
     }

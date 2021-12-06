@@ -95,7 +95,7 @@ const AppointmentList = React.forwardRef(({
             setBlockTimesVisible(tempAppointments);
         } else {
             setBlockTimesVisible(blockTimes);
-        }
+         }
     }, [staffSelected, appointmentDate, blockTimes]);
 
 

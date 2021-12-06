@@ -3,7 +3,7 @@ import { Alert, Image, StyleSheet, Text, TouchableOpacity, View, Pressable } fro
 import { colors, fonts, images, layouts } from '@shared/themes';
 import { formatPhoneNumber } from '@shared/utils';
 import { getCustomerInfoById, useAxiosQuery } from "@src/apis";
-import { useDispatch , useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { customer as customerAction } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 
@@ -14,33 +14,34 @@ export const CustomerInfoView = ({
   phoneNumber = "Unknown",
   onPress,
   isButtonRight = true,
+  isShowPhone = true
 }) => {
   const dispatch = useDispatch();
 
   const staff = useSelector(state => state.auth.staff);
 
   const roleName = staff?.roleName?.toString()?.toLowerCase();
- 
+
   const [, getCustomerById] = useAxiosQuery({
     ...getCustomerInfoById(customerId),
     isLoadingDefault: true,
     enabled: false,
     onSuccess: (data, response) => {
-      if(response?.codeNumber == 200){
+      if (response?.codeNumber == 200) {
         dispatch(customerAction.setCustomerDetail(data));
         NavigationService.navigate(screenNames.CustomerDetailScreen);
-      }else{
+      } else {
         alert(response?.message)
       }
     },
   });
 
-  const onPressItem  =() =>{
-    if(onPress){
+  const onPressItem = () => {
+    if (onPress) {
       onPress();
       return;
     }
-    if(customerId !== 0 && roleName !== "staff"){
+    if (customerId !== 0 && roleName !== "staff") {
       getCustomerById();
     }
   }
@@ -53,9 +54,11 @@ export const CustomerInfoView = ({
       <View style={layouts.marginHorizontal} />
       <View style={styles.customerContent}>
         <Text style={styles.textName}>{`${firstName} ${lastName}`}</Text>
-        <Text style={styles.textPhone}>{`${phoneNumber}`}</Text>
+        <Text style={styles.textPhone}>
+          {!isShowPhone ? "" : `${phoneNumber}`}
+        </Text>
       </View>
-      {isButtonRight && customerId !== 0 && roleName !== "staff" && <Image source={images.iconArrow} style={styles.arrow} />}
+      {isButtonRight && customerId !== 0 && isShowPhone && <Image source={images.iconArrow} style={styles.arrow} />}
     </Pressable>
   );
 };
@@ -105,7 +108,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginTop: 5,
     color: colors.bluegrey,
- 
+
   },
 
   arrow: {

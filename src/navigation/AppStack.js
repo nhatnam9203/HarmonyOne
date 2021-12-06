@@ -8,6 +8,7 @@ import {
   AppointmentDetailScreen,
   AppointmentNewScreen,
   CustomerNewScreen,
+  CustomerNewRoleStaff,
   CustomerDetailScreen,
   CustomersScreen,
   ServiceScreen,
@@ -103,6 +104,7 @@ const AppStack = () => {
         <Screen {...AppointmentDetailScreen} />
         <Screen {...AppointmentNewScreen} />
         <Screen {...CustomerNewScreen} />
+        <Screen {...CustomerNewRoleStaff} />
         <Screen {...CustomerDetailScreen} />
         <Screen {...CustomersScreen} />
         <Screen {...ServiceScreen} />

@@ -56,7 +56,8 @@ export const Layout = ({
   updateNextStatus,
   invoiceViewAppointmentDetail,
   getBarStyle,
-  getInvoiceDetail
+  getInvoiceDetail,
+  roleName
 }) => {
   const [t] = useTranslation();
 
@@ -86,6 +87,7 @@ export const Layout = ({
             firstName={appointmentItem?.firstName}
             lastName={appointmentItem?.lastName}
             phoneNumber={appointmentItem?.phoneNumber}
+            isShowPhone={(roleName == "admin" || roleName == "manager")}
           />
           {/* <CustomerAtHomeView /> */}
           <View style={styles.line} />

@@ -34,7 +34,8 @@ export const Layout = ({
   editService,
   alertRef,
   deleteProduct,
-  deleteGiftCard
+  deleteGiftCard,
+  roleName
 }) => {
 
 
@@ -47,6 +48,7 @@ export const Layout = ({
         phoneNumber={appointmentEdit?.phoneNumber}
         onPress={() => { }}
         isButtonRight={false}
+        isShowPhone={(roleName == "admin" || roleName == "manager")}
       />
       <View style={styles.line} />
       {

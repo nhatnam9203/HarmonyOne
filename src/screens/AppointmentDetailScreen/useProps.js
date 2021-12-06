@@ -36,7 +36,8 @@ export const useProps = ({
 
   const {
     appointment: { appointmentDetail, appointmentDate },
-    invoice: { invoiceViewAppointmentDetail }
+    invoice: { invoiceViewAppointmentDetail },
+    auth : { staff }
   } = useSelector(state => state);
 
   const item = appointmentDetail;
@@ -47,6 +48,8 @@ export const useProps = ({
     headTintColor: colors.black,
   });
   const [canEdit, setCanEdit] = React.useState(false);
+
+  const roleName = staff?.roleName?.toString()?.toLowerCase();
 
   const getInvoiceDetail = async (checkoutId) => {
     dispatch(app.showLoading());
@@ -170,6 +173,7 @@ export const useProps = ({
     canEdit,
     invoiceViewAppointmentDetail,
     item,
+    roleName,
     getInvoiceDetail,
 
     getActionSheets: () => [

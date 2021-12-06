@@ -36,7 +36,8 @@ export const Layout = ({
               lastName={appointmentDetail?.lastName}
               phoneNumber={appointmentDetail?.phoneNumber}
               isButtonRight={false}
-              onPress={()=>{}}
+              onPress={() => { }}
+              isShowPhone={(roleName == "admin" || roleName == "manager")}
             />
           </View>
           <ItemList
@@ -49,9 +50,9 @@ export const Layout = ({
             groupAppointments={groupAppointments}
             roleName={roleName}
           />
-          <View style={{ height : scaleHeight(80) }} />
+          <View style={{ height: scaleHeight(80) }} />
         </ScrollView>
- 
+
         <View style={styles.bottom}>
           <Button
             onPress={selectPayment}
