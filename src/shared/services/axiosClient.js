@@ -17,7 +17,7 @@ export const axios = Axios.create({
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'User-Agent': `HarmonyMerchant/${Configs.APP_VERSION}.${Configs.CODE_PUSH_VERSION}/${Platform.OS}`,
+    'User-Agent': `HarmonyOne/${Configs.APP_VERSION}.${Configs.CODE_PUSH_VERSION}/${Platform.OS}`,
     DeviceID: `${encodeURIComponent(DevviceInfo.getDeviceName())}_${DevviceInfo.getUniqueId()}`,
     // DeviceID : `${encodeURIComponent('iPad Pro (11-inch) (3rd generation)')}_E47921F7-3B6B-4138-BE2E-3B4A8E3FA2F2`,
   },
