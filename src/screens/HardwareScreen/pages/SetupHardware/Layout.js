@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, Keyboard } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput, Keyboard, Platform } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors, images } from "@shared/themes";
@@ -17,6 +17,8 @@ export const Layout = ({
     registerId,
     authKey,
     terminalName,
+    commType,
+    bluetoothAddr,
     setupPamentTerminal,
     cancelSetupPax,
     setTerminal,
@@ -28,6 +30,9 @@ export const Layout = ({
     changePort,
 }) => {
   const [t] = useTranslation();
+  const tempCheckPax = terminalName === PaymentTerminalType.Pax 
+                            ? images.radioExportSe 
+                            : images.radioExport;
   const tempCheckClover = terminalName === PaymentTerminalType.Clover 
                             ? images.radioExportSe 
                             : images.radioExport;
@@ -62,15 +67,29 @@ export const Layout = ({
                 {t('Device')}
             </Text>
             <View style={{flexDirection:'row'}}>
-                <TouchableOpacity onPress={setTerminal("Clover")} style={{ flexDirection: "row", marginRight: scaleWidth(40) }} >
-                    <Image
-                        source={tempCheckClover}
-                        style={{ marginRight: scaleWidth(10) }}
-                    />
-                    <Text style={{ fontSize: scaleFont(15), color: 'rgb(42,42,42)', fontWeight: "600" }} >
-                        {t('Clover')}
-                    </Text>
-                </TouchableOpacity>
+                { Platform.OS == "ios" && 
+                    <TouchableOpacity onPress={setTerminal("Pax")} style={{ flexDirection: "row", marginRight: scaleWidth(40) }} >
+                        <Image
+                            source={tempCheckPax}
+                            style={{ marginRight: scaleWidth(10) }}
+                        />
+                        <Text style={{ fontSize: scaleFont(15), color: 'rgb(42,42,42)', fontWeight: "600" }} >
+                            {t('Pax')}
+                        </Text>
+                    </TouchableOpacity>
+                }
+                { Platform.OS == "ios" && 
+                    <TouchableOpacity onPress={setTerminal("Clover")} style={{ flexDirection: "row", marginRight: scaleWidth(40) }} >
+                        <Image
+                            source={tempCheckClover}
+                            style={{ marginRight: scaleWidth(10) }}
+                        />
+                        <Text style={{ fontSize: scaleFont(15), color: 'rgb(42,42,42)', fontWeight: "600" }} >
+                            {t('Clover')}
+                        </Text>
+                    </TouchableOpacity>
+                }
+                
 
                 <TouchableOpacity onPress={setTerminal(PaymentTerminalType.Dejavoo)} style={{ flexDirection: "row" }} >
                     <Image
@@ -134,6 +153,8 @@ export const Layout = ({
                         />
                     </>
                 }
+
+
 
                 {
                     terminalName === PaymentTerminalType.Clover ? <>

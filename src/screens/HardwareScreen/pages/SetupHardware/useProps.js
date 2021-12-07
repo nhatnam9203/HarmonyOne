@@ -20,6 +20,7 @@ export const useProps = (props) => {
   const {
     hardware: { dejavooMachineInfo, 
               cloverMachineInfo,
+              paxMachineInfo,
               paymentMachineType,
               printerList,
               printerSelect,
@@ -33,6 +34,8 @@ export const useProps = (props) => {
     const [serialNumber, setSerialNumber] = React.useState("");
     const [registerId, setRegisterId] = React.useState("");
     const [authKey, setAuthKey] = React.useState("");
+    const [commType, setCommType] = React.useState("");
+    const [bluetoothAddr, setBluetoothAddr] = React.useState("");
 
     React.useEffect(() => {
       let nameTemp = ""
@@ -41,7 +44,17 @@ export const useProps = (props) => {
       let registerIdTemp = ""
       let authKeyTemp = ""
       let serialNumberTemp = ""
-      if(paymentMachineType == PaymentTerminalType.Clover){
+      let commType = ""
+      let bluetoothAddr = ""
+      if(paymentMachineType == PaymentTerminalType.Pax){
+        
+        nameTemp = _.get(paxMachineInfo, 'name')
+        ipTemp = _.get(paxMachineInfo, 'ip')
+        portTemp = _.get(paxMachineInfo, 'port')
+        commType = _.get(paxMachineInfo, 'commType')
+        bluetoothAddr = _.get(paxMachineInfo, 'bluetoothAddr')
+
+     } else if(paymentMachineType == PaymentTerminalType.Clover){
 
         nameTemp = _.get(cloverMachineInfo, 'name')
         ipTemp = _.get(cloverMachineInfo, 'ip')
@@ -62,25 +75,58 @@ export const useProps = (props) => {
       setSerialNumber(serialNumberTemp)
       setRegisterId(registerIdTemp)
       setAuthKey(authKeyTemp)
+      setCommType(commType)
+      setBluetoothAddr(bluetoothAddr)
+
     }, []);
 
-    setupPaymentTerminal = () => {
-     
-     if (terminalName == PaymentTerminalType.Dejavoo){
-          if (stringIsEmptyOrWhiteSpaces(registerId) 
-              ||stringIsEmptyOrWhiteSpaces(authKey) 
-              || stringIsEmptyOrWhiteSpaces(name)) {
+  const setupPaymentTerminal = () => {
+     if (terminalName == PaymentTerminalType.Pax) {
+       //Pax
+       if (commType === "BLUETOOTH") {
+          if (stringIsEmptyOrWhiteSpaces(name) 
+              || stringIsEmptyOrWhiteSpaces(bluetoothAddr)) {
               alert('Please enter full infomation!');
           } else {
-              dispatch(hardware.setupDejavooMachine({
-                  paymentMachineInfo: { registerId, authKey, isSetup: true, name },
-                  paymentMachineType: PaymentTerminalType.Dejavoo,
+            dispatch(hardware.setupPaxMachine({
+              paymentMachineInfo: { ip, port, isSetup: true, name, commType, bluetoothAddr },
+              paymentMachineType: PaymentTerminalType.Pax,
+            }));
+            NavigationService.back();
+          }
+        } else {
+            if (stringIsEmptyOrWhiteSpaces(name) 
+                || stringIsEmptyOrWhiteSpaces(ip) 
+                || stringIsEmptyOrWhiteSpaces(port)) {
+
+                alert('Please enter full infomation!');
+            } else {
+              dispatch(hardware.setupPaxMachine({
+                paymentMachineInfo: { ip, port, isSetup: true, name, commType, bluetoothAddr },
+                paymentMachineType: PaymentTerminalType.Pax,
               }));
               NavigationService.back();
-          };
+            };
+        }
+        
+     } else if (terminalName == PaymentTerminalType.Dejavoo){
+       //Dejavoo
+        if (stringIsEmptyOrWhiteSpaces(registerId) 
+            ||stringIsEmptyOrWhiteSpaces(authKey) 
+            || stringIsEmptyOrWhiteSpaces(name)) {
+            alert('Please enter full infomation!');
+        } else {
+            dispatch(hardware.setupDejavooMachine({
+                paymentMachineInfo: { registerId, authKey, isSetup: true, name },
+                paymentMachineType: PaymentTerminalType.Dejavoo,
+            }));
+            NavigationService.back();
+        };
       } else{
         //Clover
-        if (ip == '' || port == '' || serialNumber == '') {
+        if (stringIsEmptyOrWhiteSpaces(ip) 
+          || stringIsEmptyOrWhiteSpaces(port) 
+          || stringIsEmptyOrWhiteSpaces(serialNumber)) {
             alert('Please enter full infomation!');
         } else {
             dispatch(hardware.setupCloverMachine({
@@ -93,18 +139,26 @@ export const useProps = (props) => {
       
   }
 
-  cancelSetupPax = async () => {
+  const cancelSetupPax = async () => {
       let name = ""
       let ip = ""
       let port = ""
       let registerId = ""
       let authKey = ""
-      if(paymentMachineType == PaymentTerminalType.Clover){
+      let commType = ""
+      let bluetoothAddr = ""
+      if (paymentMachineType == PaymentTerminalType.Pax) {
+          name = _.get(paxMachineInfo, 'name')
+          ip = _.get(paxMachineInfo, 'ip')
+          port = _.get(paxMachineInfo, 'port')
+          commType = _.get(paxMachineInfo, 'commType')
+          bluetoothAddr = _.get(paxMachineInfo, 'bluetoothAddr')
+      } else if (paymentMachineType == PaymentTerminalType.Clover) {
           name = _.get(cloverMachineInfo, 'name')
           ip = _.get(cloverMachineInfo, 'ip')
           port = _.get(cloverMachineInfo, 'port')
 
-      } else if(paymentMachineType == PaymentTerminalType.Dejavoo){
+      } else if (paymentMachineType == PaymentTerminalType.Dejavoo) {
       
           name = _.get(dejavooMachineInfo, 'name')
           registerId = _.get(dejavooMachineInfo, 'registerId')
@@ -118,26 +172,36 @@ export const useProps = (props) => {
       setSerialNumber(_.get(cloverMachineInfo, 'serialNumber', ''));
       setRegisterId(registerId);
       setAuthKey(authKey);
+      setCommType(commType);
+      setBluetoothAddr(bluetoothAddr);
 
       NavigationService.back();
   }
 
-  setTerminal = (terminalNameTemp) => () => {
+  const setTerminal = (terminalNameTemp) => () => {
     if(terminalNameTemp != terminalName) {
         let tempName = name 
         let tempIp = ip
         let tempPort = port
         let tempRegisterId = registerId
         let tempAuthKey = authKey
-        if (terminalNameTemp == PaymentTerminalType.Dejavoo) {
-            tempName = _.get(dejavooMachineInfo, 'name')
-            tempRegisterId = _.get(dejavooMachineInfo, 'registerId')
-            tempAuthKey = _.get(dejavooMachineInfo, 'authKey')
+        let commType = commType
+        let bluetoothAddr = bluetoothAddr
+        if (terminalNameTemp == PaymentTerminalType.Pax) {
+          tempName = _.get(paxMachineInfo, 'name')
+          tempIp = _.get(paxMachineInfo, 'ip')
+          tempPort = _.get(paxMachineInfo, 'port')
+          commType = _.get(paxMachineInfo, 'commType')
+          bluetoothAddr = _.get(paxMachineInfo, 'bluetoothAddr')
+        } else if (terminalNameTemp == PaymentTerminalType.Dejavoo) {
+          tempName = _.get(dejavooMachineInfo, 'name')
+          tempRegisterId = _.get(dejavooMachineInfo, 'registerId')
+          tempAuthKey = _.get(dejavooMachineInfo, 'authKey')
         } else {
-            //Clover
-            tempName = _.get(cloverMachineInfo, 'name')
-            tempIp = _.get(cloverMachineInfo, 'ip')
-            tempPort = _.get(cloverMachineInfo, 'port')
+          //Clover
+          tempName = _.get(cloverMachineInfo, 'name')
+          tempIp = _.get(cloverMachineInfo, 'ip')
+          tempPort = _.get(cloverMachineInfo, 'port')
         }
         setTerminalName(terminalNameTemp);
         setName(tempName);
@@ -146,6 +210,8 @@ export const useProps = (props) => {
         setSerialNumber(_.get(cloverMachineInfo, 'serialNumber', ''));
         setRegisterId(tempRegisterId);
         setAuthKey(tempAuthKey);
+        setCommType(commType);
+        setBluetoothAddr(bluetoothAddr);
     }
   }
 
@@ -157,6 +223,8 @@ export const useProps = (props) => {
     registerId,
     authKey,
     terminalName,
+    commType,
+    bluetoothAddr,
     setupPaymentTerminal,
     cancelSetupPax,
     setTerminal,
