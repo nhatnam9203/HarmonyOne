@@ -159,6 +159,7 @@ android {
         versionCode 100
         versionName '1.0.1'
         missingDimensionStrategy 'react-native-camera', 'general'
+        resValue "string", "build_config_package", "com.harmonypay.one"
     }
     splits {
         abi {
@@ -234,6 +235,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
+    implementation project(':react-native-config')
     implementation 'com.facebook.fresco:animated-gif:2.0.0'
     implementation project(':react-native-camera')
     implementation project(':lottie-react-native')
