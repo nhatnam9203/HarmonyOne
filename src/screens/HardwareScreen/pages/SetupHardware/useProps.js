@@ -14,6 +14,7 @@ import _ from "lodash";
 import { 
   PaymentTerminalType,
  } from "@shared/utils";
+ import { BleManager } from 'react-native-ble-plx';
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ export const useProps = (props) => {
               printerSelect,
               printerPortType, },
   } = useSelector(state => state);
+  const manager = new BleManager();
 
     const [name, setName] = React.useState("");
     const [ip, setIp] = React.useState("");
@@ -36,6 +38,8 @@ export const useProps = (props) => {
     const [authKey, setAuthKey] = React.useState("");
     const [commType, setCommType] = React.useState("");
     const [bluetoothAddr, setBluetoothAddr] = React.useState("");
+    const [peripherals, setPeripherals] = React.useState("");
+    const [scanLoading, setScanLoading] = React.useState("");
 
     React.useEffect(() => {
       let nameTemp = ""
@@ -215,7 +219,52 @@ export const useProps = (props) => {
     }
   }
 
+  const saveCommType = (commType) => {
+    setCommType(commType);
+
+    if (commType === "BLUETOOTH") {
+      scanDevices();
+    }
+  }
+
+  const scanDevices = async () => {
+    setPeripherals([]);
+    setScanLoading(true);
+    
+    manager.startDeviceScan(null, null, (error, device) => {
+        if (error) {
+            return
+        }
+
+        if (device?.localName) {
+            const tempPeripherals = [...peripherals];
+            tempPeripherals.push({
+                id: device?.id || "",
+                name: device?.name || "",
+                localName: device?.localName || ""
+            });
+
+            setPeripherals(tempPeripherals);
+        }
+    });
+
+    setTimeout(() => {
+      setScanLoading(false);
+    }, 20000);
+  }
+
+  const handleSelectPeripheral = (peripheral) => () => {
+    dispatch(hardware.saveBluetoothPaxInfo(peripheral));
+
+    const name = peripheral?.name || ""
+    const bluetoothAddr = peripheral?.id || ""
+    setName(name);
+    setBluetoothAddr(bluetoothAddr);
+}
+
+
   return {
+    peripherals,
     name,
     ip,
     port,
@@ -245,6 +294,10 @@ export const useProps = (props) => {
     },
     changePort: (port) => {
       setPort(port);
-    }
+    },
+    saveCommType,
+    scanDevices,
+    handleSelectPeripheral,
+    scanLoading,
   };
 };
