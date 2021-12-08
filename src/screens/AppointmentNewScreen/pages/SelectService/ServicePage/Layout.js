@@ -9,9 +9,9 @@ export const Layout = ({
     sectionListRef,
     categorySelected,
     data,
-    categoryList,
     servicesBooking,
     selectCategory,
+    sectionListData,
 }) => {
 
     const {
@@ -27,7 +27,7 @@ export const Layout = ({
                     style={styles.categoryList}
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
-                    data={categoryList}
+                    data={sectionListData}
                     keyExtractor={item => item?.categoryId?.toString() + "serviceCategory"}
                     renderItem={({ item }) =>
                         <Pressable
@@ -53,7 +53,7 @@ export const Layout = ({
                     renderItem={({ item }) =>
                         <ServiceItem
                             service={item}
-                            disabled={servicesBooking.find(s=>s?.serviceId == item?.serviceId)}
+                            disabled={servicesBooking.find(s => s?.serviceId == item?.serviceId)}
                         />
                     }
                     renderSectionHeader={({ section }) => {
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
             fontFamily: categorySelected == categoryId ? fonts.MEDIUM : fonts.REGULAR
         }
     },
-    categoryListContainer : {
+    categoryListContainer: {
         shadowColor: Platform.OS == "ios" ? "#4040401A" : "#404040",
         shadowOffset: {
             width: 0,
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 1,
         shadowRadius: 3,
-        
+
         elevation: 3,
     },
     categoryList: {
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 1,
         shadowRadius: 3,
-        
+
         elevation: 3,
     },
     sectionList: {

@@ -234,6 +234,9 @@ export const useProps = (props) => {
         merchantId: staff?.merchantId,
       };
 
+      console.log({ data }); 
+      return;
+
       if (isEdit) {
         const body = await updateStaff(staffEdit?.staffId, data);
         submitEditStaff(body.params);
