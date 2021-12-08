@@ -77,7 +77,7 @@ export const useProps = (_params) => {
 
         selectCategory: (categoryId) => {
             setCategorySelected(categoryId);
-            const index = categoryList.findIndex(ct => ct?.categoryId == categoryId);
+            const index = sectionListData.findIndex(ct => ct?.categoryId == categoryId);
             if (index !== -1) {
                 categoryRef?.current?.scrollToIndex({ index, animated: true });
                 sectionListRef?.current?.scrollToLocation({ sectionIndex: index, animated: true, itemIndex: 0, viewPosition: 0 });
