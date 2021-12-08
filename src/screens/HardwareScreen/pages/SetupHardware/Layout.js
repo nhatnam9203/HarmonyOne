@@ -31,7 +31,7 @@ export const Layout = ({
     terminalName,
     commType,
     bluetoothAddr,
-    setupPamentTerminal,
+    setupPaymentTerminal,
     cancelSetupPax,
     setTerminal,
     changeName,
@@ -99,34 +99,34 @@ export const Layout = ({
       return (
           <View>
             <View style={{ flexDirection: 'row', marginTop: scaleHeight(20), }} >
-                <View style={{ width: scaleWidth(140), justifyContent: 'center', }} >
+                <View style={{ width: scaleWidth(100), justifyContent: 'center', }} >
                     <Text style={{ fontSize: scaleFont(13), color: 'rgb(42,42,42)' }} >
                         {t("Communication Type")}
                     </Text>
                 </View>
                 <View style={{ flex: 1, flexDirection: "row", paddingHorizontal: scaleWidth(20) }} >
-                    <View style={{ flex: 1, }} >
-                        <TouchableOpacity onPress={() => saveCommType("TCP")} style={{ flexDirection: "row" }} >
+                        <TouchableOpacity 
+                        onPress={() => saveCommType("TCP")} 
+                        style={[styles.radioButtonView, { marginRight: scaleWidth(10) }]} >
                             <Image
                                 source={tempCheckEthernetIcon}
                                 style={{ marginRight: scaleWidth(10) }}
                             />
-                            <Text style={{ fontSize: scaleFont(15), color: 'rgb(42,42,42)', fontWeight: "600" }} >
+                            <Text style={styles.textRadio} >
                                 {t("Ethernet")}
                             </Text>
                         </TouchableOpacity>
-                    </View>
-                    <View style={{ flex: 1, flexDirection: "row" }} >
-                        <TouchableOpacity onPress={() => saveCommType("BLUETOOTH")} style={{ flexDirection: "row" }} >
+                        <TouchableOpacity 
+                        onPress={() => saveCommType("BLUETOOTH")} 
+                        style={styles.radioButtonView} >
                             <Image
                                 source={tempCheckBluetoothIcon}
                                 style={{ marginRight: scaleWidth(10) }}
                             />
-                            <Text style={{ fontSize: scaleFont(15), color: 'rgb(42,42,42)', fontWeight: "600" }} >
+                            <Text style={styles.textRadio} >
                                 {t("Bluetooth")}
                             </Text>
                         </TouchableOpacity>
-                    </View>
 
                 </View>
             </View>
@@ -239,12 +239,14 @@ export const Layout = ({
             </Text>
             <View style={{flexDirection:'row'}}>
                 { Platform.OS == "ios" && 
-                    <TouchableOpacity onPress={setTerminal("Pax")} style={{ flexDirection: "row", marginRight: scaleWidth(40) }} >
+                    <TouchableOpacity 
+                    onPress={setTerminal("Pax")} 
+                    style={{ flexDirection: "row", marginRight: scaleWidth(40) }} >
                         <Image
                             source={tempCheckPax}
                             style={{ marginRight: scaleWidth(10) }}
                         />
-                        <Text style={{ fontSize: scaleFont(15), color: 'rgb(42,42,42)', fontWeight: "600" }} >
+                        <Text style={styles.textRadio} >
                             {t('Pax')}
                         </Text>
                     </TouchableOpacity>
@@ -255,7 +257,7 @@ export const Layout = ({
                             source={tempCheckClover}
                             style={{ marginRight: scaleWidth(10) }}
                         />
-                        <Text style={{ fontSize: scaleFont(15), color: 'rgb(42,42,42)', fontWeight: "600" }} >
+                        <Text style={styles.textRadio} >
                             {t('Clover')}
                         </Text>
                     </TouchableOpacity>
@@ -267,7 +269,7 @@ export const Layout = ({
                         source={tempCheckDejavoo}
                         style={{ marginRight: scaleWidth(10) }}
                     />
-                    <Text style={{ fontSize: scaleFont(15), color: 'rgb(42,42,42)', fontWeight: "600" }} >
+                    <Text style={styles.textRadio} >
                         {t('Dejavoo')}
                     </Text>
                 </TouchableOpacity>
@@ -357,7 +359,7 @@ export const Layout = ({
                     backgroundColor="#F1F1F1"
                     label={t('CANCEL')}
                     textColor="#6A6A6A"
-                    onPress={cancelSetupPax()}
+                    onPress={cancelSetupPax}
                     styleText={{ fontSize: scaleFont(16), fontWeight: '500' }}
                 />
                 <View style={{ width: scaleWidth(50) }} />
@@ -367,7 +369,7 @@ export const Layout = ({
                     backgroundColor="#0764B0"
                     label={t('SAVE')}
                     textColor="#fff"
-                    onPress={() => setupPaymentTerminal()}
+                    onPress={setupPaymentTerminal}
                     styleText={{ fontSize: scaleFont(16), fontWeight: '500' }}
                 />
             </View>
@@ -405,5 +407,14 @@ const styles = StyleSheet.create({
     paddingRight: scaleWidth(40), 
     justifyContent: "space-between",
     marginBottom: scaleHeight(13)
-  }
+  },
+  radioButtonView: {
+    flexDirection: "row", 
+    alignItems: "center"
+  },
+  textRadio: { 
+      fontSize: scaleFont(15), 
+      color: 'rgb(42,42,42)', 
+      fontWeight: "600" 
+    }
 });

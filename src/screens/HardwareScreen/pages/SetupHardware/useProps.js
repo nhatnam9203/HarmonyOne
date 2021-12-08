@@ -144,40 +144,40 @@ export const useProps = (props) => {
   }
 
   const cancelSetupPax = async () => {
-      let name = ""
-      let ip = ""
-      let port = ""
-      let registerId = ""
-      let authKey = ""
-      let commType = ""
-      let bluetoothAddr = ""
-      if (paymentMachineType == PaymentTerminalType.Pax) {
-          name = _.get(paxMachineInfo, 'name')
-          ip = _.get(paxMachineInfo, 'ip')
-          port = _.get(paxMachineInfo, 'port')
-          commType = _.get(paxMachineInfo, 'commType')
-          bluetoothAddr = _.get(paxMachineInfo, 'bluetoothAddr')
-      } else if (paymentMachineType == PaymentTerminalType.Clover) {
-          name = _.get(cloverMachineInfo, 'name')
-          ip = _.get(cloverMachineInfo, 'ip')
-          port = _.get(cloverMachineInfo, 'port')
+      // let name = ""
+      // let ip = ""
+      // let port = ""
+      // let registerId = ""
+      // let authKey = ""
+      // let commType = ""
+      // let bluetoothAddr = ""
+      // if (paymentMachineType == PaymentTerminalType.Pax) {
+      //     name = _.get(paxMachineInfo, 'name')
+      //     ip = _.get(paxMachineInfo, 'ip')
+      //     port = _.get(paxMachineInfo, 'port')
+      //     commType = _.get(paxMachineInfo, 'commType')
+      //     bluetoothAddr = _.get(paxMachineInfo, 'bluetoothAddr')
+      // } else if (paymentMachineType == PaymentTerminalType.Clover) {
+      //     name = _.get(cloverMachineInfo, 'name')
+      //     ip = _.get(cloverMachineInfo, 'ip')
+      //     port = _.get(cloverMachineInfo, 'port')
 
-      } else if (paymentMachineType == PaymentTerminalType.Dejavoo) {
+      // } else if (paymentMachineType == PaymentTerminalType.Dejavoo) {
       
-          name = _.get(dejavooMachineInfo, 'name')
-          registerId = _.get(dejavooMachineInfo, 'registerId')
-          authKey = _.get(dejavooMachineInfo, 'authKey')
-      }
+      //     name = _.get(dejavooMachineInfo, 'name')
+      //     registerId = _.get(dejavooMachineInfo, 'registerId')
+      //     authKey = _.get(dejavooMachineInfo, 'authKey')
+      // }
 
-      setTerminalName(terminalName);
-      setName(name);
-      setIp(ip);
-      setPort(port);
-      setSerialNumber(_.get(cloverMachineInfo, 'serialNumber', ''));
-      setRegisterId(registerId);
-      setAuthKey(authKey);
-      setCommType(commType);
-      setBluetoothAddr(bluetoothAddr);
+      // setTerminalName(terminalName);
+      // setName(name);
+      // setIp(ip);
+      // setPort(port);
+      // setSerialNumber(_.get(cloverMachineInfo, 'serialNumber', ''));
+      // setRegisterId(registerId);
+      // setAuthKey(authKey);
+      // setCommType(commType);
+      // setBluetoothAddr(bluetoothAddr);
 
       NavigationService.back();
   }

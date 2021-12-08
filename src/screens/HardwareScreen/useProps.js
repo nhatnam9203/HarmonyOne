@@ -15,7 +15,8 @@ export const useProps = (_params) => {
               cloverMachineInfo,
               paymentMachineType,
               printerList,
-              printerSelect, },
+              printerSelect,
+              paxMachineInfo, },
   } = useSelector(state => state);
 
   const [isSetup, setIsSetup] = React.useState(false);
@@ -45,7 +46,9 @@ export const useProps = (_params) => {
 
   const getIsSetup = () => {
     let isSetup =  false
-    if (paymentMachineType == PaymentTerminalType.Clover){
+    if (paymentMachineType == PaymentTerminalType.Pax) {
+      isSetup = _.get(paxMachineInfo, 'isSetup')
+    } else if (paymentMachineType == PaymentTerminalType.Clover) {
         isSetup = _.get(cloverMachineInfo, 'isSetup')
     } else{
         isSetup = _.get(dejavooMachineInfo, 'isSetup')
@@ -55,7 +58,11 @@ export const useProps = (_params) => {
 
   const temptTitle = () => {
     let temptTitle = 'No Device'
-    if (paymentMachineType == PaymentTerminalType.Clover){
+    if (paymentMachineType == PaymentTerminalType.Pax) {
+      temptTitle = !_.get(paxMachineInfo, 'isSetup') 
+                    ? 'No Device' 
+                    : paxMachineInfo.name;
+    } else if (paymentMachineType == PaymentTerminalType.Clover) {
         temptTitle = !_.get(cloverMachineInfo, 'isSetup') 
                     ? 'No Device' 
                     : cloverMachineInfo.name;
