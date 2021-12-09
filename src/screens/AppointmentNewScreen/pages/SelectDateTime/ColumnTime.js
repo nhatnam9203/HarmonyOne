@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         marginBottom: scaleWidth(13)
     },
     txtItem: {
-
+        fontSize : scaleFont(13)
     }
 });
 

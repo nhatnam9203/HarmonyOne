@@ -16,6 +16,14 @@ const StaffList = React.forwardRef(({
 
     const scrollViewStaffs = React.useRef();
 
+    let staffShowVisibile = [
+        {
+            staffId: 0,
+            displayName: "Any staff",
+        },
+        ...staffsByDate,
+    ]
+
     React.useImperativeHandle(ref, () => ({
         scrollToIndex: (index) => {
             if (index) {
@@ -59,7 +67,7 @@ const StaffList = React.forwardRef(({
                     </ScrollView> :
                     (staffsByDate && staffsByDate?.length > 0) &&
                     <FlatList
-                        data={staffsByDate}
+                        data={staffShowVisibile}
                         keyExtractor={(item) => item?.staffId + "staffList"}
                         renderItem={({ item }) => <Item staff={item} selectStaff={selectStaff} staffSelected={staffSelected} />}
                         horizontal={true}
@@ -89,30 +97,44 @@ const Item = ({ staff, selectStaff, staffSelected }) => {
             activeOpacity={1}
         >
             {
-                isEmpty(staff?.imageUrl) ?
+                staff?.staffId == 0 ?
                     <CustomImage
                         style={[
                             styles.avatar,
                             {
-                                borderColor: staffSelected == staff?.staffId ? colors.ocean_blue : "white",
-                                borderWidth: staffSelected == staff?.staffId ? 3 : 1,
+                                borderColor: "white",
+                                borderWidth: 1,
+                                borderRadius : 0
                             }
 
                         ]}
-                        source={images.staff_default}
-                        resizeMode='cover'
-                    /> :
-                    <CustomImage
-                        style={[
-                            styles.avatar,
-                            {
-                                borderColor: staffSelected == staff?.staffId ? colors.ocean_blue : "white",
-                                borderWidth: staffSelected == staff?.staffId ? 2 : 1,
-                            }
-                        ]}
-                        source={{ uri: staff?.imageUrl }}
+                        source={images.icon_waitingList}
                         resizeMode='cover'
                     />
+                    : isEmpty(staff?.imageUrl) ?
+                        <CustomImage
+                            style={[
+                                styles.avatar,
+                                {
+                                    borderColor: staffSelected == staff?.staffId ? colors.ocean_blue : "white",
+                                    borderWidth: staffSelected == staff?.staffId ? 3 : 1,
+                                }
+
+                            ]}
+                            source={images.staff_default}
+                            resizeMode='cover'
+                        /> :
+                        <CustomImage
+                            style={[
+                                styles.avatar,
+                                {
+                                    borderColor: staffSelected == staff?.staffId ? colors.ocean_blue : "white",
+                                    borderWidth: staffSelected == staff?.staffId ? 2 : 1,
+                                }
+                            ]}
+                            source={{ uri: staff?.imageUrl }}
+                            resizeMode='cover'
+                        />
             }
             <Text
                 numberOfLines={1}
@@ -136,8 +158,8 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         shadowColor: Platform.OS == "ios" ? '#0000000D' : "#000000",
         shadowOffset: {
-          width: 0,
-          height: 3,
+            width: 0,
+            height: 3,
         },
         shadowRadius: 5,
         shadowOpacity: 1,
@@ -160,6 +182,7 @@ const styles = StyleSheet.create({
         height: scaleWidth(45),
         borderRadius: 1000,
         borderWidth: 3,
+        resizeMode : "contain",
     },
     staffName: {
         fontSize: scaleFont(13),

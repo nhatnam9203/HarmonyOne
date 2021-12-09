@@ -142,7 +142,6 @@ export const AppStateProvider = ({ children }) => {
           .build();
 
         connection.on("ListWaNotification", (data) => {
-          console.log({ data })
           const dataParse = JSON.parse(data);
           const typeData = dataParse?.data?.Type;
           if (typeData) {
