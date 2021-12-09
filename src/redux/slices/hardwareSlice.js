@@ -38,7 +38,7 @@ const initialState = {
     authKey: '',//'d4RL8FrETi',
     isSetup: false,
   },
-  paymentMachineType: 'Dejavoo',
+  paymentMachineType: '',
 
 };
 const hardwareSlice = createSlice({

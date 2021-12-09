@@ -95,23 +95,23 @@ const useFetchSettlementWaiting = () => {
         }
         setTerminalId(terminalId)
 
+        fetchSettlement(terminalId);
+
     }, []);
 
-    React.useEffect(() => {
-        fetchSettlement();
-    }, [terminalId]);
-
-    const fetchSettlement = async() =>{
+    const fetchSettlement = async(terminalIdPax=null) =>{
+        setTerminalId(terminalIdPax);
+        const terminalIdTemp = terminalIdPax ? terminalIdPax : terminalId;
         dispatch(app.showLoading());
 
-        const body = await getListStaffsSales(terminalId);
+        const body = await getListStaffsSales(terminalIdTemp);
         fetchListStaffsSales(body.params);
 
-        const bodyGiftCard = await getListGiftCardSales(terminalId)
+        const bodyGiftCard = await getListGiftCardSales(terminalIdTemp)
         fetchListGiftCardSales(bodyGiftCard.params);
 
         const terminalType = paymentMachineType ? paymentMachineType.toLowerCase() : ""
-        const bodySettleWaiting = await getSettlementWating(terminalId, terminalType)
+        const bodySettleWaiting = await getSettlementWating(terminalIdTemp, terminalType)
         fetchSettlementWating(bodySettleWaiting.params);
     }
 
@@ -135,7 +135,7 @@ const useFetchSettlementWaiting = () => {
         responseSettlementWaiting
     ])
 
-    return [valueNote];
+    return [valueNote, fetchSettlement];
 };
 
 export default useFetchSettlementWaiting;
