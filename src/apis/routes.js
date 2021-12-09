@@ -321,6 +321,14 @@ export const getServiceByCategory = () => ({
   },
 });
 
+export const getServiceByStaff = (staffId) => ({
+  queryId: 'getServiceByStaff',
+  params: {
+    url: `/service/GetByStaff/${staffId}`,
+    method: 'GET',
+  },
+});
+
 export const addNewService = (data) => ({
   params: {
     url: '/service',

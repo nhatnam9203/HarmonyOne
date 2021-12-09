@@ -1,13 +1,13 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/core';
-import { useAxiosQuery, useAxiosMutation, addNewCustomer, editCustomer, getCustomerInfoById, customerGetByPhone } from '@src/apis';
+import { useAxiosQuery, useAxiosMutation, addNewCustomer, editCustomer, getCustomerInfoById, customerGetByPhone, getServiceByStaff } from '@src/apis';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import { customerSchema } from "@shared/helpers/schema";
 import { headerPhoneGroup, genders, customerGroup } from "@shared/utils";
 import { axios } from '@shared/services/axiosClient';
-import { useDispatch } from 'react-redux';
-import { app, bookAppointment } from "@redux/slices";
+import { useDispatch, useSelector } from 'react-redux';
+import { app, bookAppointment, service } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 import moment from "moment";
 
@@ -18,6 +18,7 @@ export const useProps = (props) => {
     const form = useForm({
         resolver: yupResolver(customerSchema)
     });
+    const staff = useSelector(state => state.auth.staff);
 
     const { setValue } = form;
     const errors = form.formState.errors;
@@ -40,9 +41,22 @@ export const useProps = (props) => {
 
     const [isMounted, setMounted] = React.useState(false);
 
+
+    const [, submitGetServiceByStaff] = useAxiosQuery({
+        ...getServiceByStaff(staff?.staffId),
+        queryId: "getServiceByStaff_newCustomerRoleStaff",
+        isLoadingDefault: true,
+        enabled: false,
+        onSuccess: (data, response) => {
+            dispatch(service.setServiceByStaff(data));
+            NavigationService.navigate(screenNames.AppointmentNewScreen);
+        }
+    });
+
+
     const [, getCustomerById] = useAxiosQuery({
         ...getCustomerInfoById(customerId),
-        queryId : "getCustomerById_roleStaff",
+        queryId: "getCustomerById_roleStaff",
         isLoadingDefault: true,
         enabled: false,
         onSuccess: (data, response) => {
@@ -55,7 +69,7 @@ export const useProps = (props) => {
     });
 
     React.useEffect(() => {
-        if (isChangeCustomer){
+        if (isChangeCustomer) {
             getCustomerById();
         }
     }, []);
@@ -78,7 +92,8 @@ export const useProps = (props) => {
                     if (isQuickCheckout) {
                         NavigationService.navigate(screenNames.CheckoutTabScreen);
                     } else {
-                        NavigationService.navigate(screenNames.AppointmentNewScreen);
+                        submitGetServiceByStaff();
+                        // NavigationService.navigate(screenNames.AppointmentNewScreen);
                     }
                 }
             }
@@ -103,7 +118,8 @@ export const useProps = (props) => {
                     if (isQuickCheckout) {
                         NavigationService.navigate(screenNames.CheckoutTabScreen);
                     } else {
-                        NavigationService.navigate(screenNames.AppointmentNewScreen);
+                        submitGetServiceByStaff();
+                        // NavigationService.navigate(screenNames.AppointmentNewScreen);
                     }
                 }
             }

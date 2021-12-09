@@ -16,7 +16,6 @@ export const Layout = ({
   staffSelected,
   listStaffSales,
   setStaffSelected,
-  sendTotalViaSMS
 }) => {
 
   const [t] = useTranslation();
@@ -27,15 +26,8 @@ export const Layout = ({
     <View style={styles.container}>
       <SingleScreenLayout
         pageTitle={t('Staff income details')}
-        isRight={true}
+        isRight={false}
         isLeft={true}
-        headerRightComponent={() =>
-          <IconButton
-            icon={images.icon_email}
-            style={styles.button}
-            iconStyle={styles.iconRight}
-            onPress={sendTotalViaSMS}
-          />}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
       >

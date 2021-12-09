@@ -24,7 +24,7 @@ export const useProps = (props) => {
   const [isRefresh, setRefresh] = React.useState(false);
 
   const {
-    service: { services },
+    service: { services = [], servicesByStaff = [] },
     product: { products },
     extra: { extras },
     auth: { staff },
@@ -34,6 +34,8 @@ export const useProps = (props) => {
   const categoryList = useSelector(state => state.category.category);
 
   const [t] = useTranslation();
+
+  const roleName = staff?.roleName?.toString()?.toLowerCase();
 
   const [, getCategoryList] = useAxiosQuery({
     ...getCategoryByMerchant(staff.merchantId),
@@ -101,6 +103,13 @@ export const useProps = (props) => {
   //   getServiceList();
   // }, []);
 
+  const filterCategoryByServiceOfStaff = (categoryId) => {
+    const tempService = servicesByStaff?.find(service => service?.categoryId == categoryId);
+    if (tempService) return true;
+    return false;
+  }
+
+
   return {
     appointmentEdit,
     valueSearch,
@@ -129,13 +138,30 @@ export const useProps = (props) => {
         });
       }
 
-      return categoryList.filter(cate => cate.isDisabled == 0).map((cate) => {
-        const dataList = servicesList.filter((sv) => (sv.categoryId == cate.categoryId));
-        return {
-          category: cate,
-          data: servicesList.filter((sv) => ( sv.isDisabled == 0 && sv.categoryId == cate.categoryId)),
+      if (roleName == "staff") {
+        let tempCategory = [...categoryList];
+        let tempArr = [];
+        for (let i = 0; i < tempCategory.length; i++) {
+          if (filterCategoryByServiceOfStaff(tempCategory[i].categoryId)) {
+            tempArr.push(tempCategory[i]);
+          }
         }
-      });
+        return tempArr.filter(cate => cate.isDisabled == 0).map((cate) => {
+          const dataList = servicesList.filter((sv) => (sv.categoryId == cate.categoryId));
+          return {
+            category: cate,
+            data: servicesList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId)),
+          }
+        });
+      } else {
+        return categoryList.filter(cate => cate.isDisabled == 0).map((cate) => {
+          const dataList = servicesList.filter((sv) => (sv.categoryId == cate.categoryId));
+          return {
+            category: cate,
+            data: servicesList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId)),
+          }
+        });
+      }
     },
 
     onChangeSearch: (vl) => {

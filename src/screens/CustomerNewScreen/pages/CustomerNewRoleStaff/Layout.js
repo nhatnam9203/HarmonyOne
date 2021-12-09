@@ -218,17 +218,19 @@ export const Layout = ({
                             />
 
                         </>}
+
+
                 </KeyboardAwareScrollView>
-               {
-               isMounted && <View style={styles.bottom}>
-                    <Button
-                        label="Next"
-                        onPress={form.handleSubmit(onSubmit)}
-                        highlight={true}
-                        width={'100%'}
-                    />
-                </View>
-            }
+                {
+                    isMounted && <View style={styles.bottom}>
+                        <Button
+                            label="Next"
+                            onPress={form.handleSubmit(onSubmit)}
+                            highlight={true}
+                            width={'100%'}
+                        />
+                    </View>
+                }
             </SingleScreenLayout>
         </View>
     );

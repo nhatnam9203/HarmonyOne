@@ -1,7 +1,7 @@
 import React from "react";
-import { } from '@src/apis';
 import NavigationService from "@navigation/NavigationService";
-import { bookAppointment } from "@redux/slices";
+import { useAxiosQuery, getServiceByStaff } from '@src/apis';
+import { bookAppointment, service } from "@redux/slices";
 import { useDispatch, useSelector } from "react-redux";
 
 export const useProps = (props) => {
@@ -11,6 +11,18 @@ export const useProps = (props) => {
     bookAppointment: { customerBooking },
     auth: { staff }
   } = useSelector(state => state);
+
+  const [, submitGetServiceByStaff] = useAxiosQuery({
+    ...getServiceByStaff(staff?.staffId),
+    queryId: "getServiceByStaff_checkoutTabScreen",
+    isLoadingDefault: true,
+    enabled: false,
+    onSuccess: (data, response) => {
+      dispatch(service.setServiceByStaff(data));
+      NavigationService.navigate(screenNames.AppointmentNewScreen);
+    }
+  });
+
 
   const roleName = staff?.roleName?.toString()?.toLowerCase();
 
@@ -45,7 +57,11 @@ export const useProps = (props) => {
 
     addService: () => {
       dispatch(bookAppointment.setQuickCheckout(true));
-      NavigationService.navigate(screenNames.AppointmentNewScreen);
+      if (roleName == "staff") {
+        submitGetServiceByStaff();
+      } else {
+        NavigationService.navigate(screenNames.AppointmentNewScreen);
+      }
     }
   };
 };

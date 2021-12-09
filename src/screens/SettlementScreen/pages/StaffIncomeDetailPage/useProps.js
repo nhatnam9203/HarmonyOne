@@ -6,8 +6,6 @@ import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
-import SendSMS from "react-native-sms";
-
 
 export const useProps = (props) => {
 
@@ -37,38 +35,38 @@ export const useProps = (props) => {
     listStaffSales,
     setStaffSelected,
 
-    sendTotalViaSMS: async () => {
-      try {
-        const staffInfo = listStaffSales.find(
-          (staff) => staff?.staffId === staffSelected?.value
-        );
-        const staffInfoFromMerchant = staffListByMerchant.find(
-          (staff) => staff?.staffId === staffSelected?.value
-        );
+    // sendTotalViaSMS: async () => {
+    //   try {
+    //     const staffInfo = listStaffSales.find(
+    //       (staff) => staff?.staffId === staffSelected?.value
+    //     );
+    //     const staffInfoFromMerchant = staffListByMerchant.find(
+    //       (staff) => staff?.staffId === staffSelected?.value
+    //     );
 
-        if (staffInfo) {
-          const displayName = staffInfoFromMerchant.displayName ? staffInfoFromMerchant.displayName : "";
-          const total = staffInfo.total ? staffInfo.total : 0.0;
-          const phone = staffInfoFromMerchant.phone ? staffInfoFromMerchant.phone : "";
-          const today = moment().format("MM/DD/YYYY");
+    //     if (staffInfo) {
+    //       const displayName = staffInfoFromMerchant.displayName ? staffInfoFromMerchant.displayName : "";
+    //       const total = staffInfo.total ? staffInfo.total : 0.0;
+    //       const phone = staffInfoFromMerchant.phone ? staffInfoFromMerchant.phone : "";
+    //       const today = moment().format("MM/DD/YYYY");
 
-          const data = {
-            body: `Hello ${displayName}, your total today ${today} is $${total}. Thank you :)`,
-            recipients: [`${phone}`],
-            successTypes: ["sent", "queued"],
-            allowAndroidSendWithoutReadPermission: true,
-          };
+    //       const data = {
+    //         body: `Hello ${displayName}, your total today ${today} is $${total}. Thank you :)`,
+    //         recipients: [`${phone}`],
+    //         successTypes: ["sent", "queued"],
+    //         allowAndroidSendWithoutReadPermission: true,
+    //       };
 
 
-          SendSMS.send(
-            data,
-            (completed, cancelled, error) => {
-            }
-          );
-        }
-      } catch (error) {
-        // alert(error)
-      }
-    }
+    //       SendSMS.send(
+    //         data,
+    //         (completed, cancelled, error) => {
+    //         }
+    //       );
+    //     }
+    //   } catch (error) {
+    //     // alert(error)
+    //   }
+    // }
   };
 };

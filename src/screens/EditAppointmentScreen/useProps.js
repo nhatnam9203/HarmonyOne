@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatNumberFromCurrency, formatMoney, convertMinsToHrsMins } from "@shared/utils";
-import { bookAppointment, appointment, editAppointment } from "@redux/slices";
+import { bookAppointment, appointment, editAppointment, service } from "@redux/slices";
 import {
   addAppointment,
   useAxiosMutation,
@@ -11,6 +11,7 @@ import {
   getAppointmentById,
   removeItemAppointment,
   addItemIntoAppointment,
+  getServiceByStaff
 } from "@src/apis";
 import { dateToFormat } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
@@ -39,6 +40,19 @@ export const useProps = (_params) => {
 
 
   const roleName = staff?.roleName?.toString()?.toLowerCase();
+
+
+  const [, submitGetServiceByStaff] = useAxiosQuery({
+    ...getServiceByStaff(staff?.staffId),
+    queryId: "getServiceByStaff_editAppointmentScreen",
+    isLoadingDefault: true,
+    enabled: false,
+    onSuccess: (data, response) => {
+      dispatch(service.setServiceByStaff(data));
+      NavigationService.navigate(screenNames.AddServicePage);
+    }
+  });
+
 
   const [, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
@@ -216,7 +230,11 @@ export const useProps = (_params) => {
     },
 
     addMoreService: () => {
-      NavigationService.navigate(screenNames.AddServicePage);
+      if(roleName == "staff"){
+        submitGetServiceByStaff();
+      }else{
+        NavigationService.navigate(screenNames.AddServicePage);
+      }
     },
 
     confirm: async () => {

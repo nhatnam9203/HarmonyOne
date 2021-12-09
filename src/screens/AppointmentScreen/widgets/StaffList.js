@@ -86,6 +86,7 @@ const Item = ({ staff, selectStaff, staffSelected }) => {
             onPress={() => selectStaff(staff?.staffId)}
             key={staff?.staffId + 'staffList'}
             style={styles.staff}
+            activeOpacity={1}
         >
             {
                 isEmpty(staff?.imageUrl) ?
