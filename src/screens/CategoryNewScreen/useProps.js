@@ -77,7 +77,7 @@ export const useProps = (props) => {
       const data = {
         categoryType : isEdit ? categoryEdit.categoryType : categoryAddNew,
         name: categoryName,
-        isShowSignInApp: isEdit ? categoryEdit.isShowSignInApp : false,
+        isShowSignInApp: isEdit ? categoryEdit.isShowSignInApp : true,
       }
 
       if (isEdit) {
