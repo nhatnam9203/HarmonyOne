@@ -11,10 +11,10 @@ const AppConfigs = {
   CODE_PUSH_VERSION: 1,
 };
 
-const Configs = Object.assign({}, AppConfigs, EvnConfigs);
-// const Configs = Object.assign(EvnConfigs, AppConfigs, {
-//   API_URL: 'https://staging.harmonypayment.com/api/',
-//   SOCKET_URL: 'https://signalr-stage.harmonypayment.com/',
-//   REDUX_LOGGER: false,
-// });
+// const Configs = Object.assign({}, AppConfigs, EvnConfigs);
+const Configs = Object.assign(EvnConfigs, AppConfigs, {
+  API_URL: 'https://staging.harmonypayment.com/api/',
+  SOCKET_URL: 'https://signalr-stage.harmonypayment.com/',
+  REDUX_LOGGER: false,
+});
 export default Configs;

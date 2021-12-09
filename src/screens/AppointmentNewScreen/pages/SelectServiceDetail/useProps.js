@@ -1,5 +1,5 @@
 import React from "react";
-import { getStaffOfService, useAxiosQuery, staffGetAvaiableTime , useAxiosMutation} from "@src/apis";
+import { getStaffOfService, useAxiosQuery, staffGetAvaiableTime, useAxiosMutation } from "@src/apis";
 import { useSelector, useDispatch } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
 import { isEmpty } from "lodash";
@@ -35,6 +35,8 @@ export const useProps = ({
     staff: { staffListByMerchant = [] },
   } = useSelector(state => state);
 
+  const staffSelectedAppointmentScreen = useSelector(state => state.appointment.staffSelected);
+
   const [durationService, setDurationService] = React.useState(0);
   const [extrasService, setExtrasService] = React.useState([]);
 
@@ -45,6 +47,8 @@ export const useProps = ({
   const getStaffSelected = () => {
     return staffListByMerchant?.find(s => s?.staffId == staff?.staffId);
   }
+
+  const roleName = staff?.roleName?.toString()?.toLowerCase();
 
 
   React.useEffect(() => {
@@ -160,7 +164,11 @@ export const useProps = ({
 
   const goToDateTime = async () => {
 
-    const staffSelected = getStaffSelected();
+    let staffSelected = getStaffSelected();
+
+    if (roleName == "admin" || roleName == "manager") {
+      staffSelected = staffListByMerchant?.find(s => s?.staffId == staffSelectedAppointmentScreen);
+    }
 
     await addService();
     await dispatch(bookAppointment.setStafsfOfService(data));
@@ -188,7 +196,7 @@ export const useProps = ({
       appointmentId: 0,
       timezone: new Date().getTimezoneOffset(),
     };
-    console.log({ data, staffSelected })
+
     const body = await staffGetAvaiableTime(staffSelected?.staffId, data);
     submitGetStaffAvailable(body.params);
   };
@@ -207,9 +215,12 @@ export const useProps = ({
     inputPriceRef,
 
     goToSelectStaff: () => {
-      const roleName = staff?.roleName?.toString()?.toLowerCase();
       if (roleName == "admin" || roleName == "manager") {
-        fetchStaffAvaiable();
+        if (servicesBooking.length == 0) {
+          goToDateTime();
+        } else {
+          fetchStaffAvaiable();
+        }
       } else {
         goToDateTime();
       }

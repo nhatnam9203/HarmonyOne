@@ -9,6 +9,7 @@ const initialState = {
   appointmentDate: new Date(),
   appointmentDetail: {},
   blockTimes: [],
+  staffSelected : '',
   groupAppointments: [],
   promotionAppointment: [],
   discount : [],
@@ -29,6 +30,9 @@ const appointmentSlice = createSlice({
     },
     setBlockTimeBydate: (state, action) => {
       state.blockTimes = action.payload;
+    },
+    setStaffSelected : (state, action) =>{
+      state.staffSelected = action.payload;
     },
     setAppointmentDate: (state, action) => {
       state.appointmentDate = action.payload;
