@@ -22,6 +22,7 @@ export const useProps = (props) => {
 
   const [valueNote, setValueNote] = React.useState("");
   const [countFetchhing, setCountFetching] = React.useState(0);
+  const [terminalIdPax, setTerminalIdPax] = React.useState(null);
 
   const [noteValue, fetchSettlement] = useFetchSettlementWaiting();
 
@@ -79,6 +80,7 @@ export const useProps = (props) => {
               fetchSettlement(null)
             } else {
               const terminalID = `${result?.xml?.SN || null}`;
+              setTerminalIdPax(terminalID);
               fetchSettlement(terminalID)
             }
           });
@@ -124,7 +126,7 @@ export const useProps = (props) => {
 
     reviewSettlement: () => {
       dispatch(settlement.updateNote(valueNote));
-      NavigationService.navigate(screenNames.ReviewSettlementPage);
+      NavigationService.navigate(screenNames.ReviewSettlementPage, {terminalIdPax});
     },
 
     viewGiftCardSold: () => {

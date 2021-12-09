@@ -47,6 +47,7 @@ export const useProps = (props) => {
 
   const dialogProgressRef = React.useRef();
 
+  const [terminalIdPax, setTerminalIdPax] = React.useState(null);
   const [progress, setProgress] = React.useState(0);
   const [terminalId, setTerminalId] = React.useState(null);
   const [countFetchhing, setCountFetching] = React.useState(0);
@@ -101,6 +102,10 @@ export const useProps = (props) => {
       return function cleanup() {
         unregisterEvents();
       };
+    }
+
+    if(paymentMachineType == PaymentTerminalType.Pax) {
+     setTerminalIdPax(_.get(props, "terminalIdPax"));
     }
   }, []);
 
@@ -318,8 +323,8 @@ export const useProps = (props) => {
       const response = await axios(params);
       if (response?.data?.codeNumber == 200) {
         setProgress(100);
-        refetchSettlementWaiting();
-        NavigationService.back();
+        refetchSettlementWaiting(terminalIdPax);
+        // NavigationService.back();
       } else {
         Alert.alert(response?.data?.message)
       }
