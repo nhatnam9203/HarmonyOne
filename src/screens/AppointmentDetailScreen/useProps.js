@@ -137,7 +137,7 @@ export const useProps = ({
 
       const tempColor = getColorForStatus(item?.status);
       if (item?.staffId == 0) {
-        if(item?.status !== "unconfirm"){
+        if(item?.status == "checkin"){
           setShowButton(false);
         }
       }
