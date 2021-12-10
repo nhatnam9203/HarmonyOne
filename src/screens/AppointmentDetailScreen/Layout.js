@@ -131,7 +131,7 @@ export const Layout = ({
         }
         {
           !isShowButton && <View style={{ marginBottom : scaleHeight(30) }}>
-            <Text style={styles.txtAppointmentAnyStaff}>Cannot checkout appoointment in any staff. </Text>
+            <Text style={styles.txtAppointmentAnyStaff}>Cannot checkout in any staff. </Text>
             <Text style={[styles.txtAppointmentAnyStaff,{ fontFamily : fonts.BOLD, marginTop : scaleHeight(8) }]}>Please assign appointment to other staff</Text>
           </View>
         }
