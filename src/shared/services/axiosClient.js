@@ -4,6 +4,8 @@ import { Platform } from 'react-native';
 import { ErrorHandler } from './ErrorHandler';
 import { getAuthToken } from '@shared/storages/authToken';
 import DevviceInfo from "react-native-device-info";
+import { getDeviceId, getDeviceName } from '@shared/services/Device';
+import { getDeviceIdStorage } from '@shared/storages/deviceUnique';
 
 const log = (obj, message = '') => {
   // Logger.log(`[axiosClient] ${message}`, obj);
@@ -11,15 +13,12 @@ const log = (obj, message = '') => {
 
 log(Configs, 'Configs');
 export const axios = Axios.create({
-  baseURL:  Configs.API_URL,
-  // baseURL: `https://dev.harmonypayment.com/api/`,
+  baseURL: Configs.API_URL,
   timeout: 30000,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
     'User-Agent': `HarmonyOne/${Configs.APP_VERSION}.${Configs.CODE_PUSH_VERSION}/${Platform.OS}`,
-    DeviceID: `${encodeURIComponent(DevviceInfo.getDeviceName())}_${DevviceInfo.getUniqueId()}`,
-    // DeviceID : `${encodeURIComponent('iPad Pro (11-inch) (3rd generation)')}_E47921F7-3B6B-4138-BE2E-3B4A8E3FA2F2`,
   },
 });
 
@@ -27,11 +26,21 @@ export const axios = Axios.create({
 axios.interceptors.request.use(
   async (config) => {
     const token = await getAuthToken();
-    if (token) { 
+    const deviceId = await getDeviceId();
+    const deviceName = await getDeviceName();
+    const device = await `${encodeURIComponent(deviceName)}_${deviceId}`;
+    const deviceID_Storaged = await getDeviceIdStorage();
+
+    if (token) {
       config.headers = Object.assign({}, config.headers, {
-        authorization: `Bearer ${token}`,
-      }); 
+        authorization: `Bearer ${token}`
+      });
     }
+
+    config.headers = Object.assign({}, config.headers, {
+      DeviceID: deviceID_Storaged ? deviceID_Storaged : device
+    });
+
     return config;
   },
   (error) => Promise.reject(error),
@@ -58,7 +67,7 @@ axios.interceptors.response.use(
       //     alert(`${message}`);
       //   }
 
-        // break;
+      // break;
       default:
         break;
     }

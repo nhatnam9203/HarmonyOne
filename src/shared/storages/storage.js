@@ -1,7 +1,7 @@
 import Storage from 'react-native-storage';
 import AsyncStorage from '@react-native-community/async-storage';
 
-export const StorageKey = { fcmToken: 'FCM', authToken: 'MERCHANT' };
+export const StorageKey = { fcmToken: 'FCM', authToken: 'MERCHANT', deviceId: "DEVICEID" };
 
 export const storage = new Storage({
   // maximum capacity, default 1000 key-ids
