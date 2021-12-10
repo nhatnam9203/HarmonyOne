@@ -66,8 +66,6 @@ export const Layout = ({
     return formatMoneyWithUnit(price);
   };
 
-  console.log({ appointmentItem })
-
   return (
     <View style={styles.container}>
       <SingleScreenLayout
