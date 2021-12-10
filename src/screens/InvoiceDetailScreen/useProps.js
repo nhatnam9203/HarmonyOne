@@ -34,6 +34,7 @@ import {
 import { parseString } from 'react-native-xml2js';
 import configureStore from '@src/redux/store';
 const { clover } = NativeModules;
+const PosLink = NativeModules.payment;
 const { persistor, store } = configureStore();
 
 export const useProps = (props) => {
@@ -43,6 +44,8 @@ export const useProps = (props) => {
    //ADD LISTENER FROM CLOVER MODULE
    let eventEmitter = new NativeEventEmitter(clover);
    let subscriptions = [];
+
+   const [inputTransactionId, setInputTransactionId] = React.useState(null);
 
   const viewShotRef = React.useRef();
   const popupProcessingRef = React.useRef();
@@ -59,6 +62,7 @@ export const useProps = (props) => {
       paymentMachineType,
       dejavooMachineInfo,
       cloverMachineInfo,
+      paxMachineInfo,
      },
   } = useSelector(state => state);
 
@@ -216,6 +220,28 @@ export const useProps = (props) => {
   };
 
   /****************** Function **************************/
+  const handleResultVoidRefundTransactionPax = async (result) => {
+    const data = JSON.parse(result);
+
+    popupProcessingRef?.current?.hide();
+    setInputTransactionId(
+      null
+    );
+
+    if (data.ResultCode === "000000") {
+      const data = {
+        responseData: result,
+        paymentTerminal: "pax",
+      };
+      const body = await changeStatustransaction(invoiceDetail?.checkoutId, data);
+      submitChangeStatusTransaction(body.params);
+    } else {
+      PosLink.cancelTransaction();
+      setTimeout(() => {
+        alert(data.message);
+      }, 300);
+    }
+  };
 
   const handleResultRefundTransactionDejavoo = async (responses) => {
     popupProcessingRef?.current?.hide();
@@ -318,6 +344,44 @@ export const useProps = (props) => {
               };
               clover.refundPayment(paymentInfo);
             }
+          } else if (paymentMachineType == PaymentTerminalType.Pax) {
+            //Pax
+            if (method != "Pax") {
+              popupProcessingRef?.current?.hide();
+              alert(t("Your transaction is invalid"));
+              return;
+            }
+            const { 
+              ip, 
+              port, 
+              commType,
+              bluetoothAddr, 
+              isSetup 
+            } = paxMachineInfo;
+            const amount = paymentInformation?.ApprovedAmount || 0;
+            const transactionId = paymentInformation?.RefNum || 0;
+            const extData = paymentInformation?.ExtData || "";
+            const invNum = paymentInformation?.InvNum || "";
+            const tempIpPax = commType == "TCP" ? ip : "";
+            const tempPortPax = commType == "TCP" ? port : "";
+            const idBluetooth = commType === "TCP" ? "" : bluetoothAddr;
+
+            PosLink.sendTransaction(
+              {
+                tenderType: "CREDIT",
+                transType: "RETURN",
+                amount: `${parseFloat(amount)}`,
+                transactionId: transactionId,
+                extData: extData,
+                commType: commType,
+                destIp: tempIpPax,
+                portDevice: tempPortPax,
+                timeoutConnect: "90000",
+                bluetoothAddr: idBluetooth,
+                invNum: `${invNum}`,
+              },
+              (data) => handleResultVoidRefundTransactionPax(data)
+            );
           }
             
         } else if (invoiceDetail?.status === "complete") {
@@ -379,6 +443,48 @@ export const useProps = (props) => {
               };
               clover.voidPayment(paymentInfo);
             }
+          } else if (paymentMachineType == PaymentTerminalType.Pax) {
+             //Pax
+             if(Platform.OS === "ios") {
+              if (method != "Pax") {
+                popupProcessingRef?.current?.hide();
+                alert(t("Your transaction is invalid"));
+                return;
+              }
+                const { 
+                        ip, 
+                        port, 
+                        commType,
+                        bluetoothAddr, 
+                        isSetup 
+                      } = paxMachineInfo;
+                const transactionId = paymentInformation?.RefNum || 0;
+                const extData = paymentInformation?.ExtData || "";
+                const invNum = paymentInformation?.InvNum || "";
+                const tempIpPax = commType == "TCP" ? ip : "";
+                const tempPortPax = commType == "TCP" ? port : "";
+                const idBluetooth = commType === "TCP" ? "" : bluetoothAddr;
+                setInputTransactionId(
+                  transactionId
+                );
+                
+                PosLink.sendTransaction(
+                  {
+                    tenderType: "CREDIT",
+                    transType: "VOID",
+                    amount: "",
+                    transactionId: transactionId,
+                    extData: extData,
+                    commType: commType,
+                    destIp: tempIpPax,
+                    portDevice: tempPortPax,
+                    timeoutConnect: "90000",
+                    bluetoothAddr: idBluetooth,
+                    invNum: `${invNum}`,
+                  },
+                  (data) => handleResultVoidRefundTransactionPax(data)
+                );
+            }
           }
         }
       }
@@ -406,6 +512,7 @@ export const useProps = (props) => {
   }
 
   return {
+    inputTransactionId,
     invoiceDetail,
     isDebitPayment,
     viewShotRef,

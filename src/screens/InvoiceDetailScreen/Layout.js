@@ -38,6 +38,7 @@ const switchMethodText = (method) => {
 
 
 export const Layout = ({
+  inputTransactionId,
   invoiceDetail,
   isDebitPayment,
   voidRefundInvoice,
@@ -242,6 +243,7 @@ export const Layout = ({
       <PopupProcessingCredit
           ref={popupProcessingRef}
           onConfirmYes={() => onCancelTransactionCredit()}
+          transactionId={inputTransactionId}
       />
 
       <PopupInvoice

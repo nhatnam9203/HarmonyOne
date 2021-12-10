@@ -23,6 +23,8 @@ import {
   getSettlementWating,
 } from "@src/apis";
 const { clover } = NativeModules;
+
+const PosLink = NativeModules.batch;
 const { persistor, store } = configureStore();
 
 export const useProps = (props) => {
@@ -38,12 +40,14 @@ export const useProps = (props) => {
     hardware: {
       cloverMachineInfo,
       dejavooMachineInfo,
+      paxMachineInfo,
       paymentMachineType
     },
   } = useSelector(state => state);
 
   const dialogProgressRef = React.useRef();
 
+  const [terminalIdPax, setTerminalIdPax] = React.useState(null);
   const [progress, setProgress] = React.useState(0);
   const [terminalId, setTerminalId] = React.useState(null);
   const [countFetchhing, setCountFetching] = React.useState(0);
@@ -59,7 +63,7 @@ export const useProps = (props) => {
     isStopLoading: true,
     onSuccess: (data, response) => {
         if (response?.codeNumber == 200) {
-          if (response?.data?.total > 0) {
+          if (response?.data?.total != 0) {
             setTimeout(() => {
               const body = {
                 terminalId: null,
@@ -99,7 +103,11 @@ export const useProps = (props) => {
         unregisterEvents();
       };
     }
-  }, []);
+
+    if(paymentMachineType == PaymentTerminalType.Pax) {
+     setTerminalIdPax(_.get(props, "terminalIdPax"));
+    }
+  }, []);  
 
   /****************** Integrate Clover **************************/
 
@@ -110,7 +118,7 @@ export const useProps = (props) => {
         const { settlement: { isProcessCloseBatchClover } } = store.getState();
         if(isProcessCloseBatchClover) {
           dispatch(settlement.setIsProcessCloseBatchClover(false))
-          dialogProgressRef?.current?.hide();
+          // dialogProgressRef?.current?.hide();
           proccessingSettlement();
         }
         
@@ -204,7 +212,7 @@ export const useProps = (props) => {
         if (err || _.get(result, 'xmp.response.0.ResultCode.0') != 0) {
           const resultTxt = `${_.get(result, 'xmp.response.0.Message.0')}`
             || "Error";
-          dialogProgressRef?.current?.hide();
+          // dialogProgressRef?.current?.hide();
 
           setTimeout(() => {
             confirmCloseoutWithoutPaymentTerminal();
@@ -231,11 +239,46 @@ export const useProps = (props) => {
               token: _.get(cloverMachineInfo, 'token') ? _.get(cloverMachineInfo, 'token', '') : "",
             })
         }
-    } else {
+    } if (paymentMachineType == PaymentTerminalType.Pax
+      && _.get(paxMachineInfo, "isSetup")) {
+        const { ip, port, commType, bluetoothAddr, isSetup } = paxMachineInfo;
+        const tempIpPax = commType == "TCP" ? ip : "";
+        const tempPortPax = commType == "TCP" ? port : "";
+        const idBluetooth = commType === "TCP" ? "" : bluetoothAddr;
+        PosLink.batchTransaction({
+          transType: "BATCHCLOSE",
+          edcType: "ALL",
+          commType: commType,
+          destIp: tempIpPax,
+          portDevice: tempPortPax,
+          timeoutConnect: "90000",
+          bluetoothAddr: idBluetooth
+      },
+          message => handleResponseBatchTransactionsPax(message, []));
+      } else {
       confirmCloseoutWithoutPaymentTerminal();
     }
   }
 
+  /****************** Integrate Pax **************************/
+
+  const handleResponseBatchTransactionsPax = (message) => {
+        
+    try {
+        const result = JSON.parse(message);
+        if (result.status == 0) {
+          //Error
+          setTimeout(() => {
+            confirmCloseoutWithoutPaymentTerminal();
+          }, 200)
+        } else {
+          proccessingSettlement();
+        }
+    } catch (error) {
+    }
+}
+
+/****************** Functions **************************/
   const confirmCloseoutWithoutPaymentTerminal = () => {
     Alert.alert(
       'Unable to connect to payment terminal or not found any transaction on your payment terminal, Do you want to continue without payment terminal?',
@@ -280,8 +323,8 @@ export const useProps = (props) => {
       const response = await axios(params);
       if (response?.data?.codeNumber == 200) {
         setProgress(100);
-        refetchSettlementWaiting();
-        NavigationService.back();
+        refetchSettlementWaiting(terminalIdPax);
+        // NavigationService.back();
       } else {
         Alert.alert(response?.data?.message)
       }
@@ -291,6 +334,7 @@ export const useProps = (props) => {
     } finally {
     }
   }
+  
 
   return {
     settlementWaiting,

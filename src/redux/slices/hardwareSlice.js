@@ -11,6 +11,10 @@ const initialState = {
   printerList: [],
   printerSelect: '',
   printerPortType: 'Bluetooth',
+  bluetoothPaxInfo: {
+    id: '',
+    name: '',
+  },
   paxMachineInfo: {
     commType: '',
     name: '',
@@ -34,13 +38,16 @@ const initialState = {
     authKey: '',//'d4RL8FrETi',
     isSetup: false,
   },
-  paymentMachineType: 'Dejavoo',
+  paymentMachineType: '',
 
 };
 const hardwareSlice = createSlice({
   name: reducerName,
   initialState: initialState,
   reducers: {
+    saveBluetoothPaxInfo: (state, action) => {
+      state.bluetoothPaxInfo = action.payload
+    },
     setupPaxMachine: (state, action) => {
       state.paxMachineInfo = action.payload.paymentMachineInfo;
       state.paymentMachineType = action.payload.paymentMachineType;

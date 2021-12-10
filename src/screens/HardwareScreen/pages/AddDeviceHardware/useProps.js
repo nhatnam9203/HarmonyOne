@@ -17,6 +17,7 @@ export const useProps = (props) => {
     hardware: { dejavooMachineInfo, 
                 paymentMachineType,
                 cloverMachineInfo,
+                paxMachineInfo,
               },
   } = useSelector(state => state);
 
