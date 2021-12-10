@@ -198,6 +198,7 @@ export const Layout = ({
                             <InputSelectStaff
                               items={staffListByMerchant.filter(staff => staff?.isDisabled == 0)}
                               itemSelected={data?.item?.staffId}
+                              serviceId={data?.item?.serviceId}
                               onSelect={(staffId) => changeStaffService(staffId, data?.item?.serviceId)}
                               renderInput={() => (
                                 <View style={styles.inputSelectTime}>

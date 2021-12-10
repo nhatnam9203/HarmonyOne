@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native'
 import { fonts, colors } from '@shared/themes';
 import { slop } from "@shared/utils";
 import { images } from "@shared/themes/resources";
 import { IconButton } from "@shared/components";
 import { CustomActionSheet, TimePicker, CustomImage } from "@shared/components";
+import { useAxiosQuery, getStaffOfService } from "@src/apis";
 import { isEmpty } from "lodash";
 import moment from "moment";
 
@@ -16,11 +17,14 @@ let InputTime = React.forwardRef(({
     items = [],
     title = "Select staff",
     itemSelected,
-    onSelect = () => {},
+    onSelect = () => { },
+    serviceId,
 }, ref) => {
 
     const actionSheetRef = React.useRef();
     const [open, setOpen] = React.useState(false);
+    const [isLoading, setLoading] = React.useState(false);
+    const [staffsOfService, setStaffOfService] = React.useState([]);
 
     React.useImperativeHandle(ref, () => ({
         getValue: () => {
@@ -29,7 +33,23 @@ let InputTime = React.forwardRef(({
         changeValue: (vl) => setDate(vl),
     }));
 
+    const [, fetchStaffAvaiable] = useAxiosQuery({
+        ...getStaffOfService(serviceId),
+        queryId: "getStaffOfService_editAppointmentScreen",
+        enabled: false,
+        isLoadingDefault: false,
+        onSuccess: async (data, response) => {
+            if (response?.codeNumber == 200) {
+                setStaffOfService(data);
+                setLoading(false);
+            }
+        }
+    });
+
+
     const openActionSheet = () => {
+        setLoading(true);
+        fetchStaffAvaiable();
         actionSheetRef?.current?.show();
     }
 
@@ -41,6 +61,8 @@ let InputTime = React.forwardRef(({
         onSelect(it?.staffId);
         closeActionSheet();
     }
+
+    const dataList = itemSelected == 0 ? items : staffsOfService;
 
     return (
         <>
@@ -63,7 +85,7 @@ let InputTime = React.forwardRef(({
             }
             <CustomActionSheet ref={actionSheetRef}>
                 <View style={styles.contentActionSheet}>
-                    <View style={[styles.row, { borderBottomWidth: 1, borderBottomColor: '#dddddd', paddingBottom: scaleHeight(12), justifyContent : "space-between" }]}>
+                    <View style={[styles.row, { borderBottomWidth: 1, borderBottomColor: '#dddddd', paddingBottom: scaleHeight(12), justifyContent: "space-between" }]}>
                         <Text style={styles.title}>
                             {title}
                         </Text>
@@ -75,46 +97,51 @@ let InputTime = React.forwardRef(({
                     </View>
                     <ScrollView style={styles.scrollView}>
                         {
-                            items.map((it) => (
-                                <TouchableOpacity
-                                    key={it?.staffId + "select staff"}
-                                    onPress={() => selectValue(it)}
-                                    style={[
-                                        styles.row, 
-                                        { 
-                                            backgroundColor : itemSelected === it?.staffId ? colors.ocean_blue : "transparent",
-                                            padding : scaleWidth(16),
-                                            marginHorizontal : 0
+                            isLoading ?
+                                <View style={{ flex: 1, justifyContent: "center", alignItems: "center", height : scaleHeight(500) }}>
+                                    <ActivityIndicator size="large" color={colors.ocean_blue} />
+                                </View>
+                                :
+                                dataList.map((it) => (
+                                    <TouchableOpacity
+                                        key={it?.staffId + "select staff"}
+                                        onPress={() => selectValue(it)}
+                                        style={[
+                                            styles.row,
+                                            {
+                                                backgroundColor: itemSelected === it?.staffId ? colors.ocean_blue : "transparent",
+                                                padding: scaleWidth(16),
+                                                marginHorizontal: 0
+                                            }
+                                        ]}
+                                    >
+                                        {
+                                            isEmpty(it?.imageUrl) ?
+                                                <CustomImage
+                                                    style={styles.avatar}
+                                                    source={images.staff_default}
+                                                    resizeMode="cover"
+                                                /> :
+                                                <CustomImage
+                                                    style={styles.avatar}
+                                                    source={{
+                                                        uri: it?.imageUrl,
+                                                        priority: 'normal',
+                                                    }}
+                                                    resizeMode="cover"
+                                                />
                                         }
-                                    ]}
-                                >
-                                    {
-                                        isEmpty(it?.imageUrl) ?
-                                            <CustomImage
-                                                style={styles.avatar}
-                                                source={images.staff_default}
-                                                resizeMode="cover"
-                                            /> :
-                                            <CustomImage
-                                                style={styles.avatar}
-                                                source={{
-                                                    uri: it?.imageUrl,
-                                                    priority: 'normal',
-                                                }}
-                                                resizeMode="cover"
-                                            />
-                                    }
 
-                                    <Text style={[
-                                        styles.itemText, {
-                                            color: itemSelected === it?.staffId ? "white" : "#333",
-                                            fontFamily: itemSelected === it?.staffId ? fonts.BOLD : fonts.REGULAR,
-                                        }
-                                    ]}>
-                                        {it?.displayName}
-                                    </Text>
-                                </TouchableOpacity>
-                            ))
+                                        <Text style={[
+                                            styles.itemText, {
+                                                color: itemSelected === it?.staffId ? "white" : "#333",
+                                                fontFamily: itemSelected === it?.staffId ? fonts.BOLD : fonts.REGULAR,
+                                            }
+                                        ]}>
+                                            {it?.displayName}
+                                        </Text>
+                                    </TouchableOpacity>
+                                ))
                         }
                     </ScrollView>
                 </View>
@@ -189,7 +216,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.REGULAR,
     },
     scrollView: {
-        maxHeight: scaleHeight(600)
+        height: scaleHeight(600)
     },
     iconClose: {
         width: scaleWidth(24),
