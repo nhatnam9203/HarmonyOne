@@ -34,11 +34,11 @@ const initialState = {
   },
   dejavooMachineInfo: {
     name: '',
-    registerId: '',//'83216002',
-    authKey: '',//'d4RL8FrETi',
+    registerId: '',
+    authKey: '',
     isSetup: false,
   },
-  paymentMachineType: '',
+  paymentMachineType: 'Dejavoo',
 
 };
 const hardwareSlice = createSlice({
