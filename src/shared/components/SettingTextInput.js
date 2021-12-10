@@ -19,7 +19,7 @@ export const SettingTextInput = ({
         </View>
         <View style={[styles.viewTextInput, style]} >
             <TextInput
-                style={{ flex: 1, fontSize: scaleFont(14) }}
+                style={styles.textInput}
                 placeholder={placeholder}
                 value={value}
                 onChangeText={onChangeText}
@@ -45,14 +45,19 @@ const styles = StyleSheet.create({
     color: 'rgb(42,42,42)' 
   },
   viewTextInput: {
-      height: scaleHeight(50), 
-      width: '60%',
-      borderColor: 'rgb(227,227,227)',
-      borderWidth: scaleWidth(1), 
-      justifyContent: 'center', 
+    height: scaleHeight(50), 
+    width: '60%',
+    borderColor: 'rgb(227,227,227)',
+    borderWidth: scaleWidth(1), 
+    justifyContent: 'center', 
   },
   border: { 
     borderWidth: 1, 
     borderColor: '#BCBCBC' 
   },
+  textInput: {
+    flex: 1, 
+    fontSize: scaleFont(14),  
+    paddingHorizontal: scaleWidth(5),
+  }
 });

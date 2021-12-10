@@ -54,6 +54,7 @@ export const useProps = (props) => {
     const [bluetoothAddr, setBluetoothAddr] = React.useState("");
     const [peripherals, setPeripherals] = React.useState("");
     const [scanLoading, setScanLoading] = React.useState("");
+    const [terminalIdSelected, setTerminalIdSelected] = React.useState(null);
 
     React.useEffect(() => {
       let nameTemp = ""
@@ -64,7 +65,7 @@ export const useProps = (props) => {
       let serialNumberTemp = ""
       let commType = ""
       let bluetoothAddr = ""
-      if(paymentMachineType == PaymentTerminalType.Pax){
+      if(paymentMachineType == PaymentTerminalType.Pax) {
         
         nameTemp = _.get(paxMachineInfo, 'name')
         ipTemp = _.get(paxMachineInfo, 'ip')
@@ -97,6 +98,17 @@ export const useProps = (props) => {
       setBluetoothAddr(bluetoothAddr)
 
     }, []);
+
+    const [, submitSelectTerminalId] = useAxiosMutation({
+      ...selectTerminalId(),
+      isStopLoading: true,
+      isLoadingDefault: false,
+      onSuccess: async (data, response) => {
+        if (response?.codeNumber == 200) {
+        
+        }
+      }
+    });
 
   const setupPaymentTerminal = () => {
      if (terminalName == PaymentTerminalType.Pax) {
@@ -158,41 +170,6 @@ export const useProps = (props) => {
   }
 
   const cancelSetupPax = async () => {
-
-      // let name = ""
-      // let ip = ""
-      // let port = ""
-      // let registerId = ""
-      // let authKey = ""
-      // let commType = ""
-      // let bluetoothAddr = ""
-      // if (paymentMachineType == PaymentTerminalType.Pax) {
-      //     name = _.get(paxMachineInfo, 'name')
-      //     ip = _.get(paxMachineInfo, 'ip')
-      //     port = _.get(paxMachineInfo, 'port')
-      //     commType = _.get(paxMachineInfo, 'commType')
-      //     bluetoothAddr = _.get(paxMachineInfo, 'bluetoothAddr')
-      // } else if (paymentMachineType == PaymentTerminalType.Clover) {
-      //     name = _.get(cloverMachineInfo, 'name')
-      //     ip = _.get(cloverMachineInfo, 'ip')
-      //     port = _.get(cloverMachineInfo, 'port')
-
-      // } else if (paymentMachineType == PaymentTerminalType.Dejavoo) {
-      //     name = _.get(dejavooMachineInfo, 'name')
-      //     registerId = _.get(dejavooMachineInfo, 'registerId')
-      //     authKey = _.get(dejavooMachineInfo, 'authKey')
-      // }
-
-      // setTerminalName(terminalName);
-      // setName(name);
-      // setIp(ip);
-      // setPort(port);
-      // setSerialNumber(_.get(cloverMachineInfo, 'serialNumber', ''));
-      // setRegisterId(registerId);
-      // setAuthKey(authKey);
-      // setCommType(commType);
-      // setBluetoothAddr(bluetoothAddr);
-
       NavigationService.back();
   }
 

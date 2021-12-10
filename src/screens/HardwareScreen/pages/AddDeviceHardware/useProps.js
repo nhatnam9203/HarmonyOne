@@ -31,7 +31,10 @@ export const useProps = (props) => {
 
     const isSetup = getIsSetup();
     setIsSetup(isSetup);
-  }, [dejavooMachineInfo, cloverMachineInfo, paymentMachineType]);
+  }, [dejavooMachineInfo, 
+    cloverMachineInfo, 
+    paxMachineInfo,
+    paymentMachineType]);
 
   const getName = () => {
     let name = ''
@@ -48,7 +51,9 @@ export const useProps = (props) => {
 
   const getIsSetup = () => {
     let isSetup =  false
-    if (paymentMachineType == PaymentTerminalType.Clover){
+    if (paymentMachineType == PaymentTerminalType.Pax) {
+      isSetup = _.get(paxMachineInfo, 'isSetup')
+    } else if (paymentMachineType == PaymentTerminalType.Clover){
         isSetup = _.get(cloverMachineInfo, 'isSetup')
     } else{
         isSetup = _.get(dejavooMachineInfo, 'isSetup')

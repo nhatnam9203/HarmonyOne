@@ -355,26 +355,28 @@ export const Layout = ({
                     </> : null
                 }
 
-                <View style={styles.terminalView}>
-                    <Text style={{
-                        fontSize: scaleFont(13), 
-                        color: 'rgb(42,42,42)',
-                        width: '40%',
-                        }} >
+                { terminalName &&
+                    <View style={styles.terminalView}>
+                        <Text style={{
+                            fontSize: scaleFont(13), 
+                            color: 'rgb(42,42,42)',
+                            width: '40%',
+                            }} >
 
-                        {t('Select Terminal ID')}
-                    </Text>
-                    <DropdownMenu
-                        ref={terminalListRef}
-                        items={terminalIdList}
-                        onChangeValue={setTerminalId}
-                        defaultIndex={0}
-                        width={scaleWidth(200)}
-                        height={scaleHeight(50)}
-                        styleDropDown={styles.styleDropDown}
-                        textStyle={styles.dropdownText}
-                    />
-                </View>
+                            {t('Select Terminal ID')}
+                        </Text>
+                        <DropdownMenu
+                            ref={terminalListRef}
+                            items={terminalIdList}
+                            onChangeValue={setTerminalId}
+                            defaultIndex={0}
+                            width={scaleWidth(200)}
+                            height={scaleHeight(50)}
+                            styleDropDown={styles.styleDropDown}
+                            textStyle={styles.dropdownText}
+                        />
+                    </View>
+                }
 
                 <View style={{ height: scaleHeight(400) }} />
 
@@ -441,7 +443,7 @@ const styles = StyleSheet.create({
     marginTop: scaleHeight(20),
   },
   dropdownText:{
-    fontSize: scaleFont(14), 
+    fontSize: scaleFont(13), 
   },
   itemBlueTooth: {
     height: scaleHeight(45), 
