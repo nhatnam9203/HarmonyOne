@@ -28,7 +28,8 @@ export const useProps = (_params) => {
     bookAppointment: { customerBooking = {}, servicesBooking = [], extrasBooking = [], dayBooking, timeBooking, isQuickCheckout },
     appointment: { appointmentDate, appointmentDetail },
     editAppointment: { appointmentEdit },
-    auth: { staff }
+    auth: { staff },
+    staff: { staffListByMerchant = [] }
   } = useSelector(state => state);
 
 
@@ -134,6 +135,7 @@ export const useProps = (_params) => {
     appointmentEdit,
     alertRef,
     roleName,
+    staffListByMerchant,
 
     getTotalItem: (service, itemType) => {
       let total = 0;
@@ -230,9 +232,9 @@ export const useProps = (_params) => {
     },
 
     addMoreService: () => {
-      if(roleName == "staff"){
+      if (roleName == "staff") {
         submitGetServiceByStaff();
-      }else{
+      } else {
         NavigationService.navigate(screenNames.AddServicePage);
       }
     },
@@ -269,6 +271,11 @@ export const useProps = (_params) => {
     changeServiceTime: (time, bookingServiceId) => {
       const formatDate = `${moment().format("YYYY-MM-DD")}T${moment(time, ["hh:mm A"]).format("HH:mm")}:00`
       dispatch(editAppointment.changeServiceTime({ time: formatDate, bookingServiceId }));
+    },
+
+    changeStaffService: (staffId, serviceId) => {
+      console.log({ staffId , serviceId });
+      dispatch(editAppointment.changeStaffService({ staffId, serviceId }));
     },
 
     editService: (item) => {

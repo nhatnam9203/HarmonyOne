@@ -1,4 +1,4 @@
- import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
@@ -43,6 +43,38 @@ const editAppointment = createSlice({
                 ...tempAppointment,
                 services: tempServices,
                 fromTime: tempServices.length > 0 ? tempServices[0].fromTime : `${moment().format("YYYY-MM-DD")}T${moment().format("HH:mm")}:00`
+            }
+            state.appointmentEdit = tempAppointment;
+        },
+
+        changeStaffService: (state, action) => {
+            const { staffId, serviceId } = action.payload;
+            let tempAppointment = {
+                ...state.appointmentEdit,
+            }
+            let tempServices = tempAppointment.services || [];
+
+            if (tempServices.length > 0 && tempServices[0].staffId == 0) {
+                for (let i = 0; i < tempServices.length; i++) {
+                    tempServices[i].staffId = staffId;
+                }
+                tempAppointment = {
+                    ...tempAppointment,
+                    services: tempServices,
+                    staffId: staffId,
+                }
+            } else {
+                const positionService = tempServices.findIndex(sv => sv?.serviceId == serviceId);
+                if (positionService == 0) {
+                    tempServices[positionService].staffId = staffId;
+                    tempAppointment.staffId = staffId;
+                } else if (positionService !== -1) {
+                    tempServices[positionService].staffId = staffId;
+                }
+                tempAppointment = {
+                    ...tempAppointment,
+                    services: tempServices,
+                }
             }
             state.appointmentEdit = tempAppointment;
         },
@@ -130,6 +162,7 @@ const editAppointment = createSlice({
             } else {
                 service.fromTime = `${moment().format("YYYY-MM-DD")}T${moment().format("HH:mm")}:00`;
             }
+            service.staffId = tempAppointment.staffId;
 
             tempServices.push(service);
             tempExtras = [
