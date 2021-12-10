@@ -32,7 +32,7 @@ export const useProps = (_params) => {
             }
             return tempArr.map((cate) => ({
                 category: cate,
-                data: services.filter((sv) => (sv.categoryId == cate.categoryId && sv.isDisabled == 0)),
+                data: servicesByStaff.filter((sv) => (sv.categoryId == cate.categoryId && sv.isDisabled == 0)),
             }))
         } else {
             return categoryList.map((cate) => ({

@@ -274,7 +274,6 @@ export const useProps = (_params) => {
     },
 
     changeStaffService: (staffId, serviceId) => {
-      console.log({ staffId , serviceId });
       dispatch(editAppointment.changeStaffService({ staffId, serviceId }));
     },
 

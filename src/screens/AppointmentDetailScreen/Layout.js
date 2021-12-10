@@ -12,6 +12,7 @@ import { AppointmentServiceList } from './AppointmentServiceList';
 import { InvoiceNumber } from "./InvoiceNumber";
 import moment from "moment";
 
+
 let EditButton = ({ headerTintColor, ...props }) => {
   return (
     <TouchableOpacity style={styles.button} {...props}>
@@ -47,6 +48,7 @@ const titleNextStatus = (status) => {
   return text;
 
 }
+
 
 export const Layout = ({
   appointmentItem,
@@ -117,7 +119,7 @@ export const Layout = ({
         </ScrollView>
 
         {
-          canEdit &&
+          canEdit && isShowButton &&
           <View style={styles.bottom}>
             <Button
               label={titleNextStatus(appointmentItem?.status)}
@@ -125,6 +127,12 @@ export const Layout = ({
               highlight={true}
               width={'100%'}
             />
+          </View>
+        }
+        {
+          !isShowButton && <View style={{ marginBottom : scaleHeight(30) }}>
+            <Text style={styles.txtAppointmentAnyStaff}>Cannot checkout in any staff. </Text>
+            <Text style={[styles.txtAppointmentAnyStaff,{ fontFamily : fonts.BOLD, marginTop : scaleHeight(8) }]}>Please assign appointment to other staff</Text>
           </View>
         }
       </SingleScreenLayout>
@@ -181,9 +189,8 @@ const styles = StyleSheet.create({
     color: colors.red,
     fontSize: scaleFont(14),
     fontFamily: fonts.REGULAR,
-    textAlign : "center",
-    marginHorizontal : scaleWidth(50),
-    marginBottom : scaleHeight(24)
+    textAlign: "center",
+    marginHorizontal: scaleWidth(20),
   }
 
 });

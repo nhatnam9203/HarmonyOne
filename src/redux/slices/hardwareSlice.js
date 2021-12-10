@@ -34,17 +34,20 @@ const initialState = {
   },
   dejavooMachineInfo: {
     name: '',
-    registerId: '',//'83216002',
-    authKey: '',//'d4RL8FrETi',
+    registerId: '',
+    authKey: '',
     isSetup: false,
   },
-  paymentMachineType: '',
-
+  paymentMachineType: 'Dejavoo',
+  terminalId: null,
 };
 const hardwareSlice = createSlice({
   name: reducerName,
   initialState: initialState,
   reducers: {
+    saveTerminalId: (state, action) => {
+      state.terminalId = action.payload
+    },
     saveBluetoothPaxInfo: (state, action) => {
       state.bluetoothPaxInfo = action.payload
     },

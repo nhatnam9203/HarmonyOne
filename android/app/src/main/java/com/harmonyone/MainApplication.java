@@ -15,7 +15,6 @@ import java.util.List;
 import com.microsoft.codepush.react.CodePush;
 import com.airbnb.android.react.lottie.LottiePackage;
 import com.vinzscam.reactnativefileviewer.RNFileViewerPackage;
-import com.tkporter.sendsms.SendSMSPackage;
 import cl.json.RNSharePackage;
 import cl.json.ShareApplication;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
