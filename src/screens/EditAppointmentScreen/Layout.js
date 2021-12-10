@@ -220,6 +220,7 @@ export const Layout = ({
                     )}
                 ListHeaderComponent={renderHeader()}
                 ListFooterComponent={renderFooter()}
+                ItemSeparatorComponent={()=><View style={{ height : scaleHeight(16) }} />}
                 keyExtractor={(item) => item?.serviceId ? item?.serviceId + "serviceItemBooking" : item?.productId + "productItemBooking"}
                 renderHiddenItem={(data, rowMap) => (
                   <View style={styles.rowBack}>

@@ -65,10 +65,8 @@ const editAppointment = createSlice({
                 }
             } else {
                 const positionService = tempServices.findIndex(sv => sv?.serviceId == serviceId);
-                if (positionService == 0) {
-                    tempServices[positionService].staffId = staffId;
-                    tempAppointment.staffId = staffId;
-                } else if (positionService !== -1) {
+
+                if(positionService !== -1){
                     tempServices[positionService].staffId = staffId;
                 }
                 tempAppointment = {
