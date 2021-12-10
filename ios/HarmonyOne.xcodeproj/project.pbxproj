@@ -94,6 +94,14 @@
 		53E36392276097B500B7A40F /* batch.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36391276097B500B7A40F /* batch.m */; };
 		53E36395276097BF00B7A40F /* report.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36394276097BF00B7A40F /* report.m */; };
 		53E36398276097CA00B7A40F /* payment.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36397276097CA00B7A40F /* payment.m */; };
+		53E36399276313E300B7A40F /* payment.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36397276097CA00B7A40F /* payment.m */; };
+		53E3639A276313E400B7A40F /* payment.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36397276097CA00B7A40F /* payment.m */; };
+		53E3639B276313F000B7A40F /* report.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36394276097BF00B7A40F /* report.m */; };
+		53E3639C276313F100B7A40F /* report.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36394276097BF00B7A40F /* report.m */; };
+		53E3639D2763140A00B7A40F /* batch.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36391276097B500B7A40F /* batch.m */; };
+		53E3639E2763140B00B7A40F /* batch.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36391276097B500B7A40F /* batch.m */; };
+		53E3639F2763141000B7A40F /* libPOSLink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53E3638B2760973800B7A40F /* libPOSLink.a */; };
+		53E363A02763141000B7A40F /* libPOSLink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53E3638B2760973800B7A40F /* libPOSLink.a */; };
 		5D0B36B7CCB64A1BA827584E /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6AACA0D074D45279AB59577 /* SFProDisplay-Semibold.ttf */; };
 		76B126674CCB4AAF8D5D8537 /* SF Pro Text Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B2429A003E24354B9166F4D /* SF Pro Text Regular.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -274,6 +282,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53E363A02763141000B7A40F /* libPOSLink.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +317,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53E3639F2763141000B7A40F /* libPOSLink.a in Frameworks */,
 				36742A5E2759D43300E0CD23 /* ExternalAccessory.framework in Frameworks */,
 				ED0B993459EF9F0B484EB3BB /* libPods-HarmonyOne-Staging.a in Frameworks */,
 				36742A562759D16700E0CD23 /* CoreBluetooth.framework in Frameworks */,
@@ -1343,7 +1353,10 @@
 			files = (
 				12ED4DF22754D14300AD4013 /* AppDelegate.m in Sources */,
 				12ED4DF32754D14300AD4013 /* CloverManager.swift in Sources */,
+				53E3639A276313E400B7A40F /* payment.m in Sources */,
 				12ED4DF42754D14300AD4013 /* File.swift in Sources */,
+				53E3639E2763140B00B7A40F /* batch.m in Sources */,
+				53E3639C276313F100B7A40F /* report.m in Sources */,
 				12ED4DF52754D14300AD4013 /* clover.m in Sources */,
 				12ED4DF62754D14300AD4013 /* main.m in Sources */,
 			);
@@ -1387,7 +1400,10 @@
 			files = (
 				362C8D4626B247FD00CB63F0 /* AppDelegate.m in Sources */,
 				53E26C342754ADCC0010E9FD /* CloverManager.swift in Sources */,
+				53E36399276313E300B7A40F /* payment.m in Sources */,
 				368DE94126B26AD50095C324 /* File.swift in Sources */,
+				53E3639D2763140A00B7A40F /* batch.m in Sources */,
+				53E3639B276313F000B7A40F /* report.m in Sources */,
 				53E26C332754ADC60010E9FD /* clover.m in Sources */,
 				362C8D4726B247FD00CB63F0 /* main.m in Sources */,
 			);
@@ -1471,6 +1487,10 @@
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = "$(SRCROOT)/Dev/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/trans/sdk",
+				);
 				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1504,6 +1524,10 @@
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Dev/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/trans/sdk",
+				);
 				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1917,7 +1941,7 @@
 				CODE_SIGN_ENTITLEMENTS = Staging/Staging.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = YES;
 				EXCLUDED_ARCHS = arm64;
@@ -2030,7 +2054,11 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Staging/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/trans/sdk",
+				);
+				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -2057,7 +2085,7 @@
 				CODE_SIGN_ENTITLEMENTS = Staging/Staging.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
@@ -2168,7 +2196,11 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Staging/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/trans/sdk",
+				);
+				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
