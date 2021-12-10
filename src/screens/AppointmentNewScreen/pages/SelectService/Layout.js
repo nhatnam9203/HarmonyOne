@@ -32,7 +32,7 @@ export const Layout = ({
             },
             labelStyle: {
               fontFamily: fonts.REGULAR,
-              fontSize: scaleFont(17)
+              fontSize: scaleFont(16)
             },
             style: {
               backgroundColor: colors.white,

@@ -90,6 +90,18 @@
 		53CBD5592739502F002A7DB3 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53CBD5582739502F002A7DB3 /* ExternalAccessory.framework */; };
 		53E26C332754ADC60010E9FD /* clover.m in Sources */ = {isa = PBXBuildFile; fileRef = 533642CA274BAA0B007CCB7B /* clover.m */; };
 		53E26C342754ADCC0010E9FD /* CloverManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533642CB274BAA0B007CCB7B /* CloverManager.swift */; };
+		53E3638C2760973800B7A40F /* libPOSLink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53E3638B2760973800B7A40F /* libPOSLink.a */; };
+		53E36392276097B500B7A40F /* batch.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36391276097B500B7A40F /* batch.m */; };
+		53E36395276097BF00B7A40F /* report.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36394276097BF00B7A40F /* report.m */; };
+		53E36398276097CA00B7A40F /* payment.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36397276097CA00B7A40F /* payment.m */; };
+		53E36399276313E300B7A40F /* payment.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36397276097CA00B7A40F /* payment.m */; };
+		53E3639A276313E400B7A40F /* payment.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36397276097CA00B7A40F /* payment.m */; };
+		53E3639B276313F000B7A40F /* report.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36394276097BF00B7A40F /* report.m */; };
+		53E3639C276313F100B7A40F /* report.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36394276097BF00B7A40F /* report.m */; };
+		53E3639D2763140A00B7A40F /* batch.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36391276097B500B7A40F /* batch.m */; };
+		53E3639E2763140B00B7A40F /* batch.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36391276097B500B7A40F /* batch.m */; };
+		53E3639F2763141000B7A40F /* libPOSLink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53E3638B2760973800B7A40F /* libPOSLink.a */; };
+		53E363A02763141000B7A40F /* libPOSLink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53E3638B2760973800B7A40F /* libPOSLink.a */; };
 		5D0B36B7CCB64A1BA827584E /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6AACA0D074D45279AB59577 /* SFProDisplay-Semibold.ttf */; };
 		76B126674CCB4AAF8D5D8537 /* SF Pro Text Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B2429A003E24354B9166F4D /* SF Pro Text Regular.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -153,7 +165,6 @@
 		36742A582759D42900E0CD23 /* StarIO_Extension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StarIO_Extension.framework; path = "../node_modules/react-native-star-prnt/ios/Frameworks/StarIO_Extension.framework"; sourceTree = "<group>"; };
 		368CADCE275A233100365393 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "HarmonyOne/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		368DE93D26B26AD50095C324 /* HarmonyOne-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HarmonyOne-Bridging-Header.h"; sourceTree = "<group>"; };
-		368DE93E26B26AD50095C324 /* Staging-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Staging-Bridging-Header.h"; sourceTree = "<group>"; };
 		368DE93F26B26AD50095C324 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		3B811B94564C4D63A897FD16 /* SF Pro Text RegularItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF Pro Text RegularItalic.ttf"; path = "../src/assets/fonts/SF Pro Text RegularItalic.ttf"; sourceTree = "<group>"; };
 		3D7D1058273294B600455370 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -169,6 +180,59 @@
 		533642CB274BAA0B007CCB7B /* CloverManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CloverManager.swift; path = clover/CloverManager.swift; sourceTree = "<group>"; };
 		53CBD55627395016002A7DB3 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		53CBD5582739502F002A7DB3 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		53E3635D276096E600B7A40F /* GoogleNewService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleNewService.h; sourceTree = "<group>"; };
+		53E3635E276096E700B7A40F /* BatchRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchRequest.h; sourceTree = "<group>"; };
+		53E3635F276096E700B7A40F /* BatchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchResponse.h; sourceTree = "<group>"; };
+		53E36360276096E700B7A40F /* GoogleServiceUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleServiceUpdate.h; sourceTree = "<group>"; };
+		53E36361276096E700B7A40F /* MultiMerchant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiMerchant.h; sourceTree = "<group>"; };
+		53E36362276096E700B7A40F /* GoogleServiceUsage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleServiceUsage.h; sourceTree = "<group>"; };
+		53E36363276096E700B7A40F /* CardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardInfo.h; sourceTree = "<group>"; };
+		53E36364276096E700B7A40F /* AutoRentalInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoRentalInfo.h; sourceTree = "<group>"; };
+		53E36365276096E700B7A40F /* Original.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Original.h; sourceTree = "<group>"; };
+		53E36366276096E800B7A40F /* MOTOECommerce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOTOECommerce.h; sourceTree = "<group>"; };
+		53E36367276096E800B7A40F /* AVSInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVSInformation.h; sourceTree = "<group>"; };
+		53E36368276096E800B7A40F /* ADDLRspData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADDLRspData.h; sourceTree = "<group>"; };
+		53E36369276096E800B7A40F /* MultipleCommandsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleCommandsRequest.h; sourceTree = "<group>"; };
+		53E3636A276096E800B7A40F /* PaymentResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentResponse.h; sourceTree = "<group>"; };
+		53E3636B276096E800B7A40F /* ReportRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportRequest.h; sourceTree = "<group>"; };
+		53E3636C276096E800B7A40F /* MposBluetoothScan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MposBluetoothScan.h; sourceTree = "<group>"; };
+		53E3636D276096E800B7A40F /* LogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogManager.h; sourceTree = "<group>"; };
+		53E3636E276096E900B7A40F /* MultipleCommandsResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleCommandsResponse.h; sourceTree = "<group>"; };
+		53E3636F276096E900B7A40F /* LodgingInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LodgingInfo.h; sourceTree = "<group>"; };
+		53E36370276096E900B7A40F /* ManageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageRequest.h; sourceTree = "<group>"; };
+		53E36371276096E900B7A40F /* PaymentRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentRequest.h; sourceTree = "<group>"; };
+		53E36372276096E900B7A40F /* PayloadResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayloadResponse.h; sourceTree = "<group>"; };
+		53E36373276096E900B7A40F /* ProcessTransResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessTransResult.h; sourceTree = "<group>"; };
+		53E36374276096E900B7A40F /* ReportResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportResponse.h; sourceTree = "<group>"; };
+		53E36375276096EA00B7A40F /* HostGateWay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostGateWay.h; sourceTree = "<group>"; };
+		53E36376276096EA00B7A40F /* MasterSessionKeyInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterSessionKeyInfo.h; sourceTree = "<group>"; };
+		53E36377276096EA00B7A40F /* PayloadRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayloadRequest.h; sourceTree = "<group>"; };
+		53E36378276096EA00B7A40F /* TaxDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaxDetail.h; sourceTree = "<group>"; };
+		53E36379276096EA00B7A40F /* POSLinkLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSLinkLog.h; sourceTree = "<group>"; };
+		53E3637A276096EA00B7A40F /* TORResponseInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TORResponseInfo.h; sourceTree = "<group>"; };
+		53E3637B276096EA00B7A40F /* LineItemDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineItemDetail.h; sourceTree = "<group>"; };
+		53E3637C276096EA00B7A40F /* TransactionBehavior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionBehavior.h; sourceTree = "<group>"; };
+		53E3637D276096EA00B7A40F /* PaymentEmvTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentEmvTag.h; sourceTree = "<group>"; };
+		53E3637E276096EA00B7A40F /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
+		53E3637F276096EA00B7A40F /* VASResponseInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VASResponseInfo.h; sourceTree = "<group>"; };
+		53E36380276096EA00B7A40F /* DUKPTKeyInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DUKPTKeyInfo.h; sourceTree = "<group>"; };
+		53E36381276096EB00B7A40F /* PosLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PosLink.h; sourceTree = "<group>"; };
+		53E36382276096EB00B7A40F /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		53E36383276096EB00B7A40F /* GoogleSmartTapPushService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleSmartTapPushService.h; sourceTree = "<group>"; };
+		53E36384276096EB00B7A40F /* GoogleSmartTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleSmartTap.h; sourceTree = "<group>"; };
+		53E36385276096EB00B7A40F /* ApplePayVAS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplePayVAS.h; sourceTree = "<group>"; };
+		53E36386276096EB00B7A40F /* ManageResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageResponse.h; sourceTree = "<group>"; };
+		53E36387276096EB00B7A40F /* CommercialInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommercialInformation.h; sourceTree = "<group>"; };
+		53E36388276096EB00B7A40F /* CommSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommSetting.h; sourceTree = "<group>"; };
+		53E36389276096EC00B7A40F /* FleetCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FleetCard.h; sourceTree = "<group>"; };
+		53E3638A276096EC00B7A40F /* PaymentTransInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentTransInfo.h; sourceTree = "<group>"; };
+		53E3638B2760973800B7A40F /* libPOSLink.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPOSLink.a; sourceTree = "<group>"; };
+		53E36390276097B400B7A40F /* batch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = batch.h; sourceTree = "<group>"; };
+		53E36391276097B500B7A40F /* batch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = batch.m; sourceTree = "<group>"; };
+		53E36393276097BF00B7A40F /* report.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = report.h; sourceTree = "<group>"; };
+		53E36394276097BF00B7A40F /* report.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = report.m; sourceTree = "<group>"; };
+		53E36396276097CA00B7A40F /* payment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = payment.h; sourceTree = "<group>"; };
+		53E36397276097CA00B7A40F /* payment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = payment.m; sourceTree = "<group>"; };
 		5507EF7BCD464D2988033438 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		5870A0FEFD1982D0340ED4A8 /* Pods-HarmonyOne-Staging.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyOne-Staging.debug.xcconfig"; path = "Target Support Files/Pods-HarmonyOne-Staging/Pods-HarmonyOne-Staging.debug.xcconfig"; sourceTree = "<group>"; };
 		5B2429A003E24354B9166F4D /* SF Pro Text Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF Pro Text Regular.ttf"; path = "../src/assets/fonts/SF Pro Text Regular.ttf"; sourceTree = "<group>"; };
@@ -217,6 +281,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53E363A02763141000B7A40F /* libPOSLink.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +289,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53E3638C2760973800B7A40F /* libPOSLink.a in Frameworks */,
 				36BA5DA9275A12E1003B2EFB /* StarIO_Extension.framework in Frameworks */,
 				36BA5DAB275A12E1003B2EFB /* StarIO.framework in Frameworks */,
 				53CBD5592739502F002A7DB3 /* ExternalAccessory.framework in Frameworks */,
@@ -250,6 +316,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53E3639F2763141000B7A40F /* libPOSLink.a in Frameworks */,
 				36742A5E2759D43300E0CD23 /* ExternalAccessory.framework in Frameworks */,
 				ED0B993459EF9F0B484EB3BB /* libPods-HarmonyOne-Staging.a in Frameworks */,
 				36742A562759D16700E0CD23 /* CoreBluetooth.framework in Frameworks */,
@@ -338,6 +405,106 @@
 			name = clover;
 			sourceTree = "<group>";
 		};
+		53E3635A2760966200B7A40F /* trans */ = {
+			isa = PBXGroup;
+			children = (
+				53E3638F2760975800B7A40F /* payment */,
+				53E3638E2760975000B7A40F /* report */,
+				53E3638D2760974500B7A40F /* batch */,
+				53E3635B2760968600B7A40F /* sdk */,
+			);
+			path = trans;
+			sourceTree = "<group>";
+		};
+		53E3635B2760968600B7A40F /* sdk */ = {
+			isa = PBXGroup;
+			children = (
+				53E3638B2760973800B7A40F /* libPOSLink.a */,
+				53E3635C2760969600B7A40F /* inc */,
+			);
+			path = sdk;
+			sourceTree = "<group>";
+		};
+		53E3635C2760969600B7A40F /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				53E36368276096E800B7A40F /* ADDLRspData.h */,
+				53E36385276096EB00B7A40F /* ApplePayVAS.h */,
+				53E36364276096E700B7A40F /* AutoRentalInfo.h */,
+				53E36367276096E800B7A40F /* AVSInformation.h */,
+				53E3635E276096E700B7A40F /* BatchRequest.h */,
+				53E3635F276096E700B7A40F /* BatchResponse.h */,
+				53E36363276096E700B7A40F /* CardInfo.h */,
+				53E36387276096EB00B7A40F /* CommercialInformation.h */,
+				53E36382276096EB00B7A40F /* Common.h */,
+				53E36388276096EB00B7A40F /* CommSetting.h */,
+				53E36380276096EA00B7A40F /* DUKPTKeyInfo.h */,
+				53E36389276096EC00B7A40F /* FleetCard.h */,
+				53E3635D276096E600B7A40F /* GoogleNewService.h */,
+				53E36360276096E700B7A40F /* GoogleServiceUpdate.h */,
+				53E36362276096E700B7A40F /* GoogleServiceUsage.h */,
+				53E36384276096EB00B7A40F /* GoogleSmartTap.h */,
+				53E36383276096EB00B7A40F /* GoogleSmartTapPushService.h */,
+				53E36375276096EA00B7A40F /* HostGateWay.h */,
+				53E3637B276096EA00B7A40F /* LineItemDetail.h */,
+				53E3636F276096E900B7A40F /* LodgingInfo.h */,
+				53E3636D276096E800B7A40F /* LogManager.h */,
+				53E36370276096E900B7A40F /* ManageRequest.h */,
+				53E36386276096EB00B7A40F /* ManageResponse.h */,
+				53E36376276096EA00B7A40F /* MasterSessionKeyInfo.h */,
+				53E36366276096E800B7A40F /* MOTOECommerce.h */,
+				53E3636C276096E800B7A40F /* MposBluetoothScan.h */,
+				53E36361276096E700B7A40F /* MultiMerchant.h */,
+				53E36369276096E800B7A40F /* MultipleCommandsRequest.h */,
+				53E3636E276096E900B7A40F /* MultipleCommandsResponse.h */,
+				53E36365276096E700B7A40F /* Original.h */,
+				53E36377276096EA00B7A40F /* PayloadRequest.h */,
+				53E36372276096E900B7A40F /* PayloadResponse.h */,
+				53E3637D276096EA00B7A40F /* PaymentEmvTag.h */,
+				53E36371276096E900B7A40F /* PaymentRequest.h */,
+				53E3636A276096E800B7A40F /* PaymentResponse.h */,
+				53E3638A276096EC00B7A40F /* PaymentTransInfo.h */,
+				53E36381276096EB00B7A40F /* PosLink.h */,
+				53E36379276096EA00B7A40F /* POSLinkLog.h */,
+				53E36373276096E900B7A40F /* ProcessTransResult.h */,
+				53E3636B276096E800B7A40F /* ReportRequest.h */,
+				53E36374276096E900B7A40F /* ReportResponse.h */,
+				53E3637E276096EA00B7A40F /* Restaurant.h */,
+				53E36378276096EA00B7A40F /* TaxDetail.h */,
+				53E3637A276096EA00B7A40F /* TORResponseInfo.h */,
+				53E3637C276096EA00B7A40F /* TransactionBehavior.h */,
+				53E3637F276096EA00B7A40F /* VASResponseInfo.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		53E3638D2760974500B7A40F /* batch */ = {
+			isa = PBXGroup;
+			children = (
+				53E36390276097B400B7A40F /* batch.h */,
+				53E36391276097B500B7A40F /* batch.m */,
+			);
+			path = batch;
+			sourceTree = "<group>";
+		};
+		53E3638E2760975000B7A40F /* report */ = {
+			isa = PBXGroup;
+			children = (
+				53E36393276097BF00B7A40F /* report.h */,
+				53E36394276097BF00B7A40F /* report.m */,
+			);
+			path = report;
+			sourceTree = "<group>";
+		};
+		53E3638F2760975800B7A40F /* payment */ = {
+			isa = PBXGroup;
+			children = (
+				53E36396276097CA00B7A40F /* payment.h */,
+				53E36397276097CA00B7A40F /* payment.m */,
+			);
+			path = payment;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,6 +515,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				53E3635A2760966200B7A40F /* trans */,
 				12ED4E162754D2ED00AD4013 /* Dev */,
 				533642C8274BA9F9007CCB7B /* clover */,
 				368DE93F26B26AD50095C324 /* File.swift */,
@@ -360,7 +528,6 @@
 				896751923113820FB4EA36BE /* Pods */,
 				B2874C1534F94D85958A289D /* Resources */,
 				368DE93D26B26AD50095C324 /* HarmonyOne-Bridging-Header.h */,
-				368DE93E26B26AD50095C324 /* Staging-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -582,7 +749,7 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 69WQLJ9K8N;
 						LastSwiftMigration = 1250;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -596,7 +763,7 @@
 					362C8D4226B247FD00CB63F0 = {
 						DevelopmentTeam = 69WQLJ9K8N;
 						LastSwiftMigration = 1250;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -1184,7 +1351,10 @@
 			files = (
 				12ED4DF22754D14300AD4013 /* AppDelegate.m in Sources */,
 				12ED4DF32754D14300AD4013 /* CloverManager.swift in Sources */,
+				53E3639A276313E400B7A40F /* payment.m in Sources */,
 				12ED4DF42754D14300AD4013 /* File.swift in Sources */,
+				53E3639E2763140B00B7A40F /* batch.m in Sources */,
+				53E3639C276313F100B7A40F /* report.m in Sources */,
 				12ED4DF52754D14300AD4013 /* clover.m in Sources */,
 				12ED4DF62754D14300AD4013 /* main.m in Sources */,
 			);
@@ -1194,9 +1364,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53E36392276097B500B7A40F /* batch.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				53E36398276097CA00B7A40F /* payment.m in Sources */,
 				533642CD274BAA0B007CCB7B /* CloverManager.swift in Sources */,
 				368DE94026B26AD50095C324 /* File.swift in Sources */,
+				53E36395276097BF00B7A40F /* report.m in Sources */,
 				533642CC274BAA0B007CCB7B /* clover.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -1225,7 +1398,10 @@
 			files = (
 				362C8D4626B247FD00CB63F0 /* AppDelegate.m in Sources */,
 				53E26C342754ADCC0010E9FD /* CloverManager.swift in Sources */,
+				53E36399276313E300B7A40F /* payment.m in Sources */,
 				368DE94126B26AD50095C324 /* File.swift in Sources */,
+				53E3639D2763140A00B7A40F /* batch.m in Sources */,
+				53E3639B276313F000B7A40F /* report.m in Sources */,
 				53E26C332754ADC60010E9FD /* clover.m in Sources */,
 				362C8D4726B247FD00CB63F0 /* main.m in Sources */,
 			);
@@ -1301,7 +1477,7 @@
 				CODE_SIGN_ENTITLEMENTS = Staging/Staging.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				ENABLE_BITCODE = YES;
 				EXCLUDED_ARCHS = arm64;
@@ -1309,17 +1485,21 @@
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = "$(SRCROOT)/Dev/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/trans/sdk",
+				);
+				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.harmonypay.one.dev;
 				PRODUCT_NAME = HarmonyOne;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Staging-Bridging-Header.h";
-				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_MODULE_NAME)-Swift.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "HarmonyOne-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1336,23 +1516,27 @@
 				CODE_SIGN_ENTITLEMENTS = Staging/Staging.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Dev/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/trans/sdk",
+				);
+				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.harmonypay.one.dev;
 				PRODUCT_NAME = HarmonyOne;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Staging-Bridging-Header.h";
-				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_MODULE_NAME)-Swift.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "HarmonyOne-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1367,8 +1551,8 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = HarmonyOne/HarmonyOne.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				ENABLE_BITCODE = NO;
@@ -1479,6 +1663,10 @@
 				);
 				INFOPLIST_FILE = HarmonyOne/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/trans/sdk",
+				);
 				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1487,7 +1675,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.harmonypay.one;
 				PRODUCT_NAME = HarmonyOne;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "HPOne Production Store";
 				SWIFT_OBJC_BRIDGING_HEADER = "HarmonyOne-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1615,6 +1803,10 @@
 				);
 				INFOPLIST_FILE = HarmonyOne/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/trans/sdk",
+				);
 				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1745,11 +1937,11 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Staging/Staging.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
-				DEVELOPMENT_TEAM = "";
-				ENABLE_BITCODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 69WQLJ9K8N;
+				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = arm64;
 				"EXCLUDED_ARCHS[sdk=*]" = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
@@ -1860,7 +2052,11 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Staging/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/trans/sdk",
+				);
+				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1868,8 +2064,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.harmonypay.one.staging;
 				PRODUCT_NAME = HarmonyOne;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Staging-Bridging-Header.h";
+				PROVISIONING_PROFILE_SPECIFIER = "HPO Staging Appstore";
+				SWIFT_OBJC_BRIDGING_HEADER = "HarmonyOne-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1885,10 +2081,11 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Staging/Staging.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 69WQLJ9K8N;
+				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				HEADER_SEARCH_PATHS = (
@@ -1998,7 +2195,11 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Staging/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/trans/sdk",
+				);
+				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -2006,8 +2207,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.harmonypay.one.staging;
 				PRODUCT_NAME = HarmonyOne;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Staging-Bridging-Header.h";
+				PROVISIONING_PROFILE_SPECIFIER = "HPO Staging Appstore";
+				SWIFT_OBJC_BRIDGING_HEADER = "HarmonyOne-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

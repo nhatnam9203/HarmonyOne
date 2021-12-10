@@ -18,6 +18,7 @@ export const AppointmentServiceItem = ({
     isDelete,
     onPressItem = null,
     onPressItemReview = false,
+    isShowStaff = true,
 }) => {
 
     const { t } = useTranslation();
@@ -115,9 +116,12 @@ export const AppointmentServiceItem = ({
                         </Text>
 
                         {
-                            (service.displayName || service?.staff?.displayName) &&
+                            (service.displayName || !isNaN(service?.staff?.staffId)) && isShowStaff && 
                             <Text style={[styles.textServiceDuration, { fontFamily: fonts.MEDIUM, marginLeft: scaleWidth(15) }]}>
-                                {service?.displayName || service?.staff?.displayName}
+                                {
+                                    service?.displayName ? service?.displayName :
+                                        service?.staff?.staffId == 0 ? "Any staff" : service?.staff?.displayName
+                                }
                             </Text>
                         }
                     </View>

@@ -1,5 +1,5 @@
 import React from "react";
-import { getStaffOfService, useAxiosQuery, staffGetAvaiableTime , useAxiosMutation} from "@src/apis";
+import { getStaffOfService, useAxiosQuery, staffGetAvaiableTime, useAxiosMutation } from "@src/apis";
 import { useSelector, useDispatch } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
 import { isEmpty } from "lodash";
@@ -35,6 +35,8 @@ export const useProps = ({
     staff: { staffListByMerchant = [] },
   } = useSelector(state => state);
 
+  const staffSelectedAppointmentScreen = useSelector(state => state.appointment.staffSelected);
+
   const [durationService, setDurationService] = React.useState(0);
   const [extrasService, setExtrasService] = React.useState([]);
 
@@ -45,6 +47,8 @@ export const useProps = ({
   const getStaffSelected = () => {
     return staffListByMerchant?.find(s => s?.staffId == staff?.staffId);
   }
+
+  const roleName = staff?.roleName?.toString()?.toLowerCase();
 
 
   React.useEffect(() => {
@@ -160,10 +164,22 @@ export const useProps = ({
 
   const goToDateTime = async () => {
 
-    const staffSelected = getStaffSelected();
+    let staffSelected = getStaffSelected();
+
+    if (roleName == "admin" || roleName == "manager") {
+      if (staffSelectedAppointmentScreen !== 0) {
+        staffSelected = staffListByMerchant?.find(s => s?.staffId == staffSelectedAppointmentScreen);
+      } else {
+        staffSelected = {
+          staffId: 0,
+          displayName: "Any staff"
+        }
+      }
+    }
 
     await addService();
     await dispatch(bookAppointment.setStafsfOfService(data));
+
 
     if (isAddMore) {
       dispatch(bookAppointment.updateStatusAddMore(false));
@@ -171,7 +187,6 @@ export const useProps = ({
       NavigationService.navigate(screenNames.ReviewConfirm);
       return;
     }
-
 
     /**************************** UPDATE STAFF CHO SERVICE *****************************/
     dispatch(bookAppointment.updateStaffService({ service: item, staff: staffSelected }));
@@ -181,6 +196,7 @@ export const useProps = ({
       return;
     }
 
+
     /**************************** GET TIME AVAILABLE CHO STAFF DUOC CHON *****************************/
     const data = {
       date: moment(dayBooking).format("YYYY-MM-DD"),
@@ -188,7 +204,8 @@ export const useProps = ({
       appointmentId: 0,
       timezone: new Date().getTimezoneOffset(),
     };
-    console.log({ data, staffSelected })
+
+
     const body = await staffGetAvaiableTime(staffSelected?.staffId, data);
     submitGetStaffAvailable(body.params);
   };
@@ -207,10 +224,23 @@ export const useProps = ({
     inputPriceRef,
 
     goToSelectStaff: () => {
-      const roleName = staff?.roleName?.toString()?.toLowerCase();
       if (roleName == "admin" || roleName == "manager") {
-        fetchStaffAvaiable();
+        /**************** BOOK APPOINTMENT ROLE ADMIN & MANAGER  *****************/
+        if (servicesBooking.length == 0) {
+          if (isQuickCheckout && staffSelectedAppointmentScreen == 0) {
+            fetchStaffAvaiable();
+          } else {
+            goToDateTime();
+          }
+        } else {
+          if (!isNaN(servicesBooking[0]?.staffId) && servicesBooking[0]?.staffId == 0) {
+            goToDateTime();
+          } else {
+            fetchStaffAvaiable();
+          }
+        }
       } else {
+        /**************** BOOK APPOINTMENT ROLE STAFF *****************/
         goToDateTime();
       }
     },

@@ -51,6 +51,7 @@ import Configs from '@src/config';
 import configureStore from '@src/redux/store';
 const signalR = require("@microsoft/signalr");
 const { clover } = NativeModules;
+const PosLink = NativeModules.payment;
 const { persistor, store } = configureStore();
 
 
@@ -82,7 +83,10 @@ export const useProps = (props) => {
       cloverMachineInfo,
       paymentMachineType,
       printerList,
-      printerSelect, },
+      printerSelect,
+      bluetoothPaxInfo,
+      paxMachineInfo,
+     },
     merchant: { merchantDetail },
   } = useSelector(state => state);
 
@@ -445,14 +449,50 @@ export const useProps = (props) => {
 
   /**
    * Handle payment by credit card
-   * Dejavoo
+   * Dejavoo, Clover, Pax
    */
   const handlePaymentByCredit = async () => {
     setTimeout(() => {
       popupPayProcessingRef?.current?.show();
     }, 100);
+    if (paymentMachineType == PaymentTerminalType.Pax) {
 
-    if (paymentMachineType == PaymentTerminalType.Clover){
+      if(Platform.OS === 'ios') {
+        const { name, ip, port, commType, bluetoothAddr, isSetup } =
+          paxMachineInfo;
+        const tempIpPax = commType == "TCP" ? ip : "";
+        const tempPortPax = commType == "TCP" ? port : "";
+        const idBluetooth = commType === "TCP" ? "" : bluetoothAddr;
+        const extData = "<Force>T</Force>";
+        const moneyCreditCard = Number(
+          formatNumberFromCurrency(Number(groupAppointments?.dueAmount)) * 100
+        ).toFixed(2);
+
+        const parameter = {
+          tenderType: "CREDIT",
+          transType: "SALE",
+          amount: `${parseFloat(moneyCreditCard)}`,
+          transactionId: "1",
+          extData: extData,
+          commType: commType,
+          destIp: tempIpPax,
+          portDevice: tempPortPax,
+          timeoutConnect: "90000",
+          bluetoothAddr: idBluetooth,
+          invNum: `${groupAppointments?.checkoutGroupId || 0}`,
+        };
+        // Send Trans to pax
+        PosLink.sendTransaction(parameter, (message) => {
+          console.log('message', message)
+          handleResponseCreditCardPax(
+            message,
+            true,
+            groupAppointments?.dueAmount,
+            parameter
+          );
+        });
+      }
+    } else if (paymentMachineType == PaymentTerminalType.Clover) {
       //Payment by Clover
       if (Platform.OS === 'ios') {
         const moneyCreditCard = Number(
@@ -494,6 +534,44 @@ export const useProps = (props) => {
       );
     }
     
+  }
+
+  const handleResponseCreditCardPax = async (
+    message,
+    online,
+    moneyUserGiveForStaff,
+    parameter
+  ) => {
+    popupPayProcessingRef?.current?.hide();
+    try {
+      const result = JSON.parse(message);
+      if (_.get(result, "status", 0) == 0) {
+        if (payAppointmentId) {
+          this.props.actions.appointment.cancelHarmonyPayment(
+            payAppointmentId,
+            "transaction fail",
+            result?.message
+          );
+        }
+        setErrorMessageFromPax(result?.message || "Transaction failed");
+        const body = cancelHarmonyPayment(payAppointmentId, data)
+        submitCancelHarmonyPayment(body.params);
+      } else if (result.ResultCode && result.ResultCode == "000000") {
+        const body = await submitPaymentWithCreditCard(staff?.merchantId || 0,
+          message,
+          payAppointmentId,
+          moneyUserGiveForStaff,
+          "pax",
+          parameter)
+        submitPaymentCreditCard(body.params);
+         
+      } else {
+        const resultTxt = result?.ResultTxt || "Transaction failed";
+        setErrorMessageFromPax(resultTxt);
+        const body = cancelHarmonyPayment(payAppointmentId, data)
+        submitCancelHarmonyPayment(body.params);
+      }
+    } catch (error) {}
   }
 
   const handleResponseCreditCardDejavoo = async (

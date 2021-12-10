@@ -52,6 +52,7 @@ export const Layout = ({
   appointmentItem,
   headerColor,
   canEdit,
+  isShowButton,
   getActionSheets,
   updateNextStatus,
   invoiceViewAppointmentDetail,
@@ -174,6 +175,15 @@ const styles = StyleSheet.create({
   bottom: {
     paddingHorizontal: scaleWidth(16),
     width: scaleWidth(375),
+  },
+
+  txtAppointmentAnyStaff: {
+    color: colors.red,
+    fontSize: scaleFont(14),
+    fontFamily: fonts.REGULAR,
+    textAlign : "center",
+    marginHorizontal : scaleWidth(50),
+    marginBottom : scaleHeight(24)
   }
 
 });

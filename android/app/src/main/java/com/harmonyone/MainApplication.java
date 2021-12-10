@@ -21,6 +21,8 @@ import cl.json.ShareApplication;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.reactnativecommunity.geolocation.GeolocationPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
+
 
 // import com.BV.LinearGradient.LinearGradientPackage;
 
@@ -45,6 +47,7 @@ public class MainApplication extends Application implements ReactApplication {
       // example:
       // packages.add(new MyReactNativePackage());
       // package.add(new LinearGradientPackage());
+      
       return packages;
     }
 

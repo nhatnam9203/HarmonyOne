@@ -112,18 +112,20 @@ const useRefetchSettlementWaiting = () => {
 
 
 
-    const refetchSettlementWaiting = async () => {
+    const refetchSettlementWaiting = async (terminalIdPax=null) => {
+        setTerminalId(terminalIdPax)
         fetchTransactions();
         fetchBatchHistory();
+        const terminalTemp = terminalIdPax ? terminalIdPax : terminalId
 
-        const body = await getListStaffsSales(terminalId);
+        const body = await getListStaffsSales(terminalTemp);
         fetchListStaffsSales(body.params);
 
-        const bodyGiftCard = await getListGiftCardSales(terminalId)
+        const bodyGiftCard = await getListGiftCardSales(terminalTemp)
         fetchListGiftCardSales(bodyGiftCard.params);
 
         const terminalType = paymentMachineType ? paymentMachineType.toLowerCase() : ""
-        const bodySettleWaiting = await getSettlementWating(terminalId, terminalType)
+        const bodySettleWaiting = await getSettlementWating(terminalTemp, terminalType)
         fetchSettlementWating(bodySettleWaiting.params);
     }
 

@@ -72,6 +72,7 @@ export const images = {
   iconEye: require('@src/assets/images/eye.png'),
   iconTrash: require('@src/assets/images/trash.png'),
   iconHidden: require('@src/assets/images/hidden.png'),
+  icon_waitingList: require('@src/assets/images/icon_waitingList.png'),
   schedule_checkinAppointment: require('@src/assets/images/schedule_checkinAppointment.png'),
   schedule_confirmAppointment: require('@src/assets/images/schedule_confirmAppointment.png'),
   schedule_deleteAppointment: require('@src/assets/images/schedule_deleteAppointment.png'),

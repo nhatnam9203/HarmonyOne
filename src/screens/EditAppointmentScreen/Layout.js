@@ -14,6 +14,7 @@ import {
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { SingleScreenLayout } from '@shared/layouts';
 import { dateToFormat, slop } from "@shared/utils";
+import { InputSelectStaff } from "./InputSelectStaff";
 import NavigationService from '@navigation/NavigationService';
 import DropdownAlert from 'react-native-dropdownalert';
 import moment from 'moment';
@@ -26,6 +27,7 @@ export const Layout = ({
   deleteService,
   changeDateTime,
   changeServiceTime,
+  changeStaffService,
   confirm,
   onPressBack,
   appointmentDetail,
@@ -35,8 +37,18 @@ export const Layout = ({
   alertRef,
   deleteProduct,
   deleteGiftCard,
-  roleName
+  roleName,
+  staffListByMerchant
 }) => {
+
+
+  const getStaffService = (staffId = 0) => {
+    if (staffId == 0) {
+      return "Any staff";
+    } else {
+      return staffListByMerchant.find(staff => staff?.staffId == staffId)?.displayName || "";
+    }
+  }
 
 
   const renderHeader = () => (
@@ -98,6 +110,7 @@ export const Layout = ({
 
   const dataList = [...appointmentEdit?.services, ...appointmentEdit?.products, ...appointmentEdit?.giftCards];
 
+
   return (
     <>
       <View style={styles.container}>
@@ -143,6 +156,7 @@ export const Layout = ({
                           duration={getTotalItem(data.item, "duration")}
                           price={getTotalPrice(data.item)}
                           isDelete={true}
+                          isShowStaff={false}
                           extras={
                             appointmentEdit?.extras
                               .filter(
@@ -155,24 +169,51 @@ export const Layout = ({
                           onPressItem={() => editService(data.item)}
                         />
 
-                        <View style={styles.rowItemTime}>
-                          <Text style={styles.titleStartTime}>Start time</Text>
-                          <InputSelectTime
-                            apply={(time) => changeServiceTime(time, data?.item?.bookingServiceId)}
-                            time={dateToFormat(data?.item?.fromTime, "hh:mm A")}
-                            renderInput={() => (
-                              <View style={styles.inputSelectTime}>
-                                <Text style={styles.serviceFromtime}>
-                                  {dateToFormat(data?.item?.fromTime, "hh:mm A")}
-                                </Text>
-                                <Image
-                                  source={images.downarrow}
-                                  style={styles.iconArrowDown}
-                                  resizeMode='contain'
-                                />
-                              </View>
-                            )}
-                          />
+                        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+
+                          {/****************** START TIME ******************/}
+                          <View style={styles.rowItemTime}>
+                            <Text style={styles.titleStartTime}>Start time</Text>
+                            <InputSelectTime
+                              apply={(time) => changeServiceTime(time, data?.item?.bookingServiceId)}
+                              time={dateToFormat(data?.item?.fromTime, "hh:mm A")}
+                              renderInput={() => (
+                                <View style={styles.inputSelectTime}>
+                                  <Text style={styles.serviceFromtime}>
+                                    {dateToFormat(data?.item?.fromTime, "hh:mm A")}
+                                  </Text>
+                                  <Image
+                                    source={images.downarrow}
+                                    style={styles.iconArrowDown}
+                                    resizeMode='contain'
+                                  />
+                                </View>
+                              )}
+                            />
+                          </View>
+
+                          {/****************** STAFF OFF SERVICE ******************/}
+                          <View style={[styles.rowItemTime, { marginRight: scaleWidth(16) }]}>
+                            <Text style={styles.titleStartTime}>Staff</Text>
+                            <InputSelectStaff
+                              items={staffListByMerchant.filter(staff => staff?.isDisabled == 0)}
+                              itemSelected={data?.item?.staffId}
+                              serviceId={data?.item?.serviceId}
+                              onSelect={(staffId) => changeStaffService(staffId, data?.item?.serviceId)}
+                              renderInput={() => (
+                                <View style={styles.inputSelectTime}>
+                                  <Text style={styles.serviceFromtime}>
+                                    {getStaffService(data?.item?.staffId)}
+                                  </Text>
+                                  <Image
+                                    source={images.downarrow}
+                                    style={styles.iconArrowDown}
+                                    resizeMode='contain'
+                                  />
+                                </View>
+                              )}
+                            />
+                          </View>
                         </View>
 
                       </View>
@@ -187,7 +228,7 @@ export const Layout = ({
                       icon={images.iconTrash}
                       iconStyle={styles.iconTrash}
                       style={styles.buttonDelete}
-                      onPress={() => data?.item?.productId ? deleteProduct(data.item) : data?.item?.giftCardId ?  deleteGiftCard(data.item) : deleteService(data.item)}
+                      onPress={() => data?.item?.productId ? deleteProduct(data.item) : data?.item?.giftCardId ? deleteGiftCard(data.item) : deleteService(data.item)}
                     />
                   </View>
                 )}
@@ -350,7 +391,7 @@ const styles = StyleSheet.create({
   },
   inputSelectTime: {
     flexDirection: "row",
-    marginLeft: scaleWidth(50),
+    marginLeft: scaleWidth(16),
     alignItems: "center"
   },
   iconHarmonyPay: {

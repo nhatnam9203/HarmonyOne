@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 const reducerName = 'hpo.service';
 const initialState = {
     services: [],
+    servicesByStaff: [],
 };
 
 const serviceSlice = createSlice({
@@ -13,6 +14,9 @@ const serviceSlice = createSlice({
     reducers: {
         setServiceList: (state, action) => {
             state.services = action.payload;
+        },
+        setServiceByStaff: (state, action) => {
+            state.servicesByStaff = action.payload;
         }
     },
 });

@@ -13,7 +13,7 @@ import {
   getStaffByMerchant,
   getStateCity,
   getNotifyRoleStaff,
-  reportGetStaffSalaryByStaff
+
 } from '@src/apis';
 
 import { useNavigation } from '@react-navigation/core';
@@ -44,7 +44,7 @@ export const useProps = (_params) => {
   const staffInfo = useSelector((state) => state.auth.staff);
 
   const [visibleDatePicker, setVisibleDatePicker] = React.useState(false);
-  const [staffSelected, setStaffSelected] = React.useState('');
+  // const [staffSelected, setStaffSelected] = React.useState('');
   const [firstLoading, setFirstLoading] = React.useState(true);
   const appointmentListRef = React.useRef();
   const staffListRef = React.useRef();
@@ -55,8 +55,10 @@ export const useProps = (_params) => {
       appointmentsByDate = [],
       appointmentDetail,
       appointmentDate,
+      staffSelected,
     },
   } = useSelector((state) => state);
+
 
   const roleName = staffInfo?.roleName?.toString()?.toLowerCase();
 
@@ -118,16 +120,6 @@ export const useProps = (_params) => {
     },
   });
 
-  /************************************** reportGetStaffSalaryByStaff ***************************************/
-  const [, fetchReportGetStaffSalaryByStaff] = useAxiosQuery({
-    ...reportGetStaffSalaryByStaff(staffInfo?.staffId, moment(appointmentDate).format("MM/DD/YYYY"), moment(appointmentDate).format("MM/DD/YYYY"), 1),
-    queryId: "freportGetStaffSalaryByStaff_AppointmentScreen",
-    isLoadingDefault: false,
-    enabled: true,
-    onSuccess: (data, response) => {
-      dispatch(staff.setSalaryStaffLogin(data));
-    },
-  });
 
   /************************************** fetchCountUnreadRoleStaff ***************************************/
   const [, fetchCountUnreadRoleStaff] = useAxiosQuery({
@@ -166,7 +158,7 @@ export const useProps = (_params) => {
 
   React.useEffect(() => {
     if (isEmpty(staffSelected)) {
-      setStaffSelected(staffInfo?.staffId);
+      dispatch(appointment.setStaffSelected(staffInfo?.staffId));
       setTimeout(() => {
         appointmentListRef?.current?.setStaffSelected(staffInfo?.staffId);
       }, 500);
@@ -203,10 +195,12 @@ export const useProps = (_params) => {
 
     selectStaff: (staffId) => {
       if (staffId == staffSelected) {
-        setStaffSelected('');
-        appointmentListRef?.current?.setStaffSelected('')
+        // setStaffSelected('');
+        // appointmentListRef?.current?.setStaffSelected('')
       } else {
-        setStaffSelected(staffId);
+        dispatch(
+          appointment.setStaffSelected(staffId)
+        );
         appointmentListRef?.current?.setStaffSelected(staffId)
       }
     },

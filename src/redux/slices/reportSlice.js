@@ -28,7 +28,6 @@ const reportSlice = createSlice({
     initialState: initialState,
     reducers: {
         setListStaffSalary: (state, action) => {
-            console.log({ action })
             if (action?.payload?.currentPage == 1) {
                 state.staffSalary = Array.isArray(action?.payload?.data) ? action?.payload?.data : [{ ...action?.payload?.data }];
             } else {
