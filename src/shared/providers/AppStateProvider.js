@@ -12,7 +12,7 @@ import Configs from '@src/config';
 import DeviceInfo from "react-native-device-info";
 import moment from "moment";
 import DropdownAlert from 'react-native-dropdownalert';
-import { saveDeviceID } from '@shared/storages/deviceUnique';
+import { saveDeviceID, getDeviceIdStorage } from '@shared/storages/deviceUnique';
 
 
 const signalR = require("@microsoft/signalr");
@@ -117,15 +117,13 @@ export const AppStateProvider = ({ children }) => {
     });
 
     const device = await `${encodeURIComponent(deviceName)}_${deviceId}`;
-    await saveDeviceID(device);
-
-    // await dispatch(actions.dataLocal.updateDeviceId(deviceId));
-    // await dispatch(actions.dataLocal.updateDeviceName(deviceName));
+    const deviceIdStoraged = await getDeviceIdStorage();
+    if (!deviceIdStoraged) {
+      await saveDeviceID(device);
+    }
     // await dispatch(
     //   actions.dataLocal.updateVersionApp(latestVersion ?? Configs.VERSION),
     // );
-
-    // await dispatch(appMerchant.setDeviceInfo({ deviceId, deviceName }));
   };
 
 
