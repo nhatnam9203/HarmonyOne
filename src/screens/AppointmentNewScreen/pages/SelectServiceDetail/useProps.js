@@ -167,11 +167,19 @@ export const useProps = ({
     let staffSelected = getStaffSelected();
 
     if (roleName == "admin" || roleName == "manager") {
-      staffSelected = staffListByMerchant?.find(s => s?.staffId == staffSelectedAppointmentScreen);
+      if (staffSelectedAppointmentScreen !== 0) {
+        staffSelected = staffListByMerchant?.find(s => s?.staffId == staffSelectedAppointmentScreen);
+      } else {
+        staffSelected = {
+          staffId: 0,
+          displayName: "Any staff"
+        }
+      }
     }
 
     await addService();
     await dispatch(bookAppointment.setStafsfOfService(data));
+
 
     if (isAddMore) {
       dispatch(bookAppointment.updateStatusAddMore(false));
@@ -179,7 +187,6 @@ export const useProps = ({
       NavigationService.navigate(screenNames.ReviewConfirm);
       return;
     }
-
 
     /**************************** UPDATE STAFF CHO SERVICE *****************************/
     dispatch(bookAppointment.updateStaffService({ service: item, staff: staffSelected }));
@@ -189,6 +196,7 @@ export const useProps = ({
       return;
     }
 
+
     /**************************** GET TIME AVAILABLE CHO STAFF DUOC CHON *****************************/
     const data = {
       date: moment(dayBooking).format("YYYY-MM-DD"),
@@ -196,6 +204,7 @@ export const useProps = ({
       appointmentId: 0,
       timezone: new Date().getTimezoneOffset(),
     };
+
 
     const body = await staffGetAvaiableTime(staffSelected?.staffId, data);
     submitGetStaffAvailable(body.params);
@@ -216,12 +225,22 @@ export const useProps = ({
 
     goToSelectStaff: () => {
       if (roleName == "admin" || roleName == "manager") {
+        /**************** BOOK APPOINTMENT ROLE ADMIN & MANAGER  *****************/
         if (servicesBooking.length == 0) {
-          goToDateTime();
+          if (isQuickCheckout && staffSelectedAppointmentScreen == 0) {
+            fetchStaffAvaiable();
+          } else {
+            goToDateTime();
+          }
         } else {
-          fetchStaffAvaiable();
+          if (!isNaN(servicesBooking[0]?.staffId) && servicesBooking[0]?.staffId == 0) {
+            goToDateTime();
+          } else {
+            fetchStaffAvaiable();
+          }
         }
       } else {
+        /**************** BOOK APPOINTMENT ROLE STAFF *****************/
         goToDateTime();
       }
     },

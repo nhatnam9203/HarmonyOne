@@ -37,7 +37,7 @@ export const useProps = ({
   const {
     appointment: { appointmentDetail, appointmentDate },
     invoice: { invoiceViewAppointmentDetail },
-    auth : { staff }
+    auth: { staff }
   } = useSelector(state => state);
 
   const item = appointmentDetail;
@@ -48,29 +48,30 @@ export const useProps = ({
     headTintColor: colors.black,
   });
   const [canEdit, setCanEdit] = React.useState(false);
+  const [isShowButton , setShowButton] = React.useState(true);
 
   const roleName = staff?.roleName?.toString()?.toLowerCase();
 
   const getInvoiceDetail = async (checkoutId) => {
     dispatch(app.showLoading());
     const params = {
-        url: `checkout/${checkoutId}`,
-        method: 'GET',
+      url: `checkout/${checkoutId}`,
+      method: 'GET',
     }
 
     try {
-        const response = await axios(params);
-        if (response?.data?.codeNumber == 200) {
-            dispatch(invoice.setInvoiceDetail(response?.data?.data));
-            NavigationService.navigate(screenNames.InvoiceDetailScreen,{ isAppointmentDetail : true, appointmentItem  });
-        }
+      const response = await axios(params);
+      if (response?.data?.codeNumber == 200) {
+        dispatch(invoice.setInvoiceDetail(response?.data?.data));
+        NavigationService.navigate(screenNames.InvoiceDetailScreen, { isAppointmentDetail: true, appointmentItem });
+      }
 
     } catch (err) {
 
     } finally {
-        dispatch(app.hideLoading());
+      dispatch(app.hideLoading());
     }
-}
+  }
 
 
   const [{ }, fetchAppointmentByDate] = useAxiosQuery({
@@ -97,7 +98,7 @@ export const useProps = ({
 
   const [, submitUpdateAppointment] = useAxiosMutation({
     ...updateAppointment(),
-    queryId : "updateAppointment_appointmentDetailScreen",
+    queryId: "updateAppointment_appointmentDetailScreen",
     isStopLoading: true,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
@@ -135,6 +136,11 @@ export const useProps = ({
       setAppointmentItem(item);
 
       const tempColor = getColorForStatus(item?.status);
+      if (item?.staffId == 0) {
+        if(item?.status !== "unconfirm"){
+          setShowButton(false);
+        }
+      }
       setCanEdit(!NoNeedEdit.includes(item?.status));
 
       switch (`${item?.status}`.toLowerCase()) {
@@ -174,6 +180,7 @@ export const useProps = ({
     invoiceViewAppointmentDetail,
     item,
     roleName,
+    isShowButton,
     getInvoiceDetail,
 
     getActionSheets: () => [
@@ -214,7 +221,7 @@ export const useProps = ({
           products: appointmentItem.products,
           giftCards: appointmentItem.giftCards
         };
-  
+
         const body = await updateAppointment(appointmentItem.appointmentId, data);
         submitUpdateAppointment(body.params);
       }

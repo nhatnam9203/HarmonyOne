@@ -91,7 +91,7 @@ const AppointmentList = React.forwardRef(({
 
     /************************************** GET LIST BLOCK TIMES  ***************************************/
     React.useEffect(() => {
-        if (staffSelected) {
+        if (!isNaN(staffSelected)) {
             let tempAppointments = blockTimes.filter(
                 (blockTime) => blockTime?.staffId == staffSelected,
             );

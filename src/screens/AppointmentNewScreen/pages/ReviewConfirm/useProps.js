@@ -216,18 +216,19 @@ export const useProps = (_params) => {
     confirm: async () => {
 
       const data = {
-        staffId: servicesBooking[0]?.staffId || staff?.staffId,
+        staffId: !isNaN(servicesBooking[0]?.staffId) ? servicesBooking[0]?.staffId : staff?.staffId,
         merchantId: staff?.merchantId,
         userId: 0,
         customerId: customerBooking?.customerId || 0,
         fromTime: (!isQuickCheckout && timeBooking) ? `${dayBooking} ${timeBooking}` : moment().format("MM-DD-YYYY hh:mm A"),
-        status: isQuickCheckout ? "checkin" : "confirm",
+        status: (!isQuickCheckout || servicesBooking[0]?.staffId == 0) ? "confirm" : "checkin",
         categories: [],
         services: [],
         extras: [],
         giftCards: [],
         products: [],
       }
+
       dispatch(app.showLoading());
       dispatch(app.stopSignalR());
       setDisabledConfirm(true);

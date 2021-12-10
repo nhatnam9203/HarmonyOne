@@ -52,6 +52,7 @@ export const Layout = ({
   appointmentItem,
   headerColor,
   canEdit,
+  isShowButton,
   getActionSheets,
   updateNextStatus,
   invoiceViewAppointmentDetail,
@@ -64,6 +65,8 @@ export const Layout = ({
   const getPrice = (price) => {
     return formatMoneyWithUnit(price);
   };
+
+  console.log({ appointmentItem })
 
   return (
     <View style={styles.container}>
@@ -174,6 +177,15 @@ const styles = StyleSheet.create({
   bottom: {
     paddingHorizontal: scaleWidth(16),
     width: scaleWidth(375),
+  },
+
+  txtAppointmentAnyStaff: {
+    color: colors.red,
+    fontSize: scaleFont(14),
+    fontFamily: fonts.REGULAR,
+    textAlign : "center",
+    marginHorizontal : scaleWidth(50),
+    marginBottom : scaleHeight(24)
   }
 
 });
