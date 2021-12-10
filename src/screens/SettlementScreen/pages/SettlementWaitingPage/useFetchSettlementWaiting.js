@@ -31,8 +31,8 @@ const useFetchSettlementWaiting = () => {
     const [, fetchListGiftCardSales] = useAxiosQuery({
         ...getListGiftCardSales(),
         queryId: "fetchListGiftCardSales_settlementWaiting",
-        enabled: false,
-        isLoadingDefault: false,
+        // enabled: false,
+        isLoadingDefault: true,
         isStopLoading: true,
         onSuccess: (data, response) => {
             setResponseListGiftCardSales(response);
@@ -45,8 +45,8 @@ const useFetchSettlementWaiting = () => {
     const [, fetchListStaffsSales] = useAxiosQuery({
         ...getListStaffsSales(terminalId),
         queryId: "fetchListStaffsSales_settlementWaiting",
-        enabled: false,
-        isLoadingDefault: false,
+        // enabled: false,
+        isLoadingDefault: true,
         isStopLoading: true,
         onSuccess: (data, response) => {
             setResponseListStaffSales(response);
@@ -60,8 +60,8 @@ const useFetchSettlementWaiting = () => {
     const [, fetchSettlementWating] = useAxiosQuery({
         ...getSettlementWating(terminalId, paymentMachineType.toLowerCase()),
         queryId: "fetchSettlementWating_settlementWaiting",
-        enabled: false,
-        isLoadingDefault: false,
+        // enabled: false,
+        isLoadingDefault: true,
         isStopLoading: true,
         onSuccess: (data, response) => {
             setResponseSettlementWaiting(response);

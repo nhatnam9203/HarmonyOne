@@ -107,10 +107,7 @@ export const useProps = (props) => {
     if(paymentMachineType == PaymentTerminalType.Pax) {
      setTerminalIdPax(_.get(props, "terminalIdPax"));
     }
-  }, []);
-
-   /****************** Integrate Pax **************************/
-  
+  }, []);  
 
   /****************** Integrate Clover **************************/
 
@@ -263,6 +260,8 @@ export const useProps = (props) => {
     }
   }
 
+  /****************** Integrate Pax **************************/
+
   const handleResponseBatchTransactionsPax = (message) => {
         
     try {
@@ -279,6 +278,7 @@ export const useProps = (props) => {
     }
 }
 
+/****************** Functions **************************/
   const confirmCloseoutWithoutPaymentTerminal = () => {
     Alert.alert(
       'Unable to connect to payment terminal or not found any transaction on your payment terminal, Do you want to continue without payment terminal?',
