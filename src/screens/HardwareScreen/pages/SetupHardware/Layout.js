@@ -24,6 +24,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { 
     PaymentTerminalType,
    } from "@shared/utils";
+import _ from "lodash";
 
 export const Layout = ({
     terminalListRef,
@@ -52,6 +53,7 @@ export const Layout = ({
     scanDevices,
     handleSelectPeripheral,
     scanLoading,
+    terminalIdSelected,
 }) => {
   const [t] = useTranslation();
   const tempCheckPax = terminalName === PaymentTerminalType.Pax 
@@ -219,6 +221,10 @@ export const Layout = ({
       )
   }
 
+  const terminalIndex = _.findIndex(terminalIdList, item => {
+      return _.get(item, "label") == terminalIdSelected
+  })
+
   return (
     <View style={styles.container}>
       <SingleScreenLayout
@@ -355,8 +361,7 @@ export const Layout = ({
                     </> : null
                 }
 
-                { terminalName &&
-                    <View style={styles.terminalView}>
+                { <View style={styles.terminalView}>
                         <Text style={{
                             fontSize: scaleFont(13), 
                             color: 'rgb(42,42,42)',
@@ -369,7 +374,7 @@ export const Layout = ({
                             ref={terminalListRef}
                             items={terminalIdList}
                             onChangeValue={setTerminalIdSelected}
-                            defaultIndex={0}
+                            defaultIndex={terminalIndex || 0}
                             width={scaleWidth(200)}
                             height={scaleHeight(50)}
                             styleDropDown={styles.styleDropDown}

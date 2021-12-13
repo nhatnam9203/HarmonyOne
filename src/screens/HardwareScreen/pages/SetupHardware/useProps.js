@@ -39,7 +39,8 @@ export const useProps = (props) => {
               paymentMachineType,
               printerList,
               printerSelect,
-              printerPortType, },
+              printerPortType,
+              terminalId },
   } = useSelector(state => state);
   const manager = new BleManager();
 
@@ -106,33 +107,36 @@ export const useProps = (props) => {
       isLoadingDefault: false,
       onSuccess: async (data, response) => {
         if (response?.codeNumber == 200) {
-        
+          dispatch(hardware.saveTerminalId(terminalIdSelected))
+          NavigationService.back();
         }
       }
     });
 
   const setupPaymentTerminal = async () => {
-    //save terminal id
-    const body = await updateTerminalId(terminalIdSelected);
-    submitSelectTerminalId(body.params);
 
      if (terminalName == PaymentTerminalType.Pax) {
        //Pax
        if (commType === "BLUETOOTH") {
           if (stringIsEmptyOrWhiteSpaces(name) 
-              || stringIsEmptyOrWhiteSpaces(bluetoothAddr)) {
+              || stringIsEmptyOrWhiteSpaces(bluetoothAddr)
+              || stringIsEmptyOrWhiteSpaces(terminalIdSelected)) {
               alert('Please enter full infomation!');
           } else {
             dispatch(hardware.setupPaxMachine({
               paymentMachineInfo: { ip, port, isSetup: true, name, commType, bluetoothAddr },
               paymentMachineType: PaymentTerminalType.Pax,
             }));
-            NavigationService.back();
+            //save terminal id
+            const body = await updateTerminalId(terminalIdSelected);
+            submitSelectTerminalId(body.params);
+            // NavigationService.back();
           }
         } else {
             if (stringIsEmptyOrWhiteSpaces(name) 
                 || stringIsEmptyOrWhiteSpaces(ip) 
-                || stringIsEmptyOrWhiteSpaces(port)) {
+                || stringIsEmptyOrWhiteSpaces(port)
+                || stringIsEmptyOrWhiteSpaces(terminalIdSelected)) {
 
                 alert('Please enter full infomation!');
             } else {
@@ -140,7 +144,10 @@ export const useProps = (props) => {
                 paymentMachineInfo: { ip, port, isSetup: true, name, commType, bluetoothAddr },
                 paymentMachineType: PaymentTerminalType.Pax,
               }));
-              NavigationService.back();
+              //save terminal id
+              const body = await updateTerminalId(terminalIdSelected);
+              submitSelectTerminalId(body.params);
+              // NavigationService.back();
             };
         }
         
@@ -148,27 +155,35 @@ export const useProps = (props) => {
        //Dejavoo
         if (stringIsEmptyOrWhiteSpaces(registerId) 
             ||stringIsEmptyOrWhiteSpaces(authKey) 
-            || stringIsEmptyOrWhiteSpaces(name)) {
+            || stringIsEmptyOrWhiteSpaces(name)
+            || stringIsEmptyOrWhiteSpaces(terminalIdSelected)) {
             alert('Please enter full infomation!');
         } else {
             dispatch(hardware.setupDejavooMachine({
                 paymentMachineInfo: { registerId, authKey, isSetup: true, name },
                 paymentMachineType: PaymentTerminalType.Dejavoo,
             }));
-            NavigationService.back();
+            //save terminal id
+            const body = await updateTerminalId(terminalIdSelected);
+            submitSelectTerminalId(body.params);
+            // NavigationService.back();
         };
       } else{
         //Clover
         if (stringIsEmptyOrWhiteSpaces(ip) 
           || stringIsEmptyOrWhiteSpaces(port) 
-          || stringIsEmptyOrWhiteSpaces(serialNumber)) {
+          || stringIsEmptyOrWhiteSpaces(serialNumber)
+          || stringIsEmptyOrWhiteSpaces(terminalIdSelected)) {
             alert('Please enter full infomation!');
         } else {
             dispatch(hardware.setupCloverMachine({
                 paymentMachineInfo: { ip, port, isSetup: true, serialNumber },
                 paymentMachineType: PaymentTerminalType.Clover,
             }));
-            NavigationService.back();
+            //save terminal id
+            const body = await updateTerminalId(terminalIdSelected);
+            submitSelectTerminalId(body.params);
+            // NavigationService.back();
         };
     }
       
@@ -293,12 +308,14 @@ export const useProps = (props) => {
     changePort: (port) => {
       setPort(port);
     },
-    setTerminalIdSelected: (terminalId) => {
-      setTerminalIdSelected(terminalId)
+    setTerminalIdSelected: (terminal) => {
+
+      setTerminalIdSelected(_.get(terminal, 'label'))
     },
     saveCommType,
     scanDevices,
     handleSelectPeripheral,
     scanLoading,
+    terminalIdSelected,
   };
 };

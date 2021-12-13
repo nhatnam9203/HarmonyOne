@@ -19,7 +19,6 @@ export const removeTerminalId = () => ({
   params: {
     url: `Merchant/RemoveTerminalId`,
     method: 'PUT',
-    data
   },
 });
 

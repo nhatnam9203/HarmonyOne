@@ -6,6 +6,10 @@ import {
   PaymentTerminalType,
  } from "@shared/utils";
  import _ from "lodash";
+ import {
+  useAxiosMutation,
+  removeTerminalId,
+} from "@src/apis";
 
 export const useProps = (_params) => {
   const dispatch = useDispatch();
@@ -16,7 +20,8 @@ export const useProps = (_params) => {
               paymentMachineType,
               printerList,
               printerSelect,
-              paxMachineInfo, },
+              paxMachineInfo,
+              terminalId, },
   } = useSelector(state => state);
 
   const [isSetup, setIsSetup] = React.useState(false);
@@ -31,8 +36,23 @@ export const useProps = (_params) => {
 
   }
 
-  const deleteHardware = () => {
-      dispatch(hardware.deleteHardware());
+  const [, removeSelectedTerminalId] = useAxiosMutation({
+    ...removeTerminalId(terminalId),
+    isStopLoading: true,
+    isLoadingDefault: false,
+    onSuccess: async (data, response) => {
+      if (response?.codeNumber == 200) {
+        dispatch(hardware.saveTerminalId(""))
+        dispatch(hardware.deleteHardware());
+      }
+    }
+  });
+
+  const deleteHardware = async () => {
+    //request server to remove terminal id
+    const body = await removeTerminalId(terminalId);
+    removeSelectedTerminalId(body.params);
+
   }
 
 
@@ -42,7 +62,10 @@ export const useProps = (_params) => {
 
     const title = temptTitle();
     settTempTitle(title);
-  }, [dejavooMachineInfo, cloverMachineInfo, paymentMachineType]);
+  }, [dejavooMachineInfo, 
+    cloverMachineInfo, 
+    paxMachineInfo,
+    paymentMachineType,]);
 
   const getIsSetup = () => {
     let isSetup =  false
