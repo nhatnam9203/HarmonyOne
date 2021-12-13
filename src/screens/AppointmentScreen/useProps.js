@@ -48,6 +48,7 @@ export const useProps = (_params) => {
   const [firstLoading, setFirstLoading] = React.useState(true);
   const appointmentListRef = React.useRef();
   const staffListRef = React.useRef();
+  const popupAddBlockTimeRef = React.useRef();
 
   const {
     staff: { staffsByDate = [] },
@@ -191,6 +192,11 @@ export const useProps = (_params) => {
     appointmentListRef,
     staffListRef,
     staffInfo,
+    popupAddBlockTimeRef,
+
+    showPopupAddBlockTime : (itemStaff) =>{
+      popupAddBlockTimeRef?.current?.show(itemStaff);
+    },
 
 
     selectStaff: (staffId) => {

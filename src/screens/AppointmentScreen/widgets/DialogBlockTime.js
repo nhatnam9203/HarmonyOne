@@ -1,0 +1,295 @@
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { StyleSheet, Text, TouchableOpacity, View, TextInput } from "react-native";
+import { colors, fonts, layouts } from "@shared/themes";
+import { images } from "@shared/themes/resources";
+import { IconButton, Button, CustomImage } from "@shared/components";
+import Modal from "react-native-modal";
+
+
+const DialogBlockTime = React.forwardRef(
+    ({
+        onConfirmYes = () => { },
+        onConfirmNo = () => { },
+        title = "",
+        titleContent = "",
+        onModalHide = () => { },
+        isCloseButton = true,
+    }, ref) => {
+        const [t] = useTranslation();
+
+        const [open, setOpen] = React.useState(false);
+        const [isVisibleAddBlockTime, setVisibleAddBlockTime] = React.useState(false);
+        const [txtReason, setTxtReason] = React.useState("");
+        const [staffInfo, setStaffInfo] = React.useState(null);
+
+        const hideModal = () => {
+            setOpen(false);
+            onModalHide();
+            setTimeout(() => {
+                setStaffInfo(null);
+                setVisibleAddBlockTime(false);
+            }, 300);
+        };
+
+        const onHandleNOButtonPress = () => {
+            hideModal();
+            if (onConfirmNo && typeof onConfirmNo === "function") {
+                onConfirmNo();
+            }
+        };
+
+        const onHandleYESButtonPress = () => {
+            hideModal();
+            if (onConfirmYes && typeof onConfirmYes === "function") {
+                onConfirmYes();
+            }
+        };
+
+        React.useImperativeHandle(ref, () => ({
+            hide: () => {
+                setOpen(false);
+            },
+            show: (staff) => {
+                staff && setStaffInfo(staff);
+                setOpen(true);
+            },
+        }));
+
+
+        return (
+            <Modal
+                style={styles.modal}
+                isVisible={open}
+                onRequestClose={hideModal}
+                backdropTransitionOutTiming={0}
+                backdropTransitionInTiming={0}
+                animationIn="zoomIn"
+                animationOut="zoomOut"
+            >
+                <View style={styles.container}>
+                    {
+                        isCloseButton && <IconButton
+                            icon={images.iconClose}
+                            style={styles.buttonClose}
+                            iconStyle={styles.iconButtonClose}
+                            onPress={hideModal}
+                        />
+                    }
+                    <View style={{ flexDirection: "row" }}>
+                        <CustomImage
+                            source={{ uri: staffInfo?.imageUrl }}
+                            style={styles.avatarStaff}
+                            resizeMode='cover'
+                        />
+                        <View style={styles.infoStaff}>
+                            <Text style={styles.staffName}>
+                                {staffInfo?.displayName}
+                            </Text>
+                            <View style={{ flexDirection: "row", justifyContent: "space-between", width: scaleWidth(260) }}>
+                                <Text style={styles.txtLogin}>
+                                    {`Still not login`}
+                                </Text>
+                                <Text style={styles.txtLogin}>
+                                    {`Appointments : `}
+                                    <Text style={{ color: "#000", fontFamily: fonts.BOLD }}>0</Text>
+                                </Text>
+                            </View>
+                        </View>
+                    </View>
+
+                    <View style={{ marginVertical: scaleHeight(20) }}>
+                        {
+                            !isVisibleAddBlockTime ?
+                                <IconButton
+                                    icon={images.clock}
+                                    style={styles.buttonClock}
+                                    iconStyle={styles.iconClock}
+                                    onPress={() => setVisibleAddBlockTime(true)}
+                                    renderText={() => <Text style={styles.txtAddBlockedTime}>Add Blocked Time</Text>}
+                                />
+                                :
+                                <>
+                                    <Text style={[styles.txtAddBlockedTime, { color: colors.ocean_blue, fontFamily: fonts.BOLD, marginLeft: 0 }]}>
+                                        Add Blocked Time
+                                    </Text>
+
+                                    <View style={styles.rowReason}>
+                                        <Text style={styles.txt}>Time</Text>
+                                    </View>
+
+                                    <View style={styles.rowReason}>
+                                        <Text style={styles.txt}>Reason</Text>
+                                        <View style={styles.containerNote}>
+                                            <TextInput
+                                                multiline={true}
+                                                textAlignVertical='top'
+                                                value={txtReason}
+                                                onChangeText={text => {
+                                                    setTxtReason(text);
+                                                }}
+                                                style={{ flex: 1, fontSize: scaleFont(14), fontFamily: fonts.REGULAR }}
+                                            />
+                                        </View>
+                                    </View>
+
+                                    <Button
+                                        onPress={() => { }}
+                                        highlight={true}
+                                        height={scaleHeight(43)}
+                                        width={scaleWidth(120)}
+                                        label="Submit"
+                                        styleButton={{
+                                            borderWidth: 0,
+                                            marginTop: scaleHeight(24),
+                                            alignSelf: "center"
+                                        }}
+                                    />
+                                </>
+                        }
+
+                    </View>
+
+                </View>
+            </Modal>
+        );
+    }
+);
+
+export default DialogBlockTime;
+
+const styles = StyleSheet.create({
+    rowReason: {
+        flexDirection: "row",
+        marginTop: scaleHeight(20),
+        justifyContent: "space-between"
+    },
+    containerNote: {
+        width: scaleWidth(200),
+        minHeight: scaleHeight(120),
+        borderWidth: 1,
+        borderColor: "#dddddd",
+        padding: scaleWidth(8),
+        backgroundColor: "#FAFAFA"
+    },
+    txt: {
+        fontSize: scaleFont(15),
+        fontFamily: fonts.MEDIUM,
+        color: "#000",
+        width: scaleWidth(80),
+    },
+    txtAddBlockedTime: {
+        fontSize: scaleFont(15),
+        fontFamily: fonts.MEDIUM,
+        color: "#404040",
+        marginLeft: scaleWidth(8)
+    },
+    buttonClock: {
+        backgroundColor: "#F2F2F2",
+        padding: scaleWidth(12),
+        alignSelf: "flex-start",
+        borderRadius: 3
+    },
+    iconClock: {
+        width: scaleWidth(23),
+        height: scaleHeight(23),
+    },
+    infoStaff: {
+        marginLeft: scaleWidth(16),
+        height: scaleWidth(50),
+        justifyContent: "space-between"
+    },
+    txtLogin: {
+        fontSize: scaleFont(15),
+        fontFamily: fonts.MEDIUM,
+        color: "#404040",
+    },
+    staffName: {
+        fontSize: scaleFont(17),
+        fontFamily: fonts.BOLD,
+        color: colors.ocean_blue,
+    },
+    avatarStaff: {
+        width: scaleWidth(50),
+        height: scaleWidth(50),
+        resizeMode: "contain",
+        borderRadius: 3000
+    },
+    container: {
+        backgroundColor: "#fff",
+        alignSelf: "center",
+        paddingHorizontal: scaleWidth(16),
+        width: scaleWidth(360),
+        paddingTop: scaleWidth(20),
+        borderRadius: scaleHeight(5),
+        shadowColor: "#004080bf",
+        shadowOffset: {
+            width: 0,
+            height: 0,
+        },
+        shadowRadius: 10,
+        shadowOpacity: 1,
+        position: 'relative',
+    },
+
+
+    modal: {
+        margin: 0,
+        padding: 0
+    },
+
+    txtTitle: {
+        fontFamily: fonts.BOLD,
+        fontSize: scaleFont(19),
+        fontWeight: "500",
+        fontStyle: "normal",
+        letterSpacing: 0,
+        textAlign: "center",
+        marginHorizontal: scaleWidth(16),
+        color: colors.WHITE,
+    },
+
+    buttonClose: {
+        width: scaleWidth(28),
+        height: scaleHeight(28),
+        borderRadius: scaleWidth(14),
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#575757",
+        marginRight: scaleWidth(10),
+        position: 'absolute',
+        right: scaleWidth(2),
+        top: scaleWidth(12),
+        zIndex: 9999
+    },
+
+    iconButtonClose: {
+        width: scaleWidth(28),
+        height: scaleHeight(28),
+        tintColor: "white",
+    },
+
+    titleContent: {
+        fontFamily: fonts.REGULAR,
+        marginTop: scaleHeight(20),
+        fontSize: scaleFont(15),
+        marginHorizontal: scaleWidth(16),
+        letterSpacing: 0,
+        textAlign: "center",
+    },
+
+    bottomStyle: {
+        width: "100%",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+        flexDirection: "row",
+        borderTopWidth: 1,
+        borderTopColor: "#dddddd",
+        marginTop: scaleHeight(20)
+    },
+    line: {
+        height: scaleHeight(48),
+        width: scaleWidth(2),
+        backgroundColor: "#dddddd"
+    }
+});

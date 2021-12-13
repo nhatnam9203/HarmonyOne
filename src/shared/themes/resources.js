@@ -144,6 +144,8 @@ export const images = {
   deleteIconBanner: require('@src/assets/images/deleteIconBanner.png'),
   radioExportSe: require('@src/assets/images/radioExportSe.png'),
   radioExport: require('@src/assets/images/radioExport.png'),
+  close_black: require('@src/assets/images/close_black.png'),
+  clock: require('@src/assets/images/clock.png'),
 };
 
 export const svg = {

@@ -56,7 +56,6 @@ export const DialogConfirm = React.forwardRef(
                 backdropTransitionInTiming={0}
                 animationIn="zoomIn"
                 animationOut="zoomOut"
-                statusBarTranslucent
             >
                 <View style={styles.container}>
                     {

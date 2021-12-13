@@ -7,7 +7,7 @@ import { IconButton, ListEmptyComponent, NotificationIcon, DayPicker } from "@sh
 import { AppointmentItem } from "./widgets";
 import { useTranslation } from "react-i18next";
 import { WithPopupActionSheet, WithPopupDatePicker } from '@shared/HOC';
-import { StaffList, AppointmentList, IconCalendar, StaffInfoLogin } from "./widgets";
+import { StaffList, AppointmentList, IconCalendar, StaffInfoLogin, DialogBlockTime } from "./widgets";
 import { dateToFormat } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 import moment from "moment";
@@ -27,6 +27,8 @@ export const Layout = ({
   addAppointment,
   isLoading,
   staffInfo,
+  showPopupAddBlockTime,
+  popupAddBlockTimeRef
 
 }) => {
 
@@ -67,14 +69,15 @@ export const Layout = ({
         <View style={styles.content}>
           {
             (roleName == "admin" || roleName == "manager") ?
-            <StaffList
-              staffsByDate={getStaffList()}
-              selectStaff={selectStaff}
-              staffSelected={staffSelected}
-              isLoading={isLoading}
-              ref={staffListRef}
-            /> : 
-            <StaffInfoLogin staffInfo={staffInfo} />
+              <StaffList
+                staffsByDate={getStaffList()}
+                selectStaff={selectStaff}
+                staffSelected={staffSelected}
+                isLoading={isLoading}
+                ref={staffListRef}
+                showPopupAddBlockTime={showPopupAddBlockTime}
+              /> :
+              <StaffInfoLogin staffInfo={staffInfo} />
           }
           <AppointmentList
             ref={appointmentListRef}
@@ -89,6 +92,16 @@ export const Layout = ({
           style={styles.btnAddAppointment}
         />
       </SingleScreenLayout>
+
+      <DialogBlockTime
+        ref={popupAddBlockTimeRef}
+        title={t("Warning !")}
+        titleContent={
+          t("Are you sure yout want to log out of your account from this device ?")
+        }
+        onConfirmYes={()=>{}}
+        onModalHide={() => { }}
+      />
     </View>
   );
 };
