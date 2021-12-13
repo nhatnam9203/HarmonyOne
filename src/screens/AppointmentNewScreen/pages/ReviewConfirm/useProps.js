@@ -69,7 +69,7 @@ export const useProps = (_params) => {
         setAppointmentId(appointmentId);
         const tempData = {
           services: servicesBooking,
-          extras: extrasBooking.map(ex => ({ extraId: ex.extraId })),
+          extras: extrasBooking.filter(ex => ex?.checked).map(ex => ({ extraId: ex.extraId })),
           products: productsBooking,
           giftCards: giftCardsBooking.map((giftCard) => ({ giftCardId: giftCard?.giftCardId, price: giftCard?.price })),
         };

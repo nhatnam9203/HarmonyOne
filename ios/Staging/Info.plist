@@ -63,11 +63,11 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>Enabling Face ID allows you quick and secure access to your account.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Get your store address to show up on the Google Map</string>
+	<string>Get your store address to show up on the Apple Map</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Get your store address to show up on the Google Map</string>
+	<string>Get your store address to show up on the Apple Map</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Get your store address to show up on the Google Map</string>
+	<string>Get your store address to show up on the Apple Map</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to your microphone (for videos)</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>

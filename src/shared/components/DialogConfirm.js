@@ -14,6 +14,7 @@ export const DialogConfirm = React.forwardRef(
         title = "",
         titleContent = "",
         onModalHide = () => { },
+        isCloseButton = true,
     }, ref) => {
         const [t] = useTranslation();
 
@@ -58,12 +59,14 @@ export const DialogConfirm = React.forwardRef(
                 statusBarTranslucent
             >
                 <View style={styles.container}>
-                    <IconButton
-                        icon={images.iconClose}
-                        style={styles.buttonClose}
-                        iconStyle={styles.iconButtonClose}
-                        onPress={hideModal}
-                    />
+                    {
+                        isCloseButton && <IconButton
+                            icon={images.iconClose}
+                            style={styles.buttonClose}
+                            iconStyle={styles.iconButtonClose}
+                            onPress={hideModal}
+                        />
+                    }
                     <Text style={styles.txtTitle}>
                         {title}
                     </Text>
