@@ -2,6 +2,7 @@ import React from "react";
 import {
   useAxiosQuery,
   useAxiosMutation,
+  updateTerminalId,
 } from "@src/apis";
 import { useDispatch, useSelector } from "react-redux";
 import NavigationService from "@navigation/NavigationService";
@@ -49,12 +50,11 @@ export const useProps = (props) => {
     const [serialNumber, setSerialNumber] = React.useState("");
     const [registerId, setRegisterId] = React.useState("");
     const [authKey, setAuthKey] = React.useState("");
-    const [terminalId, setTerminalId] = React.useState(null);
+    const [terminalIdSelected, setTerminalIdSelected] = React.useState("");
     const [commType, setCommType] = React.useState("");
     const [bluetoothAddr, setBluetoothAddr] = React.useState("");
     const [peripherals, setPeripherals] = React.useState("");
     const [scanLoading, setScanLoading] = React.useState("");
-    const [terminalIdSelected, setTerminalIdSelected] = React.useState(null);
 
     React.useEffect(() => {
       let nameTemp = ""
@@ -65,7 +65,7 @@ export const useProps = (props) => {
       let serialNumberTemp = ""
       let commType = ""
       let bluetoothAddr = ""
-      if(paymentMachineType == PaymentTerminalType.Pax) {
+      if(paymentMachineType == PaymentTerminalType.Pax){
         
         nameTemp = _.get(paxMachineInfo, 'name')
         ipTemp = _.get(paxMachineInfo, 'ip')
@@ -96,11 +96,12 @@ export const useProps = (props) => {
       setAuthKey(authKeyTemp)
       setCommType(commType)
       setBluetoothAddr(bluetoothAddr)
+      setTerminalIdSelected(terminalId)
 
     }, []);
 
     const [, submitSelectTerminalId] = useAxiosMutation({
-      ...selectTerminalId(),
+      ...updateTerminalId(terminalIdSelected),
       isStopLoading: true,
       isLoadingDefault: false,
       onSuccess: async (data, response) => {
@@ -110,7 +111,11 @@ export const useProps = (props) => {
       }
     });
 
-  const setupPaymentTerminal = () => {
+  const setupPaymentTerminal = async () => {
+    //save terminal id
+    const body = await updateTerminalId(terminalIdSelected);
+    submitSelectTerminalId(body.params);
+
      if (terminalName == PaymentTerminalType.Pax) {
        //Pax
        if (commType === "BLUETOOTH") {
@@ -288,8 +293,8 @@ export const useProps = (props) => {
     changePort: (port) => {
       setPort(port);
     },
-    setTerminalId: (terminalId) => {
-      setTerminalId(terminalId)
+    setTerminalIdSelected: (terminalId) => {
+      setTerminalIdSelected(terminalId)
     },
     saveCommType,
     scanDevices,

@@ -47,7 +47,7 @@ export const Layout = ({
     changeAuthKey,
     changeIp,
     changePort,
-    setTerminalId,
+    setTerminalIdSelected,
     saveCommType,
     scanDevices,
     handleSelectPeripheral,
@@ -368,7 +368,7 @@ export const Layout = ({
                         <DropdownMenu
                             ref={terminalListRef}
                             items={terminalIdList}
-                            onChangeValue={setTerminalId}
+                            onChangeValue={setTerminalIdSelected}
                             defaultIndex={0}
                             width={scaleWidth(200)}
                             height={scaleHeight(50)}

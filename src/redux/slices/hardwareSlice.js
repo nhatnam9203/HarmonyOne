@@ -39,7 +39,7 @@ const initialState = {
     isSetup: false,
   },
   paymentMachineType: 'Dejavoo',
-  terminalId: null,
+  terminalId: '',
 };
 const hardwareSlice = createSlice({
   name: reducerName,
