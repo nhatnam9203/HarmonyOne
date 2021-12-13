@@ -17,6 +17,7 @@ export const DropdownMenu = React.forwardRef(
       placeholder = "Select ...",
       editable = true,
       styleDropDown,
+      textStyle,
       ...props
     },
     ref
@@ -150,6 +151,7 @@ export const DropdownMenu = React.forwardRef(
               style={[
                 styles.dropdownTerminalText,
                 item?.label && { color: colors.GREYISH_BROWN },
+                textStyle
               ]}
             >
               {item?.label ?? placeholder}
@@ -219,7 +221,7 @@ const styles = StyleSheet.create({
 
   dropdownTerminalText: {
     fontFamily: fonts.MEDIUM,
-    fontSize: scaleFont(17),
+    fontSize: scaleFont(14),
     fontWeight: "normal",
     fontStyle: "normal",
     letterSpacing: 0,
@@ -230,7 +232,7 @@ const styles = StyleSheet.create({
 
   selectedItemLabelStyle: {
     fontFamily: fonts.MEDIUM,
-    fontSize: scaleFont(17),
+    fontSize: scaleFont(14),
     fontWeight: "400",
     fontStyle: "normal",
     letterSpacing: 1,
@@ -240,7 +242,7 @@ const styles = StyleSheet.create({
 
   itemLabelStyle: {
     fontFamily: fonts.MEDIUM,
-    fontSize: scaleFont(17),
+    fontSize: scaleFont(14),
     fontWeight: "400",
     fontStyle: "normal",
     letterSpacing: 1,

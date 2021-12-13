@@ -2,6 +2,7 @@ import React from "react";
 import {
   useAxiosQuery,
   useAxiosMutation,
+  updateTerminalId,
 } from "@src/apis";
 import { useDispatch, useSelector } from "react-redux";
 import NavigationService from "@navigation/NavigationService";
@@ -18,6 +19,19 @@ import {
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
+
+  const terminalListRef = React.useRef();
+  const terminalIdList = [
+    { label: 'SUPPORT ONLY' }, { label: 'Terminal 1 (MAIN)' }, { label: 'Terminal 2' }, { label: 'Terminal 3' }, { label: 'Terminal 4' },
+    { label: 'Terminal 5' }, { label: 'Terminal 6' }, { label: 'Terminal 7' }, { label: 'Terminal 8' },
+    { label: 'Terminal 9' }, { label: 'Terminal 10' }, { label: 'Terminal 11' }, { label: 'Terminal 12' }, { label: 'Terminal 13' },
+    { label: 'Terminal 14' }, { label: 'Terminal 15' },
+    { label: 'Terminal 16' }, { label: 'Terminal 17' }, { label: 'Terminal 18' },
+    { label: 'Terminal 19' }, { label: 'Terminal 20' }, { label: 'Terminal 21' }, { label: 'Terminal 22' },
+    { label: 'Terminal 23' }, { label: 'Terminal 24' }, { label: 'Terminal 25' }, { label: 'Terminal 26' }, { label: 'Terminal 27' },
+    { label: 'Terminal 28' }, { label: 'Terminal 29' }, { label: 'Terminal 30' }
+];
+
   const {
     hardware: { dejavooMachineInfo, 
               cloverMachineInfo,
@@ -25,7 +39,8 @@ export const useProps = (props) => {
               paymentMachineType,
               printerList,
               printerSelect,
-              printerPortType, },
+              printerPortType,
+              terminalId },
   } = useSelector(state => state);
   const manager = new BleManager();
 
@@ -36,6 +51,7 @@ export const useProps = (props) => {
     const [serialNumber, setSerialNumber] = React.useState("");
     const [registerId, setRegisterId] = React.useState("");
     const [authKey, setAuthKey] = React.useState("");
+    const [terminalIdSelected, setTerminalIdSelected] = React.useState("");
     const [commType, setCommType] = React.useState("");
     const [bluetoothAddr, setBluetoothAddr] = React.useState("");
     const [peripherals, setPeripherals] = React.useState("");
@@ -81,27 +97,46 @@ export const useProps = (props) => {
       setAuthKey(authKeyTemp)
       setCommType(commType)
       setBluetoothAddr(bluetoothAddr)
+      setTerminalIdSelected(terminalId)
 
     }, []);
 
-  const setupPaymentTerminal = () => {
+    const [, submitSelectTerminalId] = useAxiosMutation({
+      ...updateTerminalId(terminalIdSelected),
+      isStopLoading: true,
+      isLoadingDefault: false,
+      onSuccess: async (data, response) => {
+        if (response?.codeNumber == 200) {
+          dispatch(hardware.saveTerminalId(terminalIdSelected))
+          NavigationService.back();
+        }
+      }
+    });
+
+  const setupPaymentTerminal = async () => {
+
      if (terminalName == PaymentTerminalType.Pax) {
        //Pax
        if (commType === "BLUETOOTH") {
           if (stringIsEmptyOrWhiteSpaces(name) 
-              || stringIsEmptyOrWhiteSpaces(bluetoothAddr)) {
+              || stringIsEmptyOrWhiteSpaces(bluetoothAddr)
+              || stringIsEmptyOrWhiteSpaces(terminalIdSelected)) {
               alert('Please enter full infomation!');
           } else {
             dispatch(hardware.setupPaxMachine({
               paymentMachineInfo: { ip, port, isSetup: true, name, commType, bluetoothAddr },
               paymentMachineType: PaymentTerminalType.Pax,
             }));
-            NavigationService.back();
+            //save terminal id
+            const body = await updateTerminalId(terminalIdSelected);
+            submitSelectTerminalId(body.params);
+            // NavigationService.back();
           }
         } else {
             if (stringIsEmptyOrWhiteSpaces(name) 
                 || stringIsEmptyOrWhiteSpaces(ip) 
-                || stringIsEmptyOrWhiteSpaces(port)) {
+                || stringIsEmptyOrWhiteSpaces(port)
+                || stringIsEmptyOrWhiteSpaces(terminalIdSelected)) {
 
                 alert('Please enter full infomation!');
             } else {
@@ -109,7 +144,10 @@ export const useProps = (props) => {
                 paymentMachineInfo: { ip, port, isSetup: true, name, commType, bluetoothAddr },
                 paymentMachineType: PaymentTerminalType.Pax,
               }));
-              NavigationService.back();
+              //save terminal id
+              const body = await updateTerminalId(terminalIdSelected);
+              submitSelectTerminalId(body.params);
+              // NavigationService.back();
             };
         }
         
@@ -117,68 +155,41 @@ export const useProps = (props) => {
        //Dejavoo
         if (stringIsEmptyOrWhiteSpaces(registerId) 
             ||stringIsEmptyOrWhiteSpaces(authKey) 
-            || stringIsEmptyOrWhiteSpaces(name)) {
+            || stringIsEmptyOrWhiteSpaces(name)
+            || stringIsEmptyOrWhiteSpaces(terminalIdSelected)) {
             alert('Please enter full infomation!');
         } else {
             dispatch(hardware.setupDejavooMachine({
                 paymentMachineInfo: { registerId, authKey, isSetup: true, name },
                 paymentMachineType: PaymentTerminalType.Dejavoo,
             }));
-            NavigationService.back();
+            //save terminal id
+            const body = await updateTerminalId(terminalIdSelected);
+            submitSelectTerminalId(body.params);
+            // NavigationService.back();
         };
       } else{
         //Clover
         if (stringIsEmptyOrWhiteSpaces(ip) 
           || stringIsEmptyOrWhiteSpaces(port) 
-          || stringIsEmptyOrWhiteSpaces(serialNumber)) {
+          || stringIsEmptyOrWhiteSpaces(serialNumber)
+          || stringIsEmptyOrWhiteSpaces(terminalIdSelected)) {
             alert('Please enter full infomation!');
         } else {
             dispatch(hardware.setupCloverMachine({
                 paymentMachineInfo: { ip, port, isSetup: true, serialNumber },
                 paymentMachineType: PaymentTerminalType.Clover,
             }));
-            NavigationService.back();
+            //save terminal id
+            const body = await updateTerminalId(terminalIdSelected);
+            submitSelectTerminalId(body.params);
+            // NavigationService.back();
         };
     }
       
   }
 
   const cancelSetupPax = async () => {
-      // let name = ""
-      // let ip = ""
-      // let port = ""
-      // let registerId = ""
-      // let authKey = ""
-      // let commType = ""
-      // let bluetoothAddr = ""
-      // if (paymentMachineType == PaymentTerminalType.Pax) {
-      //     name = _.get(paxMachineInfo, 'name')
-      //     ip = _.get(paxMachineInfo, 'ip')
-      //     port = _.get(paxMachineInfo, 'port')
-      //     commType = _.get(paxMachineInfo, 'commType')
-      //     bluetoothAddr = _.get(paxMachineInfo, 'bluetoothAddr')
-      // } else if (paymentMachineType == PaymentTerminalType.Clover) {
-      //     name = _.get(cloverMachineInfo, 'name')
-      //     ip = _.get(cloverMachineInfo, 'ip')
-      //     port = _.get(cloverMachineInfo, 'port')
-
-      // } else if (paymentMachineType == PaymentTerminalType.Dejavoo) {
-      
-      //     name = _.get(dejavooMachineInfo, 'name')
-      //     registerId = _.get(dejavooMachineInfo, 'registerId')
-      //     authKey = _.get(dejavooMachineInfo, 'authKey')
-      // }
-
-      // setTerminalName(terminalName);
-      // setName(name);
-      // setIp(ip);
-      // setPort(port);
-      // setSerialNumber(_.get(cloverMachineInfo, 'serialNumber', ''));
-      // setRegisterId(registerId);
-      // setAuthKey(authKey);
-      // setCommType(commType);
-      // setBluetoothAddr(bluetoothAddr);
-
       NavigationService.back();
   }
 
@@ -264,6 +275,8 @@ export const useProps = (props) => {
 
 
   return {
+    terminalListRef,
+    terminalIdList,
     peripherals,
     name,
     ip,
@@ -295,9 +308,14 @@ export const useProps = (props) => {
     changePort: (port) => {
       setPort(port);
     },
+    setTerminalIdSelected: (terminal) => {
+
+      setTerminalIdSelected(_.get(terminal, 'label'))
+    },
     saveCommType,
     scanDevices,
     handleSelectPeripheral,
     scanLoading,
+    terminalIdSelected,
   };
 };

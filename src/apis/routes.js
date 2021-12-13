@@ -8,6 +8,19 @@ export const merchantLogin = (merchantID, data) => ({
   },
 });
 
+export const updateTerminalId = (terminalId) => ({
+  params: {
+    url: `/Merchant/UpdateTerminalId?terminalId=${terminalId}`,
+    method: 'POST',
+  },
+});
+
+export const removeTerminalId = () => ({
+  params: {
+    url: `Merchant/RemoveTerminalId`,
+    method: 'PUT',
+  },
+});
 
 
 /**
