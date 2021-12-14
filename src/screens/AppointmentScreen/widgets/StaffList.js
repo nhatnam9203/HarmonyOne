@@ -102,7 +102,9 @@ const Item = ({ staff, selectStaff, staffSelected, showPopupAddBlockTime }) => {
             onPress={() => selectStaff(staff?.staffId)}
             onLongPress={() => {
                 selectStaff(staff?.staffId);
-                showPopupAddBlockTime();
+                if(staff?.staffId){
+                    showPopupAddBlockTime();
+                }
             }}
             key={staff?.staffId + 'staffList'}
             style={styles.staff}

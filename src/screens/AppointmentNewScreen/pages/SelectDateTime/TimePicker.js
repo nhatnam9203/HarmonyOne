@@ -10,7 +10,7 @@ import { isElement, isEmpty } from "lodash";
 import moment from "moment";
 
 export const TimePicker = React.forwardRef(({
-    timesAvailable = []
+    timesAvailable = [],
 }, ref) => {
 
     const [timePicker, setTimePicker] = React.useState("");

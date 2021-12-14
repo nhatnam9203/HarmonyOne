@@ -1,11 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, Text, TouchableOpacity, View, TextInput } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, TextInput, Alert } from "react-native";
 import { colors, fonts, layouts } from "@shared/themes";
 import { images } from "@shared/themes/resources";
-import { IconButton, Button, CustomImage } from "@shared/components";
+import { IconButton, Button, CustomImage, CustomInput, InputSelectTime } from "@shared/components";
+import { staffLogTime, useAxiosQuery } from "@src/apis";
 import Modal from "react-native-modal";
-
+import moment from "moment";
 
 const DialogBlockTime = React.forwardRef(
     ({
@@ -22,6 +23,28 @@ const DialogBlockTime = React.forwardRef(
         const [isVisibleAddBlockTime, setVisibleAddBlockTime] = React.useState(false);
         const [txtReason, setTxtReason] = React.useState("");
         const [staffInfo, setStaffInfo] = React.useState(null);
+        const [startTime, setStartTime] = React.useState(moment().format("hh:mm A"));
+        const [endTime, setEndTime] = React.useState(moment().add("hours", 1).format("hh:mm A"));
+        const [appoointmentCount, setAppointmentCount] = React.useState(0);
+        const [isLoading, setLoading] = React.useState(false);
+        const [loginTime, setLoginTime] = React.useState(null);
+
+        const nearestFutureMinutes = (interval, someMoment) => {
+            const roundedMinutes = Math.ceil(someMoment.minute() / interval) * interval;
+            return someMoment.clone().minute(roundedMinutes).second(0);
+        }
+
+        const [,] = useAxiosQuery({
+            ...staffLogTime(staffInfo?.staffId),
+            enabled: true,
+            isLoadingDefault: false,
+            onSuccess: (data, response) => {
+                console.log('login time : ', { data,response });
+                if (response?.codeNumber == 200) {
+                    
+                }
+            }
+        })
 
         const hideModal = () => {
             setOpen(false);
@@ -29,6 +52,7 @@ const DialogBlockTime = React.forwardRef(
             setTimeout(() => {
                 setStaffInfo(null);
                 setVisibleAddBlockTime(false);
+                setAppointmentCount(0);
             }, 300);
         };
 
@@ -48,13 +72,31 @@ const DialogBlockTime = React.forwardRef(
 
         React.useImperativeHandle(ref, () => ({
             hide: () => {
-                setOpen(false);
+                hideModal();
             },
-            show: (staff) => {
+            show: (staff, appointmentNumber = "0") => {
                 staff && setStaffInfo(staff);
+                setAppointmentCount(appointmentNumber);
+                const now = moment();
+                let nearestFuturemin = nearestFutureMinutes(15, now);
+                const start = moment(nearestFuturemin).format("hh:mm A");
+                setStartTime(start);
+                setEndTime(moment(nearestFuturemin).add('hours', 1).format("hh:mm A"));
                 setOpen(true);
             },
         }));
+
+
+        const onSubmit = () => {
+            const beginningTime = moment(startTime, 'hh:mm A');
+            const endingTime = moment(endTime, 'hh:mm A');
+
+            if (endingTime.isSameOrBefore(beginningTime)) {
+                Alert.alert('End time must be after Start time');
+            } else {
+
+            }
+        }
 
 
         return (
@@ -92,7 +134,7 @@ const DialogBlockTime = React.forwardRef(
                                 </Text>
                                 <Text style={styles.txtLogin}>
                                     {`Appointments : `}
-                                    <Text style={{ color: "#000", fontFamily: fonts.BOLD }}>0</Text>
+                                    <Text style={{ color: "#000", fontFamily: fonts.BOLD }}>{appoointmentCount}</Text>
                                 </Text>
                             </View>
                         </View>
@@ -116,6 +158,29 @@ const DialogBlockTime = React.forwardRef(
 
                                     <View style={styles.rowReason}>
                                         <Text style={styles.txt}>Time</Text>
+                                        <View style={{ flexDirection: "row" }}>
+                                            <InputSelectTime
+                                                apply={(time) => {
+                                                    setStartTime(time);
+                                                }}
+                                                time={startTime}
+                                                renderInput={() => (
+                                                    <TempInput title={startTime} />
+                                                )}
+                                                minutesPicker={['00', '15', '30', '45']}
+                                            />
+                                            <InputSelectTime
+                                                apply={(time) => {
+                                                    setEndTime(time);
+                                                }}
+                                                time={endTime}
+                                                renderInput={() => (
+                                                    <TempInput title={endTime} />
+                                                )}
+                                                title={'End time'}
+                                                minutesPicker={['00', '15', '30', '45']}
+                                            />
+                                        </View>
                                     </View>
 
                                     <View style={styles.rowReason}>
@@ -134,7 +199,7 @@ const DialogBlockTime = React.forwardRef(
                                     </View>
 
                                     <Button
-                                        onPress={() => { }}
+                                        onPress={onSubmit}
                                         highlight={true}
                                         height={scaleHeight(43)}
                                         width={scaleWidth(120)}
@@ -158,14 +223,50 @@ const DialogBlockTime = React.forwardRef(
 
 export default DialogBlockTime;
 
+
+const TempInput = ({ title }) => {
+    return (
+        <View style={[styles.inputSelectTime, { marginLeft: scaleWidth(16) }]}>
+            <Text style={styles.txtTime}>
+                {title}
+            </Text>
+            <CustomImage
+                source={images.dropdown}
+                style={styles.iconTimeSelect}
+                resizeMode='contain'
+            />
+        </View>
+    )
+}
+
 const styles = StyleSheet.create({
+    iconTimeSelect: {
+        width: scaleWidth(12),
+        height: scaleWidth(12),
+        tintColor: "#404040"
+    },
+    txtTime: {
+        fontSize: scaleFont(15),
+        fontFamily: fonts.REGULAR,
+        color: "#000"
+    },
+    inputSelectTime: {
+        width: scaleWidth(105),
+        height: scaleHeight(40),
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        borderWidth: 1,
+        borderColor: "#cccccc",
+        paddingHorizontal: scaleWidth(8)
+    },
     rowReason: {
         flexDirection: "row",
         marginTop: scaleHeight(20),
         justifyContent: "space-between"
     },
     containerNote: {
-        width: scaleWidth(200),
+        width: scaleWidth(227),
         minHeight: scaleHeight(120),
         borderWidth: 1,
         borderColor: "#dddddd",

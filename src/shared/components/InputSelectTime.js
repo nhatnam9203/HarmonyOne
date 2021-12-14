@@ -13,6 +13,8 @@ let InputTime = React.forwardRef(({
     apply,
     time = moment().format("hh:mm A"),
     renderInput = null,
+    title = "Start time",
+    minutesPicker 
 }, ref) => {
 
     const actionSheetRef = React.useRef();
@@ -62,6 +64,8 @@ let InputTime = React.forwardRef(({
                     onApply={onApplyTime}
                     cancel={closeActionSheet}
                     startTime={moment(time, ["hh:mm A"])}
+                    title={title}
+                    minutesPicker={minutesPicker}
                 />
             </CustomActionSheet>
         </>
