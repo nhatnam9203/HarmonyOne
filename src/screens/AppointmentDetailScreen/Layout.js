@@ -6,7 +6,7 @@ import { formatMoneyWithUnit, convertMinsToHrsMins } from '@shared/utils';
 import { Button } from "@shared/components";
 import { colors, fonts, layouts, images } from '@shared/themes';
 import { WithPopupActionSheet } from '@shared/HOC';
-import { TotalView, AppointmentTimeView, CustomerInfoView, InputSelectStaff, IconButton } from "@shared/components";
+import { TotalView, TotalViewPaid, AppointmentTimeView, CustomerInfoView, InputSelectStaff, IconButton } from "@shared/components";
 import { CustomerAtHomeView } from './CustomerAtHomeView';
 import { AppointmentServiceList } from './AppointmentServiceList';
 import { InvoiceNumber } from "./InvoiceNumber";
@@ -70,6 +70,8 @@ export const Layout = ({
     return formatMoneyWithUnit(price);
   };
 
+  console.log({ appointmentItem })
+
   return (
     <View style={styles.container}>
       <SingleScreenLayout
@@ -108,12 +110,24 @@ export const Layout = ({
             giftCards={appointmentItem?.giftCards}
           />
 
-          <TotalView
-            duration={`${convertMinsToHrsMins(appointmentItem?.duration)}`}
-            price={`$ ${appointmentItem?.total}`}
-            isShowSubtotal={!(appointmentItem?.status == "paid" || appointmentItem?.status == "refund" || appointmentItem?.status == "void" || appointmentItem?.status == "no show")}
-            subTotal={`$ ${appointmentItem?.subTotal}`}
-          />
+          {
+            (appointmentItem?.status == "paid" || appointmentItem?.status == "refund" || appointmentItem?.status == "void" || appointmentItem?.status == "no show") ?
+              <TotalViewPaid
+                duration={`${convertMinsToHrsMins(appointmentItem?.duration)}`}
+                price={`$ ${appointmentItem?.total}`}
+                subTotal={`$ ${appointmentItem?.subTotal}`}
+                discount={`$ ${appointmentItem?.discount}`}
+                tipAmount={`$ ${appointmentItem?.tipAmount}`}
+                tax={`$ ${appointmentItem?.tax}`}
+                giftCard={`$ ${appointmentItem?.giftCard}`}
+              /> :
+              <TotalView
+                duration={`${convertMinsToHrsMins(appointmentItem?.duration)}`}
+                price={`$ ${appointmentItem?.total}`}
+                subTotal={`$ ${appointmentItem?.subTotal}`}
+              />
+          }
+
 
           <InvoiceNumber
             invoiceViewAppointmentDetail={invoiceViewAppointmentDetail}
@@ -158,7 +172,7 @@ export const Layout = ({
 const styles = StyleSheet.create({
   buttonArrow: {
     width: "100%",
-    height : scaleHeight(55),
+    height: scaleHeight(55),
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
