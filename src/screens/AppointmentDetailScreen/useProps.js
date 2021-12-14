@@ -210,7 +210,9 @@ export const useProps = ({
 
     updateNextStatus: async () => {
       if (appointmentItem.status == "checkin") {
-        checkOut();
+        if(appointmentItem?.staffId){
+          checkOut();
+        }else return;
       } else {
 
         const data = {
