@@ -37,7 +37,8 @@ export const useProps = ({
   const {
     appointment: { appointmentDetail, appointmentDate },
     invoice: { invoiceViewAppointmentDetail },
-    auth: { staff }
+    auth: { staff },
+    staff: { staffListByMerchant = [] }
   } = useSelector(state => state);
 
   const item = appointmentDetail;
@@ -48,7 +49,7 @@ export const useProps = ({
     headTintColor: colors.black,
   });
   const [canEdit, setCanEdit] = React.useState(false);
-  const [isShowButton , setShowButton] = React.useState(true);
+  const [isShowButton, setShowButton] = React.useState(true);
 
   const roleName = staff?.roleName?.toString()?.toLowerCase();
 
@@ -136,10 +137,10 @@ export const useProps = ({
       setAppointmentItem(item);
 
       const tempColor = getColorForStatus(item?.status);
-      if (item?.staffId == 0) {
-        if(item?.status == "checkin"){
-          setShowButton(false);
-        }
+      if (item?.staffId == 0 && item?.status == "checkin") {
+        setShowButton(false);
+      }else{
+        setShowButton(true);
       }
       setCanEdit(!NoNeedEdit.includes(item?.status));
 
@@ -181,6 +182,7 @@ export const useProps = ({
     item,
     roleName,
     isShowButton,
+    staffListByMerchant,
     getInvoiceDetail,
 
     getActionSheets: () => [
@@ -225,6 +227,30 @@ export const useProps = ({
         const body = await updateAppointment(appointmentItem.appointmentId, data);
         submitUpdateAppointment(body.params);
       }
+    },
+
+    assignOtherStaff: async (staffId) => {
+
+      let tempServices = [...appointmentItem.services];
+
+      tempServices = tempServices.map(sv => ({
+        ...sv,
+        staffId: staffId
+      }));
+
+      const data = {
+        staffId: appointmentItem.staffId,
+        fromTime: appointmentItem.fromTime,
+        status: "checkin",
+        categories: appointmentItem.categories,
+        services: tempServices,
+        extras: appointmentItem.extras,
+        products: appointmentItem.products,
+        giftCards: appointmentItem.giftCards
+      };
+
+      const body = await updateAppointment(appointmentItem.appointmentId, data);
+      submitUpdateAppointment(body.params);
     },
 
     getBarStyle: () => {

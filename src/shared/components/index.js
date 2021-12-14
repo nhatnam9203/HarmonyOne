@@ -53,3 +53,4 @@ export * from "./GiftCardScanner";
 export * from "./AppointmentGiftCardItem";
 export * from "./SettingTextInput";
 export * from "./FocusBar";
+export * from "./InputSelectStaff";

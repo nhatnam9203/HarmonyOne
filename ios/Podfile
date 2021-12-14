@@ -45,5 +45,9 @@ target 'HarmonyOne' do
     inherit! :complete
   end
 
+  target 'Dev' do
+    inherit! :complete
+  end
+
 
 end

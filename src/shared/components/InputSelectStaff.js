@@ -11,7 +11,7 @@ import moment from "moment";
 
 
 
-let InputTime = React.forwardRef(({
+let InputStaff = React.forwardRef(({
     style,
     renderInput = null,
     items = [],
@@ -48,13 +48,16 @@ let InputTime = React.forwardRef(({
 
 
     const openActionSheet = () => {
-        setLoading(true);
-        fetchStaffAvaiable();
+        if (serviceId) {
+            setLoading(true);
+            fetchStaffAvaiable();
+        }
         actionSheetRef?.current?.show();
     }
 
     const closeActionSheet = () => {
         actionSheetRef?.current?.hide();
+        setLoading(false)
     }
 
     const selectValue = (it) => {
@@ -98,7 +101,7 @@ let InputTime = React.forwardRef(({
                     <ScrollView style={styles.scrollView}>
                         {
                             isLoading ?
-                                <View style={{ flex: 1, justifyContent: "center", alignItems: "center", height : scaleHeight(500) }}>
+                                <View style={{ flex: 1, justifyContent: "center", alignItems: "center", height: scaleHeight(500) }}>
                                     <ActivityIndicator size="large" color={colors.ocean_blue} />
                                 </View>
                                 :
@@ -150,7 +153,7 @@ let InputTime = React.forwardRef(({
     )
 });
 
-export const InputSelectStaff = React.memo(InputTime);
+export const InputSelectStaff = React.memo(InputStaff);
 
 const styles = StyleSheet.create({
     containerInput: {

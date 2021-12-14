@@ -9,12 +9,12 @@ import {
   IconButton,
   InputSelectTime,
   AppointmentProductItem,
-  AppointmentGiftCardItem
+  AppointmentGiftCardItem,
+  InputSelectStaff
 } from '@shared/components';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { SingleScreenLayout } from '@shared/layouts';
 import { dateToFormat, slop } from "@shared/utils";
-import { InputSelectStaff } from "./InputSelectStaff";
 import NavigationService from '@navigation/NavigationService';
 import DropdownAlert from 'react-native-dropdownalert';
 import moment from 'moment';

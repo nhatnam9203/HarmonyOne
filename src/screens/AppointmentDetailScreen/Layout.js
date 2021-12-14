@@ -6,7 +6,7 @@ import { formatMoneyWithUnit, convertMinsToHrsMins } from '@shared/utils';
 import { Button } from "@shared/components";
 import { colors, fonts, layouts, images } from '@shared/themes';
 import { WithPopupActionSheet } from '@shared/HOC';
-import { TotalView, AppointmentTimeView, CustomerInfoView } from "@shared/components";
+import { TotalView, AppointmentTimeView, CustomerInfoView, InputSelectStaff, IconButton } from "@shared/components";
 import { CustomerAtHomeView } from './CustomerAtHomeView';
 import { AppointmentServiceList } from './AppointmentServiceList';
 import { InvoiceNumber } from "./InvoiceNumber";
@@ -60,7 +60,9 @@ export const Layout = ({
   invoiceViewAppointmentDetail,
   getBarStyle,
   getInvoiceDetail,
-  roleName
+  roleName,
+  staffListByMerchant,
+  assignOtherStaff,
 }) => {
   const [t] = useTranslation();
 
@@ -130,9 +132,20 @@ export const Layout = ({
           </View>
         }
         {
-          !isShowButton && <View style={{ marginBottom : scaleHeight(30) }}>
+          !isShowButton && <View style={styles.bottom}>
             <Text style={styles.txtAppointmentAnyStaff}>Cannot checkout in any staff. </Text>
-            <Text style={[styles.txtAppointmentAnyStaff,{ fontFamily : fonts.BOLD, marginTop : scaleHeight(8) }]}>Please assign appointment to other staff</Text>
+            <InputSelectStaff
+              items={staffListByMerchant.filter(staff => staff?.isDisabled == 0)}
+              itemSelected={0}
+              onSelect={(staffId) => { assignOtherStaff(staffId) }}
+              renderInput={() => (
+                <View style={styles.buttonArrow}>
+                  <Text style={[styles.txtAppointmentAnyStaff, { color: "white", fontFamily: fonts.BOLD }]}>
+                    {`Assign appointment to other staff`}
+                  </Text>
+                </View>
+              )}
+            />
           </View>
         }
       </SingleScreenLayout>
@@ -141,6 +154,16 @@ export const Layout = ({
 };
 
 const styles = StyleSheet.create({
+  buttonArrow: {
+    width: "100%",
+    height : scaleHeight(55),
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    alignSelf: "center",
+    backgroundColor: colors.ocean_blue,
+    marginTop: scaleHeight(8)
+  },
   invoiceNumber: {
     fontSize: scaleFont(15),
     color: "#404040",
