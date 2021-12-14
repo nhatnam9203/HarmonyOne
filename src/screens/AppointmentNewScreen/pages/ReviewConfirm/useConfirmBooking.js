@@ -23,8 +23,9 @@ const useConfirmBooking = ({
     const reduceServices = (services, extras = []) => {
         for (let i = 0; i < services.length; i++) {
             if (i === 0) {
-                services[i].fromTime = (!isQuickCheckout && timeBooking) ? `${dayBooking} ${timeBooking}` : moment().format("MM-DD-YYYY hh:mm A");
-
+                const firstTime = (!isQuickCheckout && timeBooking) ? `${dayBooking} ${timeBooking}` : `${moment().format("YYYY-MM-DD")}T${moment().format("HH:mm")}:00`;
+                services[i].fromTime = firstTime;
+                const test = `${dayBooking} ${timeBooking}`;
             } else if (i > 0) {
                 let tempService = services[i - 1];
                 services[i].fromTime = moment(tempService.fromTime).add('minutes', tempService.duration);
@@ -39,10 +40,49 @@ const useConfirmBooking = ({
         return services;
     }
 
+    const [, fetchAppointmentById] = useAxiosQuery({
+        ...getAppointmentById(appointmentIdUpdate),
+        queryId: "fetchAppointmentById_reviewConfirm",
+        enabled: false,
+        isLoadingDefault: false,
+        isStopLoading: true,
+        onSuccess: async (data, response) => {
+            if (response?.codeNumber == 200) {
+                dispatch(appointment.setAppointmentDetail(response?.data));
+                const dataUpdate = {
+                    staffId: response?.data.staffId,
+                    fromTime: response?.data.fromTime,
+                    status: response?.data.status,
+                    categories: response?.data.categories,
+                    services: reduceServices(
+                        [...response?.data.services].map(obj => ({ ...obj, fromTime: obj?.fromTime })),
+                        response?.data?.extras
+                    ),
+                    extras: response?.data.extras,
+                    products: response?.data.products,
+                    giftCards: response?.data.giftCards
+                };
 
-    const [, submitUpdateAppointment] = useAxiosMutation({
+                if (response?.data?.services?.length > 1) {
+                    const body = await updateAppointment(appointmentIdUpdate, dataUpdate);
+                    onUpdateAppointment(body.params);
+                } else {
+                    dispatch(app.startSignalR());
+
+                    if (isQuickCheckout) {
+                        fetchGroupApointmentById();
+                    }
+                }
+            }
+        },
+        onLoginError: () => {
+            NavigationService.navigate(screenNames.AppointmentScreen);
+        }
+    });
+
+    const [, onUpdateAppointment] = useAxiosMutation({
         ...updateAppointment(),
-        queryId: "updateAppointment_reviewConfirm",
+        queryId: "update_appointment_review_confim",
         isStopLoading: true,
         isLoadingDefault: false,
         onSuccess: async (data, response) => {
@@ -58,45 +98,6 @@ const useConfirmBooking = ({
         }
     });
 
-    const [, fetchAppointmentById] = useAxiosQuery({
-        ...getAppointmentById(appointmentIdUpdate),
-        queryId: "fetchAppointmentById_reviewConfirm",
-        enabled: false,
-        isLoadingDefault: false,
-        isStopLoading: true,
-        onSuccess: async (data, response) => {
-            if (response?.codeNumber == 200) {
-                dispatch(appointment.setAppointmentDetail(response?.data));
-                const data = {
-                    staffId: response?.data.staffId,
-                    fromTime: response?.data.fromTime,
-                    status: response?.data.status,
-                    categories: response?.data.categories,
-                    services: reduceServices(
-                        [...response?.data.services].map(obj => ({ ...obj, fromTime: obj?.fromTime })),
-                        response?.data?.extras
-                    ),
-                    extras: response?.data.extras,
-                    products: response?.data.products,
-                    giftCards: response?.data.giftCards
-                };
-
-                if (response?.data?.services?.length > 1) {
-                    const body = await updateAppointment(appointmentIdUpdate, data);
-                    submitUpdateAppointment(body.params);
-                } else {
-                    dispatch(app.startSignalR());
-
-                    if (isQuickCheckout) {
-                        fetchGroupApointmentById();
-                    }
-                }
-            }
-        },
-        onLoginError: () => {
-            NavigationService.navigate(screenNames.AppointmentScreen);
-        }
-    });
 
     const [, fetchGroupApointmentById] = useAxiosQuery({
         ...getGroupAppointmentById(appointmentIdUpdate),

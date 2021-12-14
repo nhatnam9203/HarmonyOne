@@ -96,6 +96,7 @@ export const useProps = (_params) => {
 
   const [, submitUpdateAppointment] = useAxiosMutation({
     ...updateAppointment(),
+    queryId: "edit_update_appointment",
     isStopLoading: true,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
