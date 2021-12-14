@@ -52,6 +52,9 @@ const useConfirmBooking = ({
                     fetchGroupApointmentById();
                 }
             }
+        },
+        onLoginError: () => {
+            NavigationService.navigate(screenNames.AppointmentScreen);
         }
     });
 
@@ -90,6 +93,9 @@ const useConfirmBooking = ({
                 }
             }
         },
+        onLoginError: () => {
+            NavigationService.navigate(screenNames.AppointmentScreen);
+        }
     });
 
     const [, fetchGroupApointmentById] = useAxiosQuery({
@@ -101,6 +107,9 @@ const useConfirmBooking = ({
                 dispatch(appointment.setGroupAppointment(data));
                 NavigationService.navigate(screenNames.CheckoutScreen);
             }
+        },
+        onLoginError: () => {
+            NavigationService.navigate(screenNames.AppointmentScreen);
         }
     });
 

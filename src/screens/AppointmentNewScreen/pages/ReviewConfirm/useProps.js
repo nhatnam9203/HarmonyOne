@@ -55,6 +55,7 @@ export const useProps = (_params) => {
     },
     onLoginError: () => {
       setDisabledConfirm(false);
+      NavigationService.navigate(screenNames.AppointmentScreen);
     }
   });
 
@@ -79,6 +80,7 @@ export const useProps = (_params) => {
     },
     onLoginError: () => {
       setDisabledConfirm(false);
+      NavigationService.navigate(screenNames.AppointmentScreen);
     }
   });
 
@@ -100,6 +102,7 @@ export const useProps = (_params) => {
     },
     onLoginError: () => {
       setDisabledConfirm(false);
+      NavigationService.navigate(screenNames.AppointmentScreen);
     }
   });
 
