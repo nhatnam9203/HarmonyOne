@@ -801,7 +801,10 @@ export const useProps = (props) => {
     },
 
     onOK: () => {
-      fetchAppointmentByDate();
+      popupChangeRef?.current?.hide();
+      setTimeout(() => {
+        dialogSuccessRef?.current?.show();
+      }, 400);
     },
     confirmPaymentClover: () => {
       clover.confirmPayment();
