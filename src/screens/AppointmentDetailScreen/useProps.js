@@ -38,7 +38,7 @@ export const useProps = ({
     appointment: { appointmentDetail, appointmentDate },
     invoice: { invoiceViewAppointmentDetail },
     auth: { staff },
-    staff: { staffListByMerchant = [] }
+    staff: { staffsByDate = [] },
   } = useSelector(state => state);
 
   const item = appointmentDetail;
@@ -182,7 +182,7 @@ export const useProps = ({
     item,
     roleName,
     isShowButton,
-    staffListByMerchant,
+    staffsByDate,
     getInvoiceDetail,
 
     getActionSheets: () => [

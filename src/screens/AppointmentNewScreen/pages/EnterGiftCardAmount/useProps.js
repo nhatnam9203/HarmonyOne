@@ -3,7 +3,7 @@ import { useAxiosQuery, useAxiosMutation, getAppointmentById } from '@src/apis';
 import { useDispatch, useSelector } from "react-redux";
 import { customer, bookAppointment, appointment } from "@redux/slices";
 import { useForm, useWatch } from "react-hook-form";
-import { formatNumberFromCurrency } from "@shared/utils";
+import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
 import { yupResolver } from '@hookform/resolvers/yup';
 import NavigationService from '@navigation/NavigationService';
 import * as yup from "yup";
@@ -31,6 +31,11 @@ export const useProps = (props) => {
 
   const [amount, setAmountSelected] = React.useState("");
   const [rawAmount, setRawAmount] = React.useState("0.00");
+
+  const moneyGiveForStaff = useWatch({
+    control: form.control,
+    name: 'amount'
+  });
 
   React.useEffect(() => {
     if(giftCardInfo?.isActive == 0){
@@ -72,6 +77,13 @@ export const useProps = (props) => {
     setAmount: (percent) => {
       setAmountSelected(percent);
       form.setValue("amount", parseFloat(percent).toFixed(2))
+    },
+
+    onPressAmount: (amountPressed) => {
+      setAmountSelected(amountPressed);
+      const amountGiveForStaff = moneyGiveForStaff ? moneyGiveForStaff : 0;
+      const total = formatNumberFromCurrency(amountPressed) + formatNumberFromCurrency(amountGiveForStaff);
+      form.setValue("amount", formatMoney(total));
     },
 
     exact: () => {

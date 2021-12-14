@@ -18,7 +18,8 @@ export const Layout = ({
     amount,
     formatNumberFromCurrency,
     exact,
-    giftCardInfo
+    giftCardInfo,
+    onPressAmount
 }) => {
 
     const [t] = useTranslation();
@@ -63,10 +64,10 @@ export const Layout = ({
                                 amountList.map(p => (
                                     <TouchableOpacity
                                         key={p + "amount"}
-                                        onPress={() => setAmount(p)}
-                                        style={[styles.itemAmount, { backgroundColor: amount == p ? "#0764B0" : "transparent" }]}
+                                        onPress={() => onPressAmount(p)}
+                                        style={[styles.itemAmount, { backgroundColor: "transparent" }]}
                                     >
-                                        <Text style={[styles.txtAmount, { color: amount == p ? "white" : "#0764B0" }]}>
+                                        <Text style={[styles.txtAmount, { color: "#0764B0" }]}>
                                             {`${p}`}
                                         </Text>
                                     </TouchableOpacity>

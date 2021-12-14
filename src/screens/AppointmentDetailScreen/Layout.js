@@ -61,7 +61,7 @@ export const Layout = ({
   getBarStyle,
   getInvoiceDetail,
   roleName,
-  staffListByMerchant,
+  staffsByDate,
   assignOtherStaff,
 }) => {
   const [t] = useTranslation();
@@ -135,7 +135,7 @@ export const Layout = ({
           !isShowButton && <View style={styles.bottom}>
             <Text style={styles.txtAppointmentAnyStaff}>Cannot checkout in any staff. </Text>
             <InputSelectStaff
-              items={staffListByMerchant.filter(staff => staff?.isDisabled == 0)}
+              items={staffsByDate.filter(staff => staff?.isDisabled == 0)}
               itemSelected={0}
               onSelect={(staffId) => { assignOtherStaff(staffId) }}
               renderInput={() => (
