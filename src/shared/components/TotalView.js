@@ -8,6 +8,8 @@ export const TotalView = ({
     price = "0.00",
     tax,
     discount,
+    subTotal = "0.00",
+    isShowSubtotal = false
 }) => {
     const [t] = useTranslation();
 
@@ -29,14 +31,27 @@ export const TotalView = ({
                     {duration}
                 </Text>
             </View>
-            <View style={styles.totalInfoContent}>
-                <Text style={styles.textTotal}>
-                    {t('Total')}
-                </Text>
-                <Text style={styles.textTotalPrice}>
-                    {price}
-                </Text>
-            </View>
+            {
+                !isShowSubtotal && <View style={styles.totalInfoContent}>
+                    <Text style={styles.textTotal}>
+                        {t('Total')}
+                    </Text>
+                    <Text style={styles.textTotalPrice}>
+                        {price}
+                    </Text>
+                </View>
+            }
+            {
+                isShowSubtotal &&
+                <View style={styles.totalInfoContent}>
+                    <Text style={styles.textTotal}>
+                        {t('Sub Total')}
+                    </Text>
+                    <Text style={styles.textTotalPrice}>
+                        {subTotal}
+                    </Text>
+                </View>
+            }
         </View>
     );
 };

@@ -111,6 +111,8 @@ export const Layout = ({
           <TotalView
             duration={`${convertMinsToHrsMins(appointmentItem?.duration)}`}
             price={`$ ${appointmentItem?.total}`}
+            isShowSubtotal={true}
+            subTotal={`$ ${appointmentItem?.subTotal}`}
           />
 
           <InvoiceNumber
