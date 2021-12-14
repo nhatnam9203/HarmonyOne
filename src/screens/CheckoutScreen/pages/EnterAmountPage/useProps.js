@@ -3,7 +3,7 @@ import { useAxiosQuery, useAxiosMutation, getAppointmentById } from '@src/apis';
 import { useDispatch, useSelector } from "react-redux";
 import { customer, bookAppointment, appointment } from "@redux/slices";
 import { useForm, useWatch } from "react-hook-form";
-import { formatNumberFromCurrency } from "@shared/utils";
+import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
 import { yupResolver } from '@hookform/resolvers/yup';
 import NavigationService from '@navigation/NavigationService';
 import * as yup from "yup";
@@ -96,5 +96,11 @@ export const useProps = (props) => {
       setAmountSelected("");
     },
 
+    onPressAmount: (amountPressed) => {
+      setAmountSelected(amountPressed);
+      const amountGiveForStaff = moneyGiveForStaff ? moneyGiveForStaff : 0;
+      const total = formatNumberFromCurrency(amountPressed) + formatNumberFromCurrency(amountGiveForStaff);
+      form.setValue("amount", formatMoney(total));
+    }
   }
 };
