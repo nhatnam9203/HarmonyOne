@@ -45,7 +45,7 @@ export const TotalView = ({
                 isShowSubtotal &&
                 <View style={styles.totalInfoContent}>
                     <Text style={styles.textTotal}>
-                        {t('Sub Total')}
+                        {t('Subtotal')}
                     </Text>
                     <Text style={styles.textTotalPrice}>
                         {subTotal}
