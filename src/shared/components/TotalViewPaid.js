@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
 
     totalContent: {
         flex: 0,
+        marginTop : scaleHeight(12)
     },
 
     totalInfoContent: {
