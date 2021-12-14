@@ -7,7 +7,7 @@ import { fonts, colors } from "@shared/themes";
 import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
 import { images } from "@shared/themes/resources";
 
-const amountList = ["10", "20", "50", "100", "500"];
+const amountList = ["10", "20", "50", "100"];
 
 export const Layout = ({
     form,
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
         paddingVertical: scaleHeight(7),
         borderWidth: 1,
         borderColor: "#dddddd",
-        width: scaleWidth(375 / 5 - 12),
+        width: scaleWidth(375 / 4 - 12),
         borderRadius: 3
     },
     txtAmount: {
