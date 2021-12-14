@@ -64,12 +64,20 @@ export const TotalViewPaid = ({
                     {tipAmount}
                 </Text>
             </View>
-            <View style={[styles.totalInfoContent,{ marginBottom : scaleHeight(8) }]}>
+            <View style={[styles.totalInfoContent]}>
                 <Text style={styles.textTotal}>
                     {t('Gift card')}
                 </Text>
                 <Text style={styles.textTotalPrice}>
                     {giftCard}
+                </Text>
+            </View>
+            <View style={[styles.totalInfoContent, { marginBottom: scaleHeight(8) }]}>
+                <Text style={[styles.textTotal, { fontFamily: fonts.BOLD }]}>
+                    {t('Total')}
+                </Text>
+                <Text style={[styles.textTotalPrice, { fontFamily: fonts.BOLD, color: "#72CE3D" }]}>
+                    {price}
                 </Text>
             </View>
         </View>
