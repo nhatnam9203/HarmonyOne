@@ -23,9 +23,8 @@ const useConfirmBooking = ({
     const reduceServices = (services, extras = []) => {
         for (let i = 0; i < services.length; i++) {
             if (i === 0) {
-                const firstTime = (!isQuickCheckout && timeBooking) ? `${dayBooking} ${timeBooking}` : `${moment().format("YYYY-MM-DD")}T${moment().format("HH:mm")}:00`;
+                const firstTime = (!isQuickCheckout && timeBooking) ? `${dayBooking}T${timeBooking}:00` : `${moment().format("YYYY-MM-DD")}T${moment().format("HH:mm")}:00`;
                 services[i].fromTime = firstTime;
-                const test = `${dayBooking} ${timeBooking}`;
             } else if (i > 0) {
                 let tempService = services[i - 1];
                 services[i].fromTime = moment(tempService.fromTime).add('minutes', tempService.duration);
