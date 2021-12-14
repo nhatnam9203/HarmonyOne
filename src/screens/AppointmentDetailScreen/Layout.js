@@ -111,7 +111,7 @@ export const Layout = ({
           <TotalView
             duration={`${convertMinsToHrsMins(appointmentItem?.duration)}`}
             price={`$ ${appointmentItem?.total}`}
-            isShowSubtotal={true}
+            isShowSubtotal={!(appointmentItem?.status == "paid" || appointmentItem?.status == "refund" || appointmentItem?.status == "void" || appointmentItem?.status == "no show")}
             subTotal={`$ ${appointmentItem?.subTotal}`}
           />
 
