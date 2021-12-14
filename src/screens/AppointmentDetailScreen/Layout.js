@@ -123,6 +123,7 @@ export const Layout = ({
                 duration={`${convertMinsToHrsMins(appointmentItem?.duration)}`}
                 price={`$ ${appointmentItem?.total}`}
                 subTotal={`$ ${appointmentItem?.subTotal}`}
+                isShowSubtotal={true}
               />
           }
 
