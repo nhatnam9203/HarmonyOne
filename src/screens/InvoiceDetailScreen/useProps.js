@@ -47,6 +47,8 @@ export const useProps = (props) => {
 
    const [inputTransactionId, setInputTransactionId] = React.useState(null);
 
+   const [isDisabledButtonRefund, setIsDisabledButtonRefund ] = React.useState(false);
+
   const viewShotRef = React.useRef();
   const popupProcessingRef = React.useRef();
   const invoiceRef = React.useRef(null);
@@ -73,6 +75,7 @@ export const useProps = (props) => {
         dispatch(invoice.updateStatusInvoiceSuccess(invoiceDetail));
         // NavigationService.back();
         popupConfirmPrintRef?.current?.show();
+        setIsDisabledButtonRefund(true);
         fetchInvoiceDetail();
         if(isAppointmentDetail){
           fetchAppointmentById();
@@ -519,6 +522,8 @@ export const useProps = (props) => {
     popupProcessingRef,
     popupConfirmPrintRef,
     invoiceRef,
+    isDisabledButtonRefund,
+    
     voidRefundInvoice: async () => {
       if (invoiceDetail?.paymentMethod !== "credit_card") {
         const data = {

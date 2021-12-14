@@ -49,6 +49,7 @@ export const Layout = ({
   shareInvoice,
   printInvoice,
   cancelInvoicePrint,
+  isDisabledButtonRefund
 }) => {
 
   const [t] = useTranslation();
@@ -267,6 +268,7 @@ export const Layout = ({
             onPress={voidRefundInvoice}
             highlight={true}
             width={'100%'}
+            disabled={isDisabledButtonRefund}
           />
         </View>
       }
