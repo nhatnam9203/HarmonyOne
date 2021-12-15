@@ -139,7 +139,7 @@ export const useProps = (props) => {
       }
 
       if (roleName == "staff") {
-        let tempCategory = [...categoryList];
+        let tempCategory = [...categoryList].filter(cate => cate?.categoryType?.toString()?.toLowerCase() == "service");
         let tempArr = [];
         for (let i = 0; i < tempCategory.length; i++) {
           if (filterCategoryByServiceOfStaff(tempCategory[i].categoryId)) {
@@ -154,7 +154,7 @@ export const useProps = (props) => {
           }
         });
       } else {
-        return categoryList.filter(cate => cate.isDisabled == 0).map((cate) => {
+        return categoryList.filter(cate => cate.isDisabled == 0 && cate?.categoryType?.toString()?.toLowerCase() == "service").map((cate) => {
           const dataList = servicesList.filter((sv) => (sv.categoryId == cate.categoryId));
           return {
             category: cate,
