@@ -151,7 +151,8 @@ export const Layout = ({
             <Text style={styles.txtAppointmentAnyStaff}>Cannot checkout in any staff. </Text>
             <InputSelectStaff
               items={staffsByDate.filter(staff => staff?.isDisabled == 0)}
-              itemSelected={0}
+              itemSelected={3}
+              serviceId={appointmentItem?.services[0]?.serviceId}
               onSelect={(staffId) => { assignOtherStaff(staffId) }}
               renderInput={() => (
                 <View style={styles.buttonArrow}>
