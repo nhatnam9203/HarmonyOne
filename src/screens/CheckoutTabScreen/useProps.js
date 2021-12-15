@@ -9,11 +9,17 @@ export const useProps = (props) => {
 
   const {
     bookAppointment: { customerBooking },
-    auth: { staff }
+    auth: { staff },
+    appointment: {
+      staffSelected,
+    },
   } = useSelector(state => state);
 
+  const roleName = staff?.roleName?.toString()?.toLowerCase();
+
+
   const [, submitGetServiceByStaff] = useAxiosQuery({
-    ...getServiceByStaff(staff?.staffId),
+    ...getServiceByStaff(roleName == "staff" ? staff?.staffId : staffSelected),
     queryId: "getServiceByStaff_checkoutTabScreen",
     isLoadingDefault: true,
     enabled: false,
@@ -22,9 +28,6 @@ export const useProps = (props) => {
       NavigationService.navigate(screenNames.AppointmentNewScreen);
     }
   });
-
-
-  const roleName = staff?.roleName?.toString()?.toLowerCase();
 
   return {
 
@@ -60,7 +63,11 @@ export const useProps = (props) => {
       if (roleName == "staff") {
         submitGetServiceByStaff();
       } else {
-        NavigationService.navigate(screenNames.AppointmentNewScreen);
+        if (staffSelected) {
+          submitGetServiceByStaff();
+        } else {
+          NavigationService.navigate(screenNames.AppointmentNewScreen);
+        }
       }
     }
   };

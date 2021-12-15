@@ -1,15 +1,20 @@
 import React from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { fonts } from "@shared/themes";
-import { useAxiosQuery, getCustomerInfoById } from '@src/apis';
-import { useDispatch } from "react-redux";
-import { customer } from "@redux/slices";
+import { useAxiosQuery, getCustomerInfoById, getServiceByStaff } from '@src/apis';
+import { useDispatch, useSelector } from "react-redux";
+import { customer, service } from "@redux/slices";
 import { guid } from "@shared/utils";
 import { bookAppointment } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 
 const ItemCustomer = ({ item, refreshFromScreen, isBookAppointment, isReviewConfirm, isQuickCheckout }) => {
     const dispatch = useDispatch();
+
+    const {
+        appointment: { staffSelected },
+        bookAppointment: { isAddMore }
+    } = useSelector(state => state);
 
     const [customerId, setCustomerId] = React.useState(null);
     const [uid, setUID] = React.useState(null);
@@ -29,6 +34,18 @@ const ItemCustomer = ({ item, refreshFromScreen, isBookAppointment, isReviewConf
             getCustomerById();
     }, [customerId, setCustomerId, uid]);
 
+    const [, submitGetServiceByStaff] = useAxiosQuery({
+        ...getServiceByStaff(staffSelected),
+        queryId: "getServiceByStaff_customerNewScreen",
+        isLoadingDefault: true,
+        enabled: false,
+        onSuccess: (data, response) => {
+            dispatch(service.setServiceByStaff(data));
+            NavigationService.navigate(screenNames.AppointmentNewScreen);
+        }
+    });
+
+
     const selectItem = () => {
         if (isBookAppointment || isQuickCheckout) {
             dispatch(bookAppointment.setCustomerBooking(item));
@@ -38,7 +55,11 @@ const ItemCustomer = ({ item, refreshFromScreen, isBookAppointment, isReviewConf
                 if (isQuickCheckout) {
                     NavigationService.navigate(screenNames.CheckoutTabScreen);
                 } else {
-                    NavigationService.navigate(screenNames.AppointmentNewScreen);
+                    if (staffSelected && !isAddMore) {
+                        submitGetServiceByStaff();
+                    } else {
+                        NavigationService.navigate(screenNames.AppointmentNewScreen);
+                    }
                 }
             }
         } else {

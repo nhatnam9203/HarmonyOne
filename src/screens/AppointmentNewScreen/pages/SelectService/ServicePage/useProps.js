@@ -11,7 +11,8 @@ export const useProps = (_params) => {
     const {
         category: { category = [] },
         service: { services = [], servicesByStaff = [] },
-        bookAppointment: { servicesBooking = [] },
+        bookAppointment: { servicesBooking = [], isAddMore, },
+        appointment: { staffSelected },
         auth: { staff }
     } = useSelector(state => state);
 
@@ -21,39 +22,55 @@ export const useProps = (_params) => {
 
     let categoryList = category.filter(ct => ct?.categoryType?.toString()?.toLowerCase() == "service" && ct.isDisabled == 0);
 
+    const dataStaffSelected = () => {
+        let tempCategory = [...categoryList];
+        let tempArr = [];
+        for (let i = 0; i < tempCategory.length; i++) {
+            if (filterCategoryByServiceOfStaff(tempCategory[i].categoryId)) {
+                tempArr.push(tempCategory[i]);
+            }
+        }
+        return tempArr.map((cate) => ({
+            category: cate,
+            data: servicesByStaff.filter((sv) => (sv.categoryId == cate.categoryId && sv.isDisabled == 0)),
+        }))
+    }
+
     const getDataList = () => {
         if (roleName == "staff") {
-            let tempCategory = [...categoryList];
-            let tempArr = [];
-            for (let i = 0; i < tempCategory.length; i++) {
-                if (filterCategoryByServiceOfStaff(tempCategory[i].categoryId)) {
-                    tempArr.push(tempCategory[i]);
-                }
-            }
-            return tempArr.map((cate) => ({
-                category: cate,
-                data: servicesByStaff.filter((sv) => (sv.categoryId == cate.categoryId && sv.isDisabled == 0)),
-            }))
+            return dataStaffSelected();
         } else {
-            return categoryList.map((cate) => ({
-                category: cate,
-                data: services.filter((sv) => (sv.categoryId == cate.categoryId && sv.isDisabled == 0)),
-            }))
+            if (staffSelected && !isAddMore) {
+                return dataStaffSelected();
+            } else {
+                return categoryList.map((cate) => ({
+                    category: cate,
+                    data: services.filter((sv) => (sv.categoryId == cate.categoryId && sv.isDisabled == 0)),
+                }))
+            }
         }
+    }
+
+    const categoryRoleStaff = () => {
+        let tempCategory = [...categoryList];
+        let tempArr = [];
+        for (let i = 0; i < tempCategory.length; i++) {
+            if (filterCategoryByServiceOfStaff(tempCategory[i].categoryId)) {
+                tempArr.push(tempCategory[i]);
+            }
+        }
+        return tempArr;
     }
 
     const getCategoryList = () => {
         if (roleName == "staff") {
-            let tempCategory = [...categoryList];
-            let tempArr = [];
-            for (let i = 0; i < tempCategory.length; i++) {
-                if (filterCategoryByServiceOfStaff(tempCategory[i].categoryId)) {
-                    tempArr.push(tempCategory[i]);
-                }
-            }
-            return tempArr;
+            return categoryRoleStaff();
         } else {
-            return categoryList;
+            if (staffSelected && !isAddMore) {
+                return categoryRoleStaff();
+            } else {
+                return categoryList;
+            }
         }
     }
 
