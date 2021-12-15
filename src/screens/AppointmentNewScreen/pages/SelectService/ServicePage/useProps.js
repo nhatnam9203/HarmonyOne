@@ -84,6 +84,7 @@ export const useProps = (_params) => {
 
     const sectionListData = getCategoryList();
 
+
     return {
         categoryRef,
         sectionListRef,
@@ -97,7 +98,12 @@ export const useProps = (_params) => {
             const index = sectionListData.findIndex(ct => ct?.categoryId == categoryId);
             if (index !== -1) {
                 categoryRef?.current?.scrollToIndex({ index, animated: true });
-                sectionListRef?.current?.scrollToLocation({ sectionIndex: index, animated: true, itemIndex: 0, viewPosition: 0 });
+                sectionListRef?.current?.scrollToLocation({        
+                    animated: true,
+                    itemIndex: 0,
+                    sectionIndex: index,
+                    viewPosition:  0
+                });
             }
         }
     };

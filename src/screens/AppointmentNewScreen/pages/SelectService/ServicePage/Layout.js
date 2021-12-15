@@ -63,6 +63,9 @@ export const Layout = ({
                             </Text>
                         )
                     }}
+                    onScrollToIndexFailed={info =>{
+                
+                    }}
                     ListFooterComponent={() => <View style={{ height: scaleHeight(0) }} />}
                 />
             </View>
