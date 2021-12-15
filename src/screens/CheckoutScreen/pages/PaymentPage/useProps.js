@@ -421,25 +421,41 @@ export const useProps = (props) => {
   }
 
   const handlePayment = async (amount) => {
-    if (methodPay.method == "harmony") {
-      setupSignalR(amount);
+    if (
+      (methodPay.method === "harmony" ||
+        methodPay.method === "credit_card" ||
+        methodPay.method === "debit_card") &&
+      formatNumberFromCurrency(amount) > formatNumberFromCurrency(groupAppointments?.dueAmount)
+    ) {
+      dispatch(
+        app.setError({
+          isError: true,
+          messageError: "The change not bigger than total money!",
+          errorType: "error",
+          titleError: "Alert",
+        }));
     } else {
-      const data = {
-        method: methodPay.method,
-        amount,
-        giftCardId: 0,
-      }
+      
+      if (methodPay.method == "harmony") {
+        setupSignalR(amount);
+      } else {
 
-      if (methodPay.method !== "credit_card") {
-        setTimeout(() => {
-          popupPayProcessingRef?.current?.show();
-        }, 100);
-      }
+        const data = {
+          method: methodPay.method,
+          amount,
+          giftCardId: 0,
+        }
 
-      const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
-      submitSelectPaymentMethod(body.params);
+        if (methodPay.method !== "credit_card") {
+          setTimeout(() => {
+            popupPayProcessingRef?.current?.show();
+          }, 100);
+        }
+
+        const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
+        submitSelectPaymentMethod(body.params);
+      }
     }
-
   }
 
   const backToHome = () => {
