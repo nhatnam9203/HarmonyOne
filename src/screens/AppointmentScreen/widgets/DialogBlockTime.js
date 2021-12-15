@@ -4,9 +4,10 @@ import { StyleSheet, Text, TouchableOpacity, View, TextInput, Alert } from "reac
 import { colors, fonts, layouts } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { IconButton, Button, CustomImage, CustomInput, InputSelectTime } from "@shared/components";
-import { staffLogTime, useAxiosQuery } from "@src/apis";
+import { axios } from '@shared/services/axiosClient';
 import Modal from "react-native-modal";
 import moment from "moment";
+import { isEmpty } from "lodash";
 
 const DialogBlockTime = React.forwardRef(
     ({
@@ -34,17 +35,26 @@ const DialogBlockTime = React.forwardRef(
             return someMoment.clone().minute(roundedMinutes).second(0);
         }
 
-        const [,] = useAxiosQuery({
-            ...staffLogTime(staffInfo?.staffId),
-            enabled: true,
-            isLoadingDefault: false,
-            onSuccess: (data, response) => {
-                console.log('login time : ', { data,response });
-                if (response?.codeNumber == 200) {
-                    
-                }
+        const getStaffLoginTime = async (staffId) => {
+            setLoading(true);
+            const params = {
+                url: `staff/loginTime/${staffId}`,
+                method: "GET",
             }
-        })
+            try {
+                const response = await axios(params);
+                if (response?.data?.codeNumber == 200) {
+                    setLoginTime(response?.data?.data);
+                } else {
+                    alert(response?.data?.message)
+                }
+            } catch (err) {
+
+            } finally {
+                setLoading(false);
+            }
+        }
+
 
         const hideModal = () => {
             setOpen(false);
@@ -53,6 +63,7 @@ const DialogBlockTime = React.forwardRef(
                 setStaffInfo(null);
                 setVisibleAddBlockTime(false);
                 setAppointmentCount(0);
+                setLoginTime(null);
             }, 300);
         };
 
@@ -76,6 +87,7 @@ const DialogBlockTime = React.forwardRef(
             },
             show: (staff, appointmentNumber = "0") => {
                 staff && setStaffInfo(staff);
+                getStaffLoginTime(staff?.staffId);
                 setAppointmentCount(appointmentNumber);
                 const now = moment();
                 let nearestFuturemin = nearestFutureMinutes(15, now);
@@ -130,7 +142,7 @@ const DialogBlockTime = React.forwardRef(
                             </Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-between", width: scaleWidth(260) }}>
                                 <Text style={styles.txtLogin}>
-                                    {`Still not login`}
+                                    { isEmpty(loginTime) ? `Still not login` : loginTime}
                                 </Text>
                                 <Text style={styles.txtLogin}>
                                     {`Appointments : `}
