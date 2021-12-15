@@ -12,10 +12,10 @@ import {
   submitPaymentWithCreditCard,
   sendGoogleReviewLink,
 } from '@src/apis';
-import { 
-  useDispatch, 
+import {
+  useDispatch,
   useSelector,
- } from "react-redux";
+} from "react-redux";
 import {
   dateToFormat,
   guid,
@@ -38,9 +38,9 @@ import {
   hardware,
 } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
-import { 
-  Alert, 
-  NativeEventEmitter, 
+import {
+  Alert,
+  NativeEventEmitter,
   NativeModules,
   Platform,
 } from 'react-native';
@@ -57,9 +57,9 @@ const { persistor, store } = configureStore();
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
-   //ADD LISTENER FROM CLOVER MODULE
-   let eventEmitter = new NativeEventEmitter(clover);
-   let subscriptions = []
+  //ADD LISTENER FROM CLOVER MODULE
+  let eventEmitter = new NativeEventEmitter(clover);
+  let subscriptions = []
 
   /************************************* REF *************************************/
   const dialogSuccessRef = React.useRef();
@@ -77,7 +77,7 @@ export const useProps = (props) => {
       groupAppointments = [],
       appointmentDate,
       startProcessingPax,
-     },
+    },
     auth: { staff },
     hardware: { dejavooMachineInfo,
       cloverMachineInfo,
@@ -86,7 +86,7 @@ export const useProps = (props) => {
       printerSelect,
       bluetoothPaxInfo,
       paxMachineInfo,
-     },
+    },
     merchant: { merchantDetail },
   } = useSelector(state => state);
 
@@ -108,7 +108,7 @@ export const useProps = (props) => {
         unregisterEvents();
       };
     }
-    
+
   }, []);
 
   React.useEffect(() => {
@@ -121,33 +121,33 @@ export const useProps = (props) => {
   const registerEvents = () => {
     clover.changeListenerStatus(true)
     subscriptions = [
-        eventEmitter.addListener('paymentSuccess', data => {
+      eventEmitter.addListener('paymentSuccess', data => {
         dispatch(appointment.setIsProcessPaymentClover(false))
         handleResponseCreditCardForCloverSuccess(data)
       }),
       eventEmitter.addListener('paymentFail', data => {
         dispatch(appointment.setIsProcessPaymentClover(false))
         handleResponseCreditCardForCloverFailed(_.get(data, 'errorMessage'))
-       }),
+      }),
       eventEmitter.addListener('pairingCode', data => {
         const { appointment: { isProcessPaymentClover } } = store.getState();
-        if(data){
+        if (data) {
 
-          if(isProcessPaymentClover) {
+          if (isProcessPaymentClover) {
             popupPayProcessingRef?.current?.hide();
           }
         }
       }),
       eventEmitter.addListener('pairingSuccess', data => {
-    
+
         const { appointment } = store.getState();
         const { isProcessPaymentClover } = appointment;
-        if(isProcessPaymentClover) {
+        if (isProcessPaymentClover) {
           setTimeout(() => {
             popupPayProcessingRef?.current?.show();
           }, 200)
         }
-       
+
       }),
 
       eventEmitter.addListener('confirmPayment', () => {
@@ -159,7 +159,7 @@ export const useProps = (props) => {
 
       eventEmitter.addListener('deviceDisconnected', () => {
         const { appointment: { isProcessPaymentClover } } = store.getState();
-        if(isProcessPaymentClover) {
+        if (isProcessPaymentClover) {
           dispatch(appointment.setIsProcessPaymentClover(false))
           handleResponseCreditCardForCloverFailed("No connected device")
           clover.cancelTransaction();
@@ -179,15 +179,17 @@ export const useProps = (props) => {
     const { cloverMachineInfo } = hardware;
     const { staff } = auth;
     const { payAppointmentId } = appointment;
-    let messageUpdate = {...message,
-                sn: _.get(cloverMachineInfo, 'serialNumber')}
-      const body = await submitPaymentWithCreditCard(
-        staff?.merchantId || 0,
-        messageUpdate,
-        payAppointmentId,
-        groupAppointments?.dueAmount,
-        "clover")
-      submitPaymentCreditCard(body.params);
+    let messageUpdate = {
+      ...message,
+      sn: _.get(cloverMachineInfo, 'serialNumber')
+    }
+    const body = await submitPaymentWithCreditCard(
+      staff?.merchantId || 0,
+      messageUpdate,
+      payAppointmentId,
+      groupAppointments?.dueAmount,
+      "clover")
+    submitPaymentCreditCard(body.params);
   }
 
   const handleResponseCreditCardForCloverFailed = async (errorMessage) => {
@@ -356,7 +358,7 @@ export const useProps = (props) => {
   }
 
   /************************************* SETUP SIGNALR CHO METHOD HARMONY *************************************/
-  const setupSignalR = () => {
+  const setupSignalR = (amountGiveForStaff) => {
     try {
       dispatch(app.showLoading());
       const urlconnect = `${Configs.SOCKET_URL}notification/?merchantId=${staff?.merchantId}&Title=Merchant&kind=app&deviceId=gfghdfgdfd&token=${staff?.token}`;
@@ -396,9 +398,10 @@ export const useProps = (props) => {
           setConnectionSignalR(connection)
           const data = {
             method: "harmony",
-            amount: appointmentDetail?.total,
+            amount: amountGiveForStaff ? amountGiveForStaff : appointmentDetail?.total,
             giftCardId: 0,
           }
+
           const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
           submitSelectPaymentMethod(body.params);
           changeStatusCancelHarmony(true)
@@ -418,21 +421,25 @@ export const useProps = (props) => {
   }
 
   const handlePayment = async (amount) => {
-    const data = {
-      method: methodPay.method,
-      amount,
-      giftCardId: 0,
+    if (methodPay.method == "harmony") {
+      setupSignalR(amount);
+    } else {
+      const data = {
+        method: methodPay.method,
+        amount,
+        giftCardId: 0,
+      }
+
+      if (methodPay.method !== "credit_card") {
+        setTimeout(() => {
+          popupPayProcessingRef?.current?.show();
+        }, 100);
+      }
+
+      const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
+      submitSelectPaymentMethod(body.params);
     }
-    
-    if(methodPay.method !== "credit_card"){
-      setTimeout(() => {
-        popupPayProcessingRef?.current?.show();
-      }, 100);
-    }
-    
-    const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
-    submitSelectPaymentMethod(body.params);
-    
+
   }
 
   const backToHome = () => {
@@ -457,7 +464,7 @@ export const useProps = (props) => {
     }, 100);
     if (paymentMachineType == PaymentTerminalType.Pax) {
 
-      if(Platform.OS === 'ios') {
+      if (Platform.OS === 'ios') {
         const { name, ip, port, commType, bluetoothAddr, isSetup } =
           paxMachineInfo;
         const tempIpPax = commType == "TCP" ? ip : "";
@@ -533,7 +540,7 @@ export const useProps = (props) => {
         parameter
       );
     }
-    
+
   }
 
   const handleResponseCreditCardPax = async (
@@ -564,14 +571,14 @@ export const useProps = (props) => {
           "pax",
           parameter)
         submitPaymentCreditCard(body.params);
-         
+
       } else {
         const resultTxt = result?.ResultTxt || "Transaction failed";
         setErrorMessageFromPax(resultTxt);
         const body = cancelHarmonyPayment(payAppointmentId, data)
         submitCancelHarmonyPayment(body.params);
       }
-    } catch (error) {}
+    } catch (error) { }
   }
 
   const handleResponseCreditCardDejavoo = async (
@@ -773,8 +780,6 @@ export const useProps = (props) => {
     onSubmitPayment: async () => {
       if (methodPay.method == "credit_card") {
         handlePayment()
-      } else if (methodPay.method == "harmony") {
-        setupSignalR();
       } else {
         NavigationService.navigate(screenNames.EnterAmountPage, { handlePayment });
       }
