@@ -76,7 +76,7 @@ export const PopupPaymentDetail = React.forwardRef(
                         <View style={[styles.row]}>
                             <Text style={[styles.txt]}>Grand total</Text>
                             <Text style={[styles.txt, { fontFamily: fonts.BOLD, color: "#000" }]}>
-                                {`$ ${paymentDetail?.checkoutPaymentResponse?.grandTotal}`}
+                                {`$ ${formatMoney(paymentDetail?.checkoutPaymentResponse?.grandTotal)}`}
                             </Text>
                         </View>
 
@@ -88,7 +88,7 @@ export const PopupPaymentDetail = React.forwardRef(
                             paymentDetail?.checkoutPaymentResponse?.paidAmounts?.map((obj) => (
                                 <View key={guid()} style={[styles.row]}>
                                     <Text style={[styles.txt]}>{`Paid (${obj.paymentMethod})`}</Text>
-                                    <Text style={[styles.txt, { fontFamily: fonts.BOLD, color: "#000" }]}>{`$ ${obj.amount}`}</Text>
+                                    <Text style={[styles.txt, { fontFamily: fonts.BOLD, color: "#000" }]}>{`$ ${formatMoney(obj.amount)}`}</Text>
                                 </View>
                             ))
                         }
@@ -96,7 +96,7 @@ export const PopupPaymentDetail = React.forwardRef(
                         <View style={[styles.row]}>
                             <Text style={[styles.txt, { color: "red" }]}>Amount Due: </Text>
                             <Text style={[styles.txt, { fontFamily: fonts.BOLD, color: "red" }]}>
-                                {`$ ${paymentDetail?.checkoutPaymentResponse?.dueAmount}`}
+                                {`$ ${formatMoney(paymentDetail?.checkoutPaymentResponse?.dueAmount)}`}
                             </Text>
                         </View>
 

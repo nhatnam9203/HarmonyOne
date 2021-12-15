@@ -350,11 +350,43 @@ export const useProps = (props) => {
 
   /************************************* HANDLE HARMONY PAYMENT SUCCESS *************************************/
   const handleHarmonyPayment = (checkoutPayment) => {
-    setMethodPay(null);
-    setPayAppointmentId(null);
-    dispatch(appointment.setPayAppointmentId(null))
+    const dueAmount = parseFloat(
+      checkoutPayment?.dueAmount || 0
+    );
+
+    if (dueAmount == 0) {
+      setTimeout(() => {
+        dialogSuccessRef?.current?.show();
+        setMethodPay(null);
+        setPayAppointmentId(null);
+        dispatch(appointment.setPayAppointmentId(null))
+        dialogSuccessRef?.current?.show();
+      }, 200)
+
+      return;
+    }
+    if (dueAmount < 0) {
+      setPaymentDetail({
+        checkoutPaymentResponse: {
+          ...checkoutPayment
+        }
+      });
+      popupChangeRef?.current?.show();
+      return;
+    }
+    if (dueAmount > 0) {
+      fetchGroupApointmentById();
+      setPaymentDetail({
+        checkoutPaymentResponse: {
+          ...checkoutPayment
+        }
+      });
+      popupPaymentDetailRef?.current?.show();
+      setMethodPay(null);
+    }
+
     changeStatusCancelHarmony(false);
-    dialogSuccessRef?.current?.show();
+
   }
 
   /************************************* SETUP SIGNALR CHO METHOD HARMONY *************************************/
@@ -417,6 +449,8 @@ export const useProps = (props) => {
       setTimeout(() => {
         alert(error);
       }, 1000);
+    }finally{
+      dispatch(app.hideLoading());
     }
   }
 
@@ -435,7 +469,7 @@ export const useProps = (props) => {
           titleError: "Alert",
         }));
     } else {
-      
+
       if (methodPay.method == "harmony") {
         setupSignalR(amount);
       } else {
