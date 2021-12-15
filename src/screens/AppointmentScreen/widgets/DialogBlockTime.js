@@ -5,9 +5,11 @@ import { colors, fonts, layouts } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { IconButton, Button, CustomImage, CustomInput, InputSelectTime } from "@shared/components";
 import { axios } from '@shared/services/axiosClient';
+import { isEmpty } from "lodash";
+import { findServiceInAnotherAppointment } from "./helper";
+import { useSelector } from "react-redux";
 import Modal from "react-native-modal";
 import moment from "moment";
-import { isEmpty } from "lodash";
 
 const DialogBlockTime = React.forwardRef(
     ({
@@ -29,6 +31,10 @@ const DialogBlockTime = React.forwardRef(
         const [appoointmentCount, setAppointmentCount] = React.useState(0);
         const [isLoading, setLoading] = React.useState(false);
         const [loginTime, setLoginTime] = React.useState(null);
+
+        const {
+            blockTimes = [],
+        } = useSelector(state => state.appointment);
 
         const nearestFutureMinutes = (interval, someMoment) => {
             const roundedMinutes = Math.ceil(someMoment.minute() / interval) * interval;
@@ -81,14 +87,35 @@ const DialogBlockTime = React.forwardRef(
             }
         };
 
+        const getAppointmentCount = (staffId) =>{
+            let tempAppointments = blockTimes.filter(
+                (blockTime) => blockTime?.staffId == staffId,
+            );
+
+            let appointmentAnotherStaff = blockTimes.filter(
+                (blockTime) => blockTime?.staffId !== staffId,
+            );
+
+            appointmentAnotherStaff = findServiceInAnotherAppointment(appointmentAnotherStaff, staffId);
+
+            if (appointmentAnotherStaff?.length > 0) {
+                tempAppointments = [
+                    ...tempAppointments,
+                    ...appointmentAnotherStaff
+                ].sort((a, b) => b.appointmentId - a.appointmentId);
+            }
+
+            setAppointmentCount(tempAppointments?.length || "0");
+        }
+
         React.useImperativeHandle(ref, () => ({
             hide: () => {
                 hideModal();
             },
-            show: (staff, appointmentNumber = "0") => {
+            show: (staff) => {
                 staff && setStaffInfo(staff);
                 getStaffLoginTime(staff?.staffId);
-                setAppointmentCount(appointmentNumber);
+                getAppointmentCount(staff?.staffId);
                 const now = moment();
                 let nearestFuturemin = nearestFutureMinutes(15, now);
                 const start = moment(nearestFuturemin).format("hh:mm A");

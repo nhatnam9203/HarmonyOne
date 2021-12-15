@@ -9,6 +9,7 @@ import { guid } from "@shared/utils";
 import { axios } from '@shared/services/axiosClient';
 import { dateToFormat } from '@shared/utils';
 import { useDispatch, useSelector } from 'react-redux';
+import { findServiceInAnotherAppointment } from "./helper";
 import moment  from 'moment';
 
 import {
@@ -100,7 +101,7 @@ const AppointmentList = React.forwardRef(({
                 (blockTime) => blockTime?.staffId !== staffSelected,
             );
 
-            appointmentAnotherStaff = findServiceInAnotherAppointment(appointmentAnotherStaff);
+            appointmentAnotherStaff = findServiceInAnotherAppointment(appointmentAnotherStaff, staffSelected);
 
             if (appointmentAnotherStaff?.length > 0) {
                 tempAppointments = [
@@ -116,19 +117,6 @@ const AppointmentList = React.forwardRef(({
     }, [staffSelected, appointmentDate, blockTimes]);
 
 
-    const findServiceInAnotherAppointment = (appointments = []) => {
-        let tempArr = [];
-        for (let i = 0; i < appointments.length; i++) {
-            const services = appointments[i]?.services || [];
-            for (const sv of services) {
-                if (sv?.staffId == staffSelected) {
-                    tempArr.push(appointments[i]);
-                    continue;
-                }
-            }
-        }
-        return tempArr;
-    }
 
     /************************************** GET APPOINTMENT DETAIL  ***************************************/
     React.useEffect(() => {
