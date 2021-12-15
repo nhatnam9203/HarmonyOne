@@ -57,6 +57,8 @@ export const Layout = ({
           width="100%"
           highlight={pinCode?.length === 4}
           disabled={pinCode?.length !== 4}
+          buttonDisableStyle={(pinCode?.length !== 4) ? styles.buttonDisableStyle : null}
+          textDisableStyle={(pinCode?.length !== 4) ? styles.textDisableStyle : null}
           isLoading={isLoading}
           onPress={loginStaff}
         />
@@ -125,4 +127,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#27aae1',
   },
+
+  buttonDisableStyle : {
+    backgroundColor : "transparent",
+    borderWidth : 1,
+    borderColor : '#2E63AA'
+  },
+  textDisableStyle : {
+    color : "#2E63AA"
+  }
 });

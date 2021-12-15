@@ -17,7 +17,7 @@ export const Layout = ({
 
   return (
     <View style={layouts.fill}>
-      <FocusBar barStyle={"dark-content"} /> 
+      <FocusBar barStyle={"dark-content"} />
       <View style={styles.container}>
         <View style={layouts.marginVertical} />
         <Text style={textStyles.sf_pt_medium_17_500}>{t('Sign In')}</Text>
@@ -36,6 +36,8 @@ export const Layout = ({
           width="100%"
           highlight={true}
           disabled={merchantID?.length < 4 || !merchantID}
+          buttonDisableStyle={(merchantID?.length < 4 || !merchantID) ? styles.buttonDisableStyle : null}
+          textDisableStyle={(merchantID?.length < 4 || !merchantID) ? styles.textDisableStyle : null}
           isLoading={isLoading}
           onPress={loginMerchant}
         />
@@ -104,4 +106,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#e12727',
   },
+
+  buttonDisableStyle : {
+    backgroundColor : "transparent",
+    borderWidth : 1,
+    borderColor : '#2E63AA'
+  },
+  textDisableStyle : {
+    color : "#2E63AA"
+  }
 });
