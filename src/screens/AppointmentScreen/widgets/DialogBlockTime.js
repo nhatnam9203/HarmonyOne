@@ -8,6 +8,7 @@ import { axios } from '@shared/services/axiosClient';
 import { isEmpty } from "lodash";
 import { findServiceInAnotherAppointment } from "./helper";
 import { useSelector } from "react-redux";
+import { useAxiosMutation, addBlockTime } from "@src/apis";
 import Modal from "react-native-modal";
 import moment from "moment";
 
@@ -40,6 +41,14 @@ const DialogBlockTime = React.forwardRef(
             const roundedMinutes = Math.ceil(someMoment.minute() / interval) * interval;
             return someMoment.clone().minute(roundedMinutes).second(0);
         }
+
+        const [, submitAddBlockTime] = useAxiosMutation({
+            ...addBlockTime(),
+            isLoadingDefault: false,
+            onSuccess: (data, response) => {
+                console.log({ response })
+            }
+        })
 
         const getStaffLoginTime = async (staffId) => {
             setLoading(true);
@@ -87,7 +96,7 @@ const DialogBlockTime = React.forwardRef(
             }
         };
 
-        const getAppointmentCount = (staffId) =>{
+        const getAppointmentCount = (staffId) => {
             let tempAppointments = blockTimes.filter(
                 (blockTime) => blockTime?.staffId == staffId,
             );
@@ -108,6 +117,14 @@ const DialogBlockTime = React.forwardRef(
             setAppointmentCount(tempAppointments?.length || "0");
         }
 
+        const getTimeSelect = () => {
+            const now = moment();
+            let nearestFuturemin = nearestFutureMinutes(15, now);
+            const start = moment(nearestFuturemin).format("hh:mm A");
+            setStartTime(start);
+            setEndTime(moment(nearestFuturemin).add('hours', 1).format("hh:mm A"));
+        }
+
         React.useImperativeHandle(ref, () => ({
             hide: () => {
                 hideModal();
@@ -116,11 +133,7 @@ const DialogBlockTime = React.forwardRef(
                 staff && setStaffInfo(staff);
                 getStaffLoginTime(staff?.staffId);
                 getAppointmentCount(staff?.staffId);
-                const now = moment();
-                let nearestFuturemin = nearestFutureMinutes(15, now);
-                const start = moment(nearestFuturemin).format("hh:mm A");
-                setStartTime(start);
-                setEndTime(moment(nearestFuturemin).add('hours', 1).format("hh:mm A"));
+                getTimeSelect();
                 setOpen(true);
             },
         }));
@@ -169,7 +182,7 @@ const DialogBlockTime = React.forwardRef(
                             </Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-between", width: scaleWidth(260) }}>
                                 <Text style={styles.txtLogin}>
-                                    { isEmpty(loginTime) ? `Still not login` : loginTime}
+                                    {isEmpty(loginTime) ? `Still not login` : loginTime}
                                 </Text>
                                 <Text style={styles.txtLogin}>
                                     {`Appointments : `}

@@ -111,15 +111,14 @@ export const getStaffByMerchant = (merchantId) => ({
   },
 });
 
-export const staffLogTime = (staffId) => ({
-  queryId: 'staffLogTime',
+export const addBlockTime = (data) => ({
+  queryId: 'addBlockTime',
   params: {
-    url: `staff/loginTime/${staffId}`,
-    method: 'GET',
+    url: `blocktime`,
+    method: 'POST',
+    data,
   },
-});
-
-
+}); 
 
 
 /**
