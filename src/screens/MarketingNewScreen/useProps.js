@@ -282,6 +282,7 @@ export const useProps = (props) => {
 
   React.useEffect(() => {
     if (!isEmpty(smsInfoMarketing) && isMounted) {
+
       const customerCount = Math.max(
         smsInfoMarketing?.customerCount,
         smsMaxCustomer
@@ -298,9 +299,7 @@ export const useProps = (props) => {
       setSMSMaxCustomer(customerCount);
       calculatorsmsMoney(tempValue, customerCount);
     }
-  }, [smsInfoMarketing, isMounted]);
-
-
+  }, [smsInfoMarketing, isMounted, smsMaxCustomer]);
 
   React.useEffect(() => {
     if ((isViewDetail || isEdit) && promotionDetailById) {
