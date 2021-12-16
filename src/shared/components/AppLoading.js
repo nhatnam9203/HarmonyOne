@@ -55,7 +55,7 @@ export const AppLoading = ({
               color="#fff"
             />
         } */}
-        <LottieView source={require('../../assets/loading.json')} autoPlay loop />
+        <LottieView source={Platform.OS == "ios" ? require('../../assets/loading.json') : require('../../assets/18304-kiss-of-the-heart.json')} autoPlay loop />
       </View>
     </View>
   ) : null;
