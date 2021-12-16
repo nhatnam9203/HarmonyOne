@@ -215,6 +215,11 @@ export const useProps = (props) => {
     isLoadingDefault: false,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
+
+        if(methodPay.method == "harmony"){
+          dispatch(app.hideLoading());
+        }
+
         if (methodPay.method == "harmony"
           || methodPay.method == "credit_card") {
           setPayAppointmentId(data);
@@ -350,47 +355,15 @@ export const useProps = (props) => {
 
   /************************************* HANDLE HARMONY PAYMENT SUCCESS *************************************/
   const handleHarmonyPayment = (checkoutPayment) => {
-    const dueAmount = parseFloat(
-      checkoutPayment?.dueAmount || 0
-    );
-
-    if (dueAmount == 0) {
-      setTimeout(() => {
-        dialogSuccessRef?.current?.show();
-        setMethodPay(null);
-        setPayAppointmentId(null);
-        dispatch(appointment.setPayAppointmentId(null))
-        dialogSuccessRef?.current?.show();
-      }, 200)
-
-      return;
-    }
-    if (dueAmount < 0) {
-      setPaymentDetail({
-        checkoutPaymentResponse: {
-          ...checkoutPayment
-        }
-      });
-      popupChangeRef?.current?.show();
-      return;
-    }
-    if (dueAmount > 0) {
-      fetchGroupApointmentById();
-      setPaymentDetail({
-        checkoutPaymentResponse: {
-          ...checkoutPayment
-        }
-      });
-      popupPaymentDetailRef?.current?.show();
-      setMethodPay(null);
-    }
-
+    setMethodPay(null);
+    setPayAppointmentId(null);
+    dispatch(appointment.setPayAppointmentId(null))
+    dialogSuccessRef?.current?.show();
     changeStatusCancelHarmony(false);
-
   }
 
   /************************************* SETUP SIGNALR CHO METHOD HARMONY *************************************/
-  const setupSignalR = (amountGiveForStaff) => {
+  const setupSignalR = () => {
     try {
       dispatch(app.showLoading());
       const urlconnect = `${Configs.SOCKET_URL}notification/?merchantId=${staff?.merchantId}&Title=Merchant&kind=app&deviceId=gfghdfgdfd&token=${staff?.token}`;
@@ -430,7 +403,7 @@ export const useProps = (props) => {
           setConnectionSignalR(connection)
           const data = {
             method: "harmony",
-            amount: amountGiveForStaff ? amountGiveForStaff : appointmentDetail?.total,
+            amount: appointmentDetail?.total,
             giftCardId: 0,
           }
 
@@ -449,47 +422,26 @@ export const useProps = (props) => {
       setTimeout(() => {
         alert(error);
       }, 1000);
-    }finally{
+    } finally {
       dispatch(app.hideLoading());
     }
   }
 
   const handlePayment = async (amount) => {
-    if (
-      (methodPay.method === "harmony" ||
-        methodPay.method === "credit_card" ||
-        methodPay.method === "debit_card") &&
-      formatNumberFromCurrency(amount) > formatNumberFromCurrency(groupAppointments?.dueAmount)
-    ) {
-      dispatch(
-        app.setError({
-          isError: true,
-          messageError: "The change not bigger than total money!",
-          errorType: "error",
-          titleError: "Alert",
-        }));
-    } else {
-
-      if (methodPay.method == "harmony") {
-        setupSignalR(amount);
-      } else {
-
-        const data = {
-          method: methodPay.method,
-          amount,
-          giftCardId: 0,
-        }
-
-        if (methodPay.method !== "credit_card") {
-          setTimeout(() => {
-            popupPayProcessingRef?.current?.show();
-          }, 100);
-        }
-
-        const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
-        submitSelectPaymentMethod(body.params);
-      }
+    const data = {
+      method: methodPay.method,
+      amount,
+      giftCardId: 0,
     }
+
+    if (methodPay.method !== "credit_card") {
+      setTimeout(() => {
+        popupPayProcessingRef?.current?.show();
+      }, 100);
+    }
+
+    const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
+    submitSelectPaymentMethod(body.params);
   }
 
   const backToHome = () => {
@@ -830,6 +782,8 @@ export const useProps = (props) => {
     onSubmitPayment: async () => {
       if (methodPay.method == "credit_card") {
         handlePayment()
+      } else if (methodPay.method == "harmony") {
+        setupSignalR();
       } else {
         NavigationService.navigate(screenNames.EnterAmountPage, { handlePayment });
       }

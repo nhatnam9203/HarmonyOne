@@ -10,7 +10,7 @@ export const ListEmptyComponent = ({
 }) => {
   return (
     <View style={[styles.container,containerStyle]}>
-      {image && <Image style={styles.imageStyle} source={image} resizeMode='contain' />}
+      {image && <Image style={styles.imageStyle} source={image} resizeMode='cover' />}
       {!!description && <Text style={[styles.textStyle,textStyle]}>{description}</Text>}
     </View>
   );
