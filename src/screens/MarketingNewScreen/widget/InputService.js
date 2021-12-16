@@ -2,14 +2,13 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView, SectionList, Platform } from 'react-native';
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
-import { CustomInput, InputSelect, CustomActionSheet, IconButton, Button, SearchInput, ListEmptyComponent } from "@shared/components";
+import { CustomInput, InputSelect, CustomActionSheet, IconButton, Button, SearchInput, ListEmptyComponent, CustomImage } from "@shared/components";
 import { useForm, useController } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { slop, guid } from "@shared/utils";
 import { SingleScreenLayout } from '@shared/layouts';
 import Collapsible from "react-native-collapsible";
 import Accordion from "react-native-collapsible/Accordion";
-import CheckBox from "@react-native-community/checkbox"
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
 
@@ -312,19 +311,9 @@ const InputService = ({
                 <TouchableOpacity onPress={() => tickCategories(section)}>
                     {
                         Platform.OS == "ios" ?
-                            <CheckBox
-                                disabled={false}
-                                value={section?.selected}
-                                onValueChange={() => { }}
-                                boxType='square'
-                                onFillColor={colors.ocean_blue}
-                                onCheckColor={colors.white}
-                                onTintColor="transparent"
-                                onAnimationType='one-stroke'
-                                offAnimationType='one-stroke'
-                                lineWidth={1}
-                                animationDuration={0.3}
-                                style={{ width: 24, height: 24, marginRight: scaleWidth(15) }}
+                            <CustomImage
+                                source={section?.selected ? images.checkBox : images.checkBoxEmpty}
+                                style={{ width: scaleWidth(27), height: scaleWidth(27), marginRight: scaleWidth(15) }}
                             />
                             :
                             <Image
@@ -365,20 +354,11 @@ const InputService = ({
             >
                 {
                     Platform.OS == "ios" ?
-                        <CheckBox
-                            disabled={false}
-                            value={service.selected}
-                            onValueChange={() => { }}
-                            boxType='square'
-                            onFillColor={colors.ocean_blue}
-                            onCheckColor={colors.white}
-                            onTintColor="transparent"
-                            onAnimationType='one-stroke'
-                            offAnimationType='one-stroke'
-                            lineWidth={1}
-                            animationDuration={0.3}
-                            style={{ width: 24, height: 24, }}
-                        /> :
+                        <CustomImage
+                            source={service?.selected ? images.checkBox : images.checkBoxEmpty}
+                            style={{ width: scaleWidth(27), height: scaleWidth(27) }}
+                        />
+                        :
                         <Image
                             source={service?.selected ? images.checkBox : images.checkBoxEmpty}
                             style={{ width: scaleWidth(27), height: scaleWidth(27), resizeMode: 'contain', marginRight: scaleWidth(8) }}
