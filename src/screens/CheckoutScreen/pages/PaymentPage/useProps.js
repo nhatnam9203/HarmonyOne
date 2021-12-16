@@ -403,7 +403,7 @@ export const useProps = (props) => {
           setConnectionSignalR(connection)
           const data = {
             method: "harmony",
-            amount: appointmentDetail?.total,
+            amount: groupAppointments?.total,
             giftCardId: 0,
           }
 
@@ -423,7 +423,6 @@ export const useProps = (props) => {
         alert(error);
       }, 1000);
     } finally {
-      dispatch(app.hideLoading());
     }
   }
 
