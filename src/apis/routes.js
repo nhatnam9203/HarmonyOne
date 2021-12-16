@@ -120,6 +120,13 @@ export const addBlockTime = (data) => ({
   },
 }); 
 
+export const deleteBlockTime = (blockTimeId) => ({
+  queryId: 'deleteBlockTime',
+  params: {
+    url: `blocktime/${blockTimeId}`,
+    method: 'DELETE',
+  },
+}); 
 
 /**
  * APPOINTMENTS

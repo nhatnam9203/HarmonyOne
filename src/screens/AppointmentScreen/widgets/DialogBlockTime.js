@@ -1,16 +1,17 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, Text, TouchableOpacity, View, TextInput, Alert } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, TextInput, Alert, ActivityIndicator, ActivityIndicatorBase, Image, ScrollView } from "react-native";
 import { colors, fonts, layouts } from "@shared/themes";
 import { images } from "@shared/themes/resources";
-import { IconButton, Button, CustomImage, CustomInput, InputSelectTime } from "@shared/components";
+import { IconButton, Button, CustomImage, CustomInput, InputSelectTime, DialogConfirm } from "@shared/components";
 import { axios } from '@shared/services/axiosClient';
 import { isEmpty } from "lodash";
 import { findServiceInAnotherAppointment } from "./helper";
 import { useSelector } from "react-redux";
-import { useAxiosMutation, addBlockTime } from "@src/apis";
+import { useAxiosMutation, addBlockTime, deleteBlockTime } from "@src/apis";
 import Modal from "react-native-modal";
 import moment from "moment";
+
 
 const DialogBlockTime = React.forwardRef(
     ({
@@ -32,9 +33,16 @@ const DialogBlockTime = React.forwardRef(
         const [appoointmentCount, setAppointmentCount] = React.useState(0);
         const [isLoading, setLoading] = React.useState(false);
         const [loginTime, setLoginTime] = React.useState(null);
+        const [blockedTimes, setBlockedTimes] = React.useState([]);
+
+        const [blockTimeIdDelete, setBlockTimeIdDelete] = React.useState(null);
+
+        const refDialogSignout = React.createRef();
+
 
         const {
             blockTimes = [],
+            appointmentDate,
         } = useSelector(state => state.appointment);
 
         const nearestFutureMinutes = (interval, someMoment) => {
@@ -46,12 +54,22 @@ const DialogBlockTime = React.forwardRef(
             ...addBlockTime(),
             isLoadingDefault: false,
             onSuccess: (data, response) => {
-                console.log({ response })
+                setTxtReason("");
+                getBlockedTime();
             }
-        })
+        });
+
+        const [, submitDeleteBlockTime] = useAxiosMutation({
+            ...deleteBlockTime(),
+            isLoadingDefault: false,
+            onSuccess: (data, response) => {
+                setBlockTimeIdDelete(null);
+                getBlockedTime();
+            }
+        });
+
 
         const getStaffLoginTime = async (staffId) => {
-            setLoading(true);
             const params = {
                 url: `staff/loginTime/${staffId}`,
                 method: "GET",
@@ -60,6 +78,27 @@ const DialogBlockTime = React.forwardRef(
                 const response = await axios(params);
                 if (response?.data?.codeNumber == 200) {
                     setLoginTime(response?.data?.data);
+                } else {
+                    alert(response?.data?.message)
+                }
+            } catch (err) {
+
+            } finally {
+            }
+        }
+
+        const getBlockedTime = async () => {
+            setLoading(true);
+            const params = {
+                url: `blockTime?workingDate=${moment(appointmentDate).format("YYYY-MM-DD")}`,
+                method: "GET",
+            }
+            try {
+                const response = await axios(params);
+                if (response?.data?.codeNumber == 200) {
+                    setBlockedTimes(response?.data?.data);
+                    setVisibleAddBlockTime(false);
+                    getTimeSelect();
                 } else {
                     alert(response?.data?.message)
                 }
@@ -79,6 +118,7 @@ const DialogBlockTime = React.forwardRef(
                 setVisibleAddBlockTime(false);
                 setAppointmentCount(0);
                 setLoginTime(null);
+                setTxtReason("");
             }, 300);
         };
 
@@ -131,23 +171,41 @@ const DialogBlockTime = React.forwardRef(
             },
             show: (staff) => {
                 staff && setStaffInfo(staff);
+                getBlockedTime();
                 getStaffLoginTime(staff?.staffId);
                 getAppointmentCount(staff?.staffId);
                 getTimeSelect();
                 setOpen(true);
+                setBlockTimeIdDelete(null);
             },
         }));
 
-
-        const onSubmit = () => {
+        const onSubmit = async () => {
             const beginningTime = moment(startTime, 'hh:mm A');
             const endingTime = moment(endTime, 'hh:mm A');
 
             if (endingTime.isSameOrBefore(beginningTime)) {
                 Alert.alert('End time must be after Start time');
             } else {
+                const data = {
+                    blockTimeEnd: endTime,
+                    blockTimeStart: startTime,
+                    note: txtReason,
+                    staffId: staffInfo?.staffId,
+                    workingDate: moment(appointmentDate).format("YYYY-MM-DD"),
 
+                }
+                const body = await addBlockTime(data);
+
+                submitAddBlockTime(body.params);
+                setLoading(true);
             }
+        }
+
+        const actionDeleteBlockTime = async () => {
+            const body = await deleteBlockTime(blockTimeIdDelete);
+            submitDeleteBlockTime(body.params);
+            setLoading(true);
         }
 
 
@@ -158,116 +216,173 @@ const DialogBlockTime = React.forwardRef(
                 onRequestClose={hideModal}
                 backdropTransitionOutTiming={0}
                 backdropTransitionInTiming={0}
+                backdropColor={!blockTimeIdDelete ? 'rgba(0,0,0,0.2)' : "transparent"}
                 animationIn="zoomIn"
                 animationOut="zoomOut"
             >
-                <View style={styles.container}>
-                    {
-                        isCloseButton && <IconButton
-                            icon={images.iconClose}
-                            style={styles.buttonClose}
-                            iconStyle={styles.iconButtonClose}
-                            onPress={hideModal}
-                        />
-                    }
-                    <View style={{ flexDirection: "row" }}>
-                        <CustomImage
-                            source={{ uri: staffInfo?.imageUrl }}
-                            style={styles.avatarStaff}
-                            resizeMode='cover'
-                        />
-                        <View style={styles.infoStaff}>
-                            <Text style={styles.staffName}>
-                                {staffInfo?.displayName}
-                            </Text>
-                            <View style={{ flexDirection: "row", justifyContent: "space-between", width: scaleWidth(260) }}>
-                                <Text style={styles.txtLogin}>
-                                    {isEmpty(loginTime) ? `Still not login` : loginTime}
+                {
+                    !blockTimeIdDelete &&
+                    <View style={styles.container}>
+                        {
+                            isLoading && <View style={styles.containerLoading}>
+                                <ActivityIndicator size="large" color={colors.ocean_blue} />
+                            </View>
+                        }
+                        {
+                            isCloseButton && <IconButton
+                                icon={images.iconClose}
+                                style={styles.buttonClose}
+                                iconStyle={styles.iconButtonClose}
+                                onPress={hideModal}
+                            />
+                        }
+                        <View style={{ flexDirection: "row" }}>
+                            <CustomImage
+                                source={{ uri: staffInfo?.imageUrl }}
+                                style={styles.avatarStaff}
+                                resizeMode='cover'
+                            />
+                            <View style={styles.infoStaff}>
+                                <Text style={styles.staffName}>
+                                    {staffInfo?.displayName}
                                 </Text>
-                                <Text style={styles.txtLogin}>
-                                    {`Appointments : `}
-                                    <Text style={{ color: "#000", fontFamily: fonts.BOLD }}>{appoointmentCount}</Text>
-                                </Text>
+                                <View style={{ flexDirection: "row", justifyContent: "space-between", width: scaleWidth(260) }}>
+                                    <Text style={styles.txtLogin}>
+                                        {isEmpty(loginTime) ? `Still not login` : loginTime}
+                                    </Text>
+                                    <Text style={styles.txtLogin}>
+                                        {`Appointments : `}
+                                        <Text style={{ color: "#000", fontFamily: fonts.BOLD }}>{appoointmentCount}</Text>
+                                    </Text>
+                                </View>
                             </View>
                         </View>
-                    </View>
 
-                    <View style={{ marginVertical: scaleHeight(20) }}>
-                        {
-                            !isVisibleAddBlockTime ?
-                                <IconButton
-                                    icon={images.clock}
-                                    style={styles.buttonClock}
-                                    iconStyle={styles.iconClock}
-                                    onPress={() => setVisibleAddBlockTime(true)}
-                                    renderText={() => <Text style={styles.txtAddBlockedTime}>Add Blocked Time</Text>}
-                                />
-                                :
-                                <>
-                                    <Text style={[styles.txtAddBlockedTime, { color: colors.ocean_blue, fontFamily: fonts.BOLD, marginLeft: 0 }]}>
-                                        Add Blocked Time
-                                    </Text>
+                        <View style={{ marginVertical: scaleHeight(20) }}>
+                            {
+                                !isVisibleAddBlockTime ?
+                                    <>
+                                        <IconButton
+                                            icon={images.clock}
+                                            style={styles.buttonClock}
+                                            iconStyle={styles.iconClock}
+                                            onPress={() => setVisibleAddBlockTime(true)}
+                                            renderText={() => <Text style={styles.txtAddBlockedTime}>Add Blocked Time</Text>}
+                                        />
+                                        <ScrollView showsVerticalScrollIndicator={false} style={{ overflow: "hidden", maxHeight: scaleHeight(350) }}>
+                                            {
+                                                blockedTimes.filter(b => b?.staffId == staffInfo?.staffId).map(block => (
+                                                    <TouchableOpacity activeOpacity={1} style={styles.itemBlockTime}>
+                                                        <Image
+                                                            source={images.clock_2}
+                                                            style={{ width: scaleWidth(17), height: scaleWidth(17) }}
+                                                        />
+                                                        <View style={{ flexDirection: "row", marginLeft: scaleWidth(8) }}>
+                                                            <View>
+                                                                <View style={{ flexDirection: "row" }}>
+                                                                    <Text style={styles.txtDateTime}>
+                                                                        {moment(block?.workingDate).format("MM/DD/YYYY")}
+                                                                    </Text>
+                                                                    <Text style={styles.txtBlockTime}>
+                                                                        {`${block?.blockTimeStart} - ${block?.blockTimeEnd}`}
+                                                                    </Text>
+                                                                </View>
 
-                                    <View style={styles.rowReason}>
-                                        <Text style={styles.txt}>Time</Text>
-                                        <View style={{ flexDirection: "row" }}>
-                                            <InputSelectTime
-                                                apply={(time) => {
-                                                    setStartTime(time);
-                                                }}
-                                                time={startTime}
-                                                renderInput={() => (
-                                                    <TempInput title={startTime} />
-                                                )}
-                                                minutesPicker={['00', '15', '30', '45']}
-                                            />
-                                            <InputSelectTime
-                                                apply={(time) => {
-                                                    setEndTime(time);
-                                                }}
-                                                time={endTime}
-                                                renderInput={() => (
-                                                    <TempInput title={endTime} />
-                                                )}
-                                                title={'End time'}
-                                                minutesPicker={['00', '15', '30', '45']}
-                                            />
+                                                                <Text style={styles.txtBlockNote}>{block?.note}</Text>
+                                                            </View>
+                                                        </View>
+
+                                                        <View style={styles.btnDeleteBlockTime}>
+                                                            <TouchableOpacity onPress={() => {
+                                                                setBlockTimeIdDelete(block?.blockTimeId);
+                                                                refDialogSignout?.current?.show()
+                                                            }}>
+                                                                <Image
+                                                                    source={images.delete}
+                                                                    style={styles.iconDelete}
+                                                                />
+                                                            </TouchableOpacity>
+                                                        </View>
+                                                    </TouchableOpacity>
+                                                ))
+                                            }
+                                        </ScrollView>
+                                    </>
+                                    :
+                                    <>
+                                        <Text style={[styles.txtAddBlockedTime, { color: colors.ocean_blue, fontFamily: fonts.BOLD, marginLeft: 0 }]}>
+                                            Add Blocked Time
+                                        </Text>
+
+                                        <View style={styles.rowReason}>
+                                            <Text style={styles.txt}>Time</Text>
+                                            <View style={{ flexDirection: "row" }}>
+                                                <InputSelectTime
+                                                    apply={(time) => {
+                                                        setStartTime(time);
+                                                    }}
+                                                    time={startTime}
+                                                    renderInput={() => (
+                                                        <TempInput title={startTime} />
+                                                    )}
+                                                    minutesPicker={['00', '15', '30', '45']}
+                                                />
+                                                <InputSelectTime
+                                                    apply={(time) => {
+                                                        setEndTime(time);
+                                                    }}
+                                                    time={endTime}
+                                                    renderInput={() => (
+                                                        <TempInput title={endTime} />
+                                                    )}
+                                                    title={'End time'}
+                                                    minutesPicker={['00', '15', '30', '45']}
+                                                />
+                                            </View>
                                         </View>
-                                    </View>
 
-                                    <View style={styles.rowReason}>
-                                        <Text style={styles.txt}>Reason</Text>
-                                        <View style={styles.containerNote}>
-                                            <TextInput
-                                                multiline={true}
-                                                textAlignVertical='top'
-                                                value={txtReason}
-                                                onChangeText={text => {
-                                                    setTxtReason(text);
-                                                }}
-                                                style={{ flex: 1, fontSize: scaleFont(14), fontFamily: fonts.REGULAR }}
-                                            />
+                                        <View style={styles.rowReason}>
+                                            <Text style={styles.txt}>Reason</Text>
+                                            <View style={styles.containerNote}>
+                                                <TextInput
+                                                    multiline={true}
+                                                    textAlignVertical='top'
+                                                    value={txtReason}
+                                                    onChangeText={text => {
+                                                        setTxtReason(text);
+                                                    }}
+                                                    style={{ flex: 1, fontSize: scaleFont(14), fontFamily: fonts.REGULAR }}
+                                                />
+                                            </View>
                                         </View>
-                                    </View>
 
-                                    <Button
-                                        onPress={onSubmit}
-                                        highlight={true}
-                                        height={scaleHeight(43)}
-                                        width={scaleWidth(120)}
-                                        label="Submit"
-                                        styleButton={{
-                                            borderWidth: 0,
-                                            marginTop: scaleHeight(24),
-                                            alignSelf: "center"
-                                        }}
-                                    />
-                                </>
-                        }
-
+                                        <Button
+                                            onPress={onSubmit}
+                                            highlight={true}
+                                            height={scaleHeight(43)}
+                                            width={scaleWidth(120)}
+                                            label="Submit"
+                                            styleButton={{
+                                                borderWidth: 0,
+                                                marginTop: scaleHeight(24),
+                                                alignSelf: "center"
+                                            }}
+                                        />
+                                    </>
+                            }
+                        </View>
                     </View>
+                }
 
-                </View>
+                <DialogConfirm
+                    ref={refDialogSignout}
+                    title={"Warning !"}
+                    titleContent={
+                        "Do you want to Cancel this Blocked Time?"
+                    }
+                    onConfirmYes={actionDeleteBlockTime}
+                    onModalHide={() => { setBlockTimeIdDelete(null); }}
+                />
             </Modal>
         );
     }
@@ -292,6 +407,62 @@ const TempInput = ({ title }) => {
 }
 
 const styles = StyleSheet.create({
+
+    iconDelete: {
+        width: scaleWidth(17),
+        height: scaleWidth(17),
+        zIndex: 99999999
+    },
+
+    btnDeleteBlockTime: {
+        position: "absolute",
+        right: scaleWidth(12),
+        top: 0,
+        bottom: 0,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+
+    itemBlockTime: {
+        borderWidth: 1,
+        borderColor: "#dddddd",
+        padding: scaleWidth(12),
+        marginTop: scaleHeight(12),
+        flexDirection: "row",
+        position: "relative",
+    },
+
+    txtBlockNote: {
+        fontSize: scaleFont(13),
+        color: "#000",
+        fontFamily: fonts.REGULAR,
+        marginTop: scaleHeight(12)
+    },
+
+    txtDateTime: {
+        fontSize: scaleFont(14),
+        color: "#404040",
+        fontFamily: fonts.REGULAR
+    },
+
+    txtBlockTime: {
+        fontSize: scaleFont(14),
+        color: "#000",
+        fontFamily: fonts.BOLD,
+        marginLeft: scaleWidth(16)
+    },
+
+    containerLoading: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "rgba(255,255,255,0.5)",
+        zIndex: 99999999
+    },
     iconTimeSelect: {
         width: scaleWidth(12),
         height: scaleWidth(12),
@@ -323,7 +494,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#dddddd",
         padding: scaleWidth(8),
-        backgroundColor: "#FAFAFA"
+        backgroundColor: "#FAFAFA",
+        overflow: "hidden"
     },
     txt: {
         fontSize: scaleFont(15),
@@ -380,7 +552,7 @@ const styles = StyleSheet.create({
             width: 0,
             height: 0,
         },
-        shadowRadius: 10,
+        shadowRadius: 5,
         shadowOpacity: 1,
         position: 'relative',
     },

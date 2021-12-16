@@ -146,6 +146,8 @@ export const images = {
   radioExport: require('@src/assets/images/radioExport.png'),
   close_black: require('@src/assets/images/close_black.png'),
   clock: require('@src/assets/images/clock.png'),
+  clock_2: require('@src/assets/images/clock_2.png'),
+  delete: require('@src/assets/images/delete.png'),
 };
 
 export const svg = {
