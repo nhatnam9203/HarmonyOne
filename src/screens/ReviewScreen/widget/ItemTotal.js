@@ -31,7 +31,6 @@ const ItemTotal = ({
                                 key={Math.random()}
                                 source={images.fullStar}
                                 style={styles.iconStar}
-                                resizeMode='contain'
                             />
                         ))
                     }
@@ -41,7 +40,6 @@ const ItemTotal = ({
                             key={Math.random()}
                             source={images.halfStar}
                             style={styles.iconStar}
-                            resizeMode='contain'
                         />
                     }
                 </View>
