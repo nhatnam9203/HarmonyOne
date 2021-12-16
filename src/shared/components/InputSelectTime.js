@@ -1,11 +1,12 @@
 import React from 'react'
-import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { fonts, colors } from '@shared/themes';
 import { slop } from "@shared/utils";
 import { images } from "@shared/themes/resources";
 import { IconButton } from "@shared/components";
 import { CustomActionSheet } from "./CustomActionSheet";
 import { TimePicker } from "./TimePicker";
+import FontAwesome from "react-native-vector-icons/FontAwesome"
 import moment from "moment";
 
 let InputTime = React.forwardRef(({
@@ -51,10 +52,10 @@ let InputTime = React.forwardRef(({
                     <View style={[styles.containerInput]}>
                         <TouchableOpacity onPress={openActionSheet} style={[styles.wrapInput, style]}>
                             <Text style={styles.txtDate}>{time}</Text>
-                            <Image
-                                source={images.dropdown}
-                                style={styles.icon}
-                                resizeMode='contain'
+                            <FontAwesome 
+                                colors={"#404040"}
+                                name="angle-down"
+                                size={scaleWidth(20)}
                             />
                         </TouchableOpacity>
                     </View>

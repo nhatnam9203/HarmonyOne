@@ -4,8 +4,8 @@ import { InputSelectTime } from "./InputSelectTime";
 import { fonts, images, colors } from '@shared/themes';
 import { isEmpty } from "lodash";
 import { guid, workingTimesData } from "@shared/utils";
-import CheckBox from "@react-native-community/checkbox";
 import moment from 'moment';
+
 
 export const WorkingTime = React.forwardRef(({ renderTitle = null }, ref) => {
 
@@ -119,18 +119,11 @@ const ItemInputTime = React.forwardRef(({ item, index, isEdit }, ref) => {
 
     return (
         <View key={item[0] + guid()} style={styles.rowItem}>
-            <TouchableOpacity activeOpacity={1} onPress={()=>onChangeChecked(!isCheck)} style={[styles.row, { width: scaleWidth(80) }]}>
-                <CheckBox
-                    disabled={false}
-                    value={isCheck}
-                    onValueChange={onChangeChecked}
-                    boxType='square'
-                    onFillColor={colors.ocean_blue}
-                    onCheckColor={colors.white}
-                    onTintColor="transparent"
-                    onAnimationType='one-stroke'
-                    offAnimationType='one-stroke'
-                    style={{ width: 24, height: 24, marginRight: scaleWidth(12) }}
+            <TouchableOpacity activeOpacity={1} onPress={() => onChangeChecked(!isCheck)} style={[styles.row, { width: scaleWidth(80) }]}>
+                <Image
+                    source={isCheck ? images.checkBox : images.checkBoxEmpty}
+                    style={{ width: scaleWidth(22), height: scaleWidth(22), resizeMode: 'cover', marginRight : scaleWidth(8) }}
+                    resizeMode='cover'
                 />
                 <Text style={styles.txtDayName}>{(item[0].slice(0, 3))}</Text>
             </TouchableOpacity>
@@ -143,6 +136,7 @@ const ItemInputTime = React.forwardRef(({ item, index, isEdit }, ref) => {
                 time={toTime}
                 apply={time => setToTime(time)}
                 style={{ width: scaleWidth(120) }}
+                title={'End time'}
             />
         </View>
     )

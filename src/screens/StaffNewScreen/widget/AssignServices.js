@@ -275,8 +275,7 @@ const AssignServices = React.forwardRef(({
             >
                 <Image
                     source={service?.selected ? images.checkBox : images.checkBoxEmpty}
-                    style={{ width: scaleWidth(27), height: scaleWidth(27), resizeMode: 'contain', }}
-                    resizeMode='contain'
+                    style={{ width: scaleWidth(27), height: scaleWidth(27) }}
                 />
                 <Text
                     style={[styles.serviceName, { flexWrap: 'wrap', width: scaleWidth(280) }]}
