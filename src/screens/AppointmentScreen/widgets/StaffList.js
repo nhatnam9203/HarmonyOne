@@ -12,6 +12,7 @@ const StaffList = React.forwardRef(({
     staffSelected,
     selectStaff = () => { },
     isLoading,
+    showPopupAddBlockTime,
 }, ref) => {
 
     const scrollViewStaffs = React.useRef();
@@ -69,7 +70,14 @@ const StaffList = React.forwardRef(({
                     <FlatList
                         data={staffShowVisibile}
                         keyExtractor={(item) => item?.staffId + "staffList"}
-                        renderItem={({ item }) => <Item staff={item} selectStaff={selectStaff} staffSelected={staffSelected} />}
+                        renderItem={({ item }) =>
+                            <Item
+                                staff={item}
+                                selectStaff={selectStaff}
+                                staffSelected={staffSelected}
+                                showPopupAddBlockTime={() => showPopupAddBlockTime(item)}
+                            />
+                        }
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
                         ref={scrollViewStaffs}
@@ -88,10 +96,16 @@ const StaffList = React.forwardRef(({
 });
 
 
-const Item = ({ staff, selectStaff, staffSelected }) => {
+const Item = ({ staff, selectStaff, staffSelected, showPopupAddBlockTime }) => {
     return (
         <TouchableOpacity
             onPress={() => selectStaff(staff?.staffId)}
+            onLongPress={() => {
+                selectStaff(staff?.staffId);
+                if(staff?.staffId){
+                    showPopupAddBlockTime();
+                }
+            }}
             key={staff?.staffId + 'staffList'}
             style={styles.staff}
             activeOpacity={1}
@@ -104,7 +118,7 @@ const Item = ({ staff, selectStaff, staffSelected }) => {
                             {
                                 borderColor: "white",
                                 borderWidth: 1,
-                                borderRadius : 0
+                                borderRadius: 0
                             }
 
                         ]}
@@ -182,7 +196,7 @@ const styles = StyleSheet.create({
         height: scaleWidth(45),
         borderRadius: 1000,
         borderWidth: 3,
-        resizeMode : "contain",
+        resizeMode: "contain",
     },
     staffName: {
         fontSize: scaleFont(13),

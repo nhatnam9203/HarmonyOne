@@ -6,16 +6,21 @@ import styles from './styles'
 import { Localization, HourPicker, MinutePicker, BottomButton } from './widget'
 import moment from 'moment';
 
-const TimePicker = ({ closeTimePicker, pressOkTimePicker, startTime }) => {
+const TimePicker = ({
+    closeTimePicker,
+    pressOkTimePicker,
+    startTime,
+    title = "Start time"
+}) => {
 
     const [hour, setHour] = React.useState(10);
     const [minute, setMinute] = React.useState('00');
     const [localization, setLocalization] = React.useState('AM');
 
     React.useEffect(() => {
-        setHour(moment(startTime,['hh:mm A']).format('hh'));
-        setMinute(moment(startTime,['hh:mm A']).minutes());
-        setLocalization(moment(startTime,['hh:mm A']).format('A'));
+        setHour(moment(startTime, ['hh:mm A']).format('hh'));
+        setMinute(moment(startTime, ['hh:mm A']).minutes());
+        setLocalization(moment(startTime, ['hh:mm A']).format('A'));
     }, []);
 
     const selectHour = (h) => {
@@ -40,7 +45,7 @@ const TimePicker = ({ closeTimePicker, pressOkTimePicker, startTime }) => {
 
             <View style={styles.header}>
                 <Text fontFamily='medium' style={styles.txtHeader}>
-                    Start time
+                    {title}
                 </Text>
             </View>
 

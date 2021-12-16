@@ -124,6 +124,32 @@ export const getStaffByMerchant = (merchantId) => ({
   },
 });
 
+export const addBlockTime = (data) => ({
+  queryId: 'addBlockTime',
+  params: {
+    url: `blocktime`,
+    method: 'POST',
+    data,
+  },
+}); 
+
+export const editBlockTime = (blockTimeId,data) => ({
+  queryId: 'editBlockedTime',
+  params: {
+    url: `blocktime/${blockTimeId}`,
+    method: 'PUT',
+    data,
+  },
+}); 
+
+export const deleteBlockTime = (blockTimeId) => ({
+  queryId: 'deleteBlockTime',
+  params: {
+    url: `blocktime/${blockTimeId}`,
+    method: 'DELETE',
+  },
+}); 
+
 /**
  * APPOINTMENTS
  */

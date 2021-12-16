@@ -10,7 +10,8 @@ export const IconButton = ({
     iconStyle,
     renderText = null,
     slop = { top: 20, left: 20, right: 20, bottom: 20 },
-    activeOpacity = 1
+    activeOpacity = 1,
+    resizeMode='contain'
 }) => {
     return (
         <TouchableOpacity
@@ -23,7 +24,7 @@ export const IconButton = ({
                 iconComponent ? iconComponent() : <Image
                     source={icon}
                     style={[styles.icon, iconStyle]}
-                    resizeMode='contain'
+                    resizeMode={resizeMode}
                 />
             }
             {renderText && renderText()}
@@ -39,6 +40,5 @@ const styles = StyleSheet.create({
     icon: {
         width: scaleWidth(25),
         height: scaleWidth(25),
-        resizeMode: 'contain'
     }
 });

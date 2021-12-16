@@ -90,6 +90,7 @@ const MarketingDatePicker = React.forwardRef(({
                                 renderInput={() => (
                                     <TempInput title={endTime} isRight />
                                 )}
+                                title={'End time'}
                             />
                         </View> : null
                 }

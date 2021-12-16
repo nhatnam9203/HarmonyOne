@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity , Text, Alert } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native'
 import { scaleWidth, scaleHeight, slop } from '@utils'
 import styles from './styles'
 import { Localization, HourPicker, MinutePicker, BottomButton } from './widget'
@@ -7,16 +7,22 @@ import moment from 'moment';
 
 const minutes = ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'];
 
-export const TimePicker = ({ cancel, onApply, startTime }) => {
+function n(n) {
+    return n > 9 ? "" + n : "0" + n;
+}
+
+export const TimePicker = ({ cancel, onApply, startTime, title = "Start time", minutesPicker }) => {
 
     const [hour, setHour] = React.useState(10);
     const [minute, setMinute] = React.useState('00');
     const [localization, setLocalization] = React.useState('AM');
 
     React.useEffect(() => {
-        setHour(moment(startTime,['hh:mm A']).format('hh'));
-        setMinute(moment(startTime,['hh:mm A']).minutes());
-        setLocalization(moment(startTime,['hh:mm A']).format('A'));
+        let m = moment(startTime, ['hh:mm A']).minutes();
+        m = n(m);
+        setHour(moment(startTime, ['hh:mm A']).format('hh'));
+        setMinute(m);
+        setLocalization(moment(startTime, ['hh:mm A']).format('A'));
     }, []);
 
 
@@ -34,9 +40,10 @@ export const TimePicker = ({ cancel, onApply, startTime }) => {
 
     const onClickOK = () => {
         const time = `${hour}:${minute} ${localization}`;
-        if(minutes.indexOf(minute?.toString()) == -1){
+        let minnutesTemp = minutesPicker ? minutesPicker : minutes;
+        if (minnutesTemp.indexOf(minute?.toString()) == -1) {
             Alert.alert("Please choose minute");
-        }else{
+        } else {
             onApply(time);
         }
     }
@@ -46,15 +53,15 @@ export const TimePicker = ({ cancel, onApply, startTime }) => {
 
             <View style={styles.header}>
                 <Text fontFamily='medium' style={styles.txtHeader}>
-                    Start time
+                    {title}
                 </Text>
             </View>
 
             <View style={styles.body}>
                 <Localization localization={localization} selectLocalization={selectLocalization} />
-                <View style={styles.row}>
+                <View style={[styles.row, { alignItems: "flex-start" }]}>
                     <HourPicker hour={hour} selectHour={selectHour} />
-                    <MinutePicker minute={minute} selectMinute={selectMinute} />
+                    <MinutePicker minute={minute} selectMinute={selectMinute} minutesPicker={minutesPicker} />
                 </View>
                 <BottomButton
                     onClickOK={onClickOK}
