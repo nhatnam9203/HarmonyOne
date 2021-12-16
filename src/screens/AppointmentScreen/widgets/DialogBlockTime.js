@@ -313,6 +313,7 @@ const DialogBlockTime = React.forwardRef(
                                                     .filter(b => b?.staffId == staffInfo?.staffId && b?.appointmentId == 0)
                                                     .map(block => (
                                                         <TouchableOpacity
+                                                            key={"blockTimeId" + block?.blockTimeId}
                                                             onPress={() => onPressEditBlockTime(block)}
                                                             activeOpacity={1}
                                                             style={styles.itemBlockTime}
