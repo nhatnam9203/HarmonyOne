@@ -7,6 +7,10 @@ import moment from 'moment';
 
 const minutes = ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'];
 
+function n(n) {
+    return n > 9 ? "" + n : "0" + n;
+}
+
 export const TimePicker = ({ cancel, onApply, startTime, title = "Start time", minutesPicker }) => {
 
     const [hour, setHour] = React.useState(10);
@@ -14,8 +18,10 @@ export const TimePicker = ({ cancel, onApply, startTime, title = "Start time", m
     const [localization, setLocalization] = React.useState('AM');
 
     React.useEffect(() => {
+        let m = moment(startTime, ['hh:mm A']).minutes();
+        m = n(m);
         setHour(moment(startTime, ['hh:mm A']).format('hh'));
-        setMinute(moment(startTime, ['hh:mm A']).minutes());
+        setMinute(m);
         setLocalization(moment(startTime, ['hh:mm A']).format('A'));
     }, []);
 
@@ -53,7 +59,7 @@ export const TimePicker = ({ cancel, onApply, startTime, title = "Start time", m
 
             <View style={styles.body}>
                 <Localization localization={localization} selectLocalization={selectLocalization} />
-                <View style={[styles.row,{ alignItems : "flex-start" }]}>
+                <View style={[styles.row, { alignItems: "flex-start" }]}>
                     <HourPicker hour={hour} selectHour={selectHour} />
                     <MinutePicker minute={minute} selectMinute={selectMinute} minutesPicker={minutesPicker} />
                 </View>

@@ -120,6 +120,15 @@ export const addBlockTime = (data) => ({
   },
 }); 
 
+export const editBlockTime = (blockTimeId,data) => ({
+  queryId: 'editBlockedTime',
+  params: {
+    url: `blocktime/${blockTimeId}`,
+    method: 'PUT',
+    data,
+  },
+}); 
+
 export const deleteBlockTime = (blockTimeId) => ({
   queryId: 'deleteBlockTime',
   params: {

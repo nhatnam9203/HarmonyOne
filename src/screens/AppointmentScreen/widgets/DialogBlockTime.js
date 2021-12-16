@@ -8,7 +8,7 @@ import { axios } from '@shared/services/axiosClient';
 import { isEmpty } from "lodash";
 import { findServiceInAnotherAppointment } from "./helper";
 import { useSelector } from "react-redux";
-import { useAxiosMutation, addBlockTime, deleteBlockTime } from "@src/apis";
+import { useAxiosMutation, addBlockTime, deleteBlockTime, editBlockTime } from "@src/apis";
 import Modal from "react-native-modal";
 import moment from "moment";
 
@@ -26,6 +26,7 @@ const DialogBlockTime = React.forwardRef(
 
         const [open, setOpen] = React.useState(false);
         const [isVisibleAddBlockTime, setVisibleAddBlockTime] = React.useState(false);
+        const [isEdit, setIsEdit] = React.useState(false);
         const [txtReason, setTxtReason] = React.useState("");
         const [staffInfo, setStaffInfo] = React.useState(null);
         const [startTime, setStartTime] = React.useState(moment().format("hh:mm A"));
@@ -36,6 +37,7 @@ const DialogBlockTime = React.forwardRef(
         const [blockedTimes, setBlockedTimes] = React.useState([]);
 
         const [blockTimeIdDelete, setBlockTimeIdDelete] = React.useState(null);
+        const [blockTimeEdit, setBlockTimeEdit] = React.useState(null);
 
         const refDialogSignout = React.createRef();
 
@@ -58,6 +60,15 @@ const DialogBlockTime = React.forwardRef(
                 getBlockedTime();
             }
         });
+
+        const [, submitEditBlockTime] = useAxiosMutation({
+            ...editBlockTime(),
+            isLoadingDefault: false,
+            onSuccess: (data, response) => {
+                getBlockedTime();
+            }
+        });
+
 
         const [, submitDeleteBlockTime] = useAxiosMutation({
             ...deleteBlockTime(),
@@ -99,6 +110,10 @@ const DialogBlockTime = React.forwardRef(
                     setBlockedTimes(response?.data?.data);
                     setVisibleAddBlockTime(false);
                     getTimeSelect();
+
+                    setBlockTimeEdit(null);
+                    setVisibleAddBlockTime(false);
+                    setIsEdit(false);
                 } else {
                     alert(response?.data?.message)
                 }
@@ -177,6 +192,7 @@ const DialogBlockTime = React.forwardRef(
                 getTimeSelect();
                 setOpen(true);
                 setBlockTimeIdDelete(null);
+                setIsEdit(false);
             },
         }));
 
@@ -187,18 +203,31 @@ const DialogBlockTime = React.forwardRef(
             if (endingTime.isSameOrBefore(beginningTime)) {
                 Alert.alert('End time must be after Start time');
             } else {
-                const data = {
-                    blockTimeEnd: endTime,
-                    blockTimeStart: startTime,
-                    note: txtReason,
-                    staffId: staffInfo?.staffId,
-                    workingDate: moment(appointmentDate).format("YYYY-MM-DD"),
+                if (isEdit) {
+                    const data = {
+                        blockTimeEnd: endTime,
+                        blockTimeStart: startTime,
+                        note: txtReason,
+                        staffId: blockTimeEdit?.staffId,
+                        workingDate: moment(blockTimeEdit?.workingDate).format("YYYY-MM-DD"),
+                    }
 
+                    const body = await editBlockTime(blockTimeEdit?.blockTimeId, data);
+                    submitEditBlockTime(body.params);
+                    setLoading(true);
+                } else {
+                    const data = {
+                        blockTimeEnd: endTime,
+                        blockTimeStart: startTime,
+                        note: txtReason,
+                        staffId: staffInfo?.staffId,
+                        workingDate: moment(appointmentDate).format("YYYY-MM-DD"),
+                    }
+                    const body = await addBlockTime(data);
+
+                    submitAddBlockTime(body.params);
+                    setLoading(true);
                 }
-                const body = await addBlockTime(data);
-
-                submitAddBlockTime(body.params);
-                setLoading(true);
             }
         }
 
@@ -208,6 +237,15 @@ const DialogBlockTime = React.forwardRef(
             setLoading(true);
         }
 
+
+        const onPressEditBlockTime = (block) => {
+            setBlockTimeEdit(block);
+            setStartTime(block?.blockTimeStart);
+            setEndTime(block?.blockTimeEnd);
+            setTxtReason(block?.note);
+            setVisibleAddBlockTime(true);
+            setIsEdit(true);
+        }
 
         return (
             <Modal
@@ -271,40 +309,48 @@ const DialogBlockTime = React.forwardRef(
                                         />
                                         <ScrollView showsVerticalScrollIndicator={false} style={{ overflow: "hidden", maxHeight: scaleHeight(350) }}>
                                             {
-                                                blockedTimes.filter(b => b?.staffId == staffInfo?.staffId).map(block => (
-                                                    <TouchableOpacity activeOpacity={1} style={styles.itemBlockTime}>
-                                                        <Image
-                                                            source={images.clock_2}
-                                                            style={{ width: scaleWidth(17), height: scaleWidth(17) }}
-                                                        />
-                                                        <View style={{ flexDirection: "row", marginLeft: scaleWidth(8) }}>
-                                                            <View>
-                                                                <View style={{ flexDirection: "row" }}>
-                                                                    <Text style={styles.txtDateTime}>
-                                                                        {moment(block?.workingDate).format("MM/DD/YYYY")}
-                                                                    </Text>
-                                                                    <Text style={styles.txtBlockTime}>
-                                                                        {`${block?.blockTimeStart} - ${block?.blockTimeEnd}`}
-                                                                    </Text>
+                                                blockedTimes
+                                                    .filter(b => b?.staffId == staffInfo?.staffId && b?.appointmentId == 0)
+                                                    .map(block => (
+                                                        <TouchableOpacity
+                                                            onPress={() => onPressEditBlockTime(block)}
+                                                            activeOpacity={1}
+                                                            style={styles.itemBlockTime}
+                                                        >
+
+                                                            <Image
+                                                                source={images.clock_2}
+                                                                style={{ width: scaleWidth(17), height: scaleWidth(17) }}
+                                                            />
+
+                                                            <View style={{ flexDirection: "row", marginLeft: scaleWidth(8) }}>
+                                                                <View>
+                                                                    <View style={{ flexDirection: "row" }}>
+                                                                        <Text style={styles.txtDateTime}>
+                                                                            {moment(block?.workingDate).format("MM/DD/YYYY")}
+                                                                        </Text>
+                                                                        <Text style={styles.txtBlockTime}>
+                                                                            {`${block?.blockTimeStart} - ${block?.blockTimeEnd}`}
+                                                                        </Text>
+                                                                    </View>
+
+                                                                    <Text style={styles.txtBlockNote}>{block?.note}</Text>
                                                                 </View>
-
-                                                                <Text style={styles.txtBlockNote}>{block?.note}</Text>
                                                             </View>
-                                                        </View>
 
-                                                        <View style={styles.btnDeleteBlockTime}>
-                                                            <TouchableOpacity onPress={() => {
-                                                                setBlockTimeIdDelete(block?.blockTimeId);
-                                                                refDialogSignout?.current?.show()
-                                                            }}>
-                                                                <Image
-                                                                    source={images.delete}
-                                                                    style={styles.iconDelete}
-                                                                />
-                                                            </TouchableOpacity>
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                ))
+                                                            <View style={styles.btnDeleteBlockTime}>
+                                                                <TouchableOpacity onPress={() => {
+                                                                    setBlockTimeIdDelete(block?.blockTimeId);
+                                                                    refDialogSignout?.current?.show()
+                                                                }}>
+                                                                    <Image
+                                                                        source={images.delete}
+                                                                        style={styles.iconDelete}
+                                                                    />
+                                                                </TouchableOpacity>
+                                                            </View>
+                                                        </TouchableOpacity>
+                                                    ))
                                             }
                                         </ScrollView>
                                     </>
@@ -361,7 +407,7 @@ const DialogBlockTime = React.forwardRef(
                                             highlight={true}
                                             height={scaleHeight(43)}
                                             width={scaleWidth(120)}
-                                            label="Submit"
+                                            label={isEdit ? "Edit" : "Submit"}
                                             styleButton={{
                                                 borderWidth: 0,
                                                 marginTop: scaleHeight(24),
