@@ -35,7 +35,6 @@ const DialogBlockTime = React.forwardRef(
         const [isLoading, setLoading] = React.useState(false);
         const [loginTime, setLoginTime] = React.useState(null);
         const [blockedTimes, setBlockedTimes] = React.useState([]);
-
         const [blockTimeIdDelete, setBlockTimeIdDelete] = React.useState(null);
         const [blockTimeEdit, setBlockTimeEdit] = React.useState(null);
 
@@ -288,9 +287,12 @@ const DialogBlockTime = React.forwardRef(
                                     <Text style={styles.txtLogin}>
                                         {isEmpty(loginTime) ? `Still not login` : loginTime}
                                     </Text>
+
                                     <Text style={styles.txtLogin}>
                                         {`Appointments : `}
-                                        <Text style={{ color: "#000", fontFamily: fonts.BOLD }}>{appoointmentCount}</Text>
+                                        <Text style={{ color: "#000", fontFamily: fonts.BOLD }}>
+                                            {appoointmentCount}
+                                        </Text>
                                     </Text>
                                 </View>
                             </View>
@@ -307,50 +309,23 @@ const DialogBlockTime = React.forwardRef(
                                             onPress={() => setVisibleAddBlockTime(true)}
                                             renderText={() => <Text style={styles.txtAddBlockedTime}>Add Blocked Time</Text>}
                                         />
-                                        <ScrollView showsVerticalScrollIndicator={false} style={{ overflow: "hidden", maxHeight: scaleHeight(350) }}>
+                                        <ScrollView
+                                            showsVerticalScrollIndicator={false}
+                                            style={{ overflow: "hidden", maxHeight: scaleHeight(350) }}
+                                        >
                                             {
                                                 blockedTimes
                                                     .filter(b => b?.staffId == staffInfo?.staffId && b?.appointmentId == 0)
                                                     .map(block => (
-                                                        <TouchableOpacity
+                                                        <ItemBlockTime
                                                             key={"blockTimeId" + block?.blockTimeId}
-                                                            onPress={() => onPressEditBlockTime(block)}
-                                                            activeOpacity={1}
-                                                            style={styles.itemBlockTime}
-                                                        >
-
-                                                            <Image
-                                                                source={images.clock_2}
-                                                                style={{ width: scaleWidth(17), height: scaleWidth(17) }}
-                                                            />
-
-                                                            <View style={{ flexDirection: "row", marginLeft: scaleWidth(8) }}>
-                                                                <View>
-                                                                    <View style={{ flexDirection: "row" }}>
-                                                                        <Text style={styles.txtDateTime}>
-                                                                            {moment(block?.workingDate).format("MM/DD/YYYY")}
-                                                                        </Text>
-                                                                        <Text style={styles.txtBlockTime}>
-                                                                            {`${block?.blockTimeStart} - ${block?.blockTimeEnd}`}
-                                                                        </Text>
-                                                                    </View>
-
-                                                                    <Text style={styles.txtBlockNote}>{block?.note}</Text>
-                                                                </View>
-                                                            </View>
-
-                                                            <View style={styles.btnDeleteBlockTime}>
-                                                                <TouchableOpacity onPress={() => {
-                                                                    setBlockTimeIdDelete(block?.blockTimeId);
-                                                                    refDialogSignout?.current?.show()
-                                                                }}>
-                                                                    <Image
-                                                                        source={images.delete}
-                                                                        style={styles.iconDelete}
-                                                                    />
-                                                                </TouchableOpacity>
-                                                            </View>
-                                                        </TouchableOpacity>
+                                                            block={block}
+                                                            onPressEditBlockTime={onPressEditBlockTime}
+                                                            onPressDelete={() => {
+                                                                setBlockTimeIdDelete(block?.blockTimeId);
+                                                                refDialogSignout?.current?.show()
+                                                            }}
+                                                        />
                                                     ))
                                             }
                                         </ScrollView>
@@ -398,7 +373,7 @@ const DialogBlockTime = React.forwardRef(
                                                     onChangeText={text => {
                                                         setTxtReason(text);
                                                     }}
-                                                    style={{ flex: 1, fontSize: scaleFont(14), fontFamily: fonts.REGULAR }}
+                                                    style={styles.inputReason}
                                                 />
                                             </View>
                                         </View>
@@ -437,6 +412,44 @@ const DialogBlockTime = React.forwardRef(
 
 export default DialogBlockTime;
 
+const ItemBlockTime = ({ onPressEditBlockTime, block, onPressDelete }) => (
+    <TouchableOpacity
+        key={"blockTimeId" + block?.blockTimeId}
+        onPress={() => onPressEditBlockTime(block)}
+        activeOpacity={1}
+        style={styles.itemBlockTime}
+    >
+
+        <Image
+            source={images.clock_2}
+            style={{ width: scaleWidth(17), height: scaleWidth(17) }}
+        />
+
+        <View style={{ flexDirection: "row", marginLeft: scaleWidth(8) }}>
+            <View>
+                <View style={{ flexDirection: "row" }}>
+                    <Text style={styles.txtDateTime}>
+                        {moment(block?.workingDate).format("MM/DD/YYYY")}
+                    </Text>
+                    <Text style={styles.txtBlockTime}>
+                        {`${block?.blockTimeStart} - ${block?.blockTimeEnd}`}
+                    </Text>
+                </View>
+
+                <Text style={styles.txtBlockNote}>{block?.note}</Text>
+            </View>
+        </View>
+
+        <View style={styles.btnDeleteBlockTime}>
+            <TouchableOpacity onPress={onPressDelete}>
+                <Image
+                    source={images.delete}
+                    style={styles.iconDelete}
+                />
+            </TouchableOpacity>
+        </View>
+    </TouchableOpacity>
+);
 
 const TempInput = ({ title }) => {
     return (
@@ -454,6 +467,11 @@ const TempInput = ({ title }) => {
 }
 
 const styles = StyleSheet.create({
+
+
+    inputReason : {
+        flex: 1, fontSize: scaleFont(14), fontFamily: fonts.REGULAR 
+    },
 
     iconDelete: {
         width: scaleWidth(17),
