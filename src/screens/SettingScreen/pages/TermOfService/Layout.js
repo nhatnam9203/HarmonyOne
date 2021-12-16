@@ -23,7 +23,7 @@ export const Layout = ({
           <Text style={styles.title}>HarmonyPay - Staff app</Text>
           <Text style={styles.title}>Term of Services</Text>
 
-          <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), marginTop : scaleHeight(24) }]}>
+          <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), marginTop: scaleHeight(24) }]}>
             Effective: May 1, 2020
           </Text>
           <Text style={styles.contentTerms}>
@@ -48,7 +48,7 @@ export const Layout = ({
             ACCEPT THE UPDATED TERMS OF SERVICE IS TO CEASE YOUR ACCESS TO AND USE OF THE SERVICES.
           </Text>
           {/* --------- Row ------- */}
-          <View style={{ alignItems: 'center', marginVertical: scaleWidth(10) }} >
+          <View style={{ marginTop: scaleWidth(20) }} >
             <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15) }]}>
               DESCRIPTION OF SERVICES
             </Text>
@@ -72,7 +72,7 @@ export const Layout = ({
             illegal or violate these Terms or Harmony Pay policies.
           </Text>
           {/* --------- Row ------- */}
-          <View style={{ alignItems: 'center', marginVertical: scaleWidth(10) }} >
+          <View style={{ marginTop: scaleWidth(20) }} >
             <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleWidth(15) }]}>
               Use of the Platform
             </Text>
@@ -106,7 +106,7 @@ export const Layout = ({
             the user interface.
           </Text>
           {/* --------- Row ------- */}
-          <View style={{ alignItems: 'center', marginVertical: scaleWidth(10) }} >
+          <View style={{ marginTop: scaleWidth(20) }} >
             <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15) }]}>
               Fees
             </Text>
@@ -134,8 +134,8 @@ export const Layout = ({
           </Text>
 
           {/* --------- Row ------- */}
-          <View style={{ alignItems: 'center', marginVertical: scaleWidth(10) }} >
-            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), textAlign : "center" }]}>
+          <View style={{ marginTop: scaleWidth(20) }} >
+            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15) }]}>
               OWNERSHIP OF CONTENT, USE OF TRADEMARKS
             </Text>
           </View>
@@ -218,7 +218,7 @@ export const Layout = ({
             Pay’s, or the applicable Third Party’s benefit, as applicable.
           </Text>
 
-          <View style={{ height : 200 }} />
+          <View style={{ height: 200 }} />
         </ScrollView>
       </SingleScreenLayout>
     </View>
@@ -248,6 +248,6 @@ const styles = StyleSheet.create({
     fontSize: scaleFont(14),
     color: "#000000",
     marginTop: scaleHeight(12),
-    fontWeight : "400"
+    fontWeight: "400"
   }
 });

@@ -23,7 +23,7 @@ export const Layout = ({
           <Text style={styles.title}>HarmonyPay - Staff app</Text>
           <Text style={styles.title}>Privacy.</Text>
 
-            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15),  marginTop : scaleHeight(24) , textAlign : "center" }]}>
+            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15),  marginTop : scaleHeight(24) }]}>
               Privacy
             </Text>
           <Text style={styles.contentTerms}>
@@ -33,7 +33,7 @@ export const Layout = ({
             and contains important information about your rights.
           </Text>
           {/* --------- Row ------- */}
-            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), textAlign : "center" }]}>
+            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15),  marginTop : scaleHeight(24) }]}>
               Limitation of Liability and Disclaimer of Warranties
             </Text>
           <Text style={styles.contentTerms}>
@@ -70,7 +70,7 @@ export const Layout = ({
             PAY PARTIES WILL BE LIMITED TO THE MAXIMUM EXTENT PERMITTED BY LAW.
           </Text>
           {/* --------- Row ------- */}
-            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), textAlign : "center" }]}>
+            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15),  marginTop : scaleHeight(24)}]}>
               Indemnification
             </Text>
           <Text style={styles.contentTerms}>
@@ -83,7 +83,7 @@ export const Layout = ({
             In such case, you agree to cooperate with any reasonable requests assisting Harmony Pay’s defense of such matter.
           </Text>
           {/* --------- Row ------- */}
-            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), textAlign : "center" }]}>
+            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15),  marginTop : scaleHeight(24)}]}>
               Termination of the Agreement
             </Text>
           <Text style={styles.contentTerms}>
@@ -99,7 +99,7 @@ export const Layout = ({
             Terms of Service.
           </Text>
           {/* --------- Row ------- */}
-            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), textAlign : "center" }]}>
+            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15),  marginTop : scaleHeight(24)}]}>
               Arbitration
             </Text>
           <Text style={styles.contentTerms}>
@@ -177,7 +177,7 @@ export const Layout = ({
             The remainder of these Terms of Service will continue to apply.
           </Text>
           {/* --------- Row ------- */}
-            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), textAlign : "center" }]}>
+            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15),  marginTop : scaleHeight(24) }]}>
               Compliance with Laws
             </Text>
           <Text style={styles.contentTerms}>
@@ -195,7 +195,7 @@ export const Layout = ({
             the laws of your specific jurisdiction regarding the import, export or re-export of the Services.
           </Text>
           {/* --------- Row ------- */}
-            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), textAlign : "center" }]}>
+            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15),  marginTop : scaleHeight(24) }]}>
               Consent to Electronic Communication
             </Text>
           <Text style={styles.contentTerms}>
@@ -203,7 +203,7 @@ export const Layout = ({
             and telephone calls, from Harmony Pay, its affiliates and its third party sales contractors and/or agents.
           </Text>
           {/* --------- Row ------- */}
-            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), textAlign : "center" }]}>
+            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15),  marginTop : scaleHeight(24) }]}>
               Miscellaneous
             </Text>
           <Text style={styles.contentTerms}>

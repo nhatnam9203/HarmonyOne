@@ -26,7 +26,7 @@ export const Layout = ({
             </Text>
           </View>
           <Text style={styles.contentTerms}>
-            If you have any questions about these Terms, please contact Harmony Pay at
+            If you have any questions, please contact Harmony Pay at
             team@harmonypayment.com.
           </Text>
         </View>
