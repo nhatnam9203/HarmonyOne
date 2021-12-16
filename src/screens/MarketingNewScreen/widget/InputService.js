@@ -309,19 +309,10 @@ const InputService = ({
                 borderBottomColor: "#eeeeee",
             }]}>
                 <TouchableOpacity onPress={() => tickCategories(section)}>
-                    {
-                        Platform.OS == "ios" ?
-                            <CustomImage
-                                source={section?.selected ? images.checkBox : images.checkBoxEmpty}
-                                style={{ width: scaleWidth(27), height: scaleWidth(27), marginRight: scaleWidth(15) }}
-                            />
-                            :
-                            <Image
-                                source={section?.selected ? images.checkBox : images.checkBoxEmpty}
-                                style={{ width: scaleWidth(27), height: scaleWidth(27), resizeMode: 'contain', marginRight: scaleWidth(16) }}
-                                resizeMode='contain'
-                            />
-                    }
+                    <CustomImage
+                        source={section?.selected ? images.checkBox : images.checkBoxEmpty}
+                        style={{ width: scaleWidth(27), height: scaleWidth(27), marginRight: scaleWidth(15) }}
+                    />
                 </TouchableOpacity>
 
                 <View style={styles.rowHeaderRight}>
@@ -352,20 +343,10 @@ const InputService = ({
                 style={[styles.rowSection, { marginVertical: scaleHeight(14), marginLeft: scaleWidth(32) }]}
                 activeOpacity={1}
             >
-                {
-                    Platform.OS == "ios" ?
-                        <CustomImage
-                            source={service?.selected ? images.checkBox : images.checkBoxEmpty}
-                            style={{ width: scaleWidth(27), height: scaleWidth(27) }}
-                        />
-                        :
-                        <Image
-                            source={service?.selected ? images.checkBox : images.checkBoxEmpty}
-                            style={{ width: scaleWidth(27), height: scaleWidth(27), resizeMode: 'contain', marginRight: scaleWidth(8) }}
-                            resizeMode='contain'
-                        />
-
-                }
+                <CustomImage
+                    source={service?.selected ? images.checkBox : images.checkBoxEmpty}
+                    style={{ width: scaleWidth(27), height: scaleWidth(27) }}
+                />
                 <Text
                     style={[styles.serviceName, { flexWrap: 'wrap', width: scaleWidth(280) }]}
                 >
