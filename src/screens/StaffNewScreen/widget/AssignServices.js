@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView, SectionList } from 'react-native';
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
-import { CustomInput, InputSelect, CustomActionSheet, IconButton, Button, SearchInput } from "@shared/components";
+import { CustomInput, InputSelect, CustomActionSheet, IconButton, Button, SearchInput, CustomImage } from "@shared/components";
 import { useForm, useController } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { slop, guid } from "@shared/utils";
@@ -238,10 +238,9 @@ const AssignServices = React.forwardRef(({
                 borderBottomColor: "#eeeeee"
             }]}>
                 <TouchableOpacity onPress={() => selectCategories(section)}>
-                    <Image
+                    <CustomImage
                         source={section?.selected ? images.checkBox : images.checkBoxEmpty}
                         style={{ width: scaleWidth(27), height: scaleWidth(27), resizeMode: 'contain', marginRight: scaleWidth(16) }}
-                        resizeMode='contain'
                     />
                 </TouchableOpacity>
 
@@ -273,7 +272,7 @@ const AssignServices = React.forwardRef(({
                 style={[styles.rowSection, { marginVertical: scaleHeight(14), marginLeft: scaleWidth(32) }]}
                 activeOpacity={1}
             >
-                <Image
+                <CustomImage
                     source={service?.selected ? images.checkBox : images.checkBoxEmpty}
                     style={{ width: scaleWidth(27), height: scaleWidth(27) }}
                 />
