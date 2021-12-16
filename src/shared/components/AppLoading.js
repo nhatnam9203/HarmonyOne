@@ -1,6 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, Platform, ActivityIndicator } from 'react-native';
 import Spinner from 'react-native-spinkit';
+import LottieView from 'lottie-react-native'
+
+
 
 const LOADING_TIME_OUT = 15000;
 export const AppLoading = ({
@@ -44,15 +47,16 @@ export const AppLoading = ({
   return isLoading ? (
     <View style={styles.container}>
       <View style={styles.loadingBg}>
-        {
+        {/* {
             <Spinner
               style={styles.spinner}
               type={Platform.OS === 'ios' ? 'ChasingDots' : 'ChasingDots'}
               size={scaleWidth(40)}
               color="#fff"
             />
-        }
-       </View>
+        } */}
+        <LottieView source={require('../../assets/loading.json')} autoPlay loop />
+      </View>
     </View>
   ) : null;
 };
@@ -64,7 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: scaleWidth(10),
-    backgroundColor: '#0002',
+    // backgroundColor: 'rgba(255,255,255,0.55)',
   },
 
   container: {

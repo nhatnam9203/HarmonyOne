@@ -309,6 +309,7 @@ const DialogBlockTime = React.forwardRef(
                                             iconStyle={styles.iconClock}
                                             onPress={() => setVisibleAddBlockTime(true)}
                                             renderText={() => <Text style={styles.txtAddBlockedTime}>Add Blocked Time</Text>}
+                                            resizeMode='cover'
                                         />
                                         <ScrollView
                                             showsVerticalScrollIndicator={false}
