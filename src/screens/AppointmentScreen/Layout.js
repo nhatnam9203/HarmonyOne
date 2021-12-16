@@ -90,6 +90,7 @@ export const Layout = ({
           iconStyle={styles.addIcon}
           onPress={addAppointment}
           style={styles.btnAddAppointment}
+          resizeMode='cover'
         />
       </SingleScreenLayout>
 

@@ -124,7 +124,7 @@ const GroupItem = ({ icon, text = "Staff" }) => {
       <Image
         source={icon}
         style={styles.iconReport}
-        resizeMode='contain'
+        resizeMode='cover'
       />
       <Text style={styles.txtGroup}>
         {text}

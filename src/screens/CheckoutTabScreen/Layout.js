@@ -94,6 +94,7 @@ export const Layout = ({
             iconStyle={styles.iconPlus}
             renderText={() => <Text style={styles.addService}>Add services</Text>}
             onPress={addService}
+            resizeMode="cover"
           />
         </View>
       </SingleScreenLayout>

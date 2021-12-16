@@ -68,6 +68,7 @@ export const Layout = ({
         iconStyle={styles.addIcon}
         onPress={newMarketing}
         style={styles.btnAdd}
+        resizeMode='cover'
       />
 
 

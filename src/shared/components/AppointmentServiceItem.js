@@ -96,7 +96,7 @@ export const AppointmentServiceItem = ({
                         <Image
                             source={images.iconExtra}
                             style={styles.iconExtra}
-                            resizeMode='contain'
+                            resizeMode='cover'
                         />
 
                         <Text
@@ -201,7 +201,6 @@ const styles = StyleSheet.create({
     iconExtra: {
         width: scaleWidth(13),
         height: scaleWidth(13),
-        resizeMode: 'contain'
     },
     extraName: {
         fontFamily: fonts.LIGHT,

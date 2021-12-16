@@ -39,6 +39,7 @@ export const useProps = (_params) => {
     onLoginError: (msg) => {
       // setTextMessage(msg);
     },
+    isLoadingDefault : false,
     onSuccess: (data) => {
       if (data) {
         dispatch(auth.loginStaff(data));

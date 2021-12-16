@@ -258,6 +258,7 @@ const DialogBlockTime = React.forwardRef(
                 animationOut="zoomOut"
             >
                 {
+                    /* nếu đang delete ẩn Popup add block time, show popup delete */
                     !blockTimeIdDelete &&
                     <View style={styles.container}>
                         {

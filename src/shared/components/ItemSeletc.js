@@ -21,7 +21,7 @@ export const ItemSelect = ({ title = '', icon, onPress, iconRight, iconRightStyl
             <View style={[styles.item, { backgroundColor: isFocus ? colors.ocean_blue : "transparent" }, style]}>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                     {icon && <Image
-                        resizeMode='contain'
+                        resizeMode='cover'
                         source={icon}
                         style={[
                             styles.iconReport, iconLeftStyle,
@@ -41,7 +41,7 @@ export const ItemSelect = ({ title = '', icon, onPress, iconRight, iconRightStyl
                         styles.arrow, iconRightStyle,
                         { tintColor: isFocus ? colors.white : "#404040" }
                     ]}
-                    resizeMode='contain'
+                    resizeMode='cover'
                 />
             </View>
         </TouchableRipple>

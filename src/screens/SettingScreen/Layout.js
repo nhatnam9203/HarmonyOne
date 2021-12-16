@@ -17,8 +17,6 @@ export const Layout = ({
 
   const [t] = useTranslation();
 
-  const harmonyLink = `https://www.harmonypayment.com/home`;
-
   return (
     <View style={styles.container}>
       <SingleScreenLayout

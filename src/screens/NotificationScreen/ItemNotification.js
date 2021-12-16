@@ -39,7 +39,7 @@ export const ItemNotification = ({
                 <Image
                     source={getIcon(item?.type)}
                     style={styles.iconNotification(item?.view, item?.type)}
-                    resizeMode='contain'
+                    resizeMode='cover'
                 />
             </View>
             <View style={styles.right}>
