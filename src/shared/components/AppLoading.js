@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     left: 0,
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex : 999999999999999
   },
 
   spinner: {

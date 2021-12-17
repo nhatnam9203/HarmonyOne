@@ -7,12 +7,12 @@ import { Platform, Alert, NativeModules, NativeEventEmitter } from "react-native
 import { axios } from '@shared/services/axiosClient';
 import useRefetchSettlementWaiting from "./useRefetchSettlementWaiting";
 import NavigationService from '@navigation/NavigationService';
-import { 
+import {
   PaymentTerminalType,
   REMOTE_APP_ID,
   APP_NAME,
   POS_SERIAL,
- } from "@shared/utils";
+} from "@shared/utils";
 import { requestSettlementDejavoo } from "@utils";
 import _ from "lodash";
 import { parseString } from 'react-native-xml2js';
@@ -46,6 +46,7 @@ export const useProps = (props) => {
   } = useSelector(state => state);
 
   const dialogProgressRef = React.useRef();
+  const refDialogConfirm = React.useRef();
 
   const [terminalIdPax, setTerminalIdPax] = React.useState(null);
   const [progress, setProgress] = React.useState(0);
@@ -62,38 +63,38 @@ export const useProps = (props) => {
     isLoadingDefault: false,
     isStopLoading: true,
     onSuccess: (data, response) => {
-        if (response?.codeNumber == 200) {
-          if (response?.data?.total != 0) {
-            setTimeout(() => {
-              const body = {
-                terminalId: null,
-                paymentByHarmony: response?.data?.paymentByHarmony,
-                paymentByCreditCard: 0.00,
-                paymentByCash: response?.data?.paymentByCash,
-                otherPayment: response?.data?.otherPayment,
-                total: response?.data?.total,
-                note: response?.data?.note,
-                checkout: response?.data?.checkout,
-                discount: response?.data?.discount,
-                paymentByCashStatistic: response?.data?.paymentByCashStatistic,
-                otherPaymentStatistic: response?.data?.otherPaymentStatistic,
-                isConnectPax: false,
-                paymentTerminal: response?.data?.paymentTerminal
-              }
-              submitCloseSettlement(body);
-            });
-          } else {
-            setProgress(100);
-            refetchSettlementWaiting();
-            NavigationService.back();
-          }
-          
+      if (response?.codeNumber == 200) {
+        if (response?.data?.total != 0) {
+          setTimeout(() => {
+            const body = {
+              terminalId: null,
+              paymentByHarmony: response?.data?.paymentByHarmony,
+              paymentByCreditCard: 0.00,
+              paymentByCash: response?.data?.paymentByCash,
+              otherPayment: response?.data?.otherPayment,
+              total: response?.data?.total,
+              note: response?.data?.note,
+              checkout: response?.data?.checkout,
+              discount: response?.data?.discount,
+              paymentByCashStatistic: response?.data?.paymentByCashStatistic,
+              otherPaymentStatistic: response?.data?.otherPaymentStatistic,
+              isConnectPax: false,
+              paymentTerminal: response?.data?.paymentTerminal
+            }
+            submitCloseSettlement(body);
+          });
+        } else {
+          setProgress(100);
+          refetchSettlementWaiting();
+          NavigationService.back();
         }
-        
-    }
-});
 
-  
+      }
+
+    }
+  });
+
+
 
   React.useEffect(() => {
     if (Platform.OS === "ios") {
@@ -104,10 +105,10 @@ export const useProps = (props) => {
       };
     }
 
-    if(paymentMachineType == PaymentTerminalType.Pax) {
-     setTerminalIdPax(_.get(props, "terminalIdPax"));
+    if (paymentMachineType == PaymentTerminalType.Pax) {
+      setTerminalIdPax(_.get(props, "terminalIdPax"));
     }
-  }, []);  
+  }, []);
 
   /****************** Integrate Clover **************************/
 
@@ -116,16 +117,16 @@ export const useProps = (props) => {
     subscriptions = [
       eventEmitter.addListener('closeoutSuccess', data => {
         const { settlement: { isProcessCloseBatchClover } } = store.getState();
-        if(isProcessCloseBatchClover) {
+        if (isProcessCloseBatchClover) {
           dispatch(settlement.setIsProcessCloseBatchClover(false))
           // dialogProgressRef?.current?.hide();
           proccessingSettlement();
         }
-        
-       }),
+
+      }),
       eventEmitter.addListener('closeoutFail', data => {
         const { settlement: { isProcessCloseBatchClover } } = store.getState();
-        if(isProcessCloseBatchClover) {
+        if (isProcessCloseBatchClover) {
           // dialogProgressRef?.current?.hide();
           // dispatch(settlement.setIsProcessCloseBatchClover(false))
 
@@ -136,26 +137,26 @@ export const useProps = (props) => {
       }),
       eventEmitter.addListener('pairingCode', data => {
         const { settlement: { isProcessCloseBatchClover } } = store.getState();
-        if(data){
-          if(isProcessCloseBatchClover) {
+        if (data) {
+          if (isProcessCloseBatchClover) {
             dialogProgressRef?.current?.hide();
           }
         }
       }),
       eventEmitter.addListener('pairingSuccess', data => {
-    
+
         const { settlement: { isProcessCloseBatchClover } } = store.getState();
-        if(isProcessCloseBatchClover) {
+        if (isProcessCloseBatchClover) {
           setTimeout(() => {
             dialogProgressRef?.current?.show();
           }, 200)
         }
-       
+
       }),
 
       eventEmitter.addListener('deviceDisconnected', () => {
         const { settlement: { isProcessCloseBatchClover } } = store.getState();
-        if(isProcessCloseBatchClover) {
+        if (isProcessCloseBatchClover) {
           dialogProgressRef?.current?.hide();
           dispatch(settlement.setIsProcessCloseBatchClover(false))
           setTimeout(() => {
@@ -177,7 +178,7 @@ export const useProps = (props) => {
 
 
   const proccessingSettlement = () => {
-    
+
     setTimeout(() => {
       const body = {
         terminalId: terminalId,
@@ -225,37 +226,37 @@ export const useProps = (props) => {
 
     } else if (paymentMachineType == PaymentTerminalType.Clover
       && _.get(cloverMachineInfo, "isSetup")) {
-        if (Platform.OS === 'ios') {
-         
-          const port = _.get(cloverMachineInfo, 'port') 
+      if (Platform.OS === 'ios') {
+
+        const port = _.get(cloverMachineInfo, 'port')
           ? _.get(cloverMachineInfo, 'port') : 80
-          const url = `wss://${_.get(cloverMachineInfo, 'ip')}:${port}/remote_pay`
-          dispatch(settlement.setIsProcessCloseBatchClover(true));
-          clover.closeout({
-              url,
-              remoteAppId: REMOTE_APP_ID,
-              appName: APP_NAME,
-              posSerial: POS_SERIAL,
-              token: _.get(cloverMachineInfo, 'token') ? _.get(cloverMachineInfo, 'token', '') : "",
-            })
-        }
+        const url = `wss://${_.get(cloverMachineInfo, 'ip')}:${port}/remote_pay`
+        dispatch(settlement.setIsProcessCloseBatchClover(true));
+        clover.closeout({
+          url,
+          remoteAppId: REMOTE_APP_ID,
+          appName: APP_NAME,
+          posSerial: POS_SERIAL,
+          token: _.get(cloverMachineInfo, 'token') ? _.get(cloverMachineInfo, 'token', '') : "",
+        })
+      }
     } if (paymentMachineType == PaymentTerminalType.Pax
       && _.get(paxMachineInfo, "isSetup")) {
-        const { ip, port, commType, bluetoothAddr, isSetup } = paxMachineInfo;
-        const tempIpPax = commType == "TCP" ? ip : "";
-        const tempPortPax = commType == "TCP" ? port : "";
-        const idBluetooth = commType === "TCP" ? "" : bluetoothAddr;
-        PosLink.batchTransaction({
-          transType: "BATCHCLOSE",
-          edcType: "ALL",
-          commType: commType,
-          destIp: tempIpPax,
-          portDevice: tempPortPax,
-          timeoutConnect: "90000",
-          bluetoothAddr: idBluetooth
+      const { ip, port, commType, bluetoothAddr, isSetup } = paxMachineInfo;
+      const tempIpPax = commType == "TCP" ? ip : "";
+      const tempPortPax = commType == "TCP" ? port : "";
+      const idBluetooth = commType === "TCP" ? "" : bluetoothAddr;
+      PosLink.batchTransaction({
+        transType: "BATCHCLOSE",
+        edcType: "ALL",
+        commType: commType,
+        destIp: tempIpPax,
+        portDevice: tempPortPax,
+        timeoutConnect: "90000",
+        bluetoothAddr: idBluetooth
       },
-          message => handleResponseBatchTransactionsPax(message, []));
-      } else {
+        message => handleResponseBatchTransactionsPax(message, []));
+    } else {
       confirmCloseoutWithoutPaymentTerminal();
     }
   }
@@ -263,43 +264,50 @@ export const useProps = (props) => {
   /****************** Integrate Pax **************************/
 
   const handleResponseBatchTransactionsPax = (message) => {
-        
+
     try {
-        const result = JSON.parse(message);
-        if (result.status == 0) {
-          //Error
-          setTimeout(() => {
-            confirmCloseoutWithoutPaymentTerminal();
-          }, 200)
-        } else {
-          proccessingSettlement();
-        }
+      const result = JSON.parse(message);
+      if (result.status == 0) {
+        //Error
+        setTimeout(() => {
+          confirmCloseoutWithoutPaymentTerminal();
+        }, 200)
+      } else {
+        proccessingSettlement();
+      }
     } catch (error) {
     }
-}
+  }
 
-/****************** Functions **************************/
+  /****************** Functions **************************/
   const confirmCloseoutWithoutPaymentTerminal = () => {
-    Alert.alert(
-      'Unable to connect to payment terminal or not found any transaction on your payment terminal, Do you want to continue without payment terminal?',
-      '',
-      [
-        {
-          text: 'Cancel',
-          onPress: () => { dialogProgressRef?.current?.hide(); },
-          style: 'cancel'
-        },
-        { text: 'OK', onPress: async () => {
-          if (paymentMachineType != PaymentTerminalType.Pax) {
-            const body = await getSettlementWating(null, paymentMachineType.toLowerCase())
-            fetchSettlementWatingWithOutTerminal(body.params);
-          }else{
-            proccessingSettlement() 
-          }
-        }}
-      ],
-      { cancelable: false }
-    );
+    // Alert.alert(
+    //   'Unable to connect to payment terminal or not found any transaction on your payment terminal, Do you want to continue without payment terminal?',
+    //   '',
+    //   [
+    //     {
+    //       text: 'Cancel',
+    //       onPress: () => { dialogProgressRef?.current?.hide(); },
+    //       style: 'cancel'
+    //     },
+    //     {
+    //       text: 'OK', onPress: async () => {
+
+    //       }
+    //     }
+    //   ],
+    //   { cancelable: false }
+    // );
+    refDialogConfirm?.current?.show(); 
+  }
+
+  const onConfirmCloseoutWithoutPaymentTerminal = async() => {
+    if (paymentMachineType != PaymentTerminalType.Pax) {
+      const body = await getSettlementWating(null, paymentMachineType.toLowerCase())
+      fetchSettlementWatingWithOutTerminal(body.params);
+    } else {
+      proccessingSettlement()
+    }
   }
 
   const submitCloseSettlement = async (data) => {
@@ -334,12 +342,14 @@ export const useProps = (props) => {
     } finally {
     }
   }
-  
+
 
   return {
     settlementWaiting,
     dialogProgressRef,
     progress,
+    refDialogConfirm,
+    onConfirmCloseoutWithoutPaymentTerminal,
 
     viewCreditTransactions: () => {
       NavigationService.navigate(screenNames.CreditCardTransactionPage);

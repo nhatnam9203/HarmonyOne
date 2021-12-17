@@ -52,8 +52,6 @@ export const Layout = ({
 
     const [t] = useTranslation();
 
-    console.log({ isCancelHarmony })
-
     return (
         <>
             <View style={styles.container}>

@@ -120,14 +120,14 @@ const styles = StyleSheet.create({
     width: '100%',
     height: scaleHeight(100),
     backgroundColor: colors.white,
-    shadowColor: Platform.OS == "ios" ? '#0000000D' : "#000",
+    shadowColor: Platform.OS == "ios" ? '#0000000D' : "#000000",
     shadowOffset: {
       width: 0,
       height: 3,
     },
     shadowRadius: 5,
     shadowOpacity: 1,
-    elevation: 3,
+    elevation: 1,
 
     paddingTop: scaleHeight(20),
     paddingBottom: scaleHeight(4),

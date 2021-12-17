@@ -50,7 +50,6 @@ const useFetchSettlementWaiting = () => {
         isStopLoading: true,
         onSuccess: (data, response) => {
             setResponseListStaffSales(response);
-            console.log('response list staff sales : ',{ data })
             if (response?.codeNumber == 200) {
                 dispatch(settlement.setListStaffsSales(data));
             }

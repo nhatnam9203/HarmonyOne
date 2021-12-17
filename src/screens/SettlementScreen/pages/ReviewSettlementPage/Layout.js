@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Image, ScrollView, TextInput, TouchableOpacity 
 import { useTranslation } from "react-i18next";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
-import { Button, IconButton } from "@shared/components";
+import { Button, IconButton, DialogConfirm   } from "@shared/components";
 import { IncomeByPaymentMethod } from "./IncomeByPaymentMethod";
 import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -18,7 +18,9 @@ export const Layout = ({
   viewBatch,
   finish,
   closeSettlement,
-  progress
+  progress,
+  refDialogConfirm,
+  onConfirmCloseoutWithoutPaymentTerminal
 }) => {
 
   const [t] = useTranslation();
@@ -58,7 +60,7 @@ export const Layout = ({
               <Text style={[styles.bigTitle, styles.txtCreditTrans]}>
                 Credit transactions:
               </Text>
-              <Text style={[styles.bigTitle, { fontSize: scaleFont(15), marginBottom : 0 }]}>
+              <Text style={[styles.bigTitle, { fontSize: scaleFont(15), marginBottom: 0 }]}>
                 {settlementWaiting?.paymentTransaction?.length || "0"}
               </Text>
             </TouchableOpacity>
@@ -80,32 +82,44 @@ export const Layout = ({
         />
       </View>
 
-      <DialogProgress 
+      <DialogProgress
         ref={dialogProgressRef}
         viewBatch={viewBatch}
         finish={finish}
         progress={progress}
+      />
+
+      <DialogConfirm
+        ref={refDialogConfirm}
+        isCloseButton={false}
+        title={t("Warning !")}
+        titleContent={
+          t("Unable to connect to payment terminal or not found any transaction on your payment terminal, Do you want to continue without payment terminal?")
+        }
+        onConfirmYes={onConfirmCloseoutWithoutPaymentTerminal}
+        onModalHide={() => { }}
+        onConfirmNo={() => { dialogProgressRef?.current?.hide(); }}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  txtCreditTrans : {
-    fontSize: scaleFont(15), 
-    fontFamily: fonts.MEDIUM, 
-    marginLeft : 0,
-     marginBottom : 0 
+  txtCreditTrans: {
+    fontSize: scaleFont(15),
+    fontFamily: fonts.MEDIUM,
+    marginLeft: 0,
+    marginBottom: 0
   },
   wrapBatch: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     padding: scaleWidth(10),
-    borderWidth : 1,
-    borderColor : "#cccccc",
-    marginHorizontal : scaleWidth(16),
-    borderRadius : 3
+    borderWidth: 1,
+    borderColor: "#cccccc",
+    marginHorizontal: scaleWidth(16),
+    borderRadius: 3
   },
   iconPen: {
     width: scaleWidth(20),
