@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         shadowOpacity: 1,
         position: 'relative',
+        zIndex : 99999999
     },
 
 

@@ -112,7 +112,7 @@ const useRefetchSettlementWaiting = () => {
 
 
 
-    const refetchSettlementWaiting = async (terminalIdPax=null) => {
+    const refetchSettlementWaiting = async (terminalIdPax = null) => {
         setTerminalId(terminalIdPax)
         fetchTransactions();
         fetchBatchHistory();
@@ -141,12 +141,21 @@ const useRefetchSettlementWaiting = () => {
         setTerminalId(terminalId)
     }, []);
 
+    const resetResponse = () => {
+        setResponseListGiftCardSales(null);
+        setResponseListStaffSales(null);
+        setResponseSettlementWaiting(null);
+        setResoponseBatchHistory(null);
+        setResponseTransactions(null);
+    }
+
 
 
 
     React.useEffect(() => {
         if (responseListStaffSales && responseListGiftCardSales && responseSettlementWaiting && resoponseBatchHistory && responseTransactions) {
             dispatch(app.hideLoading());
+            resetResponse();
         }
     }, [
         responseListStaffSales,

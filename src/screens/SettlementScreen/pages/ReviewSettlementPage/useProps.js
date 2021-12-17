@@ -281,24 +281,27 @@ export const useProps = (props) => {
 
   /****************** Functions **************************/
   const confirmCloseoutWithoutPaymentTerminal = () => {
-    // Alert.alert(
-    //   'Unable to connect to payment terminal or not found any transaction on your payment terminal, Do you want to continue without payment terminal?',
-    //   '',
-    //   [
-    //     {
-    //       text: 'Cancel',
-    //       onPress: () => { dialogProgressRef?.current?.hide(); },
-    //       style: 'cancel'
-    //     },
-    //     {
-    //       text: 'OK', onPress: async () => {
-
-    //       }
-    //     }
-    //   ],
-    //   { cancelable: false }
-    // );
-    refDialogConfirm?.current?.show(); 
+    if(Platform.OS == "ios"){
+    Alert.alert(
+      'Unable to connect to payment terminal or not found any transaction on your payment terminal, Do you want to continue without payment terminal?',
+      '',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => { dialogProgressRef?.current?.hide(); },
+          style: 'cancel'
+        },
+        {
+          text: 'OK', onPress: async () => {
+            onConfirmCloseoutWithoutPaymentTerminal();
+          }
+        }
+      ],
+      { cancelable: false }
+    );
+    }else{
+      refDialogConfirm?.current?.show(); 
+    }
   }
 
   const onConfirmCloseoutWithoutPaymentTerminal = async() => {

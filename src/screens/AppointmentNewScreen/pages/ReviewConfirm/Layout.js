@@ -90,7 +90,7 @@ export const Layout = ({
         icon={images.iconAddMore}
         iconStyle={styles.iconAddMore}
         style={styles.buttonAddMore}
-        renderText={() => <Text style={styles.txtAddMore}>Add another service</Text>}
+        renderText={() => <Text style={styles.txtAddMore}>Add more</Text>}
         onPress={addMore}
       />
 
@@ -98,6 +98,8 @@ export const Layout = ({
         <TotalView
           duration={getAllTotal().duration}
           price={`$ ${getAllTotal().price}`}
+          isShowSubtotal={true}
+          subTotal={`$ ${getAllTotal().price}`}
         />
       </View>
 
