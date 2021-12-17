@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { Button, CustomInput, InputText } from "@shared/components";
@@ -21,38 +21,42 @@ export const Layout = ({
         isLeft={true}
         isScrollLayout={false}
       >
-        <View style={styles.content}>
-          <CustomInput
-            label='Service (%)'
-            renderInput={() =>
-              <InputText
-                form={form}
-                name="taxService"
-                placeholder="10"
-                defaultValue="0.00"
-                defaultValueRemove="0.00"
-                onChangeInput={() => setIsChange(true)}
-                type="money"
-                options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
-              />
-            }
-          />
-          <CustomInput
-            label='Product (%)'
-            renderInput={() =>
-              <InputText
-                form={form}
-                name="taxProduct"
-                placeholder="10"
-                defaultValue="0.00"
-                defaultValueRemove="0.00"
-                onChangeInput={() => setIsChange(true)}
-                type="money"
-                options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
-              />
-            }
-          />
-        </View>
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <View style={styles.content}>
+            <CustomInput
+              label='Service (%)'
+              renderInput={() =>
+                <InputText
+                  form={form}
+                  name="taxService"
+                  placeholder="10"
+                  defaultValue="0.00"
+                  defaultValueRemove="0.00"
+                  onChangeInput={() => setIsChange(true)}
+                  type="money"
+                  options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
+                  renderRight={()=>null}
+                />
+              }
+            />
+            <CustomInput
+              label='Product (%)'
+              renderInput={() =>
+                <InputText
+                  form={form}
+                  name="taxProduct"
+                  placeholder="10"
+                  defaultValue="0.00"
+                  defaultValueRemove="0.00"
+                  onChangeInput={() => setIsChange(true)}
+                  type="money"
+                  options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
+                  renderRight={()=>null}
+                />
+              }
+            />
+          </View>
+        </TouchableWithoutFeedback>
       </SingleScreenLayout>
       <View style={styles.bottom}>
         <Button
