@@ -104,6 +104,7 @@ export const images = {
   iconReportService: require('@src/assets/images/iconReportService.png'),
   iconReportGiftcard: require('@src/assets/images/iconReportGiftcard.png'),
   iconReportProduct: require('@src/assets/images/iconReportProduct.png'),
+  iconSettingTax : require("@src/assets/images/ic_setting_tax.png"),
   loa: require('@src/assets/images/loa.png'),
   sortDown: require('@src/assets/images/down.png'),
   sortUp: require('@src/assets/images/up.png'),

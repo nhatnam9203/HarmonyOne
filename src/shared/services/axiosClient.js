@@ -37,9 +37,6 @@ axios.interceptors.request.use(
       });
     }
 
-
-    console.log({ token })
-
     config.headers = Object.assign({}, config.headers, {
       DeviceID: deviceID_Storaged ? deviceID_Storaged : device
     });

@@ -29,6 +29,7 @@ export const InputText = React.forwardRef(
       maxLength = 1600,
       onBlur = () => { },
       iconCloseStyle,
+      onChangeInput,
     },
     ref,
   ) => {
@@ -66,7 +67,10 @@ export const InputText = React.forwardRef(
             type={type}
             options={options}
             secureTextEntry={secureTextEntry}
-            onChangeText={field.onChange}
+            onChangeText={text => {
+              field.onChange(text);
+              onChangeInput && onChangeInput(text);
+            }}
             placeholder={placeholder}
             value={field.value}
             style={[styles.input, inputStyle]}

@@ -78,7 +78,8 @@ import {
   NewPincodeScreen,
   TermOfService,
   Privacy,
-  FaqPage
+  FaqPage,
+  SetupTaxScreen
 } from '@screens';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
 import { useSelector } from "react-redux";
@@ -183,6 +184,7 @@ const AppStack = () => {
         <Screen {...TermOfService} />
         <Screen {...Privacy} />
         <Screen {...FaqPage} />
+        <Screen {...SetupTaxScreen} />
 
         <Screen name="ForgotPincode" component={ForgotPincode} />
       </Navigator>

@@ -97,6 +97,13 @@ export const itemsRoleManagerAdmin = [
     }
   },
   {
+    title: "Tax",
+    icon: images.iconSettingTax,
+    onPress: () => { 
+      NavigationService.navigate(screenNames.SetupTaxScreen)
+    }
+  },
+  {
     title: "Hardware",
     icon: images.iconHardware,
     onPress: () => { 

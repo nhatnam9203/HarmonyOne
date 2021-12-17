@@ -89,6 +89,7 @@ import {
   MarketingEfficiencyStatistic,
 } from "./ReportsScreen/subPages";
 import { TermOfService, Privacy, FaqPage } from "./SettingScreen/pages";
+import { SetupTaxScreen } from "./SetupTaxScreen";
 
 
 module.exports = {
@@ -176,5 +177,6 @@ module.exports = {
   TermOfService,
   Privacy,
   FaqPage,
-  NotificationRoleStaffScreen
+  NotificationRoleStaffScreen,
+  SetupTaxScreen,
 };

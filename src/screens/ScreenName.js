@@ -97,6 +97,7 @@ const ScreenNames = {
   TermOfService: "hpo.setting.term.service",
   Privacy: "hpo.setting.privacy",
   FaqPage: "hpo.setting.faq",
+  SetupTaxScreen: "hpo.tax.setup",
 };
 
 module.exports = { ScreenNames };
