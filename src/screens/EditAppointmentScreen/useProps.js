@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formatNumberFromCurrency, formatMoney, convertMinsToHrsMins } from "@shared/utils";
-import { bookAppointment, appointment, editAppointment, service } from "@redux/slices";
+import { bookAppointment, appointment, editAppointment, service, app } from "@redux/slices";
 import {
   addAppointment,
   useAxiosMutation,
@@ -17,6 +17,7 @@ import { dateToFormat, guid } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
 import { Alert } from "react-native";
+import { isEmpty } from "lodash";
 
 export const useProps = (_params) => {
   const dispatch = useDispatch();
@@ -38,8 +39,6 @@ export const useProps = (_params) => {
   const [extrasBookingRemove, setExtrasBookingRemove] = React.useState([]);
   const [productsBookingRemove, setProductsBookingRemove] = React.useState([]);
   const [giftCardsBookingRemove, setGiftCardsBookingRemove] = React.useState([]);
-
-
   const roleName = staff?.roleName?.toString()?.toLowerCase();
 
 
@@ -53,10 +52,11 @@ export const useProps = (_params) => {
       NavigationService.navigate(screenNames.AddServicePage);
     }
   });
-
+  
 
   const [, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
+    queryId : "fetchAppointmentByDate_editAppointment",
     enabled: false,
     isLoadingDefault: true,
     onSuccess: (data, response) => {
@@ -76,8 +76,35 @@ export const useProps = (_params) => {
           products: appointmentEdit.products.filter(obj => !obj?.bookingProductId),
           giftCards: [],
         }
-        const body = await addItemIntoAppointment(appointmentEdit?.appointmentId, tempData);
-        submitAddItem(body.params);
+        if ((
+          tempData.services.length +
+          tempData.extras.length +
+          tempData.products.length +
+          tempData.giftCards.length
+        ) > 0) {
+          const body = await removeItemAppointment(appointmentEdit?.appointmentId, tempData);
+          submitRemoveItemAppointment(body.params);
+        } else {
+
+          const tempData_Add = {
+            services: appointmentEdit.services.filter(obj => !obj?.bookingServiceId && obj.status == 1),
+            extras: appointmentEdit.extras.filter(obj => !obj?.bookingServiceId && obj.status == 1),
+            products: appointmentEdit.products.filter(obj => !obj?.bookingProductId),
+            giftCards: [],
+          }
+
+          if ((
+            tempData_Add.services.length +
+            tempData_Add.extras.length +
+            tempData_Add.products.length +
+            tempData_Add.giftCards.length
+          ) > 0) {
+            const body = await addItemIntoAppointment(appointmentEdit?.appointmentId, tempData_Add);
+            submitAddItem(body.params);
+          } else {
+            fetchAppointment();
+          }
+        }
       }
     }
   });
@@ -87,8 +114,7 @@ export const useProps = (_params) => {
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         alertRef?.current?.alertWithType('info', 'Update appointment', response?.message);
-        fetchAppointmentByDate();
-        fetchAppointmentById();
+        fetchAppointment();
       }
     }
   });
@@ -106,14 +132,42 @@ export const useProps = (_params) => {
           giftCards: giftCardsBookingRemove.map(gift => ({ bookingGiftCardId: gift.bookingGiftCardId })),
         }
 
-        const body = await removeItemAppointment(appointmentEdit?.appointmentId, tempData);
-        submitRemoveItemAppointment(body.params);
+        if ((
+          tempData.services.length +
+          tempData.extras.length +
+          tempData.products.length +
+          tempData.giftCards.length
+        ) > 0) {
+          const body = await removeItemAppointment(appointmentEdit?.appointmentId, tempData);
+          submitRemoveItemAppointment(body.params);
+        } else {
+
+          const tempData_Add = {
+            services: appointmentEdit.services.filter(obj => !obj?.bookingServiceId && obj.status == 1),
+            extras: appointmentEdit.extras.filter(obj => !obj?.bookingServiceId && obj.status == 1),
+            products: appointmentEdit.products.filter(obj => !obj?.bookingProductId),
+            giftCards: [],
+          }
+
+          if ((
+            tempData_Add.services.length +
+            tempData_Add.extras.length +
+            tempData_Add.products.length +
+            tempData_Add.giftCards.length
+          ) > 0) {
+            const body = await addItemIntoAppointment(appointmentEdit?.appointmentId, tempData_Add);
+            submitAddItem(body.params);
+          } else {
+            fetchAppointment();
+          }
+        }
       }
     }
   });
 
   const [, fetchAppointmentById] = useAxiosQuery({
     ...getAppointmentById(appointmentEdit?.appointmentId),
+    queryId : "fetchAppointmentDetail_editAppointment",
     enabled: false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
@@ -122,6 +176,13 @@ export const useProps = (_params) => {
       }
     },
   });
+
+
+  const fetchAppointment = () =>{
+    fetchAppointmentById();
+    fetchAppointmentByDate();
+    dispatch(app.startSignalR());
+  }
 
   return {
     customerBooking,
@@ -253,15 +314,16 @@ export const useProps = (_params) => {
         staffId: appointmentEdit.staffId,
         fromTime: appointmentEdit.fromTime,
         status: appointmentEdit.status,
-        categories: appointmentEdit.categories,
-        services: appointmentEdit.services.filter(obj => obj.bookingServiceId),
-        extras: appointmentEdit.extras.filter(obj => obj.bookingServiceId),
-        products: appointmentEdit.products,
-        giftCards: appointmentEdit.giftCards
+        categories: appointmentDetail.categories,
+        services: appointmentDetail.services,
+        extras: appointmentDetail.extras,
+        products: appointmentDetail.products,
+        giftCards: appointmentDetail.giftCards
       };
 
       const body = await updateAppointment(appointmentEdit.appointmentId, data);
       submitUpdateAppointment(body.params);
+      dispatch(app.stopSignalR());
     },
 
     onOK: () => {

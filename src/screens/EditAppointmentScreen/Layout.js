@@ -39,7 +39,7 @@ export const Layout = ({
   deleteProduct,
   deleteGiftCard,
   roleName,
-  staffListByMerchant
+  staffListByMerchant,
 }) => {
 
 

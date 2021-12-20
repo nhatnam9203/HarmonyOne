@@ -63,6 +63,7 @@ export const AppStateProvider = ({ children }) => {
       staff?.merchantId,
       moment(appointmentDate).format("YYYY-MM-DD"),
     ),
+    queryId : "fetchStaffByDate_appStateProvider",
     enabled: false,
     isLoadingDefault: false,
     isStopLoading: true,
@@ -73,6 +74,7 @@ export const AppStateProvider = ({ children }) => {
 
   const [, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(moment(appointmentDate).format("YYYY-MM-DD")),
+    queryId: "fetchAppointmentByDate_appStateProvider",
     enabled: false,
     isLoadingDefault: false,
     isStopLoading: true,
@@ -83,6 +85,7 @@ export const AppStateProvider = ({ children }) => {
 
   const [, fetchCountUnread] = useAxiosQuery({
     ...getCountUnReadOfNotification(),
+    queryId: "fetchCountUnread_appStateProvider",
     enabled: false,
     isLoadingDefault: false,
     isStopLoading: true,
@@ -147,6 +150,7 @@ export const AppStateProvider = ({ children }) => {
         connection.on("ListWaNotification", (data) => {
           const dataParse = JSON.parse(data);
           const typeData = dataParse?.data?.Type;
+
           if (typeData) {
             switch (typeData) {
               case "appointment_update":

@@ -98,17 +98,12 @@ export const useProps = (props) => {
     }
   }, [isRefresh]);
 
-  // React.useEffect(() => {
-  //   getCategoryList();
-  //   getServiceList();
-  // }, []);
 
   const filterCategoryByServiceOfStaff = (categoryId) => {
     const tempService = servicesByStaff?.find(service => service?.categoryId == categoryId);
     if (tempService) return true;
     return false;
   }
-
 
   return {
     appointmentEdit,
@@ -215,7 +210,7 @@ export const useProps = (props) => {
     },
 
     getServiceDetail: (item) => {
-      if (item?.serviceDetail) {
+      if (item?.serviceId) {
         NavigationService.navigate(
           screenNames.AddServiceDetailPage,
           { item });
