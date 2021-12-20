@@ -42,6 +42,7 @@ import { PaymentPage } from "./CheckoutScreen/pages/PaymentPage";
 import { EditAppointmentScreen } from "./EditAppointmentScreen";
 import { AddServicePage } from "./ServiceScreen/pages/AddServicePage";
 import { AddServiceDetailPage } from "./ServiceScreen/pages/AddServiceDetailPage";
+import { AddProductDetailPage } from "./ServiceScreen/pages/AddProductDetailPage";
 import { EnterAmountPage } from "./CheckoutScreen/pages/EnterAmountPage";
 import { InvoiceScreen } from "./InvoiceScreen";
 import { InvoiceDetailScreen } from "./InvoiceDetailScreen";
@@ -134,6 +135,7 @@ module.exports = {
   EditAppointmentScreen,
   AddServicePage,
   AddServiceDetailPage,
+  AddProductDetailPage,
   EnterAmountPage,
   InvoiceScreen,
   InvoiceDetailScreen,

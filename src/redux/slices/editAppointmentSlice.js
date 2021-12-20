@@ -66,7 +66,7 @@ const editAppointment = createSlice({
             } else {
                 const positionService = tempServices.findIndex(sv => sv?.serviceId == serviceId);
 
-                if(positionService !== -1){
+                if (positionService !== -1) {
                     tempServices[positionService].staffId = staffId;
                 }
                 tempAppointment = {
@@ -176,6 +176,22 @@ const editAppointment = createSlice({
             state.appointmentEdit = tempAppointment;
         },
 
+        addProduct: (state, action) => {
+            let { product } = action.payload;
+            let tempAppointment = {
+                ...state.appointmentEdit,
+            }
+            let temProducts = tempAppointment.products || [];
+
+            temProducts.push(product);
+
+            tempAppointment = {
+                ...tempAppointment,
+                products: temProducts,
+            }
+            state.appointmentEdit = tempAppointment;
+        },
+
         editService: (state, action) => {
             let tempAppointment = {
                 ...state.appointmentEdit,
@@ -187,6 +203,26 @@ const editAppointment = createSlice({
                 tempAppointment = {
                     ...tempAppointment,
                     services: tempServices,
+                }
+                state.appointmentEdit = tempAppointment;
+            }
+        },
+
+        editProduct: (state, action) => {
+            console.log('action edit product : ', { action });
+            let tempAppointment = {
+                ...state.appointmentEdit,
+            }
+            let tempProducts = tempAppointment.products || [];
+            const findIndex = tempProducts.findIndex(obj => obj.productId == action.payload?.product?.productId);
+            if (findIndex !== -1) {
+                tempProducts[findIndex] = {
+                    ...action.payload?.product,
+                    quantity: action.payload?.quantity
+                };
+                tempAppointment = {
+                    ...tempAppointment,
+                    products: tempProducts,
                 }
                 state.appointmentEdit = tempAppointment;
             }

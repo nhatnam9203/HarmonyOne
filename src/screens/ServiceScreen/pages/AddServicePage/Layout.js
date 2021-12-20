@@ -60,19 +60,21 @@ export const Layout = ({
           />
           <SectionList
             sections={data}
-            keyExtractor={(item, index) => item?.serviceId?.toString() + "service manage"}
+            keyExtractor={(item, index) => item?.serviceId ? item?.serviceId?.toString() + "service addMore" : item?.productId?.toString() + "product addMore"}
             stickySectionHeadersEnabled={false}
             style={styles.flatList}
             onRefresh={onRefresh}
             refreshing={isRefresh}
             ListEmptyComponent={() => <ListEmptyComponent description={t('No Service')} image={images.iconNotFound} />}
             renderItem={({ item }) => {
-              const isDiabled = appointmentEdit?.services?.find(obj => obj?.serviceId == item?.serviceId);
+              const isDiabled = 
+                appointmentEdit?.services?.find(obj => obj?.serviceId == item?.serviceId) ||
+                appointmentEdit?.products?.find(obj => obj?.productId == item?.productId);
               return (
                 <View style={{ opacity: isDiabled ? 0.4 : 1 }}>
                   <ItemService
                     item={item}
-                    onPress={isDiabled ? () =>{} : getServiceDetail}
+                    onPress={isDiabled ? () => { } : getServiceDetail}
                   />
                 </View>
               )

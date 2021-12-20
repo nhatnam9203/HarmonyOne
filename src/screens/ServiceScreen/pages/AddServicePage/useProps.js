@@ -124,6 +124,7 @@ export const useProps = (props) => {
 
     getDataList: () => {
       let servicesList = services;
+      let productsList = products;
       if (valueSearch) {
         servicesList = servicesList.filter((e) => {
           if (e !== null) {
@@ -139,11 +140,12 @@ export const useProps = (props) => {
       }
 
       if (roleName == "staff") {
-        let tempCategory = [...categoryList].filter(cate => cate?.categoryType?.toString()?.toLowerCase() == "service");
+        const tempCategoryServices = [...categoryList].filter(cate => cate?.categoryType?.toString()?.toLowerCase() == "service");
+        const tempCategoryProducts = [...categoryList].filter(cate => cate?.categoryType?.toString()?.toLowerCase() == "products");
         let tempArr = [];
-        for (let i = 0; i < tempCategory.length; i++) {
-          if (filterCategoryByServiceOfStaff(tempCategory[i].categoryId)) {
-            tempArr.push(tempCategory[i]);
+        for (let i = 0; i < tempCategoryServices.length; i++) {
+          if (filterCategoryByServiceOfStaff(tempCategoryServices[i].categoryId)) {
+            tempArr.push(tempCategoryServices[i]);
           }
         }
         return tempArr.filter(cate => cate.isDisabled == 0).map((cate) => {
@@ -154,11 +156,26 @@ export const useProps = (props) => {
           }
         });
       } else {
-        return categoryList.filter(cate => cate.isDisabled == 0 && cate?.categoryType?.toString()?.toLowerCase() == "service").map((cate) => {
-          const dataList = servicesList.filter((sv) => (sv.categoryId == cate.categoryId));
+
+        const tempCategoryServices = [...categoryList].filter(cate => cate?.categoryType?.toString()?.toLowerCase() == "service");
+        const tempCategoryProducts = [...categoryList].filter(cate => cate?.categoryType?.toString()?.toLowerCase() == "product");
+
+        const categoryMerged = [
+          ...tempCategoryServices,
+          ...tempCategoryProducts,
+        ];
+
+        return categoryMerged.filter(cate => cate.isDisabled == 0).map((cate) => {
+          // const dataList = servicesList.filter((sv) => (sv.categoryId == cate.categoryId));
+          const serviceData = servicesList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId));
+          const productData = productsList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId));
+
           return {
             category: cate,
-            data: servicesList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId)),
+            data: [
+              ...serviceData,
+              ...productData,
+            ]
           }
         });
       }
@@ -173,10 +190,15 @@ export const useProps = (props) => {
     },
 
     getServiceDetail: (item) => {
-      NavigationService.navigate(
-        screenNames.AddServiceDetailPage,
-        { item })
-        ;
+      if (item?.serviceDetail) {
+        NavigationService.navigate(
+          screenNames.AddServiceDetailPage,
+          { item });
+      } else if (item?.productId) {
+        NavigationService.navigate(
+          screenNames.AddProductDetailPage,
+          { item });
+      }
     },
 
     getActionSheets: (category) => [

@@ -40,6 +40,7 @@ import {
   EditAppointmentScreen,
   AddServicePage,
   AddServiceDetailPage,
+  AddProductDetailPage,
   EnterAmountPage,
   InvoiceScreen,
   InvoiceDetailScreen,
@@ -145,6 +146,7 @@ const AppStack = () => {
         <Screen {...EditAppointmentScreen} />
         <Screen {...AddServicePage} />
         <Screen {...AddServiceDetailPage} />
+        <Screen {...AddProductDetailPage} />
         <Screen {...EnterAmountPage} />
         <Screen {...InvoiceScreen} />
         <Screen {...SelectPeriod} />

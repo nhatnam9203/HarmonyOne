@@ -90,7 +90,7 @@ export const Layout = ({
         icon={images.iconAddMore}
         iconStyle={styles.iconAddMore}
         style={styles.buttonAddMore}
-        renderText={() => <Text style={styles.txtAddMore}>Add more</Text>}
+        renderText={() => <Text style={styles.txtAddMore}>Add more service or product</Text>}
         onPress={addMore}
       />
 
@@ -225,7 +225,8 @@ const styles = StyleSheet.create({
   txtAddMore: {
     fontSize: scaleFont(17),
     color: colors.ocean_blue,
-    marginLeft: scaleWidth(16)
+    marginLeft: scaleWidth(16),
+    fontFamily : fonts.BOLD
   },
   iconAddMore: {
     width: scaleWidth(20),

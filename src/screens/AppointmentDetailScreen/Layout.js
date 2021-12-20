@@ -65,7 +65,7 @@ export const Layout = ({
   assignOtherStaff,
 }) => {
   const [t] = useTranslation();
-
+  
   const getPrice = (price) => {
     return formatMoneyWithUnit(price);
   };

@@ -34,6 +34,7 @@ export const Layout = ({
   appointmentEdit,
   addMoreService,
   editService,
+  editProduct,
   alertRef,
   deleteProduct,
   deleteGiftCard,
@@ -93,7 +94,7 @@ export const Layout = ({
         icon={images.iconAddMore}
         iconStyle={styles.iconAddMore}
         style={styles.buttonAddMore}
-        renderText={() => <Text style={styles.txtAddMore}>Add another service</Text>}
+        renderText={() => <Text style={styles.txtAddMore}>Add more service or product</Text>}
         onPress={addMoreService}
         slop={slop(0)}
       />
@@ -137,9 +138,10 @@ export const Layout = ({
                 renderItem={(data, rowMap) => data?.item?.productId ?
                   <AppointmentProductItem
                     product={data?.item}
-                    name={data?.item?.productName}
+                    name={data?.item?.productName ?? data?.item?.name ?? ""}
                     price={data?.item?.price}
                     isDelete={true}
+                    onPressItem={() => editProduct(data?.item)}
                   />
                   : data?.item?.giftCardId ?
                     <AppointmentGiftCardItem
@@ -220,7 +222,7 @@ export const Layout = ({
                     )}
                 ListHeaderComponent={renderHeader()}
                 ListFooterComponent={renderFooter()}
-                ItemSeparatorComponent={()=><View style={{ height : scaleHeight(16) }} />}
+                ItemSeparatorComponent={() => <View style={{ height: scaleHeight(16) }} />}
                 keyExtractor={(item) => item?.serviceId ? item?.serviceId + "serviceItemBooking" : item?.productId + "productItemBooking"}
                 renderHiddenItem={(data, rowMap) => (
                   <View style={styles.rowBack}>
@@ -331,7 +333,8 @@ const styles = StyleSheet.create({
   txtAddMore: {
     fontSize: scaleFont(17),
     color: colors.ocean_blue,
-    marginLeft: scaleWidth(16)
+    marginLeft: scaleWidth(16),
+    fontFamily: fonts.BOLD
   },
   iconAddMore: {
     width: scaleWidth(20),

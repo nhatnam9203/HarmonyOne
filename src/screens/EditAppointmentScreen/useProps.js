@@ -13,7 +13,7 @@ import {
   addItemIntoAppointment,
   getServiceByStaff
 } from "@src/apis";
-import { dateToFormat } from "@shared/utils";
+import { dateToFormat, guid } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
 import { Alert } from "react-native";
@@ -73,10 +73,9 @@ export const useProps = (_params) => {
         const tempData = {
           services: appointmentEdit.services.filter(obj => !obj?.bookingServiceId && obj.status == 1),
           extras: appointmentEdit.extras.filter(obj => !obj?.bookingServiceId && obj.status == 1),
-          products: [],
+          products: appointmentEdit.products.filter(obj => !obj?.bookingProductId),
           giftCards: [],
         }
-
         const body = await addItemIntoAppointment(appointmentEdit?.appointmentId, tempData);
         submitAddItem(body.params);
       }
@@ -191,6 +190,14 @@ export const useProps = (_params) => {
         price: formatMoney(price),
         duration: convertMinsToHrsMins(duration),
       }
+    },
+
+    editProduct: (product) => {
+      NavigationService.navigate(
+        screenNames.AddProductDetailPage,
+        {
+          item: product, isEditItem: guid() + guid() + guid(),
+        });
     },
 
     deleteProduct: async (product) => {
