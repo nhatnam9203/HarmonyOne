@@ -137,22 +137,47 @@ export const useProps = (props) => {
           }
           return null;
         });
+
+        productsList = productsList.filter((e) => {
+          if (e !== null) {
+            return (
+              e.name
+                .trim()
+                .toLowerCase()
+                .indexOf(valueSearch.toLowerCase()) !== -1
+            );
+          }
+          return null;
+        });
       }
 
       if (roleName == "staff") {
         const tempCategoryServices = [...categoryList].filter(cate => cate?.categoryType?.toString()?.toLowerCase() == "service");
-        const tempCategoryProducts = [...categoryList].filter(cate => cate?.categoryType?.toString()?.toLowerCase() == "products");
+        const tempCategoryProducts = [...categoryList].filter(cate => cate?.categoryType?.toString()?.toLowerCase() == "product");
         let tempArr = [];
         for (let i = 0; i < tempCategoryServices.length; i++) {
           if (filterCategoryByServiceOfStaff(tempCategoryServices[i].categoryId)) {
             tempArr.push(tempCategoryServices[i]);
           }
         }
-        return tempArr.filter(cate => cate.isDisabled == 0).map((cate) => {
-          const dataList = servicesList.filter((sv) => (sv.categoryId == cate.categoryId));
+
+        const categoryMerged = [
+          ...tempArr,
+          ...tempCategoryProducts,
+        ];
+
+        return categoryMerged.filter(cate => cate.isDisabled == 0).map((cate) => {
+          // const dataList = servicesList.filter((sv) => (sv.categoryId == cate.categoryId));
+
+          const serviceData = servicesList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId));
+          const productData = productsList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId));
+
           return {
             category: cate,
-            data: servicesList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId)),
+            data: [
+              ...serviceData,
+              ...productData,
+            ]
           }
         });
       } else {

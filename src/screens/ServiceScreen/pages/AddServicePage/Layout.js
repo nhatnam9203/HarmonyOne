@@ -53,7 +53,7 @@ export const Layout = ({
       >
         <View style={styles.content}>
           <SearchInput
-            placeholder="Search by service name"
+            placeholder="Search by service or product name"
             value={valueSearch}
             onChangeText={onChangeSearch}
             removeText={() => onChangeSearch("")}
