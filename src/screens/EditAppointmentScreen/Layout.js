@@ -263,6 +263,7 @@ export const Layout = ({
         messageStyle={styles.messageAlertStyle}
         defaultContainer={styles.alertStyle}
         renderImage={() => <Image source={images.harmonyPay} style={styles.iconHarmonyPay} />}
+        updateStatusBar={false}
       />
 
     </>

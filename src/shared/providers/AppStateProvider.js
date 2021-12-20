@@ -27,7 +27,6 @@ export const AppStateProvider = ({ children }) => {
 
   const [connectionSignalR, setConnectSignalR] = React.useState(false);
 
-
   const {
     app: {
       isHome = false,
@@ -234,11 +233,6 @@ export const AppStateProvider = ({ children }) => {
       alertRef?.current?.alertWithType(errorType, titleError, messageError);
     }
   }, [isError]);
-
-  // isError = false,
-  // messageError = "",
-  // errorType = "info",
-  // titleError = "",
 
   React.useEffect(() => {
     resetAlert()
