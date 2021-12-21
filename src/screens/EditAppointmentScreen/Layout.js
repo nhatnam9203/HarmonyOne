@@ -248,6 +248,7 @@ export const Layout = ({
                 onPress={confirm}
                 highlight={true}
                 width={'100%'}
+                disabled={dataList.length == 0}
               />
             </View>
           </View>
