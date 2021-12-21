@@ -133,13 +133,17 @@ const editAppointment = createSlice({
         },
 
         removeGiftCard: (state, action) => {
-            const giftCardId = action.payload;
+            const giftCard = action.payload;
             let tempAppointment = {
                 ...state.appointmentEdit,
             }
             let tempGiftCard = tempAppointment.giftCards || [];
 
-            tempGiftCard = tempGiftCard.filter(sv => sv.giftCardId !== giftCardId);
+            if (giftCard?.uniqueId) {
+                tempGiftCard = tempGiftCard.filter(gift => gift?.uniqueId !== giftCard?.uniqueId);
+            } else {
+                tempGiftCard = tempGiftCard.filter(sv => sv.bookingGiftCardId !== giftCard?.bookingGiftCardId);
+            }
             tempAppointment = {
                 ...tempAppointment,
                 giftCards: tempGiftCard,
@@ -188,6 +192,22 @@ const editAppointment = createSlice({
             tempAppointment = {
                 ...tempAppointment,
                 products: temProducts,
+            }
+            state.appointmentEdit = tempAppointment;
+        },
+
+        addGiftCard: (state, action) => {
+            let giftCard = action.payload;
+            let tempAppointment = {
+                ...state.appointmentEdit,
+            }
+            let tempGiftCards = tempAppointment.giftCards || [];
+
+            tempGiftCards.push(giftCard);
+
+            tempAppointment = {
+                ...tempAppointment,
+                giftCards: tempGiftCards,
             }
             state.appointmentEdit = tempAppointment;
         },

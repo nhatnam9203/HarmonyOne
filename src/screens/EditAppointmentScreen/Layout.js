@@ -14,7 +14,7 @@ import {
 } from '@shared/components';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { SingleScreenLayout } from '@shared/layouts';
-import { dateToFormat, slop } from "@shared/utils";
+import { dateToFormat, slop, guid } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 import DropdownAlert from 'react-native-dropdownalert';
 import moment from 'moment';
@@ -223,7 +223,7 @@ export const Layout = ({
                 ListHeaderComponent={renderHeader()}
                 ListFooterComponent={renderFooter()}
                 ItemSeparatorComponent={() => <View style={{ height: scaleHeight(16) }} />}
-                keyExtractor={(item) => item?.serviceId ? item?.serviceId + "serviceItemBooking" : item?.productId + "productItemBooking"}
+                keyExtractor={(item) => item?.serviceId ? item?.serviceId + "serviceItemBooking" : item?.giftCardId ? item?.giftCardId + guid() + "giftCardBooking" : item?.productId + "productItemBooking"}
                 renderHiddenItem={(data, rowMap) => (
                   <View style={styles.rowBack}>
                     <View />

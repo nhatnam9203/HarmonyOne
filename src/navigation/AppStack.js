@@ -39,6 +39,7 @@ import {
   PaymentPage,
   EditAppointmentScreen,
   AddServicePage,
+  GiftCardAmountPage,
   AddServiceDetailPage,
   AddProductDetailPage,
   EnterAmountPage,
@@ -187,6 +188,7 @@ const AppStack = () => {
         <Screen {...Privacy} />
         <Screen {...FaqPage} />
         <Screen {...SetupTaxScreen} />
+        <Screen {...GiftCardAmountPage} />
 
         <Screen name="ForgotPincode" component={ForgotPincode} />
       </Navigator>

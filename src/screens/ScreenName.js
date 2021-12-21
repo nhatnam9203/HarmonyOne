@@ -58,6 +58,7 @@ const ScreenNames = {
   AddServicePage: "hpo.addService",
   AddServiceDetailPage: "hpo.addServiceDetailPage",
   AddProductDetailPage : "hpo.addProductDetailPage",
+  GiftCardAmountPage : 'hpo.edit.service.giftcard.amount',
   EnterAmountPage: "hpo.enterAmountPage",
   InvoiceScreen: "hpo.invoice",
   InvoiceDetailScreen: "hpo.invoice.detail",

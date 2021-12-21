@@ -19,6 +19,7 @@ export const useProps = (props) => {
   const dispatch = useDispatch();
 
   const dialogDeleteCategoryRef = React.useRef();
+  const dialogActiveGiftCard = React.useRef();
   const [valueSearch, setSearchValue] = React.useState("");
   const [tempCategory, setTempCategory] = React.useState("");
   const [isRefresh, setRefresh] = React.useState(false);
@@ -113,6 +114,8 @@ export const useProps = (props) => {
     newCategory,
     setTempCategory,
     isRefresh,
+    dialogActiveGiftCard,
+
     onRefresh: () => {
       setRefresh(true);
     },
@@ -161,7 +164,7 @@ export const useProps = (props) => {
           ...tempCategoryProducts,
         ];
 
-        return categoryMerged.filter(cate => cate.isDisabled == 0).map((cate) => {
+        return categoryMerged.filter(cate => cate.isDisabled == 0).map((cate, index) => {
           // const dataList = servicesList.filter((sv) => (sv.categoryId == cate.categoryId));
 
           const serviceData = servicesList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId));
@@ -172,7 +175,8 @@ export const useProps = (props) => {
             data: [
               ...serviceData,
               ...productData,
-            ]
+            ],
+            index
           }
         });
       } else {
@@ -185,7 +189,7 @@ export const useProps = (props) => {
           ...tempCategoryProducts,
         ];
 
-        return categoryMerged.filter(cate => cate.isDisabled == 0).map((cate) => {
+        return categoryMerged.filter(cate => cate.isDisabled == 0).map((cate, index) => {
           // const dataList = servicesList.filter((sv) => (sv.categoryId == cate.categoryId));
           const serviceData = servicesList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId));
           const productData = productsList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId));
@@ -195,7 +199,8 @@ export const useProps = (props) => {
             data: [
               ...serviceData,
               ...productData,
-            ]
+            ],
+            index
           }
         });
       }
@@ -270,6 +275,18 @@ export const useProps = (props) => {
         submitRestoreCategory(body.params);
       }, 200);
     },
+
+    onCheckGiftCardSucces: (data, serialNumber) => {
+      dialogActiveGiftCard?.current?.hide();
+      NavigationService.navigate(
+          screenNames.GiftCardAmountPage, {
+              giftCardInfo: {
+                  ...data,
+                  name: "Gift card - " + serialNumber?.toString()?.substring(serialNumber?.toString()?.length - 4)
+              }
+      }
+      );
+  },
 
   };
 };

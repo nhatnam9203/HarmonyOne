@@ -2,11 +2,12 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView, SectionList } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { Button, IconButton, SearchInput, DialogConfirm, ItemService, ListEmptyComponent, GroupButtonAdd } from "@shared/components";
+import { Button, IconButton, SearchInput, DialogConfirm, ItemService, ListEmptyComponent, GroupButtonAdd, DialogActiveGiftCard } from "@shared/components";
 import { fonts, colors, images } from '@shared/themes';
 import { slop } from "@shared/utils";
 import { useSelector } from "react-redux";
 import { WithPopupActionSheet } from '@shared/HOC';
+import { AddGiftCard } from "./AddGiftCard";
 
 let EditButton = ({ ...props }) => {
   return (
@@ -37,7 +38,9 @@ export const Layout = ({
   setTempCategory,
   tempCategory,
   isRefresh,
-  onRefresh
+  onRefresh,
+  dialogActiveGiftCard,
+  onCheckGiftCardSucces,
 }) => {
 
   const [t] = useTranslation();
@@ -47,49 +50,53 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Add service')}
-        isRight={false}
+        pageTitle={t('Service & product')}
+        isRight={true}
         isScrollLayout={false}
+        headerRightComponent={() => <AddGiftCard onPress={() => { dialogActiveGiftCard?.current?.show(); }} />}
       >
         <View style={styles.content}>
+
           <SearchInput
             placeholder="Search by service or product name"
             value={valueSearch}
             onChangeText={onChangeSearch}
             removeText={() => onChangeSearch("")}
           />
-          <SectionList
-            sections={data}
-            keyExtractor={(item, index) => item?.serviceId ? item?.serviceId?.toString() + "service addMore" : item?.productId?.toString() + "product addMore"}
-            stickySectionHeadersEnabled={false}
-            style={styles.flatList}
-            onRefresh={onRefresh}
-            refreshing={isRefresh}
-            ListEmptyComponent={() => <ListEmptyComponent description={t('No Service')} image={images.iconNotFound} />}
-            renderItem={({ item }) => {
-              const isDiabled = 
-                appointmentEdit?.services?.find(obj => obj?.serviceId == item?.serviceId) ||
-                appointmentEdit?.products?.find(obj => obj?.productId == item?.productId);
-              return (
-                <View style={{ opacity: isDiabled ? 0.4 : 1 }}>
-                  <ItemService
-                    item={item}
-                    onPress={isDiabled ? () => { } : getServiceDetail}
-                  />
-                </View>
-              )
-            }
-            }
-            renderSectionHeader={({ section }) => {
-              return (
-                <View style={styles.rowSectionHeader}>
-                  <Text style={styles.categoryName}>
-                    {section?.category?.name}
-                  </Text>
-                </View>
-              )
-            }}
-          />
+          <View style={{ position: "relative", flex: 1 }}>
+            <SectionList
+              sections={data}
+              keyExtractor={(item, index) => item?.serviceId ? item?.serviceId?.toString() + "service addMore" : item?.productId?.toString() + "product addMore"}
+              stickySectionHeadersEnabled={false}
+              style={styles.flatList}
+              onRefresh={onRefresh}
+              refreshing={isRefresh}
+              ListEmptyComponent={() => <ListEmptyComponent description={t('No Service')} image={images.iconNotFound} />}
+              renderItem={({ item }) => {
+                const isDiabled =
+                  appointmentEdit?.services?.find(obj => obj?.serviceId == item?.serviceId) ||
+                  appointmentEdit?.products?.find(obj => obj?.productId == item?.productId);
+                return (
+                  <View style={{ opacity: isDiabled ? 0.4 : 1 }}>
+                    <ItemService
+                      item={item}
+                      onPress={isDiabled ? () => { } : getServiceDetail}
+                    />
+                  </View>
+                )
+              }
+              }
+              renderSectionHeader={({ section }) => {
+                return (
+                  <View style={styles.rowSectionHeader}>
+                    <Text style={styles.categoryName}>
+                      {section?.category?.name}
+                    </Text>
+                  </View>
+                )
+              }}
+            />
+          </View>
 
         </View>
         <DialogConfirm
@@ -98,6 +105,14 @@ export const Layout = ({
           titleContent={t("Are you sure you want to delete this category?")}
           onConfirmYes={handleArchiveCategory}
           onModalHide={() => setTempCategory("")}
+        />
+
+        <DialogActiveGiftCard
+          ref={dialogActiveGiftCard}
+          title="Enter gift card serial number"
+          onConfirmYes={() => { }}
+          onModalHide={() => { }}
+          onSuccess={onCheckGiftCardSucces}
         />
       </SingleScreenLayout>
     </View>
@@ -122,7 +137,7 @@ const styles = StyleSheet.create({
   rowSectionHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   treedot: {
     width: scaleWidth(24),

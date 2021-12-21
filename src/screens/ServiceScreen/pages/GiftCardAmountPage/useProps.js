@@ -1,9 +1,9 @@
 import React from 'react';
-import { useAxiosQuery, useAxiosMutation, getAppointmentById } from '@src/apis';
+import { getAppointmentById } from '@src/apis';
 import { useDispatch, useSelector } from "react-redux";
-import { customer, bookAppointment, appointment } from "@redux/slices";
+import { appointment, editAppointment } from "@redux/slices";
 import { useForm, useWatch } from "react-hook-form";
-import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
+import { formatNumberFromCurrency, formatMoney, guid } from "@shared/utils";
 import { yupResolver } from '@hookform/resolvers/yup';
 import NavigationService from '@navigation/NavigationService';
 import * as yup from "yup";
@@ -26,7 +26,7 @@ export const useProps = (props) => {
   const { errors } = form.formState;
 
   const {
-    bookAppointment: { giftCards = [] }
+    editAppointment: { appointmentEdit }
   } = useSelector(state => state);
 
   const [amount, setAmountSelected] = React.useState("");
@@ -58,19 +58,13 @@ export const useProps = (props) => {
 
     onSubmit: async (values) => {
       if (values.amount) {
-        let tempGiftCards = [...giftCards];
-        const index = tempGiftCards.findIndex(obj => obj?.giftCardId == giftCardInfo?.giftCardId);
-        if (index !== -1) {
-          tempGiftCards[index].price = values.amount;
-        } else {
-          const giftCardAdded = {
-            ...giftCardInfo,
-            price: values.amount,
-          };
-          tempGiftCards.push(giftCardAdded);
-        }
-        dispatch(bookAppointment.setGiftCardsBooking(tempGiftCards));
-        NavigationService.navigate(screenNames.ReviewConfirm);
+        const giftCardAdded = {
+          ...giftCardInfo,
+          price: values.amount,
+          uniqueId : guid(),
+        };
+        dispatch(editAppointment.addGiftCard(giftCardAdded));
+        NavigationService.navigate(screenNames.EditAppointmentScreen);
       }
     },
 
