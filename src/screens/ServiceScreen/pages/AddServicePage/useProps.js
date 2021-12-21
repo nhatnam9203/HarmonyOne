@@ -161,47 +161,84 @@ export const useProps = (props) => {
           }
         }
 
-        const categoryMerged = [
+        let categoryMerged = [
           ...tempArr,
           ...tempCategoryProducts,
         ];
 
-        return categoryMerged.filter(cate => cate.isDisabled == 0).map((cate, index) => {
-          // const dataList = servicesList.filter((sv) => (sv.categoryId == cate.categoryId));
+        categoryMerged = categoryMerged.reduce(function (ids, cate) {
+          if (cate.isDisabled == 0) {
+            const serviceData = servicesList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId));
+            const productData = productsList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId));
+            const dataMerged = [
+              ...serviceData,
+              ...productData,
+            ];
+
+            if (dataMerged.length > 0) {
+              ids.push(cate);
+            }
+          }
+          return ids;
+        }, []);
+
+        return categoryMerged.map((cate, index) => {
 
           const serviceData = servicesList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId));
           const productData = productsList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId));
 
+          const dataMerged = [
+            ...serviceData,
+            ...productData,
+          ];
+
           return {
             category: cate,
-            data: [
-              ...serviceData,
-              ...productData,
-            ],
+            data: dataMerged,
             index
           }
         });
+
+
       } else {
 
         const tempCategoryServices = [...categoryList].filter(cate => cate?.categoryType?.toString()?.toLowerCase() == "service");
         const tempCategoryProducts = [...categoryList].filter(cate => cate?.categoryType?.toString()?.toLowerCase() == "product");
 
-        const categoryMerged = [
+        let categoryMerged = [
           ...tempCategoryServices,
           ...tempCategoryProducts,
         ];
 
-        return categoryMerged.filter(cate => cate.isDisabled == 0).map((cate, index) => {
-          // const dataList = servicesList.filter((sv) => (sv.categoryId == cate.categoryId));
+        categoryMerged = categoryMerged.reduce(function (ids, cate) {
+          if (cate.isDisabled == 0) {
+            const serviceData = servicesList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId));
+            const productData = productsList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId));
+            const dataMerged = [
+              ...serviceData,
+              ...productData,
+            ];
+
+            if (dataMerged.length > 0) {
+              ids.push(cate);
+            }
+          }
+          return ids;
+        }, []);
+
+        return categoryMerged.map((cate, index) => {
+
           const serviceData = servicesList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId));
           const productData = productsList.filter((sv) => (sv.isDisabled == 0 && sv.categoryId == cate.categoryId));
 
+          const dataMerged = [
+            ...serviceData,
+            ...productData,
+          ];
+
           return {
             category: cate,
-            data: [
-              ...serviceData,
-              ...productData,
-            ],
+            data: dataMerged,
             index
           }
         });
@@ -281,14 +318,14 @@ export const useProps = (props) => {
     onCheckGiftCardSucces: (data, serialNumber) => {
       dialogActiveGiftCard?.current?.hide();
       NavigationService.navigate(
-          screenNames.GiftCardAmountPage, {
-              giftCardInfo: {
-                  ...data,
-                  name: "Gift card - " + serialNumber?.toString()?.substring(serialNumber?.toString()?.length - 4)
-              }
+        screenNames.GiftCardAmountPage, {
+        giftCardInfo: {
+          ...data,
+          name: "Gift card - " + serialNumber?.toString()?.substring(serialNumber?.toString()?.length - 4)
+        }
       }
       );
-  },
+    },
 
   };
 };
