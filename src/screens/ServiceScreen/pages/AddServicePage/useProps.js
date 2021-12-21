@@ -115,6 +115,8 @@ export const useProps = (props) => {
     setTempCategory,
     isRefresh,
     dialogActiveGiftCard,
+    roleName,
+    staff,
 
     onRefresh: () => {
       setRefresh(true);

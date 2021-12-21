@@ -41,6 +41,8 @@ export const Layout = ({
   onRefresh,
   dialogActiveGiftCard,
   onCheckGiftCardSucces,
+  roleName,
+  staff,
 }) => {
 
   const [t] = useTranslation();
@@ -87,29 +89,46 @@ export const Layout = ({
                     </View>
                   )
                 } else if (item?.serviceId) {
-                  return (
-                    <View pointerEvents={isDiabled ? "none" : "auto"} style={{ opacity: isDiabled ? 0.4 : 1 }}>
-                      <InputSelectStaff
-                        items={[]}
-                        itemSelected={null}
-                        serviceId={item?.serviceId}
-                        onSelect={(staffId) => {
-                          const tempItem = {
-                            ...item,
-                            staffId,
-                          }
-                          getServiceDetail(tempItem)
-                        }}
-                        renderInput={() => (
-                          <ItemService
-                            item={item}
-                            onPress={() => { }}
-                            isDisabled={true}
-                          />
-                        )}
-                      />
-                    </View>
-                  )
+                  if (roleName == "staff") {
+                    return (
+                      <View style={{ opacity: isDiabled ? 0.4 : 1 }}>
+                        <ItemService
+                          item={item}
+                          onPress={isDiabled ? () => { } : () => {
+                            const tempItem = {
+                              ...item,
+                              staffId: staff?.staffId
+                            }
+                            getServiceDetail(tempItem)
+                          }}
+                        />
+                      </View>
+                    )
+                  } else {
+                    return (
+                      <View pointerEvents={isDiabled ? "none" : "auto"} style={{ opacity: isDiabled ? 0.4 : 1 }}>
+                        <InputSelectStaff
+                          items={[]}
+                          itemSelected={null}
+                          serviceId={item?.serviceId}
+                          onSelect={(staffId) => {
+                            const tempItem = {
+                              ...item,
+                              staffId,
+                            }
+                            getServiceDetail(tempItem)
+                          }}
+                          renderInput={() => (
+                            <ItemService
+                              item={item}
+                              onPress={() => { }}
+                              isDisabled={true}
+                            />
+                          )}
+                        />
+                      </View>
+                    )
+                  }
                 }
               }
               }
