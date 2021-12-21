@@ -164,7 +164,7 @@ const editAppointment = createSlice({
             } else {
                 service.fromTime = `${moment().format("YYYY-MM-DD")}T${moment().format("HH:mm")}:00`;
             }
-            service.staffId = tempAppointment.staffId;
+            // service.staffId = tempAppointment.staffId;
 
             tempServices.push(service);
             tempExtras = [

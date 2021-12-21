@@ -4,7 +4,7 @@ import { convertMinsToHrsMins } from '@utils'
 import { fonts, colors, images } from "@shared/themes";
 import { CustomImage } from "@shared/components";
 
-export const ItemService = ({ item, onPress, renderDuration = null , titleStyle }) => {
+export const ItemService = ({ item, onPress, renderDuration = null , titleStyle, isDisabled = false }) => {
 
     const img = item?.imageUrl ? { uri: item?.imageUrl } : images.serviceDefault;
 
@@ -17,6 +17,7 @@ export const ItemService = ({ item, onPress, renderDuration = null , titleStyle 
             onPress={onPressItem}
             activeOpacity={1}
             style={[styles.row, styles.item]}
+            disabled={isDisabled}
         >
             <CustomImage
                 style={styles.iconService}

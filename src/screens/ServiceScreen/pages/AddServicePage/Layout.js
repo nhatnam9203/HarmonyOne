@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView, SectionList } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { Button, IconButton, SearchInput, DialogConfirm, ItemService, ListEmptyComponent, GroupButtonAdd, DialogActiveGiftCard } from "@shared/components";
+import { Button, IconButton, SearchInput, DialogConfirm, ItemService, ListEmptyComponent, GroupButtonAdd, DialogActiveGiftCard, InputSelectStaff } from "@shared/components";
 import { fonts, colors, images } from '@shared/themes';
 import { slop } from "@shared/utils";
 import { useSelector } from "react-redux";
@@ -76,14 +76,41 @@ export const Layout = ({
                 const isDiabled =
                   appointmentEdit?.services?.find(obj => obj?.serviceId == item?.serviceId) ||
                   appointmentEdit?.products?.find(obj => obj?.productId == item?.productId);
-                return (
-                  <View style={{ opacity: isDiabled ? 0.4 : 1 }}>
-                    <ItemService
-                      item={item}
-                      onPress={isDiabled ? () => { } : getServiceDetail}
-                    />
-                  </View>
-                )
+
+                if (item?.productId) {
+                  return (
+                    <View style={{ opacity: isDiabled ? 0.4 : 1 }}>
+                      <ItemService
+                        item={item}
+                        onPress={isDiabled ? () => { } : getServiceDetail}
+                      />
+                    </View>
+                  )
+                } else if (item?.serviceId) {
+                  return (
+                    <View pointerEvents={isDiabled ? "none" : "auto"} style={{ opacity: isDiabled ? 0.4 : 1 }}>
+                      <InputSelectStaff
+                        items={[]}
+                        itemSelected={null}
+                        serviceId={item?.serviceId}
+                        onSelect={(staffId) => {
+                          const tempItem = {
+                            ...item,
+                            staffId,
+                          }
+                          getServiceDetail(tempItem)
+                        }}
+                        renderInput={() => (
+                          <ItemService
+                            item={item}
+                            onPress={() => { }}
+                            isDisabled={true}
+                          />
+                        )}
+                      />
+                    </View>
+                  )
+                }
               }
               }
               renderSectionHeader={({ section }) => {
