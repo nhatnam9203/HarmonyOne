@@ -32,7 +32,7 @@ export const useProps = ({
       dayBooking,
     },
     auth: { staff },
-    staff: { staffListByMerchant = [] },
+    staff: { staffListByMerchant = [], staffsByDate = [] },
   } = useSelector(state => state);
 
   const staffSelectedAppointmentScreen = useSelector(state => state.appointment.staffSelected);
@@ -166,7 +166,7 @@ export const useProps = ({
 
     let staffSelected = getStaffSelected();
 
-    if (roleName == "admin" || roleName == "manager") {
+    if ((roleName == "admin" || roleName == "manager") && staffsByDate.length !== 1) {
       if (staffSelectedAppointmentScreen !== 0) {
         staffSelected = staffListByMerchant?.find(s => s?.staffId == staffSelectedAppointmentScreen);
       } else {
@@ -224,7 +224,7 @@ export const useProps = ({
     inputPriceRef,
 
     goToSelectStaff: () => {
-      if (roleName == "admin" || roleName == "manager") {
+      if ((roleName == "admin" || roleName == "manager") && staffsByDate.length !== 1) {
         /**************** BOOK APPOINTMENT ROLE ADMIN & MANAGER  *****************/
         if (servicesBooking.length == 0) {
           if (isQuickCheckout && staffSelectedAppointmentScreen == 0) {

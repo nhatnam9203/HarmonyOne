@@ -37,7 +37,7 @@ export const Layout = ({
             {
               itremsRender.map((item) => (
                 <ItemSelect
-                  key={item.title}
+                  key={item.title}Appo
                   title={item.title}
                   icon={item.icon}
                   onPress={()=>item.onPress()}

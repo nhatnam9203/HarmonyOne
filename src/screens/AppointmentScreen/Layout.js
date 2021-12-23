@@ -44,6 +44,9 @@ export const Layout = ({
     }
   }
 
+  const staffList = getStaffList();
+
+
   return (
     <View style={styles.container}>
       <SingleScreenLayout
@@ -68,9 +71,9 @@ export const Layout = ({
       >
         <View style={styles.content}>
           {
-            (roleName == "admin" || roleName == "manager") ?
+            ((roleName == "admin" || roleName == "manager") && staffList.length !== 1) ?
               <StaffList
-                staffsByDate={getStaffList()}
+                staffsByDate={staffList}
                 selectStaff={selectStaff}
                 staffSelected={staffSelected}
                 isLoading={isLoading}
@@ -100,7 +103,7 @@ export const Layout = ({
         titleContent={
           t("Are you sure yout want to log out of your account from this device ?")
         }
-        onConfirmYes={()=>{}}
+        onConfirmYes={() => { }}
         onModalHide={() => { }}
       />
     </View>
