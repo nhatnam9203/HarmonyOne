@@ -9,8 +9,6 @@ import MapView from "react-native-maps";
 import { Marker } from "react-native-maps";
 import { isEmpty } from "lodash";
 import NavigationService from '@navigation/NavigationService';
-import Geolocation from '@react-native-community/geolocation';
-
 
 export const Location = ({
     addressFull,
@@ -24,29 +22,6 @@ export const Location = ({
         latitude: 10.75475,
         longitude: 106.647537,
     });
-
-    React.useEffect(() => {
-        getCurrentLocation();
-    }, []);
-
-    const getCurrentLocation = () => {
-        Geolocation.getCurrentPosition(
-            async (position) => {
-                const {
-                    coords
-                } = position;
-
-                setGeometric({
-                    latitude: coords?.latitude,
-                    longitude: coords?.longitude,
-                })
-            },
-            (error) => {
-                console.log(error.message);
-            },
-            { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 },
-        );
-    };
 
     return (
         <View style={styles.container}>

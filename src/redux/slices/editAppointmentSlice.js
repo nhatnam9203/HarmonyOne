@@ -229,7 +229,6 @@ const editAppointment = createSlice({
         },
 
         editProduct: (state, action) => {
-            console.log('action edit product : ', { action });
             let tempAppointment = {
                 ...state.appointmentEdit,
             }

@@ -132,8 +132,6 @@ export const useProps = (props) => {
     return true;
   }
 
-  console.log({ categoryList })
-
 
   return {
     form,
