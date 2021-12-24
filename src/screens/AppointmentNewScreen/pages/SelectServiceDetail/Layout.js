@@ -6,6 +6,7 @@ import { ExtraOfService } from './ExtraOfService';
 import { slop } from "@shared/utils";
 import { isEmpty } from "lodash";
 import { TextInputMask } from "react-native-masked-text";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 export const Layout = ({
@@ -29,7 +30,7 @@ export const Layout = ({
 
   return (
     <View style={styles.container}>
-      <ScrollView bounces={false} style={styles.content}>
+      <KeyboardAwareScrollView bounces={false} style={styles.content}>
         <View style={styles.containerBigImage}>
           {
             !isEmpty(item?.imageUrl) ?
@@ -153,7 +154,7 @@ export const Layout = ({
 
         <View style={{ height: scaleHeight(100) }} />
 
-      </ScrollView>
+      </KeyboardAwareScrollView>
       <View style={styles.bottom}>
         <Button
           label="Next"
