@@ -113,7 +113,21 @@ export const useProps = (props) => {
 
   React.useEffect(() => {
     if (payAppointmentId && methodPay.method === "credit_card") {
-      handlePaymentByCredit();
+      let isSetup = false;
+      if (paymentMachineType == PaymentTerminalType.Pax) {
+        isSetup = _.get(paxMachineInfo, "isSetup");
+      } else if (paymentMachineType == PaymentTerminalType.Dejavoo) {
+        isSetup = _.get(dejavooMachineInfo, "isSetup");
+      } else {
+        isSetup = _.get(cloverMachineInfo, "isSetup");
+      }
+      if (isSetup) {
+        handlePaymentByCredit();
+      } else {
+        setTimeout(() => {
+          alert("Please connect your Payment terminal to take payment.");
+        }, 300);
+      }
     }
   }, [payAppointmentId]);
 
@@ -312,6 +326,7 @@ export const useProps = (props) => {
     ...cancelHarmonyPayment(),
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
+        console.log('submitCancelHarmonyPayment', response, methodPay)
         if (methodPay.method === "credit_card") {
           setTimeout(() => {
             popupErrorMessageRef?.current?.show();
@@ -471,7 +486,7 @@ export const useProps = (props) => {
         const tempIpPax = commType == "TCP" ? ip : "";
         const tempPortPax = commType == "TCP" ? port : "";
         const idBluetooth = commType === "TCP" ? "" : bluetoothAddr;
-        const extData = "<Force>T</Force>";
+        const extData = "<Force>T</Force><TipRequest>1</TipRequest>";
         const moneyCreditCard = Number(
           formatNumberFromCurrency(Number(groupAppointments?.dueAmount)) * 100
         ).toFixed(2);
@@ -553,18 +568,8 @@ export const useProps = (props) => {
     popupPayProcessingRef?.current?.hide();
     try {
       const result = JSON.parse(message);
-      if (_.get(result, "status", 0) == 0) {
-        if (payAppointmentId) {
-          this.props.actions.appointment.cancelHarmonyPayment(
-            payAppointmentId,
-            "transaction fail",
-            result?.message
-          );
-        }
-        setErrorMessageFromPax(result?.message || "Transaction failed");
-        const body = cancelHarmonyPayment(payAppointmentId, data)
-        submitCancelHarmonyPayment(body.params);
-      } else if (result.ResultCode && result.ResultCode == "000000") {
+      console.log('result', result)
+      if (result.ResultCode && result.ResultCode == "000000") {
         const body = await submitPaymentWithCreditCard(staff?.merchantId || 0,
           message,
           payAppointmentId,
@@ -574,10 +579,22 @@ export const useProps = (props) => {
         submitPaymentCreditCard(body.params);
 
       } else {
-        const resultTxt = result?.ResultTxt || "Transaction failed";
-        setErrorMessageFromPax(resultTxt);
-        const body = cancelHarmonyPayment(payAppointmentId, data)
-        submitCancelHarmonyPayment(body.params);
+         if (payAppointmentId) {
+            let resultTxt = "";
+            if (_.get(result, "status", 0) == 0) {
+              resultTxt = result?.message || "Transaction failed";
+            } else {
+              resultTxt = result?.ResultTxt || "Transaction failed";
+            }
+          
+            const data = {
+              status: "transaction fail",
+              note: resultTxt,
+            }
+            setErrorMessageFromPax(resultTxt);
+            const body = await cancelHarmonyPayment(payAppointmentId, data)
+            submitCancelHarmonyPayment(body.params);
+         }
       }
     } catch (error) { }
   }
