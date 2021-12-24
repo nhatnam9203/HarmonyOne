@@ -25,7 +25,9 @@ export const useProps = (_params) => {
     isLoadingDefault: true,
     enabled: false,
     onSuccess: (data, response) => {
+
       dispatch(staffAction.setStaffListByMerchant(data));
+      NavigationService.navigate(screenNames.SettingScreen);
     },
   });
 
@@ -34,7 +36,6 @@ export const useProps = (_params) => {
     onSuccess: (data, response) => {
       if (response.codeNumber == 200) {
         Alert.alert(response?.message);
-        NavigationService.navigate(screenNames.SettingScreen);
         fetchStaffList();
       } else {
         Alert.alert(response?.message);
