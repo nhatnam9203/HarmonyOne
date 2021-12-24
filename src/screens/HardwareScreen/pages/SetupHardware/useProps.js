@@ -71,7 +71,9 @@ export const useProps = (props) => {
         nameTemp = _.get(paxMachineInfo, 'name')
         ipTemp = _.get(paxMachineInfo, 'ip')
         portTemp = _.get(paxMachineInfo, 'port')
-        commType = _.get(paxMachineInfo, 'commType')
+        commType = !stringIsEmptyOrWhiteSpaces(_.get(paxMachineInfo, 'commType')) 
+                  ? _.get(paxMachineInfo, 'commType') 
+                  : "TCP"
         bluetoothAddr = _.get(paxMachineInfo, 'bluetoothAddr')
 
      } else if(paymentMachineType == PaymentTerminalType.Clover){
@@ -206,7 +208,9 @@ export const useProps = (props) => {
           tempName = _.get(paxMachineInfo, 'name')
           tempIp = _.get(paxMachineInfo, 'ip')
           tempPort = _.get(paxMachineInfo, 'port')
-          commType = _.get(paxMachineInfo, 'commType')
+          commType = !stringIsEmptyOrWhiteSpaces(_.get(paxMachineInfo, 'commType')) 
+          ? _.get(paxMachineInfo, 'commType') 
+          : "TCP"
           bluetoothAddr = _.get(paxMachineInfo, 'bluetoothAddr')
         } else if (terminalNameTemp == PaymentTerminalType.Dejavoo) {
           tempName = _.get(dejavooMachineInfo, 'name')
@@ -254,6 +258,7 @@ export const useProps = (props) => {
                 name: device?.name || "",
                 localName: device?.localName || ""
             });
+            console.log('tempPeripherals', tempPeripherals)
 
             setPeripherals(tempPeripherals);
         }
@@ -307,6 +312,9 @@ export const useProps = (props) => {
     },
     changePort: (port) => {
       setPort(port);
+    },
+    changeBluetoothAddr: (bluetoothAddress) => {
+      setBluetoothAddr(bluetoothAddress);
     },
     setTerminalIdSelected: (terminal) => {
 

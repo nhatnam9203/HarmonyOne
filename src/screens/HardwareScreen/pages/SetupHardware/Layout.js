@@ -48,6 +48,7 @@ export const Layout = ({
     changeAuthKey,
     changeIp,
     changePort,
+    changeBluetoothAddr,
     setTerminalIdSelected,
     saveCommType,
     scanDevices,
@@ -143,6 +144,41 @@ export const Layout = ({
             {
                 commType === "BLUETOOTH" ?
                     <>
+                        <SettingTextInput
+                            title={t('Name')}
+                            placeholder={t('Device name')}
+                            value={name}
+                            onChangeText={changeName}
+                        />
+                         <SettingTextInput
+                            title={t('Bluetooth ID')}
+                            placeholder={'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'}
+                            value={bluetoothAddr}
+                            onChangeText={changeBluetoothAddr}
+                            keyboardType="numeric"
+                            editable={false}
+                            style={{ backgroundColor: "rgb(250,250,250)" }}
+                        />
+                        <View style={styles.terminalView}>
+                            <Text style={{
+                                fontSize: scaleFont(13), 
+                                color: 'rgb(42,42,42)',
+                                width: '40%',
+                                }} >
+
+                                {t('Select Terminal ID')}
+                            </Text>
+                            <DropdownMenu
+                                ref={terminalListRef}
+                                items={terminalIdList}
+                                onChangeValue={setTerminalIdSelected}
+                                defaultIndex={terminalIndex || 0}
+                                width={scaleWidth(200)}
+                                height={scaleHeight(50)}
+                                styleDropDown={styles.styleDropDown}
+                                textStyle={styles.dropdownText}
+                            />
+                        </View>
                         <TouchableOpacity onPress={() => scanDevices()} style={{
                             flexDirection: 'row', alignItems: 'center', width: scaleWidth(120),
                             marginTop: scaleHeight(20), marginLeft: scaleWidth(15)
@@ -361,7 +397,7 @@ export const Layout = ({
                     </> : null
                 }
 
-                { <View style={styles.terminalView}>
+                { commType != "BLUETOOTH" && <View style={styles.terminalView}>
                         <Text style={{
                             fontSize: scaleFont(13), 
                             color: 'rgb(42,42,42)',

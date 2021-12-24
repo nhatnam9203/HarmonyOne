@@ -24,6 +24,7 @@ export const SettingTextInput = ({
                 value={value}
                 onChangeText={onChangeText}
                 keyboardType={keyboardType}
+                {...inputProps}
             />
         </View>
     </View>
