@@ -217,12 +217,12 @@ export const useProps = (props) => {
 
     getActionSheets: (category) => [
       {
-        id: 'new-category',
+        id: 'new-product',
         label: t('New product'),
         func: () => {
           NavigationService.navigate(
             screenNames.ProductNewScreen,
-            { categoryId : category.categoryId, isNewWithCategory: true }
+            { categoryId : category.categoryId, isNewWithCategory: true, refreshProduct }
           );
         },
       },
