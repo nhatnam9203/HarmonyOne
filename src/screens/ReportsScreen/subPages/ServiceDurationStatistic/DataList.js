@@ -4,7 +4,7 @@ import { fonts, colors, images } from "@shared/themes";
 import { app, invoice } from "@redux/slices";
 import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
-import { getCredicardIcon } from "@shared/utils";
+import { getCredicardIcon, convertMinsToHrsMins } from "@shared/utils";
 import moment from "moment";
 
 
@@ -25,7 +25,31 @@ export const DataList = ({
             case "differenceDurationMinute":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'center' }]}>
-                        {`${item?.differenceDurationMinute} min`}
+                        {`${convertMinsToHrsMins(item?.differenceDurationMinute)}`}
+                    </Text>
+                );
+            case "service":
+                return (
+                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'center' }]}>
+                        {`${item?.service}`}
+                    </Text>
+                );
+            case "duration":
+                return (
+                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'center' }]}>
+                        {`${item?.duration}`}
+                    </Text>
+                );
+            case "fromTime":
+                return (
+                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'center' }]}>
+                        {`${item?.fromTime}`}
+                    </Text>
+                );
+            case "toTime":
+                return (
+                    <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'center' }]}>
+                        {`${item?.toTime}`}
                     </Text>
                 );
             default:
@@ -41,10 +65,18 @@ export const DataList = ({
             tableData={data}
             tableHead={{
                 date: "Date",
+                service: "Service",
+                duration: "Service duration",
+                fromTime: "Start time",
+                toTime: "End time",
                 differenceDurationMinute: "Duration difference",
             }}
             whiteKeys={[
                 "date",
+                "service",
+                "duration",
+                "fromTime",
+                "toTime",
                 "differenceDurationMinute",
             ]}
             primaryId="name"
@@ -53,7 +85,7 @@ export const DataList = ({
                 "differenceDurationMinute",
             ]}
             priceKeys={[
- 
+
             ]}
 
             sumTotalKey={"date"}
@@ -66,7 +98,7 @@ export const DataList = ({
             maxColumnCount={3}
             sortDefault="NONE"
             sortKey="date"
-            tableCellWidth={{ date: scaleWidth(130), differenceDurationMinute : scaleWidth(375-130) }}
+            tableCellWidth={{ date: scaleWidth(130) }}
             renderCell={renderCell}
             renderActionCell={() => null}
             isRefreshing={isRefresh}

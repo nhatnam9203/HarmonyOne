@@ -4,7 +4,8 @@ import { fonts, colors, images } from "@shared/themes";
 import { app, invoice } from "@redux/slices";
 import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
-import { getCredicardIcon } from "@shared/utils";
+import { getCredicardIcon, convertMinsToHrsMins } from "@shared/utils";
+
 import moment from "moment";
 import NavigationService from '@navigation/NavigationService';
 
@@ -39,10 +40,10 @@ export const DataList = ({
                 return <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR }]}>
                     {item?.name}
                 </Text>
-            case "differenceDuration":
+            case "differenceDurationMinute":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
-                        {item?.differenceDuration}
+                        {convertMinsToHrsMins(item?.differenceDurationMinute)}
                     </Text>
                 )
             default:
@@ -57,16 +58,16 @@ export const DataList = ({
             tableData={data}
             tableHead={{
                 name: "Staff name",
-                differenceDuration: "Duration difference",
+                differenceDurationMinute: "Duration difference",
             }}
             whiteKeys={[
                 "name",
-                "differenceDuration"
+                "differenceDurationMinute"
             ]}
             primaryId="staffId"
             sumTotalKey="name"
             calcSumKeys={[
-
+                "differenceDurationMinute"
             ]}
             priceKeys={[
             ]}
@@ -77,11 +78,11 @@ export const DataList = ({
 
             headStyle={{ color: colors.ocean_blue, fontSize: scaleFont(15), textAlign: 'right' }}
             unitKeys={{ salary: "", }}
-            arrTextTotal={["differenceDuration"]}
+            arrTextTotal={[""]}
             maxColumnCount={3}
             sortDefault="NONE"
             sortKey="name"
-            tableCellWidth={{ name: scaleWidth(375 / 2 - 50), differenceDuration: scaleWidth(237.5) }}
+            tableCellWidth={{ name: scaleWidth(375 / 2 - 50), differenceDurationMinute: scaleWidth(237.5) }}
             renderCell={renderCell}
             renderActionCell={() => null}
             isRefreshing={isRefresh}

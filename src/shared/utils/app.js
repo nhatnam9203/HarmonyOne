@@ -8,7 +8,7 @@ import {
 import PrintManager from "@lib/PrintManager";
 import Share from "react-native-share";
 import configureStore from '@src/redux/store';
-import _ from "lodash";
+import _, { min } from "lodash";
 const { persistor, store } = configureStore();
 const { clover } = NativeModules;
 
@@ -214,13 +214,34 @@ export function getTimeAvaible(staff_available_time) {
 }
 
 export function convertMinsToHrsMins(mins) {
-  let h = Math.floor(mins / 60);
-  let m = mins % 60;
+  let minutes = mins;
+  if(mins?.toString().includes("+")){
+    minutes = minutes?.toString()?.replace("+","");
+    minutes = parseInt(minutes);
+  }
+
+  if(mins?.toString().includes("-")){
+    minutes = minutes?.toString()?.replace("-","");
+    minutes = parseInt(minutes);
+  }
+
+  let h = Math.floor(minutes / 60);
+  let m = minutes % 60;
   // h = h < 10 ? '0' + h : h;
   // m = m < 10 ? '0' + m : m;
   if (h !== 0 && m == 0) return `${h} hour`;
   if (h !== 0 && m !== 0) return `${h} hour ${m} min`;
-  return `${m} min`;
+
+  let stringConvert = `${m} min`;
+  if(mins?.toString().includes("+")){
+    stringConvert = `+${stringConvert}`;
+  }
+
+  if(mins?.toString().includes("-")){
+    stringConvert = `-${stringConvert}`;
+  }
+
+  return stringConvert;
 }
 
 export const workingTimesData = {

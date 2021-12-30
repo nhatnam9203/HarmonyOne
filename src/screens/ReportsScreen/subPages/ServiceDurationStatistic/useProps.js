@@ -20,8 +20,8 @@ export const useProps = (props) => {
     auth: { staff },
     report: {
       serviceDurationStaffDetail = [],
+      servicesDuration = [],
     },
-    staff: { staffListByMerchant = [] }
   } = useSelector(state => state);
 
   /********************************* STATE  ********************************* */
@@ -88,16 +88,15 @@ export const useProps = (props) => {
 
   React.useEffect(() => {
     if (staffId) {
-      const staffObj = staffListByMerchant.find(obj => obj?.staffId == staffId);
+      const staffObj = servicesDuration.find(obj => obj?.staffId == staffId);
       if (staffObj) {
         setStaffSelected({
-          label: staffObj?.displayName,
+          label: staffObj?.name,
           value: staffObj?.staffId
         })
       }
     }
   },[]);
-
 
   return {
     isRefresh,
@@ -110,8 +109,8 @@ export const useProps = (props) => {
     serviceDurationStaffDetail,
 
     getContentList: () => {
-      return staffListByMerchant.map(obj => ({
-        label: obj?.displayName,
+      return servicesDuration.map(obj => ({
+        label: obj?.name,
         value: obj?.staffId
       }))
     },

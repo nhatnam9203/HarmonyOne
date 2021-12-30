@@ -34,6 +34,8 @@ export const Layout = ({
 
   const [t] = useTranslation();
 
+  const staffList = getContentList();
+
   return (
     <View style={styles.container}>
       <SingleScreenLayout
