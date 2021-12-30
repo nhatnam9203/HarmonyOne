@@ -15,6 +15,9 @@ const StaffInfoLgin = ({
     const blockTimes = useSelector(state => state.appointment.blockTimes) || [];
     const salaryStaffLogin = useSelector(state=>state.staff.salaryStaffLogin);
 
+    let money = formatNumberFromCurrency(salaryStaffLogin?.serviceSales) + formatNumberFromCurrency(salaryStaffLogin?.productSales);
+    money = formatMoney(money);
+
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: "row" }}>
@@ -30,7 +33,7 @@ const StaffInfoLgin = ({
 
             <View style={{ paddingTop: scaleWidth(4), alignItems: "flex-end" }}>
                 {/* <Text style={styles.income}>Income</Text> */}
-                <Text style={styles.amountIncome}>$ {salaryStaffLogin?.salary || "0.00"}</Text>
+                <Text style={styles.amountIncome}>$ {money || "0.00"}</Text>
             </View>
         </View>
     );
