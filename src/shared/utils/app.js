@@ -1,10 +1,10 @@
 import moment from 'moment';
 import { images } from "../themes/resources";
 import RNFetchBlob from 'rn-fetch-blob';
-import { 
+import {
   Platform,
   NativeModules,
- } from "react-native";
+} from "react-native";
 import PrintManager from "@lib/PrintManager";
 import Share from "react-native-share";
 import configureStore from '@src/redux/store';
@@ -215,13 +215,13 @@ export function getTimeAvaible(staff_available_time) {
 
 export function convertMinsToHrsMins(mins) {
   let minutes = mins;
-  if(mins?.toString().includes("+")){
-    minutes = minutes?.toString()?.replace("+","");
+  if (mins?.toString().includes("+")) {
+    minutes = minutes?.toString()?.replace("+", "");
     minutes = parseInt(minutes);
   }
 
-  if(mins?.toString().includes("-")){
-    minutes = minutes?.toString()?.replace("-","");
+  if (mins?.toString().includes("-")) {
+    minutes = minutes?.toString()?.replace("-", "");
     minutes = parseInt(minutes);
   }
 
@@ -229,15 +229,17 @@ export function convertMinsToHrsMins(mins) {
   let m = minutes % 60;
   // h = h < 10 ? '0' + h : h;
   // m = m < 10 ? '0' + m : m;
-  if (h !== 0 && m == 0) return `${h} hour`;
-  if (h !== 0 && m !== 0) return `${h} hour ${m} min`;
 
   let stringConvert = `${m} min`;
-  if(mins?.toString().includes("+")){
+
+  if (h !== 0 && m == 0) stringConvert = `${h} hour`;
+  if (h !== 0 && m !== 0) stringConvert = `${h} hour ${m} min`;
+
+  if (mins?.toString().includes("+")) {
     stringConvert = `+${stringConvert}`;
   }
 
-  if(mins?.toString().includes("-")){
+  if (mins?.toString().includes("-")) {
     stringConvert = `-${stringConvert}`;
   }
 
@@ -619,7 +621,7 @@ export const doPrintClover = (imageUri) => {
   const { cloverMachineInfo } = hardware;
   const port = _.get(cloverMachineInfo, 'port') ? _.get(cloverMachineInfo, 'port') : 80
   const url = `wss://${_.get(cloverMachineInfo, 'ip')}:${port}/remote_pay`
-  
+
   const printInfo = {
     imageUri,
     url,

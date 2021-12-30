@@ -43,13 +43,13 @@ export const DataList = ({
             case "fromTime":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'center' }]}>
-                        {`${item?.fromTime}`}
+                        {`${item?.toTime}`}
                     </Text>
                 );
             case "toTime":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'center' }]}>
-                        {`${item?.toTime}`}
+                        {`${item?.fromTime}`}
                     </Text>
                 );
             default:
