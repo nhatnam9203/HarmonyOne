@@ -386,7 +386,7 @@ function TableListExtended({
             renderActionCell && renderActionCell(actProps);
 
           return keyIndex === 0 ? (
-            <View
+            <TouchableOpacity
               style={[styles.headName, { backgroundColor: "#fff" }]}
               key={keyUnique}
             >
@@ -410,7 +410,7 @@ function TableListExtended({
                     </Text>
                   )}
               </TableCell>
-            </View>
+            </TouchableOpacity>
           ) : (
             <TableCell
               onPress={() => onCellPress(actProps)}
@@ -653,7 +653,7 @@ function TableListExtended({
         showsVerticalScrollIndicator={Platform.OS == "ios" ? true : false}
         // onScroll={onScroll}
         // onMomentumScrollBegin={onMomentumScrollBegin}
-        // onMomentumScrollEnd={onMomentumScrollEnd}
+        onMomentumScrollEnd={onMomentumScrollEnd}
         scrollEventThrottle={16}
         onScrollEndDrag={onScrollEndDrag}
         onScrollBeginDrag={onScrollBeginDrag}

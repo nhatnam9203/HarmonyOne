@@ -13,9 +13,20 @@ const StaffInfoLgin = ({
     staffInfo
 }) => {
     const blockTimes = useSelector(state => state.appointment.blockTimes) || [];
-    const salaryStaffLogin = useSelector(state=>state.staff.salaryStaffLogin);
+    const salaryStaffLogin = useSelector(state => state.staff.salaryStaffLogin);
 
     let money = formatNumberFromCurrency(salaryStaffLogin?.serviceSales) + formatNumberFromCurrency(salaryStaffLogin?.productSales);
+
+    for (const appointment of blockTimes) {
+        if (appointment?.staffId == staffInfo?.staffId) {
+            const giftCards = appointment?.giftCards ?? [];
+            for (const gift of giftCards) {
+                const price = formatNumberFromCurrency(gift?.price);
+                money += formatNumberFromCurrency(gift?.price);
+            }
+        }
+    }
+
     money = formatMoney(money);
 
     return (
