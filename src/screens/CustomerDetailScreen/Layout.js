@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, Image, TouchableOpacity, ScrollView  } from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
@@ -65,7 +65,7 @@ export const Layout = ({
             allBooking={customerDetail?.customerHistory?.allBooking || "0"}
             completed={customerDetail?.customerHistory?.completed || "0"}
             cancelled={customerDetail?.customerHistory?.cancelled || "0"}
-            upcomming={customerDetail?.customerHistory?.upcomming || "0"}
+            upcomming={customerDetail?.customerHistory?.upcomings?.length || "0"}
           />
           <CustomerAppointments
             upcomings={customerDetail?.customerHistory?.upcomings || []}
