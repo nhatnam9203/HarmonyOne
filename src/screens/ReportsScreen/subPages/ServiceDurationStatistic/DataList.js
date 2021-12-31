@@ -37,7 +37,7 @@ export const DataList = ({
             case "duration":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'center' }]}>
-                        {`${item?.duration}`}
+                        {`${item?.duration} hrs`}
                     </Text>
                 );
             case "fromTime":
@@ -87,6 +87,7 @@ export const DataList = ({
             priceKeys={[
 
             ]}
+            isDurationHour={true}
 
             sumTotalKey={"date"}
             heightSection={50}

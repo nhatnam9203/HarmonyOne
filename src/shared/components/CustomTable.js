@@ -173,6 +173,7 @@ function TableListExtended({
   };
 
   const changeSortData = () => {
+    console.log('hjghjfghffgfdh')
     if (!sortKey) {
       setSortState(SORT_STATE.none);
       return;
@@ -325,6 +326,7 @@ function TableListExtended({
   onScrollBeginDrag = () => { };
 
   const onScrollEndDrag = () => {
+    // console.log('end scroll')
     autoScroll();
   };
 
@@ -458,7 +460,7 @@ function TableListExtended({
               <Text style={[styles.txtHead, headStyle]}>{headerContent[key] ?? ""}</Text>
               {sortKey === key && (
                 <TouchableOpacity
-                  style={styles.btnSort}
+                  style={[styles.btnSort,{ zIndex : 9999999999999 }]}
                   onPress={changeSortData}
                   hitSlop={{ top : 20, right : 20, bottom : 20, left :20 }}
                 >
@@ -582,7 +584,7 @@ function TableListExtended({
               {
                 key?.toString()?.toLowerCase()?.includes("duration") && key?.toString()?.length > 10 && isDurationHour ?
                   <Text style={styles.txtSum}>
-                    {`${sumObject[key]} hrs`}
+                    {`${parseFloat(sumObject[key].toFixed(2))} hrs`}
                   </Text>
                   :
                   key?.toString()?.toLowerCase()?.includes("duration") && key?.toString()?.length > 10 && !isDurationHour ?
