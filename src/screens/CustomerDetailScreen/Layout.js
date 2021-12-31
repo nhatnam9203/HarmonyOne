@@ -7,6 +7,8 @@ import { images } from "@shared/themes/resources";
 import { CustomerInfo, CustomerSales, CustomerAppointmentNumber, CustomerAppointments } from "./widget";
 import { WithPopupActionSheet } from "@shared/HOC";
 import { DialogConfirm } from "@shared/components";
+import { useRoute, useIsFocused, useNavigation } from '@react-navigation/native';
+import { useAndroidBackHandler } from "react-navigation-backhandler";
 import NavigationService from '@navigation/NavigationService';
 
 let EditButton = ({ ...props }) => {
@@ -30,6 +32,15 @@ export const Layout = ({
   submitDeleteCustomer,
 }) => {
 
+  const navigation = useNavigation();
+
+  const route = useRoute();
+  const isFocused = useIsFocused();
+
+  const back = () =>{
+    navigation.pop();
+  }
+
   const [t] = useTranslation();
 
   return (
@@ -38,7 +49,7 @@ export const Layout = ({
         pageTitle={t('Customer details')}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
-        onPressLeft={() => NavigationService.back()}
+        onPressLeft={back}
         headerRightComponent={() =>
           <EditButton actions={getActionSheets()} />
         }
