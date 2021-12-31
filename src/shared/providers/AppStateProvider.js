@@ -39,12 +39,24 @@ export const AppStateProvider = ({ children }) => {
     appointment: {
       appointmentDate,
     },
+    staff: { staffsByDate = [] }
 
   } = useSelector(state => state);
 
   const alertRef = React.useRef();
 
   const roleName = staff?.roleName?.toString()?.toLowerCase();
+
+  const getStaffList = () => {
+    if (roleName == "manager" || roleName == "admin") {
+      return staffsByDate;
+    } else {
+      return staffsByDate.filter(s => s?.staffId == staff?.staffId);
+    }
+  }
+
+  const staffList = getStaffList();
+
 
   const [, fetchReportGetStaffSalaryByStaff] = useAxiosQuery({
     ...reportGetStaffSalaryByStaff(staff?.staffId, moment(appointmentDate).format("MM/DD/YYYY"), moment(appointmentDate).format("MM/DD/YYYY"), 1),
@@ -62,7 +74,7 @@ export const AppStateProvider = ({ children }) => {
       staff?.merchantId,
       moment(appointmentDate).format("YYYY-MM-DD"),
     ),
-    queryId : "fetchStaffByDate_appStateProvider",
+    queryId: "fetchStaffByDate_appStateProvider",
     enabled: false,
     isLoadingDefault: false,
     isStopLoading: true,
@@ -154,7 +166,7 @@ export const AppStateProvider = ({ children }) => {
             switch (typeData) {
               case "appointment_update":
                 fetchAppointmentByDate();
-                if (roleName == "admin" || roleName == "manager") {
+                if ((roleName == "admin" || roleName == "manager") && staffList.length !== 1) {
                   fetchCountUnread();
                 } else {
                   fetchCountUnreadRoleStaff();
@@ -170,7 +182,7 @@ export const AppStateProvider = ({ children }) => {
                 }
                 break;
               case "appointment_checkout":
-                if (roleName == "staff") {
+                if (roleName == "staff" || staffList.length == 1) {
                   fetchReportGetStaffSalaryByStaff();
                 }
                 fetchAppointmentByDate();
@@ -186,7 +198,7 @@ export const AppStateProvider = ({ children }) => {
             switch (dataParse?.type) {
               case "staff_update":
                 fetchStaffByDate();
-                if (roleName == "admin" || roleName == "manager") {
+                if ((roleName == "admin" || roleName == "manager") && staffList.length !== 1) {
 
                 } else {
                   fetchReportGetStaffSalaryByStaff();
