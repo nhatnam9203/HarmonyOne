@@ -34,14 +34,6 @@ export const TotalViewPaid = ({
             </View>
             <View style={styles.totalInfoContent}>
                 <Text style={styles.textTotal}>
-                    {t('Tip')}
-                </Text>
-                <Text style={styles.textTotalPrice}>
-                    {tipAmount}
-                </Text>
-            </View>
-            <View style={styles.totalInfoContent}>
-                <Text style={styles.textTotal}>
                     {t('Tax')}
                 </Text>
                 <Text style={styles.textTotalPrice}>
