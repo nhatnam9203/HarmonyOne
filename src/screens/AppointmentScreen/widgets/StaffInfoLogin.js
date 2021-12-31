@@ -21,7 +21,6 @@ const StaffInfoLgin = ({
         if (appointment?.staffId == staffInfo?.staffId) {
             const giftCards = appointment?.giftCards ?? [];
             for (const gift of giftCards) {
-                const price = formatNumberFromCurrency(gift?.price);
                 money += formatNumberFromCurrency(gift?.price);
             }
         }
