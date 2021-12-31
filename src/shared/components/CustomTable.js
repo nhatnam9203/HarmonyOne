@@ -131,7 +131,8 @@ function TableListExtended({
   headStyle,
   arrTextTotal = [],
   styleFirstCell,
-  styleFirstSection
+  styleFirstSection,
+  isDurationHour = false
 }) {
   /**state */
   const [headerContent, setHeaderContent] = useState({});
@@ -459,6 +460,7 @@ function TableListExtended({
                 <TouchableOpacity
                   style={styles.btnSort}
                   onPress={changeSortData}
+                  hitSlop={{ top : 20, right : 20, bottom : 20, left :20 }}
                 >
                   <View>
                     <Image
@@ -578,21 +580,26 @@ function TableListExtended({
               }
 
               {
-                key?.toString()?.toLowerCase()?.includes("duration") && key?.toString()?.length > 10 ?
+                key?.toString()?.toLowerCase()?.includes("duration") && key?.toString()?.length > 10 && isDurationHour ?
                   <Text style={styles.txtSum}>
-                    {convertMinsToHrsMins(sumObject[key])}
-                  </Text> 
+                    {`${sumObject[key]} hrs`}
+                  </Text>
                   :
-                  calcSumKeys.indexOf(key) > -1 && (
+                  key?.toString()?.toLowerCase()?.includes("duration") && key?.toString()?.length > 10 && !isDurationHour ?
                     <Text style={styles.txtSum}>
-                      {
-                        isPriceCell(key) ? unitKeys[key]
-                          ? formatServerNumber(sumObject[key]) + " " + unitKeys[key]
-                          : "$ " + formatMoney(sumObject[key])
-                          : sumObject[key] + " "
-                      }
+                      {convertMinsToHrsMins(sumObject[key])}
                     </Text>
-                  )
+                    :
+                    calcSumKeys.indexOf(key) > -1 && (
+                      <Text style={styles.txtSum}>
+                        {
+                          isPriceCell(key) ? unitKeys[key]
+                            ? formatServerNumber(sumObject[key]) + " " + unitKeys[key]
+                            : "$ " + formatMoney(sumObject[key])
+                            : sumObject[key] + " "
+                        }
+                      </Text>
+                    )
               }
 
             </TableCell>

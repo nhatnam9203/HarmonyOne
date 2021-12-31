@@ -4,7 +4,7 @@ import { fonts, colors, images } from "@shared/themes";
 import { app, invoice } from "@redux/slices";
 import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
-import { getCredicardIcon } from "@shared/utils";
+import { getCredicardIcon, convertMinsToHrsMins } from "@shared/utils";
 import moment from "moment";
 
 
@@ -40,7 +40,7 @@ export const DataList = ({
             case "totalDuration":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
-                        {item?.totalDuration}
+                        {`${(item?.totalDuration)} hrs`}
                     </Text>
                 );
             case "totalSales":
@@ -82,6 +82,7 @@ export const DataList = ({
                 "totalDuration",
                 "totalSales",
             ]}
+            isDurationHour={true}
             priceKeys={[
                 "totalDuration",
                 "totalSales"
