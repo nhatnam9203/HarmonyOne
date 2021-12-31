@@ -11,7 +11,7 @@
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
   <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
   <uses-permission android:name="android.permission.BLUETOOTH" />
-  <uses-permission android:name="android.permission.READ_SMS" />
+  <!-- <uses-permission android:name="android.permission.READ_SMS" /> -->
   <uses-permission android:name="android.permission.USE_FINGERPRINT" />
   <uses-permission android:name="android.permission.VIBRATE" />
   <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
@@ -23,7 +23,7 @@
       android:icon="@mipmap/staffapp"
       android:roundIcon="@mipmap/staffapp"
       android:allowBackup="false"
-      android:usesCleartextTraffic="true" 
+      android:usesCleartextTraffic="true"
       android:theme="@style/AppTheme">
       <activity
         android:name=".MainActivity"
