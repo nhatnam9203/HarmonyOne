@@ -15,7 +15,7 @@
     "push-clean:ios-production": "appcenter codepush deployment clear -a HarmonyPayment/HPOne-iOS Production",
     "yarn": "appcenter codepush deployment clear -a HarmonyPayment/HPOne-iOS Staging",
     "push-clean:android-staging": "appcenter codepush deployment clear -a HarmonyPayment/HPOne-Android Staging",
-    "push:android-production": "appcenter codepush release-react -a HarmonyPayment/HPOne-Android -d Production -t 1.0.0 --description update",
+    "push:android-production": "appcenter codepush release-react -a HarmonyPayment/HPOne-Android -d Production -t 1.0.3 --description update",
     "push:android-staging": "appcenter codepush release-react -a HarmonyPayment/HPOne-Android -d Staging -t 1.0.1 --description update",
     "open:android": "open -a '/Applications/Android Studio.app' android",
     "clean:android": "cd android && ./gradlew clean && cd ../",

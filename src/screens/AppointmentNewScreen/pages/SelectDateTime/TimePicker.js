@@ -43,7 +43,7 @@ export const TimePicker = React.forwardRef(({
     }
 
     return (
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: scaleHeight(20) }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: scaleHeight(10) }}>
             <ColumnTime
                 title="Morning"
                 data={getTimeAvaible(timesAvailable).morning}

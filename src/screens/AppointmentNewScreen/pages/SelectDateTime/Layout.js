@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
     padding: scaleWidth(8),
-    paddingTop: scaleWidth(8)
+    paddingBottom: 0
   },
   bottom: {
     padding: scaleWidth(16),
@@ -72,6 +72,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 2,
     backgroundColor: "#eeeeee",
-    marginTop: scaleHeight(8)
+    marginTop: scaleHeight(3)
   }
 });

@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
 
     headerCenterContent: {
         flex: 1,
-        paddingTop: scaleHeight(55)
+        paddingTop: scaleHeight(48)
     },
 
     iconSize: {
@@ -123,18 +123,18 @@ const styles = StyleSheet.create({
 
     button: {
         width: scaleWidth(35),
-        paddingTop: scaleHeight(55)
+        paddingTop: scaleHeight(48)
     },
     txtStep: {
         fontSize: scaleFont(14),
         color: colors.white,
         fontFamily: fonts.REGULAR,
-        marginVertical: scaleHeight(10),
+        marginBottom: scaleHeight(5),
         marginLeft: scaleWidth(16),
-        marginTop: scaleHeight(15),
+        marginTop: scaleHeight(14),
     },
     title: {
-        fontSize: scaleFont(17),
+        fontSize: scaleFont(16),
         color: colors.white,
         fontFamily: fonts.MEDIUM,
         marginLeft: scaleWidth(16)

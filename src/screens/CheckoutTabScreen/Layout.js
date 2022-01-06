@@ -55,6 +55,7 @@ export const Layout = ({
                 <SwipeListView
                   showsVerticalScrollIndicator={false}
                   data={[customerBooking]}
+                  scrollEnabled={false}
                   renderItem={(data, rowMap) => (
                     <View style={styles.rowItem}>
                       <View style={{ flex: 1 }}>

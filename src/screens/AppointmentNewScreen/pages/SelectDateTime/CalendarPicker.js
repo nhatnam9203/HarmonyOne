@@ -138,21 +138,21 @@ const theme = {
             paddingVertical: scaleHeight(0.5),
             borderRadius: scaleWidth(20),
             paddingHorizontal: scaleWidth(4),
-            marginBottom: scaleHeight(16)
+            marginBottom: scaleHeight(6)
         },
         monthText: {
-            color: colors.black,
+            color: "#404040",
             fontSize: scaleFont(18),
-            fontFamily: fonts.REGULAR,
+            fontFamily: fonts.MEDIUM,
         },
         dayHeader: {
             marginTop: 2,
             marginBottom: scaleWidth(5),
             width: scaleWidth(14),
             textAlign: "center",
-            fontSize: scaleFont(16),
+            fontSize: scaleFont(14),
             color: "#585858",
-            fontFamily: fonts.REGULAR,
+            fontFamily: fonts.MEDIUM,
             marginBottom: scaleHeight(8)
         },
     },
@@ -164,7 +164,7 @@ const theme = {
     dayTextColor: "#404040",
     textDisabledColor: "grey",
     // textDayFontWeight: "400",
-    textDayFontSize: scaleFont(15),
+    textDayFontSize: scaleFont(13),
     textDayFontFamily: fonts.REGULAR,
 
 };
