@@ -7,21 +7,23 @@ import { CodePushProvider } from '@shared/providers/CodePushProvider';
 import '@shared/services/translation';
 import configureStore from '@src/redux/store';
 import React from 'react';
-import { 
-  ActivityIndicator, 
+import {
+  ActivityIndicator,
   YellowBox,
   NativeModules,
   NativeEventEmitter,
   Platform,
- } from 'react-native';
+  Text,
+  TextInput
+} from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { RootNavigation } from './navigation';
-import { 
+import {
   FirebaseNotificationProvider,
   PopupPairingCode,
- } from "@shared/components";
+} from "@shared/components";
 import { getAuthToken } from '@shared/storages/authToken';
 import _, { set } from "lodash";
 import {
@@ -45,6 +47,16 @@ const { persistor, store } = configureStore();
 
 export default App = () => {
 
+  if (Text.defaultProps == null) {
+    Text.defaultProps = {};
+    Text.defaultProps.allowFontScaling = false;
+  }
+
+  if (TextInput.defaultProps == null) {
+    TextInput.defaultProps = {};
+    TextInput.defaultProps.allowFontScaling = false;
+  }
+
   const popupPairingRef = React.useRef(null);
 
   //ADD LISTENER FROM CLOVER MODULE
@@ -57,35 +69,35 @@ export default App = () => {
   const registerEvents = () => {
     clover.changeListenerStatus(true)
     subscriptions = [
-        eventEmitter.addListener("pairingCode", (data) => {
-          if (data) {
-            const { invoice, hardware } = store.getState();
-            const { paymentMachineType } = hardware;
-            const text = `Pairing code: ${_.get(data, "pairingCode")}`;
-            if(paymentMachineType == "Clover" ) {
-              setPairingCode(text)
+      eventEmitter.addListener("pairingCode", (data) => {
+        if (data) {
+          const { invoice, hardware } = store.getState();
+          const { paymentMachineType } = hardware;
+          const text = `Pairing code: ${_.get(data, "pairingCode")}`;
+          if (paymentMachineType == "Clover") {
+            setPairingCode(text)
 
-              setTimeout(() => {
-                popupPairingRef?.current?.show()
-              }, 500)
-              
-            }
+            setTimeout(() => {
+              popupPairingRef?.current?.show()
+            }, 500)
+
           }
-        }),
-        eventEmitter.addListener("pairingSuccess", (data) => {
-          const { hardware: { paymentMachineType } } = store.getState();
-          store.dispatch(hardware.setCloverToken(_.get(data, "token")));
-          if(paymentMachineType == "Clover" ) {
-            setPairingCode("")
-            popupPairingRef?.current?.hide()
-          }
-        }),
+        }
+      }),
+      eventEmitter.addListener("pairingSuccess", (data) => {
+        const { hardware: { paymentMachineType } } = store.getState();
+        store.dispatch(hardware.setCloverToken(_.get(data, "token")));
+        if (paymentMachineType == "Clover") {
+          setPairingCode("")
+          popupPairingRef?.current?.hide()
+        }
+      }),
 
     ]
   }
 
   const unregisterEvents = () => {
-    if(Platform.OS === "ios") {
+    if (Platform.OS === "ios") {
       clover.changeListenerStatus(false)
     }
     subscriptions.forEach(e => e.remove())
@@ -110,12 +122,12 @@ export default App = () => {
           <AxiosApiProvider>
             <AppStateProvider>
               <PaperProvider>
-                  <RootNavigation />
-                  <FirebaseNotificationProvider token={null} />
-                  <PopupPairingCode
-                    ref={popupPairingRef}
-                    message={pairingCode}
-                  />
+                <RootNavigation />
+                <FirebaseNotificationProvider token={null} />
+                <PopupPairingCode
+                  ref={popupPairingRef}
+                  message={pairingCode}
+                />
               </PaperProvider>
             </AppStateProvider>
           </AxiosApiProvider>
