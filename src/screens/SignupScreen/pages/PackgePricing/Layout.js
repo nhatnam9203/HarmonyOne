@@ -12,8 +12,6 @@ import ToggleSwitch from 'toggle-switch-react-native';
 
 
 export const Layout = ({
-    form,
-    errors,
     onSubmit,
     numberOfStaff,
     setNumberOfStaff,
@@ -106,7 +104,7 @@ export const Layout = ({
                 <View style={styles.bottom}>
                     <Button
                         label="Start free trial"
-                        onPress={form.handleSubmit(onSubmit)}
+                        onPress={onSubmit}
                         highlight={true}
                         width={'100%'}
                     />
