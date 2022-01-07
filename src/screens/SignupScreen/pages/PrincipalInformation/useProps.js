@@ -9,6 +9,7 @@ import {
     uploadAvatarStaff,
 } from '@src/apis';
 import { createFormData } from '@shared/utils';
+import { Alert } from "react-native";
 
 export const useProps = (props) => {
     const dispatch = useDispatch();
@@ -31,7 +32,7 @@ export const useProps = (props) => {
         ...uploadAvatarStaff(),
         queryId: "upload_principal_image",
         onSuccess: (data, response) => {
-            console.log('data update respoe :',{ response })
+            console.log('data update respoe :', { response })
             if (response.codeNumber == 200) {
                 setFileId(data?.fileId ?? 0);
                 setImageUrl(data?.url);
@@ -54,11 +55,16 @@ export const useProps = (props) => {
         },
 
         onSubmit: (values) => {
-            const principalInformation = {
-                ...values,
-            };
 
-            dispatch(signup.updatePrincipalInformation(principalInformation));
+            if (!fileId) {
+                Alert.alert("PLEASE UPDATE VOID CHECK")
+            } else {
+                const principalInformation = {
+                    ...values,
+                };
+
+                dispatch(signup.updatePrincipalInformation(principalInformation));
+            }
 
         }
     };
