@@ -10,7 +10,14 @@ export const useProps = (props) => {
     const dispatch = useDispatch();
 
 
-    const { packages = [] } = useSelector(state => state.signup);
+    const {
+        generalInfor = {},
+        businessInformation = {},
+        bankInfor = {},
+        principalInfo = {},
+        packages = [],
+        type = "",
+    } = useSelector(state => state.signup);
 
     const [numberOfStaff, setNumberOfStaff] = React.useState(1);
     const [isMonthly, setIsMonthly] = React.useState(true);
@@ -36,11 +43,18 @@ export const useProps = (props) => {
         setNumberOfStaff,
         isMonthly,
         setIsMonthly,
-        onResponseImagePicker: () => {
-
-        },
 
         onSubmit: (values) => {
+            const packagePricing = numberOfStaff == 1 ? 4 : 5;
+            dispatch(signup.updatePackagePricing(packagePricing));
+            const data = {
+                generalInfor,
+                businessInformation,
+                bankInfor,
+                principalInfo,
+                packagePricing,
+                type,
+            }
             NavigationService.navigate(screenNames.ApplicationSubmit)
         }
     };

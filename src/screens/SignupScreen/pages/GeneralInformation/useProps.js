@@ -12,8 +12,6 @@ export const useProps = (props) => {
 
     const [schemaValidate, setSchemaValidate] = React.useState(signUpGeneralInfoSchema2);
 
-    console.log({ schemaValidate })
-
     const form = useForm({
         resolver: yupResolver(schemaValidate)
     });
@@ -41,7 +39,7 @@ export const useProps = (props) => {
         setIsSameBusinessAddress,
 
         onSubmit: (values) => {
-    
+
             const generalInfor = {
                 businessName: values.businessPhone,
                 businessAddress: {
@@ -51,10 +49,10 @@ export const useProps = (props) => {
                     zip: values.zipBusinessAddress,
                 },
                 dbaAddress: {
-                    city: values.cityBusinessAddress ?? values.cityDbaAddress,
-                    state: values.stateBusinessAddress ?? values.stateDbaAddress,
-                    street: values.streetBusinessAddress ?? values.streetDbaAddress,
-                    zip: values.zipBusinessAddress ?? values.zipDbaAddress,
+                    city: isSameBusinessAddress ? values.cityBusinessAddress : values.cityDbaAddress,
+                    state: isSameBusinessAddress ? values.stateBusinessAddress : values.stateDbaAddress,
+                    street: isSameBusinessAddress ? values.streetBusinessAddress : values.streetDbaAddress,
+                    zip: isSameBusinessAddress ? values.zipBusinessAddress : values.zipDbaAddress,
                 },
                 businessPhone: inputPhoneBusinessHeadRef?.current?.getValue()?.value + values.businessPhone,
                 contactPhone: inputPhoneHeadRef?.current?.getValue()?.value + values.contactPhone,
@@ -66,7 +64,7 @@ export const useProps = (props) => {
                 tax: values.tax
             }
 
-            dispatch(signup.updateGeneralInformation({ generalInfor, type: values.type }));
+            dispatch(signup.updateGeneralInformation({ generalInfor, type: values.type, sameAsBusiness: isSameBusinessAddress }));
 
             NavigationService.navigate(screenNames.BusinessInformation);
         },

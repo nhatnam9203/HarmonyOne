@@ -9,7 +9,9 @@ const initialState = {
     bankInfor : {},
     principalInfo : {},
     packages : [],
+    packagePricing : 1,
     type : "",
+    sameAsBusiness : true,
 };
 
 const signupSlice = createSlice({
@@ -19,6 +21,7 @@ const signupSlice = createSlice({
         updateGeneralInformation: (state, action) => {
             state.generalInfor = action.payload?.generalInfor;
             state.type = action.payload?.type;
+            state.sameAsBusiness = action?.payload?.sameAsBusiness
         },
 
         updateBusinessInformation : (state, action) =>{
@@ -31,6 +34,10 @@ const signupSlice = createSlice({
 
         updatePrincipalInformation : (state, action) =>{
             state.principalInfo = action.payload;
+        },
+
+        updatePackagePricing : (state , action) =>{
+            state.packagePricing = action.payload;
         },
 
         setPackages : (state , action) =>{
