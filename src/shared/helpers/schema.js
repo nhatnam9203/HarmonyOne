@@ -125,3 +125,11 @@ export const signUpGeneralInfoSchema2 = yup.object().shape({
 export const signUpBusiniessInfoSchema = yup.object().shape({
 
 });
+
+export const signUpBankInformation = yup.object().shape({
+    accountHolderName : yup.string().required("required"),
+    bankName : yup.string().required("required"),
+    accountNumber : yup.string().required("required"),
+    routingNumber : yup.string().required("required"),
+});
+

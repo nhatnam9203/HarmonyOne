@@ -6,6 +6,7 @@ const reducerName = 'hpo.signupPos';
 const initialState = {
     generalInformation: {},
     businessInformation : {},
+    bankInformation : {}
 };
 
 const signupSlice = createSlice({
@@ -20,9 +21,14 @@ const signupSlice = createSlice({
             state.businessInformation = action.payload;
         },
 
+        updateBankInformation : (state , action) =>{
+            state.bankInformation = action.payload;
+        },
+
         reset: (state) => {
             state.generalInformation = {};
             state.businessInformation = {};
+            state.bankInformation = {};
         }
     },
 });

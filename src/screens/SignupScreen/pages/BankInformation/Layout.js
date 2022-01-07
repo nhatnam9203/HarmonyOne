@@ -56,14 +56,14 @@ export const Layout = ({
                     <CustomInput
                         label='Account Holder Name'
                         isRequired
-                        error={errors?.holderName}
+                        error={errors?.accountHolderName}
                         blackLabel={true}
                         renderInput={() =>
                             <InputText
                                 form={form}
-                                name="holderName"
+                                name="accountHolderName"
                                 placeholder=""
-                                error={errors?.holderName}
+                                error={errors?.accountHolderName}
                             />}
                     />
 
