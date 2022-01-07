@@ -98,7 +98,7 @@ export const useProps = (props) => {
 
         if (!isValidPrincipal_2 && countValidPrincipal_2 > 1) {
             for (const [key, value] of Object.entries(principal2)) {
-                if (!value) {
+                if (!value && key !== "homePhone") {
                     form.setError(`principalInfor.1.${key}`, { message: "required", type: "required" });
                 } else {
                     form.clearErrors(`principalInfor.1.${key}`);

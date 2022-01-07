@@ -13,7 +13,6 @@ export const Layout = ({
     form,
     errors,
     onSubmit,
-    onResponseImagePicker,
     imageUrl,
     fields,
     append,
@@ -40,7 +39,6 @@ export const Layout = ({
                                     form={form}
                                     index={index}
                                     errors={errors}
-                                    onResponseImagePicker={onResponseImagePicker}
                                     imageUrl={imageUrl}
                                     checkErrors={checkErrors}
                                 />
