@@ -1028,4 +1028,13 @@ export const reportGetStaffSalaryByStaff = (staffId, timeStart, timeEnd, page = 
   }
 });
 
+export const getPackageAndPricing = () => ({
+  queryId: 'getPackageAndPricing',
+  params: {
+    url: `package`,
+    method: 'GET',
+  }
+});
+
+
 

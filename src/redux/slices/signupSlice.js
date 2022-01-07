@@ -8,6 +8,7 @@ const initialState = {
     businessInformation : {},
     bankInformation : {},
     principalInfo : {},
+    packages : [],
 };
 
 const signupSlice = createSlice({
@@ -30,11 +31,16 @@ const signupSlice = createSlice({
             state.principalInfo = action.payload;
         },
 
+        setPackages : (state , action) =>{
+            state.packages = action.payload;
+        },
+
         reset: (state) => {
             state.generalInformation = {};
             state.businessInformation = {};
             state.bankInformation = {};
             state.principalInfo = {};
+            state.packages = [];
         }
     },
 });

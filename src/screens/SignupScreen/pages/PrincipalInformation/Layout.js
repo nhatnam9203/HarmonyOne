@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { Button, CustomInput, InputText, DropdownMenu, InputDate, InputState, CustomImage } from "@shared/components";
+import { Button, CustomInput, InputText, DropdownMenu, InputDate, InputState, CustomImage, LazyImage, InputDateForm } from "@shared/components";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { images } from "@shared/themes/resources";
 import { fonts } from "@shared/themes";
@@ -260,7 +260,7 @@ export const Layout = ({
                         label='Date of birth (mm/dd/yyyy)'
                         isRequired
                         blackLabel={true}
-                        renderInput={() => <InputDate ref={inputDateRef} />}
+                        renderInput={() => <InputDateForm form={form} name="dateOfBirth" />}
                     />
 
                     <CustomInput
