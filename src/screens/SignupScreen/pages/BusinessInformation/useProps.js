@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from "react-redux";
 import { signup } from "@redux/slices";
+import NavigationService from "@navigation/NavigationService";
 
 export const useProps = (props) => {
     const dispatch = useDispatch();
@@ -63,6 +64,8 @@ export const useProps = (props) => {
             };
 
             dispatch(signup.updateBusinessInformation(businesssInfo));
+
+            NavigationService.navigate(screenNames.BankInformation);
         }
     };
 };

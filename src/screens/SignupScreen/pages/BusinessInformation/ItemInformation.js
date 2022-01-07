@@ -6,7 +6,7 @@ import { images, fonts } from "@shared/themes"
 export const ItemInformation = React.forwardRef(({ 
     form, errors, label, textYes, name = ""
  }, ref)=>{
-    const [isCheck, setIsCheck] = React.useState(true);
+    const [isCheck, setIsCheck] = React.useState(false);
 
 
     React.useImperativeHandle(ref, () => ({

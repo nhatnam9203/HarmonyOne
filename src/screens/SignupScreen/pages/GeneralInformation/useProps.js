@@ -68,7 +68,7 @@ export const useProps = (props) => {
 
             dispatch(signup.updateGeneralInformation({ generalInfor, type: values.type }));
 
-            // NavigationService.navigate(screenNames.BusinessInformation);
+            NavigationService.navigate(screenNames.BusinessInformation);
         },
 
         onChangeIsSameBusinessAddress: (status) => {
