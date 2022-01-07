@@ -4,11 +4,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const reducerName = 'hpo.signupPos';
 const initialState = {
-    generalInformation: {},
+    generalInfor: {},
     businessInformation : {},
     bankInformation : {},
     principalInfo : {},
     packages : [],
+    type : "",
 };
 
 const signupSlice = createSlice({
@@ -16,7 +17,8 @@ const signupSlice = createSlice({
     initialState: initialState,
     reducers: {
         updateGeneralInformation: (state, action) => {
-            state.generalInformation = action.payload;
+            state.generalInfor = action.payload?.generalInfor;
+            state.type = action.payload?.type;
         },
 
         updateBusinessInformation : (state, action) =>{
@@ -36,11 +38,12 @@ const signupSlice = createSlice({
         },
 
         reset: (state) => {
-            state.generalInformation = {};
+            state.generalInfor = {};
             state.businessInformation = {};
             state.bankInformation = {};
             state.principalInfo = {};
             state.packages = [];
+            state.type = "",
         }
     },
 });

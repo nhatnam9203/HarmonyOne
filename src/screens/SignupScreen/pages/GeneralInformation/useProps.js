@@ -10,7 +10,9 @@ export const useProps = (props) => {
 
     const dispatch = useDispatch();
 
-    const [schemaValidate, setSchemaValidate] = React.useState(signUpGeneralInfoSchema);
+    const [schemaValidate, setSchemaValidate] = React.useState(signUpGeneralInfoSchema2);
+
+    console.log({ schemaValidate })
 
     const form = useForm({
         resolver: yupResolver(schemaValidate)
@@ -39,18 +41,34 @@ export const useProps = (props) => {
         setIsSameBusinessAddress,
 
         onSubmit: (values) => {
-            const generalInformation = {
-                ...values,
-                tax :`${values.prefixTax}-${values.suffixTax}`,
-                type : merchantTypeGroup?.current?.getValue()?.value,
-                businessPhone : inputPhoneBusinessHeadRef?.current?.getValue()?.value + values.businessPhone,
-                phone : inputPhoneHeadRef?.current?.getValue()?.value + values.phone,
+    
+            const generalInfor = {
+                businessName: values.businessPhone,
+                businessAddress: {
+                    city: values.cityBusinessAddress,
+                    state: values.stateBusinessAddress,
+                    street: values.streetBusinessAddress,
+                    zip: values.zipBusinessAddress,
+                },
+                dbaAddress: {
+                    city: values.cityBusinessAddress ?? values.cityDbaAddress,
+                    state: values.stateBusinessAddress ?? values.stateDbaAddress,
+                    street: values.streetBusinessAddress ?? values.streetDbaAddress,
+                    zip: values.zipBusinessAddress ?? values.zipDbaAddress,
+                },
+                businessPhone: inputPhoneBusinessHeadRef?.current?.getValue()?.value + values.businessPhone,
+                contactPhone: inputPhoneHeadRef?.current?.getValue()?.value + values.contactPhone,
+                doingBusiness: values.doingBusiness,
+                email: values.email,
+                firstName: values.firstName,
+                lastName: values.lastName,
+                position: values.position,
+                tax: values.tax
+            }
 
-            };
+            dispatch(signup.updateGeneralInformation({ generalInfor, type: values.type }));
 
-            dispatch(signup.updateGeneralInformation(generalInformation));
-
-            NavigationService.navigate(screenNames.BusinessInformation);
+            // NavigationService.navigate(screenNames.BusinessInformation);
         },
 
         onChangeIsSameBusinessAddress: (status) => {
@@ -61,7 +79,7 @@ export const useProps = (props) => {
                 form.setValue("zipDbaAddress", "");
                 form.setValue("stateDbaAddress", "");
                 setSchemaValidate(signUpGeneralInfoSchema);
-            }else{
+            } else {
                 setSchemaValidate(signUpGeneralInfoSchema2)
             }
         },

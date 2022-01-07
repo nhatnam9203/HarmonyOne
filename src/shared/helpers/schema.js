@@ -82,8 +82,7 @@ export const basicEditSchema = yup.object().shape({
 export const signUpGeneralInfoSchema = yup.object().shape({
     businessName: yup.string().required("required"),
     doingBusiness: yup.string().required("required"),
-    prefixTax: yup.string().required("required"),
-    suffixTax: yup.string().required("required"),
+    tax: yup.string().required("required"),
     businessPhone: yup.string().required("required"),
     firstName: yup.string().required("required"),
     lastName: yup.string().required("required"),
@@ -106,8 +105,7 @@ export const signUpGeneralInfoSchema = yup.object().shape({
 export const signUpGeneralInfoSchema2 = yup.object().shape({
     businessName: yup.string().required("required"),
     doingBusiness: yup.string().required("required"),
-    prefixTax: yup.string().required("required"),
-    suffixTax: yup.string().required("required"),
+    tax: yup.string().required("required"),
     businessPhone: yup.string().required("required"),
     firstName: yup.string().required("required"),
     lastName: yup.string().required("required"),

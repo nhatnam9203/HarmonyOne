@@ -85,17 +85,10 @@ export const Layout = ({
                                 <Text style={styles.txtBilled}>Monthly</Text>
                             </View>
                             <View style={{ marginHorizontal: scaleWidth(10) }}>
-                                {/* <Switch
-                                    value={!isMonthly}
-                                    onValueChange={() => setIsMonthly(!isMonthly)}
-                                    color={colors.ocean_blue}
-                                /> */}
                                 <ToggleSwitch
                                     isOn={isMonthly}
                                     onColor={colors.ocean_blue}
                                     offColor={colors.ocean_blue}
-                                    // label="Example label"
-                                    // labelStyle={{ color: "black", fontWeight: "900" }}
                                     size="large"
                                     onToggle={(isOn) => setIsMonthly(isOn)}
                                 />
