@@ -79,7 +79,18 @@ export const basicEditSchema = yup.object().shape({
     email: yup.string().email("Invalid email").nullable(),
 });
 
-export const signUpGeneralInfoSchema = yup.object().shape({
+const checkStateValid = (stateCity, value) => {
+    let check = false;
+    for (let i = 0; i < stateCity.length; i++) {
+        if (stateCity[i].name.includes(value)) {
+            check = true;
+            return true;
+        }
+    }
+    return check;
+}
+
+export const signUpGeneralInfoSchema = (stateCity) => yup.object().shape({
     businessName: yup.string().required("required"),
     doingBusiness: yup.string().required("required"),
     tax: yup.string().required("required"),
@@ -92,33 +103,52 @@ export const signUpGeneralInfoSchema = yup.object().shape({
     streetBusinessAddress: yup.string().required("required"),
     cityBusinessAddress: yup.string().required("required"),
     zipBusinessAddress: yup.string().required("required"),
-    stateBusinessAddress: yup.string().required("required"),
+    stateBusinessAddress: yup.string()
+        .required("required").test("state-isValid", "State invalid",
+            function (value) {
+                return checkStateValid(stateCity, value)
+            })
+        .nullable(),
 
     streetDbaAddress: yup.string().required("required"),
     cityDbaAddress: yup.string().required("required"),
     zipDbaAddress: yup.string().required("required"),
-    stateDbaAddress: yup.string().required("required"),
+
+    stateDbaAddress: yup.string()
+        .required("required").test("state-isValid", "State invalid",
+            function (value) {
+                return checkStateValid(stateCity, value)
+            })
+        .nullable(),
 
     email: yup.string().required("required").email("Invalid email"),
 });
 
-export const signUpGeneralInfoSchema2 = yup.object().shape({
-    businessName: yup.string().required("required"),
-    doingBusiness: yup.string().required("required"),
-    tax: yup.string().required("required"),
-    businessPhone: yup.string().required("required"),
-    firstName: yup.string().required("required"),
-    lastName: yup.string().required("required"),
-    position: yup.string().required("required"),
-    contactPhone: yup.string().required("required"),
+export const signUpGeneralInfoSchema2 = (stateCity) => {
+    const test = checkStateValid(stateCity, "Ohi6");
+    return yup.object().shape({
+        businessName: yup.string().required("required"),
+        doingBusiness: yup.string().required("required"),
+        tax: yup.string().required("required"),
+        businessPhone: yup.string().required("required"),
+        firstName: yup.string().required("required"),
+        lastName: yup.string().required("required"),
+        position: yup.string().required("required"),
+        contactPhone: yup.string().required("required"),
 
-    streetBusinessAddress: yup.string().required("required"),
-    cityBusinessAddress: yup.string().required("required"),
-    zipBusinessAddress: yup.string().required("required"),
-    stateBusinessAddress: yup.string().required("required"),
+        streetBusinessAddress: yup.string().required("required"),
+        cityBusinessAddress: yup.string().required("required"),
+        zipBusinessAddress: yup.string().required("required"),
+        stateBusinessAddress: yup.string()
+            .required("required").test("state-isValid", "State invalid",
+                function (value) {
+                    return checkStateValid(stateCity, value)
+                })
+            .nullable(),
 
-    email: yup.string().required("required").email("Invalid email"),
-});
+        email: yup.string().required("required").email("Invalid email"),
+    });
+};
 
 export const signUpBusiniessInfoSchema = yup.object().shape({
 
@@ -132,7 +162,6 @@ export const signUpBankInformation = yup.object().shape({
 });
 
 export const signUpPrincipalInfoSchema = yup.object().shape({
-
     principalInfor: yup.array().of(
         yup.object().shape({
             ownership: yup.string().required("required"),

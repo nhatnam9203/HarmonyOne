@@ -10,7 +10,11 @@ export const useProps = (props) => {
 
     const dispatch = useDispatch();
 
-    const [schemaValidate, setSchemaValidate] = React.useState(signUpGeneralInfoSchema2);
+    const { customer: {
+        stateCity = []
+    } } = useSelector(state => state);
+
+    const [schemaValidate, setSchemaValidate] = React.useState(signUpGeneralInfoSchema2(stateCity));
 
     const form = useForm({
         resolver: yupResolver(schemaValidate)
@@ -76,9 +80,9 @@ export const useProps = (props) => {
                 form.setValue("cityDbaAddress", "");
                 form.setValue("zipDbaAddress", "");
                 form.setValue("stateDbaAddress", "");
-                setSchemaValidate(signUpGeneralInfoSchema);
+                setSchemaValidate(signUpGeneralInfoSchema(stateCity));
             } else {
-                setSchemaValidate(signUpGeneralInfoSchema2)
+                setSchemaValidate(signUpGeneralInfoSchema2(stateCity))
             }
         },
     };

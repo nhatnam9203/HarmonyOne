@@ -28,7 +28,7 @@ export const useProps = (props) => {
         enabled: false,
         onSuccess: (data, response) => {
             if (response?.codeNumber == 200) {
-                dispatch(signup.setPackages(data))
+                dispatch(signup.setPackages(data));
             }
         },
     });
@@ -37,7 +37,7 @@ export const useProps = (props) => {
         ...signUpMerchant(),
         onSuccess: (data, response) => {
             if (response?.codeNumber == 200) {
-                dispatch(signup.setPackages(data))
+                NavigationService.navigate(screenNames.ApplicationSubmit)
             }
         },
     });
@@ -53,7 +53,7 @@ export const useProps = (props) => {
         isMonthly,
         setIsMonthly,
 
-        onSubmit: (values) => {
+        onSubmit: async() => {
             const packagePricing = numberOfStaff == 1 ? 4 : 5;
             dispatch(signup.updatePackagePricing(packagePricing));
             const data = {
@@ -64,10 +64,8 @@ export const useProps = (props) => {
                 packagePricing,
                 type,
             }
-
-            console.log({ data });
-            return;
-            NavigationService.navigate(screenNames.ApplicationSubmit)
+            const body = await signUpMerchant(data);
+            submitSignupMerchant(body.params);    
         }
     };
 };

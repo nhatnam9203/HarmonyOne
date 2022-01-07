@@ -173,6 +173,12 @@ export const Layout = ({
                                         error={errors?.stateBusinessAddress}
                                         onBlurInput={onBlurStateBusinessAddress}
                                     />
+                                    {
+                                        errors?.stateBusinessAddress && errors?.stateBusinessAddress?.message !== "required" &&
+                                        <Text style={{ color: "red", fontSize: scaleFont(16), fontFamily: fonts.MEDIUM, marginTop: scaleHeight(8) }}>
+                                            {errors?.stateBusinessAddress?.message}
+                                        </Text>
+                                    }
                                 </View>
                             }
                         />
@@ -240,6 +246,12 @@ export const Layout = ({
                                         editable={!isSameBusinessAddress}
                                         valueVisible={isSameBusinessAddress ? stateBusinessAddress : null}
                                     />
+                                    {
+                                        errors?.stateDbaAddress && errors?.stateDbaAddress?.message !== "required" &&
+                                        <Text style={{ color: "red", fontSize: scaleFont(16), fontFamily: fonts.MEDIUM, marginTop: scaleHeight(8) }}>
+                                            {errors?.stateDbaAddress?.message}
+                                        </Text>
+                                    }
                                 </View>
                             }
                         />
