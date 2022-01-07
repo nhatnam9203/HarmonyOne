@@ -9,6 +9,7 @@ import {
     useAxiosMutation,
     uploadAvatarStaff,
 } from '@src/apis';
+import { createFormData } from '@shared/utils';
 
 export const useProps = (props) => {
     const dispatch = useDispatch();
@@ -24,29 +25,30 @@ export const useProps = (props) => {
 
     const [, submitUploadImage] = useAxiosMutation({
         ...uploadAvatarStaff(),
-        queryId : "upload_voiCheck",
+        queryId: "upload_voiCheck",
         onSuccess: (data, response) => {
-          if (response.codeNumber == 200) {
-            setFileId(data?.fileId ?? 0);
-            setImageUrl(data?.url);
-          }
+            console.log('response upload image : ', { response })
+            if (response.codeNumber == 200) {
+                setFileId(data?.fileId ?? 0);
+                setImageUrl(data?.url);
+            }
         },
-      });
+    });
 
     return {
         form,
         errors,
-        onResponseImagePicker: async(response) => {
+        onResponseImagePicker: async (response) => {
             let files = response?.assets ?? [];
             files = createFormData(files);
             const body = await uploadAvatarStaff(files);
-            submitUploadAvatarStaff(body.params);
+            submitUploadImage(body.params);
         },
 
         onSubmit: (values) => {
-            if(!fileId){
+            if (!fileId) {
                 Alert.alert("PLEASE UPDATE VOID CHECK")
-            }else{
+            } else {
                 const bankInformation = {
                     ...values,
                     fileId
