@@ -7,6 +7,9 @@ import { WithPopupUpload } from '@shared/HOC';
 import { uploadAvatarStaff } from "@src/apis";
 import { axios } from '@shared/services/axiosClient';
 import { useWatch } from "react-hook-form";
+import { createFormData } from '@shared/utils';
+import { useDispatch } from "react-redux";
+import { app } from "@redux/slices";
 
 
 let ButtonUpload = ({ onResponseImagePicker, imageUrl, ...props }) => (
@@ -50,6 +53,7 @@ export const ItemPrincipal = ({
     errors,
     checkErrors
 }) => {
+    const dispatch = useDispatch();
 
     const [imageUrl, setImageUrl] = React.useState(null);
 
@@ -87,6 +91,7 @@ export const ItemPrincipal = ({
     }
 
     const onResponseImagePicker = async (response) => {
+        console.log('response image : ', { response })
         let files = response?.assets ?? [];
         files = createFormData(files);
         const body = await uploadAvatarStaff(files);
@@ -228,10 +233,10 @@ export const ItemPrincipal = ({
                                     />
                                     <InputText
                                         form={form}
-                                        name={`principalInfor.${index}.city`}
+                                        name={`principalInfor.${index}.zip`}
                                         placeholder="Zip Code"
                                         style={{ width: scaleWidth(165) }}
-                                        error={errors?.principalInfor?.[index]?.city}
+                                        error={errors?.principalInfor?.[index]?.zip}
                                         renderRight={() => <View />}
                                         onBlur={checkErrors}
                                     />
@@ -353,7 +358,7 @@ export const ItemPrincipal = ({
 
                     <Text style={styles.txtVoidCheck}>Please take or upload photos of Driver License*</Text>
 
-                    <Text style={{ textAlign: "right", color: "red", fontSize: scaleFont(16), fontFamily: fonts.MEDIUM, marginTop: scaleHeight(16) }}>Required</Text>
+                    {errors?.principalInfor?.[index]?.fileId && <Text style={styles.txtErrorImage}>Required</Text>}
                     <ButtonUpload
                         onResponseImagePicker={onResponseImagePicker}
                         imageUrl={imageUrl}
@@ -384,6 +389,9 @@ const ActiveButton = ({ isActive, setActive, index }) => (
 
 
 const styles = StyleSheet.create({
+    txtErrorImage: {
+        textAlign: "right", color: "red", fontSize: scaleFont(16), fontFamily: fonts.MEDIUM, marginTop: scaleHeight(16)
+    },
     txtTitle: {
         fontSize: scaleFont(16),
         color: "#000"

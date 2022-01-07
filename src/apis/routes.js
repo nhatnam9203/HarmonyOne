@@ -1036,5 +1036,16 @@ export const getPackageAndPricing = () => ({
   }
 });
 
+export const signUpMerchant = (data) => ({
+  queryId: `merchant?api-version=1.1`,
+  params: {
+    url: `merchant?api-version=1.1`,
+    method: 'POST',
+    data
+  }
+});
+
+
+
 
 

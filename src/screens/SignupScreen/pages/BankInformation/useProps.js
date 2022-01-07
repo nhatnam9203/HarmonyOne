@@ -8,6 +8,7 @@ import { signup, app } from "@redux/slices";
 import { createFormData } from '@shared/utils';
 import { axios } from '@shared/services/axiosClient';
 import { uploadAvatarStaff } from "@src/apis";
+import NavigationService from "@navigation/NavigationService";
 
 export const useProps = (props) => {
     const dispatch = useDispatch();
@@ -62,6 +63,7 @@ export const useProps = (props) => {
                 };
 
                 dispatch(signup.updateBankInformation(bankInformation));
+                NavigationService.navigate(screenNames.PrincipalInformation);
             }
         }
     };

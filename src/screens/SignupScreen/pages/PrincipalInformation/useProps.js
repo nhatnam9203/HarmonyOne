@@ -7,6 +7,8 @@ import { signup, app } from "@redux/slices";
 import { createFormData } from '@shared/utils';
 import { Alert } from "react-native";
 import { useFieldArray } from "react-hook-form";
+import moment from "moment";
+import NavigationService from "@navigation/NavigationService";
 
 const initialValues = {
     firstName: "",
@@ -119,7 +121,53 @@ export const useProps = (props) => {
 
         onSubmit: () => {
             const isValid = checkErrors();
-            if(isValid){
+            if (isValid) {
+                const formValues = form.getValues().principalInfor;
+                const principal1 = formValues[0];
+                const principal2 = formValues[1];
+
+                const data = [];
+
+                let data_1 = {
+                    addressPrincipal: {
+                        city: principal1.city,
+                        state: principal1.state,
+                        zip: principal1.zip,
+                        dateOfBirth : moment(principal1.dateOfBirth).format("MM/DD/YYYY")
+                    },
+                    ...principal1,
+                };
+
+                delete data_1["address"];
+                delete data_1["city"];
+                delete data_1["state"];
+                delete data_1["zip"];
+
+                let data_2 = {
+                    addressPrincipal: {
+                        city: principal2.city,
+                        state: principal2.state,
+                        zip: principal2.zip,
+                        dateOfBirth : moment(principal2.dateOfBirth).format("MM/DD/YYYY")
+                    },
+                    ...principal2,
+                };
+
+                delete data_2["address"];
+                delete data_2["city"];
+                delete data_2["state"];
+                delete data_2["zip"];
+
+
+                data.push(data_1);
+
+                const countValidPrincipal_2 = countValidPrincipal(principal2);
+                if(countValidPrincipal_2 > 1){
+                    console.log({ data });
+                }
+
+                dispatch(signup.updatePrincipalInformation(data));
+                NavigationService.navigate(screenNames.PackagePricing);
 
             }
 
