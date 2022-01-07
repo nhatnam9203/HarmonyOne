@@ -15,8 +15,8 @@ module.exports = {
           },
           {
             rootPathSuffix: './src/utils',
-            rootPathPrefix: '!/',
-          },
+            rootPathPrefix: '!/',git 
+          }, 
         ],
       },
     ],
