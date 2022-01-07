@@ -35,7 +35,7 @@ export const ItemInformation = React.forwardRef(({
                     style={[styles.btnIcon, { marginLeft: scaleWidth(24) }]}
                     iconStyle={styles.checkBox}
                     resizeMode='cover'
-                    renderText={() => <Text style={styles.txtIcon}>{textYes}</Text>}
+                    renderText={() => <Text style={[styles.txtIcon,{ width : scaleWidth(260) }]}>{textYes}</Text>}
                 />
             </View>
 

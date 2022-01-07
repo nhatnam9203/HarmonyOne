@@ -38,7 +38,7 @@ export const Layout = ({
                         form={form}
                         errors={errors}
                         label="Has Merchant been previously identified by Visa/Mastercard Risk Programs?"
-                        textYes="Yes(if yes, who was the processor)"
+                        textYes="Yes (if yes, who was the processor)"
                         name="question1"
                         ref={question1Ref}
                     />
@@ -46,7 +46,7 @@ export const Layout = ({
                         form={form}
                         errors={errors}
                         label="Has Merchant or any associated principal and/or owners disclosed bellow filed bankruptcy or been subject to any involuntary bankruptcy?"
-                        textYes="Yes(if yes, who was the processor)"
+                        textYes="Yes (if yes, who was the processor)"
                         name="question2"
                         ref={question2Ref}
                     />
@@ -54,7 +54,7 @@ export const Layout = ({
                         form={form}
                         errors={errors}
                         label="Will product(s) or service(s) be sold outside of US?"
-                        textYes="Yes(if yes, date filed)"
+                        textYes="Yes (if yes, date filed)"
                         name="question3"
                         ref={question3Ref}
                     />
@@ -62,7 +62,7 @@ export const Layout = ({
                         form={form}
                         errors={errors}
                         label="Has a processor ever terminated your Merchant account?"
-                        textYes="Yes(if yes, what was program and when)"
+                        textYes="Yes (if yes, what was program and when)"
                         name="question4"
                         ref={question4Ref}
                     />
@@ -71,7 +71,7 @@ export const Layout = ({
                         form={form}
                         errors={errors}
                         label="Have you ever accepted Credit/Edit cards before?"
-                        textYes="Yes(if yes, who was your previous company)"
+                        textYes="Yes (if yes, who was your previous company)"
                         name="question5"
                         ref={question5Ref}
                     />
