@@ -58,3 +58,4 @@ export * from "./TotalViewPaid";
 export * from "./InputState";
 export * from "./LazyImage";
 export * from "./InputDateForm";
+export * from "./InputPhone";
