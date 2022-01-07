@@ -36,8 +36,6 @@ export const useProps = (props) => {
         stateCity = []
     } } = useSelector(state => state);
 
-    console.log({ stateCity })
-
     const form = useForm({
         defaultValues: {
             principalInfor: [initialValues, initialValues],
@@ -58,7 +56,7 @@ export const useProps = (props) => {
 
     const checkValidPrincpal = (values) => {
         for (const [key, value] of Object.entries(values)) {
-            if (!value) {
+            if (!value && key !== "homePhone") {
                 return false;
             }
         }
@@ -87,7 +85,7 @@ export const useProps = (props) => {
 
         if (!isValidPrincipal_1) {
             for (const [key, value] of Object.entries(principal1)) {
-                if (!value) {
+                if (!value && key !== "homePhone") {
                     form.setError(`principalInfor.0.${key}`, { message: "required", type: "required" });
                 } else {
                     form.clearErrors(`principalInfor.0.${key}`);
@@ -126,6 +124,7 @@ export const useProps = (props) => {
 
         onSubmit: () => {
             const isValid = checkErrors();
+            console.log({ isValid })
             if (isValid) {
                 const formValues = form.getValues().principalInfor;
                 const principal1 = formValues[0];
