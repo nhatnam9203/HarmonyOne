@@ -29,10 +29,8 @@ export const useProps = (props) => {
 
     const uploadImage = async (body) => {
         try {
-            console.log({ body });
             dispatch(app.showLoading());
             const response = await axios(body);
-            console.log({ response })
 
             if(response?.data?.codeNumber == 200){
                 dispatch(app.hideLoading());
