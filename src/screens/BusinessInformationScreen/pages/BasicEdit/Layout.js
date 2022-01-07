@@ -8,7 +8,7 @@ import {
 import { SingleScreenLayout } from '@shared/layouts';
 import { headerPhoneGroup } from '@shared/utils';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 export const Layout = ({
   merchantDetail,
@@ -27,47 +27,49 @@ export const Layout = ({
         isRight={false}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0, paddingTop: scaleHeight(8) }}>
-        <View style={styles.content}>
-          <CustomInput
-            label="Business Name"
-            isRequired
-            error={errors?.businessName}
-            renderInput={() => <InputText form={form} name="businessName" error={errors?.businessName} />}
-          />
-          <CustomInput
-            label="Phone Number"
-            renderInput={() => (
-              <View style={styles.row}>
-                <DropdownMenu
-                  ref={inputPhoneHeadRef}
-                  items={headerPhoneGroup}
-                  onChangeValue={() => { }}
-                  defaultIndex={0}
-                  width={scaleWidth(95)}
-                  height={scaleWidth(42)}
-                  styleDropDown={styles.styleDropDown}
-                />
-                <InputText
-                  style={styles.inputPhone}
-                  options={{ mask: '999-999-9999' }}
-                  form={form}
-                  name="phone"
-                  keyboardType="phone-pad"
-                  placeholder="012-3456-789"
-                />
-              </View>
-            )}
-          />
-          <CustomInput
-            label="Contact Email"
-            error={errors?.email}
-            renderInput={() => <InputText form={form} name="email" error={errors?.email} />}
-          />
-          <CustomInput
-            label="Website"
-            renderInput={() => <InputText form={form} name="webLink" />}
-          />
-        </View>
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <View style={styles.content}>
+            <CustomInput
+              label="Business Name"
+              isRequired
+              error={errors?.businessName}
+              renderInput={() => <InputText form={form} name="businessName" error={errors?.businessName} />}
+            />
+            <CustomInput
+              label="Phone Number"
+              renderInput={() => (
+                <View style={styles.row}>
+                  <DropdownMenu
+                    ref={inputPhoneHeadRef}
+                    items={headerPhoneGroup}
+                    onChangeValue={() => { }}
+                    defaultIndex={0}
+                    width={scaleWidth(95)}
+                    height={scaleWidth(42)}
+                    styleDropDown={styles.styleDropDown}
+                  />
+                  <InputText
+                    style={styles.inputPhone}
+                    options={{ mask: '999-999-9999' }}
+                    form={form}
+                    name="phone"
+                    keyboardType="phone-pad"
+                    placeholder="012-3456-789"
+                  />
+                </View>
+              )}
+            />
+            <CustomInput
+              label="Contact Email"
+              error={errors?.email}
+              renderInput={() => <InputText form={form} name="email" error={errors?.email} />}
+            />
+            <CustomInput
+              label="Website"
+              renderInput={() => <InputText form={form} name="webLink" />}
+            />
+          </View>
+        </TouchableWithoutFeedback>
         <View style={styles.bottom}>
           <Button
             onPress={form.handleSubmit(onSubmit)}

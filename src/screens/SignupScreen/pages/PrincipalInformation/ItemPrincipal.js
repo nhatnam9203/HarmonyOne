@@ -272,7 +272,7 @@ export const ItemPrincipal = ({
                                 name={`principalInfor.${index}.yearAtThisAddress`}
                                 placeholder=""
                                 isRequired
-                                options={{ mask: "9999" }}
+                                options={{ mask: "99" }}
                                 keyboardType='numeric'
                                 error={errors?.principalInfor?.[index]?.yearAtThisAddress}
                                 renderRight={() => <View />}
