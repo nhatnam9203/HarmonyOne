@@ -251,6 +251,12 @@ export const ItemPrincipal = ({
                                     renderRight={() => <View />}
                                     onBlur={checkErrors}
                                 />
+                                {
+                                    errors?.principalInfor?.[index]?.state && errors?.principalInfor?.[index]?.state?.message !== "required" &&
+                                    <Text style={{ color: "red", fontSize: scaleFont(16), fontFamily: fonts.MEDIUM, marginTop: scaleHeight(8) }}>
+                                        {errors?.principalInfor?.[index]?.state?.message}
+                                    </Text>
+                                }
                             </View>
                         }
                     />
@@ -355,6 +361,8 @@ export const ItemPrincipal = ({
                             />
                         }
                     />
+
+
 
                     <Text style={styles.txtVoidCheck}>Please take or upload photos of Driver License*</Text>
 

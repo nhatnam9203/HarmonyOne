@@ -28,8 +28,6 @@ export const Layout = ({
     onSubmit,
 }) => {
 
-    console.log({ errors })
-
     const [t] = useTranslation();
 
     const streetBusinessAddress = useWatch({

@@ -2,9 +2,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signUpPrincipalInfoSchema } from "@shared/helpers/schema";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signup, app } from "@redux/slices";
-import { createFormData } from '@shared/utils';
+import { createFormData, getStateId } from '@shared/utils';
 import { Alert } from "react-native";
 import { useFieldArray } from "react-hook-form";
 import moment from "moment";
@@ -32,6 +32,9 @@ const initialValues = {
 
 export const useProps = (props) => {
     const dispatch = useDispatch();
+    const { customer: {
+        stateCity = []
+    } } = useSelector(state => state);
 
     const form = useForm({
         defaultValues: {
@@ -131,9 +134,9 @@ export const useProps = (props) => {
                 let data_1 = {
                     addressPrincipal: {
                         city: principal1.city,
-                        state: principal1.state,
+                        state: getStateId(stateCity, principal1.state),
                         zip: principal1.zip,
-                        dateOfBirth : moment(principal1.dateOfBirth).format("MM/DD/YYYY")
+                        dateOfBirth: moment(principal1.dateOfBirth).format("MM/DD/YYYY")
                     },
                     ...principal1,
                 };
@@ -146,9 +149,9 @@ export const useProps = (props) => {
                 let data_2 = {
                     addressPrincipal: {
                         city: principal2.city,
-                        state: principal2.state,
+                        state: getStateId(stateCity, principal2.state),
                         zip: principal2.zip,
-                        dateOfBirth : moment(principal2.dateOfBirth).format("MM/DD/YYYY")
+                        dateOfBirth: moment(principal2.dateOfBirth).format("MM/DD/YYYY")
                     },
                     ...principal2,
                 };
@@ -162,8 +165,8 @@ export const useProps = (props) => {
                 data.push(data_1);
 
                 const countValidPrincipal_2 = countValidPrincipal(principal2);
-                if(countValidPrincipal_2 > 1){
-                    console.log({ data });
+                if (countValidPrincipal_2 > 1) {
+                    data.push(data_2)
                 }
 
                 dispatch(signup.updatePrincipalInformation(data));

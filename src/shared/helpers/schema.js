@@ -173,11 +173,23 @@ export const signUpPrincipalInfoSchema = yup.object().shape({
 
             street: yup.string().required("required"),
             city: yup.string().required("required"),
-            state: yup.string().required("required"),
+            state: yup.string()
+                .required("required").test("state-isValid", "State invalid",
+                    function (value) {
+                        return checkStateValid(stateCity, value)
+                    })
+                .nullable(),
             zip: yup.string().required("required"),
 
             email: yup.string().required("required").email("Invalid email"),
-            stateIssued: yup.string().required("required").email("Invalid email"),
+            stateIssued: yup.string()
+                .required("required")
+                .email("Invalid email")
+                .test("state-isValid", "State invalid",
+                    function (value) {
+                        return checkStateValid(stateCity, value)
+                    })
+                .nullable(),
             yearAtThisAddress: yup.string().required("required"),
 
             driverLicense: yup.string().required("required"),

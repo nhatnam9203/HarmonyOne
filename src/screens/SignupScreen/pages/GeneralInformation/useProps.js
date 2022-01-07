@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { signUpGeneralInfoSchema, signUpGeneralInfoSchema2 } from "@shared/helpers/schema";
 import { useSelector, useDispatch } from "react-redux";
 import { signup } from "@redux/slices";
+import { getStateId } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
 
 export const useProps = (props) => {
@@ -48,13 +49,13 @@ export const useProps = (props) => {
                 businessName: values.businessPhone,
                 businessAddress: {
                     city: values.cityBusinessAddress,
-                    state: values.stateBusinessAddress,
+                    state: getStateId(stateCity,values.stateBusinessAddress),
                     street: values.streetBusinessAddress,
                     zip: values.zipBusinessAddress,
                 },
                 dbaAddress: {
                     city: isSameBusinessAddress ? values.cityBusinessAddress : values.cityDbaAddress,
-                    state: isSameBusinessAddress ? values.stateBusinessAddress : values.stateDbaAddress,
+                    state: isSameBusinessAddress ? getStateId(stateCity,values.stateBusinessAddress) : getStateId(stateCity,values.stateDbaAddress),
                     street: isSameBusinessAddress ? values.streetBusinessAddress : values.streetDbaAddress,
                     zip: isSameBusinessAddress ? values.zipBusinessAddress : values.zipDbaAddress,
                 },
