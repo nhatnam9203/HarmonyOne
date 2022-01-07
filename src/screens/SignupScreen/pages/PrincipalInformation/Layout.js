@@ -10,27 +10,36 @@ import { WithPopupUpload } from '@shared/HOC';
 import { headerPhoneGroup } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 
-let ButtonUpload = ({ onResponseImagePicker, ...props }) => (
+let ButtonUpload = ({ onResponseImagePicker, imageUrl ,...props }) => (
     <TouchableOpacity
-        style={styles.containerUpload}
+        style={[styles.containerUpload,{ borderWidth : imageUrl ? 0 : 2 }]}
         onResponseImagePicker={onResponseImagePicker}
         {...props}
     >
-        <Image
-            source={images.camera}
-            style={styles.iconCamera}
-        />
-        <Text style={styles.txtTakePhoto}>
-            Take a photo
-        </Text>
-        <Text style={[styles.txtTakePhoto, styles.txtOr]}>
-            Or
-        </Text>
-        <View style={styles.wrapBrowseFile}>
-            <Text style={[styles.txtTakePhoto, styles.txtBrowFile]}>
-                Browse File
-            </Text>
-        </View>
+        {
+            imageUrl ?
+                <CustomImage
+                    source={{ uri: imageUrl }}
+                    style={{ width: "100%", height: scaleHeight(300) }}
+                /> :
+                <>
+                    <Image
+                        source={images.camera}
+                        style={styles.iconCamera}
+                    />
+                    <Text style={styles.txtTakePhoto}>
+                        Take a photo
+                    </Text>
+                    <Text style={[styles.txtTakePhoto, styles.txtOr]}>
+                        Or
+                    </Text>
+                    <View style={styles.wrapBrowseFile}>
+                        <Text style={[styles.txtTakePhoto, styles.txtBrowFile]}>
+                            Browse File
+                        </Text>
+                    </View>
+                </>
+        }
     </TouchableOpacity>
 );
 
@@ -40,10 +49,11 @@ export const Layout = ({
     form,
     errors,
     onSubmit,
-    onResponseImagePicker,
     inputHomePhoneHeadRef,
     inputmobilePhoneHeadRef,
     inputDateRef,
+    onResponseImagePicker,
+    imageUrl
 }) => {
 
     const [t] = useTranslation();
@@ -302,6 +312,7 @@ export const Layout = ({
 
                     <ButtonUpload
                         onResponseImagePicker={onResponseImagePicker}
+                        imageUrl={imageUrl}
                     />
 
                     <View style={{ height: scaleHeight(100) }} />
