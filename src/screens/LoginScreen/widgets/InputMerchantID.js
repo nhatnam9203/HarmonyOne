@@ -89,6 +89,7 @@ export const InputMerchantID = ({ onChangeMID, isLoading, valueMID }) => {
             styles.content,
             {
               fontSize: fontSizeAnimated,
+              fontFamily : fonts.MEDIUM
             },
           ]}>
           Enter your Merchant ID
@@ -138,8 +139,6 @@ const styles = StyleSheet.create({
   content: {
     fontFamily: fonts.REGULAR,
     fontSize: scaleFont(15),
-    fontWeight: 'normal',
-    fontStyle: 'normal',
     letterSpacing: -0.36,
     textAlign: 'center',
     color: colors.bluegrey,

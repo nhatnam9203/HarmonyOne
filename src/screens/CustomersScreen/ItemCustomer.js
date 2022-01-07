@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
         fontSize: scaleFont(23),
         fontWeight: "bold",
         color: "#1366AE",
-        fontFamily: fonts.MEDIUM
+        fontFamily: fonts.BOLD
     },
     customerName: {
         fontSize: scaleFont(20),
