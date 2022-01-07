@@ -12,6 +12,7 @@ export const Layout = ({
   whatMerchantID,
   loginMerchant,
   textMessage,
+  signUp
 }) => {
   const [t] = useTranslation();
 
@@ -41,13 +42,24 @@ export const Layout = ({
           isLoading={isLoading}
           onPress={loginMerchant}
         />
-        <TouchableOpacity
+
+
+        <View style={styles.containerSignup}>
+          <Text style={styles.txtSignup}>Don't have an account!</Text>
+          <TouchableOpacity onPress={signUp}>
+            <Text style={[styles.txtSignup, styles.txtBtnSignup]}>
+              Sign Up
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* <TouchableOpacity
           onPress={whatMerchantID}
           style={styles.btnWhatIsMerchant}>
           <Text style={styles.txtWhatIsMerchant}>
             {t('What is Merchant ID ?')}
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
   );
@@ -60,6 +72,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: scaleWidth(16),
     paddingVertical: scaleHeight(50),
     backgroundColor: colors.white,
+  },
+
+  containerSignup: {
+    flexDirection: "row",
+    marginTop: scaleHeight(16)
+  },
+
+  txtSignup: {
+    fontSize: scaleFont(16),
+    fontFamily: fonts.REGULAR,
+    color: '#27aae1',
+  },
+
+  txtBtnSignup: {
+    fontFamily: fonts.BOLD,
+    marginLeft: scaleWidth(7),
+    color: "#27aae1"
   },
 
   logo: {
@@ -107,12 +136,12 @@ const styles = StyleSheet.create({
     color: '#e12727',
   },
 
-  buttonDisableStyle : {
-    backgroundColor : "transparent",
-    borderWidth : 1,
-    borderColor : '#2E63AA'
+  buttonDisableStyle: {
+    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderColor: '#2E63AA'
   },
-  textDisableStyle : {
-    color : "#2E63AA"
+  textDisableStyle: {
+    color: "#2E63AA"
   }
 });
