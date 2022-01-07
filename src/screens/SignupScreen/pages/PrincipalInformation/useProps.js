@@ -19,10 +19,6 @@ export const useProps = (props) => {
     const { setValue } = form;
     const errors = form.formState.errors;
 
-    const inputHomePhoneHeadRef = React.useRef();
-    const inputmobilePhoneHeadRef = React.useRef();
-    const inputDateRef = React.useRef();
-
     const [fileId, setFileId] = React.useState(null);
     const [imageUrl, setImageUrl] = React.useState(null);
 
@@ -49,9 +45,6 @@ export const useProps = (props) => {
     return {
         form,
         errors,
-        inputHomePhoneHeadRef,
-        inputmobilePhoneHeadRef,
-        inputDateRef,
         imageUrl,
         onResponseImagePicker: async (response) => {
             let files = response?.assets ?? [];

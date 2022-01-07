@@ -49,9 +49,6 @@ export const Layout = ({
     form,
     errors,
     onSubmit,
-    inputHomePhoneHeadRef,
-    inputmobilePhoneHeadRef,
-    inputDateRef,
     onResponseImagePicker,
     imageUrl
 }) => {
