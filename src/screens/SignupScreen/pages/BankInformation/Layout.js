@@ -2,34 +2,43 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { Button, CustomInput, InputText } from "@shared/components";
+import { Button, CustomInput, InputText, CustomImage } from "@shared/components";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { images } from "@shared/themes/resources";
 import { fonts } from "@shared/themes";
 import { WithPopupUpload } from '@shared/HOC';
 import NavigationService from '@navigation/NavigationService';
 
-let ButtonUpload = ({ onResponseImagePicker, ...props }) => (
+let ButtonUpload = ({ onResponseImagePicker, imageUrl ,...props }) => (
     <TouchableOpacity
-        style={styles.containerUpload}
+        style={[styles.containerUpload,{ borderWidth : imageUrl ? 0 : 2 }]}
         onResponseImagePicker={onResponseImagePicker}
         {...props}
     >
-        <Image
-            source={images.camera}
-            style={styles.iconCamera}
-        />
-        <Text style={styles.txtTakePhoto}>
-            Take a photo
-        </Text>
-        <Text style={[styles.txtTakePhoto, styles.txtOr]}>
-            Or
-        </Text>
-        <View style={styles.wrapBrowseFile}>
-            <Text style={[styles.txtTakePhoto, styles.txtBrowFile]}>
-                Browse File
-            </Text>
-        </View>
+        {
+            imageUrl ?
+                <CustomImage
+                    source={{ uri: imageUrl }}
+                    style={{ width: "100%", height: scaleHeight(300) }}
+                /> :
+                <>
+                    <Image
+                        source={images.camera}
+                        style={styles.iconCamera}
+                    />
+                    <Text style={styles.txtTakePhoto}>
+                        Take a photo
+                    </Text>
+                    <Text style={[styles.txtTakePhoto, styles.txtOr]}>
+                        Or
+                    </Text>
+                    <View style={styles.wrapBrowseFile}>
+                        <Text style={[styles.txtTakePhoto, styles.txtBrowFile]}>
+                            Browse File
+                        </Text>
+                    </View>
+                </>
+        }
     </TouchableOpacity>
 );
 
@@ -39,7 +48,8 @@ export const Layout = ({
     form,
     errors,
     onSubmit,
-    onResponseImagePicker
+    onResponseImagePicker,
+    imageUrl
 }) => {
 
     const [t] = useTranslation();
@@ -122,6 +132,7 @@ export const Layout = ({
 
                     <ButtonUpload
                         onResponseImagePicker={onResponseImagePicker}
+                        imageUrl={imageUrl}
                     />
                     <View style={{ height: scaleHeight(100) }} />
                 </KeyboardAwareScrollView>

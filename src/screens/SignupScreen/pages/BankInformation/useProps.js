@@ -21,13 +21,12 @@ export const useProps = (props) => {
     const { setValue } = form;
     const errors = form.formState.errors;
     const [fileId, setFileId] = React.useState(null);
-    const [imageUrl, setImageUrl] = React.useState('');
+    const [imageUrl, setImageUrl] = React.useState(null);
 
     const [, submitUploadImage] = useAxiosMutation({
         ...uploadAvatarStaff(),
         queryId: "upload_voiCheck",
         onSuccess: (data, response) => {
-            console.log('response upload image : ', { response })
             if (response.codeNumber == 200) {
                 setFileId(data?.fileId ?? 0);
                 setImageUrl(data?.url);
@@ -38,6 +37,7 @@ export const useProps = (props) => {
     return {
         form,
         errors,
+        imageUrl,
         onResponseImagePicker: async (response) => {
             let files = response?.assets ?? [];
             files = createFormData(files);
