@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { Button, CustomInput, InputText, DropdownMenu, InputDate } from "@shared/components";
+import { Button, CustomInput, InputText, DropdownMenu, InputDate, InputState } from "@shared/components";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { images } from "@shared/themes/resources";
 import { fonts } from "@shared/themes";
@@ -51,7 +51,7 @@ export const Layout = ({
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={t('Application')}
+                pageTitle={t('Principal Information')}
                 isRight={false}
                 isScrollLayout={false}
                 containerStyle={{ paddingVertical: 0 }}
@@ -67,12 +67,14 @@ export const Layout = ({
                                     form={form}
                                     name="firstName"
                                     placeholder="First Name"
+                                    error={errors?.firstName}
                                     style={{ width: scaleWidth(165) }}
                                 />
                                 <InputText
                                     form={form}
                                     name="lastName"
                                     placeholder="Last Name"
+                                    error={errors?.lastName}
                                     style={{ width: scaleWidth(165) }}
                                 />
                             </View>
@@ -88,6 +90,7 @@ export const Layout = ({
                                 form={form}
                                 name="position"
                                 placeholder="President/Manager/Owner"
+                                error={errors?.position}
                                 isRequired
                             />
                         }
@@ -100,11 +103,12 @@ export const Layout = ({
                         renderInput={() =>
                             <InputText
                                 form={form}
-                                name="ownerShip"
+                                name="ownership"
                                 placeholder=""
                                 isRequired
                                 options={{ mask: "999999999999999999" }}
                                 keyboardType='numeric'
+                                error={errors?.ownership}
                             />
                         }
                     />
@@ -177,6 +181,7 @@ export const Layout = ({
                                     form={form}
                                     name="street"
                                     placeholder="Street Address"
+                                    error={errors?.street}
                                 />
                                 <View style={{ flexDirection: "row", justifyContent: 'space-between', marginVertical: scaleHeight(15) }}>
                                     <InputText
@@ -184,19 +189,22 @@ export const Layout = ({
                                         name="city"
                                         placeholder="City"
                                         style={{ width: scaleWidth(165) }}
+                                        error={errors?.city}
                                     />
                                     <InputText
                                         form={form}
                                         name="zip"
                                         placeholder="Zip Code"
                                         style={{ width: scaleWidth(165) }}
+                                        error={errors?.zip}
                                     />
                                 </View>
 
-                                <InputText
+                                <InputState
                                     form={form}
                                     name="state"
                                     placeholder="State"
+                                    error={errors?.state}
                                 />
                             </View>
                         }
@@ -206,14 +214,16 @@ export const Layout = ({
                         label='Year at this address'
                         isRequired
                         blackLabel={true}
+                        error={errors?.yearAtThisAddress}
                         renderInput={() =>
                             <InputText
                                 form={form}
-                                name="year"
+                                name="yearAtThisAddress"
                                 placeholder=""
                                 isRequired
                                 options={{ mask: "9999" }}
                                 keyboardType='numeric'
+                                error={errors?.yearAtThisAddress}
                             />
                         }
                     />
@@ -222,14 +232,16 @@ export const Layout = ({
                         label='Social Security Number (SSN)'
                         isRequired
                         blackLabel={true}
+                        error={errors?.ssn}
                         renderInput={() =>
                             <InputText
                                 form={form}
-                                name="year"
+                                name="ssn"
                                 placeholder="000-00-0000"
                                 isRequired
                                 options={{ mask: "999-99-9999" }}
                                 keyboardType='numeric'
+                                error={errors?.ssn}
                             />
                         }
                     />
@@ -251,6 +263,7 @@ export const Layout = ({
                                 name="email"
                                 placeholder="example@gmail.com"
                                 isRequired
+                                error={errors?.email}
                             />
                         }
                     />
@@ -262,9 +275,10 @@ export const Layout = ({
                         renderInput={() =>
                             <InputText
                                 form={form}
-                                name="drivenLicense"
+                                name="driverLicense"
                                 placeholder=""
                                 isRequired
+                                error={errors?.driverLicense}
                             />
                         }
                     />
@@ -274,11 +288,12 @@ export const Layout = ({
                         isRequired
                         blackLabel={true}
                         renderInput={() =>
-                            <InputText
+                            <InputState
                                 form={form}
                                 name="stateIssued"
                                 placeholder=""
                                 isRequired
+                                error={errors.stateIssued}
                             />
                         }
                     />
