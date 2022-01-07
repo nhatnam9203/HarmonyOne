@@ -19,6 +19,8 @@ const signupSlice = createSlice({
     initialState: initialState,
     reducers: {
         updateGeneralInformation: (state, action) => {
+            console.log('update general infirmation : ');
+            console.log({ action });
             state.generalInfor = action.payload?.generalInfor;
             state.type = action.payload?.type;
             state.sameAsBusiness = action?.payload?.sameAsBusiness

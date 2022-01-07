@@ -133,12 +133,15 @@ export const useProps = (props) => {
 
                 let data_1 = {
                     addressPrincipal: {
+                        address : principal1.street,
                         city: principal1.city,
                         state: getStateId(stateCity, principal1.state),
                         zip: principal1.zip,
-                        dateOfBirth: moment(principal1.dateOfBirth).format("MM/DD/YYYY")
                     },
                     ...principal1,
+                    dateOfBirth: moment(principal1.dateOfBirth).format("MM/DD/YYYY"),
+                    stateIssued :  getStateId(stateCity, principal1.stateIssued),
+
                 };
 
                 delete data_1["address"];
@@ -148,12 +151,14 @@ export const useProps = (props) => {
 
                 let data_2 = {
                     addressPrincipal: {
+                        address : principal2.street,
                         city: principal2.city,
                         state: getStateId(stateCity, principal2.state),
                         zip: principal2.zip,
-                        dateOfBirth: moment(principal2.dateOfBirth).format("MM/DD/YYYY")
                     },
                     ...principal2,
+                    dateOfBirth: moment(principal2.dateOfBirth).format("MM/DD/YYYY"),
+                    stateIssued :  getStateId(stateCity, principal2.stateIssued),
                 };
 
                 delete data_2["address"];

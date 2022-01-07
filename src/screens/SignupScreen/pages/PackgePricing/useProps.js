@@ -17,6 +17,7 @@ export const useProps = (props) => {
         principalInfo = {},
         packages = [],
         type = "",
+        sameAsBusiness,
     } = useSelector(state => state.signup);
 
     const [numberOfStaff, setNumberOfStaff] = React.useState(1);
@@ -42,9 +43,9 @@ export const useProps = (props) => {
         },
     });
 
-    React.useEffect(() => {
-        fetchPackageAndPricing();
-    }, []);
+    // React.useEffect(() => {
+    //     fetchPackageAndPricing();
+    // }, []);
 
     return {
 
@@ -54,17 +55,20 @@ export const useProps = (props) => {
         setIsMonthly,
 
         onSubmit: async() => {
-            const packagePricing = numberOfStaff == 1 ? 4 : 5;
+            const packagePricing = numberOfStaff == 1 ? 1 : 2;
             dispatch(signup.updatePackagePricing(packagePricing));
             const data = {
-                generalInfor,
-                businessInformation,
-                bankInfor,
+                generalInfo : generalInfor,
+                businessInfo: businessInformation,
+                bankInfo : bankInfor,
                 principalInfo,
                 packagePricing,
                 type,
+                sameAsBusiness
             }
             const body = await signUpMerchant(data);
+            console.log('signup merchant : ');
+            console.log({ body })
             submitSignupMerchant(body.params);    
         }
     };

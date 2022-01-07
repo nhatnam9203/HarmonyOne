@@ -48,15 +48,15 @@ export const useProps = (props) => {
             const generalInfor = {
                 businessName: values.businessPhone,
                 businessAddress: {
+                    address: values.streetBusinessAddress,
                     city: values.cityBusinessAddress,
                     state: getStateId(stateCity,values.stateBusinessAddress),
-                    street: values.streetBusinessAddress,
                     zip: values.zipBusinessAddress,
                 },
                 dbaAddress: {
+                    address: isSameBusinessAddress ? values.streetBusinessAddress : values.streetDbaAddress,
                     city: isSameBusinessAddress ? values.cityBusinessAddress : values.cityDbaAddress,
                     state: isSameBusinessAddress ? getStateId(stateCity,values.stateBusinessAddress) : getStateId(stateCity,values.stateDbaAddress),
-                    street: isSameBusinessAddress ? values.streetBusinessAddress : values.streetDbaAddress,
                     zip: isSameBusinessAddress ? values.zipBusinessAddress : values.zipDbaAddress,
                 },
                 businessPhone: inputPhoneBusinessHeadRef?.current?.getValue()?.value + values.businessPhone,
@@ -69,7 +69,7 @@ export const useProps = (props) => {
                 tax: values.tax
             }
 
-            dispatch(signup.updateGeneralInformation({ generalInfor, type: values.type, sameAsBusiness: isSameBusinessAddress }));
+            dispatch(signup.updateGeneralInformation({ generalInfor, type: merchantTYpeRef?.current?.getValue().value, sameAsBusiness: isSameBusinessAddress }));
 
             NavigationService.navigate(screenNames.BusinessInformation);
         },

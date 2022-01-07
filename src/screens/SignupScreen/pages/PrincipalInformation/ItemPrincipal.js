@@ -164,7 +164,7 @@ export const ItemPrincipal = ({
                                 name={`principalInfor.${index}.ownership`}
                                 placeholder=""
                                 isRequired
-                                options={{ mask: "999999999999999999" }}
+                                options={{ mask: "999999" }}
                                 keyboardType='numeric'
                                 error={errors?.principalInfor?.[index]?.ownership}
                                 renderRight={() => <View />}
