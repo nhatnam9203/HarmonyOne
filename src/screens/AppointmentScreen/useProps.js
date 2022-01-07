@@ -73,18 +73,6 @@ export const useProps = (_params) => {
   });
 
 
-  const [, fetchStateCity] = useAxiosQuery({
-    ...getStateCity(),
-    enabled: false,
-    isLoadingDefault: false,
-    onSuccess: (data, response) => {
-      if (response?.codeNumber == 200) {
-        dispatch(customer.setStateCity(data))
-      }
-    },
-  });
-
-
   const [, getServiceList] = useAxiosQuery({
     ...getService(),
     isLoadingDefault: false,
@@ -179,7 +167,6 @@ export const useProps = (_params) => {
       fetchCountUnreadRoleStaff();
     }
     fetchStaffList();
-    fetchStateCity();
   }, []);
 
   return {

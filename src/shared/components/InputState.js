@@ -86,7 +86,7 @@ export const InputState = ({
                                 <Text style={styles.txtItem}>{item}</Text>
                             </TouchableOpacity>
                         ),
-                        style:{ paddingTop: 10 }
+                        style:{ paddingTop: 10, margin : 0 }
                     }}
                     style={styles.wrapInput}
                     placeholder={"State"}
