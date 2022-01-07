@@ -92,6 +92,7 @@ import {
 } from "./ReportsScreen/subPages";
 import { TermOfService, Privacy, FaqPage } from "./SettingScreen/pages";
 import { SetupTaxScreen } from "./SetupTaxScreen";
+import { SignupScreen } from "./SignupScreen";
 
 
 module.exports = {
@@ -183,4 +184,5 @@ module.exports = {
   FaqPage,
   NotificationRoleStaffScreen,
   SetupTaxScreen,
+  SignupScreen
 };

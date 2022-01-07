@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { InputText, IconButton } from "@shared/components";
-import { images } from "@shared/themes/resources"
+import { images, fonts } from "@shared/themes"
 
 export const ItemInformation = ({ form, errors, label, textYes }) => (
     <View style={{ marginBottom: scaleHeight(24) }}>

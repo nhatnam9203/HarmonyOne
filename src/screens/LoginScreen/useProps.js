@@ -110,5 +110,9 @@ export const useProps = (_params) => {
     },
 
     textMessage,
+
+    signUp : () =>{
+      NavigationService.navigate(screenNames.SignupScreen)
+    }
   };
 };
