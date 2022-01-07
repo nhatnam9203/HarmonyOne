@@ -120,6 +120,7 @@ export const images = {
   emoji_4 :  require('@src/assets/images/emoji_4.png'),
   emoji_5 :  require('@src/assets/images/emoji_5.png'),
   background :  require('@src/assets/images/background.png'),
+  camera: require('@src/assets/images/camera.png'),
 
   geo :  require('@src/assets/images/geo.png'),
   baseline_place :  require('@src/assets/images/baseline_place.png'),
