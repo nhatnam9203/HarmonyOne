@@ -175,14 +175,14 @@ export const ItemPrincipal = ({
 
                     <CustomInput
                         label='Home Phone'
-                        isRequired
+                        // isRequired
                         blackLabel={true}
-                        error={errors?.principalInfor?.[index]?.homePhone}
+                        // error={errors?.principalInfor?.[index]?.homePhone}
                         renderInput={() =>
                             <InputPhone
                                 form={form}
                                 name={`principalInfor.${index}.homePhone`}
-                                error={errors?.principalInfor?.[index]?.homePhone}
+                                // error={errors?.principalInfor?.[index]?.homePhone}
                                 renderRight={() => <View />}
                                 onBlur={checkErrors}
                             />

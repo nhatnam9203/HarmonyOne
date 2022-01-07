@@ -7,6 +7,7 @@ import { headerPhoneGroup } from "@shared/utils";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { images } from "@shared/themes/resources"
 import { useWatch } from "react-hook-form";
+import { fonts } from "@shared/themes";
 import NavigationService from '@navigation/NavigationService'
 
 

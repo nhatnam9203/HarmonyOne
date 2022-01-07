@@ -165,7 +165,7 @@ export const signUpPrincipalInfoSchema = yup.object().shape({
     principalInfor: yup.array().of(
         yup.object().shape({
             ownership: yup.string().required("required"),
-            homePhone: yup.string().required("required"),
+            // homePhone: yup.string().required("required"),
             mobilePhone: yup.string().required("required"),
             firstName: yup.string().required("required"),
             lastName: yup.string().required("required"),
