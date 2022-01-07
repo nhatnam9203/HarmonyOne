@@ -10,18 +10,18 @@ export const useProps = ({
 
   const routeTest = useRoute();
 
-  console.log({ routeName : routeTest.name });
+  // console.log({ routeName : routeTest.name });
 
-  useAndroidBackHandler(() => {
-    const routeName = useRoute().name;
-    if (routeName == screenNames.CheckoutScreen) {
-      // do something
-      NavigationService.navigate(screenNames.AppointmentScreen);
-      return true;
-    }
+  // useAndroidBackHandler(() => {
+  //   const routeName = useRoute().name;
+  //   if (routeName == screenNames.CheckoutScreen) {
+  //     // do something
+  //     NavigationService.navigate(screenNames.AppointmentScreen);
+  //     return true;
+  //   }
 
-    return false;
-  });
+  //   return false;
+  // });
 
   const {
     bookAppointment: { isAddMore }

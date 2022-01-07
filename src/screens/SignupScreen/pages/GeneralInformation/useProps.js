@@ -46,7 +46,7 @@ export const useProps = (props) => {
         onSubmit: (values) => {
 
             const generalInfor = {
-                businessName: values.businessPhone,
+                businessName: values.businessName,
                 businessAddress: {
                     address: values.streetBusinessAddress,
                     city: values.cityBusinessAddress,

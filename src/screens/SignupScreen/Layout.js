@@ -12,7 +12,7 @@ export const Layout = () => {
   return (
     <View style={styles.container}>
       <Navigator
-        initialRouteName={screenNames.BusinessInformation}
+        initialRouteName={screenNames.GeneralInformation}
         swipeEnabled={false}
         headerMode="none"
         screenOptions={{

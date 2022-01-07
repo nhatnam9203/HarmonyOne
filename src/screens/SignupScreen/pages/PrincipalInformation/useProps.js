@@ -124,7 +124,6 @@ export const useProps = (props) => {
 
         onSubmit: () => {
             const isValid = checkErrors();
-            console.log({ isValid })
             if (isValid) {
                 const formValues = form.getValues().principalInfor;
                 const principal1 = formValues[0];

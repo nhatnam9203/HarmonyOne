@@ -55,7 +55,7 @@ export const useProps = (props) => {
         setIsMonthly,
 
         onSubmit: async() => {
-            const packagePricing = numberOfStaff == 1 ? 1 : 2;
+            const packagePricing = numberOfStaff == 1 ? 4 : 5;
             dispatch(signup.updatePackagePricing(packagePricing));
             const data = {
                 generalInfo : generalInfor,
@@ -67,8 +67,6 @@ export const useProps = (props) => {
                 sameAsBusiness
             }
             const body = await signUpMerchant(data);
-            console.log('signup merchant : ');
-            console.log({ body })
             submitSignupMerchant(body.params);    
         }
     };
