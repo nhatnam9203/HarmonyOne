@@ -472,7 +472,7 @@ const styles = StyleSheet.create({
         color: "#585858"
     },
     inputPhone: {
-        width: scaleWidth(250),
+        width: scaleWidth(247),
         height: scaleWidth(42),
         borderWidth: 1,
         borderColor: '#dddddd',

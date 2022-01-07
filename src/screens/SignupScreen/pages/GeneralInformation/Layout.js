@@ -107,7 +107,6 @@ export const Layout = ({
                                 items={merchantTypeGroup}
                                 onChangeValue={() => { }}
                                 defaultIndex={0}
-                                width={scaleWidth(345)}
                                 height={scaleWidth(42)}
                             />
                         }
@@ -408,7 +407,7 @@ const styles = StyleSheet.create({
     },
 
     inputPhone: {
-        width: scaleWidth(250),
+        width: scaleWidth(247),
         height: scaleWidth(42),
         borderWidth: 1,
         borderColor: '#dddddd',
