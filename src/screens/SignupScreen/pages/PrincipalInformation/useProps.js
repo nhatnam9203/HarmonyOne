@@ -3,13 +3,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signUpPrincipalInfoSchema } from "@shared/helpers/schema";
 import { useDispatch } from "react-redux";
-import { signup } from "@redux/slices";
-import {
-    useAxiosMutation,
-    uploadAvatarStaff,
-} from '@src/apis';
+import { signup, app } from "@redux/slices";
 import { createFormData } from '@shared/utils';
 import { Alert } from "react-native";
+import { axios } from '@shared/services/axiosClient';
 
 export const useProps = (props) => {
     const dispatch = useDispatch();
@@ -28,17 +25,26 @@ export const useProps = (props) => {
     const [fileId, setFileId] = React.useState(null);
     const [imageUrl, setImageUrl] = React.useState(null);
 
-    const [, submitUploadImage] = useAxiosMutation({
-        ...uploadAvatarStaff(),
-        queryId: "upload_principal_image",
-        onSuccess: (data, response) => {
-            console.log('data update respoe :', { response })
-            if (response.codeNumber == 200) {
-                setFileId(data?.fileId ?? 0);
-                setImageUrl(data?.url);
+
+    const uploadImage = async (body) => {
+        try {
+            dispatch(app.showLoading());
+            const response = await axios(body);
+            const codeNumber = response?.data?.codeNumber;
+
+            if(response?.data?.codeNumber == 200){
+                dispatch(app.hideLoading());
+                setFileId(response?.data?.data?.fileId ?? 0);
+                setImageUrl(response?.data?.data?.url);
+            }else{
+                dispatch(app.hideLoading());
             }
-        },
-    });
+        } catch (err) {
+            dispatch(app.hideLoading());
+        } finally {
+        
+        }
+    }
 
     return {
         form,
@@ -46,12 +52,12 @@ export const useProps = (props) => {
         inputHomePhoneHeadRef,
         inputmobilePhoneHeadRef,
         inputDateRef,
+        imageUrl,
         onResponseImagePicker: async (response) => {
             let files = response?.assets ?? [];
             files = createFormData(files);
-            console.log({ files })
             const body = await uploadAvatarStaff(files);
-            submitUploadImage(body.params);
+            uploadImage(body.params);
         },
 
         onSubmit: (values) => {

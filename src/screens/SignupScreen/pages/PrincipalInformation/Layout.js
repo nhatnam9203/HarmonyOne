@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { Button, CustomInput, InputText, DropdownMenu, InputDate, InputState } from "@shared/components";
+import { Button, CustomInput, InputText, DropdownMenu, InputDate, InputState, CustomImage } from "@shared/components";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { images } from "@shared/themes/resources";
 import { fonts } from "@shared/themes";
