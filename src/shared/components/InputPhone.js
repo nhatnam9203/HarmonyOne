@@ -4,6 +4,7 @@ import { InputText } from "./InputText";
 import { DropdownMenu } from "./DropdownMenu";
 import { useForm } from "react-hook-form";
 import { headerPhoneGroup } from "@shared/utils";
+import { isEmpty } from "lodash";
 
 export const InputPhone = ({
     form,
@@ -17,8 +18,14 @@ export const InputPhone = ({
 
     const onblurInput = () => {
         const phoneHead = inputPhoneHeadRef?.current?.getValue()?.value;
-        const phone = `${phoneHead}${formInput.getValues(name)}`;
-        form.setValue(phone);
+        const phoneTail = formInput.getValues(name);
+        const phone = `${phoneHead}${phoneTail}`;
+        form.setValue(name, phone);
+        if (isEmpty(phoneTail)) {
+            form.setError(name, { message: 'required', type: 'required' });
+        } else {
+            form.clearErrors(name);
+        }
     }
 
     return (

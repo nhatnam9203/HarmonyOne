@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { Button, CustomInput, InputText, DropdownMenu, InputDate, InputState, CustomImage, LazyImage, InputDateForm } from "@shared/components";
+import { Button, CustomInput, InputText, InputDate, InputState, CustomImage, LazyImage, InputDateForm, InputPhone } from "@shared/components";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { images } from "@shared/themes/resources";
 import { fonts } from "@shared/themes";
@@ -10,9 +10,9 @@ import { WithPopupUpload } from '@shared/HOC';
 import { headerPhoneGroup } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 
-let ButtonUpload = ({ onResponseImagePicker, imageUrl ,...props }) => (
+let ButtonUpload = ({ onResponseImagePicker, imageUrl, ...props }) => (
     <TouchableOpacity
-        style={[styles.containerUpload,{ borderWidth : imageUrl ? 0 : 2 }]}
+        style={[styles.containerUpload, { borderWidth: imageUrl ? 0 : 2 }]}
         onResponseImagePicker={onResponseImagePicker}
         {...props}
     >
@@ -127,28 +127,13 @@ export const Layout = ({
                         label='Home Phone'
                         isRequired
                         blackLabel={true}
-                        error={errors?.businessPhone}
+                        error={errors.homePhone}
                         renderInput={() =>
-                            <View style={styles.row}>
-                                <DropdownMenu
-                                    ref={inputHomePhoneHeadRef}
-                                    items={headerPhoneGroup}
-                                    onChangeValue={() => { }}
-                                    defaultIndex={0}
-                                    width={scaleWidth(95)}
-                                    height={scaleWidth(42)}
-                                    styleDropDown={styles.styleDropDown}
-                                />
-                                <InputText
-                                    style={styles.inputPhone}
-                                    options={{ mask: "999-999-9999" }}
-                                    keyboardType='numeric'
-                                    form={form}
-                                    name="homePhone"
-                                    placeholder=""
-                                    error={errors?.homePhone}
-                                />
-                            </View>
+                            <InputPhone
+                                form={form}
+                                name="homePhone"
+                                error={errors.homePhone}
+                            />
                         }
                     />
 
@@ -159,23 +144,10 @@ export const Layout = ({
                         error={errors?.mobilePhone}
                         renderInput={() =>
                             <View style={styles.row}>
-                                <DropdownMenu
-                                    ref={inputmobilePhoneHeadRef}
-                                    items={headerPhoneGroup}
-                                    onChangeValue={() => { }}
-                                    defaultIndex={0}
-                                    width={scaleWidth(95)}
-                                    height={scaleWidth(42)}
-                                    styleDropDown={styles.styleDropDown}
-                                />
-                                <InputText
-                                    style={styles.inputPhone}
-                                    options={{ mask: "999-999-9999" }}
-                                    keyboardType='numeric'
+                                <InputPhone
                                     form={form}
                                     name="mobilePhone"
-                                    placeholder=""
-                                    error={errors?.mobilePhone}
+                                    error={errors.mobilePhone}
                                 />
                             </View>
                         }

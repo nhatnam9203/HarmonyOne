@@ -17,13 +17,13 @@ export const Layout = ({
         <ImageBackground resizeMode="stretch" source={images.background} style={styles.container}>
 
             <View style={styles.content}>
-                <TouchableOpacity onPress={()=>NavigationService.back()} style={styles.btnBack}>
+                {/* <TouchableOpacity onPress={()=>NavigationService.back()} style={styles.btnBack}>
                     <Image
                         source={images.iconBack}
                         style={[styles.iconSize]}
                         resizeMode="cover"
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <Image source={images.logo} style={styles.logo} resizeMode="contain" />
                 <View style={{ marginVertical: scaleHeight(80), alignItems: "center" }}>
                     <Text style={styles.txtTrryApp}>
