@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     inputPhone: {
-        width: scaleWidth(250),
+        width: scaleWidth(247),
         height: scaleWidth(42),
         borderWidth: 1,
         borderColor: '#dddddd',
