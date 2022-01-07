@@ -6,64 +6,121 @@ import { useDispatch } from "react-redux";
 import { signup, app } from "@redux/slices";
 import { createFormData } from '@shared/utils';
 import { Alert } from "react-native";
-import { axios } from '@shared/services/axiosClient';
-import { uploadAvatarStaff } from "@src/apis";
+import { useFieldArray } from "react-hook-form";
+
+const initialValues = {
+    firstName: "",
+    lastName: "",
+    position: "",
+    ownership: "",
+    homePhone: "",
+    mobilePhone: "",
+    street: "",
+    city: "",
+    state: "",
+    zip: "",
+    yearAtThisAddress: "",
+    ssn: "",
+    dateOfBirth: new Date(),
+    email: "",
+    driverLicense: "",
+    stateIssued: "",
+    fileId: null,
+};
 
 export const useProps = (props) => {
     const dispatch = useDispatch();
 
     const form = useForm({
+        defaultValues: {
+            principalInfor: [initialValues, initialValues],
+        },
         resolver: yupResolver(signUpPrincipalInfoSchema)
     });
-
     const { setValue } = form;
     const errors = form.formState.errors;
 
     const [fileId, setFileId] = React.useState(null);
     const [imageUrl, setImageUrl] = React.useState(null);
 
+    const { fields, append, remove } = useFieldArray({
+        control: form.control,
+        name: "principalInfor",
+    });
 
-    const uploadImage = async (body) => {
-        try {
-            dispatch(app.showLoading());
-            const response = await axios(body);
 
-            if(response?.data?.codeNumber == 200){
-                dispatch(app.hideLoading());
-                setFileId(response?.data?.data?.fileId ?? 0);
-                setImageUrl(response?.data?.data?.url);
-            }else{
-                dispatch(app.hideLoading());
+    const checkValidPrincpal = (values) => {
+        for (const [key, value] of Object.entries(values)) {
+            if (!value) {
+                return false;
             }
-        } catch (err) {
-            dispatch(app.hideLoading());
-        } finally {
-        
         }
+        return true;
     }
+
+    const countValidPrincipal = (values) => {
+        let count = 0;
+        for (const [key, value] of Object.entries(values)) {
+            if (value) {
+                count = count + 1;
+            }
+        }
+        return count;
+    }
+
+    const checkErrors = () => {
+        let isValid = true;
+
+        const formValues = form.getValues().principalInfor;
+        const principal1 = formValues[0];
+        const principal2 = formValues[1];
+
+        const isValidPrincipal_1 = checkValidPrincpal(principal1);
+        const isValidPrincipal_2 = checkValidPrincpal(principal2);
+
+        if (!isValidPrincipal_1) {
+            for (const [key, value] of Object.entries(principal1)) {
+                if (!value) {
+                    form.setError(`principalInfor.0.${key}`, { message: "required", type: "required" });
+                } else {
+                    form.clearErrors(`principalInfor.0.${key}`);
+                }
+            }
+            isValid = false;
+        }
+
+        const countValidPrincipal_2 = countValidPrincipal(principal2);
+
+        if (!isValidPrincipal_2 && countValidPrincipal_2 > 1) {
+            for (const [key, value] of Object.entries(principal2)) {
+                if (!value) {
+                    form.setError(`principalInfor.1.${key}`, { message: "required", type: "required" });
+                } else {
+                    form.clearErrors(`principalInfor.1.${key}`);
+                }
+            }
+            isValid = false;
+        } else {
+            form.clearErrors(`principalInfor.1`)
+        }
+
+        return isValid;
+    }
+
 
     return {
         form,
         errors,
         imageUrl,
-        onResponseImagePicker: async (response) => {
-            let files = response?.assets ?? [];
-            files = createFormData(files);
-            const body = await uploadAvatarStaff(files);
-            uploadImage(body.params);
-        },
+        fields,
+        append,
+        remove,
+        checkErrors,
 
-        onSubmit: (values) => {
+        onSubmit: () => {
+            const isValid = checkErrors();
+            if(isValid){
 
-            if (!fileId) {
-                Alert.alert("PLEASE UPDATE VOID CHECK")
-            } else {
-                const principalInformation = {
-                    ...values,
-                    fileId
-                };
-
-                dispatch(signup.updatePrincipalInformation(principalInformation));
             }
 
         }
