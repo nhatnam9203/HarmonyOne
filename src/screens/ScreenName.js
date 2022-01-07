@@ -100,6 +100,14 @@ const ScreenNames = {
   Privacy: "hpo.setting.privacy",
   FaqPage: "hpo.setting.faq",
   SetupTaxScreen: "hpo.tax.setup",
+  SignupScreen : "hpo.signup",
+  GeneralInformation : "hpo.signup.general",
+  BusinessInformation : "hpo.signup.businessInformation",
+  BankInformation : "hpo.signup.bankInformation",
+  PrincipalInformation : "hpo.signup.principalInformation",
+  PackagePricing : "hpo.signup.packagePricing",
+  ApplicationSubmit : "hpo.signup.applicationSubmit"
 };
 
 module.exports = { ScreenNames };
+

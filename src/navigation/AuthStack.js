@@ -6,6 +6,7 @@ import {
   PinCodeScreen,
   ScreenNames,
   WhatIsMerchant,
+  SignupScreen,
 } from '@screens';
 import {
   CardStyleInterpolators,
@@ -27,6 +28,7 @@ const AuthStack = (props) => {
       }}>
       <Screen {...LoginScreen} />
       <Screen {...PinCodeScreen} />
+      <Screen {...SignupScreen} />
 
       <Screen name="ForgotPincode" component={ForgotPincode} />
       <Screen name="ForgotPincodeSuccess" component={ForgotPincodeSuccess} />
@@ -36,3 +38,4 @@ const AuthStack = (props) => {
 };
 
 export default AuthStack;
+
