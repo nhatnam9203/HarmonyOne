@@ -7,6 +7,7 @@ import { signup, app } from "@redux/slices";
 import { createFormData } from '@shared/utils';
 import { Alert } from "react-native";
 import { axios } from '@shared/services/axiosClient';
+import { uploadAvatarStaff } from "@src/apis";
 
 export const useProps = (props) => {
     const dispatch = useDispatch();
@@ -28,9 +29,10 @@ export const useProps = (props) => {
 
     const uploadImage = async (body) => {
         try {
+            console.log({ body });
             dispatch(app.showLoading());
             const response = await axios(body);
-            const codeNumber = response?.data?.codeNumber;
+            console.log({ response })
 
             if(response?.data?.codeNumber == 200){
                 dispatch(app.hideLoading());
@@ -67,6 +69,7 @@ export const useProps = (props) => {
             } else {
                 const principalInformation = {
                     ...values,
+                    fileId
                 };
 
                 dispatch(signup.updatePrincipalInformation(principalInformation));

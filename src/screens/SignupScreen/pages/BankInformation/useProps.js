@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { signup, app } from "@redux/slices";
 import { createFormData } from '@shared/utils';
 import { axios } from '@shared/services/axiosClient';
+import { uploadAvatarStaff } from "@src/apis";
 
 export const useProps = (props) => {
     const dispatch = useDispatch();
