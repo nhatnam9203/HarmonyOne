@@ -151,6 +151,7 @@ export const images = {
   clock: require('@src/assets/images/clock.png'),
   clock_2: require('@src/assets/images/clock_2.png'),
   delete: require('@src/assets/images/delete.png'),
+  check_package_pricing: require('@src/assets/images/check_package_pricing.png'),
 };
 
 export const svg = {
