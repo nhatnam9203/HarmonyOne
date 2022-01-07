@@ -1,11 +1,19 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
+import { signUpGeneralInfoSchema, signUpGeneralInfoSchema2 } from "@shared/helpers/schema";
+import { useSelector, useDispatch } from "react-redux";
+import { signup } from "@redux/slices";
+import NavigationService from "@navigation/NavigationService";
 
 export const useProps = (props) => {
 
+    const dispatch = useDispatch();
+
+    const [schemaValidate, setSchemaValidate] = React.useState(signUpGeneralInfoSchema);
+
     const form = useForm({
-        // resolver: yupResolver(customerSchema)
+        resolver: yupResolver(schemaValidate)
     });
 
     const { setValue } = form;
@@ -17,6 +25,10 @@ export const useProps = (props) => {
 
     const [isSameBusinessAddress, setIsSameBusinessAddress] = React.useState(true);
 
+    React.useEffect(() => {
+        dispatch(signup.reset());
+    }, []);
+
     return {
         form,
         errors,
@@ -26,8 +38,32 @@ export const useProps = (props) => {
         isSameBusinessAddress,
         setIsSameBusinessAddress,
 
-        onSubmit : (values) => {
+        onSubmit: (values) => {
+            const generalInformation = {
+                ...values,
+                tax :`${values.prefixTax}-${values.suffixTax}`,
+                type : merchantTypeGroup?.current?.getValue()?.value,
+                businessPhone : inputPhoneBusinessHeadRef?.current?.getValue()?.value + values.businessPhone,
+                phone : inputPhoneHeadRef?.current?.getValue()?.value + values.phone,
 
-        }
+            };
+
+            dispatch(signup.updateGeneralInformation(generalInformation));
+
+            NavigationService.navigate(screenNames.BusinessInformation);
+        },
+
+        onChangeIsSameBusinessAddress: (status) => {
+            setIsSameBusinessAddress(status);
+            if (!status) {
+                form.setValue("streetDbaAddress", "");
+                form.setValue("cityDbaAddress", "");
+                form.setValue("zipDbaAddress", "");
+                form.setValue("stateDbaAddress", "");
+                setSchemaValidate(signUpGeneralInfoSchema);
+            }else{
+                setSchemaValidate(signUpGeneralInfoSchema2)
+            }
+        },
     };
 };

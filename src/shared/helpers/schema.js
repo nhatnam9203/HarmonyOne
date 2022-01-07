@@ -78,3 +78,50 @@ export const basicEditSchema = yup.object().shape({
     businessName: yup.string().required("required"),
     email: yup.string().email("Invalid email").nullable(),
 });
+
+export const signUpGeneralInfoSchema = yup.object().shape({
+    businessName: yup.string().required("required"),
+    doingBusiness: yup.string().required("required"),
+    prefixTax: yup.string().required("required"),
+    suffixTax: yup.string().required("required"),
+    businessPhone: yup.string().required("required"),
+    firstName: yup.string().required("required"),
+    lastName: yup.string().required("required"),
+    position: yup.string().required("required"),
+    contactPhone: yup.string().required("required"),
+
+    streetBusinessAddress: yup.string().required("required"),
+    cityBusinessAddress: yup.string().required("required"),
+    zipBusinessAddress: yup.string().required("required"),
+    stateBusinessAddress: yup.string().required("required"),
+
+    streetDbaAddress: yup.string().required("required"),
+    cityDbaAddress: yup.string().required("required"),
+    zipDbaAddress: yup.string().required("required"),
+    stateDbaAddress: yup.string().required("required"),
+
+    email: yup.string().required("required").email("Invalid email"),
+});
+
+export const signUpGeneralInfoSchema2 = yup.object().shape({
+    businessName: yup.string().required("required"),
+    doingBusiness: yup.string().required("required"),
+    prefixTax: yup.string().required("required"),
+    suffixTax: yup.string().required("required"),
+    businessPhone: yup.string().required("required"),
+    firstName: yup.string().required("required"),
+    lastName: yup.string().required("required"),
+    position: yup.string().required("required"),
+    contactPhone: yup.string().required("required"),
+
+    streetBusinessAddress: yup.string().required("required"),
+    cityBusinessAddress: yup.string().required("required"),
+    zipBusinessAddress: yup.string().required("required"),
+    stateBusinessAddress: yup.string().required("required"),
+
+    email: yup.string().required("required").email("Invalid email"),
+});
+
+export const signUpBusiniessInfoSchema = yup.object().shape({
+
+});

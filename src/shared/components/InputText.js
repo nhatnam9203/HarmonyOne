@@ -30,6 +30,8 @@ export const InputText = React.forwardRef(
       onBlur = () => { },
       iconCloseStyle,
       onChangeInput,
+      editable=true,
+      valueVisible=null,
     },
     ref,
   ) => {
@@ -72,7 +74,7 @@ export const InputText = React.forwardRef(
               onChangeInput && onChangeInput(text);
             }}
             placeholder={placeholder}
-            value={field.value}
+            value={valueVisible ?? field.value}
             style={[styles.input, inputStyle]}
             multiline={multiline}
             textAlignVertical={multiline ? "top" : "center"}
@@ -80,6 +82,7 @@ export const InputText = React.forwardRef(
             keyboardType={type == "money" ? "numeric" : keyboardType}
             onFocus={() => setFocus(true)}
             onBlur={onBlurInput}
+            editable={editable}
           />
           {/* <Text>hgfghf</Text> */}
           {renderRight

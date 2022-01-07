@@ -53,6 +53,6 @@ const styles = StyleSheet.create({
     fontSize: scaleFont(14),
     color: 'red',
     marginBottom: scaleHeight(10),
-    fontFamily: fonts.REGULAR,
+    fontFamily: fonts.MEDIUM,
   },
 });

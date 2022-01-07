@@ -2,10 +2,11 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { DropdownMenu, Button, CustomInput, InputText } from "@shared/components";
+import { DropdownMenu, Button, CustomInput, InputText, InputState } from "@shared/components";
 import { headerPhoneGroup } from "@shared/utils";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { images } from "@shared/themes/resources"
+import { useWatch } from "react-hook-form";
 import NavigationService from '@navigation/NavigationService'
 
 
@@ -23,12 +24,38 @@ export const Layout = ({
     inputPhoneHeadRef,
     inputPhoneBusinessHeadRef,
     isSameBusinessAddress,
-    setIsSameBusinessAddress,
+    onChangeIsSameBusinessAddress,
     onSubmit,
-
 }) => {
 
     const [t] = useTranslation();
+
+    const streetBusinessAddress = useWatch({
+        control: form.control,
+        name: 'streetBusinessAddress'
+    });
+
+    const cityBusinessAddress = useWatch({
+        control: form.control,
+        name: 'cityBusinessAddress'
+    });
+
+    const zipBusinessAddress = useWatch({
+        control: form.control,
+        name: 'zipBusinessAddress'
+    });
+
+    const stateBusinessAddress = useWatch({
+        control: form.control,
+        name: 'stateBusinessAddress'
+    });
+
+    const onBlurStateBusinessAddress = () => {
+        if (stateBusinessAddress && isSameBusinessAddress) {
+            form.setValue("stateDbaAddress", stateBusinessAddress);
+        }
+    }
+
 
     return (
         <View style={styles.container}>
@@ -40,16 +67,17 @@ export const Layout = ({
             >
                 <KeyboardAwareScrollView style={styles.content}>
                     <CustomInput
-                        label='Legal Business Names'
+                        label='Legal Business Name'
                         isRequired
-                        error={errors?.firstName}
+                        error={errors?.businessName}
                         blackLabel={true}
                         renderInput={() =>
                             <InputText
                                 form={form}
-                                name="firstName"
-                                placeholder="Legal Business Names*"
-                                error={errors?.firstName}
+                                name="businessName"
+                                placeholder="Legal Business Names"
+                                error={errors?.businessName}
+                                renderRight={() => <View />}
                             />}
                     />
 
@@ -57,13 +85,14 @@ export const Layout = ({
                         label='Doing Business As(DBA)'
                         isRequired
                         blackLabel={true}
-                        error={errors?.lastName}
+                        error={errors?.doingBusiness}
                         renderInput={() =>
                             <InputText
                                 form={form}
-                                name="lastName"
+                                name="doingBusiness"
                                 placeholder="DBA"
-                                error={errors?.lastName}
+                                error={errors?.doingBusiness}
+                                renderRight={() => <View />}
                             />}
                     />
 
@@ -83,6 +112,38 @@ export const Layout = ({
                         }
                     />
 
+                    <CustomInput
+                        label='Federal Tax ID'
+                        isRequired
+                        blackLabel={true}
+                        error={errors.prefixTax || errors.suffixTax}
+                        renderInput={() =>
+                            <View style={[styles.row, { justifyContent: "space-between" }]}>
+                                <InputText
+                                    style={[styles.inputName, { width: scaleWidth(95) }]}
+                                    form={form}
+                                    name="prefixTax"
+                                    placeholder=""
+                                    error={errors?.prefixTax}
+                                    options={{ mask: "99" }}
+                                    keyboardType='numeric'
+                                    renderRight={() => <View />}
+                                />
+
+                                <InputText
+                                    style={[styles.inputName, { width: scaleWidth(240) }]}
+                                    form={form}
+                                    name="suffixTax"
+                                    placeholder=""
+                                    error={errors?.suffixTax}
+                                    options={{ mask: "9999999" }}
+                                    keyboardType='numeric'
+                                    renderRight={() => <View />}
+                                />
+                            </View>
+                        }
+                    />
+
                     <View style={{ marginTop: scaleHeight(16) }}>
                         <CustomInput
                             label='Business Address(no P.O.Boxes)'
@@ -92,28 +153,37 @@ export const Layout = ({
                                 <View>
                                     <InputText
                                         form={form}
-                                        name="street"
+                                        name="streetBusinessAddress"
                                         placeholder="Street Address"
+                                        error={errors?.streetBusinessAddress}
+                                        renderRight={() => <View />}
                                     />
                                     <View style={{ flexDirection: "row", justifyContent: 'space-between', marginVertical: scaleHeight(15) }}>
                                         <InputText
                                             form={form}
-                                            name="city"
+                                            name="cityBusinessAddress"
                                             placeholder="City"
                                             style={{ width: scaleWidth(165) }}
+                                            error={errors?.cityBusinessAddress}
+                                            renderRight={() => <View />}
                                         />
                                         <InputText
                                             form={form}
-                                            name="zip"
+                                            name="zipBusinessAddress"
                                             placeholder="Zip Code"
                                             style={{ width: scaleWidth(165) }}
+                                            error={errors?.zipBusinessAddress}
+                                            renderRight={() => <View />}
                                         />
                                     </View>
 
-                                    <InputText
+                                    <InputState
                                         form={form}
-                                        name="state"
+                                        name="stateBusinessAddress"
                                         placeholder="State"
+                                        renderRight={() => <View />}
+                                        error={errors?.stateBusinessAddress}
+                                        onBlurInput={onBlurStateBusinessAddress}
                                     />
                                 </View>
                             }
@@ -128,7 +198,7 @@ export const Layout = ({
                             renderRight={() => (
                                 <TouchableOpacity
                                     activeOpacity={1}
-                                    onPress={() => setIsSameBusinessAddress(!isSameBusinessAddress)}
+                                    onPress={() => onChangeIsSameBusinessAddress(!isSameBusinessAddress)}
                                     style={{ flexDirection: "row", alignItems: "center", marginTop: -8, marginLeft: scaleWidth(15) }}>
                                     <Image
                                         source={isSameBusinessAddress ? images.checkBox : images.checkBoxEmpty}
@@ -143,59 +213,49 @@ export const Layout = ({
                                 <View>
                                     <InputText
                                         form={form}
-                                        name="street"
+                                        name="streetDbaAddress"
                                         placeholder="Street Address"
+                                        error={(errors?.streetDbaAddress && !isSameBusinessAddress) || (errors.streetBusinessAddress && isSameBusinessAddress)}
+                                        valueVisible={isSameBusinessAddress ? streetBusinessAddress : null}
+                                        renderRight={() => <View />}
+                                        editable={!isSameBusinessAddress}
                                     />
                                     <View style={{ flexDirection: "row", justifyContent: 'space-between', marginVertical: scaleHeight(15) }}>
                                         <InputText
                                             form={form}
-                                            name="city"
+                                            name="cityDbaAddress"
                                             placeholder="City"
                                             style={{ width: scaleWidth(165) }}
+                                            error={(errors?.cityDbaAddress && !isSameBusinessAddress) || (errors.cityBusinessAddress && isSameBusinessAddress)}
+                                            valueVisible={isSameBusinessAddress ? cityBusinessAddress : null}
+                                            renderRight={() => <View />}
+                                            editable={!isSameBusinessAddress}
                                         />
                                         <InputText
                                             form={form}
-                                            name="state"
-                                            placeholder="State"
+                                            name="zipDbaAddress"
+                                            placeholder="Zip Code"
                                             style={{ width: scaleWidth(165) }}
+                                            error={(errors?.zipDbaAddress && !isSameBusinessAddress) || (errors.zipBusinessAddress && isSameBusinessAddress)}
+                                            valueVisible={isSameBusinessAddress ? zipBusinessAddress : null}
+                                            renderRight={() => <View />}
+                                            editable={!isSameBusinessAddress}
                                         />
                                     </View>
-                                    <InputText
+
+                                    <InputState
                                         form={form}
-                                        name="zip"
-                                        placeholder="Zip Code"
-                                        style={{ width: scaleWidth(165) }}
+                                        name="stateDbaAddress"
+                                        placeholder="State"
+                                        renderRight={() => <View />}
+                                        error={(errors?.stateDbaAddress && !isSameBusinessAddress) || (errors.stateBusinessAddress && isSameBusinessAddress)}
+                                        editable={!isSameBusinessAddress}
+                                        valueVisible={isSameBusinessAddress ? stateBusinessAddress : null}
                                     />
                                 </View>
                             }
                         />
                     </View>
-
-                    <CustomInput
-                        label='Federal Tax ID'
-                        isRequired
-                        blackLabel={true}
-                        error={errors?.federal}
-                        renderInput={() =>
-                            <View style={[styles.row, { justifyContent: "space-between" }]}>
-                                <InputText
-                                    style={[styles.inputName, { width: scaleWidth(95) }]}
-                                    form={form}
-                                    name="federal"
-                                    placeholder=""
-                                    error={errors?.federal}
-                                />
-
-                                <InputText
-                                    style={[styles.inputName, { width: scaleWidth(240) }]}
-                                    form={form}
-                                    name="federal"
-                                    placeholder=""
-                                    error={errors?.federal}
-                                />
-                            </View>
-                        }
-                    />
 
                     <CustomInput
                         label='Business Phone'
@@ -221,6 +281,7 @@ export const Layout = ({
                                     name="businessPhone"
                                     placeholder="012-3456-789"
                                     error={errors?.businessPhone}
+                                    renderRight={() => <View />}
                                 />
                             </View>
                         }
@@ -230,12 +291,14 @@ export const Layout = ({
                         label='Contact Email Address'
                         isRequired
                         blackLabel={true}
+                        error={errors?.email}
                         renderInput={() =>
                             <InputText
                                 form={form}
-                                name="lastName"
+                                name="email"
                                 placeholder="example@gmail.com"
-                                error={errors?.lastName}
+                                error={errors?.email}
+                                renderRight={() => <View />}
                             />}
                     />
 
@@ -243,7 +306,7 @@ export const Layout = ({
                         label='Contact Name'
                         isRequired
                         blackLabel={true}
-                        error={errors?.contactName}
+                        error={errors?.firstName || errors.lastName}
                         renderInput={() =>
                             <View style={[styles.row, { justifyContent: "space-between" }]}>
                                 <InputText
@@ -252,6 +315,7 @@ export const Layout = ({
                                     name="phone"
                                     placeholder="First Name"
                                     error={errors?.firstName}
+                                    renderRight={() => <View />}
                                 />
                                 <InputText
                                     style={styles.inputName}
@@ -259,6 +323,7 @@ export const Layout = ({
                                     name="phone"
                                     placeholder="Last Name"
                                     error={errors?.lastName}
+                                    renderRight={() => <View />}
                                 />
                             </View>
                         }
@@ -268,12 +333,14 @@ export const Layout = ({
                         label='Title/Position'
                         isRequired
                         blackLabel={true}
+                        error={errors.position}
                         renderInput={() =>
                             <InputText
                                 form={form}
                                 name="position"
                                 placeholder="President/Manager/Owner"
                                 error={errors?.position}
+                                renderRight={() => <View />}
                             />}
                     />
 
@@ -281,7 +348,7 @@ export const Layout = ({
                         label='Contact Phone Number'
                         isRequired
                         blackLabel={true}
-                        error={errors?.phone}
+                        error={errors?.contactPhone}
                         renderInput={() =>
                             <View style={styles.row}>
                                 <DropdownMenu
@@ -298,9 +365,10 @@ export const Layout = ({
                                     options={{ mask: "999-999-9999" }}
                                     keyboardType='numeric'
                                     form={form}
-                                    name="phone"
-                                    placeholder="012-3456-789"
-                                    error={errors?.phone}
+                                    name="contactPhone"
+                                    placeholder=""
+                                    error={errors?.contactPhone}
+                                    renderRight={() => <View />}
                                 />
                             </View>
                         }

@@ -3,43 +3,57 @@ import { View, StyleSheet, Text } from 'react-native';
 import { InputText, IconButton } from "@shared/components";
 import { images, fonts } from "@shared/themes"
 
-export const ItemInformation = ({ form, errors, label, textYes }) => (
-    <View style={{ marginBottom: scaleHeight(24) }}>
-        <Text style={styles.lblCustom}>
-            {label}
-        </Text>
-        <View style={styles.item}>
-            <IconButton
-                icon={images.checkBox}
-                onPress={() => { }}
-                style={styles.btnIcon}
-                iconStyle={styles.checkBox}
-                resizeMode='cover'
-                renderText={() => <Text style={styles.txtIcon}>No</Text>}
-            />
+export const ItemInformation = React.forwardRef(({ 
+    form, errors, label, textYes, name = ""
+ }, ref)=>{
+    const [isCheck, setIsCheck] = React.useState(true);
 
-            <IconButton
-                icon={images.checkBox}
-                onPress={() => { }}
-                style={[styles.btnIcon, { marginLeft: scaleWidth(24) }]}
-                iconStyle={styles.checkBox}
-                resizeMode='cover'
-                renderText={() => <Text style={styles.txtIcon}>{textYes}</Text>}
-            />
-        </View>
 
-        {
-            <View style={{ marginTop: scaleHeight(8) }}>
-                <InputText
-                    form={form}
-                    name="lastName"
-                    placeholder=""
-                    error={errors?.lastName}
+    React.useImperativeHandle(ref, () => ({
+        getStatus: () => {
+            return isCheck;
+        },
+    }));
+    return (
+        <View style={{ marginBottom: scaleHeight(24) }}>
+            <Text style={styles.lblCustom}>
+                {label}
+            </Text>
+            <View style={styles.item}>
+                <IconButton
+                    icon={!isCheck ? images.checkBox : images.checkBoxEmpty}
+                    onPress={() => { setIsCheck(!isCheck) }}
+                    style={styles.btnIcon}
+                    iconStyle={styles.checkBox}
+                    resizeMode='cover'
+                    renderText={() => <Text style={styles.txtIcon}>No</Text>}
+                />
+
+                <IconButton
+                    icon={isCheck ? images.checkBox : images.checkBoxEmpty}
+                    onPress={() => { setIsCheck(!isCheck) }}
+                    style={[styles.btnIcon, { marginLeft: scaleWidth(24) }]}
+                    iconStyle={styles.checkBox}
+                    resizeMode='cover'
+                    renderText={() => <Text style={styles.txtIcon}>{textYes}</Text>}
                 />
             </View>
-        }
-    </View>
-);
+
+            {
+                <View style={{ marginTop: scaleHeight(8) }}>
+                    <InputText
+                        form={form}
+                        name={name}
+                        placeholder=""
+                        error={errors?.lastName}
+                        editable={isCheck}
+                    />
+                </View>
+            }
+        </View>
+    )
+});
+
 
 
 const styles = StyleSheet.create({

@@ -18,6 +18,7 @@ import settlementSlice from "./settlementSlice";
 import reportSlice from "./reportSlice";
 import hardwareSlice from "./hardwareSlice";
 import dataLocalSlice from "./dataLocalSlice";
+import signupSlice from "./signupSlice";
 
 const rootReducers = Object.assign(
   {},
@@ -42,6 +43,7 @@ const rootReducers = Object.assign(
     report : reportSlice.reducer,
     hardware: hardwareSlice.reducer,
     dataLocal : dataLocalSlice.reducer,
+    signup : signupSlice.reducer,
   },
 );
 
@@ -67,4 +69,5 @@ module.exports = {
   report : reportSlice.actions,
   hardware: hardwareSlice.actions,
   dataLocal : dataLocalSlice.actions,
+  signup : signupSlice.actions,
 };
