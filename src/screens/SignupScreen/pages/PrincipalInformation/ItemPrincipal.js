@@ -22,7 +22,7 @@ let ButtonUpload = ({ onResponseImagePicker, imageUrl, ...props }) => (
             imageUrl ?
                 <CustomImage
                     source={{ uri: imageUrl }}
-                    style={{ width: "100%", height: scaleHeight(300) }}
+                    style={{ height: scaleHeight(300), width: scaleWidth(375 - 32) }}
                 /> :
                 <>
                     <Image
@@ -339,7 +339,7 @@ export const ItemPrincipal = ({
                                 isRequired
                                 error={errors?.principalInfor?.[index]?.driverLicense}
                                 renderRight={() => <View />}
-                                onBlur={checkErrors}
+                                onBlurInput={checkErrors}
                             />
                         }
                     />
@@ -357,7 +357,7 @@ export const ItemPrincipal = ({
                                 isRequired
                                 error={errors?.principalInfor?.[index]?.stateIssued}
                                 renderRight={() => <View />}
-                                onBlur={checkErrors}
+                                onBlurInput={checkErrors}
                             />
                         }
                     />

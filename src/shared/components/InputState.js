@@ -86,6 +86,7 @@ export const InputState = ({
                                 <Text style={styles.txtItem}>{item}</Text>
                             </TouchableOpacity>
                         ),
+                        style:{ paddingTop: 10 }
                     }}
                     style={styles.wrapInput}
                     placeholder={"State"}
@@ -106,7 +107,7 @@ export const InputState = ({
                     onBlur={onBlur}
                     keyExtractor={(item, index) => `${item}_${index}`}
                     listContainerStyle={{
-                        borderWidth: 0,
+                        // borderWidth: 0,
                         zIndex : 999999999999
                     }}
                     containerStyle={{
@@ -129,7 +130,8 @@ const styles = StyleSheet.create({
 
     wrapItem: {
         height: scaleWidth(42),
-        width: scaleWidth(375),
+        // width: scaleWidth(375),
+        width : "100%",
         backgroundColor: "white",
         zIndex: 99999999999999,
         // justifyContent: 'center',

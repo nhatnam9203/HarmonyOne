@@ -36,11 +36,13 @@ export const useProps = (props) => {
         stateCity = []
     } } = useSelector(state => state);
 
+    console.log({ stateCity })
+
     const form = useForm({
         defaultValues: {
             principalInfor: [initialValues, initialValues],
         },
-        resolver: yupResolver(signUpPrincipalInfoSchema)
+        resolver: yupResolver(signUpPrincipalInfoSchema(stateCity))
     });
     const { setValue } = form;
     const errors = form.formState.errors;

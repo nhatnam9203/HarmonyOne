@@ -1,54 +1,8 @@
 import React from "react";
-import { images as ICONS } from "@shared/themes";
-import { StyleSheet, View, Animated } from "react-native";
-import Image from "react-native-fast-image";
-export const LazyImage = (props) => {
-  const {
-    source,
-    thumbnailSource = ICONS["service_default"],
-    style,
-    backgroundColor = "transparent",
-  } = props;
-  const [color, setColor] = React.useState("#e1e4e8");
+import { View, StyleSheet, Animated, Easing } from "react-native";
+import FastImage from "react-native-fast-image";
+import { images } from "@shared/themes";
 
-  const AnimatedView = Animated.createAnimatedComponent(Image);
-
-  let thumbnailAnimated = new Animated.Value(0);
-  let imageAnimated = new Animated.Value(0);
-
-  // const [thumbnailAnimated, setThumbnail] = React.useState(0);
-  // const [imageAnimated, setImage] = React.useState(0);
-
-  const handleThumbnailLoad = () => {
-    Animated.timing(thumbnailAnimated, {
-      toValue: 1,
-      // useNativeDriver: true,
-    }).start();
-  };
-  const onImageLoad = () => {
-    Animated.timing(imageAnimated, {
-      toValue: 1,
-      // useNativeDriver: true,
-    }).start();
-  };
-
-  return (
-    <View style={{ backgroundColor: "red" }}>
-      <AnimatedView
-        source={thumbnailSource}
-        style={[style, { opacity: thumbnailAnimated }]}
-        onLoad={handleThumbnailLoad}
-        blurRadius={1}
-      />
-      <AnimatedView
-        source={source}
-        style={[styles.imageOverlay, { opacity: imageAnimated }, style]}
-        onError={(e) => console.log({ e })}
-        onLoad={onImageLoad}
-      />
-    </View>
-  );
-}
 const styles = StyleSheet.create({
   imageOverlay: {
     position: "absolute",
@@ -58,6 +12,58 @@ const styles = StyleSheet.create({
     top: 0,
   },
   container: {
-    //backgroundColor: '#e1e4e8',
+    backgroundColor: "#e1e4e8",
   },
 });
+
+const AnimatedProgress = Animated.createAnimatedComponent(FastImage);
+
+export class LazyImage extends React.Component {
+  thumbnailAnimated = new Animated.Value(0);
+
+  imageAnimated = new Animated.Value(0);
+
+  handleThumbnailLoad = () => {
+    Animated.timing(this.thumbnailAnimated, {
+      toValue: 1,
+      duration: 500,
+      easing: Easing.linear
+    }).start();
+  };
+
+  onImageLoad = () => {
+    Animated.timing(this.imageAnimated, {
+      toValue: 1,
+      duration: 500,
+      easing: Easing.linear
+    }).start();
+  };
+
+  render() {
+    const {
+      thumbnailSource = images.placeHolder,
+      source,
+      style,
+      containerStyle,
+      ...props
+    } = this.props;
+
+    return (
+      <View style={[styles.container, containerStyle]}>
+        <AnimatedProgress
+          {...props}
+          source={thumbnailSource}
+          style={[style, { opacity: this.thumbnailAnimated }]}
+          onLoad={this.handleThumbnailLoad}
+          blurRadius={1}
+        />
+        <AnimatedProgress
+          {...props}
+          source={source}
+          style={[styles.imageOverlay, { opacity: this.imageAnimated }, style]}
+          onLoad={this.onImageLoad}
+        />
+      </View>
+    );
+  }
+}

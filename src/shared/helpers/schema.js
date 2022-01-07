@@ -161,7 +161,7 @@ export const signUpBankInformation = yup.object().shape({
     routingNumber: yup.string().required("required"),
 });
 
-export const signUpPrincipalInfoSchema = yup.object().shape({
+export const signUpPrincipalInfoSchema = (stateCity) => yup.object().shape({
     principalInfor: yup.array().of(
         yup.object().shape({
             ownership: yup.string().required("required"),
@@ -183,9 +183,7 @@ export const signUpPrincipalInfoSchema = yup.object().shape({
 
             email: yup.string().required("required").email("Invalid email"),
             stateIssued: yup.string()
-                .required("required")
-                .email("Invalid email")
-                .test("state-isValid", "State invalid",
+                .required("required").test("state-isValid", "State invalid",
                     function (value) {
                         return checkStateValid(stateCity, value)
                     })
