@@ -62,7 +62,7 @@ export const InputState = ({
     return (
         <View style={[
             styles.containerInput,
-            { marginBottom: (data?.length > 0 && Platform.OS == "ios") ? scaleHeight(data.length * 20 + 20) : 0 }
+            { marginBottom: (data?.length > 0 && Platform.OS == "ios") ? scaleWidth(42 * data.length) : 0 }
         ]}>
             {
                 renderRight ? renderRight() :
@@ -74,7 +74,7 @@ export const InputState = ({
                         style={styles.buttonClose}
                     />
             }
-            <View pointerEvents={editable ? "auto" : "none"}>
+            <View style={{ zIndex : 9999999999 }} pointerEvents={editable ? "auto" : "none"}>
                 <Autocomplete
                     data={data}
                     value={valueVisible ?? field.value}
@@ -85,7 +85,7 @@ export const InputState = ({
                             <TouchableOpacity onPress={() => selectSuggestion(item)} style={styles.wrapItem}>
                                 <Text style={styles.txtItem}>{item}</Text>
                             </TouchableOpacity>
-                        )
+                        ),
                     }}
                     style={styles.wrapInput}
                     placeholder={"State"}
@@ -107,6 +107,9 @@ export const InputState = ({
                     keyExtractor={(item, index) => `${item}_${index}`}
                     listContainerStyle={{
                         borderWidth: 0,
+                        zIndex : 999999999999
+                    }}
+                    containerStyle={{
                     }}
                 />
             </View>
@@ -119,6 +122,7 @@ export const InputState = ({
 const styles = StyleSheet.create({
     containerInput: {
         position: 'relative',
+        zIndex : 99999999
 
         // marginBottom: scaleHeight(20)
     },
@@ -127,8 +131,8 @@ const styles = StyleSheet.create({
         height: scaleWidth(42),
         width: scaleWidth(375),
         backgroundColor: "white",
-        zIndex: 9999,
-        justifyContent: 'center',
+        zIndex: 99999999999999,
+        // justifyContent: 'center',
         paddingLeft: scaleWidth(10)
     },
     txtItem: {
