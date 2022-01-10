@@ -47,22 +47,46 @@ export const requestTransactionDejavoo = async (params) => {
     }
   }
   
+  // export const requestPrintDejavoo = async (params) => {
+  //   const dejavooMachineInfo = _.get(params, 'dejavooMachineInfo');
+  //   const param = `<request>`+
+  //               `<AuthKey>${_.get(dejavooMachineInfo, 'authKey')}</AuthKey>`+
+  //               `<RegisterId>${_.get(dejavooMachineInfo, 'registerId')}</RegisterId>`+
+  //               `<printer width="24">`+
+  //               `<img>${_.get(params, 'image')}</img>`+
+  //               `</printer>`+
+  //               `</request>`
+    
+  //  const configs = {
+  //   method: "get",
+  //   baseURL: api,
+  //   url: `?TerminalTransaction=${param}`,
+  //   headers: headers,
+  //   timeout: 90000,
+  //   };
+  //   const response = await handleRequest(configs)
+  //   return response
+  // };
+
   export const requestPrintDejavoo = async (params) => {
+    
     const dejavooMachineInfo = _.get(params, 'dejavooMachineInfo');
+    
     const param = `<request>`+
                 `<AuthKey>${_.get(dejavooMachineInfo, 'authKey')}</AuthKey>`+
                 `<RegisterId>${_.get(dejavooMachineInfo, 'registerId')}</RegisterId>`+
-                `<printer width="24">`+
+                `<printer width="48">`+
                 `<img>${_.get(params, 'image')}</img>`+
                 `</printer>`+
                 `</request>`
     
    const configs = {
-    method: "get",
-    baseURL: api,
-    url: `?TerminalTransaction=${param}`,
+    method: "post",
+    baseURL: "https://spinpos.net/spin/",
+    url: "Transaction",
     headers: headers,
     timeout: 90000,
+    data: param
     };
     const response = await handleRequest(configs)
     return response
