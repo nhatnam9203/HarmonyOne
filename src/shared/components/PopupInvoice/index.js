@@ -19,6 +19,9 @@ import {
   formatMoney,
   doPrintClover,
  } from "@shared/utils";
+ import {
+  requestPrintDejavoo,
+} from "@utils";
 import React from "react";
 import {
   ActivityIndicator,
@@ -57,6 +60,12 @@ export const PopupInvoice = React.forwardRef(
     );
     const printerList = useSelector((state) => state.hardware.printerList);
     const printerSelect = useSelector((state) => state.hardware.printerSelect);
+
+    const {
+      hardware: { 
+        dejavooMachineInfo,
+       },
+    } = useSelector(state => state);
   
     /**
   |--------------------------------------------------
@@ -331,7 +340,7 @@ export const PopupInvoice = React.forwardRef(
       try {
         await setIsProcessingPrint(true);
         const imageUri = await captureRef(viewShotRef, {
-          ...(paymentMachineType === "Clover" &&
+          ...((paymentMachineType === "Clover" || paymentMachineType === "Dejavoo") &&
             !printerSelect && { result: "base64" }),
         });
         await setIsProcessingPrint(false);
@@ -383,6 +392,13 @@ export const PopupInvoice = React.forwardRef(
               if (Platform.OS === "ios") {
                 doPrintClover(imageUri);
               }
+            } else if (paymentMachineType == "Dejavoo") {
+              
+              const params = {
+                dejavooMachineInfo,
+                image: imageUri
+              };
+              requestPrintDejavoo(params);
             }
           }
         }
@@ -440,11 +456,13 @@ export const PopupInvoice = React.forwardRef(
             printerSelect
           );
 
-          if (!portName && machineType !== "Clover") {
-            onCancel(isPrintTempt);
-            alert("Please connect to your printer! ");
-            return;
-          }
+          //hard code
+          // if (!portName 
+          //   && (machineType !== "Clover" || machineType !== "Dejavoo")) {
+          //   onCancel(isPrintTempt);
+          //   alert("Please connect to your printer! ");
+          //   return;
+          // }
         }
 
         setPrintTempt(isPrintTempt);
@@ -485,6 +503,7 @@ export const PopupInvoice = React.forwardRef(
                       backgroundColor:
                         isShare ||
                         paymentMachineType == PaymentTerminalType.Clover
+                        || paymentMachineType == PaymentTerminalType.Dejavoo
                           ? "#fff"
                           : "#0000",
                     },

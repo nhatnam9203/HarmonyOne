@@ -13,7 +13,7 @@ target 'HarmonyOne' do
   )
 
   pod 'RNStarPrnt', :path => '../node_modules/react-native-star-prnt'
-  pod 'SwiftyJSON', '5.0'
+#  pod 'SwiftyJSON', '5.0'
   pod 'ObjectMapper', '3.5.1'
   pod 'Starscream', :git => 'https://github.com/clover/Starscream.git', :branch => 'queuePriority-3.0.0'
   pod 'CloverConnector', :git => 'https://github.com/clover/remote-pay-ios.git', :tag => '4.0.0'
