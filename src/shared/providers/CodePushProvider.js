@@ -40,11 +40,11 @@ export const CodePushProvider = ({ children }) => {
   const codePushProcessComplete = async () => {
     // await dispatch(app.loadingSuccess());
     progressComplete?.forEach(
-      (x) => x && typeof x?.delegate === 'function' && x?.delegate(),
+      x => x && typeof x?.delegate === 'function' && x?.delegate(),
     );
   };
 
-  const codePushStatusChange = (status) => {
+  const codePushStatusChange = status => {
     if (status === codePush.SyncStatus.UPDATE_INSTALLED) {
       codePush.allowRestart();
       setTimeout(() => {
@@ -76,7 +76,7 @@ export const CodePushProvider = ({ children }) => {
 
   // Processing
   const codePushCheck = async () => {
-    const timeOutNetWork = new Promise((resolve) => {
+    const timeOutNetWork = new Promise(resolve => {
       setTimeout(() => {
         resolve('NET_WORK_TIME_OUT');
       }, 10000);
@@ -112,6 +112,7 @@ export const CodePushProvider = ({ children }) => {
         setCodePushStatus(codePush.SyncStatus.UP_TO_DATE);
       }
     } catch (err) {
+      setCodePushStatus(codePush.SyncStatus.UP_TO_DATE);
       console.log('==========> CodePush error:' + err);
     }
   };
@@ -121,7 +122,7 @@ export const CodePushProvider = ({ children }) => {
       return;
     }
 
-    const isExistedIndex = progressComplete?.findIndex((x) => x.id === id);
+    const isExistedIndex = progressComplete?.findIndex(x => x.id === id);
     if (isExistedIndex >= 0) {
       let clones = [...(progressComplete || [])];
       clones[isExistedIndex] = { id, delegate };
@@ -141,12 +142,12 @@ export const CodePushProvider = ({ children }) => {
     }
   };
 
-  const removePushCodeCompleteCallback = (id) => {
+  const removePushCodeCompleteCallback = id => {
     if (!id) {
       return;
     }
     let clone = [...progressComplete];
-    setProgressComplete(clone?.filter((x) => x?.id !== id));
+    setProgressComplete(clone?.filter(x => x?.id !== id));
   };
 
   // React render
