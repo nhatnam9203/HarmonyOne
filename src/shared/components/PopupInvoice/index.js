@@ -75,7 +75,6 @@ export const PopupInvoice = React.forwardRef(
   |--------------------------------------------------
   */
     const [visible, setVisible] = React.useState(false);
-    const [titleInvoice, setTitleInvoice] = React.useState("TICKET");
 
     const [groupAppointment, setGroupAppointment] = React.useState(null);
     const [invoiceDetail, setInvoiceDetail] = React.useState(null);
@@ -128,7 +127,6 @@ export const PopupInvoice = React.forwardRef(
     const reset = async () => {
       setGroupAppointment(null);
       setInvoiceDetail(null);
-      setTitleInvoice("TICKET");
       setIsShare(false);
       setPrintTempt(false);
       setIsSignature(true);
@@ -483,8 +481,8 @@ export const PopupInvoice = React.forwardRef(
 
     const getContentXmlReceipt = () => {
 
-      const invoiceNo = invoiceDetail ? 
-                      `Invoice No: ${invoiceDetail?.invoiceNo ?? " "}`
+      const invoiceNo = checkoutId ? 
+                      `Invoice No: ${checkoutId ?? " "}`
                       :`` 
       let entryMethodXml = ""
       if(!printTempt) {
@@ -535,7 +533,15 @@ export const PopupInvoice = React.forwardRef(
       <t><c>${profile?.addressFull || " "}</c></t>
       <t><c>${`Tel : ${profile?.phone || " "}`}</c></t>
       <t><c>${profile?.webLink}</c></t>
-      <t><c>${titleInvoice}</c></t>
+      <t><c>${`${
+        invoiceDetail?.status &&
+        invoiceDetail?.status !== "paid" &&
+        invoiceDetail?.status !== "pending" &&
+        invoiceDetail?.status !== "incomplete" &&
+        invoiceDetail?.status !== "complete"
+          ? `${invoiceDetail?.status}`.toUpperCase()
+          : "SALE"
+      }`}</c></t>
       <t><c>${`( ${formatWithMoment(
                         new Date(),
                         "MM/DD/YYYY hh:mm A"
@@ -612,10 +618,10 @@ export const PopupInvoice = React.forwardRef(
             printerSelect
           );
 
-          if (!portName 
-            && (machineType !== "Clover" || machineType !== "Dejavoo")) {
+          if (!portName
+            && machineType == PaymentTerminalType.Pax) {
             onCancel(isPrintTempt);
-            alert("Please connect to your printer! ");
+            alert("Please connect to your printer!");
             return;
           }
         }
@@ -623,7 +629,6 @@ export const PopupInvoice = React.forwardRef(
         setPrintTempt(isPrintTempt);
         setIsShare(isShareMode);
         setPaymentMachineType(machineType);
-        setTitleInvoice(title);
         setAppointmentId(appointmentId);
         setCheckoutId(checkoutId);
 
@@ -692,7 +697,15 @@ export const PopupInvoice = React.forwardRef(
 
                   {/* ------------- SALE/VOID/REFUND  ----------- */}
                   <Text style={styles.fontPrintTitleStyle}>
-                    {titleInvoice}
+                    {`${
+                          invoiceDetail?.status &&
+                          invoiceDetail?.status !== "paid" &&
+                          invoiceDetail?.status !== "pending" &&
+                          invoiceDetail?.status !== "incomplete" &&
+                          invoiceDetail?.status !== "complete"
+                            ? `${invoiceDetail?.status}`.toUpperCase()
+                            : "SALE"
+                        }`}
                   </Text>
                   <Text
                     style={[
@@ -763,7 +776,7 @@ export const PopupInvoice = React.forwardRef(
                   )}
 
                   {/* ------------- Invoice No ----------- */}
-                  {invoiceDetail && (
+                  {checkoutId && (
                     <View style={styles.rowContent}>
                       <View style={{ width: scaleWidth(90) }}>
                         <Text
@@ -775,7 +788,7 @@ export const PopupInvoice = React.forwardRef(
                       </View>
                       <View style={{ flex: 1 }}>
                         <Text style={[styles.fontPrintStyle]}>
-                          {`: ${invoiceDetail?.invoiceNo ?? " "}`}
+                          {`: ${checkoutId ?? " "}`}
                         </Text>
                       </View>
                     </View>
