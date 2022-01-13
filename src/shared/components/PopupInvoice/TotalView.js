@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 export const TotalView = ({ title, value, styleTextValue, styleTextTitle }) => {
   return (
     <View style={styles.content}>
-      <Text style={styleTextTitle}>{`$ ${title}`}</Text>
+      <Text style={styleTextTitle}>{`${title}`}</Text>
       <View style={{ flex: 1 }} />
       <Text style={styleTextValue}>{`$ ${value}`}</Text>
     </View>
