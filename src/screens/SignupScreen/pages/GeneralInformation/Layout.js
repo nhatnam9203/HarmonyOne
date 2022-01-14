@@ -7,6 +7,7 @@ import { headerPhoneGroup } from "@shared/utils";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { images } from "@shared/themes/resources"
 import { useWatch } from "react-hook-form";
+import { fonts } from "@shared/themes";
 import NavigationService from '@navigation/NavigationService'
 
 
@@ -106,7 +107,6 @@ export const Layout = ({
                                 items={merchantTypeGroup}
                                 onChangeValue={() => { }}
                                 defaultIndex={0}
-                                width={scaleWidth(345)}
                                 height={scaleWidth(42)}
                             />
                         }
@@ -116,31 +116,17 @@ export const Layout = ({
                         label='Federal Tax ID'
                         isRequired
                         blackLabel={true}
-                        error={errors.prefixTax || errors.suffixTax}
+                        error={errors.tax}
                         renderInput={() =>
-                            <View style={[styles.row, { justifyContent: "space-between" }]}>
-                                <InputText
-                                    style={[styles.inputName, { width: scaleWidth(95) }]}
-                                    form={form}
-                                    name="prefixTax"
-                                    placeholder=""
-                                    error={errors?.prefixTax}
-                                    options={{ mask: "99" }}
-                                    keyboardType='numeric'
-                                    renderRight={() => <View />}
-                                />
-
-                                <InputText
-                                    style={[styles.inputName, { width: scaleWidth(240) }]}
-                                    form={form}
-                                    name="suffixTax"
-                                    placeholder=""
-                                    error={errors?.suffixTax}
-                                    options={{ mask: "9999999" }}
-                                    keyboardType='numeric'
-                                    renderRight={() => <View />}
-                                />
-                            </View>
+                            <InputText
+                                form={form}
+                                name="tax"
+                                placeholder="99-9999999"
+                                error={errors?.tax}
+                                options={{ mask: "99-9999999" }}
+                                keyboardType='numeric'
+                                renderRight={() => <View />}
+                            />
                         }
                     />
 
@@ -185,6 +171,12 @@ export const Layout = ({
                                         error={errors?.stateBusinessAddress}
                                         onBlurInput={onBlurStateBusinessAddress}
                                     />
+                                    {
+                                        errors?.stateBusinessAddress && errors?.stateBusinessAddress?.message !== "required" &&
+                                        <Text style={{ color: "red", fontSize: scaleFont(16), fontFamily: fonts.MEDIUM, marginTop: scaleHeight(8) }}>
+                                            {errors?.stateBusinessAddress?.message}
+                                        </Text>
+                                    }
                                 </View>
                             }
                         />
@@ -252,6 +244,12 @@ export const Layout = ({
                                         editable={!isSameBusinessAddress}
                                         valueVisible={isSameBusinessAddress ? stateBusinessAddress : null}
                                     />
+                                    {
+                                        errors?.stateDbaAddress && errors?.stateDbaAddress?.message !== "required" &&
+                                        <Text style={{ color: "red", fontSize: scaleFont(16), fontFamily: fonts.MEDIUM, marginTop: scaleHeight(8) }}>
+                                            {errors?.stateDbaAddress?.message}
+                                        </Text>
+                                    }
                                 </View>
                             }
                         />
@@ -312,7 +310,7 @@ export const Layout = ({
                                 <InputText
                                     style={styles.inputName}
                                     form={form}
-                                    name="phone"
+                                    name="firstName"
                                     placeholder="First Name"
                                     error={errors?.firstName}
                                     renderRight={() => <View />}
@@ -320,7 +318,7 @@ export const Layout = ({
                                 <InputText
                                     style={styles.inputName}
                                     form={form}
-                                    name="phone"
+                                    name="lastName"
                                     placeholder="Last Name"
                                     error={errors?.lastName}
                                     renderRight={() => <View />}
@@ -409,7 +407,7 @@ const styles = StyleSheet.create({
     },
 
     inputPhone: {
-        width: scaleWidth(250),
+        width: scaleWidth(247),
         height: scaleWidth(42),
         borderWidth: 1,
         borderColor: '#dddddd',

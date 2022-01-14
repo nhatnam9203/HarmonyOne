@@ -1028,4 +1028,24 @@ export const reportGetStaffSalaryByStaff = (staffId, timeStart, timeEnd, page = 
   }
 });
 
+export const getPackageAndPricing = () => ({
+  queryId: 'getPackageAndPricing',
+  params: {
+    url: `package`,
+    method: 'GET',
+  }
+});
+
+export const signUpMerchant = (data) => ({
+  queryId: `merchant?api-version=1.1`,
+  params: {
+    url: `merchant?api-version=1.1`,
+    method: 'POST',
+    data
+  }
+});
+
+
+
+
 

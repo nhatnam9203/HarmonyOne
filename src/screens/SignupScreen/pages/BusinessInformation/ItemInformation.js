@@ -6,7 +6,7 @@ import { images, fonts } from "@shared/themes"
 export const ItemInformation = React.forwardRef(({ 
     form, errors, label, textYes, name = ""
  }, ref)=>{
-    const [isCheck, setIsCheck] = React.useState(true);
+    const [isCheck, setIsCheck] = React.useState(false);
 
 
     React.useImperativeHandle(ref, () => ({
@@ -35,7 +35,7 @@ export const ItemInformation = React.forwardRef(({
                     style={[styles.btnIcon, { marginLeft: scaleWidth(24) }]}
                     iconStyle={styles.checkBox}
                     resizeMode='cover'
-                    renderText={() => <Text style={styles.txtIcon}>{textYes}</Text>}
+                    renderText={() => <Text style={[styles.txtIcon,{ width : scaleWidth(260) }]}>{textYes}</Text>}
                 />
             </View>
 

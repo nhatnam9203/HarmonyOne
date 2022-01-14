@@ -6,7 +6,7 @@ import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
 import moment from "moment";
-
+ 
 
 export const DataList = ({
     data = [],
@@ -29,14 +29,14 @@ export const DataList = ({
                         <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, fontSize : scaleFont(13) }]}>
                             {moment(item?.createdDate).format("MM/DD/YYYY")}
                         </Text>
-                        <Text style={[styles.txtDate, { fontFamily: fonts.LIGHT, fontSize : scaleFont(13) }]}>
+                        <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, fontSize : scaleFont(12), marginTop : 5 }]}>
                             {moment(item?.createdDate).format("hh:mm A")}
                         </Text>
                     </View>
                 )
             case "checkoutId":
                 return (
-                    <Text style={[styles.txtDate, { fontFamily: fonts.LIGHT }]}>
+                    <Text style={[styles.txtDate, { fontFamily: fonts.MEDIUM, fontSize : scaleFont(13) }]}>
                         #{item?.checkoutId}
                     </Text>
                 )
@@ -59,7 +59,7 @@ export const DataList = ({
                 ) : <View />;
 
             case "amount":
-                return <Text style={[styles.txt, { fontFamily: fonts.MEDIUM, color: "#000" }]}>
+                return <Text style={[styles.txt, { fontFamily: fonts.BOLD }]}>
                     $ {item?.amount}
                 </Text>
             default:
@@ -74,7 +74,7 @@ export const DataList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                SettlementId: "Trans ID",
+                SettlementId: "Batch ID",
                 createdDate: "Date/time",
                 checkoutId: "Invoice",
                 status: "Status",
@@ -100,7 +100,7 @@ export const DataList = ({
             unitKeys={{ workingHour: "hrs" }}
             sortDefault="NONE"
             sortKey="code"
-            tableCellWidth={{}}
+            tableCellWidth={{ checkoutId : scaleWidth(140), createdDate : scaleWidth(100) }}
             renderCell={renderCell}
             renderActionCell={() => null}
             isRefreshing={isRefresh}

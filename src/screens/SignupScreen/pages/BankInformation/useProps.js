@@ -4,12 +4,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { signUpBankInformation } from "@shared/helpers/schema";
 import { Alert } from "react-native";
 import { useDispatch } from "react-redux";
-import { signup } from "@redux/slices";
-import {
-    useAxiosMutation,
-    uploadAvatarStaff,
-} from '@src/apis';
+import { signup, app } from "@redux/slices";
 import { createFormData } from '@shared/utils';
+import { axios } from '@shared/services/axiosClient';
+import { uploadAvatarStaff } from "@src/apis";
+import NavigationService from "@navigation/NavigationService";
 
 export const useProps = (props) => {
     const dispatch = useDispatch();
@@ -23,16 +22,25 @@ export const useProps = (props) => {
     const [fileId, setFileId] = React.useState(null);
     const [imageUrl, setImageUrl] = React.useState(null);
 
-    const [, submitUploadImage] = useAxiosMutation({
-        ...uploadAvatarStaff(),
-        queryId: "upload_voiCheck",
-        onSuccess: (data, response) => {
-            if (response.codeNumber == 200) {
-                setFileId(data?.fileId ?? 0);
-                setImageUrl(data?.url);
+    const uploadImage = async (body) => {
+        try {
+            dispatch(app.showLoading());
+            const response = await axios(body);
+            const codeNumber = response?.data?.codeNumber;
+
+            if(response?.data?.codeNumber == 200){
+                dispatch(app.hideLoading());
+                setFileId(response?.data?.data?.fileId ?? 0);
+                setImageUrl(response?.data?.data?.url);
+            }else{
+                dispatch(app.hideLoading());
             }
-        },
-    });
+        } catch (err) {
+            dispatch(app.hideLoading());
+        } finally {
+        
+        }
+    }
 
     return {
         form,
@@ -42,7 +50,7 @@ export const useProps = (props) => {
             let files = response?.assets ?? [];
             files = createFormData(files);
             const body = await uploadAvatarStaff(files);
-            submitUploadImage(body.params);
+            uploadImage(body.params);
         },
 
         onSubmit: (values) => {
@@ -55,6 +63,7 @@ export const useProps = (props) => {
                 };
 
                 dispatch(signup.updateBankInformation(bankInformation));
+                NavigationService.navigate(screenNames.PrincipalInformation);
             }
         }
     };

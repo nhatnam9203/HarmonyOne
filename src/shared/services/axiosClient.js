@@ -76,6 +76,7 @@ axios.interceptors.response.use(
     return response;
   },
   async (error) => {
+    console.log({error })
     log(error, 'error');
     const config = error?.config;
 

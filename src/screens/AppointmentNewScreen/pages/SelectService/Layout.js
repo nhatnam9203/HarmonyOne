@@ -22,7 +22,7 @@ export const Layout = ({
         onPressBack={onBack}
       />
       <View style={styles.content}>
-        {/* <Navigator
+        <Navigator
           initialRouteName="ServicePage"
           swipeEnabled={false}
           tabBarOptions={{
@@ -48,7 +48,7 @@ export const Layout = ({
           <Screen {...ServicePage} />
           <Screen {...ProductPage} />
           <Screen {...GiftCardPage} />
-        </Navigator> */}
+        </Navigator>
       </View>
     </View>
   );

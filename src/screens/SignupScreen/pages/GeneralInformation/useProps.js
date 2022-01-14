@@ -4,13 +4,18 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { signUpGeneralInfoSchema, signUpGeneralInfoSchema2 } from "@shared/helpers/schema";
 import { useSelector, useDispatch } from "react-redux";
 import { signup } from "@redux/slices";
+import { getStateId } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
 
 export const useProps = (props) => {
 
     const dispatch = useDispatch();
 
-    const [schemaValidate, setSchemaValidate] = React.useState(signUpGeneralInfoSchema);
+    const { customer: {
+        stateCity = []
+    } } = useSelector(state => state);
+
+    const [schemaValidate, setSchemaValidate] = React.useState(signUpGeneralInfoSchema2(stateCity));
 
     const form = useForm({
         resolver: yupResolver(schemaValidate)
@@ -39,16 +44,32 @@ export const useProps = (props) => {
         setIsSameBusinessAddress,
 
         onSubmit: (values) => {
-            const generalInformation = {
-                ...values,
-                tax :`${values.prefixTax}-${values.suffixTax}`,
-                type : merchantTypeGroup?.current?.getValue()?.value,
-                businessPhone : inputPhoneBusinessHeadRef?.current?.getValue()?.value + values.businessPhone,
-                phone : inputPhoneHeadRef?.current?.getValue()?.value + values.phone,
 
-            };
+            const generalInfor = {
+                businessName: values.businessPhone,
+                businessAddress: {
+                    address: values.streetBusinessAddress,
+                    city: values.cityBusinessAddress,
+                    state: getStateId(stateCity,values.stateBusinessAddress),
+                    zip: values.zipBusinessAddress,
+                },
+                dbaAddress: {
+                    address: isSameBusinessAddress ? values.streetBusinessAddress : values.streetDbaAddress,
+                    city: isSameBusinessAddress ? values.cityBusinessAddress : values.cityDbaAddress,
+                    state: isSameBusinessAddress ? getStateId(stateCity,values.stateBusinessAddress) : getStateId(stateCity,values.stateDbaAddress),
+                    zip: isSameBusinessAddress ? values.zipBusinessAddress : values.zipDbaAddress,
+                },
+                businessPhone: inputPhoneBusinessHeadRef?.current?.getValue()?.value + values.businessPhone,
+                contactPhone: inputPhoneHeadRef?.current?.getValue()?.value + values.contactPhone,
+                doingBusiness: values.doingBusiness,
+                email: values.email,
+                firstName: values.firstName,
+                lastName: values.lastName,
+                position: values.position,
+                tax: values.tax
+            }
 
-            dispatch(signup.updateGeneralInformation(generalInformation));
+            dispatch(signup.updateGeneralInformation({ generalInfor, type: merchantTYpeRef?.current?.getValue().value, sameAsBusiness: isSameBusinessAddress }));
 
             NavigationService.navigate(screenNames.BusinessInformation);
         },
@@ -60,9 +81,9 @@ export const useProps = (props) => {
                 form.setValue("cityDbaAddress", "");
                 form.setValue("zipDbaAddress", "");
                 form.setValue("stateDbaAddress", "");
-                setSchemaValidate(signUpGeneralInfoSchema);
-            }else{
-                setSchemaValidate(signUpGeneralInfoSchema2)
+                setSchemaValidate(signUpGeneralInfoSchema(stateCity));
+            } else {
+                setSchemaValidate(signUpGeneralInfoSchema2(stateCity))
             }
         },
     };

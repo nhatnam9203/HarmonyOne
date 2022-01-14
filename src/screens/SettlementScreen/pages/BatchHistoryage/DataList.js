@@ -85,7 +85,7 @@ export const DataList = ({
                 )
             case "time":
                 return (
-                    <Text style={[styles.txtDate, { fontFamily: fonts.LIGHT }]}>
+                    <Text style={[styles.txtDate, { fontFamily: fonts.MEDIUM }]}>
                         {moment(item?.settlementDate).format("hh:mm A")}
                     </Text>
                 )
@@ -127,7 +127,7 @@ export const DataList = ({
             unitKeys={{ workingHour: "hrs" }}
             sortDefault="NONE"
             sortKey="code"
-            tableCellWidth={{}}
+            tableCellWidth={{ date : scaleWidth(375/4 + 17), time: scaleWidth(375/4 - 10), settlementId: scaleWidth(375/4 - 7)  }}
             renderCell={renderCell}
             renderActionCell={() => null}
             onRowPress={onRowPress}

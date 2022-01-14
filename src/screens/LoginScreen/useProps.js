@@ -1,8 +1,8 @@
 import NavigationService from '@navigation/NavigationService';
-import { merchantLogin, useAxiosMutation } from '@src/apis';
+import { merchantLogin, useAxiosMutation, getStateCity, useAxiosQuery } from '@src/apis';
 import React from 'react';
 import { ScreenNames } from '../ScreenName';
-import { auth } from '@redux/slices';
+import { auth, customer } from '@redux/slices';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFcmToken } from "@shared/storages/fcmToken";
 import AsyncStorage from '@react-native-community/async-storage';
@@ -21,10 +21,23 @@ export const useProps = (_params) => {
   const [firebaseToken, setFcmToken] = React.useState("");
 
 
+  const [, fetchStateCity] = useAxiosQuery({
+    ...getStateCity(),
+    enabled: false,
+    isLoadingDefault: false,
+    onSuccess: (data, response) => {
+      if (response?.codeNumber == 200) {
+        dispatch(customer.setStateCity(data))
+      }
+    },
+  });
+
+
+
   const [{ isLoading }, login] = useAxiosMutation({
     ...merchantLogin(merchantID),
     isLoadingDefault: false,
-    isReturnError : false,
+    isReturnError: false,
     onLoginError: (msg) => {
       if (msg == "Cant found your item") {
         setTextMessage("Your MID does not exist.");
@@ -81,6 +94,7 @@ export const useProps = (_params) => {
   }
 
   React.useState(() => {
+    fetchStateCity();
     initialMerchantCode();
   }, []);
 
@@ -111,7 +125,7 @@ export const useProps = (_params) => {
 
     textMessage,
 
-    signUp : () =>{
+    signUp: () => {
       NavigationService.navigate(screenNames.SignupScreen)
     }
   };

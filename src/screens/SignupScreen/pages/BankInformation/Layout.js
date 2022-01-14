@@ -74,6 +74,7 @@ export const Layout = ({
                                 name="accountHolderName"
                                 placeholder=""
                                 error={errors?.accountHolderName}
+                                renderRight={() => <View />}
                             />}
                     />
 
@@ -88,6 +89,7 @@ export const Layout = ({
                                 name="bankName"
                                 placeholder=""
                                 error={errors?.bankName}
+                                renderRight={() => <View />}
                             />}
                     />
 
@@ -102,6 +104,7 @@ export const Layout = ({
                                 name="routingNumber"
                                 placeholder=""
                                 error={errors?.routingNumber}
+                                renderRight={() => <View />}
                             />}
                     />
 
@@ -116,6 +119,7 @@ export const Layout = ({
                                 name="accountNumber"
                                 placeholder=""
                                 error={errors?.accountNumber}
+                                renderRight={() => <View />}
                             />}
                     />
 

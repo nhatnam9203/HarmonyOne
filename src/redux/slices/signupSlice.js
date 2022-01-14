@@ -4,9 +4,14 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const reducerName = 'hpo.signupPos';
 const initialState = {
-    generalInformation: {},
+    generalInfor: {},
     businessInformation : {},
-    bankInformation : {}
+    bankInfor : {},
+    principalInfo : {},
+    packages : [],
+    packagePricing : 1,
+    type : "",
+    sameAsBusiness : true,
 };
 
 const signupSlice = createSlice({
@@ -14,7 +19,11 @@ const signupSlice = createSlice({
     initialState: initialState,
     reducers: {
         updateGeneralInformation: (state, action) => {
-            state.generalInformation = action.payload;
+            console.log('update general infirmation : ');
+            console.log({ action });
+            state.generalInfor = action.payload?.generalInfor;
+            state.type = action.payload?.type;
+            state.sameAsBusiness = action?.payload?.sameAsBusiness
         },
 
         updateBusinessInformation : (state, action) =>{
@@ -22,13 +31,28 @@ const signupSlice = createSlice({
         },
 
         updateBankInformation : (state , action) =>{
-            state.bankInformation = action.payload;
+            state.bankInfor = action.payload;
+        },
+
+        updatePrincipalInformation : (state, action) =>{
+            state.principalInfo = action.payload;
+        },
+
+        updatePackagePricing : (state , action) =>{
+            state.packagePricing = action.payload;
+        },
+
+        setPackages : (state , action) =>{
+            state.packages = action.payload;
         },
 
         reset: (state) => {
-            state.generalInformation = {};
+            state.generalInfor = {};
             state.businessInformation = {};
-            state.bankInformation = {};
+            state.bankInfor = {};
+            state.principalInfo = {};
+            state.packages = [];
+            state.type = "";
         }
     },
 });
