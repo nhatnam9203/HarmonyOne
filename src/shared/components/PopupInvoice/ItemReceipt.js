@@ -58,9 +58,9 @@ export const ItemHeaderReceipt = ({ textStyle }) => {
           style={[
             styles.headerContent,
             {
-              flex: 1,
               alignItems: "flex-start",
               justifyContent: "center",
+              width: scaleWidth(100),
             },
           ]}
         >

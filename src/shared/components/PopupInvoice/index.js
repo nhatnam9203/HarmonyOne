@@ -19,6 +19,9 @@ import {
   formatMoney,
   doPrintClover,
  } from "@shared/utils";
+ import {
+  requestPrintDejavoo,
+} from "@utils";
 import React from "react";
 import {
   ActivityIndicator,
@@ -57,6 +60,12 @@ export const PopupInvoice = React.forwardRef(
     );
     const printerList = useSelector((state) => state.hardware.printerList);
     const printerSelect = useSelector((state) => state.hardware.printerSelect);
+
+    const {
+      hardware: { 
+        dejavooMachineInfo,
+       },
+    } = useSelector(state => state);
   
     /**
   |--------------------------------------------------
@@ -64,7 +73,6 @@ export const PopupInvoice = React.forwardRef(
   |--------------------------------------------------
   */
     const [visible, setVisible] = React.useState(false);
-    const [titleInvoice, setTitleInvoice] = React.useState("TICKET");
 
     const [groupAppointment, setGroupAppointment] = React.useState(null);
     const [invoiceDetail, setInvoiceDetail] = React.useState(null);
@@ -103,7 +111,6 @@ export const PopupInvoice = React.forwardRef(
     isLoadingDefault: false,
     isFetching: false,
     onSuccess: (data, response) => {
-      console.log('fetchInvoiceDetailData response', response)
       setInvoiceDetail(data);
     },
   });
@@ -117,7 +124,6 @@ export const PopupInvoice = React.forwardRef(
     const reset = async () => {
       setGroupAppointment(null);
       setInvoiceDetail(null);
-      setTitleInvoice("TICKET");
       setIsShare(false);
       setPrintTempt(false);
       setIsSignature(true);
@@ -330,10 +336,20 @@ export const PopupInvoice = React.forwardRef(
 
       try {
         await setIsProcessingPrint(true);
-        const imageUri = await captureRef(viewShotRef, {
-          ...(paymentMachineType === "Clover" &&
-            !printerSelect && { result: "base64" }),
-        });
+        let option = {}
+        if (!printerSelect) {
+          if (paymentMachineType === "Clover") {
+            option = { result: "base64" }
+          } 
+          // else if (paymentMachineType === "Dejavoo") {
+          //   option = {
+          //     format: "jpg",
+          //     quality: 0.1
+          //   }
+          // }
+        }
+        
+        const imageUri = await captureRef(viewShotRef, option);
         await setIsProcessingPrint(false);
 
         if (imageUri) {
@@ -383,6 +399,14 @@ export const PopupInvoice = React.forwardRef(
               if (Platform.OS === "ios") {
                 doPrintClover(imageUri);
               }
+            } else if (paymentMachineType == "Dejavoo") {
+        
+                const content = getContentXmlReceipt()
+                const params = {
+                  dejavooMachineInfo,
+                  content,
+                };
+                requestPrintDejavoo(params);
             }
           }
         }
@@ -413,6 +437,185 @@ export const PopupInvoice = React.forwardRef(
       }
     };
 
+    //---- Functions for Print text Receipt by Dejavoo  ----//
+
+    const getArrayBeakLineString = (text, maxWidth) => {
+      let arrayString = [];
+      let words = text.split(' ');
+      let textLine = ""
+      let oldTextLine = ""
+      for(let i = 0; i < words.length; i++) {
+        oldTextLine = textLine;
+        textLine = textLine + words[i] + " ";
+        if(textLine.length > maxWidth) {
+          textLine = oldTextLine
+          arrayString.push(textLine)
+          textLine = ""
+
+          if(i == words.length - 1) {
+            arrayString.push(words[i])
+          }
+        } else if(i == words.length - 1) {
+          arrayString.push(textLine)
+        }
+      }
+
+      return arrayString
+    }
+
+    const getCenterStringArrayXml = (text) => {
+      const arrayString = getArrayBeakLineString(text, 24);
+      if(!arrayString) return ""
+      let result = ""
+      for (let i=0; i < arrayString.length; i++) {
+        result = result + `<t><c>${arrayString[i]}</c></t>`
+      }
+      return result
+    } 
+
+    const getInvoiceItemsXml = () => {
+      
+      if (!groupAppointment) return ""
+      
+      let stringItems = ""
+
+      let invoiceItems = 
+      getBasketOnline(groupAppointment?.appointments)?.map(
+        (item, index) => {
+          const price = item.data && item.data.price ? item.data.price : 0;
+          const quanlitySet = item.quanlitySet ? item.quanlitySet : 1;
+          const total = formatMoney(price * quanlitySet);
+          const note = item.note ? item.note : "";
+          const staffName = item.staff?.displayName ?? "";
+
+          const noteXml = note ? `<t>(Note: ${note})</t>` : ``
+          const staffXml = staffName ? `<t>(${staffName})</t>` : ``
+
+          stringItems = stringItems + `<t>${
+            _.padEnd(_.truncate(`${index + 1}.${_.get(item, 'data.name')}`, {
+              'length': 15
+            }), 15, '.')}${_.padStart(`$${total}`, 9, ".")}</t>
+          ${noteXml}
+          ${staffXml}`
+
+        }
+      ) 
+      return stringItems
+    }
+
+    const getContentXmlReceipt = () => {
+
+      const invoiceNo = checkoutId ? 
+                      `Invoice No: ${checkoutId ?? " "}`
+                      :`` 
+      let entryMethodXml = ""
+      if(!printTempt) {
+        getCheckoutPaymentMethods()?.map((data, index) => {
+          entryMethodXml = entryMethodXml + 
+                        `- Entry method: ${getPaymentString(
+                            data?.paymentMethod || ""
+                          )} $${Number(
+                            formatNumberFromCurrency(data?.amount || "0")
+                          ).toFixed(2)}
+                          ${(data.paymentMethod &&
+                             data.paymentMethod === "credit_card") ||
+                             data.paymentMethod === "debit_card" ? 
+                             `<t>${
+                                data?.paymentInformation?.type || ""
+                              }: ***********${
+                                data?.paymentInformation?.number || ""
+                              }</t>
+                              ${data?.paymentInformation?.name ?
+                                `<t>${data?.paymentInformation?.name?.replace(
+                                  /%20/g,
+                                  " "
+                                )}</t>`: ""
+                              }
+                              ${
+                                data?.paymentInformation?.sn
+                                ? `<t>Terminal ID: ${data?.paymentInformation?.sn}</t>`
+                                : ""
+                              }
+                              ${
+                                data?.paymentInformation?.refNum
+                                  ? `<t>Transaction #: ${data?.paymentInformation?.refNum}</t>`
+                                  : ""
+                              }
+                              ${
+                                !stringIsEmptyOrWhiteSpaces(
+                                  _.get(data, "paymentInformation.signData")
+                                ) ? `<t>Signature: </t>
+                                    <img>${data?.paymentInformation?.signData}</img>` : ""
+                              }
+                              ` 
+                              : ``}`
+        })
+
+      }
+
+      let xmlContent = `${getCenterStringArrayXml(profile?.businessName || " ")}
+      ${getCenterStringArrayXml(profile?.addressFull || " ")}
+      <t><c>${`Tel : ${profile?.phone || " "}`}</c></t>
+      <t><c>${profile?.webLink}</c></t>
+      <t><c>${`${
+        invoiceDetail?.status &&
+        invoiceDetail?.status !== "paid" &&
+        invoiceDetail?.status !== "pending" &&
+        invoiceDetail?.status !== "incomplete" &&
+        invoiceDetail?.status !== "complete"
+          ? `${invoiceDetail?.status}`.toUpperCase()
+          : "SALE"
+      }`}</c></t>
+      <t><c>${`( ${formatWithMoment(
+                        new Date(),
+                        "MM/DD/YYYY hh:mm A"
+                      )} )`}</c></t>
+      <t><c>${"-".repeat(24)}</c></t>
+      <t>Customer: ${getCustomerName()}</t>
+      <t>Invoice Date: ${formatWithMoment(
+                              invoiceDetail?.createdDate,
+                              "MM/DD/YYYY hh:mm A"
+                            )}</t>
+      <t>${invoiceNo}</t>
+      <t><c>${"-".repeat(24)}</c></t>
+      <t>DESCRIPTION.......TOTAL</t>
+      <t><c>${"-".repeat(24)}</c></t>
+      ${getInvoiceItemsXml()}
+      <t><c>${"-".repeat(24)}</c></t>
+      <t/>
+      <t>${_.padEnd("Subtotal: ", 15, ".")}${_.padStart(`$${getSubTotal()}`, 9, ".")}</t>
+      <t>${_.padEnd("Discount: ", 15, ".")}${_.padStart(`$${getDiscount()}`, 9, ".")}</t>
+      <t>${_.padEnd("Tip: ", 15, ".")}${_.padStart(`$${getTipAmount()}`, 9, ".")}</t>
+      <t>${_.padEnd("Tax: ", 15, ".")}${_.padStart(`$${getTax()}`, 9, ".")}</t>
+      ${!printTempt ? 
+     `<t>${_.padEnd("Total: ", 15, ".")}${_.padStart(`$${getTotal()}`, 9, ".")}</t>
+     ${entryMethodXml}
+     ${isSignature ? `<t> .</t><t> .</t><t>Signature: _____________</t><t> .</t>`: ``}
+      `: ``}
+      ${printTempt ? `<t>Tip :</t>
+                      <t>Total :</t>
+                      <t> .</t>
+                      <t> .</t>
+                      <t>Signature: _____________</t>
+                      <t> .</t>` 
+
+                    : ``}
+      ${profile?.receiptFooter 
+        ? `<t>${profile?.receiptFooter}</t>` 
+        : `<t><c>Thank you!</c></t>
+          <t><c>Please come again</c></t>`}
+      ${
+        !!getPromotionNotes(groupAppointment?.appointments) 
+        ? `<t>Discount note: ${getPromotionNotes(
+                              groupAppointment?.appointments
+                            )}</t>` 
+        : ``
+      }
+      <t>${_.pad(getFooterReceipt(), 24, '*')}</t>
+      `
+     return xmlContent                  
+    }
+
     /**
   |--------------------------------------------------
   | HOOKS
@@ -440,9 +643,10 @@ export const PopupInvoice = React.forwardRef(
             printerSelect
           );
 
-          if (!portName && machineType !== "Clover") {
+          if (!portName
+            && machineType == PaymentTerminalType.Pax) {
             onCancel(isPrintTempt);
-            alert("Please connect to your printer! ");
+            alert("Please connect to your printer!");
             return;
           }
         }
@@ -450,7 +654,6 @@ export const PopupInvoice = React.forwardRef(
         setPrintTempt(isPrintTempt);
         setIsShare(isShareMode);
         setPaymentMachineType(machineType);
-        setTitleInvoice(title);
         setAppointmentId(appointmentId);
         setCheckoutId(checkoutId);
 
@@ -485,6 +688,7 @@ export const PopupInvoice = React.forwardRef(
                       backgroundColor:
                         isShare ||
                         paymentMachineType == PaymentTerminalType.Clover
+                        || paymentMachineType == PaymentTerminalType.Dejavoo
                           ? "#fff"
                           : "#0000",
                     },
@@ -518,7 +722,15 @@ export const PopupInvoice = React.forwardRef(
 
                   {/* ------------- SALE/VOID/REFUND  ----------- */}
                   <Text style={styles.fontPrintTitleStyle}>
-                    {titleInvoice}
+                    {`${
+                          invoiceDetail?.status &&
+                          invoiceDetail?.status !== "paid" &&
+                          invoiceDetail?.status !== "pending" &&
+                          invoiceDetail?.status !== "incomplete" &&
+                          invoiceDetail?.status !== "complete"
+                            ? `${invoiceDetail?.status}`.toUpperCase()
+                            : "SALE"
+                        }`}
                   </Text>
                   <Text
                     style={[
@@ -589,7 +801,7 @@ export const PopupInvoice = React.forwardRef(
                   )}
 
                   {/* ------------- Invoice No ----------- */}
-                  {invoiceDetail && (
+                  {checkoutId && (
                     <View style={styles.rowContent}>
                       <View style={{ width: scaleWidth(90) }}>
                         <Text
@@ -601,7 +813,7 @@ export const PopupInvoice = React.forwardRef(
                       </View>
                       <View style={{ flex: 1 }}>
                         <Text style={[styles.fontPrintStyle]}>
-                          {`: ${invoiceDetail?.invoiceNo ?? " "}`}
+                          {`: ${checkoutId ?? " "}`}
                         </Text>
                       </View>
                     </View>
