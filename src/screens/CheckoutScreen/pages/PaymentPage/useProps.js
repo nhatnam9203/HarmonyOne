@@ -719,9 +719,7 @@ export const useProps = (props) => {
       setConnectionSignalR(null);
     }, 300);
 
-    if ((paymentMachineType !== PaymentTerminalType.Clover && !portName)
-      || !(paymentMachineType === PaymentTerminalType.Clover
-        && _.get(cloverMachineInfo, "isSetup"))) {
+    if ((paymentMachineType === PaymentTerminalType.Pax && !portName)) {
       backToHome();
 
       setTimeout(() => {
@@ -730,7 +728,8 @@ export const useProps = (props) => {
     } else {
       if (methodPay.method == "cash"
         || methodPay.method == "other") {
-        if (paymentMachineType === PaymentTerminalType.Clover) {
+        if (paymentMachineType === PaymentTerminalType.Clover 
+          && _.get(cloverMachineInfo, "isSetup")) {
           openCashDrawerClover();
         } else {
           openCashDrawer(portName);

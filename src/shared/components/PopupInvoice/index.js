@@ -45,6 +45,7 @@ import { layouts } from "@shared/themes";
 import _ from 'lodash';
 import Jimp from 'jimp';
 import RNFS from 'react-native-fs';
+import { array } from "yup/lib/locale";
 
 export const PopupInvoice = React.forwardRef(
   ({ cancelInvoicePrint }, ref) => {
@@ -113,7 +114,6 @@ export const PopupInvoice = React.forwardRef(
     isLoadingDefault: false,
     isFetching: false,
     onSuccess: (data, response) => {
-      console.log('fetchInvoiceDetailData response', response)
       setInvoiceDetail(data);
     },
   });
@@ -440,12 +440,41 @@ export const PopupInvoice = React.forwardRef(
       }
     };
 
-    const getCenterTextXml = (text, maxCharacter) => {
-      let arrayString = "";
+    //---- Functions for Print text Receipt by Dejavoo  ----//
 
-      const findIndex = text.substring(0, maxCharacter).lastIndexOf(" ");
+    const getArrayBeakLineString = (text, maxWidth) => {
+      let arrayString = [];
+      let words = text.split(' ');
+      let textLine = ""
+      let oldTextLine = ""
+      for(let i = 0; i < words.length; i++) {
+        oldTextLine = textLine;
+        textLine = textLine + words[i] + " ";
+        if(textLine.length > maxWidth) {
+          textLine = oldTextLine
+          arrayString.push(textLine)
+          textLine = ""
 
+          if(i == words.length - 1) {
+            arrayString.push(words[i])
+          }
+        } else if(i == words.length - 1) {
+          arrayString.push(textLine)
+        }
+      }
+
+      return arrayString
     }
+
+    const getCenterStringArrayXml = (text) => {
+      const arrayString = getArrayBeakLineString(text, 24);
+      if(!arrayString) return ""
+      let result = ""
+      for (let i=0; i < arrayString.length; i++) {
+        result = result + `<t><c>${arrayString[i]}</c></t>`
+      }
+      return result
+    } 
 
     const getInvoiceItemsXml = () => {
       
@@ -527,8 +556,8 @@ export const PopupInvoice = React.forwardRef(
 
       }
 
-      let xmlContent = `<t><c>${profile?.businessName || " "}</c></t>
-      <t><c>${profile?.addressFull || " "}</c></t>
+      let xmlContent = `${getCenterStringArrayXml(profile?.businessName || " ")}
+      ${getCenterStringArrayXml(profile?.addressFull || " ")}
       <t><c>${`Tel : ${profile?.phone || " "}`}</c></t>
       <t><c>${profile?.webLink}</c></t>
       <t><c>${`${
