@@ -465,17 +465,15 @@ export const PopupInvoice = React.forwardRef(
           const noteXml = note ? `<t>(Note: ${note})</t>` : ``
           const staffXml = staffName ? `<t>(${staffName})</t>` : ``
 
-          stringItems = stringItems + `<t>${index + 1}. ${
-            _.padEnd(_.truncate(_.get(item, 'data.name'), {
-              'length': 14
-            }), 14, '.')}
-          ${total ? `$${total}` : ``}</t>
+          stringItems = stringItems + `<t>${
+            _.padEnd(_.truncate(`${index + 1}.${_.get(item, 'data.name')}`, {
+              'length': 15
+            }), 15, '.')}${_.padStart(`$${total}`, 9, ".")}</t>
           ${noteXml}
           ${staffXml}`
 
         }
       ) 
-      console.log('stringItems', stringItems)
       return stringItems
     }
 
@@ -559,17 +557,18 @@ export const PopupInvoice = React.forwardRef(
       ${getInvoiceItemsXml()}
       <t><c>${"-".repeat(24)}</c></t>
       <t/>
-      <t>${_.padEnd("Subtotal: ", 17, ".")}$${getSubTotal()}</t>
-      <t>${_.padEnd("Discount: ", 17, ".")}$${getDiscount()}</t>
-      <t>${_.padEnd("Tip: ", 17, ".")}$${getTipAmount()}</t>
-      <t>${_.padEnd("Tax: ", 17, ".")}$${getTax()}</t>
+      <t>${_.padEnd("Subtotal: ", 15, ".")}${_.padStart(`$${getSubTotal()}`, 9, ".")}</t>
+      <t>${_.padEnd("Discount: ", 15, ".")}${_.padStart(`$${getDiscount()}`, 9, ".")}</t>
+      <t>${_.padEnd("Tip: ", 15, ".")}${_.padStart(`$${getTipAmount()}`, 9, ".")}</t>
+      <t>${_.padEnd("Tax: ", 15, ".")}${_.padStart(`$${getTax()}`, 9, ".")}</t>
       ${!printTempt ? 
-     `<t>${_.padEnd("Total: ", 17, ".")}$${getTotal()}</t>
+     `<t>${_.padEnd("Total: ", 15, ".")}${_.padStart(`$${getTotal()}`, 9, ".")}</t>
      ${entryMethodXml}
-     ${isSignature ? `<t> .</t><t>Signature: _____________</t><t> .</t>`: ``}
+     ${isSignature ? `<t> .</t><t> .</t><t>Signature: _____________</t><t> .</t>`: ``}
       `: ``}
       ${printTempt ? `<t>Tip :</t>
                       <t>Total :</t>
+                      <t> .</t>
                       <t> .</t>
                       <t>Signature: _____________</t>
                       <t> .</t>` 
