@@ -43,9 +43,6 @@ import { ItemHeaderReceipt, ItemReceipt } from "./ItemReceipt";
 import { TotalView } from "./TotalView";
 import { layouts } from "@shared/themes";
 import _ from 'lodash';
-import Jimp from 'jimp';
-import RNFS from 'react-native-fs';
-import { array } from "yup/lib/locale";
 
 export const PopupInvoice = React.forwardRef(
   ({ cancelInvoicePrint }, ref) => {
