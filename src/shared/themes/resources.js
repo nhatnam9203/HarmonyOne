@@ -154,6 +154,7 @@ export const images = {
   check_package_pricing: require('@src/assets/images/check_package_pricing.png'),  
   top_scroll_active: require('@src/assets/images/top_scroll_active.png'),
   placeHolder : require('@src/assets/images/placeHolder.jpeg'),
+  group_people : require('@src/assets/images/group_people.png'),
 };
 
 export const svg = {

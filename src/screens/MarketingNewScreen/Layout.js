@@ -216,7 +216,7 @@ export const Layout = ({
                   width={scaleWidth(120)}
                 />
                 <Button
-                  label="Save and start campaign"
+                  label="Save and start"
                   onPress={() => { dialogSendMessageRef?.current?.show() }}
                   highlight={true}
                   disabled={!(!isSchedule && isEdit)}
@@ -233,7 +233,7 @@ export const Layout = ({
                   width={scaleWidth(120)}
                 />
                 <Button
-                  label="Save and send campaign"
+                  label="Save and send"
                   onPress={() => { }}
                   highlight={true}
                   disabled={true}

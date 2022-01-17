@@ -118,12 +118,14 @@ const Item = ({ staff, selectStaff, staffSelected, showPopupAddBlockTime }) => {
                             {
                                 borderColor: "white",
                                 borderWidth: 1,
-                                borderRadius: 0
+                                borderRadius: 0,
+                                tintColor : "#0094D9"
                             }
 
                         ]}
-                        source={images.icon_waitingList}
+                        source={images.group_people}
                         resizeMode='cover'
+                        tintColor="#0094D9"
                     />
                     : isEmpty(staff?.imageUrl) ?
                         <CustomImage
@@ -196,7 +198,7 @@ const styles = StyleSheet.create({
         height: scaleWidth(45),
         borderRadius: 1000,
         borderWidth: 3,
-        resizeMode: "contain",
+        tintColor : "red"
     },
     staffName: {
         fontSize: scaleFont(13),

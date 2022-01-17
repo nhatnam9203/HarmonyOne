@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, Text, TouchableOpacity, View, TextInput, Alert, ActivityIndicator, ActivityIndicatorBase, Image, ScrollView } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, TextInput, Alert, ActivityIndicator, ActivityIndicatorBase, Image, ScrollView, Keyboard } from "react-native";
 import { colors, fonts, layouts } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { IconButton, Button, CustomImage, CustomInput, InputSelectTime, DialogConfirm } from "@shared/components";
@@ -246,6 +246,10 @@ const DialogBlockTime = React.forwardRef(
             setIsEdit(true);
         }
 
+        const onSummitEditingReason = () => {
+            Keyboard.dismiss();
+        }
+
         return (
             <Modal
                 style={styles.modal}
@@ -376,6 +380,7 @@ const DialogBlockTime = React.forwardRef(
                                                         setTxtReason(text);
                                                     }}
                                                     style={styles.inputReason}
+                                                    onSubmitEditing={onSummitEditingReason}
                                                 />
                                             </View>
                                         </View>
@@ -471,8 +476,8 @@ const TempInput = ({ title }) => {
 const styles = StyleSheet.create({
 
 
-    inputReason : {
-        flex: 1, fontSize: scaleFont(14), fontFamily: fonts.REGULAR 
+    inputReason: {
+        flex: 1, fontSize: scaleFont(14), fontFamily: fonts.REGULAR
     },
 
     iconDelete: {

@@ -18,6 +18,7 @@ export const NotificationIcon = ({
     const roleName = staff?.roleName?.toString()?.toLowerCase();
     let count = (roleName == "admin" || roleName == "manager") ? countUnread : countUnread_roleStaff;
     count = parseInt(count) > 99 ? "+99" : count;
+    count = "1"
 
     const goToNotificationPage = () => {
         if(roleName == "admin" || roleName == "manager"){
@@ -58,8 +59,8 @@ const styles = StyleSheet.create({
     wrapCount: {
         justifyContent: "center",
         alignItems: 'center',
-        width: scaleWidth(20),
-        height: scaleWidth(20),
+        width: scaleWidth(22),
+        height: scaleWidth(22),
         backgroundColor: "#ED1C24",
         borderRadius: 3000,
         position: 'absolute',

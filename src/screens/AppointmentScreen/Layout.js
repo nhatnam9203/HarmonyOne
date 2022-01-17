@@ -80,7 +80,7 @@ export const Layout = ({
                 ref={staffListRef}
                 showPopupAddBlockTime={showPopupAddBlockTime}
               /> :
-              <StaffInfoLogin staffInfo={staffInfo} />
+              <StaffInfoLogin staffInfo={staffInfo} showPopupAddBlockTime={showPopupAddBlockTime} />
           }
           <AppointmentList
             ref={appointmentListRef}

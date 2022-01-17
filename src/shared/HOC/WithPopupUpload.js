@@ -47,7 +47,7 @@ export const WithPopupUpload = (WrappedComponent) => {
         const actions = [
             {
                 id: 'picker-image',
-                label: t('Image Picker'),
+                label: t('Photo gallery'),
                 func: () => {
                     pickImage();
                 },

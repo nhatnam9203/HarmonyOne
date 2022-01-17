@@ -81,7 +81,7 @@ export const InvoiceList = ({
                     </View>
                 )
             case "total":
-                return <Text style={styles.txt}>
+                return <Text style={[styles.txt,{ fontFamily : fonts.MEDIUM }]}>
                     $ {data}
                 </Text>
             case "user":
@@ -90,7 +90,7 @@ export const InvoiceList = ({
                         <Text style={styles.userName}>
                             {`${data?.firstName} ${data?.lastName}`}
                         </Text>
-                        <Text style={[styles.userName,{ color : "#404040", fontFamily : fonts.REGULAR }]}>
+                        <Text style={[styles.userName,{ color : "#404040", fontFamily : fonts.REGULAR, marginTop : 3 }]}>
                             {`# ${item?.code}`}
                         </Text>
                     </View>
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
         return {
             color,
             fontSize: scaleFont(14),
-            fontFamily: fonts.REGULAR
+            fontFamily: fonts.MEDIUM
         }
     }
 })
