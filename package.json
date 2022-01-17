@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@breeffy/react-native-calendar": "^0.4.1",
+    "@freakycoder/react-native-progressive-fast-image": "^0.2.5",
     "@hookform/resolvers": "^2.8.0",
     "@microsoft/signalr": "^5.0.11",
     "@react-native-community/async-storage": "^1.12.1",

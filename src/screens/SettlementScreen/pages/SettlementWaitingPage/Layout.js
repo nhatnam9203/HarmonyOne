@@ -193,7 +193,8 @@ const styles = StyleSheet.create({
 
   bottom: {
     width: scaleWidth(375),
-    padding: scaleWidth(16)
+    padding: scaleWidth(16),
+    paddingBottom : 0,
   }
 
 });
