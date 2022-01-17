@@ -29,6 +29,7 @@ const CustomerAppointments = ({
                         width: 250,
                         elevation : 0
                     },
+                    allowFontScaling : false
                 }}
             >
                 <Screen

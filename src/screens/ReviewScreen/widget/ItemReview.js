@@ -19,7 +19,7 @@ let EditReview = ({ ...props }) => {
             <Image
                 source={images.iconMore}
                 style={styles.iconBigDot}
-                resizeMode="contain"
+                resizeMode="cover"
             />
         </TouchableOpacity>
     );
@@ -32,7 +32,7 @@ let EditReply = ({ ...props }) => {
             <Image
                 source={images.iconMore}
                 style={[styles.iconDot, { transform: [{ rotate: '90deg' }] }]}
-                resizeMode="contain"
+                resizeMode="cover"
             />
         </TouchableOpacity>
     );
@@ -226,12 +226,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     name: {
-        fontSize: scaleFont(15),
+        fontSize: scaleFont(16),
         color: colors.greyish_brown_40,
         fontFamily: fonts.MEDIUM
     },
     date: {
-        fontSize: scaleFont(11),
+        fontSize: scaleFont(12),
         color: '#585858',
         fontFamily: fonts.LIGHT
     },
@@ -258,15 +258,16 @@ const styles = StyleSheet.create({
     },
     wrapfirstLetter: {
         borderRadius: scaleWidth(1000),
-        width: scaleWidth(50),
-        height: scaleWidth(50),
+        width: scaleWidth(55),
+        height: scaleWidth(55),
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: "#D4F8FC"
+        backgroundColor: "#D4F8FC",
+        marginRight : scaleWidth(2)
     },
     letter: {
         fontSize: scaleFont(20),
-        fontFamily: fonts.MEDIUM,
+        fontFamily: fonts.BOLD,
         color: colors.greyish_brown_40,
     },
     wrapContent: {
@@ -316,3 +317,4 @@ const styles = StyleSheet.create({
         marginRight: scaleWidth(8)
     }
 })
+

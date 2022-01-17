@@ -170,14 +170,14 @@ const styles = StyleSheet.create({
     },
 
     addIcon: {
-        width: 25,
-        height: 25,
+        width: 20,
+        height: 20,
         resizeMode: 'contain'
     },
 
     btnAddAppointment: {
         position: 'absolute',
-        bottom: scaleHeight(32),
+        bottom: 50,
         right: 20,
         paddingHorizontal: 15,
         paddingVertical: 15,

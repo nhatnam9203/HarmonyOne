@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   },
   containerBigImage: {
     width: scaleWidth(375),
-    height: scaleWidth(300),
+    height: scaleWidth(230),
     position: 'relative'
   },
   iconBack: {

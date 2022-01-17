@@ -15,6 +15,7 @@ export const Location = ({
     latitude,
     longitude,
     merchantDetail,
+    isReady
 }) => {
 
 

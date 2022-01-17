@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { fonts, colors } from "@shared/themes";
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from "@react-navigation/stack";
 import { BusinessPage, BasicEdit, OpeningHourEdit, LocationEdit, PhotoEdit } from "./pages";
 import {

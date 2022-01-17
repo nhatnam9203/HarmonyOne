@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { colors, fonts } from "@shared/themes";
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createMaterialTopTabNavigator, MaterialTopTabBar } from '@react-navigation/material-top-tabs';
 import { HeaderBooking } from "../../widgets";
 import { ServicePage } from "./ServicePage";
 import { ProductPage } from "./ProductPage";
@@ -39,10 +39,11 @@ export const Layout = ({
               width: scaleWidth(350),
               marginHorizontal: scaleWidth(16),
               borderBottomColor: 'transparent',
-              elevation : 0
+              elevation: 0
             },
             inactiveTintColor: "#404040",
-            activeTintColor: colors.ocean_blue
+            activeTintColor: colors.ocean_blue,
+            allowFontScaling : false
           }}
         >
           <Screen {...ServicePage} />

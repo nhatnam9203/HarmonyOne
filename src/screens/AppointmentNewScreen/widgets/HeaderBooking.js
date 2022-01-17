@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.REGULAR,
         marginBottom: scaleHeight(5),
         marginLeft: scaleWidth(16),
-        marginTop: scaleHeight(14),
+        marginTop: scaleHeight(12),
     },
     title: {
         fontSize: scaleFont(16),

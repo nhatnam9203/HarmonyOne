@@ -1,9 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { fonts, colors } from "@shared/themes";
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-
-const { Navigator, Screen } = createMaterialTopTabNavigator();
 
 const CustomerAppointmentNumber = ({
     allBooking,

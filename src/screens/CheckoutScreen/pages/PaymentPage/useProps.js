@@ -124,8 +124,15 @@ export const useProps = (props) => {
       if (isSetup) {
         handlePaymentByCredit();
       } else {
-        setTimeout(() => {
+        setTimeout(async() => {
           alert("Please connect your Payment terminal to take payment.");
+          setMethodPay(null)
+          const data = {
+            status: null,
+            note: null,
+          }
+          const body = await cancelHarmonyPayment(payAppointmentId, data)
+          submitCancelHarmonyPayment(body.params);
         }, 300);
       }
     }
@@ -230,7 +237,7 @@ export const useProps = (props) => {
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
 
-        if(methodPay.method == "harmony"){
+        if (methodPay.method == "harmony") {
           dispatch(app.hideLoading());
         }
 
@@ -326,8 +333,7 @@ export const useProps = (props) => {
     ...cancelHarmonyPayment(),
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
-        console.log('submitCancelHarmonyPayment', response, methodPay)
-        if (methodPay.method === "credit_card") {
+        if (methodPay?.method === "credit_card") {
           setTimeout(() => {
             popupErrorMessageRef?.current?.show();
           }, 300);
@@ -579,22 +585,22 @@ export const useProps = (props) => {
         submitPaymentCreditCard(body.params);
 
       } else {
-         if (payAppointmentId) {
-            let resultTxt = "";
-            if (_.get(result, "status", 0) == 0) {
-              resultTxt = result?.message || "Transaction failed";
-            } else {
-              resultTxt = result?.ResultTxt || "Transaction failed";
-            }
-          
-            const data = {
-              status: "transaction fail",
-              note: resultTxt,
-            }
-            setErrorMessageFromPax(resultTxt);
-            const body = await cancelHarmonyPayment(payAppointmentId, data)
-            submitCancelHarmonyPayment(body.params);
-         }
+        if (payAppointmentId) {
+          let resultTxt = "";
+          if (_.get(result, "status", 0) == 0) {
+            resultTxt = result?.message || "Transaction failed";
+          } else {
+            resultTxt = result?.ResultTxt || "Transaction failed";
+          }
+
+          const data = {
+            status: "transaction fail",
+            note: resultTxt,
+          }
+          setErrorMessageFromPax(resultTxt);
+          const body = await cancelHarmonyPayment(payAppointmentId, data)
+          submitCancelHarmonyPayment(body.params);
+        }
       }
     } catch (error) { }
   }

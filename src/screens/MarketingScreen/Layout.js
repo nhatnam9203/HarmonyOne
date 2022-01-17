@@ -45,7 +45,8 @@ export const Layout = ({
               labelStyle: {
                 fontFamily: fonts.REGULAR,
                 fontSize: scaleFont(17),
-              }
+              },
+              allowFontScaling : false
             }}
             swipeEnabled={false}
           >

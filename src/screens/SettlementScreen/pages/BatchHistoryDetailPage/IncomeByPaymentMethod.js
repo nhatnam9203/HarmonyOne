@@ -63,7 +63,7 @@ export const IncomeByPaymentMethod = ({
                 <Text style={[styles.title, { fontFamily: fonts.MEDIUM }]}>
                     Total
                 </Text>
-                <Text style={[styles.title, { fontFamily: fonts.MEDIUM, padding: scaleWidth(16), color: "#4CD964" }]}>
+                <Text style={[styles.title, { fontFamily: fonts.BOLD, padding: scaleWidth(16), color: "#4CD964" }]}>
                     $ {batchDetail?.total}
                 </Text>
             </View>

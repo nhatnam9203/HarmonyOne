@@ -72,7 +72,7 @@ export const Layout = ({
               Total
             </Text>
 
-            <Text style={[styles.title, { fontFamily: fonts.MEDIUM, padding: scaleWidth(16), color: "#4CD964" }]}>
+            <Text style={[styles.title, { fontFamily: fonts.BOLD, padding: scaleWidth(16), color: "#4CD964" }]}>
               $ {formatMoney(totalAmount)}
             </Text>
           </View>

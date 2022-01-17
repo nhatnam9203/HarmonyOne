@@ -9,6 +9,7 @@ import {
   hideRating,
 } from "@src/apis";
 import { useDispatch, useSelector } from "react-redux";
+import { InteractionManager } from "react-native";
 import { review } from "@redux/slices";
 
 export const useProps = (_params) => {
@@ -28,11 +29,17 @@ export const useProps = (_params) => {
   const [status, setStatus] = React.useState("all");
   const [reviewType, setReviewType] = React.useState("all");
   const [ratingItem, setRatingItem] = React.useState(null);
+  const [isReady, setReady] = React.useState(false)
 
+  React.useEffect(() => {
+    InteractionManager.runAfterInteractions(() => {
+      setReady(true);
+    });
+  }, []);
 
   const [, fetchSummaryReview] = useAxiosQuery({
     ...getSummaryReview(staff?.merchantId),
-    isLoadingDefault: true,
+    isLoadingDefault: isReady,
     onSuccess: (data, response) => {
       if (response.codeNumber == 200) {
         dispatch(review.setSummaryReview(data));
@@ -43,7 +50,7 @@ export const useProps = (_params) => {
   const [{ isLoading }, fetchListReview] = useAxiosQuery({
     ...getListReview(status, reviewType, currentPage),
     enabled: true,
-    isLoadingDefault: currentPage == 1,
+    isLoadingDefault: currentPage == 1 && isReady,
     onSuccess: (data, response) => {
       if (response.codeNumber == 200) {
         dispatch(review.setListReview({
@@ -96,14 +103,15 @@ export const useProps = (_params) => {
     reviewType,
     summary,
     isRefresh,
+    isReady,
 
-    showReview: async(item) => {
+    showReview: async (item) => {
       setRatingItem({ ...item, status: "show" });
       const body = await showRating(item?.staffRatingId);
       submitShowRating(body.params);
     },
 
-    hideReview: async(item) => {
+    hideReview: async (item) => {
       setRatingItem({ ...item, status: "hidden" });
       const body = await hideRating(item?.staffRatingId);
       submitHideRating(body.params);
@@ -167,3 +175,4 @@ export const useProps = (_params) => {
     }
   };
 };
+

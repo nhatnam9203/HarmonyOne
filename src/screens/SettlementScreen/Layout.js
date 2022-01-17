@@ -42,7 +42,8 @@ export const Layout = ({
                 backgroundColor: colors.white,
               },
               activeTintColor : colors.ocean_blue,
-              inactiveTintColor : "#585858"
+              inactiveTintColor : "#585858",
+              allowFontScaling : false
             }}
           >
             <Screen {...SettlementWaitingPage} />

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
+import { LoadingAnimation } from "@shared/components";
 import { BasicInformation } from "./BasicInformation";
 import { Location } from "./Location";
 import { OpeningHour } from "./OpeningHour";
@@ -11,10 +12,17 @@ import { Banners } from "./Banners";
 
 export const Layout = ({
   merchantDetail,
-  bannersMerchant
+  bannersMerchant,
+  isReady
 }) => {
 
   const [t] = useTranslation();
+
+  if (!isReady) {
+    return (
+      <LoadingAnimation />
+    )
+  }
 
   return (
     <View style={styles.container}>

@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
         marginVertical: scaleHeight(16),
         marginTop: scaleHeight(24),
         fontFamily: fonts.MEDIUM,
-        fontSize: scaleFont(20),
+        fontSize: scaleFont(19),
         marginLeft: scaleWidth(16)
     }
 })

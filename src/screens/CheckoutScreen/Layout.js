@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   bottom: {
     paddingHorizontal: scaleWidth(16),
-    paddingBottom: scaleHeight(8)
+    // paddingBottom: scaleWidth(16)
   },
 
   customerInfoView: {
