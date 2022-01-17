@@ -35,7 +35,7 @@ export const useProps = (_params) => {
     InteractionManager.runAfterInteractions(() => {
       setReady(true);
     });
-  }, []);
+  }, [])
 
   const [, fetchSummaryReview] = useAxiosQuery({
     ...getSummaryReview(staff?.merchantId),
