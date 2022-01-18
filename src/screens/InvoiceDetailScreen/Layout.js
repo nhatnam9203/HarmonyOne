@@ -155,10 +155,10 @@ export const Layout = ({
                     <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(74) }]}>
                       $ {item?.price}
                     </Text>
-                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(42) }]}>
+                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(34) }]}>
                       {item?.qty}
                     </Text>
-                    <Text style={[styles.text, { fontFamily: fonts.BOLD, width: scaleWidth(84), textAlign: "right" }]}>
+                    <Text style={[styles.text, { fontFamily: fonts.BOLD, width: scaleWidth(88),  zIndex : 99999, textAlign: "right" }]}>
                       $ {formatMoney(itemPrice)}
                     </Text>
                   </View>
