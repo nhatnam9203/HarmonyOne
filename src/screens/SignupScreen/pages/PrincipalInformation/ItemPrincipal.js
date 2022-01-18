@@ -77,7 +77,7 @@ export const ItemPrincipal = ({
 
             if (response?.data?.codeNumber == 200) {
                 dispatch(app.hideLoading());
-                form.setValue(`principalInfor.${index}.fileId`, response?.data?.data?.fileId?.toString() ?? 0)
+                form.setValue(`principalInfor.${index}.fileId`, response?.data?.data?.fileId)
                 setImageUrl(response?.data?.data?.url);
                 checkErrors();
             } else {
@@ -366,7 +366,7 @@ export const ItemPrincipal = ({
 
                     <Text style={styles.txtVoidCheck}>Please take or upload photos of Driver License*</Text>
 
-                    {errors?.principalInfor?.[index]?.fileId && <Text style={styles.txtErrorImage}>Required</Text>}
+                    {!fileId && <Text style={styles.txtErrorImage}>Required</Text>}
                     <ButtonUpload
                         onResponseImagePicker={onResponseImagePicker}
                         imageUrl={imageUrl}

@@ -6,7 +6,7 @@ import ProgressiveFastImage from "@freakycoder/react-native-progressive-fast-ima
 
 
 export const CustomImage = ({ defaultImage,source,...props }) => {
-  return <ProgressiveFastImage
+  return <FastImage
   source={source}
     {...props} />;
 };

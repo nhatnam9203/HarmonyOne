@@ -48,6 +48,8 @@ export const Layout = ({
     cancelInvoicePrint,
     confirmPaymentClover,
     rejectPaymentClover,
+    submitConsumerPayment,
+    consumerPayment,
 }) => {
 
     const [t] = useTranslation();
@@ -95,6 +97,8 @@ export const Layout = ({
                         onConfirmYes={() => { }}
                         onModalHide={() => onChangeMethodPay("")}
                         onPayGiftCard={onPayGiftCard}
+                        submitConsumerPayment={submitConsumerPayment}
+                        consumerPayment={consumerPayment}
                     />
                     <PopupPaymentDetail
                         ref={popupPaymentDetailRef}

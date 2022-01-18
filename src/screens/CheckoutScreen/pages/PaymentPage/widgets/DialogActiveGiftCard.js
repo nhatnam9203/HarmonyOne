@@ -4,7 +4,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View, TextInput, Alert, Acti
 import { colors, fonts, layouts } from "@shared/themes";
 import { Button, IconButton, GiftCardScanner } from "@shared/components";
 import { images } from "@shared/themes/resources";
-import { checkGiftCard, useAxiosQuery } from "@src/apis";
+import { checkGiftCard, useAxiosQuery, useAxiosMutation, selectPaymentMethod } from "@src/apis";
 import { axios } from '@shared/services/axiosClient';
 import { app } from "@redux/slices";
 import { formatMoney, formatNumberFromCurrency, slop } from "@shared/utils";
@@ -14,6 +14,12 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { isEmpty } from "lodash";
 import Modal from "react-native-modal";
 
+export const CardType = {
+    GIFT_CARD: "GiftCard",
+    CUSTOMER_CARD: "HarmonyPay",
+};
+
+
 
 export const DialogActiveGiftCard = React.forwardRef(
     ({
@@ -22,6 +28,8 @@ export const DialogActiveGiftCard = React.forwardRef(
         titleContent = "",
         onModalHide = () => { },
         onPayGiftCard = () => { },
+        submitConsumerPayment,
+        consumerPayment,
     }, ref) => {
         const [t] = useTranslation();
         const dispatch = useDispatch();
@@ -29,13 +37,31 @@ export const DialogActiveGiftCard = React.forwardRef(
         const [open, setOpen] = React.useState(false);
         const [isLoading, setLoading] = React.useState(false);
         const [serialNumber, setSerialNumber] = React.useState("");
-        const [titlePage, setTitlePage] = React.useState("Active Gift Card");
+        const [titlePage, setTitlePage] = React.useState("HarmonyPay - Gift Card");
         const [giftcardPaymentInfo, setGiftcardPaymentInfo] = React.useState(null);
         const [amount, setAmount] = React.useState("0.00");
         const [dueAmountGiftCardPayment, setDueAmountGiftCardPayment] = React.useState("0.00");
-        const [isScanning, setScanning] = React.useState(false);
+        const [isScanning, setScanning] = React.useState(true);
+
+        const [checkGiftCardFail, setCheckGiftCardFail] = React.useState(false);
+        const [checkConsumerCodeFail, setCheckConsumerCodeFail] =
+            React.useState(false);
+
+        const [cardType, setCardType] = React.useState(null);
+
 
         const { appointment: { groupAppointments } } = useSelector(state => state);
+
+        /************************************* GỌI API SELECT METHOD PAY *************************************/
+        const [, submitSelectConsumerMethod] = useAxiosMutation({
+            ...selectPaymentMethod(),
+            onSuccess: async (data, response) => {
+                if (response?.codeNumber == 200) {
+                    const body = await consumerPayment(data, serialNumber);
+                    submitConsumerPayment(body.params);
+                }
+            }
+        });
 
         const hideModal = () => {
             setOpen(false);
@@ -47,34 +73,81 @@ export const DialogActiveGiftCard = React.forwardRef(
                 setOpen(true);
                 setSerialNumber("");
                 setGiftcardPaymentInfo(null);
-                setScanning(false);
+                setScanning(true);
                 setAmount("0.00");
                 setDueAmountGiftCardPayment("0.00");
-                setTitlePage("Active Gift Card");
+                setTitlePage("HarmonyPay - Gift Card");
+                setCheckConsumerCodeFail(false);
+                setCheckGiftCardFail(false);
+                setCardType(null);
             },
             hide: () => {
                 setOpen(false);
             }
         }));
 
+        const checkQRcode = (qrCode) => {
+            if(qrCode){
+                checkSerialNumber(qrCode);
+                checkPaytokenConsumer(qrCode);
+            }
+        }
+
         { /************************************* GỌI API CHECK SERIAL NUMBER SHOW POPUP GIFTCARD DETAIL LÊN *************************************/ }
-        const checkSerialNumber = async () => {
+        const checkSerialNumber = async (qrCode) => {
+            const code_number = qrCode ?? serialNumber;
             try {
-                if (!isEmpty(serialNumber)) {
+                if (!isEmpty(code_number)) {
                     setLoading(true);
                     const params = {
-                        url: `giftcard/serialNumber/${serialNumber}?isActive=${true}`,
+                        url: `giftcard/serialNumber/${code_number}?isActive=${true}`,
                         method: "GET",
                     }
                     const response = await axios(params);
                     if (response?.data?.codeNumber == 400) {
-                        Alert.alert(response?.data?.message);
+                        setCheckGiftCardFail(true);
+                        // Alert.alert(response?.data?.message);
                     } else {
-                        setTitlePage("Gift Card Details");
+                        setTitlePage("Card Details");
                         setGiftcardPaymentInfo(response?.data?.data);
                         calcuLateDueAmount(response?.data?.data);
+                        setCardType(CardType.GIFT_CARD);
                     }
+                    setScanning(false);
                 }
+            } catch (err) {
+
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        const checkPaytokenConsumer = async (qrCode) => {
+            const code_number = qrCode ?? serialNumber;
+            try {
+                if (!isEmpty(code_number)) {
+                    setLoading(true);
+                    const token = code_number;
+                    const params = {
+                        url: `/Consumer`,
+                        method: "GET",
+                        params: { token },
+                    };
+
+                    const response = await axios(params);
+                    if (response?.data?.codeNumber == 400) {
+                        setCheckConsumerCodeFail(true);
+                        // Alert.alert(response?.data?.message);
+                    } else {
+                        setTitlePage("Card Details");
+                        setGiftcardPaymentInfo(response?.data?.data);
+                        calcuLateDueAmount(response?.data?.data);
+                        setCardType(CardType.CUSTOMER_CARD);
+                    }
+                    setScanning(false);
+
+                }
+            
             } catch (err) {
 
             } finally {
@@ -104,7 +177,7 @@ export const DialogActiveGiftCard = React.forwardRef(
         { /************************************* GỌI API PAY GIFT CARD *************************************/ }
         const payGiftCard = () => {
             if (getAmountEnter(amount) > formatNumberFromCurrency(giftcardPaymentInfo.amount)) {
-                alert("Enter amount is not bigger than the value of gift card!")
+                alert("Enter amount is not bigger than the value of card!")
             } else if (getAmountEnter(amount) === 0) {
                 alert("Pay amount is not equal 0!")
             } else {
@@ -113,9 +186,28 @@ export const DialogActiveGiftCard = React.forwardRef(
                 } else {
                     const checkoutGroupId = groupAppointments?.checkoutGroupId || 0;
                     const giftCardId = giftcardPaymentInfo?.giftCardId || 0;
-                    onPayGiftCard(formatNumberFromCurrency(amount), giftCardId);
+                    if (cardType == CardType.GIFT_CARD) {
+                        onPayGiftCard(formatNumberFromCurrency(amount), giftCardId);
+                    } else {
+                        payByHarmonyPay();
+                    }
                 }
             }
+        }
+
+        const payByHarmonyPay = async () => {
+            const data = {
+                method: "harmony",
+                amount: amount,
+                giftCardId: 0,
+            }
+
+            const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
+
+            submitSelectConsumerMethod(body.params);
+            setTimeout(() => {
+                hideModal();
+            }, 200);
         }
 
         const onChangeAmount = (value) => {
@@ -128,16 +220,24 @@ export const DialogActiveGiftCard = React.forwardRef(
 
         const openScanBarcode = () => {
             setScanning(true);
-            setTitlePage("Scan Your Code");
+            setTitlePage("HarmonyPay - Gift Card");
         }
 
         const onReadBarcode = (result) => {
             if (!isEmpty(result)) {
                 setSerialNumber(result);
             }
-            setTitlePage("Active Gift Card");
-            setScanning(false);
+            checkQRcode(result);
+            setTitlePage("HarmonyPay - Gift Card");
         }
+
+        React.useEffect(() => {
+            if (checkGiftCardFail && checkConsumerCodeFail) {
+                alert(`Code is invalid!!!`);
+                setCheckGiftCardFail(false);
+                setCheckConsumerCodeFail(false);
+            }
+        }, [checkGiftCardFail, checkConsumerCodeFail]);
 
         return (
             <Modal
@@ -174,15 +274,24 @@ export const DialogActiveGiftCard = React.forwardRef(
                             isScanning ?
                                 <View style={{ width: scaleWidth(340), height: scaleWidth(350), justifyContent: "center", alignItems: "center" }}>
                                     <GiftCardScanner onReadBarcode={onReadBarcode} />
+                                    <TouchableOpacity onPress={() => setScanning(false)} style={{ marginTop: scaleWidth(8) }}>
+                                        <Text style={{ fontSize: scaleFont(17), fontFamily: fonts.MEDIUM }}>Enter Bar code</Text>
+                                    </TouchableOpacity>
                                 </View> :
                                 giftcardPaymentInfo ?
                                     <View style={{ width: "100%", backgroundColor: "white", borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
                                         { /************************************* SERIAL NUMBER *************************************/}
-                                        <View style={[styles.row, { justifyContent: "flex-start" }]}>
-                                            <Text style={[styles.txt, { width: scaleWidth(140) }]}>Serial number:</Text>
-                                            <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}># {giftcardPaymentInfo?.serialNumber}</Text>
-                                        </View>
-
+                                        {
+                                            cardType == CardType.GIFT_CARD ?
+                                                <View style={[styles.row, { justifyContent: "flex-start" }]}>
+                                                    <Text style={[styles.txt, { width: scaleWidth(140) }]}>Serial number:</Text>
+                                                    <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}># {giftcardPaymentInfo?.serialNumber}</Text>
+                                                </View> :
+                                                <View style={[styles.row, { justifyContent: "flex-start" }]}>
+                                                    <Text style={[styles.txt, { width: scaleWidth(140) }]}>Customer:</Text>
+                                                    <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}># {giftcardPaymentInfo?.userName}</Text>
+                                                </View>
+                                        }
                                         { /************************************* AMOUNT *************************************/}
                                         <View style={[styles.row, styles.rowAmount]}>
                                             <Text style={[styles.txt, { width: scaleWidth(140) }]}>Amount:</Text>
@@ -259,7 +368,7 @@ export const DialogActiveGiftCard = React.forwardRef(
 
                                         <View style={styles.bottomStyle}>
                                             <TouchableOpacity
-                                                onPress={checkSerialNumber}
+                                                onPress={checkQRcode}
                                                 style={styles.buttonSubmit}
                                             >
                                                 {

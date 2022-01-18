@@ -126,17 +126,17 @@ export const Layout = ({
             <View style={styles.line} />
 
             <View style={[styles.row, { marginTop: scaleHeight(12) }]}>
-              <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(150) }]}>
+              <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(145) }]}>
                 Description
               </Text>
 
-              <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(69) }]}>
+              <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(74) }]}>
                 Price
               </Text>
-              <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(69) }]}>
+              <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(50) }]}>
                 Qty
               </Text>
-              <Text style={[styles.text, { fontFamily: fonts.BOLD, width: scaleWidth(55), textAlign: "right" }]}>
+              <Text style={[styles.text, { fontFamily: fonts.BOLD, width: scaleWidth(74), textAlign: "right" }]}>
                 Total
               </Text>
             </View>
@@ -147,18 +147,18 @@ export const Layout = ({
                 return (
                   <View key={item?.key} style={[styles.row, { marginTop: scaleHeight(12), alignItems: "center" }]}>
                     <View style={{ width: scaleWidth(150) }}>
-                      <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(130) }]}>
+                      <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(125) }]}>
                         {item?.name}
                       </Text>
                     </View>
 
-                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(69) }]}>
+                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(74) }]}>
                       $ {item?.price}
                     </Text>
-                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(61) }]}>
+                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(42) }]}>
                       {item?.qty}
                     </Text>
-                    <Text style={[styles.text, { fontFamily: fonts.BOLD, width: scaleWidth(65), textAlign: "right" }]}>
+                    <Text style={[styles.text, { fontFamily: fonts.BOLD, width: scaleWidth(84), textAlign: "right" }]}>
                       $ {formatMoney(itemPrice)}
                     </Text>
                   </View>

@@ -28,8 +28,8 @@ const methodPays = [
         method : "other"
     },
     {
-        title: "Gift Card",
-        icon: images.giftCardPay,
+        title: "HarmonyPay - GC",
+        icon: images.harmonyPay,
         method: "giftcard"
     },
 ]

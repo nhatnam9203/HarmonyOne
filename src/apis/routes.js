@@ -1045,6 +1045,15 @@ export const signUpMerchant = (data) => ({
   }
 });
 
+export const consumerPayment = (checkoutPaymentId, token) => ({
+  queryId: `consumerPayment`,
+  params: {
+    url: `/Consumer/submit/${checkoutPaymentId}?token=${token}`,
+    method: 'PUT',
+    data : {}
+  }
+});
+
 
 
 

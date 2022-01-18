@@ -11,6 +11,7 @@ import {
   getGroupAppointmentById,
   submitPaymentWithCreditCard,
   sendGoogleReviewLink,
+  consumerPayment,
 } from '@src/apis';
 import {
   useDispatch,
@@ -124,7 +125,7 @@ export const useProps = (props) => {
       if (isSetup) {
         handlePaymentByCredit();
       } else {
-        setTimeout(async() => {
+        setTimeout(async () => {
           alert("Please connect your Payment terminal to take payment.");
           setMethodPay(null)
           const data = {
@@ -262,35 +263,47 @@ export const useProps = (props) => {
     isLoadingDefault: false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
-        setPaymentDetail(response?.data)
-
-        const dueAmount = parseFloat(
-          response?.data?.checkoutPaymentResponse?.dueAmount || 0
-        );
-
-        popupPayProcessingRef?.current?.hide();
-
-        if (dueAmount == 0) {
-          setTimeout(() => {
-            dialogSuccessRef?.current?.show();
-          }, 200)
-
-          return;
-        }
-        if (dueAmount < 0) {
-          setPaymentDetail(response?.data);
-          popupChangeRef?.current?.show();
-          return;
-        }
-        if (dueAmount > 0) {
-          fetchGroupApointmentById();
-          setPaymentDetail(response?.data);
-          popupPaymentDetailRef?.current?.show();
-          setMethodPay(null);
-        }
+        handleAfterPayment(response);
       }
     }
   });
+
+  const [, submitConsumerPayment] = useAxiosMutation({
+    ...consumerPayment(),
+    onSuccess: (data, response) => {
+      handleAfterPayment(response);
+    },
+  });
+
+  const handleAfterPayment = (response) => {
+    setPaymentDetail(response?.data)
+
+    const dueAmount = parseFloat(
+      response?.data?.checkoutPaymentResponse?.dueAmount || 0
+    );
+
+    popupPayProcessingRef?.current?.hide();
+
+    if (dueAmount == 0) {
+      setTimeout(() => {
+        dialogSuccessRef?.current?.show();
+      }, 200)
+
+      return;
+    }
+    if (dueAmount < 0) {
+      setPaymentDetail(response?.data);
+      popupChangeRef?.current?.show();
+      return;
+    }
+    if (dueAmount > 0) {
+      fetchGroupApointmentById();
+      setPaymentDetail(response?.data);
+      popupPaymentDetailRef?.current?.show();
+      setMethodPay(null);
+    }
+  }
+
 
   /************************************* GỌI API GET GROUP APPOINTMENT BY ID *************************************/
   const [, fetchGroupApointmentById] = useAxiosQuery({
@@ -734,7 +747,7 @@ export const useProps = (props) => {
     } else {
       if (methodPay.method == "cash"
         || methodPay.method == "other") {
-        if (paymentMachineType === PaymentTerminalType.Clover 
+        if (paymentMachineType === PaymentTerminalType.Clover
           && _.get(cloverMachineInfo, "isSetup")) {
           openCashDrawerClover();
         } else {
@@ -849,5 +862,7 @@ export const useProps = (props) => {
       popupConfirmDuplicateRef?.current?.hide();
     },
 
+    submitConsumerPayment,
+    consumerPayment,
   }
 };

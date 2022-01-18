@@ -44,7 +44,7 @@ export class GiftCardScanner extends Component {
                 />
                 <BarcodeMask
                     width={scaleWidth(310)}
-                    height={scaleWidth(310)}
+                    height={scaleWidth(300)}
                     edgeColor={'white'}
                     showAnimatedLine={true}
                     transparency={0.8}
@@ -57,7 +57,7 @@ export class GiftCardScanner extends Component {
 const styles = {
     container: {
         width: scaleWidth(330),
-        height: scaleWidth(330),
+        height: scaleWidth(300),
         backgroundColor: "white",
         overflow : "hidden"
     },
