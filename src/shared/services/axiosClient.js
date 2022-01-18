@@ -30,9 +30,7 @@ axios.interceptors.request.use(
     const deviceName = await getDeviceName();
     const device = await `${encodeURIComponent(deviceName)}_${deviceId}`;
     const deviceID_Storaged = await getDeviceIdStorage();
-
-    console.log({ token })
-
+    
     if (token) {
       config.headers = Object.assign({}, config.headers, {
         authorization: `Bearer ${token}`

@@ -15,7 +15,6 @@ export const useAxiosMutation = ({
   const dispatch = useDispatch();
 
   const postRequest = async (body = null) => {
-    console.log({ body })
     const response = body ? await axios(body) : await axios(params);
     return response?.data;
   };
@@ -31,7 +30,6 @@ export const useAxiosMutation = ({
           if (
             response?.message
           ) {
-            console.log({ params , response })
             dispatch(app.hideLoading());
             if(isReturnError){
               dispatch(
