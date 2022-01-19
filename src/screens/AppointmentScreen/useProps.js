@@ -38,6 +38,7 @@ import moment from 'moment';
 import NavigationService from '@navigation/NavigationService';
 import { isEmpty, set } from "lodash";
 import { Alert } from 'react-native';
+import { useBackHandlerAndroid } from "./widgets/useBackHandlerAndroid";
 
 export const useProps = (_params) => {
   const dispatch = useDispatch();
@@ -59,6 +60,8 @@ export const useProps = (_params) => {
       staffSelected,
     },
   } = useSelector((state) => state);
+
+  useBackHandlerAndroid();
 
 
   const roleName = staffInfo?.roleName?.toString()?.toLowerCase();

@@ -111,7 +111,7 @@ export const DialogActiveGiftCard = React.forwardRef(
                         method: "GET",
                     }
                     const response = await axios(params);
-                    
+
                     if (response?.data?.codeNumber == 400) {
                         setCheckGiftCardFail(true);
                         // Alert.alert(response?.data?.message);
@@ -125,7 +125,6 @@ export const DialogActiveGiftCard = React.forwardRef(
             } catch (err) {
 
             } finally {
-                setLoading(false);
                 setIsLoadedGiftCard(true);
             }
         }
@@ -144,7 +143,12 @@ export const DialogActiveGiftCard = React.forwardRef(
 
                     const response = await axios(params);
                     if (response?.data?.codeNumber == 400) {
+                        if (response?.data?.message == "Your token invalid.") {
+                            alert(response?.data?.message);
+                            return;
+                        }
                         setCheckConsumerCodeFail(true);
+
                         // Alert.alert(response?.data?.message);
                     } else {
                         setTitlePage("Card Details");
@@ -157,12 +161,11 @@ export const DialogActiveGiftCard = React.forwardRef(
             } catch (err) {
 
             } finally {
-                setLoading(false);
                 setIsLoadedConsumer(true);
             }
         }
 
- 
+
 
         const getAmountEnter = (amountMoney) => {
             if (`${amountMoney}`.indexOf("$") !== -1) {
@@ -238,6 +241,7 @@ export const DialogActiveGiftCard = React.forwardRef(
             }
             checkQRcode(result);
             setTitlePage("HarmonyPay - Gift Card");
+            setScanning(false)
         }
 
         React.useEffect(() => {
@@ -248,11 +252,9 @@ export const DialogActiveGiftCard = React.forwardRef(
             }
         }, [checkGiftCardFail, checkConsumerCodeFail]);
 
-        console.log({ isLoadedConsumer, isLoadedGiftCard })
-
         React.useEffect(() => {
             if (isLoadedConsumer && isLoadedGiftCard) {
-                setScanning(false);
+                setLoading(false)
                 setIsLoadedConsumer(false);
                 setIsLoadedConsumer(false);
             }
@@ -268,138 +270,145 @@ export const DialogActiveGiftCard = React.forwardRef(
                 animationIn={'fadeIn'}
                 animationOut='fadeOut'
             >
-                <KeyboardAwareScrollView
-                    pointerEvents={isLoading ? "none" : "auto"}
-                    contentContainerStyle={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-                >
-                    <View pointerEvents={isLoading ? "none" : "auto"} style={styles.container}>
-                        <View style={styles.header}>
-                            <Text style={styles.textHeader}>{titlePage}</Text>
-                            {
-                                !giftcardPaymentInfo && <IconButton
-                                    icon={images.iconClose}
-                                    style={styles.buttonClose}
-                                    iconStyle={styles.iconButtonClose}
-                                    onPress={hideModal}
-                                />
-                            }
-                        </View>
+                {
+                    isLoading ? <ActivityIndicator /> :
+                        <KeyboardAwareScrollView
+                            pointerEvents={isLoading ? "none" : "auto"}
+                            contentContainerStyle={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+                        >
+                            <View pointerEvents={isLoading ? "none" : "auto"} style={styles.container}>
+                                <View style={styles.header}>
+                                    <Text style={styles.textHeader}>{titlePage}</Text>
+                                    {
+                                        !giftcardPaymentInfo && <IconButton
+                                            icon={images.iconClose}
+                                            style={styles.buttonClose}
+                                            iconStyle={styles.iconButtonClose}
+                                            onPress={hideModal}
+                                        />
+                                    }
+                                </View>
 
-                        {!giftcardPaymentInfo && !isScanning && <Text style={styles.txtTitle}>
-                            {title}
-                        </Text>}
-                        {
-                            isScanning ?
-                                <View style={{ width: scaleWidth(340), height: scaleWidth(350), justifyContent: "center", alignItems: "center" }}>
-                                    <GiftCardScanner onReadBarcode={onReadBarcode} />
-                                    <TouchableOpacity onPress={() => setScanning(false)} style={{ marginTop: scaleWidth(8) }}>
-                                        <Text style={{ fontSize: scaleFont(17), fontFamily: fonts.MEDIUM }}>Enter Bar code</Text>
-                                    </TouchableOpacity>
-                                </View> :
-                                giftcardPaymentInfo ?
-                                    <View style={{ width: "100%", backgroundColor: "white", borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
-                                        { /************************************* SERIAL NUMBER *************************************/}
-                                        {
-                                            cardType == CardType.GIFT_CARD ?
-                                                <View style={[styles.row, { justifyContent: "flex-start" }]}>
-                                                    <Text style={[styles.txt, { width: scaleWidth(140) }]}>Serial number:</Text>
-                                                    <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}># {giftcardPaymentInfo?.serialNumber}</Text>
-                                                </View> :
-                                                <View style={[styles.row, { justifyContent: "flex-start" }]}>
-                                                    <Text style={[styles.txt, { width: scaleWidth(140) }]}>Customer:</Text>
-                                                    <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}># {giftcardPaymentInfo?.userName}</Text>
-                                                </View>
-                                        }
-                                        { /************************************* AMOUNT *************************************/}
-                                        <View style={[styles.row, styles.rowAmount]}>
-                                            <Text style={[styles.txt, { width: scaleWidth(140) }]}>Amount:</Text>
-                                            <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}>{`$ ${giftcardPaymentInfo?.amount}`}</Text>
-                                        </View>
-
-
-                                        <View style={styles.row}>
-                                            <Text style={[styles.txt, { fontFamily: fonts.BOLD }]}>Payment details</Text>
-                                        </View>
-                                        { /************************************* CHARGE AMOUNT *************************************/}
-                                        <View style={styles.row}>
-                                            <Text style={styles.txt}>Charge amount:</Text>
-                                            <Text style={[styles.txt, { fontFamily: fonts.BOLD }]}>{`$ ${groupAppointments?.dueAmount}`}</Text>
-                                        </View>
-
-                                        { /************************************* PAYMENT AMOUNT *************************************/}
-                                        <View style={styles.row}>
-                                            <Text style={styles.txt}>Pay amount:</Text>
-                                            <TextInputMask
-                                                value={amount}
-                                                onChangeText={onChangeAmount}
-                                                type="money"
-                                                style={styles.inputPrice}
-                                                options={{ precision: 2, separator: '.', delimiter: ',', unit: '$ ', suffixUnit: '' }}
-                                            />
-                                        </View>
-
-                                        { /************************************* AMOUNUT DUE *************************************/}
-                                        <View style={[styles.row, styles.rowAmountDue]}>
-                                            <Text style={styles.txt}>Amount Due:</Text>
-                                            <Text style={[styles.txt, { fontFamily: fonts.BOLD, color: colors.red }]}>
-                                                {`$ ${dueAmountGiftCardPayment}`}
-                                            </Text>
-                                        </View>
-
-                                        { /************************************* BUTTON *************************************/}
-                                        <View style={[styles.bottomStyle, { paddingHorizontal: scaleWidth(15) }]}>
-                                            <TouchableOpacity
-                                                onPress={hideModal}
-                                                style={[styles.buttonPay, { backgroundColor: "#F1F1F1", borderWidth: 1, borderColor: "#cccccc" }]}
-                                            >
-                                                <Text style={[styles.textSubmit, { color: "#404040" }]}>CANCEL</Text>
+                                {!giftcardPaymentInfo && !isScanning && <Text style={styles.txtTitle}>
+                                    {title}
+                                </Text>}
+                                {
+                                    isScanning ?
+                                        <View style={{ width: scaleWidth(340), height: scaleWidth(350), justifyContent: "center", alignItems: "center" }}>
+                                            <GiftCardScanner onReadBarcode={onReadBarcode} />
+                                            <TouchableOpacity onPress={() => setScanning(false)} style={{ marginTop: scaleWidth(8) }}>
+                                                <Text style={{ fontSize: scaleFont(17), fontFamily: fonts.MEDIUM }}>Enter Bar code</Text>
                                             </TouchableOpacity>
-
-                                            <TouchableOpacity
-                                                onPress={payGiftCard}
-                                                style={styles.buttonPay}
-                                            >
-                                                <Text style={styles.textSubmit}>PAY</Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                    </View>
-                                    : <>
-                                        { /************************************* INPUT SERIAL NUMBER *************************************/}
-                                        <View style={styles.containerInput}>
-                                            <TextInput
-                                                style={styles.textInput}
-                                                value={serialNumber}
-                                                onChangeText={text => setSerialNumber(text)}
-                                                placeholderTextColor="#cccccc"
-                                                placeholder="Your gift card"
-                                            />
-
-                                            <TouchableOpacity onPress={openScanBarcode} hitSlop={slop(20)} style={styles.buttonScancode}>
-                                                <Image
-                                                    source={images.scancode}
-                                                    resizeMode='contain'
-                                                    style={styles.iconScancode}
-                                                />
-                                            </TouchableOpacity>
-
-                                        </View>
-
-                                        <View style={styles.bottomStyle}>
-                                            <TouchableOpacity
-                                                onPress={checkQRcode}
-                                                style={styles.buttonSubmit}
-                                            >
+                                        </View> :
+                                        giftcardPaymentInfo ?
+                                            <View style={{ width: "100%", backgroundColor: "white", borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
+                                                { /************************************* SERIAL NUMBER *************************************/}
                                                 {
-                                                    isLoading ?
-                                                        <ActivityIndicator size='small' color='white' /> :
-                                                        <Text style={styles.textSubmit}>Add card</Text>
+                                                    cardType == CardType.GIFT_CARD ?
+                                                        <View style={[styles.row, { justifyContent: "flex-start" }]}>
+                                                            <Text style={[styles.txt, { width: scaleWidth(140) }]}>Serial number:</Text>
+                                                            <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}># {giftcardPaymentInfo?.serialNumber}</Text>
+                                                        </View> :
+                                                        <View style={[styles.row, { justifyContent: "flex-start" }]}>
+                                                            <Text style={[styles.txt, { width: scaleWidth(140) }]}>Customer:</Text>
+                                                            <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}># {giftcardPaymentInfo?.userName}</Text>
+                                                        </View>
                                                 }
-                                            </TouchableOpacity>
-                                        </View>
-                                    </>
-                        }
-                    </View>
-                </KeyboardAwareScrollView>
+                                                { /************************************* AMOUNT *************************************/}
+                                                <View style={[styles.row, styles.rowAmount]}>
+                                                    <Text style={[styles.txt, { width: scaleWidth(140) }]}>Amount:</Text>
+                                                    <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}>{`$ ${giftcardPaymentInfo?.amount}`}</Text>
+                                                </View>
+
+
+                                                <View style={styles.row}>
+                                                    <Text style={[styles.txt, { fontFamily: fonts.BOLD }]}>Payment details</Text>
+                                                </View>
+                                                { /************************************* CHARGE AMOUNT *************************************/}
+                                                <View style={styles.row}>
+                                                    <Text style={styles.txt}>Charge amount:</Text>
+                                                    <Text style={[styles.txt, { fontFamily: fonts.BOLD }]}>{`$ ${groupAppointments?.dueAmount}`}</Text>
+                                                </View>
+
+                                                { /************************************* PAYMENT AMOUNT *************************************/}
+                                                <View style={styles.row}>
+                                                    <Text style={styles.txt}>Pay amount:</Text>
+                                                    <TextInputMask
+                                                        value={amount}
+                                                        onChangeText={onChangeAmount}
+                                                        type="money"
+                                                        style={styles.inputPrice}
+                                                        options={{ precision: 2, separator: '.', delimiter: ',', unit: '$ ', suffixUnit: '' }}
+                                                    />
+                                                </View>
+
+                                                { /************************************* AMOUNUT DUE *************************************/}
+                                                <View style={[styles.row, styles.rowAmountDue]}>
+                                                    <Text style={styles.txt}>Amount Due:</Text>
+                                                    <Text style={[styles.txt, { fontFamily: fonts.BOLD, color: colors.red }]}>
+                                                        {`$ ${dueAmountGiftCardPayment}`}
+                                                    </Text>
+                                                </View>
+
+                                                { /************************************* BUTTON *************************************/}
+                                                <View style={[styles.bottomStyle, { paddingHorizontal: scaleWidth(15) }]}>
+                                                    <TouchableOpacity
+                                                        onPress={hideModal}
+                                                        style={[styles.buttonPay, { backgroundColor: "#F1F1F1", borderWidth: 1, borderColor: "#cccccc" }]}
+                                                    >
+                                                        <Text style={[styles.textSubmit, { color: "#404040" }]}>CANCEL</Text>
+                                                    </TouchableOpacity>
+
+                                                    <TouchableOpacity
+                                                        onPress={payGiftCard}
+                                                        style={styles.buttonPay}
+                                                    >
+                                                        <Text style={styles.textSubmit}>PAY</Text>
+                                                    </TouchableOpacity>
+                                                </View>
+                                            </View>
+                                            : <>
+                                                { /************************************* INPUT SERIAL NUMBER *************************************/}
+                                                <View style={styles.containerInput}>
+                                                    <TextInput
+                                                        style={styles.textInput}
+                                                        value={serialNumber}
+                                                        onChangeText={text => setSerialNumber(text)}
+                                                        placeholderTextColor="#cccccc"
+                                                        placeholder="Your gift card"
+                                                    />
+
+                                                    <TouchableOpacity onPress={openScanBarcode} hitSlop={slop(20)} style={styles.buttonScancode}>
+                                                        <Image
+                                                            source={images.scancode}
+                                                            resizeMode='contain'
+                                                            style={styles.iconScancode}
+                                                        />
+                                                    </TouchableOpacity>
+
+                                                </View>
+
+                                                <View style={styles.bottomStyle}>
+                                                    <TouchableOpacity
+                                                        onPress={()=>{
+                                                            if(!isEmpty(serialNumber)){
+                                                                checkQRcode();
+                                                            }
+                                                        }}
+                                                        style={styles.buttonSubmit}
+                                                    >
+                                                        {
+                                                            isLoading ?
+                                                                <ActivityIndicator size='small' color='white' /> :
+                                                                <Text style={styles.textSubmit}>Add card</Text>
+                                                        }
+                                                    </TouchableOpacity>
+                                                </View>
+                                            </>
+                                }
+                            </View>
+                        </KeyboardAwareScrollView>
+                }
             </Modal>
         );
     }
