@@ -111,6 +111,7 @@ export const DialogActiveGiftCard = React.forwardRef(
                         method: "GET",
                     }
                     const response = await axios(params);
+                    
                     if (response?.data?.codeNumber == 400) {
                         setCheckGiftCardFail(true);
                         // Alert.alert(response?.data?.message);
@@ -120,12 +121,12 @@ export const DialogActiveGiftCard = React.forwardRef(
                         calcuLateDueAmount(response?.data?.data);
                         setCardType(CardType.GIFT_CARD);
                     }
-                    setIsLoadedGiftCard(true);
                 }
             } catch (err) {
 
             } finally {
-                setLoading(false)
+                setLoading(false);
+                setIsLoadedGiftCard(true);
             }
         }
 
@@ -151,13 +152,13 @@ export const DialogActiveGiftCard = React.forwardRef(
                         calcuLateDueAmount(response?.data?.data);
                         setCardType(CardType.CUSTOMER_CARD);
                     }
-                    setIsLoadedConsumer(true)
                 }
 
             } catch (err) {
 
             } finally {
-                setLoading(false)
+                setLoading(false);
+                setIsLoadedConsumer(true);
             }
         }
 
@@ -246,6 +247,16 @@ export const DialogActiveGiftCard = React.forwardRef(
                 setCheckConsumerCodeFail(false);
             }
         }, [checkGiftCardFail, checkConsumerCodeFail]);
+
+        console.log({ isLoadedConsumer, isLoadedGiftCard })
+
+        React.useEffect(() => {
+            if (isLoadedConsumer && isLoadedGiftCard) {
+                setScanning(false);
+                setIsLoadedConsumer(false);
+                setIsLoadedConsumer(false);
+            }
+        }, [isLoadedGiftCard, isLoadedConsumer]);
 
         return (
             <Modal
