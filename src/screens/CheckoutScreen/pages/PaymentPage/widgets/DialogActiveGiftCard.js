@@ -48,6 +48,8 @@ export const DialogActiveGiftCard = React.forwardRef(
             React.useState(false);
 
         const [cardType, setCardType] = React.useState(null);
+        const [isLoadedConsumer, setIsLoadedConsumer] = React.useState(false);
+        const [isLoadedGiftCard, setIsLoadedGiftCard] = React.useState(false);
 
 
         const { appointment: { groupAppointments } } = useSelector(state => state);
@@ -80,6 +82,8 @@ export const DialogActiveGiftCard = React.forwardRef(
                 setCheckConsumerCodeFail(false);
                 setCheckGiftCardFail(false);
                 setCardType(null);
+                setIsLoadedConsumer(false);
+                setIsLoadedGiftCard(false);
             },
             hide: () => {
                 setOpen(false);
@@ -87,9 +91,12 @@ export const DialogActiveGiftCard = React.forwardRef(
         }));
 
         const checkQRcode = (qrCode) => {
-            if(qrCode){
+            if (qrCode) {
                 checkSerialNumber(qrCode);
                 checkPaytokenConsumer(qrCode);
+            } else {
+                checkSerialNumber();
+                checkPaytokenConsumer();
             }
         }
 
@@ -113,7 +120,7 @@ export const DialogActiveGiftCard = React.forwardRef(
                         calcuLateDueAmount(response?.data?.data);
                         setCardType(CardType.GIFT_CARD);
                     }
-                    setScanning(false);
+                    setIsLoadedGiftCard(true);
                 }
             } catch (err) {
 
@@ -144,16 +151,17 @@ export const DialogActiveGiftCard = React.forwardRef(
                         calcuLateDueAmount(response?.data?.data);
                         setCardType(CardType.CUSTOMER_CARD);
                     }
-                    setScanning(false);
-
+                    setIsLoadedConsumer(true)
                 }
-            
+
             } catch (err) {
 
             } finally {
                 setLoading(false)
             }
         }
+
+ 
 
         const getAmountEnter = (amountMoney) => {
             if (`${amountMoney}`.indexOf("$") !== -1) {

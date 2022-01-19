@@ -170,12 +170,12 @@ const styles = StyleSheet.create({
     iconCard: {
         width: scaleWidth(30),
         height: scaleWidth(25),
-    },
+    }, 
     cell: {
 
     },
     txt: {
-        fontSize: scaleFont(13),
+        fontSize: scaleFont(14),
         fontFamily: fonts.REGULAR,
         color: "#404040"
     },

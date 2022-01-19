@@ -51,7 +51,7 @@ export const Layout = ({
 const ItemMarketPlace = ({ item }) => {
 
   const openLinkMarket = (link) => {
-    if (!isEmpty(link)) {
+    if (Linking.canOpenURL(link)) {
       Linking.openURL(link);
     }
   }
