@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, CustomInput, InputText, Button } from "@shared/components";
@@ -38,44 +38,46 @@ export const Layout = ({
                 isScrollLayout={false}
                 containerStyle={{ paddingVertical: 0 }}
             >
-                <View style={styles.content}>
-                    <CustomInput
-                        label='Tip amount'
-                        renderInput={() =>
-                            <InputText
-                                form={form}
-                                name="tip"
-                                defaultValue="0.00"
-                                defaultValueRemove="0.00"
-                                type="money"
-                                options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
-                                style={{ alignItems: "center" }}
-                                renderLeft={() => <Text style={styles.dollar}>$</Text>}
-                            />}
-                    />
+                <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                    <View style={styles.content}>
+                        <CustomInput
+                            label='Tip amount'
+                            renderInput={() =>
+                                <InputText
+                                    form={form}
+                                    name="tip"
+                                    defaultValue="0.00"
+                                    defaultValueRemove="0.00"
+                                    type="money"
+                                    options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
+                                    style={{ alignItems: "center" }}
+                                    renderLeft={() => <Text style={styles.dollar}>$</Text>}
+                                />}
+                        />
 
-                    <View style={styles.containerPercent}>
-                        {
-                            percents.map(p => (
-                                <TouchableOpacity
-                                    activeOpacity={1}
-                                    key={p + "percent"}
-                                    onPress={() => selectPercent(p)}
-                                    style={[styles.itemPercent, { backgroundColor: percentSelected == p ? "#0764B0" : "transparent" }]}
-                                >
-                                    <Text style={[styles.txtPercent, { color: percentSelected == p ? "white" : "#0764B0" }]}>
-                                        {`${p}%`}
-                                    </Text>
-                                </TouchableOpacity>
-                            ))
-                        }
+                        <View style={styles.containerPercent}>
+                            {
+                                percents.map(p => (
+                                    <TouchableOpacity
+                                        activeOpacity={1}
+                                        key={p + "percent"}
+                                        onPress={() => selectPercent(p)}
+                                        style={[styles.itemPercent, { backgroundColor: percentSelected == p ? "#0764B0" : "transparent" }]}
+                                    >
+                                        <Text style={[styles.txtPercent, { color: percentSelected == p ? "white" : "#0764B0" }]}>
+                                            {`${p}%`}
+                                        </Text>
+                                    </TouchableOpacity>
+                                ))
+                            }
+                        </View>
+
+                        {parseFloat(formatNumberFromCurrency(appointmentDetail?.tipAmount)) > 0 &&
+                            <TouchableOpacity style={{ alignSelf: 'flex-start' }} onPress={removeTip}>
+                                <Text style={styles.txtRemoveTip}>Remove tip</Text>
+                            </TouchableOpacity>}
                     </View>
-
-                    {parseFloat(formatNumberFromCurrency(appointmentDetail?.tipAmount)) > 0 &&
-                        <TouchableOpacity style={{ alignSelf : 'flex-start' }} onPress={removeTip}>
-                            <Text style={styles.txtRemoveTip}>Remove tip</Text>
-                        </TouchableOpacity>}
-                </View>
+                </TouchableWithoutFeedback>
                 <View style={styles.bottom}>
                     <Button
                         label="Save"
