@@ -20,6 +20,8 @@ target 'HarmonyOne' do
 
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
   target 'HarmonyOneTests' do
     inherit! :complete
     # Pods for testing

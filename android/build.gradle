@@ -6,6 +6,7 @@ buildscript {
         minSdkVersion = 21
         compileSdkVersion = 30
         targetSdkVersion = 30
+            androidXCore = "1.6.0"
     }
     repositories {
        google()
@@ -48,5 +49,10 @@ subprojects { project ->
                 buildToolsVersion rootProject.ext.buildToolsVersion
             }
         }
+    }
+}
+configurations.all {
+    resolutionStrategy {
+        force 'androidx.core:core-ktx:1.6.0'
     }
 }

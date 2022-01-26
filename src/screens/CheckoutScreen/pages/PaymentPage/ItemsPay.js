@@ -7,11 +7,11 @@ import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 
 const methodPays = [
-    {
-        title: "Harmony pay",
-        icon: images.harmonyPay,
-        method: "harmony"
-    },
+    // {
+    //     title: "Harmony pay",
+    //     icon: images.harmonyPay,
+    //     method: "harmony"
+    // },
     {
         title: "Cash",
         icon: images.cashPay,

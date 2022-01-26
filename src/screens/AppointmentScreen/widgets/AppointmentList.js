@@ -36,6 +36,8 @@ const AppointmentList = React.forwardRef(({
 }, ref) => {
     const dispatch = useDispatch();
 
+    console.log('jhjhgghfghjk')
+
     const {
         appointmentsByDate = [],
         blockTimes = [],
@@ -138,7 +140,6 @@ const AppointmentList = React.forwardRef(({
             dispatch(appointment.setAppointmentDate(date));
         }
     };
-
 
     /************************************** GET STAFFS BY DATE SELECTED ***************************************/
     const [, fetchStaffByDate] = useAxiosQuery({

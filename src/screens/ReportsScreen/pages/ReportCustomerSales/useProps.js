@@ -39,6 +39,8 @@ export const useProps = (props) => {
 
     try {
       const response = await axios(params);
+      console.log({ response , params })
+
       if (response?.data?.codeNumber == 200) {
         dispatch(
           report.setListCustomerSales({
