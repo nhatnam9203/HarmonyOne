@@ -29,7 +29,7 @@ const switchMethodText = (method) => {
     case "credit_card":
       return "Credit Card";
     case "harmony":
-      return "Harmony";
+      return "Harmony pay";
 
     default:
       return method;
