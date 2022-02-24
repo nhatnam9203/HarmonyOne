@@ -10,7 +10,7 @@ import { axios } from '@shared/services/axiosClient';
 import { dateToFormat } from '@shared/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { findServiceInAnotherAppointment } from "./helper";
-import moment  from 'moment';
+import moment from 'moment';
 
 import {
     useAxiosQuery,
@@ -18,7 +18,8 @@ import {
     getAppointmentById,
     getInvoiceDetail,
     getStaffByDate,
-    reportGetStaffSalaryByStaff
+    reportGetStaffSalaryByStaff,
+    getAppointmentWaitingList,
 } from '@src/apis';
 
 import {
@@ -36,13 +37,12 @@ const AppointmentList = React.forwardRef(({
 }, ref) => {
     const dispatch = useDispatch();
 
-    console.log('jhjhgghfghjk')
-
     const {
         appointmentsByDate = [],
         blockTimes = [],
         appointmentDetail,
-        appointmentDate
+        appointmentDate,
+        appointmentWaitings = [],
     } = useSelector(state => state.appointment);
     const {
         staff
@@ -66,6 +66,9 @@ const AppointmentList = React.forwardRef(({
         },
         setStaffSelected: (staffId) => {
             setStaffSelected(staffId)
+        },
+        requestGetWaitingList: () => {
+            requestGetWaitingList();
         }
     }));
 
@@ -80,6 +83,14 @@ const AppointmentList = React.forwardRef(({
         },
     });
 
+    /************************************** GET APPOINTMENT WAITING LIST ***************************************/
+    const [, requestGetWaitingList] = useAxiosQuery({
+        ...getAppointmentWaitingList(),
+        enabled: false,
+        onSuccess: (data, response) => {
+            dispatch(appointment.setAppointmentWaitingList(data));
+        },
+    });
 
 
     /************************************** REFRESH BLOCK TIMES  ***************************************/
@@ -88,6 +99,9 @@ const AppointmentList = React.forwardRef(({
             fetchAppointmentByDate();
             if (roleName == "staff") {
                 fetchReportGetStaffSalaryByStaff();
+            }
+            if (staffSelected == -1) {
+                requestGetWaitingList();
             }
         }
     }, [isRefresh]);
@@ -233,12 +247,12 @@ const AppointmentList = React.forwardRef(({
 
     const onRefresh = () => {
         setRefresh(true);
-    }
+    };
 
     return (
         <FlatList
             style={styles.flatList}
-            data={blockTimesVisibile}
+            data={staffSelected == -1 ? appointmentWaitings.filter(app => app?.status == "waiting") : blockTimesVisibile}
             renderItem={({ item }) => <AppointmentItem roleName={roleName} item={item} onChangeAppointmentId={onChangeAppointmentId} />}
             refreshing={isRefresh}
             onRefresh={onRefresh}

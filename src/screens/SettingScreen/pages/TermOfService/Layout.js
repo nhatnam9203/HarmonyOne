@@ -20,8 +20,8 @@ export const Layout = ({
         containerStyle={{ paddingVertical: 0 }}
       >
         <ScrollView style={styles.content}>
-          <Text style={styles.title}>HarmonyPay - Staff app</Text>
-          <Text style={styles.title}>Term of Services</Text>
+          <Text style={styles.title}>HarmonyPay - Harmony One</Text>
+          {/* <Text style={styles.title}>Term of Services</Text> */}
 
           <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), marginTop: scaleHeight(24) }]}>
             Effective: May 1, 2020
@@ -235,19 +235,21 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     padding: scaleWidth(16),
-    paddingTop: scaleHeight(16),
+    paddingTop: scaleHeight(24),
   },
 
   title: {
     fontSize: scaleFont(23),
     color: colors.ocean_blue,
     fontFamily: fonts.MEDIUM,
+    lineHeight : 25
   },
 
   contentTerms: {
     fontSize: scaleFont(14),
     color: "#000000",
     marginTop: scaleHeight(12),
-    fontWeight: "400"
+    fontWeight: "400",
+    lineHeight : 22
   }
 });

@@ -106,7 +106,8 @@ const ScreenNames = {
   BankInformation : "hpo.signup.bankInformation",
   PrincipalInformation : "hpo.signup.principalInformation",
   PackagePricing : "hpo.signup.packagePricing",
-  ApplicationSubmit : "hpo.signup.applicationSubmit"
+  ApplicationSubmit : "hpo.signup.applicationSubmit",
+  SettingAdvancedScreen :  'hpo.setting.advanced',
 };
 
 module.exports = { ScreenNames };

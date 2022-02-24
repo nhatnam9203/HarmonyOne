@@ -13,7 +13,6 @@ import {
   getStaffByMerchant,
   getStateCity,
   getNotifyRoleStaff,
-
 } from '@src/apis';
 
 import { useNavigation } from '@react-navigation/core';
@@ -144,6 +143,7 @@ export const useProps = (_params) => {
     },
   });
 
+
   React.useEffect(() => {
     if (isEmpty(staffSelected)) {
       dispatch(appointment.setStaffSelected(staffInfo?.staffId));
@@ -180,7 +180,7 @@ export const useProps = (_params) => {
     staffInfo,
     popupAddBlockTimeRef,
 
-    showPopupAddBlockTime : (itemStaff) =>{
+    showPopupAddBlockTime: (itemStaff) => {
       popupAddBlockTimeRef?.current?.show(itemStaff);
     },
 

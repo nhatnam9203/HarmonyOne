@@ -107,7 +107,8 @@ const styles = StyleSheet.create({
   },
 
   flatList: {
-    flex: 1
+    flex: 1,
+    backgroundColor : "#fafafa"
   },
 
   emptyText: {

@@ -60,10 +60,11 @@ export const useProps = (props) => {
 
     addService: () => {
       dispatch(bookAppointment.setQuickCheckout(true));
+      console.log({ staffSelected })
       if (roleName == "staff") {
         submitGetServiceByStaff();
       } else {
-        if (staffSelected) {
+        if (staffSelected && staffSelected !== -1) {
           submitGetServiceByStaff();
         } else {
           NavigationService.navigate(screenNames.AppointmentNewScreen);

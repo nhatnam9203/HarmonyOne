@@ -116,7 +116,8 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        paddingTop: scaleWidth(16)
+        paddingTop: scaleWidth(16),
+        backgroundColor : "#fafafa"
     },
     flatList: {
         flex: 1,

@@ -7,11 +7,13 @@ import {
   getMerchantById
 } from "@src/apis";
 import { merchant } from "@redux/slices";
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { basicEditSchema } from "@shared/helpers/schema";
 import NavigationService from '@navigation/NavigationService';
 import { Alert } from "react-native";
+import { isValidHttpUrl } from "@shared/utils";
+import { isEmpty } from "lodash";
 
 export const useProps = (_params) => {
   const dispatch = useDispatch();
@@ -25,6 +27,12 @@ export const useProps = (_params) => {
   } = useSelector(state => state);
 
   const inputPhoneHeadRef = React.useRef();
+
+
+  const webLink = useWatch({
+    control: form.control,
+    name: 'webLink'
+  });
 
   const [, fetchMerchantById] = useAxiosQuery({
     ...getMerchantById(staff?.merchantId),
@@ -72,6 +80,15 @@ export const useProps = (_params) => {
     form,
     errors,
 
+    checkWebsiteValid: () => {
+      if (!isEmpty(webLink)) {
+        if (!isValidHttpUrl(webLink)) {
+          const newWebLink = `http://${webLink}`;
+          form.setValue("webLink", newWebLink);
+        }
+      }
+    },
+
 
     onSubmit: async (values) => {
       const phoneHeader = inputPhoneHeadRef?.current?.getValue().value;
@@ -92,10 +109,10 @@ export const useProps = (_params) => {
         sendReviewLinkOption: merchantDetail?.sendReviewLinkOption,
         giftForNewEnabled: merchantDetail?.giftForNewEnabled,
         receiptFooter: merchantDetail?.receiptFooter,
-        zip : merchantDetail?.zip,
-        address : merchantDetail?.address,
-        city : merchantDetail?.city,
-        stateId : merchantDetail?.stateId,
+        zip: merchantDetail?.zip,
+        address: merchantDetail?.address,
+        city: merchantDetail?.city,
+        stateId: merchantDetail?.stateId,
         businessName: values?.businessName,
         webLink: values?.webLink,
         email: values?.email,

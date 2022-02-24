@@ -196,7 +196,9 @@ export const Layout = ({
 
                           {/****************** STAFF OFF SERVICE ******************/}
                           <View style={[styles.rowItemTime, { marginRight: scaleWidth(16) }]}>
-                            <Text style={styles.titleStartTime}>Staff</Text>
+                            <Text style={styles.titleStartTime}>
+                              {getStaffService(data?.item?.staffId)  ? "Staff" : ""}
+                            </Text>
                             <InputSelectStaff
                               items={staffListByMerchant.filter(staff => staff?.isDisabled == 0)}
                               itemSelected={data?.item?.staffId}
@@ -205,7 +207,7 @@ export const Layout = ({
                               renderInput={() => (
                                 <View style={styles.inputSelectTime}>
                                   <Text style={styles.serviceFromtime}>
-                                    {getStaffService(data?.item?.staffId)}
+                                    {getStaffService(data?.item?.staffId) || "Waiting List"}
                                   </Text>
                                   <Image
                                     source={images.downarrow}

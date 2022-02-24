@@ -67,7 +67,8 @@ const styles = StyleSheet.create({
 
   content: {
     flex: 1,
-    padding: scaleWidth(16)
+    padding: scaleWidth(16),
+    backgroundColor : "#fafafa"
   },
 
 });

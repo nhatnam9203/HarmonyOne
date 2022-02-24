@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    position: 'relative'
+    position: 'relative',
   },
   flatList: {
     flex: 1,

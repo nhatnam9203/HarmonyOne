@@ -30,6 +30,7 @@ export const useProps = ({
       isQuickCheckout,
       isAddMore,
       dayBooking,
+      timeBooking,
     },
     auth: { staff },
     staff: { staffListByMerchant = [], staffsByDate = [] },
@@ -84,7 +85,7 @@ export const useProps = ({
 
     const unsubscribe = navigation.addListener('focus', () => {
       if (serviceRef?.current) {
-        console.log("----- on back ----")
+        // console.log("----- on back ----")
         setDurationService(serviceRef?.current?.duration);
         setPrice(serviceRef?.current?.price);
       }
@@ -149,14 +150,52 @@ export const useProps = ({
     }
   });
 
+  const calculateNextStartTime = () => {
+    let nextStartTime = timeBooking ? `${dayBooking} ${timeBooking}` : moment().format("MM-DD-YYYY hh:mm A");
+    for (let i = 0; i < servicesBooking.length; i++) {
+      nextStartTime = moment(nextStartTime).add('minutes', servicesBooking[i].duration);
+    }
+    for (let i = 0; i < extrasBooking.length; i++) {
+      nextStartTime = moment(nextStartTime).add('minutes', extrasBooking[i].duration);
+    }
+
+    return nextStartTime;
+  }
+
+  const findStaffAvaiableOfService = async (staffResponse = []) => {
+    const listStaff = [];
+    const dayName = moment().format('dddd');
+    let timeCompare = timeBooking ? `${dayBooking} ${timeBooking}` : moment().format("MM-DD-YYYY hh:mm A");
+
+    for (let i = 0; i < staffResponse.length; i++) {
+      const staff = await staffListByMerchant.find(s => s?.staffId == staffResponse[i].staffId);
+      if (staff) {
+        const workingTimes = staff?.workingTimes || {};
+        for (let [key, value] of Object.entries(workingTimes)) {
+          if ((key == dayName) && (value?.isCheck == true)) {
+            const nextStartTime = calculateNextStartTime();
+            if (
+              !moment(timeCompare).isBefore(moment(value?.timeStart, ['hh:mm A'])) &&
+              !moment(nextStartTime).isAfter(moment(value?.timeEnd, ['hh:mm A']))
+            ) {
+              listStaff.push(staffResponse[i]);
+            }
+          }
+        }
+      }
+    }
+    return listStaff;
+  }
+
   /* FETCH STAFF AVAILABLE OF SERVICE */
   const [, fetchStaffAvaiable] = useAxiosQuery({
     ...getStaffOfService(item?.serviceId),
     enabled: false,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
+        const listStaff = await findStaffAvaiableOfService(data);
         await addService();
-        await dispatch(bookAppointment.setStafsfOfService(data));
+        await dispatch(bookAppointment.setStafsfOfService(listStaff));
         await NavigationService.navigate(screenNames.SelectStaff, { serviceSelected: item });
       }
     }
@@ -166,9 +205,14 @@ export const useProps = ({
 
     let staffSelected = getStaffSelected();
 
-    if ((roleName == "admin" || roleName == "manager") && staffsByDate.length !== 1) {
-      if (staffSelectedAppointmentScreen !== 0) {
+    if ((roleName == "admin" || roleName == "manager") && staffsByDate.length !== 2) {
+      if (staffSelectedAppointmentScreen !== 0 && staffSelectedAppointmentScreen !== -1) {
         staffSelected = staffListByMerchant?.find(s => s?.staffId == staffSelectedAppointmentScreen);
+      } else if (staffSelectedAppointmentScreen == -1) {
+        staffSelected = {
+          staffId: -1,
+          displayName: "Waiting List"
+        }
       } else {
         staffSelected = {
           staffId: 0,
@@ -179,7 +223,6 @@ export const useProps = ({
 
     await addService();
     await dispatch(bookAppointment.setStafsfOfService(data));
-
 
     if (isAddMore) {
       dispatch(bookAppointment.updateStatusAddMore(false));
@@ -224,16 +267,16 @@ export const useProps = ({
     inputPriceRef,
 
     goToSelectStaff: () => {
-      if ((roleName == "admin" || roleName == "manager") && staffsByDate.length !== 1) {
+      if ((roleName == "admin" || roleName == "manager") && staffsByDate.length !== 2) {
         /**************** BOOK APPOINTMENT ROLE ADMIN & MANAGER  *****************/
         if (servicesBooking.length == 0) {
-          if (isQuickCheckout && staffSelectedAppointmentScreen == 0) {
+          if ((isQuickCheckout && staffSelectedAppointmentScreen == 0) || (isQuickCheckout && staffSelectedAppointmentScreen == -1)) {
             fetchStaffAvaiable();
           } else {
             goToDateTime();
           }
         } else {
-          if (!isNaN(servicesBooking[0]?.staffId) && servicesBooking[0]?.staffId == 0) {
+          if ((!isNaN(servicesBooking[0]?.staffId) && servicesBooking[0]?.staffId == 0) || (!isNaN(servicesBooking[0]?.staffId) && servicesBooking[0]?.staffId == -1)) {
             goToDateTime();
           } else {
             fetchStaffAvaiable();

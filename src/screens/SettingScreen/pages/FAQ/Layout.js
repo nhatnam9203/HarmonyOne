@@ -20,13 +20,13 @@ export const Layout = ({
         containerStyle={{ paddingVertical: 0 }}
       >
         <View style={styles.content}>
-          <View style={{ alignItems: 'center', marginVertical: scaleWidth(10) }} >
+          <View style={{ marginVertical: scaleWidth(10) }} >
             <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15) }]}>
-              Contacting Harmony Pay
+              Contacting HarmonyPay
             </Text>
           </View>
           <Text style={styles.contentTerms}>
-            If you have any questions, please contact Harmony Pay at
+            If you have any questions, please contact HarmonyPay at
             team@harmonypayment.com.
           </Text>
         </View>
@@ -59,6 +59,8 @@ const styles = StyleSheet.create({
     fontSize: scaleFont(14),
     color: "#000000",
     marginTop: scaleHeight(12),
-    fontWeight: "400"
+    fontWeight: "400",
+    lineHeight : 22
+
   }
 });

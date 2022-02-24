@@ -105,6 +105,8 @@ export const images = {
   iconReportGiftcard: require('@src/assets/images/iconReportGiftcard.png'),
   iconReportProduct: require('@src/assets/images/iconReportProduct.png'),
   iconSettingTax : require("@src/assets/images/ic_setting_tax.png"),
+  iconWaiting : require("@src/assets/images/waiting.png"),
+  advancedSetting : require("@src/assets/images/advancedSetting.png"),
   loa: require('@src/assets/images/loa.png'),
   sortDown: require('@src/assets/images/down.png'),
   sortUp: require('@src/assets/images/up.png'),
@@ -121,6 +123,7 @@ export const images = {
   emoji_5 :  require('@src/assets/images/emoji_5.png'),
   background :  require('@src/assets/images/background.png'),
   camera: require('@src/assets/images/camera.png'),
+  star: require('@src/assets/images/star.png'),
 
   geo :  require('@src/assets/images/geo.png'),
   baseline_place :  require('@src/assets/images/baseline_place.png'),

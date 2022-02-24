@@ -50,6 +50,9 @@ export const DialogActiveGiftCard = React.forwardRef(
         const [cardType, setCardType] = React.useState(null);
         const [isLoadedConsumer, setIsLoadedConsumer] = React.useState(false);
         const [isLoadedGiftCard, setIsLoadedGiftCard] = React.useState(false);
+        const [isCheck, setIsCheck] = React.useState(false);
+        const [starNumberUse, setStarNumberUse] = React.useState(0);
+        const [payStarAmount, setPayStarAmount] = React.useState(0);
 
 
         const { appointment: { groupAppointments } } = useSelector(state => state);
@@ -59,7 +62,13 @@ export const DialogActiveGiftCard = React.forwardRef(
             ...selectPaymentMethod(),
             onSuccess: async (data, response) => {
                 if (response?.codeNumber == 200) {
-                    const body = await consumerPayment(data, serialNumber);
+                    const params = {
+                        amount: formatNumberFromCurrency(amount),
+                        rewardStar: starNumberUse,
+                        userCardId: 0,
+                        merchantId: 0,
+                    };
+                    const body = await consumerPayment(data, serialNumber, params);
                     submitConsumerPayment(body.params);
                 }
             }
@@ -69,6 +78,73 @@ export const DialogActiveGiftCard = React.forwardRef(
             setOpen(false);
             onModalHide();
         };
+
+        const onChangeStarNumberUse = async (starUse = 0) => {
+            //if(starUse > cardDetail?.star
+            //   || starUse*100 > paymentDetailInfo?.dueAmount) return
+
+            const { grandTotal = 0, dueAmount = 0 } = groupAppointments || {};
+            const dueAmountNumber = formatNumberFromCurrency(dueAmount);
+
+            let tempStar = parseInt(starUse);
+            if (isNaN(tempStar)) {
+                tempStar = 0;
+            }
+
+            let maxStart = giftcardPaymentInfo?.star ? parseInt(giftcardPaymentInfo?.star) : 0;
+            if (isNaN(maxStart)) {
+                maxStart = 0;
+            }
+
+            if (tempStar > maxStart) {
+                tempStar = maxStart;
+            } else if (tempStar <= 0) {
+                tempStar = 0;
+            }
+
+            await setStarNumberUse(tempStar);
+            const tempAmount = parseFloat(
+                tempStar / giftcardPaymentInfo.rewardStarRate
+            ).toFixed(2);
+            await setPayStarAmount(tempAmount);
+
+            const cardAmount = formatNumberFromCurrency(giftcardPaymentInfo?.amount);
+            let paidValue = dueAmountNumber - formatNumberFromCurrency(tempAmount);
+
+            if (cardAmount < paidValue) {
+                paidValue = cardAmount;
+            };
+
+            setAmount(paidValue);
+        };
+
+        React.useEffect(() => {
+            if (!isCheck) {
+                if (payStarAmount > 0) {
+                    const { dueAmount = 0 } = groupAppointments || {};
+
+                    if (
+                        formatNumberFromCurrency(groupAppointments?.dueAmount ?? 0) >= 0
+                    ) {
+                        onChangePaidAmount(groupAppointments?.dueAmount);
+                    }
+                }
+                setPayStarAmount(0);
+                setStarNumberUse(0);
+            } else {
+                const maxStart = giftcardPaymentInfo?.star ? parseInt(giftcardPaymentInfo?.star) : 0;
+                const { dueAmount = 0 } = groupAppointments || {};
+                const dueValue = formatNumberFromCurrency(dueAmount);
+
+                if (maxStart > 0) {
+                    const payStar = Math.min(
+                        maxStart,
+                        dueValue * giftcardPaymentInfo.rewardStarRate
+                    );
+                    onChangeStarNumberUse(payStar);
+                }
+            }
+        }, [isCheck]);
 
         React.useImperativeHandle(ref, () => ({
             show: () => {
@@ -84,6 +160,9 @@ export const DialogActiveGiftCard = React.forwardRef(
                 setCardType(null);
                 setIsLoadedConsumer(false);
                 setIsLoadedGiftCard(false);
+                setIsCheck(false);
+                setPayStarAmount(0);
+                setStarNumberUse(0);
             },
             hide: () => {
                 setOpen(false);
@@ -205,14 +284,37 @@ export const DialogActiveGiftCard = React.forwardRef(
                     }
                 }
             }
+
+            // if (payAmount < 0) {
+            //     alert(t("Amount must greater than 0!"));
+            //     return;
+            //   }
+
+            //   const cardAmount = formatNumberFromCurrency(cardDetail?.amount);
+            //   if (payAmount > cardAmount) {
+            //     alert(t(`Amount must less than ${cardAmount}`));
+            //     return;
+            //   }
+
+            //   if (onSubmit && typeof onSubmit === "function") {
+            //     onSubmit({
+            //       amount: formatNumberFromCurrency(payAmount),
+            //       rewardStar: starNumberUse,
+            //       totalAmount:
+            //         formatNumberFromCurrency(payAmount) +
+            //         formatNumberFromCurrency(payStarAmount),
+            //     });
+            //   }
         }
 
         const payByHarmonyPay = async () => {
             const data = {
                 method: "harmony",
-                amount: amount,
+                amount: formatNumberFromCurrency(amount) + formatNumberFromCurrency(payStarAmount),
+                totalAmount: formatNumberFromCurrency(amount) + formatNumberFromCurrency(payStarAmount),
                 giftCardId: 0,
-            }
+                rewardStar: starNumberUse,
+            };
 
             const body = await selectPaymentMethod(groupAppointments?.checkoutGroupId, data);
 
@@ -314,9 +416,19 @@ export const DialogActiveGiftCard = React.forwardRef(
                                                             <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}># {giftcardPaymentInfo?.userName}</Text>
                                                         </View>
                                                 }
+
+                                                { /************************************* Star avaiable *************************************/}
+                                                <View style={[styles.row, { justifyContent: "flex-start" }]}>
+                                                    <Text style={[styles.txt, { width: scaleWidth(140) }]}>Star avaiable:</Text>
+                                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                                        <Image source={images.star} style={{ width: scaleWidth(20), height: scaleWidth(20), marginRight: 5 }} />
+                                                        <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}>{`${giftcardPaymentInfo?.star}`}</Text>
+                                                    </View>
+                                                </View>
+
                                                 { /************************************* AMOUNT *************************************/}
                                                 <View style={[styles.row, styles.rowAmount]}>
-                                                    <Text style={[styles.txt, { width: scaleWidth(140) }]}>Amount:</Text>
+                                                    <Text style={[styles.txt, { width: scaleWidth(140) }]}>Card balance:</Text>
                                                     <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}>{`$ ${giftcardPaymentInfo?.amount}`}</Text>
                                                 </View>
 
@@ -342,9 +454,37 @@ export const DialogActiveGiftCard = React.forwardRef(
                                                     />
                                                 </View>
 
+                                                { /************************************* USE HP STAR *************************************/}
+                                                <View style={[styles.row, { marginTop: scaleHeight(24) }]}>
+                                                    <TouchableOpacity
+                                                        onPress={() => setIsCheck(!isCheck)}
+                                                        style={{ flexDirection: "row" }}
+                                                    >
+                                                        <Image
+                                                            source={isCheck ? images.checkBox : images.checkBoxEmpty}
+                                                            style={{ width: scaleWidth(20), height: scaleWidth(20), marginRight: 5 }}
+                                                        />
+                                                        <Text style={styles.txt}>Use HP star:</Text>
+                                                    </TouchableOpacity>
+
+                                                    <TextInput
+                                                        value={starNumberUse?.toString()}
+                                                        onChangeText={onChangeStarNumberUse}
+                                                        style={styles.inputPrice}
+                                                        editable={isCheck}
+                                                        keyboardType='numeric'
+                                                    />
+                                                </View>
+                                                <View style={styles.row}>
+                                                    <Text style={styles.txt}>Conversation value:</Text>
+                                                    <Text style={styles.txt}>{`- ${formatMoney(payStarAmount)}`}</Text>
+                                                </View>
+
                                                 { /************************************* AMOUNUT DUE *************************************/}
                                                 <View style={[styles.row, styles.rowAmountDue]}>
-                                                    <Text style={styles.txt}>Amount Due:</Text>
+                                                    <Text style={[styles.txt, { fontFamily: fonts.BOLD, color: colors.red }]}>
+                                                        Due amount:
+                                                    </Text>
                                                     <Text style={[styles.txt, { fontFamily: fonts.BOLD, color: colors.red }]}>
                                                         {`$ ${dueAmountGiftCardPayment}`}
                                                     </Text>
@@ -390,8 +530,8 @@ export const DialogActiveGiftCard = React.forwardRef(
 
                                                 <View style={styles.bottomStyle}>
                                                     <TouchableOpacity
-                                                        onPress={()=>{
-                                                            if(!isEmpty(serialNumber)){
+                                                        onPress={() => {
+                                                            if (!isEmpty(serialNumber)) {
                                                                 checkQRcode();
                                                             }
                                                         }}

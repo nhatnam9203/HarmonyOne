@@ -10,7 +10,8 @@ import {
   getAppointmentById,
   addItemIntoAppointment,
   getGroupAppointmentById,
-  updateAppointment
+  updateAppointment,
+  getAppointmentWaitingList,
 } from "@src/apis";
 import { dateToFormat } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
@@ -37,8 +38,20 @@ export const useProps = (_params) => {
     isQuickCheckout,
     timeBooking,
     dayBooking,
-    appointmentIdUpdate
+    appointmentIdUpdate,
+    requestGetWaitingList,
   });
+
+  /************************************** GET APPOINTMENT WAITING LIST ***************************************/
+  const [, requestGetWaitingList] = useAxiosQuery({
+    ...getAppointmentWaitingList(),
+    enabled: false,
+    onSuccess: (data, response) => {
+      dispatch(appointment.setAppointmentWaitingList(data));
+    },
+  });
+
+
 
   const [, fetchAppointmentByDate] = useAxiosQuery({
     ...getAppointmentByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
@@ -94,9 +107,15 @@ export const useProps = (_params) => {
         if (!isQuickCheckout && servicesBooking.length < 2) {
           dispatch(app.startSignalR());
           fetchAppointmentByDate();
+          if (servicesBooking[0]?.staffId == -1) {
+            requestGetWaitingList();
+          }
         } else {
           fetchAppointmentById();
           fetchAppointmentByDate();
+          if (servicesBooking[0]?.staffId == -1) {
+            requestGetWaitingList();
+          }
         }
       }
     },
@@ -105,6 +124,22 @@ export const useProps = (_params) => {
       NavigationService.navigate(screenNames.AppointmentScreen);
     }
   });
+
+  const getStatusBooking = () =>{
+    let txtStatus = "confirm";
+    if(!isQuickCheckout){
+      if(servicesBooking[0]?.staffId == -1){
+        txtStatus = "waiting";
+      }else if (servicesBooking[0]?.staffId == 0){
+        txtStatus = "confirm";
+      }
+    }else{
+      txtStatus = "checkin";
+    }
+
+    return txtStatus;
+    // status: (!isQuickCheckout || servicesBooking[0]?.staffId == 0) ? (!isQuickCheckout || servicesBooking[0]?.staffId == -1) ? "waiting" : "confirm" : "checkin",s
+  };
 
   return {
     customerBooking,
@@ -224,7 +259,7 @@ export const useProps = (_params) => {
         userId: 0,
         customerId: customerBooking?.customerId || 0,
         fromTime: (!isQuickCheckout && timeBooking) ? `${dayBooking} ${timeBooking}` : moment().format("MM-DD-YYYY hh:mm A"),
-        status: (!isQuickCheckout || servicesBooking[0]?.staffId == 0) ? "confirm" : "checkin",
+        status: getStatusBooking(),
         categories: [],
         services: [],
         extras: [],

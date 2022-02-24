@@ -23,6 +23,13 @@ export const items = [
       NavigationService.navigate(screenNames.SettingScreen)
     }
   },
+  {
+    title: "Advanced Settings",
+    icon: images.advancedSetting,
+    onPress: () => {
+      NavigationService.navigate(screenNames.SettingAdvancedScreen)
+    }
+  },
 ];
 
 export const itemsRoleManagerAdmin = [
@@ -115,6 +122,13 @@ export const itemsRoleManagerAdmin = [
     icon: images.iconSetting,
     onPress: () => {
       NavigationService.navigate(screenNames.SettingScreen)
+    }
+  },
+  {
+    title: "Advanced Settings",
+    icon: images.advancedSetting,
+    onPress: () => {
+      NavigationService.navigate(screenNames.SettingAdvancedScreen)
     }
   },
 ]

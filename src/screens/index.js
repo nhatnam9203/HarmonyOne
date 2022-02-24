@@ -17,6 +17,7 @@ import { MoreScreen } from './MoreScreen';
 import { AppointmentDetailScreen } from './AppointmentDetailScreen';
 import { AppointmentNewScreen } from './AppointmentNewScreen';
 import { ServiceScreen } from './ServiceScreen';
+import { SettingAdvancedScreen } from './SettingAdvancedScreen';
 import { ServiceNewScreen } from "./ServiceNewScreen";
 import { CategoryNewScreen } from "./CategoryNewScreen";
 import { EditProfileScreen } from "./EditProfileScreen";
@@ -184,5 +185,6 @@ module.exports = {
   FaqPage,
   NotificationRoleStaffScreen,
   SetupTaxScreen,
-  SignupScreen
+  SignupScreen,
+  SettingAdvancedScreen,
 };

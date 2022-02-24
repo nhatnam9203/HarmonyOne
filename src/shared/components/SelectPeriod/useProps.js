@@ -55,8 +55,8 @@ export const useProps = (props) => {
           end = moment();
           break;
         case "Yesterday":
-          start = moment(startDate).subtract("days", 1);
-          end = moment(startDate).subtract("days", 1);
+          start = moment().subtract("days", 1);
+          end = moment().subtract("days", 1);
           break;
         case "This week":
           start = moment().clone().startOf('isoWeeks');

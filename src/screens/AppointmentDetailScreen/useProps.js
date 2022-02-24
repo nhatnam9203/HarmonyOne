@@ -10,7 +10,8 @@ import {
   useAxiosQuery,
   getAppointmentById,
   getPromotionAppointment,
-  getGroupAppointmentById
+  getGroupAppointmentById,
+  getAppointmentWaitingList
 } from "@src/apis";
 
 import { APPOINTMENT_STATUS, getColorForStatus, dateToFormat } from '@shared/utils';
@@ -25,7 +26,6 @@ const NoNeedEdit = [
   APPOINTMENT_STATUS.VOID,
   APPOINTMENT_STATUS.REFUND,
   APPOINTMENT_STATUS.NOSHOW,
-  APPOINTMENT_STATUS.WAITING
 ];
 
 export const useProps = ({
@@ -97,6 +97,16 @@ export const useProps = ({
     },
   });
 
+  /************************************** GET APPOINTMENT WAITING LIST ***************************************/
+  const [, requestGetWaitingList] = useAxiosQuery({
+    ...getAppointmentWaitingList(),
+    queryId: "getAppointmentWaitingList_appointmentDetailScreen",
+    enabled: false,
+    onSuccess: (data, response) => {
+      dispatch(appointment.setAppointmentWaitingList(data));
+    },
+  });
+
   const [, submitUpdateAppointment] = useAxiosMutation({
     ...updateAppointment(),
     queryId: "updateAppointment_appointmentDetailScreen",
@@ -105,6 +115,9 @@ export const useProps = ({
       if (response?.codeNumber == 200) {
         fetchAppointmentByDate();
         fetchAppointmentById();
+        if (item?.status == "waiting") {
+          requestGetWaitingList();
+        }
       }
     }
   });
@@ -131,7 +144,6 @@ export const useProps = ({
     },
   });
 
-
   React.useEffect(() => {
     if (item) {
       setAppointmentItem(item);
@@ -139,7 +151,7 @@ export const useProps = ({
       const tempColor = getColorForStatus(item?.status);
       if (item?.staffId == 0 && item?.status == "checkin") {
         setShowButton(false);
-      }else{
+      } else {
         setShowButton(true);
       }
       setCanEdit(!NoNeedEdit.includes(item?.status));
@@ -210,9 +222,9 @@ export const useProps = ({
 
     updateNextStatus: async () => {
       if (appointmentItem.status == "checkin") {
-        if(appointmentItem?.staffId){
+        if (appointmentItem?.staffId) {
           checkOut();
-        }else return;
+        } else return;
       } else {
 
         const data = {
@@ -242,6 +254,29 @@ export const useProps = ({
 
       const data = {
         staffId: appointmentItem.staffId,
+        fromTime: appointmentItem.fromTime,
+        status: "checkin",
+        categories: appointmentItem.categories,
+        services: tempServices,
+        extras: appointmentItem.extras,
+        products: appointmentItem.products,
+        giftCards: appointmentItem.giftCards
+      };
+
+      const body = await updateAppointment(appointmentItem.appointmentId, data);
+      submitUpdateAppointment(body.params);
+    },
+
+    checkInWaitigList: async (staffId) => {
+      let tempServices = [...appointmentItem.services];
+
+      tempServices = tempServices.map(sv => ({
+        ...sv,
+        staffId: staffId
+      }));
+
+      const data = {
+        staffId: staffId,
         fromTime: appointmentItem.fromTime,
         status: "checkin",
         categories: appointmentItem.categories,

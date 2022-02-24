@@ -9,6 +9,7 @@ import { SingleScreenLayout } from '@shared/layouts';
 import { headerPhoneGroup } from '@shared/utils';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export const Layout = ({
   merchantDetail,
@@ -16,6 +17,7 @@ export const Layout = ({
   onSubmit,
   form,
   errors,
+  checkWebsiteValid,
 }) => {
   const [t] = useTranslation();
 
@@ -28,12 +30,12 @@ export const Layout = ({
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0, paddingTop: scaleHeight(8) }}>
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-          <View style={styles.content}>
+          <KeyboardAwareScrollView style={styles.content}>
             <CustomInput
               label="Business Name"
               isRequired
               error={errors?.businessName}
-              renderInput={() => <InputText form={form} name="businessName" error={errors?.businessName} />}
+              renderInput={() => <InputText form={form} name="businessName" error={errors?.businessName} placeholder="Business Name" />}
             />
             <CustomInput
               label="Phone Number"
@@ -62,13 +64,13 @@ export const Layout = ({
             <CustomInput
               label="Contact Email"
               error={errors?.email}
-              renderInput={() => <InputText form={form} name="email" error={errors?.email} />}
+              renderInput={() => <InputText form={form} name="email" error={errors?.email} placeholder="example@gmail.com" />}
             />
             <CustomInput
               label="Website"
-              renderInput={() => <InputText form={form} name="webLink" />}
+              renderInput={() => <InputText form={form} name="webLink" onBlur={checkWebsiteValid} placeholder="https://www.your-site.com" />}
             />
-          </View>
+          </KeyboardAwareScrollView>
         </TouchableWithoutFeedback>
         <View style={styles.bottom}>
           <Button
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
   },
 
   inputPhone: {
-    width: scaleWidth(250),
+    width: scaleWidth(247),
     height: scaleWidth(42),
     borderWidth: 1,
     borderColor: '#dddddd',

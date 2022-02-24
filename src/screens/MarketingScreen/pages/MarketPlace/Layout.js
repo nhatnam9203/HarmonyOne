@@ -81,7 +81,8 @@ const styles = StyleSheet.create({
   },
   flatList: {
     flex: 1,
-    padding: scaleWidth(16)
+    padding: scaleWidth(16),
+    backgroundColor : "#fafafa"
   },
   iconStyle: {
     width: scaleWidth(12),

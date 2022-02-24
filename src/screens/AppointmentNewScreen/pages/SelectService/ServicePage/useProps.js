@@ -40,7 +40,7 @@ export const useProps = (_params) => {
         if (roleName == "staff") {
             return dataStaffSelected();
         } else {
-            if (staffSelected && !isAddMore) {
+            if (staffSelected && !isAddMore && staffSelected !== -1) {
                 return dataStaffSelected();
             } else {
                 return categoryList.map((cate) => ({
@@ -66,7 +66,7 @@ export const useProps = (_params) => {
         if (roleName == "staff") {
             return categoryRoleStaff();
         } else {
-            if (staffSelected && !isAddMore) {
+            if (staffSelected && !isAddMore && staffSelected !== -1) {
                 return categoryRoleStaff();
             } else {
                 return categoryList;

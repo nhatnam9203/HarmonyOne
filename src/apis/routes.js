@@ -131,16 +131,16 @@ export const addBlockTime = (data) => ({
     method: 'POST',
     data,
   },
-}); 
+});
 
-export const editBlockTime = (blockTimeId,data) => ({
+export const editBlockTime = (blockTimeId, data) => ({
   queryId: 'editBlockedTime',
   params: {
     url: `blocktime/${blockTimeId}`,
     method: 'PUT',
     data,
   },
-}); 
+});
 
 export const deleteBlockTime = (blockTimeId) => ({
   queryId: 'deleteBlockTime',
@@ -148,7 +148,7 @@ export const deleteBlockTime = (blockTimeId) => ({
     url: `blocktime/${blockTimeId}`,
     method: 'DELETE',
   },
-}); 
+});
 
 /**
  * APPOINTMENTS
@@ -1045,15 +1045,40 @@ export const signUpMerchant = (data) => ({
   }
 });
 
-export const consumerPayment = (checkoutPaymentId, token) => ({
+export const consumerPayment = (checkoutPaymentId, token, data) => ({
   queryId: `consumerPayment`,
   params: {
     url: `/Consumer/submit/${checkoutPaymentId}?token=${token}`,
     method: 'PUT',
-    data : {}
+    data,
   }
 });
 
+
+export const getAppointmentWaitingList = () => ({
+  queryId: 'getAppointmentWaitingList',
+  params: {
+    url: `appointment/getbystatus?status=waiting`,
+    method: 'GET',
+  }
+});
+
+export const getAdvanceSetting = () => ({
+  queryId: "getAdvanceSetting",
+  params: {
+    url: `merchant/setting/advance`,
+    method: "GET",
+  },
+});
+
+export const editAdvanceSetting = (data) => ({
+  queryId: "editAdvanceSetting",
+  params: {
+    url: `merchant/setting/advance`,
+    method: "PUT",
+    data,
+  },
+});
 
 
 

@@ -20,6 +20,7 @@ const CustomerInfo = ({
     referrerPhone = '',
     birthdate = null,
     isVip = '',
+    getStateName,
 }) => {
 
     const [isHideDetail, showFullDetail] = React.useState(true);
@@ -96,15 +97,16 @@ const CustomerInfo = ({
                     </Text>
                     }
                 />}
-                {(!isEmpty(addressPost?.street) || !isEmpty(addressPost?.city) || !isEmpty(addressPost?.zip) || !isEmpty(addressPost?.state)) &&
+                {(!isEmpty(addressPost?.street) && !isEmpty(addressPost?.city) && !isEmpty(addressPost?.zip) && addressPost?.state) &&
                     <IconButton
                         icon={images.iconLocation}
                         iconStyle={styles.icon}
                         style={styles.rowIcon}
                         renderText={() => <Text style={styles.txtIcon}>
-                            {`${addressPost.street || ''} ${addressPost?.city || ''} ${addressPost?.zip || ''} ${addressPost?.state || ''}`}
+                            {`${addressPost.street || ''} ${addressPost?.city || ''} ${addressPost?.zip || ''} ${getStateName(addressPost?.state) || ''}`}
                         </Text>}
                     />}
+
                 {!isEmpty(referrerPhone) && <IconButton
                     icon={images.iconReferer}
                     iconStyle={styles.icon}
@@ -180,6 +182,7 @@ const styles = StyleSheet.create({
     },
     rowIcon: {
         marginTop: scaleHeight(12),
+        alignItems : "flex-start"
     },
     icon: {
         width: scaleWidth(23),

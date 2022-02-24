@@ -7,8 +7,8 @@ import { IconButton } from "@shared/components";
 import { CustomActionSheet, TimePicker, CustomImage } from "@shared/components";
 import { useAxiosQuery, getStaffOfService } from "@src/apis";
 import { isEmpty } from "lodash";
+import { useSelector } from "react-redux";
 import moment from "moment";
-
 
 
 let InputStaff = React.forwardRef(({
@@ -26,6 +26,11 @@ let InputStaff = React.forwardRef(({
     const [isLoading, setLoading] = React.useState(false);
     const [staffsOfService, setStaffOfService] = React.useState([]);
 
+    const {
+        staff: { staffListByMerchant = [] },
+        editAppointment: { appointmentEdit },
+    } = useSelector(state => state);
+
     React.useImperativeHandle(ref, () => ({
         getValue: () => {
             return date;
@@ -40,11 +45,49 @@ let InputStaff = React.forwardRef(({
         isLoadingDefault: false,
         onSuccess: async (data, response) => {
             if (response?.codeNumber == 200) {
-                setStaffOfService(data);
+                const listStaff = await findStaffAvaiableOfService(data);
+                setStaffOfService(listStaff);
                 setLoading(false);
             }
         }
     });
+
+    const calculateNextStartTime = () => {
+        let nextStartTime = appointmentEdit?.fromTime;
+        const servicesBooking = appointmentEdit.services || [];
+        const extrasBooking = appointmentEdit.extras || [];
+        for (let i = 0; i < servicesBooking.length; i++) {
+            nextStartTime = moment(nextStartTime).add('minutes', servicesBooking[i].duration);
+        }
+        for (let i = 0; i < extrasBooking.length; i++) {
+            nextStartTime = moment(nextStartTime).add('minutes', extrasBooking[i].duration);
+        }
+
+        return nextStartTime;
+    }
+
+    const findStaffAvaiableOfService = async (staffResponse = []) => {
+        const listStaff = [];
+        const dayName = moment().format('dddd');
+        for (let i = 0; i < staffResponse.length; i++) {
+            const staff = await staffListByMerchant.find(s => s?.staffId == staffResponse[i].staffId);
+            if (staff) {
+                const workingTimes = staff?.workingTimes || {};
+                for (let [key, value] of Object.entries(workingTimes)) {
+                    if ((key == dayName) && (value?.isCheck == true)) {
+                        const nextStartTime = calculateNextStartTime();
+                        if (
+                            !moment(appointmentEdit.fromTime).isBefore(moment(value?.timeStart, ['hh:mm A'])) &&
+                            !moment(nextStartTime).isAfter(moment(value?.timeEnd, ['hh:mm A']))
+                        ) {
+                            listStaff.push(staffResponse[i]);
+                        }
+                    }
+                }
+            }
+        }
+        return listStaff;
+    }
 
 
     const openActionSheet = () => {
@@ -114,7 +157,7 @@ let InputStaff = React.forwardRef(({
                                             {
                                                 backgroundColor: itemSelected === it?.staffId ? colors.ocean_blue : "transparent",
                                                 padding: scaleWidth(16),
-                                                marginHorizontal: 0
+                                                marginHorizontal: 0,
                                             }
                                         ]}
                                     >
@@ -139,6 +182,7 @@ let InputStaff = React.forwardRef(({
                                             styles.itemText, {
                                                 color: itemSelected === it?.staffId ? "white" : "#333",
                                                 fontFamily: itemSelected === it?.staffId ? fonts.BOLD : fonts.REGULAR,
+                                                marginTop: 0
                                             }
                                         ]}>
                                             {it?.displayName}

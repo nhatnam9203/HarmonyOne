@@ -25,6 +25,8 @@ export const Layout = ({
   addService
 }) => {
 
+  const inputPriceRef = React.useReducer();
+
   return (
     <View style={styles.container}>
       <ScrollView bounces={false} style={styles.content}>
@@ -85,6 +87,7 @@ export const Layout = ({
               />
             </View>
           </View>
+          
 
           {/******************************* EDIT PRICE ********************************/}
           <View style={[styles.rowBetween, { marginTop: scaleHeight(24) }]}>
@@ -96,9 +99,10 @@ export const Layout = ({
                 </Text>
                 {
                   isEditPrice && <TextInputMask
+                    ref={inputPriceRef}
                     value={price}
                     onChangeText={text => setPrice(text)}
-                    style={[styles.duration, { fontSize: scaleFont(18) }]}
+                    style={[styles.duration, { fontSize: scaleFont(18), paddingVertical: 7, flex: 0, includeFontPadding: false, }]}
                     type="money"
                     editable={isEditPrice}
                     options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
@@ -119,6 +123,9 @@ export const Layout = ({
 
                 } else {
                   setStatusEditPrice(true);
+                  setTimeout(() => {
+                    inputPriceRef?.current?._inputElement?.focus();
+                  }, 250);
                 }
               }}
               >
@@ -252,12 +259,13 @@ const styles = StyleSheet.create({
   wrapPrice: {
     flexDirection: "row",
     alignItems: "center",
-    marginRight: scaleWidth(8),
+    marginRight: scaleWidth(12),
     borderWidth: 1,
     borderColor: "#dddddd",
-    height: scaleHeight(30),
-    width: scaleWidth(100),
+    paddingVertical: scaleWidth(8),
+    // height: scaleHeight(45),
+    width: scaleWidth(120),
     justifyContent: 'flex-end',
-    paddingHorizontal: 8
+    paddingHorizontal: 8,
   }
 });

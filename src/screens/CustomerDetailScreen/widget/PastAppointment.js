@@ -66,6 +66,7 @@ const PastAppointment = ({ }) => {
                                 /> : null
                         }
                     </View>}
+                nestedScrollEnabled={true}
             />
         </View>
     );

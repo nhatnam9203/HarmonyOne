@@ -197,3 +197,10 @@ export const signUpPrincipalInfoSchema = (stateCity) => yup.object().shape({
     ),
 });
 
+export const locationEditSchema = yup.object().shape({
+    address: yup.string().required("required"),
+    city: yup.string().required("required"),
+    zip: yup.string().required("required"),
+    longitude: yup.string().required("required"),
+    latitude: yup.string().required("required"),
+});

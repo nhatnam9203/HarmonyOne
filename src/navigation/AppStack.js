@@ -81,7 +81,8 @@ import {
   TermOfService,
   Privacy,
   FaqPage,
-  SetupTaxScreen
+  SetupTaxScreen,
+  SettingAdvancedScreen
 } from '@screens';
 import { HPOBottomTabStack } from './HPOBottomTabStack';
 import { useSelector } from "react-redux";
@@ -189,6 +190,7 @@ const AppStack = () => {
         <Screen {...FaqPage} />
         <Screen {...SetupTaxScreen} />
         <Screen {...GiftCardAmountPage} />
+        <Screen {...SettingAdvancedScreen} />
 
         <Screen name="ForgotPincode" component={ForgotPincode} />
       </Navigator>

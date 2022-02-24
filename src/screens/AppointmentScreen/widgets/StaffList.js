@@ -13,11 +13,16 @@ const StaffList = React.forwardRef(({
     selectStaff = () => { },
     isLoading,
     showPopupAddBlockTime,
+    getWaitingList
 }, ref) => {
 
     const scrollViewStaffs = React.useRef();
 
     let staffShowVisibile = [
+        {
+            staffId: -1,
+            displayName: "Waiting",
+        },
         {
             staffId: 0,
             displayName: "Any staff",
@@ -76,6 +81,7 @@ const StaffList = React.forwardRef(({
                                 selectStaff={selectStaff}
                                 staffSelected={staffSelected}
                                 showPopupAddBlockTime={() => showPopupAddBlockTime(item)}
+                                getWaitingList={getWaitingList}
                             />
                         }
                         horizontal={true}
@@ -96,15 +102,20 @@ const StaffList = React.forwardRef(({
 });
 
 
-const Item = ({ staff, selectStaff, staffSelected, showPopupAddBlockTime }) => {
+const Item = ({ staff, selectStaff, staffSelected, showPopupAddBlockTime, getWaitingList }) => {
     return (
         <TouchableOpacity
-            onPress={() => selectStaff(staff?.staffId)}
+            onPress={() => {
+                selectStaff(staff?.staffId);
+                if (staff?.staffId == -1) {
+                    getWaitingList();
+                }
+            }}
             onLongPress={() => {
                 selectStaff(staff?.staffId);
-                if(staff?.staffId){
+                if (staff?.staffId && staff?.staffId !== -1) {
                     showPopupAddBlockTime();
-                }
+                } 
             }}
             key={staff?.staffId + 'staffList'}
             style={styles.staff}
@@ -119,38 +130,54 @@ const Item = ({ staff, selectStaff, staffSelected, showPopupAddBlockTime }) => {
                                 borderColor: "white",
                                 borderWidth: 1,
                                 borderRadius: 0,
-                                tintColor : "#0094D9"
+                                tintColor: "#0094D9"
                             }
 
                         ]}
                         source={images.group_people}
                         resizeMode='cover'
                         tintColor="#0094D9"
-                    />
-                    : isEmpty(staff?.imageUrl) ?
+                    /> :
+                    staff?.staffId == -1 ?
                         <CustomImage
                             style={[
                                 styles.avatar,
                                 {
-                                    borderColor: staffSelected == staff?.staffId ? colors.ocean_blue : "white",
-                                    borderWidth: staffSelected == staff?.staffId ? 3 : 1,
+                                    borderColor: "white",
+                                    borderWidth: 1,
+                                    borderRadius: 0,
+                                    tintColor: "#0094D9"
                                 }
 
                             ]}
-                            source={images.staff_default}
+                            source={images.iconWaiting}
                             resizeMode='cover'
-                        /> :
-                        <CustomImage
-                            style={[
-                                styles.avatar,
-                                {
-                                    borderColor: staffSelected == staff?.staffId ? colors.ocean_blue : "white",
-                                    borderWidth: staffSelected == staff?.staffId ? 2 : 1,
-                                }
-                            ]}
-                            source={{ uri: staff?.imageUrl }}
-                            resizeMode='cover'
+                            tintColor="#0094D9"
                         />
+                        : isEmpty(staff?.imageUrl) ?
+                            <CustomImage
+                                style={[
+                                    styles.avatar,
+                                    {
+                                        borderColor: staffSelected == staff?.staffId ? colors.ocean_blue : "white",
+                                        borderWidth: staffSelected == staff?.staffId ? 3 : 1,
+                                    }
+
+                                ]}
+                                source={images.staff_default}
+                                resizeMode='cover'
+                            /> :
+                            <CustomImage
+                                style={[
+                                    styles.avatar,
+                                    {
+                                        borderColor: staffSelected == staff?.staffId ? colors.ocean_blue : "white",
+                                        borderWidth: staffSelected == staff?.staffId ? 2 : 1,
+                                    }
+                                ]}
+                                source={{ uri: staff?.imageUrl }}
+                                resizeMode='cover'
+                            />
             }
             <Text
                 numberOfLines={1}
@@ -179,7 +206,7 @@ const styles = StyleSheet.create({
         },
         shadowRadius: 5,
         shadowOpacity: 1,
-        elevation: 3,
+        elevation: 1,
     },
     content: {
         flex: 1,
@@ -198,7 +225,7 @@ const styles = StyleSheet.create({
         height: scaleWidth(45),
         borderRadius: 1000,
         borderWidth: 3,
-        tintColor : "red"
+        tintColor: "red"
     },
     staffName: {
         fontSize: scaleFont(13),

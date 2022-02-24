@@ -17,6 +17,10 @@ export const useProps = (props) => {
   const [isPopupDeleteCustomer, showPopupDeleteCustomer] = React.useState(false);
   const [connectionSignalR, setConnectionSignalR] = React.useState(null);
 
+  const { customer: {
+    stateCity = []
+  } } = useSelector(state => state);
+
   const { navigation } = props;
   const { auth: { staff } } = useSelector(state => state);
   const mounted = React.useRef(false);
@@ -38,6 +42,13 @@ export const useProps = (props) => {
     customerDetail,
     dialogDeleteCustomer,
     submitDeleteCustomer,
+    getStateName: (stateId) => {
+      let name = "";
+      const stateOBject = stateCity.find(s => s?.stateId == stateId);
+      if (stateOBject)
+        return stateOBject?.name;
+      else return name;
+    },
     getActionSheets: () => [
       {
         id: 'edit-customer',

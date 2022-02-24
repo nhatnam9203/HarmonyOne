@@ -20,12 +20,12 @@ export const Layout = ({
         containerStyle={{ paddingVertical: 0 }}
       >
         <ScrollView style={styles.content}>
-          <Text style={styles.title}>HarmonyPay - Staff app</Text>
-          <Text style={styles.title}>Privacy.</Text>
+        <Text style={styles.title}>HarmonyPay - Harmony One</Text>
+          {/* <Text style={styles.title}>Privacy.</Text> */}
 
-            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15),  marginTop : scaleHeight(24) }]}>
-              Privacy
-            </Text>
+          <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), marginTop: scaleHeight(24) }]}>
+            Privacy
+          </Text>
           <Text style={styles.contentTerms}>
             Harmony Pay’s Privacy Policy describes what information we collect from you and other users of
             the Services, and how we use User Content and other information obtained through the Services.
@@ -33,9 +33,9 @@ export const Layout = ({
             and contains important information about your rights.
           </Text>
           {/* --------- Row ------- */}
-            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15),  marginTop : scaleHeight(24) }]}>
-              Limitation of Liability and Disclaimer of Warranties
-            </Text>
+          <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), marginTop: scaleHeight(24) }]}>
+            Limitation of Liability and Disclaimer of Warranties
+          </Text>
           <Text style={styles.contentTerms}>
             EXCEPT FOR THE EXPRESS WARRANTIES SET FORTH HEREIN, HARMONY PAY AND ITS THIRD-PARTY PROVIDERS HEREBY
             DISCLAIM ALL EXPRESS OR IMPLIED WARRANTIES WITH REGARD TO THE SERVICES, INCLUDING BUT NOT LIMITED TO
@@ -70,9 +70,9 @@ export const Layout = ({
             PAY PARTIES WILL BE LIMITED TO THE MAXIMUM EXTENT PERMITTED BY LAW.
           </Text>
           {/* --------- Row ------- */}
-            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15),  marginTop : scaleHeight(24)}]}>
-              Indemnification
-            </Text>
+          <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), marginTop: scaleHeight(24) }]}>
+            Indemnification
+          </Text>
           <Text style={styles.contentTerms}>
             You agree to defend, indemnify and hold harmless Harmony Pay and its directors,
             officers, employees, affiliates and agents from and against any claims, actions or demands,
@@ -83,9 +83,9 @@ export const Layout = ({
             In such case, you agree to cooperate with any reasonable requests assisting Harmony Pay’s defense of such matter.
           </Text>
           {/* --------- Row ------- */}
-            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15),  marginTop : scaleHeight(24)}]}>
-              Termination of the Agreement
-            </Text>
+          <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), marginTop: scaleHeight(24) }]}>
+            Termination of the Agreement
+          </Text>
           <Text style={styles.contentTerms}>
             Harmony Pay reserves the right, in its sole discretion, to restrict, suspend, or terminate
             these Terms of Service and your access to all or any part of the Services or User Content
@@ -99,9 +99,9 @@ export const Layout = ({
             Terms of Service.
           </Text>
           {/* --------- Row ------- */}
-            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15),  marginTop : scaleHeight(24)}]}>
-              Arbitration
-            </Text>
+          <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), marginTop: scaleHeight(24) }]}>
+            Arbitration
+          </Text>
           <Text style={styles.contentTerms}>
             Agreement to Arbitrate - This Section is referred to as the Arbitration Agreement.
             You agree that any and all disputes or claims that have arisen or may arise between
@@ -177,9 +177,9 @@ export const Layout = ({
             The remainder of these Terms of Service will continue to apply.
           </Text>
           {/* --------- Row ------- */}
-            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15),  marginTop : scaleHeight(24) }]}>
-              Compliance with Laws
-            </Text>
+          <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), marginTop: scaleHeight(24) }]}>
+            Compliance with Laws
+          </Text>
           <Text style={styles.contentTerms}>
             You agree to comply with all federal, state, local and foreign laws, rules and regulations applicable
             to you and Merchant’s business in relation to your use of the Services, including any applicable tax laws
@@ -195,17 +195,17 @@ export const Layout = ({
             the laws of your specific jurisdiction regarding the import, export or re-export of the Services.
           </Text>
           {/* --------- Row ------- */}
-            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15),  marginTop : scaleHeight(24) }]}>
-              Consent to Electronic Communication
-            </Text>
+          <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), marginTop: scaleHeight(24) }]}>
+            Consent to Electronic Communication
+          </Text>
           <Text style={styles.contentTerms}>
             You consent to receiving commercial electronic messages, including e-mail messages, SMS and text messages,
             and telephone calls, from Harmony Pay, its affiliates and its third party sales contractors and/or agents.
           </Text>
           {/* --------- Row ------- */}
-            <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15),  marginTop : scaleHeight(24) }]}>
-              Miscellaneous
-            </Text>
+          <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), marginTop: scaleHeight(24) }]}>
+            Miscellaneous
+          </Text>
           <Text style={styles.contentTerms}>
             Any action, claim, or dispute related to these Terms of Service will be governed by the laws of the State of Florida,
             excluding its conflicts of law provisions, and controlling U.S. federal law. If any provision of these Terms of
@@ -238,13 +238,14 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     padding: scaleWidth(16),
-    paddingTop: scaleHeight(16),
+    paddingTop: scaleHeight(24),
   },
 
   title: {
     fontSize: scaleFont(23),
     color: colors.ocean_blue,
     fontFamily: fonts.MEDIUM,
+    lineHeight: 25
   },
 
   contentTerms: {
@@ -252,5 +253,6 @@ const styles = StyleSheet.create({
     color: "#000000",
     marginTop: scaleHeight(12),
     fontWeight: "400",
+    lineHeight: 22
   }
 });

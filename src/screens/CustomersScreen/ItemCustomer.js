@@ -55,7 +55,7 @@ const ItemCustomer = ({ item, refreshFromScreen, isBookAppointment, isReviewConf
                 if (isQuickCheckout) {
                     NavigationService.navigate(screenNames.CheckoutTabScreen);
                 } else {
-                    if (staffSelected && !isAddMore) {
+                    if (staffSelected && !isAddMore && staffSelected !== -1) {
                         submitGetServiceByStaff();
                     } else {
                         NavigationService.navigate(screenNames.AppointmentNewScreen);

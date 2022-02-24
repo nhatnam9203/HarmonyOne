@@ -2,12 +2,12 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { DropdownMenu, Button, CustomInput, InputText } from "@shared/components";
+import { DropdownMenu, Button, CustomInput, InputText, InputState } from "@shared/components";
 import { InputDate } from "./InputDate"
 import { fonts } from '@shared/themes';
 import { headerPhoneGroup, genders, customerGroup } from "@shared/utils"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { InputState } from "./InputState";
+// import { InputState } from "./InputState";
 
 
 export const Layout = ({
@@ -158,6 +158,7 @@ export const Layout = ({
                                         form={form}
                                         name="state"
                                         placeholder="State"
+                                        renderRight={()=>null}
                                     />
                             </View>
                         }

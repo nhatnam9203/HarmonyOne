@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import { customerSchema } from "@shared/helpers/schema";
 import { headerPhoneGroup, genders, customerGroup } from "@shared/utils"
+import { useSelector } from "react-redux";
 import NavigationService from '@navigation/NavigationService';
 import moment from "moment";
 
@@ -29,6 +30,10 @@ export const useProps = (props) => {
     const inputCustomerGroupRef = React.useRef();
     const inputGenderRef = React.useRef();
     const inputDateRef = React.useRef();
+
+    const { customer: {
+        stateCity = []
+    } } = useSelector(state => state);
 
     const [, getCustomerById] = useAxiosQuery({
         ...getCustomerInfoById(customerDetail?.customerId),
@@ -61,6 +66,23 @@ export const useProps = (props) => {
         }
     });
 
+    const getStateName = (stateId) => {
+        let name = "";
+        const stateOBject = stateCity.find(s => s?.stateId == stateId);
+        if (stateOBject)
+            return stateOBject?.name;
+        else return name;
+    };
+
+    const getStateId = (stateName) => {
+        let stateId = "";
+        const stateOBject = stateCity.find(s => s?.name == stateName);
+        if (stateOBject)
+            return stateOBject?.stateId;
+        else return stateId;
+    };
+
+
     React.useEffect(() => {
         if (isEdit) {
             setValue("firstName", customerDetail?.firstName);
@@ -70,7 +92,7 @@ export const useProps = (props) => {
             setValue("street", customerDetail?.addressPost?.street?.toString());
             setValue("city", customerDetail?.addressPost?.city?.toString());
             setValue("zip", customerDetail?.addressPost?.zip?.toString());
-            setValue("state", customerDetail?.addressPost?.state?.toString());
+            setValue("state", getStateName(customerDetail?.addressPost?.state?.toString()));
             setValue("referrerBy", customerDetail?.referrerBy?.toString());
 
             let customerPhone = customerDetail?.phone;
@@ -136,7 +158,7 @@ export const useProps = (props) => {
                 addressPost: {
                     street: values.street,
                     city: values.city,
-                    state: values.state ? values.state : "0",
+                    state: values.state ? getStateId(values.state) : "0",
                     zip: values.zip,
                 },
                 note: values.note,
@@ -144,6 +166,8 @@ export const useProps = (props) => {
                 gender: inputGenderRef?.current?.getValue()?.value,
                 birthDate: moment(inputDateRef?.current?.getValue()).format("YYYY-MM-DD"),
             }
+
+            console.log('edit customer data : ', data);
 
             if (isEdit) {
                 const body = await editCustomer(data, customerDetail.customerId);

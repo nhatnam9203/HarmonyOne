@@ -79,6 +79,7 @@ export const Layout = ({
                 isLoading={isLoading}
                 ref={staffListRef}
                 showPopupAddBlockTime={showPopupAddBlockTime}
+                getWaitingList={() => appointmentListRef?.current?.requestGetWaitingList()}
               /> :
               <StaffInfoLogin staffInfo={staffInfo} showPopupAddBlockTime={showPopupAddBlockTime} />
           }
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     position: 'relative',
-    backgroundColor: "transparent",
+    backgroundColor: "#fafafa",
     borderTopWidth: Platform.OS == "ios" ? 1 : 0,
     borderTopColor: "#eeeeee"
   },

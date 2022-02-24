@@ -648,10 +648,16 @@ export const PaymentTerminalType = {
 export const getStateId = (stateCity, value) => {
   let name = false;
   for (let i = 0; i < stateCity.length; i++) {
-      if (stateCity[i].name.includes(value)) {
-          name = stateCity[i].stateId;
-          return name;
-      }
+    if (stateCity[i].name.includes(value)) {
+      name = stateCity[i].stateId;
+      return name;
+    }
   }
   return name;
+}
+
+export function isValidHttpUrl(str) {
+  var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+  var pattern = new RegExp(regex);
+  return pattern.test(str);
 }

@@ -33,12 +33,16 @@ export const Layout = ({
                 <KeyboardAwareScrollView style={styles.content}>
                     <CustomInput
                         label="Address"
-                        renderInput={() => <InputText form={form} name="address" />}
+                        isRequired
+                        error={errors?.address}
+                        renderInput={() => <InputText form={form} name="address" error={errors?.address} />}
                     />
 
                     <CustomInput
                         label="City"
-                        renderInput={() => <InputText form={form} name="city" />}
+                        isRequired
+                        error={errors?.city}
+                        renderInput={() => <InputText form={form} name="city" error={errors?.city} />}
                     />
 
                     <CustomInput
@@ -57,15 +61,21 @@ export const Layout = ({
 
                     <CustomInput
                         label="Zip code"
-                        renderInput={() => <InputText form={form} name="zip" />}
+                        isRequired
+                        error={errors?.zip}
+                        renderInput={() => <InputText form={form} name="zip" error={errors?.zip} />}
                     />
                     <CustomInput
                         label="Latitude"
-                        renderInput={() => <InputText form={form} name="latitude" keyboardType={'numeric'} />}
+                        isRequired
+                        error={errors?.latitude}
+                        renderInput={() => <InputText form={form} name="latitude" keyboardType={'numeric'} error={errors?.latitude} />}
                     />
                     <CustomInput
                         label="Longitude"
-                        renderInput={() => <InputText form={form} name="longitude" keyboardType={'numeric'} />}
+                        isRequired
+                        error={errors?.longitude}
+                        renderInput={() => <InputText form={form} name="longitude" keyboardType={'numeric'} error={errors?.longitude} />}
                     />
                     <View style={{ height: scaleHeight(100) }} />
                 </KeyboardAwareScrollView>

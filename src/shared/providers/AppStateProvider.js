@@ -5,7 +5,7 @@ import { AppLoading } from '@shared/components/AppLoading';
 import { getDeviceId, getDeviceName } from '@shared/services/Device';
 import { guid } from "@shared/utils";
 import { images, colors, fonts } from "@shared/themes";
-import { getStaffByDate, getAppointmentByDate, useAxiosQuery, getCountUnReadOfNotification, getNotifyRoleStaff, reportGetStaffSalaryByStaff } from "@src/apis";
+import { getStaffByDate, getAppointmentByDate, useAxiosQuery, getCountUnReadOfNotification, getNotifyRoleStaff, reportGetStaffSalaryByStaff, getAppointmentWaitingList } from "@src/apis";
 import { StyleSheet, Image, Platform } from "react-native";
 import VersionCheck from 'react-native-version-check';
 import Configs from '@src/config';
@@ -65,6 +65,16 @@ export const AppStateProvider = ({ children }) => {
     enabled: false,
     onSuccess: (data, response) => {
       dispatch(staffAction.setSalaryStaffLogin(data));
+    },
+  });
+
+  /************************************** GET APPOINTMENT WAITING LIST ***************************************/
+  const [, requestGetWaitingList] = useAxiosQuery({
+    ...getAppointmentWaitingList(),
+    queryId: "getAppointmentWaitingList_AppStateProvider",
+    enabled: false,
+    onSuccess: (data, response) => {
+      dispatch(appointment.setAppointmentWaitingList(data));
     },
   });
 
@@ -166,7 +176,11 @@ export const AppStateProvider = ({ children }) => {
             switch (typeData) {
               case "appointment_update":
                 fetchAppointmentByDate();
-                if ((roleName == "admin" || roleName == "manager") && staffList.length !== 1) {
+                const appointment_ = JSON.parse(dataParse?.data?.appointment);
+                if (appointment_?.Status == "cancel") {
+                  requestGetWaitingList();
+                }
+                if ((roleName == "admin" || roleName == "manager") && staffList.length !== 2) {
                   fetchCountUnread();
                 } else {
                   fetchCountUnreadRoleStaff();
@@ -174,6 +188,9 @@ export const AppStateProvider = ({ children }) => {
                 }
                 break;
               case "appointment_add":
+                if(dataParse?.data?.Appointment?.Status == "waiting"){
+                  requestGetWaitingList();
+                }
                 fetchAppointmentByDate();
                 if (roleName == "admin" || roleName == "manager") {
                   fetchCountUnread();
@@ -182,7 +199,7 @@ export const AppStateProvider = ({ children }) => {
                 }
                 break;
               case "appointment_checkout":
-                if (roleName == "staff" || staffList.length == 1) {
+                if (roleName == "staff" || staffList.length == 2) {
                   fetchReportGetStaffSalaryByStaff();
                 }
                 fetchAppointmentByDate();
@@ -191,6 +208,14 @@ export const AppStateProvider = ({ children }) => {
 
                 break;
 
+              case "change_item":
+                const appointment = JSON.parse(dataParse?.data?.appointment);
+                if (appointment?.Status == "waiting") {
+                  requestGetWaitingList();
+                }
+                break;
+
+
               default:
                 break;
             }
@@ -198,7 +223,7 @@ export const AppStateProvider = ({ children }) => {
             switch (dataParse?.type) {
               case "staff_update":
                 fetchStaffByDate();
-                if ((roleName == "admin" || roleName == "manager") && staffList.length !== 1) {
+                if ((roleName == "admin" || roleName == "manager") && staffList.length !== 2) {
 
                 } else {
                   fetchReportGetStaffSalaryByStaff();

@@ -48,7 +48,7 @@ export const Layout = ({
                     <Text style={styles.textBox} >
                         {t('Payment terminal')}
                     </Text>
-                    <Text style={[styles.textBox, { fontWeight: 'normal', fontSize: scaleFont(11), marginTop: scaleHeight(10) }]} >
+                    <Text style={[styles.textBox, { fontWeight: 'normal', fontSize: scaleFont(13), marginTop: scaleHeight(10) }]} >
                         {tempTitle}
                     </Text>
                 </View>
@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: scaleHeight(16),
     alignItems: 'center',
+    backgroundColor : "#fafafa"
   },
   buttonDelete: {
     width: scaleWidth(20), 
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
         ios: {
             shadowRadius: 2,
             shadowColor: 'rgba(0, 0, 0, 0.6)',
-            shadowOpacity: 0.54,
+            shadowOpacity: 0.3,
             shadowOffset: { width: 0, height: 0 },
         },
 
@@ -139,11 +140,12 @@ containerIconBox: {
     justifyContent: 'center'
 },
 containerTextBox: {
-    paddingTop: scaleHeight(16),
+    // paddingTop: scaleHeight(16),
 },
 textBox: {
     fontSize: scaleFont(15),
     fontWeight: '600',
-    color: '#0764B0'
+    color: '#0764B0',
+    fontFamily : fonts.REGULAR
 }
 });

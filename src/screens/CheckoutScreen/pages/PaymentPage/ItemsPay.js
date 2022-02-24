@@ -13,6 +13,11 @@ const methodPays = [
     //     method: "harmony"
     // },
     {
+        title: "HarmonyPay - GC",
+        icon: images.harmonyPay,
+        method: "giftcard"
+    },
+    {
         title: "Cash",
         icon: images.cashPay,
         method: "cash"
@@ -26,11 +31,6 @@ const methodPays = [
         title: "Others - Check",
         icon: images.otherPay,
         method : "other"
-    },
-    {
-        title: "HarmonyPay - GC",
-        icon: images.harmonyPay,
-        method: "giftcard"
     },
 ]
 

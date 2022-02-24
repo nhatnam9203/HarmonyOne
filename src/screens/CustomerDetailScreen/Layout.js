@@ -30,6 +30,7 @@ export const Layout = ({
   getActionSheets,
   dialogDeleteCustomer,
   submitDeleteCustomer,
+  getStateName,
 }) => {
 
   const navigation = useNavigation();
@@ -66,6 +67,7 @@ export const Layout = ({
             referrerPhone={customerDetail?.referrerPhone}
             birthdate={customerDetail?.birthdate}
             isVip={customerDetail?.isVip}
+            getStateName={getStateName}
           />
           <CustomerSales
             totalSales={customerDetail?.customerHistory?.totalSales || ""}
@@ -89,7 +91,7 @@ export const Layout = ({
             onModalHide={() => { }}
           />
 
-          <View style={{ height: scaleHeight(100) }} />
+          {/* <View style={{ height: scaleHeight(30) }} /> */}
         </ScrollView>
       </SingleScreenLayout>
     </View>

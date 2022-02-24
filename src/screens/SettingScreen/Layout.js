@@ -133,6 +133,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: scaleWidth(16),
     paddingTop: scaleHeight(16),
+    backgroundColor : "#fafafa"
   },
 
   iconStyle: {
@@ -141,9 +142,9 @@ const styles = StyleSheet.create({
     resizeMode: 'contain'
   },
   txtItem: {
-    fontSize: scaleFont(16),
+    fontSize: scaleFont(15),
     color: colors.greyish_brown_40,
-    fontFamily: fonts.REGULAR
+    letterSpacing : 0.5
   },
   rowReverse: {
     justifyContent: 'space-between',

@@ -67,7 +67,10 @@ export default MarketingMessageNumber;
 const styles = StyleSheet.create({
     container: {
         marginTop: scaleHeight(32),
-        marginBottom: scaleHeight(32)
+        marginBottom: scaleHeight(32),
+        marginLeft : -scaleWidth(16),
+        marginRight :  -scaleWidth(16),
+        paddingHorizontal : scaleWidth(16),
     },
     row: {
         alignItems: 'center',

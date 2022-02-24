@@ -92,31 +92,32 @@ export const Layout = ({
           {/******************************* EDIT PRICE ********************************/}
           <View style={[styles.rowBetween, { marginTop: scaleHeight(24) }]}>
             <Text style={[styles.duration, { fontFamily: fonts.MEDIUM, fontSize: scaleFont(18) }]}>Price</Text>
+
             <View style={{ flexDirection: "row", alignItems: "center", }}>
               <View style={[styles.wrapPrice, { borderColor: isEditPrice ? "#dddddd" : "white" }]}>
                 <Text style={[styles.duration, { fontSize: scaleFont(18) }]}>
                   {`$ `}
                 </Text>
                 {
-                  isEditPrice && 
-                  <TextInputMask
-                    ref={inputPriceRef}
-                    value={price}
-                    onChangeText={text => setPrice(text)}
-                    style={[styles.duration, { fontSize: scaleFont(18),padding : 0 }]}
-                    type="money"
-                    maxLength={6}
-                    editable={isEditPrice}
-                    options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
-                  />
+                  isEditPrice ?
+                    <TextInputMask
+                      ref={inputPriceRef}
+                      value={price}
+                      onChangeText={text => setPrice(text)}
+                      style={[styles.duration, { fontSize: scaleFont(18), paddingVertical: 7, flex: 0, includeFontPadding: false, }]}
+                      type="money"
+                      maxLength={6}
+                      editable={isEditPrice}
+                      options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
+                    />
+                    :
+                    <Text
+                      style={[styles.duration, { fontSize: scaleFont(18) }]}
+                    >
+                      {price}
+                    </Text>
                 }
-                {
-                  !isEditPrice && <Text
-                    style={[styles.duration, { fontSize: scaleFont(18) }]}
-                  >
-                     {price}
-                  </Text>
-                }
+
               </View>
 
               <TouchableOpacity hitSlop={slop(20)} onPress={() => {
@@ -139,6 +140,7 @@ export const Layout = ({
               </TouchableOpacity>
             </View>
           </View>
+
         </View>
 
         {
@@ -265,10 +267,10 @@ const styles = StyleSheet.create({
     marginRight: scaleWidth(12),
     borderWidth: 1,
     borderColor: "#dddddd",
-    paddingVertical : scaleWidth(8),
+    paddingVertical: scaleWidth(8),
     // height: scaleHeight(45),
     width: scaleWidth(120),
     justifyContent: 'flex-end',
-    paddingHorizontal: 8
+    paddingHorizontal: 8,
   }
 });

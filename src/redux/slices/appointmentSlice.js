@@ -9,10 +9,11 @@ const initialState = {
   appointmentDate: new Date(),
   appointmentDetail: {},
   blockTimes: [],
-  staffSelected : '',
+  staffSelected: '',
   groupAppointments: [],
   promotionAppointment: [],
-  discount : [],
+  appointmentWaitings: [],
+  discount: [],
   startProcessingPax: false,
   isProcessPaymentClover: false,
   payAppointmentId: null,
@@ -31,7 +32,7 @@ const appointmentSlice = createSlice({
     setBlockTimeBydate: (state, action) => {
       state.blockTimes = action.payload;
     },
-    setStaffSelected : (state, action) =>{
+    setStaffSelected: (state, action) => {
       state.staffSelected = action.payload;
     },
     setAppointmentDate: (state, action) => {
@@ -43,13 +44,16 @@ const appointmentSlice = createSlice({
     setPromotionAppointment: (state, action) => {
       state.promotionAppointment = action.payload;
     },
+    setAppointmentWaitingList: (state, action) => {
+      state.appointmentWaitings = action.payload;
+    },
     updateGroupAppointment: (state, action) => {
       const checkoutPaymentResponse = action.payload?.checkoutPaymentResponse;
       let tempGroupAppointment = {
         ...state.groupAppointments,
         checkoutPayments:
           checkoutPaymentResponse?.paidAmounts &&
-          Array.isArray(checkoutPaymentResponse?.paidAmounts)
+            Array.isArray(checkoutPaymentResponse?.paidAmounts)
             ? checkoutPaymentResponse?.paidAmounts.reverse()
             : tempGroupAppointment?.checkoutPayments,
         dueAmount: checkoutPaymentResponse?.dueAmount,

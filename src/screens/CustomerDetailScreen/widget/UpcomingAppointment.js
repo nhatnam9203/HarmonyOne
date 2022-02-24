@@ -21,6 +21,7 @@ const UpcomingAppointment = ({
                 keyExtractor={(item) => item.appointmentId.toString()}
                 ItemSeparatorComponent={() => <View style={styles.seperateLine} />}
                 ListEmptyComponent={()=><ListEmptyComponent description={t('No Appointments')} />}
+                nestedScrollEnabled={true}
             />
         </SafeAreaView>
     );

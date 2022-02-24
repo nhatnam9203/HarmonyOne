@@ -18,8 +18,7 @@ export const NotificationIcon = ({
     const roleName = staff?.roleName?.toString()?.toLowerCase();
     let count = (roleName == "admin" || roleName == "manager") ? countUnread : countUnread_roleStaff;
     count = parseInt(count) > 99 ? "+99" : count;
-    count = "1"
-
+    
     const goToNotificationPage = () => {
         if(roleName == "admin" || roleName == "manager"){
             NavigationService.navigate(screenNames.NotificationScreen);

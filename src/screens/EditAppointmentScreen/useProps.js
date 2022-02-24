@@ -11,7 +11,8 @@ import {
   getAppointmentById,
   removeItemAppointment,
   addItemIntoAppointment,
-  getServiceByStaff
+  getServiceByStaff,
+  getAppointmentWaitingList
 } from "@src/apis";
 import { dateToFormat, guid } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
@@ -30,7 +31,7 @@ export const useProps = (_params) => {
     appointment: { appointmentDate, appointmentDetail },
     editAppointment: { appointmentEdit },
     auth: { staff },
-    staff: { staffListByMerchant = [] }
+    staff: { staffListByMerchant = [] },
   } = useSelector(state => state);
 
 
@@ -101,12 +102,25 @@ export const useProps = (_params) => {
     }
   });
 
+  /************************************** GET APPOINTMENT WAITING LIST ***************************************/
+  const [, requestGetWaitingList] = useAxiosQuery({
+    ...getAppointmentWaitingList(),
+    queryId: "getAppointmentWaitingList_wditAppointmentScreen",
+    enabled: false,
+    isStopLoading: true,
+    isLoadingDefault : false,
+    onSuccess: (data, response) => {
+      dispatch(appointment.setAppointmentWaitingList(data));
+    },
+  });
+
   const [, submitUpdateAppointment] = useAxiosMutation({
     ...updateAppointment(),
     queryId: "edit_update_appointment",
     isStopLoading: true,
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
+        requestGetWaitingList();
         const tempData = {
           services: servicesBookingRemove.map(sv => ({ bookingServiceId: sv.bookingServiceId })),
           extras: extrasBookingRemove.map(ex => ({ bookingExtraId: ex.bookingExtraId })),
@@ -123,7 +137,6 @@ export const useProps = (_params) => {
           const body = await removeItemAppointment(appointmentEdit?.appointmentId, tempData);
           submitRemoveItemAppointment(body.params);
         } else {
-
           const tempData_Add = {
             services: appointmentEdit.services.filter(obj => !obj?.bookingServiceId && obj.status == 1),
             extras: appointmentEdit.extras.filter(obj => !obj?.bookingServiceId && obj.status == 1),
@@ -295,12 +308,12 @@ export const useProps = (_params) => {
       const data = {
         staffId: appointmentEdit.staffId,
         fromTime: appointmentEdit.fromTime,
-        status: appointmentEdit.status,
+        status: appointmentEdit.status == "waiting" ? "checkin" : appointmentEdit.status,
         categories: appointmentDetail.categories,
-        services: appointmentDetail.services,
-        extras: appointmentDetail.extras,
-        products: appointmentDetail.products,
-        giftCards: appointmentDetail.giftCards
+        services: appointmentEdit.services.filter(sv => sv?.bookingServiceId),
+        extras: appointmentEdit.extras.filter(sv => sv?.bookingExtraId),
+        products: appointmentEdit.products.filter(sv => sv?.bookingProductId),
+        giftCards: appointmentEdit.giftCards.filter(sv => sv?.bookingGiftCardId),
       };
 
       const body = await updateAppointment(appointmentEdit.appointmentId, data);

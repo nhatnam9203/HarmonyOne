@@ -9,7 +9,7 @@ import {
 import { merchant } from "@redux/slices";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { basicEditSchema } from "@shared/helpers/schema";
+import { locationEditSchema } from "@shared/helpers/schema";
 import NavigationService from '@navigation/NavigationService';
 import { Alert } from "react-native";
 
@@ -17,7 +17,9 @@ import { Alert } from "react-native";
 export const useProps = (_params) => {
   const dispatch = useDispatch();
 
-  const form = useForm({ });
+  const form = useForm({ 
+    resolver: yupResolver(locationEditSchema)
+  });
   const { errors } = form.formState;
 
   const {

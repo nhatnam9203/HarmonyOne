@@ -20,7 +20,7 @@ const ItemAppointment = ({ item, isPast }) => {
                     </Text>
                 </View>
 
-                <View style={{ marginLeft: scaleWidth(16) }}>
+                <View style={{ marginLeft: scaleWidth(16), width : scaleWidth(185) }}>
                     <Text style={[styles.fromTime, { color: colors.black, fontFamily: fonts.MEDIUM }]}>
                         {dateToFormat(item.fromTime, "dddd - hh:mm A")}
                     </Text>

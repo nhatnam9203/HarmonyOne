@@ -87,7 +87,7 @@ export const AppointmentItem = ({ item, onChangeAppointmentId, roleName }) => {
                 <View style={layouts.marginVertical} />
                 <View style={styles.rowContent}>
                     {
-                        item?.services.map((x) => (
+                        item?.services?.map((x) => (
                             <Text
                                 key={x + guid()?.toString()}
                                 style={[styles.textPhone, styles.textService, { color: getColors().textColor, }]}>
@@ -96,7 +96,7 @@ export const AppointmentItem = ({ item, onChangeAppointmentId, roleName }) => {
                         ))
                     }
                     {
-                        item?.extras.map((x) => (
+                        item?.extras?.map((x) => (
                             <Text
                                 key={x + guid()?.toString()}
                                 style={[styles.textPhone, styles.textService, { color: getColors().textColor, }]}>
@@ -105,7 +105,7 @@ export const AppointmentItem = ({ item, onChangeAppointmentId, roleName }) => {
                         ))
                     }
                     {
-                        item?.products.map((x) => (
+                        item?.products?.map((x) => (
                             <Text
                                 key={x + guid()?.toString()}
                                 style={[styles.textPhone, styles.textService, { color: getColors().textColor, }]}>
@@ -114,7 +114,7 @@ export const AppointmentItem = ({ item, onChangeAppointmentId, roleName }) => {
                         ))
                     }
                     {
-                        item?.giftCards.map((x) => (
+                        item?.giftCards?.map((x) => (
                             <Text
                                 key={x + guid()?.toString()}
                                 style={[styles.textPhone, styles.textService, { color: getColors().textColor, }]}>

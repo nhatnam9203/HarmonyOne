@@ -42,6 +42,10 @@ const titleNextStatus = (status) => {
       text = "Check-out";
       break
 
+    case "waiting":
+      text = "Check-in";
+      break
+
     default:
       break;
   }
@@ -63,6 +67,7 @@ export const Layout = ({
   roleName,
   staffsByDate,
   assignOtherStaff,
+  checkInWaitigList,
 }) => {
   const [t] = useTranslation();
 
@@ -136,7 +141,7 @@ export const Layout = ({
         </ScrollView>
 
         {
-          canEdit && isShowButton &&
+          canEdit && isShowButton && appointmentItem?.status !== "waiting" &&
           <View style={styles.bottom}>
             <Button
               label={titleNextStatus(appointmentItem?.status)}
@@ -147,7 +152,8 @@ export const Layout = ({
           </View>
         }
         {
-          !isShowButton && <View style={styles.bottom}>
+          !isShowButton &&
+          <View style={styles.bottom}>
             <Text style={styles.txtAppointmentAnyStaff}>Cannot checkout in any staff. </Text>
             <InputSelectStaff
               items={staffsByDate.filter(staff => staff?.isDisabled == 0)}
@@ -158,6 +164,24 @@ export const Layout = ({
                 <View style={styles.buttonArrow}>
                   <Text style={[styles.txtAppointmentAnyStaff, { color: "white", fontFamily: fonts.BOLD }]}>
                     {`Assign appointment to other staff`}
+                  </Text>
+                </View>
+              )}
+            />
+          </View>
+        }
+        {
+          appointmentItem?.status == "waiting" &&
+          <View style={styles.bottom}>
+            <InputSelectStaff
+              items={staffsByDate.filter(staff => staff?.isDisabled == 0)}
+              itemSelected={0}
+              serviceId={appointmentItem?.services[0]?.serviceId}
+              onSelect={(staffId) => { checkInWaitigList(staffId) }}
+              renderInput={() => (
+                <View style={styles.buttonArrow}>
+                  <Text style={[styles.txtAppointmentAnyStaff, { color: "white", fontFamily: fonts.BOLD }]}>
+                    {`Check-in`}
                   </Text>
                 </View>
               )}

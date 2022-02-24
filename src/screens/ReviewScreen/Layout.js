@@ -164,6 +164,7 @@ const styles = StyleSheet.create({
   },
 
   content: {
+    backgroundColor : "#fafafa"
   },
 
   button: {

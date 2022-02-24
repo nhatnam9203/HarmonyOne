@@ -2,14 +2,14 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
-import { 
-  Button, 
-  IconButton, 
+import {
+  Button,
+  IconButton,
   CustomerInfoView,
   PopupProcessingCredit,
   PopupInvoice,
   DialogConfirm,
- } from "@shared/components";
+} from "@shared/components";
 import { fonts, images, colors } from '@shared/themes';
 import { guid, formatNumberFromCurrency, formatMoney } from "@shared/utils";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -156,9 +156,9 @@ export const Layout = ({
                       $ {item?.price}
                     </Text>
                     <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(34) }]}>
-                      {item?.qty}
+                      {(!item?.bookingServiceId && !item?.bookingExtraId) ? item?.qty : ""}
                     </Text>
-                    <Text style={[styles.text, { fontFamily: fonts.BOLD, width: scaleWidth(88),  zIndex : 99999, textAlign: "right" }]}>
+                    <Text style={[styles.text, { fontFamily: fonts.BOLD, width: scaleWidth(88), zIndex: 99999, textAlign: "right" }]}>
                       $ {formatMoney(itemPrice)}
                     </Text>
                   </View>
@@ -242,24 +242,24 @@ export const Layout = ({
 
 
       <PopupProcessingCredit
-          ref={popupProcessingRef}
-          onConfirmYes={() => onCancelTransactionCredit()}
-          transactionId={inputTransactionId}
+        ref={popupProcessingRef}
+        onConfirmYes={() => onCancelTransactionCredit()}
+        transactionId={inputTransactionId}
       />
 
       <PopupInvoice
-          ref={invoiceRef}
-          cancelInvoicePrint={cancelInvoicePrint} 
+        ref={invoiceRef}
+        cancelInvoicePrint={cancelInvoicePrint}
       />
       <DialogConfirm
         ref={popupConfirmPrintRef}
         title={t('Confirmation')}
         titleContent={t("Do you want to print receipt?")}
         onConfirmYes={printInvoice}
-        onConfirmNo={()=>NavigationService.back()}
+        onConfirmNo={() => NavigationService.back()}
         isCloseButton={false}
       />
-      
+
       {
         isVisibleButton &&
         <View style={styles.bottom}>
