@@ -43,7 +43,8 @@ export const Layout = ({
     const discountCustom = moneyDiscountFixedAmout > 0 ?
         `${valueDiscount}` :
         `${(formatNumberFromCurrency(valueDiscount) * formatNumberFromCurrency(appointmentDetail?.subTotal) / 100)}`;
-    total = formatNumberFromCurrency(total) +  parseFloat(discountCustom);
+    // total = formatNumberFromCurrency(total) +  parseFloat(discountCustom);
+    total = formatNumberFromCurrency(total);
 
     total = roundNumber(total);
 
@@ -165,7 +166,7 @@ export const Layout = ({
                     <View style={styles.row}>
                         <Text style={[styles.text]}>Total Discount</Text>
                         <Text style={[styles.text, { color: "#4AD100" }]}>
-                            {`$ -${total}`}
+                            {`$ -${discountCustom == "0" ? total : roundNumber(parseFloat(discountCustom))}`}
                         </Text>
                     </View>
 
