@@ -196,27 +196,37 @@ export const Layout = ({
 
                           {/****************** STAFF OFF SERVICE ******************/}
                           <View style={[styles.rowItemTime, { marginRight: scaleWidth(16) }]}>
-                            <Text style={styles.titleStartTime}>
-                              {getStaffService(data?.item?.staffId)  ? "Staff" : ""}
-                            </Text>
-                            <InputSelectStaff
-                              items={staffListByMerchant.filter(staff => staff?.isDisabled == 0)}
-                              itemSelected={data?.item?.staffId}
-                              serviceId={data?.item?.serviceId}
-                              onSelect={(staffId) => changeStaffService(staffId, data?.item?.serviceId)}
-                              renderInput={() => (
-                                <View style={styles.inputSelectTime}>
-                                  <Text style={styles.serviceFromtime}>
-                                    {getStaffService(data?.item?.staffId) || "Waiting List"}
+                            {
+                              appointmentDetail?.status == "waiting" ?
+                                <Text style={styles.serviceFromtime}>
+                                  {"Waiting List"}
+                                </Text> :
+                                <>
+                                  <Text style={styles.titleStartTime}>
+                                    {getStaffService(data?.item?.staffId) ? "Staff" : ""}
                                   </Text>
-                                  <Image
-                                    source={images.downarrow}
-                                    style={styles.iconArrowDown}
-                                    resizeMode='contain'
+                                  <InputSelectStaff
+                                    items={staffListByMerchant.filter(staff => staff?.isDisabled == 0)}
+                                    itemSelected={data?.item?.staffId}
+                                    serviceId={data?.item?.serviceId}
+                                    onSelect={(staffId) => changeStaffService(staffId, data?.item?.serviceId)}
+                                    renderInput={() => (
+                                      <View style={styles.inputSelectTime}>
+                                        <Text style={styles.serviceFromtime}>
+                                          {getStaffService(data?.item?.staffId) || "Waiting List"}
+                                        </Text>
+                                        <Image
+                                          source={images.downarrow}
+                                          style={styles.iconArrowDown}
+                                          resizeMode='contain'
+                                        />
+                                      </View>
+                                    )}
                                   />
-                                </View>
-                              )}
-                            />
+                                </>
+
+                            }
+
                           </View>
                         </View>
 

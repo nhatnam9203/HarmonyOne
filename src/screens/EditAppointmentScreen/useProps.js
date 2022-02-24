@@ -308,7 +308,7 @@ export const useProps = (_params) => {
       const data = {
         staffId: appointmentEdit.staffId,
         fromTime: appointmentEdit.fromTime,
-        status: appointmentEdit.status == "waiting" ? "checkin" : appointmentEdit.status,
+        status: appointmentEdit.status,
         categories: appointmentDetail.categories,
         services: appointmentEdit.services.filter(sv => sv?.bookingServiceId),
         extras: appointmentEdit.extras.filter(sv => sv?.bookingExtraId),

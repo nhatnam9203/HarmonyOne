@@ -105,29 +105,52 @@ export const Layout = ({
                       </View>
                     )
                   } else {
-                    return (
-                      <View pointerEvents={isDiabled ? "none" : "auto"} style={{ opacity: isDiabled ? 0.4 : 1 }}>
-                        <InputSelectStaff
-                          items={[]}
-                          itemSelected={null}
-                          serviceId={item?.serviceId}
-                          onSelect={(staffId) => {
+                    if (appointmentEdit?.status == "waiting") {
+                      return (
+                        <TouchableOpacity
+                          onPress={() => {
                             const tempItem = {
                               ...item,
-                              staffId,
+                              staffId: -1,
                             }
                             getServiceDetail(tempItem)
                           }}
-                          renderInput={() => (
-                            <ItemService
-                              item={item}
-                              onPress={() => { }}
-                              isDisabled={true}
-                            />
-                          )}
-                        />
-                      </View>
-                    )
+                          pointerEvents={isDiabled ? "none" : "auto"}
+                          style={{ opacity: isDiabled ? 0.4 : 1 }}
+                        >
+
+                          <ItemService
+                            item={item}
+                            onPress={() => { }}
+                            isDisabled={true}
+                          />
+                        </TouchableOpacity>
+                      )
+                    } else {
+                      return (
+                        <View pointerEvents={isDiabled ? "none" : "auto"} style={{ opacity: isDiabled ? 0.4 : 1 }}>
+                          <InputSelectStaff
+                            items={[]}
+                            itemSelected={null}
+                            serviceId={item?.serviceId}
+                            onSelect={(staffId) => {
+                              const tempItem = {
+                                ...item,
+                                staffId,
+                              }
+                              getServiceDetail(tempItem)
+                            }}
+                            renderInput={() => (
+                              <ItemService
+                                item={item}
+                                onPress={() => { }}
+                                isDisabled={true}
+                              />
+                            )}
+                          />
+                        </View>
+                      )
+                    }
                   }
                 }
               }
