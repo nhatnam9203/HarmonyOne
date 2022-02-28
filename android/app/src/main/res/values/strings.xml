@@ -2,9 +2,9 @@
 
     <string name="default_notification_channel_id">hp_one</string>
 
-    <string name="app_name_release">HarmonyPay One</string>
+    <string name="app_name_release">HarmonyOne</string>
     <string name="app_name_development">Development</string>
-    <string name="app_name_staging">HPOne Staging</string>
+    <string name="app_name_staging">HarmonyOne Staging</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
 </resources>
