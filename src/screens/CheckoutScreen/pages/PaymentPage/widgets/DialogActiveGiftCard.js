@@ -455,7 +455,7 @@ export const DialogActiveGiftCard = React.forwardRef(
                                                 </View>
 
                                                 { /************************************* USE HP STAR *************************************/}
-                                                <View style={[styles.row, { marginTop: scaleHeight(24) }]}>
+                                                <View style={[styles.row, { marginTop: scaleHeight(36) }]}>
                                                     <TouchableOpacity
                                                         onPress={() => setIsCheck(!isCheck)}
                                                         style={{ flexDirection: "row" }}
@@ -650,7 +650,6 @@ const styles = StyleSheet.create({
     },
     inputPrice: {
         width: scaleWidth(135),
-        height: scaleHeight(35),
         borderWidth: 2,
         fontSize: scaleFont(17),
         fontFamily: fonts.BOLD,
