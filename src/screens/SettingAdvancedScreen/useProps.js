@@ -56,6 +56,21 @@ export const useProps = (_params) => {
 
   return {
 
+    resetValue: () => {
+      const {
+        CashStarRate,
+        CreditCardStarRate,
+        HarmonyPayStarRate,
+        IsLoyaltyProgram,
+        OtherStarRate,
+      } = loyaltyProgram;
+
+      form.setValue("CashStarRate", CashStarRate);
+      form.setValue("CreditCardStarRate", CreditCardStarRate);
+      form.setValue("HarmonyPayStarRate", HarmonyPayStarRate);
+      form.setValue("OtherStarRate", OtherStarRate);
+    },
+
     onSubmit: async (values) => {
       const {
         CashStarRate,

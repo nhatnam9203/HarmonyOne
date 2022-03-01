@@ -13,7 +13,8 @@ export const Layout = ({
   onSubmit,
   form,
   IsLoyaltyProgram,
-  setIsLoyaltyProgram
+  setIsLoyaltyProgram,
+  resetValue
 }) => {
 
   const [t] = useTranslation();
@@ -130,10 +131,22 @@ export const Layout = ({
 
         <View style={styles.bottom}>
           <Button
+            label="Cancel"
+            onPress={resetValue}
+            width={'48%'}
+            styleButton={{
+              backgroundColor : "#dddddd",
+              borderWidth : 0
+            }}
+            styleText={{
+              color : "#404040"
+            }}
+          />
+          <Button
             label="Save"
             onPress={form.handleSubmit(onSubmit)}
             highlight={true}
-            width={'100%'}
+            width={'48%'}
           />
         </View>
       </SingleScreenLayout>
@@ -178,6 +191,9 @@ const styles = StyleSheet.create({
   bottom: {
     padding: scaleWidth(16),
     width: scaleWidth(375),
+    flexDirection : "row",
+    justifyContent : "space-between"
+
   },
 
 });
