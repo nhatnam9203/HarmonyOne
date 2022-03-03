@@ -249,10 +249,18 @@ const AppointmentList = React.forwardRef(({
         setRefresh(true);
     };
 
+    const blockTimeSort = React.useMemo(() => {
+        return sortArray(blockTimesVisibile, {
+            by: "fromTime",
+            order: "desc",
+        });
+    }, [blockTimesVisibile]);
+
+
     return (
         <FlatList
             style={styles.flatList}
-            data={staffSelected == -1 ? appointmentWaitings.filter(app => app?.status == "waiting") : blockTimesVisibile}
+            data={staffSelected == -1 ? appointmentWaitings.filter(app => app?.status == "waiting") : blockTimeSort}
             renderItem={({ item }) => <AppointmentItem roleName={roleName} item={item} onChangeAppointmentId={onChangeAppointmentId} />}
             refreshing={isRefresh}
             onRefresh={onRefresh}
