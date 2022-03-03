@@ -39,7 +39,7 @@ export const TotalView = ({
     }
 
     const addDiscount = () => {
-        if(roleName == "admin" || roleName == "manager"){
+        if (roleName == "admin" || roleName == "manager") {
             fetchPromotionAppointment();
         }
     }
@@ -66,18 +66,23 @@ export const TotalView = ({
                             <Text style={[styles.text, { marginRight: 5 }]}>
                                 {`$ ${discount}`}
                             </Text>
-                            <Image
-                                source={images.iconArrow}
-                                resizeMode='contain'
-                                style={styles.iconArrow}
-                            />
+                            {(roleName == "admin" || roleName == "manager") &&
+                                <Image
+                                    source={images.iconArrow}
+                                    resizeMode='contain'
+                                    style={styles.iconArrow}
+                                />}
                         </TouchableOpacity>
                         :
-                        <IconButton
-                            icon={images.plus}
-                            iconStyle={styles.iconAdd}
-                            onPress={addDiscount}
-                        />
+                        <>
+                            {
+                                (roleName == "admin" || roleName == "manager") &&
+                                <IconButton
+                                    icon={images.plus}
+                                    iconStyle={styles.iconAdd}
+                                    onPress={addDiscount}
+                                />}
+                        </>
                 }
             </View>
 
