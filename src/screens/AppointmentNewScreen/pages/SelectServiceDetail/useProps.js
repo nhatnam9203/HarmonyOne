@@ -144,6 +144,7 @@ export const useProps = ({
     ...staffGetAvaiableTime(),
     onSuccess: (data, response) => {
       if (response.codeNumber == 200) {
+        console.log({ data })
         dispatch(bookAppointment.setTimesAvailable(data));
         NavigationService.navigate(screenNames.SelectDateTime, { staffSelected: getStaffSelected() });
       }
@@ -194,6 +195,7 @@ export const useProps = ({
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
         const listStaff = await findStaffAvaiableOfService(data);
+        console.log({ listStaff, item : item?.serviceId })
         await addService();
         await dispatch(bookAppointment.setStafsfOfService(listStaff));
         await NavigationService.navigate(screenNames.SelectStaff, { serviceSelected: item });
@@ -248,8 +250,12 @@ export const useProps = ({
       timezone: new Date().getTimezoneOffset(),
     };
 
+    console.log({ data })
+
 
     const body = await staffGetAvaiableTime(staffSelected?.staffId, data);
+
+    console.log({ body })
     submitGetStaffAvailable(body.params);
   };
 
@@ -268,7 +274,7 @@ export const useProps = ({
 
     goToSelectStaff: async() => {
 
-      if ((roleName == "admin" || roleName == "manager") && staffsByDate.length !== 2) {
+      if ((roleName == "admin" || roleName == "manager") && staffsByDate.length !== 1) {
         /**************** BOOK APPOINTMENT ROLE ADMIN & MANAGER  *****************/
         if (servicesBooking.length == 0) {
           if ((isQuickCheckout && staffSelectedAppointmentScreen == 0) || (isQuickCheckout && staffSelectedAppointmentScreen == -1)) {
@@ -288,7 +294,6 @@ export const useProps = ({
           }
         }
       } else {
-
         /**************** BOOK APPOINTMENT ROLE STAFF *****************/
         goToDateTime();
       }
