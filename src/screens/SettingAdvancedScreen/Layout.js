@@ -46,7 +46,7 @@ export const Layout = ({
                 <Text style={[styles.txt, { marginTop: scaleHeight(24), fontFamily: fonts.MEDIUM, textAlign: "center" }]}>
                   Star earn per
                   <Text style={{ color: colors.ocean_blue, fontFamily: fonts.BOLD }}>
-                    {` $1.0 `}
+                    {` $1 `}
                   </Text>
                   spent
                 </Text>
