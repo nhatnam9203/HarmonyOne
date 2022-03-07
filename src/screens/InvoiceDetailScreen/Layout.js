@@ -233,6 +233,42 @@ export const Layout = ({
                   <Text style={[styles.text, { fontFamily: fonts.MEDIUM, marginLeft: scaleWidth(16) }]}>
                     $ {pay?.amount}
                   </Text>
+                  {pay.paymentMethod === "credit_card" ||
+                        data.paymentMethod === "debit_card" ? 
+                    <View style={[styles.row, { marginTop: scaleHeight(12), justifyContent: "space-between" }]}>
+                      <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                        Non-Cash Adjustment
+                      </Text>
+                      <Text style={[styles.text, { fontFamily: fonts.BOLD }]}>
+                        $ {pay?.fee}
+                      </Text>
+                    </View>
+                    :
+                    <>
+                    {
+                      pay?.fee > 0 &&
+                      <View style={[styles.row, { marginTop: scaleHeight(12), justifyContent: "space-between" }]}>
+                        <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                          Non-Cash Adjustment
+                        </Text>
+                        <Text style={[styles.text, { fontFamily: fonts.BOLD }]}>
+                          $ {pay?.fee}
+                        </Text>
+                      </View>
+                    }
+                    {
+                      pay?.cashDiscount < 0 &&
+                      <View style={[styles.row, { marginTop: scaleHeight(12), justifyContent: "space-between" }]}>
+                        <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                        Cash Discount
+                        </Text>
+                        <Text style={[styles.text, { fontFamily: fonts.BOLD }]}>
+                          $ {pay?.cashDiscount}
+                        </Text>
+                      </View>
+                    }
+                   </>
+                  }
                 </View>
               ))
             }

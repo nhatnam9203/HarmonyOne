@@ -520,7 +520,15 @@ export const PopupInvoice = React.forwardRef(
                           ${(data.paymentMethod &&
                              data.paymentMethod === "credit_card") ||
                              data.paymentMethod === "debit_card" ? 
-                             `<t>${
+                             `${
+                                data?.fee &&
+                                `<t>${_.padEnd("Non-Cash Fee:", 15, ".")}${_.padStart(
+                                  `$${data?.fee}`,
+                                  9,
+                                  "."
+                                )}</t>`
+                              }
+                              <t>${
                                 data?.paymentInformation?.type || ""
                               }: ***********${
                                 data?.paymentInformation?.number || ""
@@ -548,7 +556,25 @@ export const PopupInvoice = React.forwardRef(
                                     <img>${data?.paymentInformation?.signData}</img>` : ""
                               }
                               ` 
-                              : ``}`
+                              : 
+                              `${
+                                data?.fee > 0 &&
+                                `<t>${_.padEnd("Non-Cash Fee:", 15, ".")}${_.padStart(
+                                  `$${data?.fee}`,
+                                  9,
+                                  "."
+                                )}</t>`
+                              }
+                              ${
+                                data?.cashDiscount < 0 &&
+                                `<t>${_.padEnd("Cash Discount: ", 15, ".")}${_.padStart(
+                                  `$${data?.cashDiscount}`,
+                                  9,
+                                  "."
+                                )}</t>`
+              
+                              }`  
+                            }`
         })
 
       }
@@ -1008,6 +1034,15 @@ export const PopupInvoice = React.forwardRef(
                             data.paymentMethod === "credit_card") ||
                           data.paymentMethod === "debit_card" ? (
                             <View style={{ marginTop: scaleHeight(5) }}>
+                              {
+                                data?.fee > 0 &&
+                                <TotalView
+                                  title={"    Non-Cash Adjustment"}
+                                  value={data?.fee}
+                                  styleTextTitle={layouts.fontPrintSubTitleStyle}
+                                  styleTextValue={layouts.fontPrintStyle}
+                                />
+                              }
                               <Text style={[styles.fontPrintStyle]}>
                                 {`    ${
                                   data?.paymentInformation?.type || ""
@@ -1054,7 +1089,29 @@ export const PopupInvoice = React.forwardRef(
                                 </View>
                               )}
                             </View>
-                          ) : null}
+                          ) : 
+                          <>
+                            {
+                              data?.fee > 0 &&
+                              <TotalView
+                                title={"    Non-Cash Adjustment"}
+                                value={data?.fee}
+                                styleTextTitle={layouts.fontPrintSubTitleStyle}
+                                styleTextValue={layouts.fontPrintStyle}
+                              />
+                            }
+                            {
+                              data?.cashDiscount < 0 &&
+                              <TotalView
+                                title={"    Cash Discount"}
+                                value={data?.cashDiscount}
+                                styleTextTitle={layouts.fontPrintSubTitleStyle}
+                                styleTextValue={layouts.fontPrintStyle}
+                              />
+                            }
+                          </>
+                        
+                          }
                         </View>
                       ))}
                     </View>

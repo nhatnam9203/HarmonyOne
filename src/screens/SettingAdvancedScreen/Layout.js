@@ -14,7 +14,9 @@ export const Layout = ({
   form,
   IsLoyaltyProgram,
   setIsLoyaltyProgram,
-  resetValue
+  resetValue,
+  isCashDiscount,
+  setIsCashDiscount,
 }) => {
 
   const [t] = useTranslation();
@@ -124,6 +126,32 @@ export const Layout = ({
                 </View>
 
               </>}
+
+              {/* Cash discount */}
+              <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                <Text style={styles.txt}>
+                  Apply Cash Discount program
+                </Text>
+                <Switch
+                  value={isCashDiscount}
+                  onValueChange={setIsCashDiscount}
+                  color={colors.ocean_blue}
+                />
+              </View>
+              <View style={styles.rowMethod}>
+                <Text style={[styles.txt, { width: scaleWidth(180) }]}>
+                  Cash Discount (%)
+                </Text>
+                <InputText
+                  form={form}
+                  name="CashDiscountPercent"
+                  placeholder=""
+                  style={{ width: scaleWidth(160) }}
+                  type="money"
+                  options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
+                  defaultValueRemove={"0.00"}
+                />
+              </View>
           </View>
         </TouchableWithoutFeedback>
 

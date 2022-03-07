@@ -102,6 +102,8 @@ export const useProps = (_params) => {
 
     form,
     IsLoyaltyProgram,
-    setIsLoyaltyProgram
+    setIsLoyaltyProgram,
+    setIsCashDiscount,
+    isCashDiscount,
   };
 };
