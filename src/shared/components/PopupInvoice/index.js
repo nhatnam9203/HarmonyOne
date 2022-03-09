@@ -511,12 +511,15 @@ export const PopupInvoice = React.forwardRef(
       let entryMethodXml = ""
       if(!printTempt) {
         getCheckoutPaymentMethods()?.map((data, index) => {
-          entryMethodXml = entryMethodXml + 
-                        `- Entry method: ${getPaymentString(
+          entryMethodXml = entryMethodXml +
+                          `<br/><t>- Entry method:</t>
+                          <t>${_.padEnd(`${getPaymentString(
                             data?.paymentMethod || ""
-                          )} $${Number(
-                            formatNumberFromCurrency(data?.amount || "0")
-                          ).toFixed(2)}
+                          )}`, 15, ".")}${_.padStart(
+                            `$${Number(formatNumberFromCurrency(data?.amount || "0")).toFixed(2)}`,
+                            9,
+                            "."
+                          )}</t>
                           ${(data.paymentMethod &&
                              data.paymentMethod === "credit_card") ||
                              data.paymentMethod === "debit_card" ? 
@@ -536,6 +539,9 @@ export const PopupInvoice = React.forwardRef(
                               ${data?.paymentInformation?.name ?
                                 `<t>${data?.paymentInformation?.name?.replace(
                                   /%20/g,
+                                  " "
+                                ).replace(
+                                  /%2f/g,
                                   " "
                                 )}</t>`: ""
                               }
@@ -579,11 +585,11 @@ export const PopupInvoice = React.forwardRef(
 
       }
 
-      let xmlContent = `${getCenterStringArrayXml(profile?.businessName || " ")}
+      let xmlContent = `<b>${getCenterStringArrayXml(profile?.businessName || " ")}</b>
       ${getCenterStringArrayXml(profile?.addressFull || " ")}
       <t><c>${`Tel : ${profile?.phone || " "}`}</c></t>
       <t><c>${profile?.webLink}</c></t>
-      <t><c>${`${
+      <t><b><c>${`${
         invoiceDetail?.status &&
         invoiceDetail?.status !== "paid" &&
         invoiceDetail?.status !== "pending" &&
@@ -591,7 +597,7 @@ export const PopupInvoice = React.forwardRef(
         invoiceDetail?.status !== "complete"
           ? `${invoiceDetail?.status}`.toUpperCase()
           : "SALE"
-      }`}</c></t>
+      }`}</c></b></t>
       <t><c>${`( ${formatWithMoment(
                         new Date(),
                         "MM/DD/YYYY hh:mm A"
@@ -604,7 +610,7 @@ export const PopupInvoice = React.forwardRef(
                             )}</t>
       <t>${invoiceNo}</t>
       <t><c>${"-".repeat(24)}</c></t>
-      <t>DESCRIPTION.......TOTAL</t>
+      <t><b><c>DESCRIPTION.......TOTAL</c></b></t>
       <t><c>${"-".repeat(24)}</c></t>
       ${getInvoiceItemsXml()}
       <t><c>${"-".repeat(24)}</c></t>
@@ -614,16 +620,16 @@ export const PopupInvoice = React.forwardRef(
       <t>${_.padEnd("Tip: ", 15, ".")}${_.padStart(`$${getTipAmount()}`, 9, ".")}</t>
       <t>${_.padEnd("Tax: ", 15, ".")}${_.padStart(`$${getTax()}`, 9, ".")}</t>
       ${!printTempt ? 
-     `<t>${_.padEnd("Total: ", 15, ".")}${_.padStart(`$${getTotal()}`, 9, ".")}</t>
+     `<t><b><c>${_.padEnd("Total: ", 15, ".")}${_.padStart(`$${getTotal()}`, 9, ".")}</c></b></t>
+     <br/><br/>
      ${entryMethodXml}
-     ${isSignature ? `<t> .</t><t> .</t><t>Signature: _____________</t><t> .</t>`: ``}
+     ${isSignature ? `<br/><br/><br/><t>Signature: _____________</t><br/><br/>`: ``}
       `: ``}
       ${printTempt ? `<t>Tip :</t>
                       <t>Total :</t>
-                      <t> .</t>
-                      <t> .</t>
+                      <br/><br/>
                       <t>Signature: _____________</t>
-                      <t> .</t>` 
+                      <br/>` 
 
                     : ``}
       ${profile?.receiptFooter 
@@ -638,6 +644,7 @@ export const PopupInvoice = React.forwardRef(
         : ``
       }
       <t>${_.pad(getFooterReceipt(), 24, '*')}</t>
+      <br/><br/><br/><br/><br/><br/>
       `
      return xmlContent                  
     }
@@ -923,8 +930,8 @@ export const PopupInvoice = React.forwardRef(
                     <TotalView
                       title={"Total"}
                       value={getTotal()}
-                      styleTextTitle={styles.fontPrintSubTitleStyle}
-                      styleTextValue={styles.fontPrintStyle}
+                      styleTextTitle={[styles.fontPrintSubTitleStyle, {fontSize: scaleFont(20)}]}
+                      styleTextValue={[styles.fontPrintStyle, {fontSize: scaleFont(20)}]}
                     />
                   )}
                   {/* ------------- Enter Tip   ----------- */}
@@ -1003,7 +1010,7 @@ export const PopupInvoice = React.forwardRef(
                       {getCheckoutPaymentMethods()?.map((data, index) => (
                         <View
                           key={index}
-                          style={{ marginBottom: scaleHeight(4) }}
+                          style={{ marginBottom: scaleHeight(4), marginTop: scaleHeight(10) }}
                         >
                           <View style={{ flexDirection: "row" }}>
                             <Text style={[styles.fontPrintStyle]}>
@@ -1021,7 +1028,6 @@ export const PopupInvoice = React.forwardRef(
                               <Text
                                 style={[
                                   styles.fontPrintStyle,
-                                  { fontSize: scaleFont(18) },
                                 ]}
                               >
                                 {`$${Number(
@@ -1054,6 +1060,9 @@ export const PopupInvoice = React.forwardRef(
                                 {`    ${
                                   data?.paymentInformation?.name?.replace(
                                     /%20/g,
+                                    " "
+                                  ).replace(
+                                    /%2f/g,
                                     " "
                                   ) || ""
                                 }`}

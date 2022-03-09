@@ -224,22 +224,24 @@ export const Layout = ({
             }
             {
               invoiceDetail?.checkoutPayments?.map((pay) => (
-                <View
-                  key={pay?.checkoutPaymentId + "checkoutPaymentId"}
-                  style={[styles.row, { marginTop: scaleHeight(12), justifyContent: "space-between" }]}>
-                  <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
-                    Entry method: {switchMethodText(pay?.paymentMethod)}
-                  </Text>
-                  <Text style={[styles.text, { fontFamily: fonts.MEDIUM, marginLeft: scaleWidth(16) }]}>
-                    $ {pay?.amount}
-                  </Text>
+                <>
+                  <View
+                    key={pay?.checkoutPaymentId + "checkoutPaymentId"}
+                    style={[styles.row, { marginTop: scaleHeight(12), justifyContent: "space-between" }]}>
+                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                      Entry method: {switchMethodText(pay?.paymentMethod)}
+                    </Text>
+                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM, marginLeft: scaleWidth(16) }]}>
+                      $ {pay?.amount}
+                    </Text>
+                  </View>
                   {pay.paymentMethod === "credit_card" ||
-                        data.paymentMethod === "debit_card" ? 
-                    <View style={[styles.row, { marginTop: scaleHeight(12), justifyContent: "space-between" }]}>
-                      <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                        pay.paymentMethod === "debit_card" ? 
+                    <View style={styles.cashDiscountView}>
+                      <Text style={[styles.text]}>
                         Non-Cash Adjustment
                       </Text>
-                      <Text style={[styles.text, { fontFamily: fonts.BOLD }]}>
+                      <Text style={[styles.text]}>
                         $ {pay?.fee}
                       </Text>
                     </View>
@@ -247,29 +249,29 @@ export const Layout = ({
                     <>
                     {
                       pay?.fee > 0 &&
-                      <View style={[styles.row, { marginTop: scaleHeight(12), justifyContent: "space-between" }]}>
-                        <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                      <View style={styles.cashDiscountView}>
+                        <Text style={[styles.text]}>
                           Non-Cash Adjustment
                         </Text>
-                        <Text style={[styles.text, { fontFamily: fonts.BOLD }]}>
+                        <Text style={[styles.text]}>
                           $ {pay?.fee}
                         </Text>
                       </View>
                     }
                     {
                       pay?.cashDiscount < 0 &&
-                      <View style={[styles.row, { marginTop: scaleHeight(12), justifyContent: "space-between" }]}>
-                        <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                      <View style={styles.cashDiscountView}>
+                        <Text style={[styles.text]}>
                         Cash Discount
                         </Text>
-                        <Text style={[styles.text, { fontFamily: fonts.BOLD }]}>
+                        <Text style={[styles.text]}>
                           $ {pay?.cashDiscount}
                         </Text>
                       </View>
                     }
                    </>
                   }
-                </View>
+                </>
               ))
             }
           </KeyboardAwareScrollView>
@@ -438,4 +440,12 @@ const styles = StyleSheet.create({
     padding: scaleWidth(16),
     width: scaleWidth(375),
   },
+
+  cashDiscountView:{
+    marginTop: scaleHeight(12), 
+    justifyContent: "space-between", 
+    marginLeft: scaleWidth(10),
+    flexDirection: "row",
+    alignItems: "center"
+  }
 });
