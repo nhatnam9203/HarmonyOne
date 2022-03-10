@@ -8,14 +8,13 @@ import { Switch } from "react-native-paper";
 import NavigationService from '@navigation/NavigationService';
 import { Button, CustomInput, InputText } from "@shared/components";
 
-
 export const Layout = ({
   onSubmit,
   form,
   IsLoyaltyProgram,
   setIsLoyaltyProgram,
   resetValue,
-  isCashDiscount,
+  IsCashDiscount,
   setIsCashDiscount,
 }) => {
 
@@ -128,28 +127,14 @@ export const Layout = ({
               </>}
 
               {/* Cash discount */}
-              <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+              <View style={styles.rowView}>
                 <Text style={styles.txt}>
                   Apply Cash Discount program
                 </Text>
                 <Switch
-                  value={isCashDiscount}
+                  value={IsCashDiscount}
                   onValueChange={setIsCashDiscount}
                   color={colors.ocean_blue}
-                />
-              </View>
-              <View style={styles.rowMethod}>
-                <Text style={[styles.txt, { width: scaleWidth(180) }]}>
-                  Cash Discount (%)
-                </Text>
-                <InputText
-                  form={form}
-                  name="CashDiscountPercent"
-                  placeholder=""
-                  style={{ width: scaleWidth(160) }}
-                  type="money"
-                  options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
-                  defaultValueRemove={"0.00"}
                 />
               </View>
           </View>
@@ -223,5 +208,11 @@ const styles = StyleSheet.create({
     justifyContent : "space-between"
 
   },
+  rowView: { 
+    flexDirection: "row", 
+    alignItems: "center", 
+    justifyContent: "space-between",
+    marginTop: scaleHeight(15),
+  }
 
 });

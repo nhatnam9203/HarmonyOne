@@ -196,6 +196,24 @@ export const PopupInvoice = React.forwardRef(
       );
     };
 
+    const getNonCashFee = () => {
+      if (groupAppointment) {
+        return groupAppointment?.checkoutPaymentFeeSum;
+      } else if (invoiceDetail) {
+        return invoiceDetail?.checkoutPaymentFeeSum;
+      }
+      return 0;
+    };
+
+    const getCashDiscount = () => {
+      if (groupAppointment) {
+        return groupAppointment?.checkoutPaymentCashDiscountSum;
+      } else if (invoiceDetail) {
+        return invoiceDetail?.checkoutPaymentCashDiscountSum;
+      }
+      return 0;
+    };
+
     const getSubTotal = () => {
       if (groupAppointment) return groupAppointment?.subTotal;
       return 0;
@@ -523,14 +541,7 @@ export const PopupInvoice = React.forwardRef(
                           ${(data.paymentMethod &&
                              data.paymentMethod === "credit_card") ||
                              data.paymentMethod === "debit_card" ? 
-                             `${
-                                data?.fee &&
-                                `<t>${_.padEnd("Non-Cash Fee:", 15, ".")}${_.padStart(
-                                  `$${data?.fee}`,
-                                  9,
-                                  "."
-                                )}</t>`
-                              }
+                             `
                               <t>${
                                 data?.paymentInformation?.type || ""
                               }: ***********${
@@ -562,24 +573,8 @@ export const PopupInvoice = React.forwardRef(
                                     <img>${data?.paymentInformation?.signData}</img>` : ""
                               }
                               ` 
-                              : 
-                              `${
-                                data?.fee > 0 &&
-                                `<t>${_.padEnd("Non-Cash Fee:", 15, ".")}${_.padStart(
-                                  `$${data?.fee}`,
-                                  9,
-                                  "."
-                                )}</t>`
-                              }
-                              ${
-                                data?.cashDiscount < 0 &&
-                                `<t>${_.padEnd("Cash Discount: ", 15, ".")}${_.padStart(
-                                  `$${data?.cashDiscount}`,
-                                  9,
-                                  "."
-                                )}</t>`
-              
-                              }`  
+                              : ``
+                             
                             }`
         })
 
@@ -619,6 +614,22 @@ export const PopupInvoice = React.forwardRef(
       <t>${_.padEnd("Discount: ", 15, ".")}${_.padStart(`$${getDiscount()}`, 9, ".")}</t>
       <t>${_.padEnd("Tip: ", 15, ".")}${_.padStart(`$${getTipAmount()}`, 9, ".")}</t>
       <t>${_.padEnd("Tax: ", 15, ".")}${_.padStart(`$${getTax()}`, 9, ".")}</t>
+      ${
+        getNonCashFee() != 0 &&
+        `<t>${_.padEnd("Non-Cash Fee:", 15, ".")}${_.padStart(
+          `$${getNonCashFee()}`,
+          9,
+          "."
+        )}</t>`
+      }
+      ${
+        getCashDiscount() != 0 &&
+        `<t>${_.padEnd("Cash Discount: ", 15, ".")}${_.padStart(
+          `$${getCashDiscount()}`,
+          9,
+          "."
+        )}</t>`
+      }
       ${!printTempt ? 
      `<t><b><c>${_.padEnd("Total: ", 15, ".")}${_.padStart(`$${getTotal()}`, 9, ".")}</c></b></t>
      <br/><br/>
@@ -927,12 +938,31 @@ export const PopupInvoice = React.forwardRef(
                     styleTextValue={styles.fontPrintStyle}
                   />
                   {!printTempt && (
-                    <TotalView
-                      title={"Total"}
-                      value={getTotal()}
-                      styleTextTitle={[styles.fontPrintSubTitleStyle, {fontSize: scaleFont(20)}]}
-                      styleTextValue={[styles.fontPrintStyle, {fontSize: scaleFont(20)}]}
-                    />
+                    <>
+                      {getNonCashFee() != 0 && (
+                        <TotalView
+                          title={"Non-Cash Adjustment"}
+                          value={getNonCashFee()}
+                          styleTextTitle={styles.fontPrintSubTitleStyle}
+                          styleTextValue={styles.fontPrintStyle}
+                        />
+                      )}
+                      {getCashDiscount() != 0 && (
+                        <TotalView
+                          title={"Cash Discount"}
+                          value={getCashDiscount()}
+                          styleTextTitle={styles.fontPrintSubTitleStyle}
+                          styleTextValue={styles.fontPrintStyle}
+                        />
+                      )}
+                      <TotalView
+                        title={"Total"}
+                        value={getTotal()}
+                        styleTextTitle={[styles.fontPrintSubTitleStyle, {fontSize: scaleFont(20)}]}
+                        styleTextValue={[styles.fontPrintStyle, {fontSize: scaleFont(20)}]}
+                      />
+                    </>
+                    
                   )}
                   {/* ------------- Enter Tip   ----------- */}
                   {printTempt && (
@@ -1040,15 +1070,6 @@ export const PopupInvoice = React.forwardRef(
                             data.paymentMethod === "credit_card") ||
                           data.paymentMethod === "debit_card" ? (
                             <View style={{ marginTop: scaleHeight(5) }}>
-                              {
-                                data?.fee > 0 &&
-                                <TotalView
-                                  title={"    Non-Cash Adjustment"}
-                                  value={data?.fee}
-                                  styleTextTitle={layouts.fontPrintSubTitleStyle}
-                                  styleTextValue={layouts.fontPrintStyle}
-                                />
-                              }
                               <Text style={[styles.fontPrintStyle]}>
                                 {`    ${
                                   data?.paymentInformation?.type || ""
@@ -1098,28 +1119,7 @@ export const PopupInvoice = React.forwardRef(
                                 </View>
                               )}
                             </View>
-                          ) : 
-                          <>
-                            {
-                              data?.fee > 0 &&
-                              <TotalView
-                                title={"    Non-Cash Adjustment"}
-                                value={data?.fee}
-                                styleTextTitle={layouts.fontPrintSubTitleStyle}
-                                styleTextValue={layouts.fontPrintStyle}
-                              />
-                            }
-                            {
-                              data?.cashDiscount < 0 &&
-                              <TotalView
-                                title={"    Cash Discount"}
-                                value={data?.cashDiscount}
-                                styleTextTitle={layouts.fontPrintSubTitleStyle}
-                                styleTextValue={layouts.fontPrintStyle}
-                              />
-                            }
-                          </>
-                        
+                          ) : null
                           }
                         </View>
                       ))}

@@ -13,9 +13,7 @@ export const useProps = (_params) => {
   const [settingData, setSettingData] = React.useState(null);
   const [IsLoyaltyProgram, setIsLoyaltyProgram] = React.useState(null);
 
-  const [isCashDiscount, setIsCashDiscount] = React.useState(null);
-  const [cashDiscountPercent, setIsCashDiscountPercent] = React.useState(null);
-
+  const [IsCashDiscount, setIsCashDiscount] = React.useState(null);
 
   const dispatch = useDispatch();
   const [, requestGetAdvanceSetting] = useAxiosQuery({
@@ -31,14 +29,12 @@ export const useProps = (_params) => {
           IsLoyaltyProgram,
           OtherStarRate,
           IsCashDiscount,
-          CashDiscountPercent,
         } = data;
 
         form.setValue("CashStarRate", CashStarRate);
         form.setValue("CreditCardStarRate", CreditCardStarRate);
         form.setValue("HarmonyPayStarRate", HarmonyPayStarRate);
         form.setValue("OtherStarRate", OtherStarRate);
-        form.setValue("CashDiscountPercent", CashDiscountPercent);
         setIsLoyaltyProgram(IsLoyaltyProgram);
         setIsCashDiscount(IsCashDiscount);
       }
@@ -70,14 +66,14 @@ export const useProps = (_params) => {
         HarmonyPayStarRate,
         IsLoyaltyProgram,
         OtherStarRate,
-        CashDiscountPercent,
+        IsCashDiscount,
       } = settingData;
 
       form.setValue("CashStarRate", CashStarRate);
       form.setValue("CreditCardStarRate", CreditCardStarRate);
       form.setValue("HarmonyPayStarRate", HarmonyPayStarRate);
       form.setValue("OtherStarRate", OtherStarRate);
-      form.setValue("CashDiscountPercent", CashDiscountPercent);
+      form.setValue("IsCashDiscount", IsCashDiscount);
     },
 
     onSubmit: async (values) => {
@@ -93,7 +89,8 @@ export const useProps = (_params) => {
         CreditCardStarRate,
         HarmonyPayStarRate,
         OtherStarRate,
-        IsLoyaltyProgram
+        IsLoyaltyProgram,
+        IsCashDiscount,
       };
 
       const body = await editAdvanceSetting(data);
@@ -104,6 +101,6 @@ export const useProps = (_params) => {
     IsLoyaltyProgram,
     setIsLoyaltyProgram,
     setIsCashDiscount,
-    isCashDiscount,
+    IsCashDiscount,
   };
 };
