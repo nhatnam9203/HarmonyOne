@@ -651,7 +651,7 @@ export const PopupInvoice = React.forwardRef(
         : ``
       }
       <t>${_.pad(getFooterReceipt(), 24, '*')}</t>
-      <br/><br/><br/><br/><br/><br/>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       `
      return xmlContent                  
     }
