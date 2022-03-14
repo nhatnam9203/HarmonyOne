@@ -32,7 +32,7 @@ export default class NotifService {
         channelDescription: `A custom channel to categorise your custom notifications. Updated at: ${Date.now()}`, // (optional) default: undefined.
         soundName: "harmony.mp3",//"default", // (optional) See `soundName` parameter of `localNotification` function
         importance: 4, // (optional) default: 4. Int value of the Android notification importance
-        //vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
+        vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
       },
       (created) => console.log(`createChannel returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
     );
@@ -119,10 +119,11 @@ export default class NotifService {
   }
 
   firebaseNotify({ data, messageId, notification }) {
+    console.log('notification', notification)
     PushNotification.localNotification({
      title : notification?.title || "HarmonyPay",
       // playSound: sound || false, // (optional) default: true
-      soundName: "default",
+      soundName: "harmony.mp3",
       message: notification?.body || "Welcome",
       messageId,
     });
