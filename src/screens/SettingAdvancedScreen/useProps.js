@@ -10,9 +10,10 @@ export const useProps = (_params) => {
 
   });
 
-  const [loyaltyProgram, setLoyaltyProgram] = React.useState(null);
+  const [settingData, setSettingData] = React.useState(null);
   const [IsLoyaltyProgram, setIsLoyaltyProgram] = React.useState(null);
 
+  const [IsCashDiscount, setIsCashDiscount] = React.useState(null);
 
   const dispatch = useDispatch();
   const [, requestGetAdvanceSetting] = useAxiosQuery({
@@ -20,13 +21,14 @@ export const useProps = (_params) => {
     enabled: false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
-        setLoyaltyProgram(data);
+        setSettingData(data);
         const {
           CashStarRate,
           CreditCardStarRate,
           HarmonyPayStarRate,
           IsLoyaltyProgram,
           OtherStarRate,
+          IsCashDiscount,
         } = data;
 
         form.setValue("CashStarRate", CashStarRate);
@@ -34,6 +36,7 @@ export const useProps = (_params) => {
         form.setValue("HarmonyPayStarRate", HarmonyPayStarRate);
         form.setValue("OtherStarRate", OtherStarRate);
         setIsLoyaltyProgram(IsLoyaltyProgram);
+        setIsCashDiscount(IsCashDiscount);
       }
     },
   });
@@ -63,12 +66,14 @@ export const useProps = (_params) => {
         HarmonyPayStarRate,
         IsLoyaltyProgram,
         OtherStarRate,
-      } = loyaltyProgram;
+        IsCashDiscount,
+      } = settingData;
 
       form.setValue("CashStarRate", CashStarRate);
       form.setValue("CreditCardStarRate", CreditCardStarRate);
       form.setValue("HarmonyPayStarRate", HarmonyPayStarRate);
       form.setValue("OtherStarRate", OtherStarRate);
+      form.setValue("IsCashDiscount", IsCashDiscount);
     },
 
     onSubmit: async (values) => {
@@ -84,7 +89,8 @@ export const useProps = (_params) => {
         CreditCardStarRate,
         HarmonyPayStarRate,
         OtherStarRate,
-        IsLoyaltyProgram
+        IsLoyaltyProgram,
+        IsCashDiscount,
       };
 
       const body = await editAdvanceSetting(data);
@@ -93,6 +99,8 @@ export const useProps = (_params) => {
 
     form,
     IsLoyaltyProgram,
-    setIsLoyaltyProgram
+    setIsLoyaltyProgram,
+    setIsCashDiscount,
+    IsCashDiscount,
   };
 };

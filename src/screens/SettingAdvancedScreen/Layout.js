@@ -8,13 +8,14 @@ import { Switch } from "react-native-paper";
 import NavigationService from '@navigation/NavigationService';
 import { Button, CustomInput, InputText } from "@shared/components";
 
-
 export const Layout = ({
   onSubmit,
   form,
   IsLoyaltyProgram,
   setIsLoyaltyProgram,
-  resetValue
+  resetValue,
+  IsCashDiscount,
+  setIsCashDiscount,
 }) => {
 
   const [t] = useTranslation();
@@ -46,7 +47,7 @@ export const Layout = ({
                 <Text style={[styles.txt, { marginTop: scaleHeight(24), fontFamily: fonts.MEDIUM, textAlign: "center" }]}>
                   Star earn per
                   <Text style={{ color: colors.ocean_blue, fontFamily: fonts.BOLD }}>
-                    {` $1.0 `}
+                    {` $1 `}
                   </Text>
                   spent
                 </Text>
@@ -124,6 +125,18 @@ export const Layout = ({
                 </View>
 
               </>}
+
+              {/* Cash discount */}
+              <View style={styles.rowView}>
+                <Text style={styles.txt}>
+                  Apply Cash Discount program
+                </Text>
+                <Switch
+                  value={IsCashDiscount}
+                  onValueChange={setIsCashDiscount}
+                  color={colors.ocean_blue}
+                />
+              </View>
           </View>
         </TouchableWithoutFeedback>
 
@@ -195,5 +208,11 @@ const styles = StyleSheet.create({
     justifyContent : "space-between"
 
   },
+  rowView: { 
+    flexDirection: "row", 
+    alignItems: "center", 
+    justifyContent: "space-between",
+    marginTop: scaleHeight(15),
+  }
 
 });

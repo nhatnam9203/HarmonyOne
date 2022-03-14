@@ -95,21 +95,21 @@ export const Layout = ({
             <Text style={styles.invoiceNumber}>
               {`Invoice #${invoiceDetail?.checkoutId}`}
             </Text>
-            <View style={[styles.row, { marginTop: scaleHeight(12) }]}>
+            <View style={[styles.row]}>
               <View style={styles.circleStatus(invoiceDetail?.status)} />
               <Text style={styles.txtStatus(invoiceDetail?.status)}>
                 {invoiceDetail?.status}
               </Text>
             </View>
 
-            <View style={[styles.row, { marginTop: scaleHeight(12) }]}>
+            <View style={[styles.row]}>
               <Text style={[styles.text, { width: scaleWidth(80) }]}>Date/time:</Text>
               <Text style={[styles.text, { marginLeft: scaleWidth(16) }]}>
                 {moment(invoiceDetail?.createdDate).format("MMM DD YYYY hh:mm A")}
               </Text>
             </View>
 
-            <View style={[styles.row, { marginTop: scaleHeight(12) }]}>
+            <View style={[styles.row]}>
               <Text style={[styles.text, { width: scaleWidth(80) }]}>Staff</Text>
               <Text style={[styles.text, { marginLeft: scaleWidth(16) }]}>
                 {invoiceDetail?.createdBy}
@@ -125,7 +125,7 @@ export const Layout = ({
             />
             <View style={styles.line} />
 
-            <View style={[styles.row, { marginTop: scaleHeight(12) }]}>
+            <View style={[styles.row]}>
               <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(145) }]}>
                 Description
               </Text>
@@ -145,7 +145,7 @@ export const Layout = ({
               items.map(item => {
                 const itemPrice = parseFloat(formatNumberFromCurrency(item?.price)) * parseInt(item?.qty);
                 return (
-                  <View key={item?.key} style={[styles.row, { marginTop: scaleHeight(12), alignItems: "center" }]}>
+                  <View key={item?.key} style={[styles.row, { alignItems: "center" }]}>
                     <View style={{ width: scaleWidth(150) }}>
                       <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(125) }]}>
                         {item?.name}
@@ -172,7 +172,7 @@ export const Layout = ({
               - - - - - - - - - - - - - - - - -
             </Text>
 
-            <View style={[styles.row, { marginTop: scaleHeight(12), justifyContent: "space-between" }]}>
+            <View style={[styles.row, { justifyContent: "space-between" }]}>
               <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                 Subtotal
               </Text>
@@ -182,7 +182,7 @@ export const Layout = ({
             </View>
 
 
-            <View style={[styles.row, { marginTop: scaleHeight(12), justifyContent: "space-between" }]}>
+            <View style={[styles.row, { justifyContent: "space-between" }]}>
               <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                 Tax
               </Text>
@@ -191,7 +191,7 @@ export const Layout = ({
               </Text>
             </View>
 
-            <View style={[styles.row, { marginTop: scaleHeight(12), justifyContent: "space-between" }]}>
+            <View style={[styles.row, { justifyContent: "space-between" }]}>
               <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                 Tip
               </Text>
@@ -200,7 +200,7 @@ export const Layout = ({
               </Text>
             </View>
 
-            <View style={[styles.row, { marginTop: scaleHeight(12), justifyContent: "space-between" }]}>
+            <View style={[styles.row, { justifyContent: "space-between" }]}>
               <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                 Discount
               </Text>
@@ -208,8 +208,32 @@ export const Layout = ({
                 $ {invoiceDetail?.discount}
               </Text>
             </View>
+            {
+              invoiceDetail?.checkoutPaymentFeeSum != 0 &&
+              <View style={[styles.row, { justifyContent: "space-between" }]}>
+                <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                  Non-Cash Adjustment
+                </Text>
+                <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                  $ {invoiceDetail?.checkoutPaymentFeeSum}
+                </Text>
+              </View>
+            }
+            {
+              invoiceDetail?.checkoutPaymentCashDiscountSum != 0 &&
+              
+              <View style={[styles.row, { justifyContent: "space-between" }]}>
+                <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                  Cash Discount
+                </Text>
+                <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                  $ {invoiceDetail?.checkoutPaymentCashDiscountSum}
+                </Text>
+              </View>
+            }
+            
 
-            <View style={[styles.row, { marginTop: scaleHeight(12), justifyContent: "space-between" }]}>
+            <View style={[styles.row, { justifyContent: "space-between" }]}>
               <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                 Total
               </Text>
@@ -224,16 +248,18 @@ export const Layout = ({
             }
             {
               invoiceDetail?.checkoutPayments?.map((pay) => (
-                <View
-                  key={pay?.checkoutPaymentId + "checkoutPaymentId"}
-                  style={[styles.row, { marginTop: scaleHeight(12), justifyContent: "space-between" }]}>
-                  <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
-                    Entry method: {switchMethodText(pay?.paymentMethod)}
-                  </Text>
-                  <Text style={[styles.text, { fontFamily: fonts.MEDIUM, marginLeft: scaleWidth(16) }]}>
-                    $ {pay?.amount}
-                  </Text>
-                </View>
+                <>
+                  <View
+                    key={pay?.checkoutPaymentId + "checkoutPaymentId"}
+                    style={[styles.row, { justifyContent: "space-between" }]}>
+                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                      Entry method: {switchMethodText(pay?.paymentMethod)}
+                    </Text>
+                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM, marginLeft: scaleWidth(16) }]}>
+                      $ {pay?.amount}
+                    </Text>
+                  </View>
+                </>
               ))
             }
           </KeyboardAwareScrollView>
@@ -373,7 +399,8 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    marginTop: scaleHeight(12)
   },
   container: {
     flex: 1,
