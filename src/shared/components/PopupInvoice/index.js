@@ -359,12 +359,6 @@ export const PopupInvoice = React.forwardRef(
           if (paymentMachineType === "Clover") {
             option = { result: "base64" }
           } 
-          // else if (paymentMachineType === "Dejavoo") {
-          //   option = {
-          //     format: "jpg",
-          //     quality: 0.1
-          //   }
-          // }
         }
         
         const imageUri = await captureRef(viewShotRef, option);
@@ -392,26 +386,7 @@ export const PopupInvoice = React.forwardRef(
             );
 
             releaseCapture(imageUri);
-            if (!printTempt && isSignature) {
-              Alert.alert(
-                "Would you like to print  customer's receipt?",
-                "",
-                [
-                  {
-                    text: "Cancel",
-                    onPress: onCancel,
-                    style: "cancel",
-                  },
-                  {
-                    text: "OK",
-                    onPress: doPrintAgain,
-                  },
-                ],
-                { cancelable: false }
-              );
-            } else {
-              onCancel();
-            }
+            
           } else {
             if (paymentMachineType == "Clover") {
               if (Platform.OS === "ios") {
@@ -426,6 +401,27 @@ export const PopupInvoice = React.forwardRef(
                 };
                 requestPrintDejavoo(params);
             }
+          }
+
+          if (!printTempt && isSignature) {
+            Alert.alert(
+              "Would you like to print  customer's receipt?",
+              "",
+              [
+                {
+                  text: "Cancel",
+                  onPress: onCancel,
+                  style: "cancel",
+                },
+                {
+                  text: "OK",
+                  onPress: doPrintAgain,
+                },
+              ],
+              { cancelable: false }
+            );
+          } else {
+            onCancel();
           }
         }
       } catch (error) {
