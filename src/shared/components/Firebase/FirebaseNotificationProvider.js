@@ -1,4 +1,5 @@
 import React from "react";
+import { app } from '@src/redux/slices';
 import { Alert, AppState } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import useFirebaseNotification from "./useFirebaseNotification";
@@ -9,6 +10,7 @@ import { saveFcmToken } from '@shared/storages/fcmToken';
 import { activeFirebase, useAxiosMutation } from "@src/apis";
 import DeviceInfo from "react-native-device-info";
 import _ from 'lodash';
+
 // import {
 //   handleAutoClose,
 // } from "@utils";
@@ -16,7 +18,8 @@ import _ from 'lodash';
 const FirebaseNotificationProvider = () => {
 
   const {
-    auth: { staff }
+    auth: { staff },
+    app: { notiIntervalId },
   } = useSelector(state => state);
 
   const token = staff?.token;
@@ -42,6 +45,17 @@ const FirebaseNotificationProvider = () => {
     notifyService = new NotifService(onClickedNotifyMessage);
   }, [token]);
 
+  // handleNotification = () => {
+  //   if (!notiIntervalId) {
+  //     const intervalId = setInterval(() => {
+  //       try {
+  //         SoundPlayer.playSoundFile("harmony_foreground", "mp3");
+  //       } catch (e) {}
+  //     }, 5000);
+  //     dispatch(app?.handleNotifiIntervalId(intervalId));
+  //   }
+  // };
+
   const onForegroundMessage = (data) => {
     // TODO: process message on foreground state
     // if (_.get(data, 'data.key') === 'AUTO_CLOSE') {
@@ -52,7 +66,12 @@ const FirebaseNotificationProvider = () => {
     //   type: "HANDLE_NOTIFICATION_WHEN_HAVE_A_APPOINTMENT",
     //   payload: data,
     // });
-    
+    dispatch(app?.handleNotifiWhenHaveAppointment());
+
+    // if(token) {
+    //   handleNotification();
+    // }
+   
     notifyService?.firebaseNotify(data);
   };
 

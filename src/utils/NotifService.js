@@ -77,7 +77,7 @@ export default class NotifService {
       message: `${firstName} ${lastName} booked an appointment in ${time}`, // (required)
       userInfo: { screen: "home" }, // (optional) default: {} (using null throws a JSON value '<null>' error)
       // playSound: !!soundName, // (optional) default: true
-      soundName: "harmony.mp3",//soundName ? soundName : "default", // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
+      // soundName: "harmony.mp3",//soundName ? soundName : "default", // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
       number: this.lastId, // (optional) Valid 32 bit integer specified as string. default: none (Cannot be zero)
     });
   }
@@ -123,7 +123,7 @@ export default class NotifService {
     PushNotification.localNotification({
      title : notification?.title || "HarmonyPay",
       // playSound: sound || false, // (optional) default: true
-      soundName: "harmony.mp3",
+      // soundName: "harmony.mp3",
       message: notification?.body || "Welcome",
       messageId,
     });

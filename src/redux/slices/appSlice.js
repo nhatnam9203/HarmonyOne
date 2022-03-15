@@ -26,6 +26,8 @@ const initialState = {
   errorType: "info",
   titleError: "",
   isSignalR: true,
+  notiIntervalId: null,
+  isHandleNotiWhenHaveAAppointment: false,
 };
 
 let appSlice = createSlice({
@@ -69,6 +71,23 @@ let appSlice = createSlice({
     stopSignalR: (state, action) => {
       state.isSignalR = false;
     },
+
+    handleNotifiIntervalId: (state, action) => {
+      state.intervalId = action.payload;
+    },
+
+    resetNotiIntervalId: (state, action) => {
+      state.intervalId = null
+    },
+
+    handleNotifiWhenHaveAppointment: (state, action) => {
+      console.log('handleNotifiWhenHaveAppointment')
+      state.isHandleNotiWhenHaveAAppointment = true;
+    },
+
+    resetStateNotiWhenHaveAAppointment: (state, action) => {
+      state.isHandleNotiWhenHaveAAppointment = false;
+    }
 
   },
 });

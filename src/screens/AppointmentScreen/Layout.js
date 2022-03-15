@@ -11,7 +11,7 @@ import { StaffList, AppointmentList, IconCalendar, StaffInfoLogin, DialogBlockTi
 import { dateToFormat } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 import moment from "moment";
-
+import {RootComponent} from "@components";
 
 export const Layout = ({
   staffsByDate,
@@ -48,7 +48,7 @@ export const Layout = ({
 
 
   return (
-    <View style={styles.container}>
+    <RootComponent style={styles.container}>
       <SingleScreenLayout
         isRight={true}
         isLeft={true}
@@ -107,7 +107,7 @@ export const Layout = ({
         onConfirmYes={() => { }}
         onModalHide={() => { }}
       />
-    </View>
+    </RootComponent>
   );
 };
 

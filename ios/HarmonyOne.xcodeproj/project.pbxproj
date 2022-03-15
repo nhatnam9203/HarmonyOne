@@ -104,6 +104,9 @@
 		53E3639E2763140B00B7A40F /* batch.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36391276097B500B7A40F /* batch.m */; };
 		53E3639F2763141000B7A40F /* libPOSLink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53E3638B2760973800B7A40F /* libPOSLink.a */; };
 		53E363A02763141000B7A40F /* libPOSLink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53E3638B2760973800B7A40F /* libPOSLink.a */; };
+		53FB2D3227E0B1D200BA00A0 /* harmony_short.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53FB2D3127E0B1D200BA00A0 /* harmony_short.mp3 */; };
+		53FB2D3327E0B1D200BA00A0 /* harmony_short.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53FB2D3127E0B1D200BA00A0 /* harmony_short.mp3 */; };
+		53FB2D3427E0B1D200BA00A0 /* harmony_short.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53FB2D3127E0B1D200BA00A0 /* harmony_short.mp3 */; };
 		5D0B36B7CCB64A1BA827584E /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6AACA0D074D45279AB59577 /* SFProDisplay-Semibold.ttf */; };
 		76B126674CCB4AAF8D5D8537 /* SF Pro Text Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B2429A003E24354B9166F4D /* SF Pro Text Regular.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -238,6 +241,7 @@
 		53E36394276097BF00B7A40F /* report.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = report.m; sourceTree = "<group>"; };
 		53E36396276097CA00B7A40F /* payment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = payment.h; sourceTree = "<group>"; };
 		53E36397276097CA00B7A40F /* payment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = payment.m; sourceTree = "<group>"; };
+		53FB2D3127E0B1D200BA00A0 /* harmony_short.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = harmony_short.mp3; sourceTree = "<group>"; };
 		5507EF7BCD464D2988033438 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		5B2429A003E24354B9166F4D /* SF Pro Text Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF Pro Text Regular.ttf"; path = "../src/assets/fonts/SF Pro Text Regular.ttf"; sourceTree = "<group>"; };
 		62921B42E61C41FDA9CA6F47 /* SF Pro Text LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF Pro Text LightItalic.ttf"; path = "../src/assets/fonts/SF Pro Text LightItalic.ttf"; sourceTree = "<group>"; };
@@ -523,6 +527,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				53FB2D3127E0B1D200BA00A0 /* harmony_short.mp3 */,
 				53054DFA27D9BEBD00E515AD /* harmony.mp3 */,
 				53E3635A2760966200B7A40F /* trans */,
 				12ED4E162754D2ED00AD4013 /* Dev */,
@@ -834,6 +839,7 @@
 				12ED4E082754D14300AD4013 /* SF Pro Text LightItalic.ttf in Resources */,
 				12ED4E092754D14300AD4013 /* SFProDisplay-Semibold.ttf in Resources */,
 				12ED4E0A2754D14300AD4013 /* SF Pro Text MediumItalic.ttf in Resources */,
+				53FB2D3427E0B1D200BA00A0 /* harmony_short.mp3 in Resources */,
 				12ED4E0B2754D14300AD4013 /* GoogleService-Info.plist in Resources */,
 				12ED4E0C2754D14300AD4013 /* SFProDisplay-Light.ttf in Resources */,
 				12ED4E0D2754D14300AD4013 /* SF Pro Text RegularItalic.ttf in Resources */,
@@ -854,6 +860,7 @@
 				12F22A6FFD2242FC92BA3B94 /* SF Pro Text Bold.ttf in Resources */,
 				FE377ABC36174A298B1A3F66 /* SF Pro Text BoldItalic.ttf in Resources */,
 				BCBE66D0A68C4E91A37B6617 /* SF Pro Text Heavy.ttf in Resources */,
+				53FB2D3227E0B1D200BA00A0 /* harmony_short.mp3 in Resources */,
 				DB0DB8DA437B4D139745074B /* SF Pro Text HeavyItalic.ttf in Resources */,
 				1BD6DA882AAC4429A06FAD6D /* SF Pro Text Light.ttf in Resources */,
 				8478560867464D71A4FA78BD /* SF Pro Text LightItalic.ttf in Resources */,
@@ -909,6 +916,7 @@
 				36BD5C6A26B2BF12007A91F0 /* SF Pro Text LightItalic.ttf in Resources */,
 				362C8D5026B247FD00CB63F0 /* SFProDisplay-Semibold.ttf in Resources */,
 				36BD5C5F26B2BF12007A91F0 /* SF Pro Text MediumItalic.ttf in Resources */,
+				53FB2D3327E0B1D200BA00A0 /* harmony_short.mp3 in Resources */,
 				3D7D105A273294B600455370 /* GoogleService-Info.plist in Resources */,
 				362C8D5126B247FD00CB63F0 /* SFProDisplay-Light.ttf in Resources */,
 				36BD5C6026B2BF12007A91F0 /* SF Pro Text RegularItalic.ttf in Resources */,
