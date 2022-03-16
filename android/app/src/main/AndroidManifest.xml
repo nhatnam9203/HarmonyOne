@@ -36,6 +36,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
             <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
         </intent-filter>
+
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
