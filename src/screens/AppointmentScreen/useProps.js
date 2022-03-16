@@ -37,6 +37,7 @@ import moment from 'moment';
 import NavigationService from '@navigation/NavigationService';
 import { isEmpty, set } from "lodash";
 import { Alert } from 'react-native';
+import  SoundPlayer  from "react-native-sound-player";
 
 export const useProps = (_params) => {
   const dispatch = useDispatch();
@@ -56,6 +57,10 @@ export const useProps = (_params) => {
       appointmentDetail,
       appointmentDate,
       staffSelected,
+    },
+    app: {
+      isHandleNotiWhenHaveAAppointment,
+      notiIntervalId,
     },
   } = useSelector((state) => state);
 
@@ -167,6 +172,24 @@ export const useProps = (_params) => {
     }
     fetchStaffList();
   }, []);
+
+  const handleNotification = () => {
+    if (!notiIntervalId) {
+      const intervalId = setInterval(() => {
+        try {
+          SoundPlayer.playSoundFile("harmony_short", "mp3");
+        } catch (e) {}
+      }, 5000);
+      dispatch(app?.handleNotifiIntervalId(intervalId));
+    }
+  };
+
+  React.useEffect(() => {
+    if(isHandleNotiWhenHaveAAppointment) {
+      handleNotification();
+      dispatch(app?.resetStateNotiWhenHaveAAppointment());
+    }
+  }, [isHandleNotiWhenHaveAAppointment])
 
   return {
     staffsByDate,

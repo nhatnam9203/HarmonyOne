@@ -30,7 +30,7 @@ export default class NotifService {
         channelId: "custom-channel-id", // (required)
         channelName: `Custom channel - Counter: ${this.lastChannelCounter}`, // (required)
         channelDescription: `A custom channel to categorise your custom notifications. Updated at: ${Date.now()}`, // (optional) default: undefined.
-        soundName: "default", // (optional) See `soundName` parameter of `localNotification` function
+        soundName: "harmony.mp3",//"default", // (optional) See `soundName` parameter of `localNotification` function
         importance: 4, // (optional) default: 4. Int value of the Android notification importance
         vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
       },
@@ -77,7 +77,7 @@ export default class NotifService {
       message: `${firstName} ${lastName} booked an appointment in ${time}`, // (required)
       userInfo: { screen: "home" }, // (optional) default: {} (using null throws a JSON value '<null>' error)
       // playSound: !!soundName, // (optional) default: true
-      soundName: soundName ? soundName : "default", // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
+      // soundName: "harmony.mp3",//soundName ? soundName : "default", // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
       number: this.lastId, // (optional) Valid 32 bit integer specified as string. default: none (Cannot be zero)
     });
   }
@@ -112,9 +112,9 @@ export default class NotifService {
       title: "Scheduled Notification", // (optional)
       message: "My Notification Message", // (required)
       userInfo: { sceen: "home" }, // (optional) default: {} (using null throws a JSON value '<null>' error)
-      playSound: !!soundName, // (optional) default: true
+      // playSound: !!soundName, // (optional) default: true
       number: this.lastId, // (optional) Valid 32 bit integer specified as string. default: none (Cannot be zero)
-      soundName: soundName ? soundName : "default", // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
+      soundName: "harmony.mp3",//soundName ? soundName : "default", // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
     });
   }
 
@@ -124,7 +124,7 @@ export default class NotifService {
       // playSound: sound || false, // (optional) default: true
       // soundName: "harmony.mp3",
       message: notification?.body || "Welcome",
-      // messageId,
+      messageId,
     });
   }
 

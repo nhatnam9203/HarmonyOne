@@ -11,7 +11,7 @@ import { StaffList, AppointmentList, IconCalendar, StaffInfoLogin, DialogBlockTi
 import { dateToFormat } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 import moment from "moment";
-
+import {RootComponent} from "@components";
 
 export const Layout = ({
   staffsByDate,

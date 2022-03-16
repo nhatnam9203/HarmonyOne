@@ -14,6 +14,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import AuthStack from './AuthStack';
 import AppStack from './AppStack';
+import {RootComponent} from "@components";
 
 const { Screen, Navigator } = createStackNavigator();
 
@@ -62,7 +63,7 @@ export class RootNavigation extends Component {
             this.isReadyRef.current = true;
           }}>
           <StatusBar barStyle="light-content" translucent={true} backgroundColor="transparent" />
-
+          <RootComponent>
           <Navigator headerMode="none"
             screenOptions={{
               gestureEnabled: false,
@@ -73,6 +74,7 @@ export class RootNavigation extends Component {
             <Screen name="AuthStack" component={AuthStack} />
             <Screen name="HpOneStack" component={AppStack} />
           </Navigator>
+          </RootComponent>
         </NavigationContainer>
       </SafeAreaProvider>
     )
