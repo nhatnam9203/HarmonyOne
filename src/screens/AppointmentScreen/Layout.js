@@ -48,7 +48,7 @@ export const Layout = ({
 
 
   return (
-    <RootComponent style={styles.container}>
+    <View style={styles.container}>
       <SingleScreenLayout
         isRight={true}
         isLeft={true}
@@ -107,7 +107,7 @@ export const Layout = ({
         onConfirmYes={() => { }}
         onModalHide={() => { }}
       />
-    </RootComponent>
+    </View>
   );
 };
 

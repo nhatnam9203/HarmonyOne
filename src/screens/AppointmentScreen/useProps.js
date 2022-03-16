@@ -174,7 +174,6 @@ export const useProps = (_params) => {
   }, []);
 
   const handleNotification = () => {
-    console.log('notiIntervalId', notiIntervalId)
     if (!notiIntervalId) {
       const intervalId = setInterval(() => {
         try {

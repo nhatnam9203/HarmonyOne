@@ -45,17 +45,6 @@ const FirebaseNotificationProvider = () => {
     notifyService = new NotifService(onClickedNotifyMessage);
   }, [token]);
 
-  // handleNotification = () => {
-  //   if (!notiIntervalId) {
-  //     const intervalId = setInterval(() => {
-  //       try {
-  //         SoundPlayer.playSoundFile("harmony_foreground", "mp3");
-  //       } catch (e) {}
-  //     }, 5000);
-  //     dispatch(app?.handleNotifiIntervalId(intervalId));
-  //   }
-  // };
-
   const onForegroundMessage = (data) => {
     // TODO: process message on foreground state
     // if (_.get(data, 'data.key') === 'AUTO_CLOSE') {
@@ -67,10 +56,6 @@ const FirebaseNotificationProvider = () => {
     //   payload: data,
     // });
     dispatch(app?.handleNotifiWhenHaveAppointment());
-
-    // if(token) {
-    //   handleNotification();
-    // }
    
     notifyService?.firebaseNotify(data);
   };

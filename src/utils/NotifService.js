@@ -119,7 +119,6 @@ export default class NotifService {
   }
 
   firebaseNotify({ data, messageId, notification }) {
-    console.log('notification', notification)
     PushNotification.localNotification({
      title : notification?.title || "HarmonyPay",
       // playSound: sound || false, // (optional) default: true

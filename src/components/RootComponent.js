@@ -16,10 +16,7 @@ let RootComponent = (props, style) => {
     },
   } = useSelector((state) => state);
 
-
-
   const clearIntervalById = () => {
-    console.log("clearIntervalById")
     if (notiIntervalId) {
       clearInterval(notiIntervalId);
       dispatch(app?.resetNotiIntervalId());

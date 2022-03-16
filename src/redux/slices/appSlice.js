@@ -73,15 +73,14 @@ let appSlice = createSlice({
     },
 
     handleNotifiIntervalId: (state, action) => {
-      state.intervalId = action.payload;
+      state.notiIntervalId = action.payload;
     },
 
     resetNotiIntervalId: (state, action) => {
-      state.intervalId = null
+      state.notiIntervalId = null
     },
 
     handleNotifiWhenHaveAppointment: (state, action) => {
-      console.log('handleNotifiWhenHaveAppointment')
       state.isHandleNotiWhenHaveAAppointment = true;
     },
 
