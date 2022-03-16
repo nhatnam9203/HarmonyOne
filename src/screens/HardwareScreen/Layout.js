@@ -144,8 +144,7 @@ containerTextBox: {
 },
 textBox: {
     fontSize: scaleFont(15),
-    fontWeight: '600',
     color: '#0764B0',
-    fontFamily : fonts.REGULAR
+    fontFamily : fonts.BOLD
 }
 });

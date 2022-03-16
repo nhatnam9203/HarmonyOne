@@ -183,7 +183,7 @@ const Item = ({ staff, selectStaff, staffSelected, showPopupAddBlockTime, getWai
                 numberOfLines={1}
                 ellipsizeMode={'tail'}
                 style={[styles.staffName, {
-                    fontFamily: staffSelected == staff?.staffId ? fonts.BOLD : fonts.REGULAR,
+                    fontFamily: staffSelected == staff?.staffId ? fonts.BOLD : fonts.MEDIUM,
                     color: staffSelected == staff?.staffId ? colors.ocean_blue : "#404040",
                 }]}>
                 {staff?.displayName}
@@ -229,8 +229,8 @@ const styles = StyleSheet.create({
     },
     staffName: {
         fontSize: scaleFont(13),
-        fontFamily: fonts.REGULAR,
-        marginTop: 5
+        fontFamily: fonts.MEDIUM,
+        marginTop: 5,
     },
     staff: {
         justifyContent: 'center',

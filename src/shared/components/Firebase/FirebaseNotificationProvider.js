@@ -9,6 +9,7 @@ import { getAuthToken } from '@shared/storages/authToken';
 import { saveFcmToken } from '@shared/storages/fcmToken';
 import { activeFirebase, useAxiosMutation } from "@src/apis";
 import DeviceInfo from "react-native-device-info";
+import PushNotification from "react-native-push-notification";
 import _ from 'lodash';
 
 // import {
@@ -46,6 +47,11 @@ const FirebaseNotificationProvider = () => {
   }, [token]);
 
   const onForegroundMessage = (data) => {
+    console.log('on foreground message : ',{ data });
+    console.log({
+      notifyService
+    });
+
     // TODO: process message on foreground state
     // if (_.get(data, 'data.key') === 'AUTO_CLOSE') {
     //   handleAutoClose()
@@ -56,11 +62,12 @@ const FirebaseNotificationProvider = () => {
     //   payload: data,
     // });
     dispatch(app?.handleNotifiWhenHaveAppointment());
-   
+  
     notifyService?.firebaseNotify(data);
   };
 
   const onBackgroundMessage = ({ data }) => {
+    console.log('background message : ',{ data })
     // TODO: process message on background state
     // if (_.get(data, 'data.key') === 'AUTO_CLOSE') {
     //   handleAutoClose()

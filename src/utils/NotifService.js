@@ -13,11 +13,11 @@ export default class NotifService {
     NotificationHandler.attachNotification(onNotification);
 
     // Clear badge number at start
-    PushNotification.getApplicationIconBadgeNumber(function (number) {
-      if (number > 0) {
-        PushNotification.setApplicationIconBadgeNumber(0);
-      }
-    });
+    // PushNotification.getApplicationIconBadgeNumber(function (number) {
+    //   if (number > 0) {
+    //     PushNotification.setApplicationIconBadgeNumber(0);
+    //   }
+    // });
 
     PushNotification.getChannels(function (channels) {
     });
@@ -123,6 +123,7 @@ export default class NotifService {
      title : notification?.title || "HarmonyPay",
       // playSound: sound || false, // (optional) default: true
       // soundName: "harmony.mp3",
+      playSound : true,
       message: notification?.body || "Welcome",
       messageId,
     });
