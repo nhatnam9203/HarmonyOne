@@ -134,14 +134,6 @@ const AppointmentList = React.forwardRef(({
 
 
 
-    /************************************** GET APPOINTMENT DETAIL  ***************************************/
-    React.useEffect(() => {
-        if (appointmentDetailId) {
-            fetchAppointmentById();
-        }
-    }, [appointmentDetailId]);
-
-
 
     const setDate = (date) => {
         if (
