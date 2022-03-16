@@ -144,7 +144,6 @@ export const useProps = ({
     ...staffGetAvaiableTime(),
     onSuccess: (data, response) => {
       if (response.codeNumber == 200) {
-        console.log({ data })
         dispatch(bookAppointment.setTimesAvailable(data));
         NavigationService.navigate(screenNames.SelectDateTime, { staffSelected: getStaffSelected() });
       }
@@ -195,7 +194,6 @@ export const useProps = ({
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
         const listStaff = await findStaffAvaiableOfService(data);
-        console.log({ listStaff, item : item?.serviceId })
         await addService();
         await dispatch(bookAppointment.setStafsfOfService(listStaff));
         await NavigationService.navigate(screenNames.SelectStaff, { serviceSelected: item });
@@ -203,8 +201,7 @@ export const useProps = ({
     }
   });
 
-  const goToDateTime = async (isBookWaiting = false) => {
-
+  const goToDateTime = async (isBookWaiting = false, isBookingIntoStaff = false) => {
     let staffSelected = getStaffSelected();
 
     if ((roleName == "admin" || roleName == "manager") && staffsByDate.length !== 2) {
@@ -235,8 +232,9 @@ export const useProps = ({
 
     /**************************** UPDATE STAFF CHO SERVICE *****************************/
     dispatch(bookAppointment.updateStaffService({ service: item, staff: staffSelected }));
+
     /**************************** QUICK CHECKOUT KHONG CAN CHON DATE TIME *****************************/
-    if (isQuickCheckout || isBookWaiting) {
+    if ((isQuickCheckout || isBookWaiting) && !isBookingIntoStaff) {
       NavigationService.navigate(screenNames.ReviewConfirm);
       return;
     }
@@ -250,12 +248,8 @@ export const useProps = ({
       timezone: new Date().getTimezoneOffset(),
     };
 
-    console.log({ data })
-
-
     const body = await staffGetAvaiableTime(staffSelected?.staffId, data);
 
-    console.log({ body })
     submitGetStaffAvailable(body.params);
   };
 
@@ -272,7 +266,7 @@ export const useProps = ({
     setPrice,
     inputPriceRef,
 
-    goToSelectStaff: async() => {
+    goToSelectStaff: async () => {
 
       if ((roleName == "admin" || roleName == "manager") && staffsByDate.length !== 1) {
         /**************** BOOK APPOINTMENT ROLE ADMIN & MANAGER  *****************/
@@ -280,12 +274,15 @@ export const useProps = ({
           if ((isQuickCheckout && staffSelectedAppointmentScreen == 0) || (isQuickCheckout && staffSelectedAppointmentScreen == -1)) {
             fetchStaffAvaiable();
           } else {
-            goToDateTime(true);
+            const isBookingIntoStaff = true;
+            goToDateTime(true, isBookingIntoStaff);
             // await addService();
             // NavigationService.navigate(screenNames.ReviewConfirm);
           }
         } else {
-          if ((!isNaN(servicesBooking[0]?.staffId) && servicesBooking[0]?.staffId == 0) || (!isNaN(servicesBooking[0]?.staffId) && servicesBooking[0]?.staffId == -1)) {
+          if (
+            (!isNaN(servicesBooking[0]?.staffId) && servicesBooking[0]?.staffId == 0) ||
+            (!isNaN(servicesBooking[0]?.staffId) && servicesBooking[0]?.staffId == -1)) {
             // await addService();
             // NavigationService.navigate(screenNames.ReviewConfirm);
             goToDateTime(true);
