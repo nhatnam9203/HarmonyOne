@@ -38,8 +38,30 @@ export const Button = ({
       style={[
         styles.button,
         { height: height, width: width },
-        highlight && { backgroundColor: colors.ocean_blue },
-        disabled && { backgroundColor: "#EEEEEE", borderColor: "#EEEEEE" },
+        highlight && {
+          backgroundColor: colors.ocean_blue,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+
+          elevation: 5,
+        },
+        disabled && {
+          backgroundColor: "#EEEEEE", borderColor: "#EEEEEE",
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+      
+          elevation: 5,
+        },
         buttonDisableStyle,
         styleButton,
       ]}
@@ -74,15 +96,6 @@ const styles = StyleSheet.create({
     borderColor: colors.ocean_blue,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
   },
 
   text: {
