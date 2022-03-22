@@ -50,19 +50,7 @@ export const Button = ({
 
           elevation: 5,
         },
-        disabled && {
-          backgroundColor: "#EEEEEE", borderColor: "#EEEEEE",
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-      
-          elevation: 5,
-        },
-        buttonDisableStyle,
+        disabled && buttonDisableStyle,
         styleButton,
       ]}
       disabled={disabled || appLoading || isTurnOff}
