@@ -207,6 +207,7 @@ export const useProps = ({
     if ((roleName == "admin" || roleName == "manager") && staffsByDate.length !== 2) {
       if (staffSelectedAppointmentScreen !== 0 && staffSelectedAppointmentScreen !== -1) {
         staffSelected = staffListByMerchant?.find(s => s?.staffId == staffSelectedAppointmentScreen);
+
       } else if (staffSelectedAppointmentScreen == -1) {
         staffSelected = {
           staffId: -1,
@@ -234,11 +235,10 @@ export const useProps = ({
     dispatch(bookAppointment.updateStaffService({ service: item, staff: staffSelected }));
 
     /**************************** QUICK CHECKOUT KHONG CAN CHON DATE TIME *****************************/
-    if (isQuickCheckout || isBookWaiting) {
+    if (isQuickCheckout || isBookWaiting || staffSelected?.staffId == -1) {
       NavigationService.navigate(screenNames.ReviewConfirm);
       return;
     }
-
 
     /**************************** GET TIME AVAILABLE CHO STAFF DUOC CHON *****************************/
     const data = {
@@ -275,6 +275,7 @@ export const useProps = ({
             fetchStaffAvaiable();
           } else {
             goToDateTime();
+     
             // await addService();
             // NavigationService.navigate(screenNames.ReviewConfirm);
           }
