@@ -177,7 +177,7 @@ export const useProps = (_params) => {
     if (!notiIntervalId) {
       const intervalId = setInterval(() => {
         try {
-          SoundPlayer.playSoundFile("harmony_short", "mp3");
+          SoundPlayer.playSoundFile("harmony_short", "wav");
         } catch (e) {}
       }, 5000);
       dispatch(app?.handleNotifiIntervalId(intervalId));
