@@ -83,11 +83,14 @@
 		43B8129134A943EAAEA9EE01 /* SFProText-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 48C8B9AA32BC47B0B60068B2 /* SFProText-Italic.ttf */; };
 		4B946B66A715420E87C8AEC0 /* SFProDisplay-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F1F668B16E94BA9AEDFB75A /* SFProDisplay-Light.ttf */; };
 		52F3853803564CD6AFA1F543 /* SF Pro Text SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A522A122DD124720AB90C23E /* SF Pro Text SemiBoldItalic.ttf */; };
-		53054DFB27D9BEBD00E515AD /* harmony.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53054DFA27D9BEBD00E515AD /* harmony.mp3 */; };
-		53054DFC27D9BEBD00E515AD /* harmony.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53054DFA27D9BEBD00E515AD /* harmony.mp3 */; };
-		53054DFD27D9BEBD00E515AD /* harmony.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53054DFA27D9BEBD00E515AD /* harmony.mp3 */; };
 		533642CC274BAA0B007CCB7B /* clover.m in Sources */ = {isa = PBXBuildFile; fileRef = 533642CA274BAA0B007CCB7B /* clover.m */; };
 		533642CD274BAA0B007CCB7B /* CloverManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533642CB274BAA0B007CCB7B /* CloverManager.swift */; };
+		53B3EA9F27EC1885004E9E1F /* harmony_short.wav in Resources */ = {isa = PBXBuildFile; fileRef = 53B3EA9D27EC1885004E9E1F /* harmony_short.wav */; };
+		53B3EAA027EC1885004E9E1F /* harmony_short.wav in Resources */ = {isa = PBXBuildFile; fileRef = 53B3EA9D27EC1885004E9E1F /* harmony_short.wav */; };
+		53B3EAA127EC1885004E9E1F /* harmony_short.wav in Resources */ = {isa = PBXBuildFile; fileRef = 53B3EA9D27EC1885004E9E1F /* harmony_short.wav */; };
+		53B3EAA227EC1885004E9E1F /* harmony.wav in Resources */ = {isa = PBXBuildFile; fileRef = 53B3EA9E27EC1885004E9E1F /* harmony.wav */; };
+		53B3EAA327EC1885004E9E1F /* harmony.wav in Resources */ = {isa = PBXBuildFile; fileRef = 53B3EA9E27EC1885004E9E1F /* harmony.wav */; };
+		53B3EAA427EC1885004E9E1F /* harmony.wav in Resources */ = {isa = PBXBuildFile; fileRef = 53B3EA9E27EC1885004E9E1F /* harmony.wav */; };
 		53CBD55727395016002A7DB3 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53CBD55627395016002A7DB3 /* CoreBluetooth.framework */; };
 		53CBD5592739502F002A7DB3 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53CBD5582739502F002A7DB3 /* ExternalAccessory.framework */; };
 		53E26C332754ADC60010E9FD /* clover.m in Sources */ = {isa = PBXBuildFile; fileRef = 533642CA274BAA0B007CCB7B /* clover.m */; };
@@ -104,9 +107,6 @@
 		53E3639E2763140B00B7A40F /* batch.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E36391276097B500B7A40F /* batch.m */; };
 		53E3639F2763141000B7A40F /* libPOSLink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53E3638B2760973800B7A40F /* libPOSLink.a */; };
 		53E363A02763141000B7A40F /* libPOSLink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53E3638B2760973800B7A40F /* libPOSLink.a */; };
-		53FB2D3227E0B1D200BA00A0 /* harmony_short.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53FB2D3127E0B1D200BA00A0 /* harmony_short.mp3 */; };
-		53FB2D3327E0B1D200BA00A0 /* harmony_short.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53FB2D3127E0B1D200BA00A0 /* harmony_short.mp3 */; };
-		53FB2D3427E0B1D200BA00A0 /* harmony_short.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 53FB2D3127E0B1D200BA00A0 /* harmony_short.mp3 */; };
 		5D0B36B7CCB64A1BA827584E /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6AACA0D074D45279AB59577 /* SFProDisplay-Semibold.ttf */; };
 		76B126674CCB4AAF8D5D8537 /* SF Pro Text Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B2429A003E24354B9166F4D /* SF Pro Text Regular.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -182,10 +182,11 @@
 		51A860A8EA1D44A7A3C35C87 /* SF Pro Text BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF Pro Text BoldItalic.ttf"; path = "../src/assets/fonts/SF Pro Text BoldItalic.ttf"; sourceTree = "<group>"; };
 		528225F1AB0A4C0C80C7208C /* SFProText-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-Bold.ttf"; path = "../src/assets/fonts/SFProText-Bold.ttf"; sourceTree = "<group>"; };
 		52CDC51710F74612B957A76F /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
-		53054DFA27D9BEBD00E515AD /* harmony.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = harmony.mp3; sourceTree = "<group>"; };
 		533642C9274BAA0B007CCB7B /* clover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = clover.h; path = clover/clover.h; sourceTree = "<group>"; };
 		533642CA274BAA0B007CCB7B /* clover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = clover.m; path = clover/clover.m; sourceTree = "<group>"; };
 		533642CB274BAA0B007CCB7B /* CloverManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CloverManager.swift; path = clover/CloverManager.swift; sourceTree = "<group>"; };
+		53B3EA9D27EC1885004E9E1F /* harmony_short.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = harmony_short.wav; sourceTree = "<group>"; };
+		53B3EA9E27EC1885004E9E1F /* harmony.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = harmony.wav; sourceTree = "<group>"; };
 		53CBD55627395016002A7DB3 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		53CBD5582739502F002A7DB3 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		53E3635D276096E600B7A40F /* GoogleNewService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleNewService.h; sourceTree = "<group>"; };
@@ -241,7 +242,6 @@
 		53E36394276097BF00B7A40F /* report.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = report.m; sourceTree = "<group>"; };
 		53E36396276097CA00B7A40F /* payment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = payment.h; sourceTree = "<group>"; };
 		53E36397276097CA00B7A40F /* payment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = payment.m; sourceTree = "<group>"; };
-		53FB2D3127E0B1D200BA00A0 /* harmony_short.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = harmony_short.mp3; sourceTree = "<group>"; };
 		5507EF7BCD464D2988033438 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		5B2429A003E24354B9166F4D /* SF Pro Text Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF Pro Text Regular.ttf"; path = "../src/assets/fonts/SF Pro Text Regular.ttf"; sourceTree = "<group>"; };
 		62921B42E61C41FDA9CA6F47 /* SF Pro Text LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF Pro Text LightItalic.ttf"; path = "../src/assets/fonts/SF Pro Text LightItalic.ttf"; sourceTree = "<group>"; };
@@ -527,8 +527,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				53FB2D3127E0B1D200BA00A0 /* harmony_short.mp3 */,
-				53054DFA27D9BEBD00E515AD /* harmony.mp3 */,
+				53B3EA9D27EC1885004E9E1F /* harmony_short.wav */,
+				53B3EA9E27EC1885004E9E1F /* harmony.wav */,
 				53E3635A2760966200B7A40F /* trans */,
 				12ED4E162754D2ED00AD4013 /* Dev */,
 				533642C8274BA9F9007CCB7B /* clover */,
@@ -822,7 +822,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12ED4DFA2754D14300AD4013 /* SF Pro Text BoldItalic.ttf in Resources */,
-				53054DFD27D9BEBD00E515AD /* harmony.mp3 in Resources */,
+				53B3EAA127EC1885004E9E1F /* harmony_short.wav in Resources */,
 				12ED4DFB2754D14300AD4013 /* SF Pro Text Regular.ttf in Resources */,
 				12ED4DFC2754D14300AD4013 /* SF Pro Text Light.ttf in Resources */,
 				12ED4DFD2754D14300AD4013 /* SF Pro Text SemiBold.ttf in Resources */,
@@ -839,10 +839,10 @@
 				12ED4E082754D14300AD4013 /* SF Pro Text LightItalic.ttf in Resources */,
 				12ED4E092754D14300AD4013 /* SFProDisplay-Semibold.ttf in Resources */,
 				12ED4E0A2754D14300AD4013 /* SF Pro Text MediumItalic.ttf in Resources */,
-				53FB2D3427E0B1D200BA00A0 /* harmony_short.mp3 in Resources */,
 				12ED4E0B2754D14300AD4013 /* GoogleService-Info.plist in Resources */,
 				12ED4E0C2754D14300AD4013 /* SFProDisplay-Light.ttf in Resources */,
 				12ED4E0D2754D14300AD4013 /* SF Pro Text RegularItalic.ttf in Resources */,
+				53B3EAA427EC1885004E9E1F /* harmony.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -860,15 +860,15 @@
 				12F22A6FFD2242FC92BA3B94 /* SF Pro Text Bold.ttf in Resources */,
 				FE377ABC36174A298B1A3F66 /* SF Pro Text BoldItalic.ttf in Resources */,
 				BCBE66D0A68C4E91A37B6617 /* SF Pro Text Heavy.ttf in Resources */,
-				53FB2D3227E0B1D200BA00A0 /* harmony_short.mp3 in Resources */,
 				DB0DB8DA437B4D139745074B /* SF Pro Text HeavyItalic.ttf in Resources */,
 				1BD6DA882AAC4429A06FAD6D /* SF Pro Text Light.ttf in Resources */,
+				53B3EA9F27EC1885004E9E1F /* harmony_short.wav in Resources */,
 				8478560867464D71A4FA78BD /* SF Pro Text LightItalic.ttf in Resources */,
 				FCA607EEA8DA4EFABBE12212 /* SF Pro Text Medium.ttf in Resources */,
 				25C8ECFB5AC54F9590FB0E6C /* SF Pro Text MediumItalic.ttf in Resources */,
+				53B3EAA227EC1885004E9E1F /* harmony.wav in Resources */,
 				76B126674CCB4AAF8D5D8537 /* SF Pro Text Regular.ttf in Resources */,
 				08771BA6DA2C40F7A1BF4CCE /* SF Pro Text RegularItalic.ttf in Resources */,
-				53054DFB27D9BEBD00E515AD /* harmony.mp3 in Resources */,
 				8F2D6A000DED404F935DDC61 /* SF Pro Text SemiBold.ttf in Resources */,
 				368CADCF275A233100365393 /* GoogleService-Info.plist in Resources */,
 				52F3853803564CD6AFA1F543 /* SF Pro Text SemiBoldItalic.ttf in Resources */,
@@ -899,7 +899,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				36BD5C6826B2BF12007A91F0 /* SF Pro Text BoldItalic.ttf in Resources */,
-				53054DFC27D9BEBD00E515AD /* harmony.mp3 in Resources */,
+				53B3EAA027EC1885004E9E1F /* harmony_short.wav in Resources */,
 				36BD5C6526B2BF12007A91F0 /* SF Pro Text Regular.ttf in Resources */,
 				36BD5C6126B2BF12007A91F0 /* SF Pro Text Light.ttf in Resources */,
 				36BD5C6726B2BF12007A91F0 /* SF Pro Text SemiBold.ttf in Resources */,
@@ -916,10 +916,10 @@
 				36BD5C6A26B2BF12007A91F0 /* SF Pro Text LightItalic.ttf in Resources */,
 				362C8D5026B247FD00CB63F0 /* SFProDisplay-Semibold.ttf in Resources */,
 				36BD5C5F26B2BF12007A91F0 /* SF Pro Text MediumItalic.ttf in Resources */,
-				53FB2D3327E0B1D200BA00A0 /* harmony_short.mp3 in Resources */,
 				3D7D105A273294B600455370 /* GoogleService-Info.plist in Resources */,
 				362C8D5126B247FD00CB63F0 /* SFProDisplay-Light.ttf in Resources */,
 				36BD5C6026B2BF12007A91F0 /* SF Pro Text RegularItalic.ttf in Resources */,
+				53B3EAA327EC1885004E9E1F /* harmony.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1791,7 +1791,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/trans/sdk",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1935,7 +1935,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/trans/sdk",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -2067,7 +2067,7 @@
 				CODE_SIGN_ENTITLEMENTS = Staging/Staging.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = arm64;
@@ -2184,7 +2184,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/trans/sdk",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.4;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-fembed-bitcode",
@@ -2232,7 +2232,7 @@
 				CODE_SIGN_ENTITLEMENTS = Staging/Staging.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
@@ -2348,7 +2348,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/trans/sdk",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.4;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-fembed-bitcode",
