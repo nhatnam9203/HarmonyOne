@@ -10,6 +10,7 @@ import { axios } from '@shared/services/axiosClient';
 import { dateToFormat } from '@shared/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { findServiceInAnotherAppointment } from "./helper";
+import LottieView from 'lottie-react-native'
 import moment from 'moment';
 
 import {
@@ -257,7 +258,20 @@ const AppointmentList = React.forwardRef(({
             refreshing={isRefresh}
             onRefresh={onRefresh}
             keyExtractor={(item) => item?.appointmentId?.toString() + guid() + 'appointment'}
-            ListEmptyComponent={() => <ListEmptyComponent description={t('No Appointments')} image={images.iconNotFound} />}
+            ListEmptyComponent={
+                () => <ListEmptyComponent
+                    description={t('No Appointments')}
+                    renderLottiewView={() => (
+                        <View style={{ width: 180, height: 180 }}>
+                            <LottieView
+                                source={require('../../../assets/not_found.json')}
+                                autoPlay
+                                loop
+                            />
+                        </View>
+                    )}
+                />
+            }
             ListFooterComponent={() => <View style={{ height: scaleHeight(100) }} />}
         />
     );

@@ -8,6 +8,7 @@ import { CustomActionSheet, TimePicker, CustomImage } from "@shared/components";
 import { useAxiosQuery, getStaffOfService } from "@src/apis";
 import { isEmpty } from "lodash";
 import { useSelector } from "react-redux";
+import LottieView from 'lottie-react-native'
 import moment from "moment";
 
 
@@ -19,6 +20,7 @@ let InputStaff = React.forwardRef(({
     itemSelected,
     onSelect = () => { },
     serviceId,
+    txtNoStaff = "There is no staff avaiable"
 }, ref) => {
 
     const actionSheetRef = React.useRef();
@@ -148,47 +150,60 @@ let InputStaff = React.forwardRef(({
                                     <ActivityIndicator size="large" color={colors.ocean_blue} />
                                 </View>
                                 :
-                                dataList.map((it) => (
-                                    <TouchableOpacity
-                                        key={it?.staffId + "select staff"}
-                                        onPress={() => selectValue(it)}
-                                        style={[
-                                            styles.row,
-                                            {
-                                                backgroundColor: itemSelected === it?.staffId ? colors.ocean_blue : "transparent",
-                                                padding: scaleWidth(16),
-                                                marginHorizontal: 0,
-                                            }
-                                        ]}
-                                    >
-                                        {
-                                            isEmpty(it?.imageUrl) ?
-                                                <CustomImage
-                                                    style={styles.avatar}
-                                                    source={images.staff_default}
-                                                    resizeMode="cover"
-                                                /> :
-                                                <CustomImage
-                                                    style={styles.avatar}
-                                                    source={{
-                                                        uri: it?.imageUrl,
-                                                        priority: 'normal',
-                                                    }}
-                                                    resizeMode="cover"
-                                                />
-                                        }
-
-                                        <Text style={[
-                                            styles.itemText, {
-                                                color: itemSelected === it?.staffId ? "white" : "#333",
-                                                fontFamily: itemSelected === it?.staffId ? fonts.BOLD : fonts.REGULAR,
-                                                marginTop: 0
-                                            }
-                                        ]}>
-                                            {it?.displayName}
+                                dataList?.length > 0 ?
+                                    <View style={styles.wrapNotFound}>
+                                        <View style={{ width: 180, height: 180 }}>
+                                            <LottieView
+                                                source={require('../../assets/not_found.json')}
+                                                autoPlay loop
+                                            />
+                                        </View>
+                                        <Text style={styles.txtNoStaff}>
+                                            {txtNoStaff}
                                         </Text>
-                                    </TouchableOpacity>
-                                ))
+                                    </View>
+                                    :
+                                    dataList.map((it) => (
+                                        <TouchableOpacity
+                                            key={it?.staffId + "select staff"}
+                                            onPress={() => selectValue(it)}
+                                            style={[
+                                                styles.row,
+                                                {
+                                                    backgroundColor: itemSelected === it?.staffId ? colors.ocean_blue : "transparent",
+                                                    padding: scaleWidth(16),
+                                                    marginHorizontal: 0,
+                                                }
+                                            ]}
+                                        >
+                                            {
+                                                isEmpty(it?.imageUrl) ?
+                                                    <CustomImage
+                                                        style={styles.avatar}
+                                                        source={images.staff_default}
+                                                        resizeMode="cover"
+                                                    /> :
+                                                    <CustomImage
+                                                        style={styles.avatar}
+                                                        source={{
+                                                            uri: it?.imageUrl,
+                                                            priority: 'normal',
+                                                        }}
+                                                        resizeMode="cover"
+                                                    />
+                                            }
+
+                                            <Text style={[
+                                                styles.itemText, {
+                                                    color: itemSelected === it?.staffId ? "white" : "#333",
+                                                    fontFamily: itemSelected === it?.staffId ? fonts.BOLD : fonts.REGULAR,
+                                                    marginTop: 0
+                                                }
+                                            ]}>
+                                                {it?.displayName}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    ))
                         }
                     </ScrollView>
                 </View>
@@ -275,6 +290,18 @@ const styles = StyleSheet.create({
         height: scaleWidth(50),
         borderRadius: 3000,
         marginRight: scaleWidth(16)
+    },
+    txtNoStaff: {
+        color: "grey",
+        fontSize: scaleFont(15),
+        marginTop: 10,
+        fontFamily: fonts.REGULAR
+    },
+    wrapNotFound : {
+        justifyContent: "center", 
+        alignItems: "center", 
+        flex: 1, 
+        height: scaleHeight(400)
     }
 });
 

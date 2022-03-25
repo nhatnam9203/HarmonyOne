@@ -14,7 +14,7 @@ let EditButton = ({ ...props }) => {
     <TouchableOpacity {...props}>
       <Image
         source={images.iconMore}
-        style={styles.treedot}
+        style={styles.treedot} 
         resizeMode="contain"
       />
     </TouchableOpacity>
@@ -140,6 +140,7 @@ export const Layout = ({
                               }
                               getServiceDetail(tempItem)
                             }}
+                            txtNoStaff="There is no staff avaiable"
                             renderInput={() => (
                               <ItemService
                                 item={item}

@@ -7,11 +7,16 @@ export const ListEmptyComponent = ({
   image = images.EmptyList,
   containerStyle,
   textStyle,
+  renderLottiewView = null
+
 }) => {
   return (
-    <View style={[styles.container,containerStyle]}>
-      {image && <Image style={styles.imageStyle} source={image} resizeMode='cover' />}
-      {!!description && <Text style={[styles.textStyle,textStyle]}>{description}</Text>}
+    <View style={[styles.container, containerStyle]}>
+      {
+        renderLottiewView ? renderLottiewView() :
+          image ? <Image style={styles.imageStyle} source={image} resizeMode='cover' /> : <View />
+      }
+      {!!description && <Text style={[styles.textStyle, textStyle]}>{description}</Text>}
     </View>
   );
 };
