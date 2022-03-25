@@ -13,8 +13,7 @@ const log = (obj, message = '') => {
 
 log(Configs, 'Configs');
 export const axios = Axios.create({
-  // baseURL: Configs.API_URL,
-  baseURL : `https://api2.harmonypayment.com/api/`,
+  baseURL: Configs.API_URL,
   timeout: 30000,
   headers: {
     Accept: 'application/json',

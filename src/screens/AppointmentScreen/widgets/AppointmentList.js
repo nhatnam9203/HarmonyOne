@@ -249,29 +249,33 @@ const AppointmentList = React.forwardRef(({
         });
     }, [blockTimesVisibile]);
 
+    const tempData = staffSelected == -1 ? appointmentWaitings.filter(app => app?.status == "waiting") : blockTimeSort;
+
+    if (tempData.length == 0) {
+        return (
+            <ListEmptyComponent
+                description={t('No Appointments')}
+                renderLottiewView={() => (
+                    <View style={{ width: 180, height: 180 }}>
+                        <LottieView
+                            source={require('../../../assets/not_found.json')}
+                            autoPlay
+                            loop
+                        />
+                    </View>
+                )}
+            />
+        );
+    };
 
     return (
         <FlatList
             style={styles.flatList}
-            data={staffSelected == -1 ? appointmentWaitings.filter(app => app?.status == "waiting") : blockTimeSort}
+            data={tempData}
             renderItem={({ item }) => <AppointmentItem roleName={roleName} item={item} onChangeAppointmentId={onChangeAppointmentId} />}
             refreshing={isRefresh}
             onRefresh={onRefresh}
             keyExtractor={(item) => item?.appointmentId?.toString() + guid() + 'appointment'}
-            ListEmptyComponent={
-                () => <ListEmptyComponent
-                    description={t('No Appointments')}
-                    renderLottiewView={() => (
-                        <View style={{ width: 180, height: 180 }}>
-                            <LottieView
-                                source={require('../../../assets/not_found.json')}
-                                autoPlay
-                                loop
-                            />
-                        </View>
-                    )}
-                />
-            }
             ListFooterComponent={() => <View style={{ height: scaleHeight(100) }} />}
         />
     );

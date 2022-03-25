@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { colors, fonts, images } from '@shared/themes';
 
-export const ListEmptyComponent = ({
+const EmptyComponent = ({
   description,
   image = images.EmptyList,
   containerStyle,
@@ -20,6 +20,9 @@ export const ListEmptyComponent = ({
     </View>
   );
 };
+
+export const ListEmptyComponent = React.memo(EmptyComponent);
+
 
 const styles = StyleSheet.create({
   container: {
