@@ -189,6 +189,29 @@ export const Layout = ({
               <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                 $ {invoiceDetail?.tax}
               </Text>
+              {
+                invoiceDetail?.taxProductPercent &&
+                <View style={styles.row}>
+                  <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                    {` - Product: ${invoiceDetail?.taxProductPercent}%`}
+                  </Text>
+                  <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                    $ {invoiceDetail?.taxProductAmount}
+                  </Text>
+                </View>
+              }
+              {
+                invoiceDetail?.taxServicePercent &&
+                <View style={styles.row}>
+                  <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                    {` - Service: ${invoiceDetail?.taxServicePercent}%`}
+                  </Text>
+                  <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                    $ {invoiceDetail?.taxServiceAmount}
+                  </Text>
+                </View>
+              }
+              
             </View>
 
             <View style={[styles.row, { justifyContent: "space-between" }]}>
