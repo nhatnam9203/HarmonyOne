@@ -38,7 +38,7 @@ export const Button = ({
       style={[
         styles.button,
         { height: height, width: width },
-        highlight && {
+        highlight && !disabled && {
           backgroundColor: colors.ocean_blue,
           shadowColor: "#000",
           shadowOffset: {
