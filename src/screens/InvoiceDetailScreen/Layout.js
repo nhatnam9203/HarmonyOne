@@ -182,14 +182,43 @@ export const Layout = ({
             </View>
 
 
-            <View style={[styles.row, { justifyContent: "space-between" }]}>
-              <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
-                Tax
-              </Text>
-              <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
-                $ {invoiceDetail?.tax}
-              </Text>
-            </View>
+              
+              {
+                formatNumberFromCurrency(invoiceDetail?.taxProductPercent) > 0 && formatNumberFromCurrency(invoiceDetail?.taxServicePercent) > 0 ?
+               <>
+                  <View style={[styles.row, { justifyContent: "space-between" }]}>
+                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                      {` - Product: ${invoiceDetail?.taxProductPercent}%`}
+                    </Text>
+                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                      $ {invoiceDetail?.taxProductAmount}
+                    </Text>
+                  
+                  </View>
+                  <View style={[styles.row, { justifyContent: "space-between" }]}>
+                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                      {` - Service: ${invoiceDetail?.taxServicePercent}%`}
+                    </Text>
+                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                      $ {invoiceDetail?.taxServiceAmount}
+                    </Text>
+                 </View>
+               </>
+                :
+                <View style={[styles.row, { justifyContent: "space-between" }]}>
+                  <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                    {
+                      formatNumberFromCurrency(invoiceDetail?.taxProductPercent) > 0 || formatNumberFromCurrency(invoiceDetail?.taxServicePercent) > 0
+                      ? `Tax (${formatNumberFromCurrency(invoiceDetail?.taxProductPercent) || formatNumberFromCurrency(invoiceDetail?.taxServicePercent)} %)`
+                      : "Tax"
+                    }
+                  </Text>
+                  <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                    $ {invoiceDetail?.tax}
+                  </Text>
+                </View>
+              }
+              
 
             <View style={[styles.row, { justifyContent: "space-between" }]}>
               <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
