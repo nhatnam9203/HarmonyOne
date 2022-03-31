@@ -34,7 +34,7 @@ export const Layout = ({
           staffList?.length == 0 ?
             <View style={{ flex: 1 }}>
               <ListEmptyComponent
-                description={'There is no staff avaiable.'}
+                description={'No staff available for this service'}
                 renderLottiewView={() => (
                   <View style={{ width: 180, height: 180 }}>
                     <LottieView
