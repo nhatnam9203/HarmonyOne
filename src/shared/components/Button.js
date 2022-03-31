@@ -32,13 +32,15 @@ export const Button = ({
 
   const ButtonRender = Platform.OS == "ios" ? Pressable : TouchableRipple;
 
+  console.log({ disabled })
+
   return (
     <ButtonRender
       onPress={onPress}
       style={[
         styles.button,
         { height: height, width: width },
-        highlight && !disabled && {
+        highlight && {
           backgroundColor: colors.ocean_blue,
           shadowColor: "#000",
           shadowOffset: {
@@ -50,8 +52,9 @@ export const Button = ({
 
           elevation: 5,
         },
-        disabled && buttonDisableStyle,
         styleButton,
+        disabled && { backgroundColor: "#dddddd", borderColor : "transparent"},
+        disabled && buttonDisableStyle,
       ]}
       disabled={disabled || appLoading || isTurnOff}
     >
@@ -63,7 +66,7 @@ export const Button = ({
             fontFamily="medium"
             style={[
               styles.text, highlight && { color: colors.white },
-              disabled && { color: "#CCCCCC" },
+              disabled && { color: "#585858" },
               textDisableStyle,
               styleText,
             ]}
