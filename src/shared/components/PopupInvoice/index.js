@@ -230,6 +230,27 @@ export const PopupInvoice = React.forwardRef(
       if (groupAppointment) return groupAppointment?.tax;
       return 0;
     };
+
+    const getProductTaxPercent = () => {
+      if (groupAppointment) return formatNumberFromCurrency(Number(groupAppointment?.taxProductPercent));
+      return 0;
+    };
+
+    const getProductTax = () => {
+      if (groupAppointment) return groupAppointment?.taxProductAmount;
+      return 0;
+    };
+
+    const getServiceTaxPercent = () => {
+      if (groupAppointment) return formatNumberFromCurrency(Number(groupAppointment?.taxServicePercent));
+      return 0;
+    };
+
+    const getServiceTax = () => {
+      if (groupAppointment) return groupAppointment?.taxServiceAmount;
+      return 0;
+    };
+
     const getTotal = () => {
       if (groupAppointment) return groupAppointment?.total;
       return 0;
@@ -543,15 +564,6 @@ export const PopupInvoice = React.forwardRef(
                               }: ***********${
                                 data?.paymentInformation?.number || ""
                               }</t>
-                              ${data?.paymentInformation?.name ?
-                                `<t>${data?.paymentInformation?.name?.replace(
-                                  /%20/g,
-                                  " "
-                                ).replace(
-                                  /%2f/g,
-                                  " "
-                                )}</t>`: ""
-                              }
                               ${
                                 data?.paymentInformation?.sn
                                 ? `<t>Terminal ID: ${data?.paymentInformation?.sn}</t>`
@@ -567,6 +579,15 @@ export const PopupInvoice = React.forwardRef(
                                   _.get(data, "paymentInformation.signData")
                                 ) ? `<t>Signature: </t>
                                     <img>${data?.paymentInformation?.signData}</img>` : ""
+                              }
+                              ${data?.paymentInformation?.name ?
+                                `<t>${data?.paymentInformation?.name?.replace(
+                                  /%20/g,
+                                  " "
+                                ).replace(
+                                  /%2f/g,
+                                  " "
+                                )}</t>`: ""
                               }
                               ` 
                               : ``
@@ -609,7 +630,14 @@ export const PopupInvoice = React.forwardRef(
       <t>${_.padEnd("Subtotal: ", 15, ".")}${_.padStart(`$${getSubTotal()}`, 9, ".")}</t>
       <t>${_.padEnd("Discount: ", 15, ".")}${_.padStart(`$${getDiscount()}`, 9, ".")}</t>
       <t>${_.padEnd("Tip: ", 15, ".")}${_.padStart(`$${getTipAmount()}`, 9, ".")}</t>
-      <t>${_.padEnd("Tax: ", 15, ".")}${_.padStart(`$${getTax()}`, 9, ".")}</t>
+      ${getProductTaxPercent() > 0 && getServiceTaxPercent() > 0 
+          ? `<t>${_.padEnd("Tax: ", 15, ".")}${_.padStart(`$${getTax()}`, 9, ".")}</t>
+            <t>${_.padEnd(`-Prod Tax:${getProductTaxPercent()}%`, 15, ".")}${_.padStart(`$${getProductTax()}`, 9, ".")}</t>
+            <t>${_.padEnd(`-Serv Tax:${getServiceTaxPercent()}%`, 15, ".")}${_.padStart(`$${getServiceTax()}`, 9, ".")}</t>` 
+
+          :`<t>${_.padEnd(`${getProductTaxPercent() > 0 || getServiceTaxPercent() > 0 
+            ? `Tax(${getProductTaxPercent() || getServiceTaxPercent()}%): ` : "Tax: "}`, 15, ".")}${_.padStart(`$${getTax()}`, 9, ".")}</t>`
+      }
       ${
         getNonCashFee() != 0 &&
         `<t>${_.padEnd("Non-Cash Fee:", 15, ".")}${_.padStart(
@@ -927,12 +955,42 @@ export const PopupInvoice = React.forwardRef(
                     styleTextTitle={styles.fontPrintSubTitleStyle}
                     styleTextValue={styles.fontPrintStyle}
                   />
-                  <TotalView
-                    title={"Tax"}
-                    value={getTax()}
-                    styleTextTitle={styles.fontPrintSubTitleStyle}
-                    styleTextValue={styles.fontPrintStyle}
-                  />
+                   {
+                      getProductTaxPercent() > 0 
+                      && getServiceTaxPercent() > 0 ?
+                      <>
+                        <TotalView
+                          title={"Tax"}
+                          value={getTax()}
+                          styleTextTitle={styles.fontPrintSubTitleStyle}
+                          styleTextValue={styles.fontPrintStyle}
+                        />
+                       <TotalView
+                          title={` - Product Tax: (${getProductTaxPercent()}%)`}
+                          value={getProductTax()}
+                          styleTextTitle={styles.fontPrintSubTitleStyle}
+                          styleTextValue={styles.fontPrintStyle}
+                        />
+                        <TotalView
+                          title={` - Service Tax: (${getServiceTaxPercent()}%)`}
+                          value={getServiceTax()}
+                          styleTextTitle={styles.fontPrintSubTitleStyle}
+                          styleTextValue={styles.fontPrintStyle}
+                        />
+                      </>
+                      :
+                      <TotalView
+                        title={getProductTaxPercent() > 0 
+                          || getServiceTaxPercent() > 0 
+                          ? `Tax (${getProductTaxPercent()
+                            || getServiceTaxPercent()}%)` 
+                          : "Tax"}
+                        value={getTax()}
+                        styleTextTitle={styles.fontPrintSubTitleStyle}
+                        styleTextValue={styles.fontPrintStyle}
+                      />
+                    }
+                  
                   {!printTempt && (
                     <>
                       {getNonCashFee() != 0 && (
