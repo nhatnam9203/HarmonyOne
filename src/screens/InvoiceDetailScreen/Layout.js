@@ -184,11 +184,20 @@ export const Layout = ({
 
               
               {
-                formatNumberFromCurrency(invoiceDetail?.taxProductPercent) > 0 && formatNumberFromCurrency(invoiceDetail?.taxServicePercent) > 0 ?
+                formatNumberFromCurrency(invoiceDetail?.taxProductPercent) > 0 
+                && formatNumberFromCurrency(invoiceDetail?.taxServicePercent) > 0 ?
                <>
                   <View style={[styles.row, { justifyContent: "space-between" }]}>
                     <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
-                      {` - Product: ${invoiceDetail?.taxProductPercent}%`}
+                      Tax
+                    </Text>
+                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                    $ {invoiceDetail?.tax}
+                    </Text>
+                  </View>
+                  <View style={[styles.row, { justifyContent: "space-between" }]}>
+                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
+                      {` - Product Tax: ${invoiceDetail?.taxProductPercent}%`}
                     </Text>
                     <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                       $ {invoiceDetail?.taxProductAmount}
@@ -197,7 +206,7 @@ export const Layout = ({
                   </View>
                   <View style={[styles.row, { justifyContent: "space-between" }]}>
                     <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
-                      {` - Service: ${invoiceDetail?.taxServicePercent}%`}
+                      {` - Service Tax: ${invoiceDetail?.taxServicePercent}%`}
                     </Text>
                     <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                       $ {invoiceDetail?.taxServiceAmount}
@@ -208,7 +217,8 @@ export const Layout = ({
                 <View style={[styles.row, { justifyContent: "space-between" }]}>
                   <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                     {
-                      formatNumberFromCurrency(invoiceDetail?.taxProductPercent) > 0 || formatNumberFromCurrency(invoiceDetail?.taxServicePercent) > 0
+                      formatNumberFromCurrency(invoiceDetail?.taxProductPercent) > 0 
+                      || formatNumberFromCurrency(invoiceDetail?.taxServicePercent) > 0
                       ? `Tax (${formatNumberFromCurrency(invoiceDetail?.taxProductPercent) || formatNumberFromCurrency(invoiceDetail?.taxServicePercent)} %)`
                       : "Tax"
                     }
