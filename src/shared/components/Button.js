@@ -32,7 +32,7 @@ export const Button = ({
 
   const ButtonRender = Platform.OS == "ios" ? Pressable : TouchableRipple;
 
-  console.log({ disabled })
+  const isHighLight = (highlight && !disabled) ? true : false;
 
   return (
     <ButtonRender
@@ -40,7 +40,7 @@ export const Button = ({
       style={[
         styles.button,
         { height: height, width: width },
-        highlight && {
+        isHighLight && {
           backgroundColor: colors.ocean_blue,
           shadowColor: "#000",
           shadowOffset: {
