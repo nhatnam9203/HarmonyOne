@@ -37,8 +37,6 @@ export const Layout = ({
           width="100%"
           highlight={true}
           disabled={merchantID?.length < 4 || !merchantID}
-          buttonDisableStyle={(merchantID?.length < 4 || !merchantID) ? styles.buttonDisableStyle : null}
-          textDisableStyle={(merchantID?.length < 4 || !merchantID) ? styles.textDisableStyle : null}
           isLoading={isLoading}
           onPress={loginMerchant}
         />

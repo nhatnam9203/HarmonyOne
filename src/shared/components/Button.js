@@ -32,13 +32,15 @@ export const Button = ({
 
   const ButtonRender = Platform.OS == "ios" ? Pressable : TouchableRipple;
 
+  const isHighLight = (highlight) ? true : false;
+
   return (
     <ButtonRender
       onPress={onPress}
       style={[
         styles.button,
         { height: height, width: width },
-        highlight && !disabled && {
+        isHighLight && {
           backgroundColor: colors.ocean_blue,
           shadowColor: "#000",
           shadowOffset: {
@@ -50,8 +52,9 @@ export const Button = ({
 
           elevation: 5,
         },
-        disabled && buttonDisableStyle,
         styleButton,
+        disabled && { opacity : 0.5},
+        disabled && buttonDisableStyle,
       ]}
       disabled={disabled || appLoading || isTurnOff}
     >
@@ -60,10 +63,8 @@ export const Button = ({
           <ActivityIndicator size={'small'} color="white" />
         ) : (
           <Text
-            fontFamily="medium"
             style={[
               styles.text, highlight && { color: colors.white },
-              disabled && { color: "#CCCCCC" },
               textDisableStyle,
               styleText,
             ]}

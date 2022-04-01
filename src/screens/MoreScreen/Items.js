@@ -111,17 +111,17 @@ export const itemsRoleManagerAdmin = [
     }
   },
   {
-    title: "Settings",
-    icon: images.iconSetting,
-    onPress: () => {
-      NavigationService.navigate(screenNames.SettingScreen)
-    }
-  },
-  {
     title: "Advanced",
     icon: images.advancedSetting,
     onPress: () => {
       NavigationService.navigate(screenNames.SettingAdvancedScreen)
+    }
+  },
+  {
+    title: "Settings",
+    icon: images.iconSetting,
+    onPress: () => {
+      NavigationService.navigate(screenNames.SettingScreen)
     }
   },
 ]

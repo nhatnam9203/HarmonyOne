@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import { colors, fonts } from "@shared/themes";
-import { Button } from "@shared/components";
+import { Button, ListEmptyComponent } from "@shared/components";
 import { HeaderBooking } from "../../widgets";
 import { StaffItem } from "./StaffItem";
-import CheckBox from "@react-native-community/checkbox"
+import CheckBox from "@react-native-community/checkbox";
+import LottieView from "lottie-react-native";
 
 export const Layout = ({
   staffList,
@@ -29,16 +30,34 @@ export const Layout = ({
         title={'Select Staff'}
       />
       <View style={styles.content}>
-        <FlatList
-          data={staffList}
-          keyExtractor={(item) => item?.staffId?.toString() + "staffAvailable "}
-          renderItem={({ item }) =>
-            <StaffItem
-              selectStaff={() => selectStaff(item)}
-              item={item}
+        {
+          staffList?.length == 0 ?
+            <View style={{ flex: 1 }}>
+              <ListEmptyComponent
+                description={'No staff available for this service'}
+                renderLottiewView={() => (
+                  <View style={{ width: 180, height: 180 }}>
+                    <LottieView
+                      source={require('../../../../assets/not_found.json')}
+                      autoPlay
+                      loop
+                    />
+                  </View>
+                )}
+              />
+            </View> :
+            <FlatList
+              data={staffList}
+              keyExtractor={(item) => item?.staffId?.toString() + "staffAvailable "}
+              renderItem={({ item }) =>
+                <StaffItem
+                  selectStaff={() => selectStaff(item)}
+                  item={item}
+                />
+              }
             />
-          }
-        />
+        }
+
         <View style={styles.bottom}>
           <Button
             label="Next"

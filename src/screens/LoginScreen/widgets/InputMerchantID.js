@@ -89,7 +89,7 @@ export const InputMerchantID = ({ onChangeMID, isLoading, valueMID }) => {
             styles.content,
             {
               fontSize: fontSizeAnimated,
-              fontFamily : fonts.MEDIUM
+              fontFamily : fonts.BOLD
             },
           ]}>
           Enter your Merchant ID

@@ -31,7 +31,10 @@ export const Layout = ({
         <Text
           style={[
             layouts.sf_pt_medium_17_500,
-            { fontSize: scaleFont(20), color: colors.bluegrey },
+            { 
+              fontSize: scaleFont(20), color: colors.bluegrey,
+              fontFamily : fonts.BOLD
+            },
           ]}>
           {t('Enter your PIN code')}
         </Text>
@@ -55,10 +58,8 @@ export const Layout = ({
         <Button
           label={t('Sign In')}
           width="100%"
-          highlight={pinCode?.length === 4}
+          highlight={true}
           disabled={pinCode?.length !== 4}
-          buttonDisableStyle={(pinCode?.length !== 4) ? styles.buttonDisableStyle : null}
-          textDisableStyle={(pinCode?.length !== 4) ? styles.textDisableStyle : null}
           isLoading={isLoading}
           onPress={loginStaff}
         />
