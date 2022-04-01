@@ -912,6 +912,19 @@ export const changeStatustransaction = (checkoutId, data) => ({
   }
 });
 
+export const voidRefundPaymentTransaction = (paymentTransactionId, status, responseData = "", paymentTerminal) => ({
+  queryId: 'voidRefundPaymentTransaction',
+  params: {
+    url: `checkout/voidrefundpayment/${paymentTransactionId}`,
+    method: 'PUT',
+    data: {
+      responseData,
+      isSuccess: status,
+      paymentTerminal,
+    },
+  }
+});
+
 export const getCustomerCanbeSendPromotion = (merchantPromotionId, merchantId) => ({
   queryId: 'canbesendpromotion',
   params: {

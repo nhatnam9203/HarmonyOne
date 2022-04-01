@@ -12,7 +12,8 @@ import {
   changeStatustransaction,
   getAppointmentByDate,
   getInvoiceDetail,
-  getAppointmentById
+  getAppointmentById,
+  voidRefundPaymentTransaction,
 } from '@src/apis';
 import { dateToFormat, 
   PaymentTerminalType, 
@@ -26,7 +27,7 @@ import { appointment, invoice } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService'
 import RNFetchBlob from "rn-fetch-blob";
 import Share from "react-native-share";
-import _ from "lodash";
+import _ from 'lodash';
 import { useTranslation } from "react-i18next";
 import {
   requestTransactionDejavoo,
@@ -68,13 +69,23 @@ export const useProps = (props) => {
      },
   } = useSelector(state => state);
 
+  const [, submitVoidRefundPaymentTransaction] = useAxiosMutation({
+    ...voidRefundPaymentTransaction(),
+    onSuccess: (data, response) => {
+      
+    },
+  });
+
   const [, submitChangeStatusTransaction] = useAxiosMutation({
     ...changeStatustransaction(),
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(invoice.updateStatusInvoiceSuccess(invoiceDetail));
         // NavigationService.back();
-        popupConfirmPrintRef?.current?.show();
+        setTimeout(()=> {
+          popupConfirmPrintRef?.current?.show();
+        }, 200)
+        
         setIsDisabledButtonRefund(true);
         fetchInvoiceDetail();
         if(isAppointmentDetail){
@@ -273,6 +284,146 @@ export const useProps = (props) => {
         submitChangeStatusTransaction(body.params);
       }
     });
+  };
+
+  const handleVoidRefundMultipay = async (paymentData, index) => {
+    const method = _.get(paymentData, "paymentData.method");
+    const paymentInformation = paymentData?.responseData;
+
+      if (paymentMachineType == PaymentTerminalType.Clover) {
+        //TODO: will change later
+        return false;
+      } else if (paymentMachineType == PaymentTerminalType.Dejavoo) {
+        if (method != "Dejavoo") {
+          popupProcessingRef?.current?.hide();
+          alert(t("Your transaction is invalid"));
+          return;
+        }
+        const amount = _.get(paymentData, "amount");
+        if (index > 0) {
+          //payment terminal need more time for the previous transaction completed
+          await performTimeConsumingTask(10000);
+        }
+        const transType = invoiceDetail?.status === "paid" ? "Return" : "Void"
+
+        return new Promise((resolve) => {
+          parseString(paymentInformation, (err, result) => {
+            if (err) {
+              resolve(false);
+            } else {
+              const transactionId = _.get(result, "xmp.response.0.RefId.0");
+              const invNum = _.get(result, "xmp.response.0.InvNum.0");
+              const params = {
+                tenderType: "Credit",
+                transType,
+                amount: parseFloat(amount).toFixed(2),
+                RefId: transactionId,
+                invNum: `${invNum}`,
+                dejavooMachineInfo,
+              };
+
+              let status = true;
+
+              requestTransactionDejavoo(params).then((responses) => {
+                parseString(responses, (err, result) => {
+                  if (
+                    err ||
+                    _.get(result, "xmp.response.0.ResultCode.0") != 0
+                  ) {
+                    status = false;
+                  } else {
+                    status = true;
+                  }
+                });
+
+                const body = voidRefundPaymentTransaction(paymentData?.paymentTransactionId,
+                  status,
+                  responses,
+                  "dejavoo");
+                submitVoidRefundPaymentTransaction(body.params);
+                resolve(status);
+              });
+            }
+          });
+        });
+      } else {
+        //Pax
+        if (method != "Pax") {
+          popupProcessingRef?.current?.hide();
+          alert(t("Your transaction is invalid"));
+          return;
+        }
+
+        const { 
+          ip, 
+          port, 
+          commType,
+          bluetoothAddr, 
+          isSetup 
+        } = paxMachineInfo;
+        const amount = paymentInformation?.ApprovedAmount || 0;
+        const transactionId = paymentInformation?.RefNum || 0;
+        const extData = paymentInformation?.ExtData || "";
+        const invNum = paymentInformation?.InvNum || "";
+        const tempIpPax = commType == "TCP" ? ip : "";
+        const tempPortPax = commType == "TCP" ? port : "";
+        const idBluetooth = commType === "TCP" ? "" : bluetoothAddr;
+
+        if (index > 0) {
+          await performTimeConsumingTask(5000);
+        }
+
+        const transType = invoiceDetail?.status === "paid" ? "RETURN" : "VOID"
+
+        if(invoiceDetail?.status === "complete") {
+          setInputTransactionId(
+            transactionId
+          );
+        }
+       
+        return new Promise((resolve) => {
+          let status = true;
+          PosLink.sendTransaction(
+            {
+              tenderType: "CREDIT",
+              transType,
+              amount: invoiceDetail?.status === "complete" ? "" : `${parseFloat(amount)}`,
+              transactionId: transactionId,
+              extData: extData,
+              commType: commType,
+              destIp: tempIpPax,
+              portDevice: tempPortPax,
+              timeoutConnect: "90000",
+              bluetoothAddr: idBluetooth,
+              invNum: `${invNum}`,
+            },
+            (data) => {
+              setInputTransactionId(null);
+              const dataJSon = JSON.parse(data);
+              if (dataJSon?.ResultCode === "000000") {
+                status = true;
+              } else {
+                status = false;
+              }
+              const body = voidRefundPaymentTransaction(paymentData?.paymentTransactionId,
+                status,
+                data,
+                "pax");
+              submitVoidRefundPaymentTransaction(body.params);
+              
+              resolve(status);
+            }
+          );
+        });
+      }
+  }
+
+  const performTimeConsumingTask = async (timeOut) => {
+    return new Promise((resolve) =>
+      setTimeout(() => {
+        resolve("result");
+      }, timeOut)
+    );
   };
 
   const handleVoidRefundCreditCard = () => {
@@ -525,7 +676,37 @@ export const useProps = (props) => {
     isDisabledButtonRefund,
     
     voidRefundInvoice: async () => {
-      if (invoiceDetail?.paymentMethod !== "credit_card") {
+      if (invoiceDetail?.paymentMethod == "credit_card") {
+        handleVoidRefundCreditCard();
+      } else if (invoiceDetail?.paymentMethod == "multiple") {
+        popupProcessingRef?.current?.show();
+        for (let i = 0; i < invoiceDetail?.paymentInformation.length; i++) {
+          const paymentInformation = invoiceDetail?.paymentInformation[i];
+          if (paymentInformation?.checkoutPaymentStatus == "paid") {
+            let status = true;
+  
+            status = await handleVoidRefundMultipay(paymentInformation, i);
+            if (!status) {
+              popupProcessingRef?.current?.hide();
+              setTimeout(() => {
+                alert("Error");
+              }, 300);
+              return;
+            }
+          }
+        }
+
+        const data = {
+          responseData: {},
+          paymentTerminal: paymentMachineType.toLowerCase(),
+          sn: null,
+        };
+
+        popupProcessingRef?.current?.hide();
+        const body = await changeStatustransaction(invoiceDetail?.checkoutId, data);
+        submitChangeStatusTransaction(body.params);
+  
+      }else {
         const data = {
           responseData: {},
           paymentTerminal: null,
@@ -533,8 +714,6 @@ export const useProps = (props) => {
         };
         const body = await changeStatustransaction(invoiceDetail?.checkoutId, data);
         submitChangeStatusTransaction(body.params);
-      } else {
-        handleVoidRefundCreditCard();
       }
     },
 
