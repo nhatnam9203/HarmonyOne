@@ -64,7 +64,8 @@ export const Button = ({
         ) : (
           <Text
             style={[
-              styles.text, highlight && { color: colors.white },
+              styles.text, 
+              highlight && { color: colors.white },
               textDisableStyle,
               styleText,
             ]}
@@ -88,8 +89,8 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    ...textStyles.sf_pt_medium_500,
+    fontSize : scaleFont(17),
     color: colors.ocean_blue,
-    fontFamily: fonts.MEDIUM
+    fontFamily: fonts.BOLD_PRO
   },
 });
