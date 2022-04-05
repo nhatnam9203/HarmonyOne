@@ -20,7 +20,7 @@ let InputStaff = React.forwardRef(({
     itemSelected,
     onSelect = () => { },
     serviceId,
-    txtNoStaff = "There is no staff avaiable"
+    txtNoStaff = "There is no staff available"
 }, ref) => {
 
     const actionSheetRef = React.useRef();

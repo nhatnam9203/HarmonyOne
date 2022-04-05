@@ -140,7 +140,7 @@ export const Layout = ({
                               }
                               getServiceDetail(tempItem)
                             }}
-                            txtNoStaff="There is no staff avaiable"
+                            txtNoStaff="There is no staff available"
                             renderInput={() => (
                               <ItemService
                                 item={item}
