@@ -525,7 +525,6 @@ export const useProps = (props) => {
         };
         // Send Trans to pax
         PosLink.sendTransaction(parameter, (message) => {
-          console.log('message', message)
           handleResponseCreditCardPax(
             message,
             true,
@@ -587,7 +586,6 @@ export const useProps = (props) => {
     popupPayProcessingRef?.current?.hide();
     try {
       const result = JSON.parse(message);
-      console.log('result', result)
       if (result.ResultCode && result.ResultCode == "000000") {
         const body = await submitPaymentWithCreditCard(staff?.merchantId || 0,
           message,
@@ -737,8 +735,8 @@ export const useProps = (props) => {
     setTimeout(() => {
       setConnectionSignalR(null);
     }, 300);
-
-    if ((paymentMachineType === PaymentTerminalType.Pax && !portName)) {
+    if ((paymentMachineType === PaymentTerminalType.Pax && !portName) 
+        || (paymentMachineType === PaymentTerminalType.Dejavoo && !_.get(dejavooMachineInfo, "isSetup"))) {
       backToHome();
 
       setTimeout(() => {

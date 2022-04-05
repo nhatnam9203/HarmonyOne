@@ -711,8 +711,8 @@ export const PopupInvoice = React.forwardRef(
             printerSelect
           );
 
-          if (!portName
-            && machineType == PaymentTerminalType.Pax) {
+          if ((!portName && machineType == PaymentTerminalType.Pax) || 
+          (machineType == PaymentTerminalType.Dejavoo && !_.get(dejavooMachineInfo, "isSetup"))) {
             onCancel(isPrintTempt);
             alert("Please connect to your printer!");
             return;
@@ -1133,17 +1133,6 @@ export const PopupInvoice = React.forwardRef(
                               </Text>
                               <Text style={[styles.fontPrintStyle]}>
                                 {`    ${
-                                  data?.paymentInformation?.name?.replace(
-                                    /%20/g,
-                                    " "
-                                  ).replace(
-                                    /%2f/g,
-                                    " "
-                                  ) || ""
-                                }`}
-                              </Text>
-                              <Text style={[styles.fontPrintStyle]}>
-                                {`    ${
                                   data?.paymentInformation?.sn
                                     ? `Terminal ID: ${data?.paymentInformation?.sn}`
                                     : ""
@@ -1172,6 +1161,18 @@ export const PopupInvoice = React.forwardRef(
                                   />
                                 </View>
                               )}
+                              
+                              <Text style={[styles.fontPrintStyle]}>
+                                {`    ${
+                                  data?.paymentInformation?.name?.replace(
+                                    /%20/g,
+                                    " "
+                                  ).replace(
+                                    /%2f/g,
+                                    " "
+                                  ) || ""
+                                }`}
+                              </Text>
                             </View>
                           ) : null
                           }

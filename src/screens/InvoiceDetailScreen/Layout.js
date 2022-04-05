@@ -16,6 +16,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import NavigationService from '@navigation/NavigationService';
 import ViewShot from "react-native-view-shot";
 import moment from "moment";
+import _ from "lodash";
 
 const switchMethodText = (method) => {
 
@@ -126,16 +127,14 @@ export const Layout = ({
             <View style={styles.line} />
 
             <View style={[styles.row]}>
-              <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(145) }]}>
+              <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(150) }]}>
                 Description
               </Text>
 
-              <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(74) }]}>
-                Price
+              <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(105) }]}>
+                Staff
               </Text>
-              <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(50) }]}>
-                Qty
-              </Text>
+
               <Text style={[styles.text, { fontFamily: fonts.BOLD, width: scaleWidth(74), textAlign: "right" }]}>
                 Total
               </Text>
@@ -152,12 +151,10 @@ export const Layout = ({
                       </Text>
                     </View>
 
-                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(74) }]}>
-                      $ {item?.price}
+                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(105) }]}>
+                      {item.staff?.displayName ?? ""}
                     </Text>
-                    <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(34) }]}>
-                      {(!item?.bookingServiceId && !item?.bookingExtraId) ? item?.qty : ""}
-                    </Text>
+                    
                     <Text style={[styles.text, { fontFamily: fonts.BOLD, width: scaleWidth(88), zIndex: 99999, textAlign: "right" }]}>
                       $ {formatMoney(itemPrice)}
                     </Text>
@@ -271,7 +268,6 @@ export const Layout = ({
               </View>
             }
             
-
             <View style={[styles.row, { justifyContent: "space-between" }]}>
               <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                 Total
@@ -297,7 +293,62 @@ export const Layout = ({
                     <Text style={[styles.text, { fontFamily: fonts.MEDIUM, marginLeft: scaleWidth(16) }]}>
                       $ {pay?.amount}
                     </Text>
+                   
                   </View>
+                  {(pay.paymentMethod &&
+                            pay.paymentMethod === "credit_card") ||
+                          pay.paymentMethod === "debit_card" ? (
+                            <View style={{ marginTop: scaleHeight(5) }}>
+                              <Text style={[styles.fontPrintStyle]}>
+                                {`    ${
+                                  pay?.paymentInformation?.type || ""
+                                }: ***********${
+                                  pay?.paymentInformation?.number || ""
+                                }`}
+                              </Text>
+                              <Text style={[styles.fontPrintStyle]}>
+                                {`    ${
+                                  pay?.paymentInformation?.sn
+                                    ? `Terminal ID: ${pay?.paymentInformation?.sn}`
+                                    : ""
+                                }`}
+                              </Text>
+                              <Text style={[styles.fontPrintStyle]}>
+                                {`    ${
+                                  pay?.paymentInformation?.refNum
+                                    ? `Transaction #: ${pay?.paymentInformation?.refNum}`
+                                    : ""
+                                }`}
+                              </Text>
+
+                              {_.get(pay, "paymentInformation.signData") && (
+                                <View style={styles.rowSignature}>
+                                  <Text style={[styles.fontPrintStyle]}>
+                                    {"    Signature: "}
+                                  </Text>
+                                  <Image
+                                    style={styles.signImage}
+                                    source={{
+                                      uri: `data:image/png;base64,${pay?.paymentInformation?.signData}`,
+                                    }}
+                                  />
+                                </View>
+                              )}
+                              
+                              <Text style={[styles.fontPrintStyle]}>
+                                {`    ${
+                                  pay?.paymentInformation?.name?.replace(
+                                    /%20/g,
+                                    " "
+                                  ).replace(
+                                    /%2f/g,
+                                    " "
+                                  ) || ""
+                                }`}
+                              </Text>
+                            </View>
+                          ) : null
+                          }
                 </>
               ))
             }
@@ -467,5 +518,19 @@ const styles = StyleSheet.create({
   bottom: {
     padding: scaleWidth(16),
     width: scaleWidth(375),
+  },
+  rowSignature: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  fontPrintStyle: {
+    color: "#000",
+    fontSize: scaleFont(14),
+    textAlign: "left",
+  },
+  signImage: {
+    width: scaleWidth(100),
+    height: scaleHeight(40),
+    resizeMode: "contain",
   },
 });
