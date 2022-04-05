@@ -20,7 +20,8 @@ let InputStaff = React.forwardRef(({
     itemSelected,
     onSelect = () => { },
     serviceId,
-    txtNoStaff = "There is no staff available"
+    txtNoStaff = "There is no staff available",
+    isAnyStaff = false,
 }, ref) => {
 
     const actionSheetRef = React.useRef();
@@ -77,12 +78,16 @@ let InputStaff = React.forwardRef(({
                 const workingTimes = staff?.workingTimes || {};
                 for (let [key, value] of Object.entries(workingTimes)) {
                     if ((key == dayName) && (value?.isCheck == true)) {
-                        const nextStartTime = calculateNextStartTime();
-                        if (
-                            !moment(appointmentEdit.fromTime).isBefore(moment(value?.timeStart, ['hh:mm A'])) &&
-                            !moment(nextStartTime).isAfter(moment(value?.timeEnd, ['hh:mm A']))
-                        ) {
+                        if (isAnyStaff) {
                             listStaff.push(staffResponse[i]);
+                        } else {
+                            const nextStartTime = calculateNextStartTime();
+                            if (
+                                !moment(appointmentEdit.fromTime).isBefore(moment(value?.timeStart, ['hh:mm A'])) &&
+                                !moment(nextStartTime).isAfter(moment(value?.timeEnd, ['hh:mm A']))
+                            ) {
+                                listStaff.push(staffResponse[i]);
+                            }
                         }
                     }
                 }
@@ -150,7 +155,7 @@ let InputStaff = React.forwardRef(({
                                     <ActivityIndicator size="large" color={colors.ocean_blue} />
                                 </View>
                                 :
-                                dataList?.length > 0 ?
+                                dataList?.length == 0 ?
                                     <View style={styles.wrapNotFound}>
                                         <View style={{ width: 180, height: 180 }}>
                                             <LottieView
@@ -297,10 +302,10 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontFamily: fonts.REGULAR
     },
-    wrapNotFound : {
-        justifyContent: "center", 
-        alignItems: "center", 
-        flex: 1, 
+    wrapNotFound: {
+        justifyContent: "center",
+        alignItems: "center",
+        flex: 1,
         height: scaleHeight(400)
     }
 });

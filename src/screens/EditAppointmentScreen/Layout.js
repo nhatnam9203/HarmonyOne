@@ -207,9 +207,10 @@ export const Layout = ({
                                   </Text>
                                   <InputSelectStaff
                                     items={staffListByMerchant.filter(staff => staff?.isDisabled == 0)}
-                                    itemSelected={data?.item?.staffId}
+                                    itemSelected={data?.item?.staffId == 0 ? 3 : data?.item?.staffId}
                                     serviceId={data?.item?.serviceId}
                                     onSelect={(staffId) => changeStaffService(staffId, data?.item?.serviceId)}
+                                    isAnyStaff={data?.item?.staffId == 0}
                                     renderInput={() => (
                                       <View style={styles.inputSelectTime}>
                                         <Text style={styles.serviceFromtime}>

@@ -160,6 +160,7 @@ export const Layout = ({
               itemSelected={3}
               serviceId={appointmentItem?.services[0]?.serviceId}
               onSelect={(staffId) => { assignOtherStaff(staffId) }}
+              isAnyStaff={true}
               renderInput={() => (
                 <View style={styles.buttonArrow}>
                   <Text style={[styles.txtAppointmentAnyStaff, { color: "white", fontFamily: fonts.BOLD }]}>

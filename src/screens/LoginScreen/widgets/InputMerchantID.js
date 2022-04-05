@@ -128,9 +128,6 @@ const styles = StyleSheet.create({
 
   textInput: {
     fontFamily: fonts.REGULAR,
-    fontWeight: 'normal',
-    fontStyle: 'normal',
-    letterSpacing: -0.36,
     textAlign: 'center',
     fontSize: scaleFont(15),
     color: colors.bluegrey,
