@@ -43,6 +43,7 @@ import { ItemHeaderReceipt, ItemReceipt } from "./ItemReceipt";
 import { TotalView } from "./TotalView";
 import { layouts } from "@shared/themes";
 import _ from 'lodash';
+import Barcode from "@kichiyaki/react-native-barcode-generator";
 
 export const PopupInvoice = React.forwardRef(
   ({ cancelInvoicePrint }, ref) => {
@@ -289,6 +290,16 @@ export const PopupInvoice = React.forwardRef(
       return "Merchant's Receipt";
     };
 
+    const getInvoiceCode = () => {
+      if (invoiceDetail) return invoiceDetail.code;
+      
+      if (groupAppointment?.appointments?.length > 0) {
+        const appointment = groupAppointment?.appointments[0];
+        if (appointment?.code) return appointment?.code;
+      }
+      return null;
+    }
+
     const getInvoiceName = () => {
       let invoiceName = " ";
 
@@ -430,7 +441,7 @@ export const PopupInvoice = React.forwardRef(
               "",
               [
                 {
-                  text: "Cancel",
+                  text: "NO",
                   onPress: onCancel,
                   style: "cancel",
                 },
@@ -1293,6 +1304,15 @@ export const PopupInvoice = React.forwardRef(
                   >
                     {`********* ${getFooterReceipt()} *********`}
                   </Text>
+
+                  {!!getInvoiceCode() && (
+                    <Barcode
+                      format="CODE128"
+                      value={`${getInvoiceCode()}`}
+                      text={`${getInvoiceCode()}`}
+                      height={60}
+                    />
+                  )}
                 </View>
               </ScrollView>
             </View>
