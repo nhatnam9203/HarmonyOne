@@ -1299,6 +1299,7 @@ export const PopupInvoice = React.forwardRef(
                       styles.fontPrintStyle,
                       {
                         alignSelf: "center",
+                        marginBottom: scaleHeight(10),
                       },
                     ]}
                   >

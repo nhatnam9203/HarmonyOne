@@ -321,7 +321,7 @@ export const Layout = ({
                                 }`}
                               </Text>
 
-                              {_.get(pay, "paymentInformation.signData") && (
+                              {!!_.get(pay, "paymentInformation.signData") && (
                                 <View style={styles.rowSignature}>
                                   <Text style={[styles.fontPrintStyle]}>
                                     {"    Signature: "}
