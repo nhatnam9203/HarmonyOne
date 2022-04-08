@@ -84,7 +84,7 @@ export const useProps = (props) => {
         // NavigationService.back();
         setTimeout(()=> {
           popupConfirmPrintRef?.current?.show();
-        }, 200)
+        }, 300)
         
         setIsDisabledButtonRefund(true);
         fetchInvoiceDetail();
@@ -286,7 +286,49 @@ export const useProps = (props) => {
     });
   };
 
-  const handleVoidRefundMultipay = async (paymentData, index) => {
+  const handleVoidRefundClover = async () => {
+    const paymentInformation =
+    invoiceDetail?.paymentInformation[0]?.responseData || {};
+    const method = _.get(
+      invoiceDetail,
+      "paymentInformation.0.paymentData.method"
+    );
+    if (paymentMachineType == PaymentTerminalType.Clover) {
+      if (Platform.OS === 'ios') {
+        if (method != "Clover") {
+          popupProcessingRef?.current?.hide();
+          alert(t("Your transaction is invalid"));
+          return;
+        }
+        const portClover = _.get(cloverMachineInfo, "port")
+          ? _.get(cloverMachineInfo, "port")
+          : 80;
+        const ipClover = _.get(cloverMachineInfo, "ip");
+        const url = `wss://${ipClover}:${portClover}/remote_pay`;
+
+        dispatch(invoice.setIsProcessVoidPaymentClover(true))
+
+        const paymentInfo = {
+          url,
+          remoteAppId: REMOTE_APP_ID,
+          appName: APP_NAME,
+          posSerial: POS_SERIAL,
+          token: _.get(cloverMachineInfo, "token")
+            ? _.get(cloverMachineInfo, "token", "")
+            : "",
+          orderId: paymentInformation?.orderId || "",
+          paymentId: paymentInformation?.id || "",
+        };
+        if (invoiceDetail?.status === "paid") {
+          clover.refundPayment(paymentInfo);
+        } else {
+          clover.voidPayment(paymentInfo);
+        }
+      }
+    }
+  }
+
+  const handleVoidRefundTerminal = async (paymentData, index) => {
     const method = _.get(paymentData, "paymentData.method");
     const paymentInformation = paymentData?.responseData;
 
@@ -297,7 +339,7 @@ export const useProps = (props) => {
         if (method != "Dejavoo") {
           popupProcessingRef?.current?.hide();
           alert(t("Your transaction is invalid"));
-          return;
+          return false;
         }
         const amount = _.get(paymentData, "amount");
         if (index > 0) {
@@ -351,7 +393,7 @@ export const useProps = (props) => {
         if (method != "Pax") {
           popupProcessingRef?.current?.hide();
           alert(t("Your transaction is invalid"));
-          return;
+          return false;
         }
 
         const { 
@@ -426,224 +468,6 @@ export const useProps = (props) => {
     );
   };
 
-  const handleVoidRefundCreditCard = () => {
-      const paymentInformation =
-        invoiceDetail?.paymentInformation[0]?.responseData || {};
-      const method = _.get(
-        invoiceDetail,
-        "paymentInformation.0.paymentData.method"
-      );
-
-      if (!_.isEmpty(paymentInformation)) {
-        popupProcessingRef?.current?.show();
-        
-        if (invoiceDetail?.status === "paid") {
-          if (paymentMachineType == PaymentTerminalType.Dejavoo) {
-            if (method != "Dejavoo") {
-              popupProcessingRef?.current?.hide();
-              alert(t("Your transaction is invalid"));
-              return;
-            }
-            const amount = _.get(
-              invoiceDetail,
-              "paymentInformation.0.amount"
-            );
-
-            parseString(paymentInformation, (err, result) => {
-              if (err) {
-                setTimeout(() => {
-                  alert("Error");
-                }, 300);
-              } else {
-                const transactionId = _.get(result, "xmp.response.0.RefId.0");
-                const invNum = _.get(result, "xmp.response.0.InvNum.0");
-                const params = {
-                  tenderType: "Credit",
-                  transType: "Return",
-                  amount: parseFloat(amount).toFixed(2),
-                  RefId: transactionId,
-                  invNum: `${invNum}`,
-                  dejavooMachineInfo,
-                };
-                requestTransactionDejavoo(params).then((responses) => {
-                  handleResultRefundTransactionDejavoo(responses);
-                });
-              }
-            });
-          } else if (paymentMachineType == PaymentTerminalType.Clover) {
-            if (Platform.OS === 'ios') {
-              if (method != "Clover") {
-                popupProcessingRef?.current?.hide();
-                alert(t("Your transaction is invalid"));
-                return;
-              }
-              const portClover = _.get(cloverMachineInfo, "port")
-                ? _.get(cloverMachineInfo, "port")
-                : 80;
-              const ipClover = _.get(cloverMachineInfo, "ip");
-              const url = `wss://${ipClover}:${portClover}/remote_pay`;
-  
-              dispatch(invoice.setIsProcessVoidPaymentClover(true))
-  
-              const paymentInfo = {
-                url,
-                remoteAppId: REMOTE_APP_ID,
-                appName: APP_NAME,
-                posSerial: POS_SERIAL,
-                token: _.get(cloverMachineInfo, "token")
-                  ? _.get(cloverMachineInfo, "token", "")
-                  : "",
-                orderId: paymentInformation?.orderId || "",
-                paymentId: paymentInformation?.id || "",
-              };
-              clover.refundPayment(paymentInfo);
-            }
-          } else if (paymentMachineType == PaymentTerminalType.Pax) {
-            //Pax
-            if (method != "Pax") {
-              popupProcessingRef?.current?.hide();
-              alert(t("Your transaction is invalid"));
-              return;
-            }
-            const { 
-              ip, 
-              port, 
-              commType,
-              bluetoothAddr, 
-              isSetup 
-            } = paxMachineInfo;
-            const amount = paymentInformation?.ApprovedAmount || 0;
-            const transactionId = paymentInformation?.RefNum || 0;
-            const extData = paymentInformation?.ExtData || "";
-            const invNum = paymentInformation?.InvNum || "";
-            const tempIpPax = commType == "TCP" ? ip : "";
-            const tempPortPax = commType == "TCP" ? port : "";
-            const idBluetooth = commType === "TCP" ? "" : bluetoothAddr;
-
-            PosLink.sendTransaction(
-              {
-                tenderType: "CREDIT",
-                transType: "RETURN",
-                amount: `${parseFloat(amount)}`,
-                transactionId: transactionId,
-                extData: extData,
-                commType: commType,
-                destIp: tempIpPax,
-                portDevice: tempPortPax,
-                timeoutConnect: "90000",
-                bluetoothAddr: idBluetooth,
-                invNum: `${invNum}`,
-              },
-              (data) => handleResultVoidRefundTransactionPax(data)
-            );
-          }
-            
-        } else if (invoiceDetail?.status === "complete") {
-          if (paymentMachineType == PaymentTerminalType.Dejavoo) {
-            if (method != "Dejavoo") {
-              popupProcessingRef?.current?.hide();
-              alert(t("Your transaction is invalid"));
-              return;
-            }
-            const amount = _.get(
-              invoiceDetail,
-              "paymentInformation.0.amount"
-            );
-            parseString(paymentInformation, (err, result) => {
-              if (err) {
-                setTimeout(() => {
-                  alert("Error");
-                }, 300);
-              } else {
-                const transactionId = _.get(result, "xmp.response.0.RefId.0");
-                const invNum = _.get(result, "xmp.response.0.InvNum.0");
-                const params = {
-                  tenderType: "Credit",
-                  transType: "Void",
-                  amount: parseFloat(amount).toFixed(2),
-                  RefId: transactionId,
-                  invNum: `${invNum}`,
-                  dejavooMachineInfo,
-                };
-                requestTransactionDejavoo(params).then((responses) => {
-                  handleResultRefundTransactionDejavoo(responses);
-                });
-              }
-            });
-          } else if (paymentMachineType == PaymentTerminalType.Clover) {
-            if (Platform.OS === 'ios') {
-              if (method != "Clover") {
-                popupProcessingRef?.current?.hide();
-                alert(t("Your transaction is invalid"));
-                return;
-              }
-              const portClover = _.get(cloverMachineInfo, "port") 
-                                ? _.get(cloverMachineInfo, "port") 
-                                : 80;
-              const ipClover = _.get(cloverMachineInfo, "ip");
-
-              const url = `wss://${ipClover}:${portClover}/remote_pay`;
-              dispatch(invoice.setIsProcessVoidPaymentClover(true))
-              const paymentInfo = {
-                url,
-                remoteAppId: REMOTE_APP_ID,
-                appName: APP_NAME,
-                posSerial: POS_SERIAL,
-                token: _.get(cloverMachineInfo, "token")
-                  ? _.get(cloverMachineInfo, "token", "")
-                  : "",
-                orderId: paymentInformation?.orderId || "",
-                paymentId: paymentInformation?.id || "",
-              };
-              clover.voidPayment(paymentInfo);
-            }
-          } else if (paymentMachineType == PaymentTerminalType.Pax) {
-             //Pax
-             if(Platform.OS === "ios") {
-              if (method != "Pax") {
-                popupProcessingRef?.current?.hide();
-                alert(t("Your transaction is invalid"));
-                return;
-              }
-                const { 
-                        ip, 
-                        port, 
-                        commType,
-                        bluetoothAddr, 
-                        isSetup 
-                      } = paxMachineInfo;
-                const transactionId = paymentInformation?.RefNum || 0;
-                const extData = paymentInformation?.ExtData || "";
-                const invNum = paymentInformation?.InvNum || "";
-                const tempIpPax = commType == "TCP" ? ip : "";
-                const tempPortPax = commType == "TCP" ? port : "";
-                const idBluetooth = commType === "TCP" ? "" : bluetoothAddr;
-                setInputTransactionId(
-                  transactionId
-                );
-                
-                PosLink.sendTransaction(
-                  {
-                    tenderType: "CREDIT",
-                    transType: "VOID",
-                    amount: "",
-                    transactionId: transactionId,
-                    extData: extData,
-                    commType: commType,
-                    destIp: tempIpPax,
-                    portDevice: tempPortPax,
-                    timeoutConnect: "90000",
-                    bluetoothAddr: idBluetooth,
-                    invNum: `${invNum}`,
-                  },
-                  (data) => handleResultVoidRefundTransactionPax(data)
-                );
-            }
-          }
-        }
-      }
-  }
-
   let isDebitPayment = false;
   const paymentMethod = invoiceDetail?.paymentMethod || "";
 
@@ -676,36 +500,45 @@ export const useProps = (props) => {
     isDisabledButtonRefund,
     
     voidRefundInvoice: async () => {
-      if (invoiceDetail?.paymentMethod == "credit_card") {
-        handleVoidRefundCreditCard();
-      } else if (invoiceDetail?.paymentMethod == "multiple") {
-        popupProcessingRef?.current?.show();
-        for (let i = 0; i < invoiceDetail?.paymentInformation.length; i++) {
-          const paymentInformation = invoiceDetail?.paymentInformation[i];
-          if (paymentInformation?.checkoutPaymentStatus == "paid") {
-            let status = true;
-  
-            status = await handleVoidRefundMultipay(paymentInformation, i);
-            if (!status) {
-              popupProcessingRef?.current?.hide();
-              setTimeout(() => {
-                alert("Error");
-              }, 300);
-              return;
+      if (invoiceDetail?.paymentMethod == "credit_card" 
+        || invoiceDetail?.paymentMethod == "multiple") {
+        if (paymentMachineType == "Clover") {
+          if (invoiceDetail?.paymentMethod === "credit_card") {
+            handleVoidRefundClover();
+          } else {
+            //To do later
+            setTimeout(() => {
+              alert("Can not void/refund for multiple payment on Clover");
+            }, 300);
+          } 
+        } else {
+          popupProcessingRef?.current?.show();
+          for (let i = 0; i < invoiceDetail?.paymentInformation.length; i++) {
+            const paymentInformation = invoiceDetail?.paymentInformation[i];
+            if (paymentInformation?.checkoutPaymentStatus == "paid") {
+              let status = true;
+    
+              status = await handleVoidRefundTerminal(paymentInformation, i);
+              if (!status) {
+                popupProcessingRef?.current?.hide();
+                setTimeout(() => {
+                  alert("Error");
+                }, 300);
+                return;
+              }
             }
           }
-        }
-
-        const data = {
-          responseData: {},
-          paymentTerminal: paymentMachineType.toLowerCase(),
-          sn: null,
-        };
-
-        popupProcessingRef?.current?.hide();
-        const body = await changeStatustransaction(invoiceDetail?.checkoutId, data);
-        submitChangeStatusTransaction(body.params);
   
+          const data = {
+            responseData: {},
+            paymentTerminal: paymentMachineType.toLowerCase(),
+            sn: null,
+          };
+  
+          popupProcessingRef?.current?.hide();
+          const body = await changeStatustransaction(invoiceDetail?.checkoutId, data);
+          submitChangeStatusTransaction(body.params);
+        }
       }else {
         const data = {
           responseData: {},

@@ -1322,7 +1322,7 @@ export const PopupInvoice = React.forwardRef(
             <View style={styles.buttonContent}>
               <Button
                 backgroundColor="#F1F1F1"
-                label={"CANCEL"}
+                label={"NO"}
                 textColor="#404040"
                 onPress={onCancel}
                 styleText={{fontSize: scaleFont(13)}}

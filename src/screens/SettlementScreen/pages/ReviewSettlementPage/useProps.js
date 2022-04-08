@@ -60,11 +60,13 @@ export const useProps = (props) => {
     ...getSettlementWating(null, paymentMachineType.toLowerCase()),
     queryId: "fetchSettlementWating_WithOutTerminal",
     enabled: false,
-    isLoadingDefault: false,
-    isStopLoading: true,
+    isLoadingDefault: true,
+    timeout: 90000,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         if (response?.data?.total != 0) {
+
+          setTimeout(() => dialogProgressRef?.current?.show(), 200);
           setTimeout(() => {
             const body = {
               terminalId: null,
@@ -214,7 +216,6 @@ export const useProps = (props) => {
           const resultTxt = `${_.get(result, 'xmp.response.0.Message.0')}`
             || "Error";
           // dialogProgressRef?.current?.hide();
-
           setTimeout(() => {
             confirmCloseoutWithoutPaymentTerminal();
           }, 200)
@@ -240,7 +241,7 @@ export const useProps = (props) => {
           token: _.get(cloverMachineInfo, 'token') ? _.get(cloverMachineInfo, 'token', '') : "",
         })
       }
-    } if (paymentMachineType == PaymentTerminalType.Pax
+    } else if (paymentMachineType == PaymentTerminalType.Pax
       && _.get(paxMachineInfo, "isSetup")) {
       const { ip, port, commType, bluetoothAddr, isSetup } = paxMachineInfo;
       const tempIpPax = commType == "TCP" ? ip : "";
@@ -281,27 +282,10 @@ export const useProps = (props) => {
 
   /****************** Functions **************************/
   const confirmCloseoutWithoutPaymentTerminal = () => {
-    if(Platform.OS == "ios"){
-    Alert.alert(
-      'Unable to connect to payment terminal or not found any transaction on your payment terminal, Do you want to continue without payment terminal?',
-      '',
-      [
-        {
-          text: 'Cancel',
-          onPress: () => { dialogProgressRef?.current?.hide(); },
-          style: 'cancel'
-        },
-        {
-          text: 'OK', onPress: async () => {
-            onConfirmCloseoutWithoutPaymentTerminal();
-          }
-        }
-      ],
-      { cancelable: false }
-    );
-    }else{
-      refDialogConfirm?.current?.show(); 
-    }
+        dialogProgressRef?.current?.hide();
+        setTimeout(()=>{
+          refDialogConfirm?.current?.show(); 
+        }, 200)
   }
 
   const onConfirmCloseoutWithoutPaymentTerminal = async() => {

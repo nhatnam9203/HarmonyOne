@@ -116,7 +116,7 @@ export const Layout = ({
 
       {/*********************************** BUTTON CONFIRM  ***********************************/}
       {
-        settlementWaiting?.checkout && settlementWaiting?.checkout.length > 0 &&
+        settlementWaiting?.total != 0 &&
         <View style={styles.bottom}>
           <Button
             label="Confirm"
