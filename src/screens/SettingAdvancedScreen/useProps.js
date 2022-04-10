@@ -1,6 +1,12 @@
 import React from "react";
 import { auth, app } from "@redux/slices";
-import { useAxiosMutation, useAxiosQuery, getAdvanceSetting, editAdvanceSetting } from "@src/apis";
+import { useAxiosMutation, 
+  useAxiosQuery, 
+  getAdvanceSetting, 
+  editAdvanceSetting,
+  merchantSetting,
+  getMerchantById 
+} from "@src/apis";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import NavigationService from '@navigation/NavigationService'
@@ -9,11 +15,14 @@ export const useProps = (_params) => {
   const form = useForm({
 
   });
-
+  const {
+    merchant: { merchantDetail = {} },
+  } = useSelector(state => state);
   const [settingData, setSettingData] = React.useState(null);
   const [IsLoyaltyProgram, setIsLoyaltyProgram] = React.useState(null);
 
   const [IsCashDiscount, setIsCashDiscount] = React.useState(null);
+  const [receiptFooter, setReceiptFooter] = React.useState("");
 
   const dispatch = useDispatch();
   const [, requestGetAdvanceSetting] = useAxiosQuery({
@@ -51,9 +60,32 @@ export const useProps = (_params) => {
     }
   });
 
+  const [, submitEditMerchant] = useAxiosMutation({
+    ...merchantSetting(),
+    queryId: "merchantSetting_general",
+    onSuccess: (data, response) => {
+      if (response?.codeNumber == 200) {
+        fetchMerchantById();
+      }
+    }
+  });
+
+  const [, fetchMerchantById] = useAxiosQuery({
+    ...getMerchantById(staff?.merchantId),
+    queryId: "fetchMerchantById_general",
+    isLoadingDefault: true,
+    enabled: false,
+    onSuccess: (data, response) => {
+      if (response?.codeNumber == 200) {
+        dispatch(merchant.setMerchantDetail(data));
+      }
+    },
+  });
+
 
   React.useEffect(() => {
     requestGetAdvanceSetting();
+    setReceiptFooter(merchantDetail?.receiptFooter)
   }, []);
 
 
@@ -95,6 +127,14 @@ export const useProps = (_params) => {
 
       const body = await editAdvanceSetting(data);
       submitEditAdvanceSetting(body.params);
+
+      const dataMerchant = {
+        ...merchantDetail,
+        receiptFooter,
+      }
+
+      const bodyMerchant = await merchantSetting(dataMerchant);
+      submitMerchantSetting(bodyMerchant.params);
     },
 
     form,
@@ -102,5 +142,7 @@ export const useProps = (_params) => {
     setIsLoyaltyProgram,
     setIsCashDiscount,
     IsCashDiscount,
+    setReceiptFooter,
+    receiptFooter,
   };
 };

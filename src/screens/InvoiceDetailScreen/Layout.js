@@ -17,6 +17,7 @@ import NavigationService from '@navigation/NavigationService';
 import ViewShot from "react-native-view-shot";
 import moment from "moment";
 import _ from "lodash";
+import Barcode from "@kichiyaki/react-native-barcode-generator";
 
 const switchMethodText = (method) => {
 
@@ -352,6 +353,17 @@ export const Layout = ({
                 </>
               ))
             }
+
+            {/* Barcode */}
+            {!!invoiceDetail?.code && (
+              <Barcode
+                format="CODE128"
+                value={`${invoiceDetail?.code}`}
+                text={`${invoiceDetail?.code}`}
+                height={40}
+                style={{marginTop: scaleHeight(20)}}
+              />
+            )}
           </KeyboardAwareScrollView>
         </ViewShot>
       </SingleScreenLayout>

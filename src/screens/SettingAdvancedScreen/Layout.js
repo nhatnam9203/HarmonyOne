@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, StyleSheet, Text, TouchableWithoutFeedback, Keyboard, TextInput } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
@@ -16,6 +16,8 @@ export const Layout = ({
   resetValue,
   IsCashDiscount,
   setIsCashDiscount,
+  setReceiptFooter,
+  receiptFooter
 }) => {
 
   const [t] = useTranslation();
@@ -137,6 +139,40 @@ export const Layout = ({
                   color={colors.ocean_blue}
                 />
               </View>
+
+              {/* --------  Receipt Footer  --------- */}
+            <View style={{ flexDirection: "row", marginTop: scaleHeight(16) }}>
+              <View style={{ width: scaleWidth(180), justifyContent: "center" }}>
+                <Text
+                  style={{
+                    color: "#404040",
+                    fontSize: scaleFont(16),
+                    fontWeight: "600",
+                  }}
+                >
+                  {t("Receipt Footer")}
+                </Text>
+              </View>
+              <View
+                style={{
+                  height: scaleHeight(60),
+                  flex: 1,
+                  borderWidth: 1,
+                  borderColor: "#C5C5C5",
+                  paddingHorizontal: scaleWidth(10),
+                }}
+              >
+                <TextInput
+                  style={{ flex: 1, fontSize: scaleFont(18) }}
+                  placeholder="Receipt footer input here..."
+                  value={receiptFooter}
+                  onChangeText={(value) => {setReceiptFooter(value)} }
+                   
+                  multiline={true}
+                  numberOfLines={3}
+                />
+            </View>
+            </View>
           </View>
         </TouchableWithoutFeedback>
 
