@@ -577,7 +577,7 @@ export const useProps = (props) => {
           isPrintTempt: false,
           machineType: paymentMachineType,
         });
-      }, 300);
+      }, 500);
     },
     cancelInvoicePrint: () => {
     },
