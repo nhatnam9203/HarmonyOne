@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableWithoutFeedback, Keyboard, TextInput } from 'react-native';
+import { View, StyleSheet, Text, TouchableWithoutFeedback, Keyboard, TextInput, ScrollView } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
@@ -7,6 +7,7 @@ import { images } from "@shared/themes/resources";
 import { Switch } from "react-native-paper";
 import NavigationService from '@navigation/NavigationService';
 import { Button, CustomInput, InputText } from "@shared/components";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export const Layout = ({
   onSubmit,
@@ -31,9 +32,9 @@ export const Layout = ({
         containerStyle={{ paddingVertical: 0 }}
       >
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-          <View style={styles.content}>
+          <KeyboardAwareScrollView style={styles.content}>
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-              <Text style={styles.txt}>
+              <Text style={styles.title}>
                 Loyalty program
               </Text>
               <Switch
@@ -130,7 +131,7 @@ export const Layout = ({
 
               {/* Cash discount */}
               <View style={styles.rowView}>
-                <Text style={styles.txt}>
+                <Text style={styles.title}>
                   Apply Cash Discount program
                 </Text>
                 <Switch
@@ -141,39 +142,20 @@ export const Layout = ({
               </View>
 
               {/* --------  Receipt Footer  --------- */}
-            <View style={{ flexDirection: "row", marginTop: scaleHeight(16) }}>
-              <View style={{ width: scaleWidth(180), justifyContent: "center" }}>
-                <Text
-                  style={{
-                    color: "#404040",
-                    fontSize: scaleFont(16),
-                    fontWeight: "600",
-                  }}
-                >
-                  {t("Receipt Footer")}
-                </Text>
-              </View>
-              <View
-                style={{
-                  height: scaleHeight(60),
-                  flex: 1,
-                  borderWidth: 1,
-                  borderColor: "#C5C5C5",
-                  paddingHorizontal: scaleWidth(10),
-                }}
-              >
+              <Text style={styles.title}>
+                  Receipt Footer
+              </Text>
+              <View style={styles.textInputView}>
                 <TextInput
                   style={{ flex: 1, fontSize: scaleFont(18) }}
                   placeholder="Receipt footer input here..."
                   value={receiptFooter}
                   onChangeText={(value) => {setReceiptFooter(value)} }
-                   
                   multiline={true}
                   numberOfLines={3}
                 />
-            </View>
-            </View>
-          </View>
+              </View>
+          </KeyboardAwareScrollView>
         </TouchableWithoutFeedback>
 
 
@@ -249,6 +231,21 @@ const styles = StyleSheet.create({
     alignItems: "center", 
     justifyContent: "space-between",
     marginTop: scaleHeight(15),
-  }
+  },
+  textInputView: {
+    height: scaleHeight(60),
+    flex: 1,
+    borderWidth: 1,
+    borderColor: "#C5C5C5",
+    paddingHorizontal: scaleWidth(10),
+    marginTop: scaleHeight(10), 
+  },
+  title: {
+    fontSize: scaleFont(17),
+    fontFamily: fonts.REGULAR,
+    color: "#333",
+    marginTop: scaleHeight(20),
+    fontWeight: "bold"
+  },
 
 });

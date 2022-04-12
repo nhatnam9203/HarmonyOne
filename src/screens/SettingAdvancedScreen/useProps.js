@@ -1,5 +1,5 @@
 import React from "react";
-import { auth, app } from "@redux/slices";
+import { auth, app, merchant } from "@redux/slices";
 import { useAxiosMutation, 
   useAxiosQuery, 
   getAdvanceSetting, 
@@ -15,14 +15,13 @@ export const useProps = (_params) => {
   const form = useForm({
 
   });
-  const {
-    merchant: { merchantDetail = {} },
-  } = useSelector(state => state);
   const [settingData, setSettingData] = React.useState(null);
   const [IsLoyaltyProgram, setIsLoyaltyProgram] = React.useState(null);
 
   const [IsCashDiscount, setIsCashDiscount] = React.useState(null);
   const [receiptFooter, setReceiptFooter] = React.useState("");
+  const staff = useSelector((state) => state.auth.staff);
+  const merchantDetail = useSelector(state => state.merchant);
 
   const dispatch = useDispatch();
   const [, requestGetAdvanceSetting] = useAxiosQuery({
@@ -78,6 +77,7 @@ export const useProps = (_params) => {
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         dispatch(merchant.setMerchantDetail(data));
+        setReceiptFooter(data?.receiptFooter)
       }
     },
   });
@@ -85,7 +85,7 @@ export const useProps = (_params) => {
 
   React.useEffect(() => {
     requestGetAdvanceSetting();
-    setReceiptFooter(merchantDetail?.receiptFooter)
+    fetchMerchantById();
   }, []);
 
 
@@ -129,12 +129,11 @@ export const useProps = (_params) => {
       submitEditAdvanceSetting(body.params);
 
       const dataMerchant = {
-        ...merchantDetail,
         receiptFooter,
       }
 
       const bodyMerchant = await merchantSetting(dataMerchant);
-      submitMerchantSetting(bodyMerchant.params);
+      submitEditMerchant(bodyMerchant.params);
     },
 
     form,
