@@ -156,8 +156,8 @@ android {
         applicationId 'com.harmonypay.one'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 103
-        versionName '1.0.2'
+        versionCode 104
+        versionName '1.0.4'
         missingDimensionStrategy 'react-native-camera', 'general'
         resValue "string", "build_config_package", "com.harmonypay.one"
     }
