@@ -202,8 +202,11 @@ export const useProps = (props) => {
   }
 
   const closeSettlement = async () => {
-    dialogProgressRef?.current?.show();
-    setProgress(50);
+    setTimeout(() => {
+      dialogProgressRef?.current?.show();
+      setProgress(50);
+    }, 300)
+   
 
     if (paymentMachineType == PaymentTerminalType.Dejavoo
       && _.get(dejavooMachineInfo, "isSetup")) {
