@@ -309,11 +309,11 @@ export const useProps = (_params) => {
         staffId: appointmentEdit.staffId,
         fromTime: appointmentEdit.fromTime,
         status: appointmentEdit.status,
-        categories: appointmentDetail.categories,
-        services: appointmentDetail.services.filter(sv => sv?.bookingServiceId),
-        extras: appointmentDetail.extras.filter(sv => sv?.bookingExtraId),
-        products: appointmentDetail.products.filter(sv => sv?.bookingProductId),
-        giftCards: appointmentDetail.giftCards.filter(sv => sv?.bookingGiftCardId),
+        categories: appointmentEdit.categories,
+        services: appointmentEdit.services.filter(sv => sv?.bookingServiceId),
+        extras: appointmentEdit.extras.filter(sv => sv?.bookingExtraId),
+        products: appointmentEdit.products.filter(sv => sv?.bookingProductId),
+        giftCards: appointmentEdit.giftCards.filter(sv => sv?.bookingGiftCardId),
       };
 
       const body = await updateAppointment(appointmentEdit.appointmentId, data);
