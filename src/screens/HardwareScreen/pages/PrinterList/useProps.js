@@ -34,9 +34,11 @@ export const useProps = (props) => {
               alert(error)
           }, 500)
       }
-
   }
 
+  React.useEffect(() => {
+    selectPortType();
+  }, [])
   return {
     printerList,
     printerSelect,
