@@ -722,8 +722,8 @@ export const PopupInvoice = React.forwardRef(
             printerSelect
           );
 
-          if ((!portName && machineType == PaymentTerminalType.Pax) || 
-          (machineType == PaymentTerminalType.Dejavoo && !_.get(dejavooMachineInfo, "isSetup"))) {
+          if (!portName && (machineType == PaymentTerminalType.Pax || 
+          (machineType == PaymentTerminalType.Dejavoo && !_.get(dejavooMachineInfo, "isSetup")))) {
             onCancel(isPrintTempt);
             alert("Please connect to your printer!");
             return;

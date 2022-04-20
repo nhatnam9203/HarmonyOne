@@ -735,8 +735,8 @@ export const useProps = (props) => {
     setTimeout(() => {
       setConnectionSignalR(null);
     }, 300);
-    if ((paymentMachineType === PaymentTerminalType.Pax && !portName) 
-        || (paymentMachineType === PaymentTerminalType.Dejavoo && !_.get(dejavooMachineInfo, "isSetup"))) {
+    if (!portName && (paymentMachineType === PaymentTerminalType.Pax
+        || (paymentMachineType === PaymentTerminalType.Dejavoo && !_.get(dejavooMachineInfo, "isSetup")))) {
       backToHome();
 
       setTimeout(() => {
