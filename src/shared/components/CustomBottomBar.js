@@ -2,9 +2,27 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import React from 'react';
 import { colors, fonts } from '@shared/themes';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveAuthTokenReport } from '@shared/storages/authToken';
+import { useAxiosMutationReport, staffLoginRequest } from "@src/apis";
 
 export function CustomBottomBar({ state, descriptors, navigation }) {
   const insets = useSafeAreaInsets();
+  const merchantID = useSelector((state) => state.merchant?.merchantDetail?.merchantCode);
+  const pincodeSaved = useSelector((state) => state.dataLocal.pincodeSaved);
+
+  const [{ isLoading }, staffLogin] = useAxiosMutationReport({
+    ...staffLoginRequest(merchantID, pincodeSaved),
+    onLoginError: (msg) => {
+      NavigationService.back();
+    },
+    isLoadingDefault : false,
+    onSuccess: (data) => {
+      if (data) {
+        saveAuthTokenReport(data?.token);
+      }
+    },
+  });
 
   return (
     <View style={styles.bottomContainer}>
@@ -22,6 +40,10 @@ export function CustomBottomBar({ state, descriptors, navigation }) {
             target: route.key,
             canPreventDefault: true,
           });
+          
+          if (route.key.includes("hpo.reports")) {
+            staffLogin();
+          }
 
           if (!isFocused && !event.defaultPrevented) {
             navigation.navigate(route.name);
