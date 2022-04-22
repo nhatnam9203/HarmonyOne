@@ -7,6 +7,9 @@ import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
 import RNFetchBlob from 'rn-fetch-blob';
 import { Alert } from "react-native";
+import { saveAuthTokenReport } from '@shared/storages/authToken';
+import { useAxiosMutationReport, staffLoginRequest } from "@src/apis";
+import { useFocusEffect } from '@react-navigation/native';
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
@@ -18,6 +21,9 @@ export const useProps = (props) => {
       staffSalary_pages = 0,
     }
   } = useSelector(state => state);
+
+  const merchantID = useSelector((state) => state.merchant?.merchantDetail?.merchantCode);
+  const pincodeSaved = useSelector((state) => state.dataLocal.pincodeSaved);
 
   const roleName = staff?.roleName?.toString()?.toLowerCase();
 
@@ -87,7 +93,23 @@ export const useProps = (props) => {
     }
   }
 
-
+  const [{ isLoading }, staffLogin] = useAxiosMutationReport({
+    ...staffLoginRequest(merchantID, pincodeSaved),
+    onLoginError: (msg) => {
+      NavigationService.back();
+    },
+    isLoadingDefault : false,
+    onSuccess: (data) => {
+      if (data) {
+        saveAuthTokenReport(data?.token);
+      }
+    },
+  });
+  useFocusEffect(
+    React.useCallback(() => {
+      staffLogin();
+    }, [])
+  )
   React.useEffect(() => {
     if (timeStart && timeEnd) {
       getDataList(
