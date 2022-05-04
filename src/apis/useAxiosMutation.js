@@ -22,7 +22,7 @@ export const useAxiosMutation = ({
   const { mutate, isLoading, isError, data } = useMutation((body) => postRequest(body),
     {
       onSuccess: (response) => {
-        if (response?.codeNumber == 200 || response?.codeNumber == 204) {
+        if (response?.codeNumber == 200) {
           if (onSuccess && typeof onSuccess === 'function') {
             onSuccess(response?.data, response);
           }

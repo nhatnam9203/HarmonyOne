@@ -43,14 +43,14 @@ export const useProps = (_params) => {
   const [giftCardsBookingRemove, setGiftCardsBookingRemove] = React.useState([]);
   const roleName = staff?.roleName?.toString()?.toLowerCase();
 
-  // const [{ }, getBlockTimes] = useAxiosQuery({
-  //   ...getBlockTimeByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
-  //   enabled: true,
-  //   isStopLoading: true,
-  //   onSuccess: (data, response) => {
-  //     dispatch(appointment.setBlockTimes(data));
-  //   },
-  // });
+  const [{ }, getBlockTimes] = useAxiosQuery({
+    ...getBlockTimeByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
+    enabled: true,
+    isStopLoading: true,
+    onSuccess: (data, response) => {
+      dispatch(appointment.setBlockTimes(data));
+    },
+  });
 
   const [, submitGetServiceByStaff] = useAxiosQuery({
     ...getServiceByStaff(staff?.staffId),
@@ -128,6 +128,8 @@ export const useProps = (_params) => {
     queryId: "edit_update_appointment",
     isStopLoading: true,
     onSuccess: async (data, response) => {
+      console.log('onSuccess')
+      console.log('response', response)
       if (response?.codeNumber == 200) {
         requestGetWaitingList();
         const tempData = {
@@ -342,7 +344,35 @@ export const useProps = (_params) => {
           return
         }
 
-       
+        const staffs = _.filter(listBlockTimes, blockTime => {
+          return blockTime?.appointmentId == 0 && blockTime?.staffId == item?.staffId 
+        })
+        console.log('staffs', staffs)
+        if (staffs) {
+          const staff = staffs[0];
+          console.log("validate time block",(moment(item?.fromTime, "YYYY-MM-DDTHH:mm:ss") > moment(staff?.blockTimeStart, "HH:mm A") 
+          && moment(item?.fromTime, "YYYY-MM-DDTHH:mm:ss") < moment(staff?.blockTimeEnd, "HH:mm A"))
+          ||
+          (moment(item?.toTime, "YYYY-MM-DDTHH:mm:ss") > moment(staff?.blockTimeStart, "HH:mm A") 
+          && moment(item?.toTime, "YYYY-MM-DDTHH:mm:ss") < moment(staff?.blockTimeEnd, "HH:mm A"))
+        )
+        console.log("time block",moment(item?.fromTime, "YYYY-MM-DDTHH:mm:ss"),
+        moment(item?.toTime, "YYYY-MM-DDTHH:mm:ss")
+        ,moment(staff?.blockTimeStart, "HH:mm A")
+        , moment(staff?.blockTimeEnd, "HH:mm A")
+      )
+          if ((moment(item?.fromTime, "YYYY-MM-DDTHH:mm:ss") >= moment(staff?.blockTimeStart, "HH:mm A") 
+              && moment(item?.fromTime, "YYYY-MM-DDTHH:mm:ss") <= moment(staff?.blockTimeEnd, "HH:mm A"))
+              ||
+          (moment(item?.toTime, "YYYY-MM-DDTHH:mm:ss") >= moment(staff?.blockTimeStart, "HH:mm A") 
+          && moment(item?.toTime, "YYYY-MM-DDTHH:mm:ss") <= moment(staff?.blockTimeEnd, "HH:mm A"))) {
+
+              validate = false;
+              errorMessage = "Accept this appointment outside of business hours?"
+              return
+          }
+        }
+
       });
 
       if (!validate) {
