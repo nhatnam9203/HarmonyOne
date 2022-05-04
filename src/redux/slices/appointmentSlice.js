@@ -5,10 +5,12 @@ import moment from 'moment';
 
 const reducerName = 'hpo.appointment';
 const initialState = {
+  appoiments: [],
   appointmentsByDate: [],
   appointmentDate: new Date(),
   appointmentDetail: {},
   blockTimes: [],
+  listBlockTimes: [],
   staffSelected: '',
   groupAppointments: [],
   promotionAppointment: [],
@@ -31,6 +33,9 @@ const appointmentSlice = createSlice({
     },
     setBlockTimeBydate: (state, action) => {
       state.blockTimes = action.payload;
+    },
+    setBlockTimes: (state, action) => {
+      state.listBlockTimes = action.payload;
     },
     setStaffSelected: (state, action) => {
       state.staffSelected = action.payload;

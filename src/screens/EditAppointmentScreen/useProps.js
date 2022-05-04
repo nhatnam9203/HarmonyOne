@@ -12,13 +12,14 @@ import {
   removeItemAppointment,
   addItemIntoAppointment,
   getServiceByStaff,
-  getAppointmentWaitingList
+  getAppointmentWaitingList,
+  getBlockTimeByDate,
 } from "@src/apis";
 import { dateToFormat, guid } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
 import { Alert } from "react-native";
-import { isEmpty } from "lodash";
+import _ from "lodash";
 
 export const useProps = (_params) => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ export const useProps = (_params) => {
 
   const {
     bookAppointment: { customerBooking = {}, servicesBooking = [], extrasBooking = [], dayBooking, timeBooking, isQuickCheckout },
-    appointment: { appointmentDate, appointmentDetail },
+    appointment: { appointmentDate, appointmentDetail, blockTimes, listBlockTimes },
     editAppointment: { appointmentEdit },
     auth: { staff },
     staff: { staffListByMerchant = [] },
@@ -42,6 +43,14 @@ export const useProps = (_params) => {
   const [giftCardsBookingRemove, setGiftCardsBookingRemove] = React.useState([]);
   const roleName = staff?.roleName?.toString()?.toLowerCase();
 
+  // const [{ }, getBlockTimes] = useAxiosQuery({
+  //   ...getBlockTimeByDate(dateToFormat(appointmentDate, "YYYY-MM-DD")),
+  //   enabled: true,
+  //   isStopLoading: true,
+  //   onSuccess: (data, response) => {
+  //     dispatch(appointment.setBlockTimes(data));
+  //   },
+  // });
 
   const [, submitGetServiceByStaff] = useAxiosQuery({
     ...getServiceByStaff(staff?.staffId),
@@ -179,6 +188,22 @@ export const useProps = (_params) => {
     dispatch(app.startSignalR());
   }
 
+    const data = {
+      staffId: appointmentEdit.staffId,
+      fromTime: appointmentEdit.fromTime,
+      status: appointmentEdit.status,
+      categories: appointmentEdit.categories,
+      services: appointmentEdit.services.filter(sv => sv?.bookingServiceId),
+      extras: appointmentEdit.extras.filter(sv => sv?.bookingExtraId),
+      products: appointmentEdit.products.filter(sv => sv?.bookingProductId),
+      giftCards: appointmentEdit.giftCards.filter(sv => sv?.bookingGiftCardId),
+    };
+
+    const body = await updateAppointment(appointmentEdit.appointmentId, data);
+    submitUpdateAppointment(body.params);
+    dispatch(app.stopSignalR());
+  }
+
   return {
     customerBooking,
     servicesBooking,
@@ -304,21 +329,41 @@ export const useProps = (_params) => {
     },
 
     confirm: async () => {
+      //validate from time of service is passed time
+      const services = appointmentEdit.services.filter(sv => sv?.bookingServiceId)
+      let validate = true
+      let errorMessage = ""
+      services.forEach(item => {
 
-      const data = {
-        staffId: appointmentEdit.staffId,
-        fromTime: appointmentEdit.fromTime,
-        status: appointmentEdit.status,
-        categories: appointmentEdit.categories,
-        services: appointmentEdit.services.filter(sv => sv?.bookingServiceId),
-        extras: appointmentEdit.extras.filter(sv => sv?.bookingExtraId),
-        products: appointmentEdit.products.filter(sv => sv?.bookingProductId),
-        giftCards: appointmentEdit.giftCards.filter(sv => sv?.bookingGiftCardId),
-      };
+        if (moment(item?.fromTime, "YYYY-MM-DDTHH:mm:ss") < moment()) {
+          validate = false;
+          errorMessage = "This appointment is set for a time that has already passed. Do you still want to set this appointment at this time?"
+          return
+        }
 
-      const body = await updateAppointment(appointmentEdit.appointmentId, data);
-      submitUpdateAppointment(body.params);
-      dispatch(app.stopSignalR());
+       
+      });
+
+      if (!validate) {
+        Alert.alert(
+          `Warning`,
+          errorMessage,
+          [
+            {
+              text: "Cancel",
+              onPress: () => {},
+              style: "cancel",
+            },
+            { text: 'Ok', onPress: () => {
+              handleConfirm();
+            } 
+            }
+          ],
+          { cancelable: false }
+        );
+      } else {
+        handleConfirm();
+      }
     },
 
     onOK: () => {

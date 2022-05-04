@@ -1791,7 +1791,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/trans/sdk",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1935,7 +1935,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/trans/sdk",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

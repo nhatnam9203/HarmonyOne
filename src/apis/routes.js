@@ -259,6 +259,18 @@ export const addItemIntoAppointment = (appointmentId, data) => ({
 /**
  * BLOCK TIMES
  */
+ export const getBlockTimeByDate = (date) => ({
+  queryId: 'getBlockTimeByDate',
+  params: {
+    url: `blocktime?workingdate=${date}`,
+    method: 'GET',
+  },
+});
+
+
+/**
+ * GET APPOINTMENT
+ */
 
 export const getAppointmentByDate = (date) => ({
   queryId: 'getAppointmentByDate',
