@@ -350,17 +350,7 @@ export const useProps = (_params) => {
         console.log('staffs', staffs)
         if (staffs) {
           const staff = staffs[0];
-          console.log("validate time block",(moment(item?.fromTime, "YYYY-MM-DDTHH:mm:ss") > moment(staff?.blockTimeStart, "HH:mm A") 
-          && moment(item?.fromTime, "YYYY-MM-DDTHH:mm:ss") < moment(staff?.blockTimeEnd, "HH:mm A"))
-          ||
-          (moment(item?.toTime, "YYYY-MM-DDTHH:mm:ss") > moment(staff?.blockTimeStart, "HH:mm A") 
-          && moment(item?.toTime, "YYYY-MM-DDTHH:mm:ss") < moment(staff?.blockTimeEnd, "HH:mm A"))
-        )
-        console.log("time block",moment(item?.fromTime, "YYYY-MM-DDTHH:mm:ss"),
-        moment(item?.toTime, "YYYY-MM-DDTHH:mm:ss")
-        ,moment(staff?.blockTimeStart, "HH:mm A")
-        , moment(staff?.blockTimeEnd, "HH:mm A")
-      )
+    
           if ((moment(item?.fromTime, "YYYY-MM-DDTHH:mm:ss") >= moment(staff?.blockTimeStart, "HH:mm A") 
               && moment(item?.fromTime, "YYYY-MM-DDTHH:mm:ss") <= moment(staff?.blockTimeEnd, "HH:mm A"))
               ||
