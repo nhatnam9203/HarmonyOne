@@ -188,6 +188,7 @@ export const useProps = (_params) => {
     dispatch(app.startSignalR());
   }
 
+  const handleConfirm = async() => {
     const data = {
       staffId: appointmentEdit.staffId,
       fromTime: appointmentEdit.fromTime,
