@@ -128,8 +128,6 @@ export const useProps = (_params) => {
     queryId: "edit_update_appointment",
     isStopLoading: true,
     onSuccess: async (data, response) => {
-      console.log('onSuccess')
-      console.log('response', response)
       if (response?.codeNumber == 200) {
         requestGetWaitingList();
         const tempData = {
@@ -347,7 +345,6 @@ export const useProps = (_params) => {
         const staffs = _.filter(listBlockTimes, blockTime => {
           return blockTime?.appointmentId == 0 && blockTime?.staffId == item?.staffId 
         })
-        console.log('staffs', staffs)
         if (staffs) {
           const staff = staffs[0];
     
