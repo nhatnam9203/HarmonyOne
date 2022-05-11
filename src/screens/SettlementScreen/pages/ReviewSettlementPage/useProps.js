@@ -202,11 +202,8 @@ export const useProps = (props) => {
   }
 
   const closeSettlement = async () => {
-    setTimeout(() => {
-      dialogProgressRef?.current?.show();
-      setProgress(50);
-    }, 300)
-   
+    dialogProgressRef?.current?.show();
+    setProgress(50);
 
     if (paymentMachineType == PaymentTerminalType.Dejavoo
       && _.get(dejavooMachineInfo, "isSetup")) {
@@ -219,9 +216,7 @@ export const useProps = (props) => {
           const resultTxt = `${_.get(result, 'xmp.response.0.Message.0')}`
             || "Error";
           // dialogProgressRef?.current?.hide();
-          setTimeout(() => {
             confirmCloseoutWithoutPaymentTerminal();
-          }, 200)
 
         } else {
           proccessingSettlement();
@@ -286,9 +281,10 @@ export const useProps = (props) => {
   /****************** Functions **************************/
   const confirmCloseoutWithoutPaymentTerminal = () => {
         dialogProgressRef?.current?.hide();
+
         setTimeout(()=>{
           refDialogConfirm?.current?.show(); 
-        }, 200)
+        }, 700)
   }
 
   const onConfirmCloseoutWithoutPaymentTerminal = async() => {
