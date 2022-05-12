@@ -66,4 +66,25 @@ PushNotification.configure({
   requestPermissions: true,
 });
 
+PushNotification.getChannels(function (channels) {
+  console.log("channels", channels)
+  // Nếu đã tồn tại chennels rồi thì ko cần tạo nữa
+  if (channels && channels?.length > 0) return;
+
+  console.log("create channel")
+  PushNotification.createChannel(
+    {
+      channelId: 'harmonyone', // (required)
+      channelName: `Harmony One`, // (required)
+      channelDescription: `A custom channel to categorise your custom notifications. Updated at: ${Date.now()}`, // (optional) default: undefined.
+      playSound: true, // (optional) default: true
+      soundName: 'harmony.wav', // (optional) See `soundName` parameter of `localNotification` function
+      importance: 4, // (optional) default: 4. Int value of the Android notification importance
+      vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
+      // soundName: 'harmony',
+    },
+    created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+  );
+});
+
 export default handler;
