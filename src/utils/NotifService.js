@@ -23,10 +23,11 @@ export default class NotifService {
     //   }
     // });
 
-    if (Platform.OS === 'android') {
-      console.log("check android")
+  }
+
+  createOrUpdateChannel() {
+     if (Platform.OS === 'android') {
       PushNotification.getChannels(function (channels) {
-        console.log("channels", channels)
         // Nếu đã tồn tại chennels rồi thì ko cần tạo nữa
         if (channels && channels?.length > 0) return;
 
@@ -46,21 +47,6 @@ export default class NotifService {
         );
       });
     }
-  }
-
-  createOrUpdateChannel() {
-    this.lastChannelCounter++;
-    PushNotification.createChannel(
-      {
-        channelId: "harmonyone", // (required)
-        channelName: `Harmony One`, // (required)
-        channelDescription: `A custom channel to categorise your custom notifications. Updated at: ${Date.now()}`, // (optional) default: undefined.
-        soundName: "harmony.wav",//"default", // (optional) See `soundName` parameter of `localNotification` function
-        importance: 4, // (optional) default: 4. Int value of the Android notification importance
-        vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
-      },
-      (created) => console.log(`createChannel returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
-    );
   }
 
   popInitialNotification() {
@@ -152,6 +138,9 @@ export default class NotifService {
       playSound : true,
       message: notification?.body || "Welcome",
       messageId,
+      android: {
+        sound: 'harmony_short',
+      },
     });
   }
 

@@ -47,10 +47,6 @@ const FirebaseNotificationProvider = () => {
   }, [token]);
 
   const onForegroundMessage = (data) => {
-    console.log('on foreground message : ',{ data });
-    console.log({
-      notifyService
-    });
 
     // TODO: process message on foreground state
     // if (_.get(data, 'data.key') === 'AUTO_CLOSE') {
@@ -66,8 +62,7 @@ const FirebaseNotificationProvider = () => {
     notifyService?.firebaseNotify(data);
   };
 
-  const onBackgroundMessage = ({ data }) => {
-    console.log('background message : ',{ data })
+  const onBackgroundMessage = ({ data, notification }) => {
     // TODO: process message on background state
     // if (_.get(data, 'data.key') === 'AUTO_CLOSE') {
     //   handleAutoClose()
@@ -108,6 +103,7 @@ const FirebaseNotificationProvider = () => {
     AppState.addEventListener("change", _handleAppStateChange);
 
     notifyService = new NotifService(onClickedNotifyMessage);
+    notifyService?.createOrUpdateChannel();
 
     return () => {
       AppState.removeEventListener("change", _handleAppStateChange);
