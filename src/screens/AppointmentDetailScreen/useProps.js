@@ -20,8 +20,8 @@ import NavigationService from '@navigation/NavigationService';
 import { axios } from '@shared/services/axiosClient';
 
 const NoNeedEdit = [
-  APPOINTMENT_STATUS.PAID,
-  APPOINTMENT_STATUS.COMPLETE,
+  // APPOINTMENT_STATUS.PAID,
+  // APPOINTMENT_STATUS.COMPLETE,
   APPOINTMENT_STATUS.CANCEL,
   APPOINTMENT_STATUS.VOID,
   APPOINTMENT_STATUS.REFUND,
@@ -43,6 +43,7 @@ export const useProps = ({
 
   const item = appointmentDetail;
 
+  const [isEditPaidAppointment, setIsEditPaidAppointment] = React.useState(false);
   const [appointmentItem, setAppointmentItem] = React.useState(null);
   const [headerColor, setHeaderColor] = React.useState({
     headerColor: colors.white,
@@ -146,6 +147,7 @@ export const useProps = ({
 
   React.useEffect(() => {
     if (item) {
+      console.log('item', item)
       setAppointmentItem(item);
 
       const tempColor = getColorForStatus(item?.status);
@@ -187,6 +189,7 @@ export const useProps = ({
   }
 
   return {
+    isEditPaidAppointment,
     appointmentItem,
     headerColor,
     canEdit,
@@ -196,32 +199,66 @@ export const useProps = ({
     isShowButton,
     staffsByDate,
     getInvoiceDetail,
-
-    getActionSheets: () => [
-      {
-        id: 'edit-appointment',
-        label: t('Edit Appointment'),
-        func: () => {
-          dispatch(editAppointment.setAppointentEdit(appointmentDetail))
-          NavigationService.navigate(screenNames.EditAppointmentScreen);
+    editService: (item) => {
+      NavigationService.navigate(
+        screenNames.AddServiceDetailPage,
+        {
+          item,
+          isEditItem: true,
+          extrasEdit: appointmentItem?.extras
+            .filter(
+              ex => ex?.bookingServiceId ? ex?.bookingServiceId == item?.bookingServiceId :
+                ex?.serviceId == item?.serviceId
+            )
+            .map(ex => ({ ...ex, name: ex?.extraName ?? ex?.name }))
+        });
+    },
+    getActionSheets: () => {
+      return appointmentItem?.status != APPOINTMENT_STATUS.PAID 
+            && appointmentItem?.status != APPOINTMENT_STATUS.COMPLETE ? [
+        {
+          id: 'edit-appointment',
+          label: t('Edit Appointment'),
+          func: () => {
+            dispatch(editAppointment.setAppointentEdit(appointmentDetail))
+            NavigationService.navigate(screenNames.EditAppointmentScreen);
+          },
         },
-      },
-      {
-        id: 'cancel-appointment',
-        label: t('Cancel Appointment'),
-        textColor: colors.red,
-        func: async () => {
-          const data = {
-            status: 'cancel'
-          }
-          const body = await updateAppointmentStatusRequest(appointmentItem?.appointmentId, data);
-          submitUpdateAppointmentStatus(body.params);
+        {
+          id: 'cancel-appointment',
+          label: t('Cancel Appointment'),
+          textColor: colors.red,
+          func: async () => {
+            const data = {
+              status: 'cancel'
+            }
+            const body = await updateAppointmentStatusRequest(appointmentItem?.appointmentId, data);
+            submitUpdateAppointmentStatus(body.params);
+          },
         },
-      },
-    ],
+      ] 
+      : [
+        {
+          id: 'edit-appointment',
+          label: t('Edit Appointment'),
+          func: () => {
+            setIsEditPaidAppointment(true)
+            console.log('isEditPaidAppointment', isEditPaidAppointment)
+            dispatch(editAppointment.setAppointentEdit(appointmentDetail))
+            // NavigationService.navigate(screenNames.EditAppointmentScreen);
+          },
+        },
+       ]
+    },
 
     updateNextStatus: async () => {
-      if (appointmentItem.status == "checkin") {
+      if (appointmentItem.status == "complete" 
+        || appointmentItem.status == "paid") {
+          console.log('editAppointment', editAppointment)
+          setIsEditPaidAppointment(false);
+
+
+      } else if (appointmentItem.status == "checkin") {
         if (appointmentItem?.staffId) {
           checkOut();
         } else return;

@@ -46,6 +46,10 @@ const titleNextStatus = (status) => {
       text = "Check-in";
       break
 
+    case "paid" || "complete":
+      text = "Save";
+      break
+
     default:
       break;
   }
@@ -68,6 +72,8 @@ export const Layout = ({
   staffsByDate,
   assignOtherStaff,
   checkInWaitigList,
+  isEditPaidAppointment,
+  editService,
 }) => {
   const [t] = useTranslation();
 
@@ -111,6 +117,7 @@ export const Layout = ({
             extras={appointmentItem?.extras}
             products={appointmentItem?.products}
             giftCards={appointmentItem?.giftCards}
+            editService={() => editService()}
           />
 
           {
@@ -141,7 +148,8 @@ export const Layout = ({
         </ScrollView>
 
         {
-          canEdit && isShowButton && appointmentItem?.status !== "waiting" &&
+          canEdit && isShowButton && appointmentItem?.status !== "waiting" 
+          && isEditPaidAppointment &&
           <View style={styles.bottom}>
             <Button
               label={titleNextStatus(appointmentItem?.status)}

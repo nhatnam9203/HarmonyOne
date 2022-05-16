@@ -5,7 +5,7 @@ import { colors, fonts, layouts } from '@shared/themes';
 import { AppointmentServiceItem, AppointmentProductItem, AppointmentGiftCardItem } from '@shared/components';
 import { formatNumberFromCurrency, formatMoney, convertMinsToHrsMins } from "@shared/utils";
 
-export const AppointmentServiceList = ({ services = [], extras = [], products = [], giftCards }) => {
+export const AppointmentServiceList = ({ services = [], extras = [], products = [], giftCards , editService}) => {
   const { t } = useTranslation();
  
 
@@ -28,6 +28,7 @@ export const AppointmentServiceList = ({ services = [], extras = [], products = 
         total += formatNumberFromCurrency(extras[i].price);
       }
     }
+    console.log('getTotalPrice', total, formatMoney(total))
     return formatMoney(total);
   }
 
@@ -43,6 +44,7 @@ export const AppointmentServiceList = ({ services = [], extras = [], products = 
             name={item?.serviceName}
             duration={totalDuration(item, "duration")}
             price={getTotalPrice(item)}
+            onPressItem={() => editService(item)}
           />
         ))
       }
