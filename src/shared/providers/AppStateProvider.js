@@ -145,9 +145,6 @@ export const AppStateProvider = ({ children }) => {
     if (!deviceIdStoraged) {
       await saveDeviceID(device);
     }
-    // await dispatch(
-    //   actions.dataLocal.updateVersionApp(latestVersion ?? Configs.VERSION),
-    // );
   };
 
 
@@ -164,7 +161,6 @@ export const AppStateProvider = ({ children }) => {
                 signalR.HttpTransportType.WebSockets,
             }
           )
-          // .withAutomaticReconnect([0, 2000, 10000, 30000])
           .configureLogging(signalR.LogLevel.Information)
           .build();
 

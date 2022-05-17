@@ -227,8 +227,6 @@ export function convertMinsToHrsMins(mins) {
 
   let h = Math.floor(minutes / 60);
   let m = minutes % 60;
-  // h = h < 10 ? '0' + h : h;
-  // m = m < 10 ? '0' + m : m;
 
   let stringConvert = `${m} min`;
 
@@ -481,8 +479,6 @@ export const handleFileDownloaed = async (path, exportType, fileName) => {
     const shareResponse = await Share.open({
       url: `file://${pathFileInventory}`
     });
-    // const android = await RNFetchBlob.android;
-    // await android.actionViewIntent(pathFileInventory, 'application/vnd.android.package-archive')
   }
 }
 

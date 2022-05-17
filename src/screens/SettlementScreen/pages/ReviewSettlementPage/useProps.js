@@ -129,8 +129,6 @@ export const useProps = (props) => {
       eventEmitter.addListener('closeoutFail', data => {
         const { settlement: { isProcessCloseBatchClover } } = store.getState();
         if (isProcessCloseBatchClover) {
-          // dialogProgressRef?.current?.hide();
-          // dispatch(settlement.setIsProcessCloseBatchClover(false))
 
           setTimeout(() => {
             confirmCloseoutWithoutPaymentTerminal();

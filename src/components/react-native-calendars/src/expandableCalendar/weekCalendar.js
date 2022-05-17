@@ -196,7 +196,6 @@ class WeekCalendar extends Component {
       <View testID={this.props.testID} style={[allowShadow && this.style.containerShadow, !hideDayNames && {paddingBottom: 6}]}>
         {!hideDayNames &&
           <View style={[this.style.week, {marginTop: 12, marginBottom: -2}]}>
-            {/* {this.props.weekNumbers && <Text allowFontScaling={false} style={this.style.dayHeader}></Text>} */}
             {weekDaysNames.map((day, idx) => (
               <Text
                 allowFontScaling={false}
@@ -204,8 +203,6 @@ class WeekCalendar extends Component {
                 style={this.style.dayHeader}
                 numberOfLines={1}
                 accessibilityLabel={''}
-                // accessible={false} // not working
-                // importantForAccessibility='no'
               >
                 {day}
               </Text>

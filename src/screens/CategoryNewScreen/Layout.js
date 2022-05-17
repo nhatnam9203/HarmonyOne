@@ -40,21 +40,6 @@ export const Layout = ({
         }
       >
         <View style={styles.content}>
-          {/* <CustomInput
-            label='Category Type'
-            isRequired
-            style={{ width: '50%' }}
-            renderInput={() =>
-              <DropdownMenu
-                ref={inputCategoryRef}
-                items={categoryTypeList}
-                onChangeValue={() => { }}
-                defaultIndex={0}
-                width={scaleWidth(345)}
-                height={scaleWidth(42)}
-              />
-            }
-          /> */}
           <CustomInput
             label='Category name'
             isRequired

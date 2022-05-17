@@ -28,10 +28,6 @@ export const SingleScreenLayout = ({
   const [t] = useTranslation();
   const insets = useSafeAreaInsets();
 
-  // isRight={true}
-  // isLeft={false}
-  // isScrollLayout={false}
-
   const onGoBack = () => {
     if (onPressLeft) {
       onPressLeft();

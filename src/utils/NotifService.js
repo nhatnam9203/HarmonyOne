@@ -13,15 +13,7 @@ export default class NotifService {
     this.lastId = 0;
     this.lastChannelCounter = 0;
 
-    // NotificationHandler.attachRegister(onRegister);
     NotificationHandler.attachNotification(onNotification);
-
-    // Clear badge number at start
-    // PushNotification.getApplicationIconBadgeNumber(function (number) {
-    //   if (number > 0) {
-    //     PushNotification.setApplicationIconBadgeNumber(0);
-    //   }
-    // });
 
     PushNotification.getChannels(function (channels) {
       console.log(channels); 

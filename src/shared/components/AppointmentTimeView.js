@@ -29,7 +29,6 @@ export const AppointmentTimeView = ({ fromTime = '', toTime = '', icon = null, o
           }
         </View>
       </View>
-      {/* <Image source={images.iconArrow} style={styles.arrow} /> */}
     </View>
   );
 };

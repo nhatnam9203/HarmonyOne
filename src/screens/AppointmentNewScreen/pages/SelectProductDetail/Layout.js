@@ -93,47 +93,6 @@ export const Layout = ({
             <Text style={[styles.duration, { fontSize: scaleFont(18) }]}>
               {`$ ${formatMoney(tempPrice)}`}
             </Text>
-            {/* <View style={{ flexDirection: "row", alignItems: "center", }}> */}
-            {/* <View style={[styles.wrapPrice, { borderColor: isEditPrice ? "#dddddd" : "white" }]}>
-                <Text style={[styles.duration, { fontSize: scaleFont(18) }]}>
-                  $
-                </Text>
-                {
-                  isEditPrice && 
-                  <TextInputMask
-                    value={price}
-                    onChangeText={text => setPrice(text)}
-                    style={[styles.duration, { fontSize: scaleFont(18), }]}
-                    type="money"
-                    editable={isEditPrice}
-                    options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
-                  />
-                }
-                {
-                  !isEditPrice && <Text
-                    style={[styles.duration, { fontSize: scaleFont(18) }]}
-                  >
-                    {price}
-                  </Text>
-                }
-              </View> */}
-
-            {/* <TouchableOpacity hitSlop={slop(20)} onPress={() => {
-                if (isEditPrice) {
-                  setStatusEditPrice(false);
-
-                } else {
-                  setStatusEditPrice(true);
-                }
-              }}
-              >
-                <Image
-                  source={!isEditPrice ? images.penEdit : images.iconChecked}
-                  resizeMode='contain'
-                  style={[styles.iconEditPencil, { tintColor: !isEditPrice ? "#333" : "#4AD100" }]}
-                />
-              </TouchableOpacity> */}
-            {/* </View> */}
           </View>
         </View>
 

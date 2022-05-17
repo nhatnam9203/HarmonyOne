@@ -10,7 +10,6 @@ export const Layout = ({ progress = 0 }) => {
 
   return (
     <View style={styles.container}>
-      {/* <StatusBar barStyle="light-content" /> */}
 
       <View style={styles.logoContent}>
         <LottieView
@@ -19,7 +18,6 @@ export const Layout = ({ progress = 0 }) => {
           autoPlay
           loop={false}
         />
-        {/* <Image source={images.logo} resizeMode="center" /> */}
       </View>
 
       <View style={styles.textContent}>

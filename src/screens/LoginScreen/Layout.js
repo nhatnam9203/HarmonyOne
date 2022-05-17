@@ -50,14 +50,6 @@ export const Layout = ({
             </Text>
           </TouchableOpacity>
         </View>
-
-        {/* <TouchableOpacity
-          onPress={whatMerchantID}
-          style={styles.btnWhatIsMerchant}>
-          <Text style={styles.txtWhatIsMerchant}>
-            {t('What is Merchant ID ?')}
-          </Text>
-        </TouchableOpacity> */}
       </View>
     </View>
   );

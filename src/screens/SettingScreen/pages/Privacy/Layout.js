@@ -21,7 +21,6 @@ export const Layout = ({
       >
         <ScrollView style={styles.content}>
         <Text style={styles.title}>HarmonyPay - Harmony One</Text>
-          {/* <Text style={styles.title}>Privacy.</Text> */}
 
           <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), marginTop: scaleHeight(24) }]}>
             Privacy
