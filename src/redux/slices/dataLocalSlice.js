@@ -6,6 +6,7 @@ const reducerName = 'hpo.dataLocal';
 const initialState = {
     isQuickLogin: false,
     pincodeSaved : "",
+    language : "vi",
 };
 
 const dataLocalSlice = createSlice({
@@ -17,7 +18,10 @@ const dataLocalSlice = createSlice({
         },
         savePincode : (state, action) => {
             state.pincodeSaved = action.payload;
-        }
+        },
+        changeLanguge : (state, action) =>{
+            state.language = action.payload;
+        },
     },
 });
 

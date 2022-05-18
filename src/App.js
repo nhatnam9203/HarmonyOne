@@ -4,6 +4,8 @@
 import { AppStateProvider } from '@shared/providers/AppStateProvider';
 import { AxiosApiProvider } from '@shared/providers/AxiosApiProvider';
 import { CodePushProvider } from '@shared/providers/CodePushProvider';
+import { LanguageProvider } from '@shared/providers/LanguageProvider';
+
 import '@shared/services/translation';
 import configureStore from '@src/redux/store';
 import React from 'react';
@@ -122,6 +124,7 @@ export default App = () => {
           <AxiosApiProvider>
             <AppStateProvider>
               <PaperProvider>
+                <LanguageProvider />
                 <RootNavigation />
                 <FirebaseNotificationProvider token={null} />
                 <PopupPairingCode
