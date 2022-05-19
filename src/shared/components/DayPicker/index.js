@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, Alert } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, Alert, Pressable } from 'react-native'
 import { fonts, colors } from '@shared/themes';
 import { slop } from "@shared/utils";
 import { images } from "@shared/themes/resources";
@@ -42,9 +42,14 @@ export const DayPicker = React.forwardRef(({
         setOpen(false);
     }
 
-    const apply = () => {
-        onApply(daySelected)
+    const apply = (day) => {
+        onApply(day)
         closeActionSheet();
+    }
+
+    const applyDay = (day) =>{
+        selectDay(day);
+        apply(day);
     }
 
     const onHide = () => {
@@ -59,7 +64,7 @@ export const DayPicker = React.forwardRef(({
                         {componentRender()}
                     </TouchableOpacity> :
                     
-                    <TouchableOpacity onPress={openActionSheet} style={[styles.wrapInput, style]}>
+                    <Pressable onPress={openActionSheet} style={[styles.wrapInput, style]}>
                         <Text style={styles.txtDate}>
                             {moment(dayPicked).format("MMMM DD, YYYY")}
                         </Text>
@@ -68,12 +73,12 @@ export const DayPicker = React.forwardRef(({
                             style={[styles.icon, { transform: [{ rotate: open ? "180deg" : "0deg" }] }]}
                             resizeMode='contain'
                         />
-                    </TouchableOpacity>
+                    </Pressable>
             }
             <CustomActionSheet onHide={onHide} ref={actionSheetRef}>
                 <CalendarDay
                     selectedDay={selectedDay}
-                    selectDay={selectDay}
+                    selectDay={applyDay}
                     closeCalendarPicker={closeActionSheet}
                     apply={apply}
                     maxDate={maxDate}

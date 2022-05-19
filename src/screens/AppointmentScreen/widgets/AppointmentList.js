@@ -176,6 +176,7 @@ const AppointmentList = React.forwardRef(({
     const [{ isLoading }, fetchAppointmentByDate] = useAxiosQuery({
         ...getAppointmentByDate(dateToFormat(appointmentDate, 'YYYY-MM-DD')),
         enabled: true,
+        isLoadingDefault : !isRefresh,
         onSuccess: (data, response) => {
             dispatch(appointment.setBlockTimeBydate(data));
             setRefresh(false);

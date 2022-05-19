@@ -31,7 +31,6 @@ export const useAxiosQuery = ({
       enabled,
       retry: false,
       onSuccess: (response) => {
-        console.log('response', response)
         if(!isStopLoading){
           dispatch(app?.hideLoading());
         }
@@ -43,7 +42,6 @@ export const useAxiosQuery = ({
           if (
             response?.message
           ) {
-            console.log('show error')
             dispatch(app.hideLoading());
             dispatch(
               app.setError({
@@ -59,8 +57,6 @@ export const useAxiosQuery = ({
         }
       },
       onError: (err) => {
-        console.log({ err });
-        console.log('end popint :', { params });
         if (
           err?.message &&
           onLoginError &&

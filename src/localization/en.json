@@ -1,3 +1,6 @@
 {
-  "noAppointments" : "No Appointments"
+  "noAppointments" : "No Appointments",
+  "txtChangeLanguage" : "Change language",
+  "txtLanguage" : "Language",
+  "txtSave" : "Save"
 }

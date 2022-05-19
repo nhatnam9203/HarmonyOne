@@ -19,7 +19,7 @@ const dataLocalSlice = createSlice({
         savePincode : (state, action) => {
             state.pincodeSaved = action.payload;
         },
-        changeLanguge : (state, action) =>{
+        changeLanguage : (state, action) =>{
             state.language = action.payload;
         },
     },

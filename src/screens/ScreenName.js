@@ -108,6 +108,7 @@ const ScreenNames = {
   PackagePricing : "hpo.signup.packagePricing",
   ApplicationSubmit : "hpo.signup.applicationSubmit",
   SettingAdvancedScreen :  'hpo.setting.advanced',
+  LanguageScreen : 'hpo.language'
 };
 
 module.exports = { ScreenNames };

@@ -1,3 +1,6 @@
 {
-  "noAppointments" : "Không có cuộc hẹn"
+  "noAppointments" : "Không có cuộc hẹn",
+  "txtChangeLanguage" : "Thay đổi ngôn ngữ",
+  "txtLanguage" : "Ngôn ngữ",
+  "txtSave" : "Xác nhận"
 }
