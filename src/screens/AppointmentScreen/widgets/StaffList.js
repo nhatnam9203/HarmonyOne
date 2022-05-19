@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, Text, ActivityIndicator, FlatList, Platform } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity, Text, ActivityIndicator, FlatList, Platform, Animated } from 'react-native';
 import { images, colors, fonts } from '@shared/themes';
 import { IconButton, CustomImage } from "@shared/components";
 import { isElement, isEmpty } from "lodash";
@@ -103,6 +103,81 @@ const StaffList = React.forwardRef(({
 
 
 const Item = ({ staff, selectStaff, staffSelected, showPopupAddBlockTime, getWaitingList }) => {
+
+    const isActive = staffSelected == staff?.staffId ? true : false;
+
+    const animatedValue = React.useRef(new Animated.Value(0)).current;
+    const scaleActive = React.useRef(new Animated.Value(1)).current;
+
+    React.useEffect(() => {
+
+        const animationValue = () => {
+            Animated.loop(
+                Animated.sequence(
+                    [
+                        Animated.timing(animatedValue, {
+                            toValue: 1,
+                            duration: 1500,
+                            useNativeDriver: false
+                        }),
+                    ]
+                )
+            ).start();
+            Animated.loop(
+                Animated.sequence(
+                    [
+                        Animated.timing(scaleActive, {
+                            toValue: 1.075,
+                            duration: 1500,
+                            useNativeDriver: false
+                        }),
+                        Animated.timing(scaleActive, {
+                            toValue: 1,
+                            duration: 1500,
+                            useNativeDriver: false
+                        }),
+                    ]
+                )
+            ).start();
+        };
+
+        if (isActive) {
+            animationValue();
+        } else {
+            Animated.timing(animatedValue).stop();
+            Animated.timing(scaleActive).stop();
+        }
+
+    }, [isActive]);
+
+    const renderHighlight = () => {
+
+        const opacity = animatedValue.interpolate({
+            inputRange: [0, 0.5, 1],
+            outputRange: [1, 0.5, 0]
+        });
+
+        const scale = animatedValue.interpolate({
+            inputRange: [0, 1],
+            outputRange: [1, 1.175]
+        });
+
+
+        return (
+            <>
+                <Animated.View style={[
+                    styles.highligh,
+                    {
+                        opacity,
+                        transform: [{ scale }]
+                    }
+                ]} />
+                <View style={styles.highligh} />
+            </>
+        );
+    };
+
+
     return (
         <TouchableOpacity
             onPress={() => {
@@ -115,7 +190,7 @@ const Item = ({ staff, selectStaff, staffSelected, showPopupAddBlockTime, getWai
                 selectStaff(staff?.staffId);
                 if (staff?.staffId && staff?.staffId !== -1) {
                     showPopupAddBlockTime();
-                } 
+                }
             }}
             key={staff?.staffId + 'staffList'}
             style={styles.staff}
@@ -123,22 +198,7 @@ const Item = ({ staff, selectStaff, staffSelected, showPopupAddBlockTime, getWai
         >
             {
                 staff?.staffId == 0 ?
-                    <CustomImage
-                        style={[
-                            styles.avatar,
-                            {
-                                borderColor: "white",
-                                borderWidth: 1,
-                                borderRadius: 0,
-                                tintColor: "#0094D9"
-                            }
-
-                        ]}
-                        source={images.group_people}
-                        resizeMode='cover'
-                        tintColor="#0094D9"
-                    /> :
-                    staff?.staffId == -1 ?
+                    <AnimatedWrapper isActive={isActive} renderHighlight={renderHighlight} scaleActive={scaleActive}>
                         <CustomImage
                             style={[
                                 styles.avatar,
@@ -150,45 +210,76 @@ const Item = ({ staff, selectStaff, staffSelected, showPopupAddBlockTime, getWai
                                 }
 
                             ]}
-                            source={images.iconWaiting}
+                            source={images.group_people}
                             resizeMode='cover'
                             tintColor="#0094D9"
                         />
-                        : isEmpty(staff?.imageUrl) ?
+                    </AnimatedWrapper>
+                    :
+                    staff?.staffId == -1 ?
+                        <AnimatedWrapper isActive={isActive} renderHighlight={renderHighlight} scaleActive={scaleActive}>
                             <CustomImage
                                 style={[
                                     styles.avatar,
                                     {
-                                        borderColor: staffSelected == staff?.staffId ? colors.ocean_blue : "white",
-                                        borderWidth: staffSelected == staff?.staffId ? 3 : 1,
+                                        borderColor: "white",
+                                        borderWidth: 1,
+                                        borderRadius: 0,
+                                        tintColor: "#0094D9"
                                     }
 
                                 ]}
-                                source={images.staff_default}
+                                source={images.iconWaiting}
                                 resizeMode='cover'
-                            /> :
-                            <CustomImage
-                                style={[
-                                    styles.avatar,
-                                    {
-                                        borderColor: staffSelected == staff?.staffId ? colors.ocean_blue : "white",
-                                        borderWidth: staffSelected == staff?.staffId ? 2 : 1,
-                                    }
-                                ]}
-                                source={{ uri: staff?.imageUrl }}
-                                resizeMode='cover'
+                                tintColor="#0094D9"
                             />
+                        </AnimatedWrapper>
+                        : isEmpty(staff?.imageUrl) ?
+                            <AnimatedWrapper isActive={isActive} renderHighlight={renderHighlight} scaleActive={scaleActive}>
+                                <CustomImage
+                                    style={styles.avatar}
+                                    source={images.staff_default}
+                                    resizeMode='cover'
+                                />
+                            </AnimatedWrapper>
+                            :
+                            <AnimatedWrapper isActive={isActive} renderHighlight={renderHighlight} scaleActive={scaleActive}>
+                                <CustomImage
+                                    style={styles.avatar}
+                                    source={{ uri: staff?.imageUrl }}
+                                    resizeMode='cover'
+                                />
+                            </AnimatedWrapper>
             }
             <Text
                 numberOfLines={1}
                 ellipsizeMode={'tail'}
                 style={[styles.staffName, {
-                    fontFamily: staffSelected == staff?.staffId ? fonts.BOLD : fonts.MEDIUM,
-                    color: staffSelected == staff?.staffId ? colors.ocean_blue : "#404040",
+                    fontFamily: isActive ? fonts.BOLD : fonts.MEDIUM,
+                    color: isActive ? colors.ocean_blue : "#404040",
                 }]}>
                 {staff?.displayName}
             </Text>
         </TouchableOpacity>
+    );
+}
+
+const AnimatedWrapper = ({ children, scaleActive, isActive, renderHighlight = () => { } }) => {
+    return (
+        <View style={{
+            position: "relative",
+            padding: 5,
+            borderRadius: 300,
+        }}>
+            <Animated.View
+                style={{
+                    transform: [{ scale: scaleActive }]
+                }}
+            >
+                {children}
+            </Animated.View>
+            {isActive && renderHighlight()}
+        </View>
     );
 }
 
@@ -224,8 +315,8 @@ const styles = StyleSheet.create({
         width: scaleWidth(45),
         height: scaleWidth(45),
         borderRadius: 1000,
-        borderWidth: 3,
-        tintColor: "red"
+        tintColor: "red",
+        zIndex: 99
     },
     staffName: {
         fontSize: scaleFont(13),
@@ -235,7 +326,16 @@ const styles = StyleSheet.create({
     staff: {
         justifyContent: 'center',
         alignItems: 'center',
+        padding: 5,
         width: scaleWidth((375 - 32) / 5),
-
+        position: "relative"
+    },
+    highligh: {
+        position: "absolute",
+        borderWidth: 1,
+        borderColor: "#2B62AB",
+        width: scaleWidth(53),
+        height: scaleWidth(53),
+        borderRadius: 3000,
     }
 });
