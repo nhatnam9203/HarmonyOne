@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity, Text, ActivityIndicator, FlatList, Platform, Animated } from 'react-native';
 import { images, colors, fonts } from '@shared/themes';
-import { IconButton, CustomImage } from "@shared/components";
+import { IconButton, CustomImage, ProgressiveImage } from "@shared/components";
 import { isElement, isEmpty } from "lodash";
 import { guid } from "@shared/utils";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
@@ -236,18 +236,24 @@ const Item = ({ staff, selectStaff, staffSelected, showPopupAddBlockTime, getWai
                         </AnimatedWrapper>
                         : isEmpty(staff?.imageUrl) ?
                             <AnimatedWrapper isActive={isActive} renderHighlight={renderHighlight} scaleActive={scaleActive}>
-                                <CustomImage
+                                <ProgressiveImage
                                     style={styles.avatar}
-                                    source={images.staff_default}
+                                    defaultSource={images.staff_default}
+                                    width={scaleWidth(45)}
+                                    height={scaleWidth(45)}
                                     resizeMode='cover'
+                                    cirle={true}
                                 />
                             </AnimatedWrapper>
                             :
                             <AnimatedWrapper isActive={isActive} renderHighlight={renderHighlight} scaleActive={scaleActive}>
-                                <CustomImage
+                                <ProgressiveImage
                                     style={styles.avatar}
-                                    source={{ uri: staff?.imageUrl }}
+                                    url={staff?.imageUrl}
+                                    width={scaleWidth(45)}
+                                    height={scaleWidth(45)}
                                     resizeMode='cover'
+                                    cirle={true}
                                 />
                             </AnimatedWrapper>
             }

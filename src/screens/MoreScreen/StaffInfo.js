@@ -3,9 +3,10 @@ import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import { fonts, colors } from "@shared/themes";
 import { slop } from "@shared/utils";
 import { images } from "@shared/themes/resources";
-import { CustomImage } from "@shared/components";
+import { ProgressiveImage } from "@shared/components";
 import { items } from "./Items";
 import { useSelector } from "react-redux";
+
 
 export const StaffInfo = ({
     onEditProfile,
@@ -16,9 +17,13 @@ export const StaffInfo = ({
     return (
         <View style={styles.container}>
             <View style={styles.wrapAvatar}>
-                <CustomImage
+                <ProgressiveImage
                     style={styles.avatar}
-                    source={{ uri: staff?.imageUrl }}
+                    url={staff?.imageUrl}
+                    resizeMode='cover'
+                    width={'100%'}
+                    height={'100%'}
+                    cirle={true}
                 />
             </View>
             <View style={styles.containerInfo}>
@@ -38,9 +43,9 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         justifyContent: 'center',
-        elevation: 3, 
+        elevation: 3,
         zIndex: 2,
-     },
+    },
     wrapAvatar: {
         shadowColor: "#000",
         shadowOffset: {
@@ -62,10 +67,10 @@ const styles = StyleSheet.create({
         height: '100%',
         borderRadius: 1000,
     },
-    containerInfo : {
+    containerInfo: {
         transform: [{ translateY: -scaleWidth(375 / 3.5 / 2) }],
-        justifyContent : 'center',
-        alignItems : 'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     txtStaff: {
         marginTop: scaleHeight(24),

@@ -3,10 +3,9 @@ import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import { convertMinsToHrsMins } from '@utils'
 import { fonts, colors, images } from "@shared/themes";
 import { CustomImage } from "@shared/components";
+import { ProgressiveImage } from "./ProgressiveImage";
 
 export const ItemService = ({ item, onPress, renderDuration = null , titleStyle, isDisabled = false }) => {
-
-    const img = item?.imageUrl ? { uri: item?.imageUrl } : images.serviceDefault;
 
     const onPressItem = () => {
         onPress(item);
@@ -19,10 +18,21 @@ export const ItemService = ({ item, onPress, renderDuration = null , titleStyle,
             style={[styles.row, styles.item]}
             disabled={isDisabled}
         >
-            <CustomImage
+            <ProgressiveImage
+                url={item?.imageUrl}
+                defaultSource={images.serviceDefault}
+                height={scaleWidth(70)}
+                width={scaleWidth(70)}
+                resizeMode='cover'
                 style={styles.iconService}
-                source={img}
             />
+                {/* <JollibeeImage
+          url={item.image}
+          width="100%"
+          height="100%"
+          // defaultSource={images.menu_3}
+          resizeMode="contain"
+        /> */}
             <View style={styles.containerRight}>
                 <Text
                     fontFamily='medium'
@@ -65,8 +75,6 @@ const styles = StyleSheet.create({
     },
     iconService: {
         borderRadius: 5,
-        height: scaleWidth(70),
-        width: scaleWidth(70),
     },
     containerRight: {
         width: scaleWidth(375 - 90 - 30),
