@@ -17,7 +17,7 @@ export const Button = ({
   highlight = false,
   isLoading,
   disabled = false,
-  height = scaleHeight(45),
+  height = scaleHeight(47),
   width = scaleWidth(100),
   label,
   styleButton,

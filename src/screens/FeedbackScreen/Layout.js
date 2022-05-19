@@ -65,13 +65,13 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: scaleFont(20),
+    fontSize: scaleFont(24),
     color: '#1366AE',
     fontFamily: fonts.MEDIUM
   },
 
   subTitle: {
-    fontSize: scaleFont(16),
+    fontSize: scaleFont(15),
     marginTop: scaleHeight(12),
     color: '#404040',
     fontFamily: fonts.REGULAR
