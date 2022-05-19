@@ -47,15 +47,15 @@ export const AppLoading = ({
   return isLoading ? (
     <View style={styles.container}>
       <View style={styles.loadingBg}>
-        {/* {
+        {
             <Spinner
               style={styles.spinner}
-              type={Platform.OS === 'ios' ? 'ChasingDots' : 'ChasingDots'}
-              size={scaleWidth(40)}
+              type={Platform.OS === 'ios' ? 'Arc' : 'Arc'}
+              size={scaleWidth(33)}
               color="#fff"
             />
-        } */}
-        <LottieView source={require('../../assets/loading.json')} autoPlay loop />
+        }
+        {/* <LottieView source={require('../../assets/loading.json')} autoPlay loop /> */}
       </View>
     </View>
   ) : null;
@@ -63,12 +63,12 @@ export const AppLoading = ({
 
 const styles = StyleSheet.create({
   loadingBg: {
-    width: scaleWidth(80),
-    height: scaleHeight(80),
+    width: scaleWidth(70),
+    height: scaleHeight(70),
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: scaleWidth(10),
-    // backgroundColor: 'rgba(255,255,255,0.55)',
+    borderRadius: scaleWidth(300),
+    backgroundColor: 'rgba(0,0,0,0.3)',
   },
 
   container: {
