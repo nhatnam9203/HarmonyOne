@@ -118,7 +118,7 @@ const Item = ({ staff, selectStaff, staffSelected, showPopupAddBlockTime, getWai
                         Animated.timing(animatedValue, {
                             toValue: 1,
                             duration: 1500,
-                            useNativeDriver: false
+                            useNativeDriver: true
                         }),
                     ]
                 )
@@ -129,12 +129,12 @@ const Item = ({ staff, selectStaff, staffSelected, showPopupAddBlockTime, getWai
                         Animated.timing(scaleActive, {
                             toValue: 1.075,
                             duration: 1500,
-                            useNativeDriver: false
+                            useNativeDriver: true
                         }),
                         Animated.timing(scaleActive, {
                             toValue: 1,
                             duration: 1500,
-                            useNativeDriver: false
+                            useNativeDriver: true
                         }),
                     ]
                 )
