@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, TouchableOpacity, Image, StyleSheet, TextInput, Text, Animated } from 'react-native'
+import { View, TouchableOpacity, StyleSheet, TextInput, Text, Animated } from 'react-native'
 import { images } from "@shared/themes";
+import { CustomImage } from "@shared/components";
 
 const listStatus = [
     {
@@ -102,7 +103,7 @@ const ItemEmoji = ({
                 }
             ]}
         >
-            <Image
+            <CustomImage
                 source={isActive ? obj.emoji_select : obj.emoji_unselect}
                 style={styles.emoji}
             />
