@@ -7,6 +7,7 @@ import {
   Pressable,
   ActivityIndicator,
   Platform,
+  Animated
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { TouchableRipple } from "react-native-paper"
@@ -32,11 +33,25 @@ export const Button = ({
 
   const ButtonRender = Platform.OS == "ios" ? Pressable : TouchableRipple;
 
+  const AnimatedButton = Animated.createAnimatedComponent(ButtonRender);
+
   const isHighLight = (highlight) ? true : false;
 
+  const animatedValue = React.useRef(new Animated.Value(1)).current;
+
+  const zoomIn = () => {
+    Animated.timing(animatedValue, { toValue: 1.03, duration: 300 }).start();
+  };
+
+  const zoomOut = () => {
+    Animated.timing(animatedValue, { toValue: 1, duration: 300 }).start();
+  };
+
   return (
-    <ButtonRender
+    <AnimatedButton
       onPress={onPress}
+      onPressIn={zoomIn}
+      onPressOut={zoomOut}
       style={[
         styles.button,
         { height: height, width: width },
@@ -53,8 +68,11 @@ export const Button = ({
           elevation: 5,
         },
         styleButton,
-        disabled && { opacity : 0.5},
+        disabled && { opacity: 0.5 },
         disabled && buttonDisableStyle,
+        {
+          transform: [{ scale: animatedValue }],
+        }
       ]}
       disabled={disabled || appLoading || isTurnOff}
     >
@@ -64,7 +82,7 @@ export const Button = ({
         ) : (
           <Text
             style={[
-              styles.text, 
+              styles.text,
               highlight && { color: colors.white },
               textDisableStyle,
               styleText,
@@ -73,7 +91,7 @@ export const Button = ({
             {label ?? t('Continue')}
           </Text>
         )}
-    </ButtonRender>
+    </AnimatedButton>
   );
 };
 
@@ -89,7 +107,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize : scaleFont(17),
+    fontSize: scaleFont(17),
     color: colors.ocean_blue,
     fontFamily: fonts.BOLD_PRO
   },
