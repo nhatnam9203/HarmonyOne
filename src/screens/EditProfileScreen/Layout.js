@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native';
-import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { colors, fonts, layouts, images } from '@shared/themes';
 import { Button, CustomInput, InputText, DropdownMenu, CustomImage } from "@shared/components";
@@ -8,6 +7,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { HeaderEditProfile } from "./HeaderEditProfile";
 import { headerPhoneGroup, createFormData } from "@shared/utils";
 import { WithPopupUpload } from '@shared/HOC';
+import { translate } from "@localize";
 
 let AvatarProfile = ({ staff, imageUrl, onResponseImagePicker, ...props }) => {
   return (
@@ -44,12 +44,10 @@ export const Layout = ({
   onHandleChangeAvatar,
 }) => {
 
-  const [t] = useTranslation();
-
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Edit Profile')}
+        pageTitle={translate("txtEditProfile")}
         isRight={false}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}

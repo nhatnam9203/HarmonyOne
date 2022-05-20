@@ -2,5 +2,25 @@
   "noAppointments" : "No Appointments",
   "txtChangeLanguage" : "Change language",
   "txtLanguage" : "Language",
-  "txtSave" : "Save"
+  "txtSave" : "Save",
+  "txtCheckout" : "Checkout",
+  "txtAppointment" : "Appointment",
+  "txtReports" : "Reports",
+  "txtMore" : "More",
+  "txtSettings" : "Settings",
+  "txtAdvancedSettings" : "Advanced",
+  "txtHardware" : "Hardware",
+  "txtTax" : "Tax",
+  "txtReviews": "Reviews",
+  "txtServices" : "Services",
+  "txtStaff" : "Staff",
+  "txtInventory": "Inventory",
+  "txtExtras" : "Extras",
+  "txtCustomer" : "Customer",
+  "txtMarketing": "Marketing",
+  "txtInvoices": "Invoices",
+  "txtBusinessInformations": "Business Informations",
+  "txtSettlement": "Settlement",
+  "txtEditProfile": "Edit profile"
+
 }

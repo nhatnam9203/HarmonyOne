@@ -26,7 +26,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Settings')}
+        pageTitle={translate('txtSettings')}
         isRight={false}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}

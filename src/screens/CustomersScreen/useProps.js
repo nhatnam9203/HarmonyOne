@@ -5,10 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useScrollToTop } from '@react-navigation/native';
 import { customer, bookAppointment } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
+import {Animated} from 'react-native';
 
 export const useProps = (props) => {
 
   const dispatch = useDispatch();
+
+  const scrollY = React.useRef(new Animated.Value(0)).current;
 
   const isBookAppointment = props?.route?.params?.isBookAppointment;
   const isQuickCheckout = props?.route?.params?.isQuickCheckout;
@@ -67,6 +70,7 @@ export const useProps = (props) => {
     isReviewConfirm,
     isQuickCheckout,
     roleName,
+    scrollY,
 
     refreshFromScreen,
 

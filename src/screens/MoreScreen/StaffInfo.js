@@ -6,6 +6,7 @@ import { images } from "@shared/themes/resources";
 import { ProgressiveImage } from "@shared/components";
 import { items } from "./Items";
 import { useSelector } from "react-redux";
+import { translate } from "@localize";
 
 
 export const StaffInfo = ({
@@ -32,7 +33,7 @@ export const StaffInfo = ({
                     onPress={onEditProfile}
                     hitSlop={slop(30)}
                 >
-                    <Text style={styles.txtEdit}>Edit profile</Text>
+                    <Text style={styles.txtEdit}>{translate("txtEditProfile")}</Text>
                 </TouchableOpacity>
             </View>
         </View>
