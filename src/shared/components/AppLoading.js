@@ -50,7 +50,7 @@ export const AppLoading = ({
         {
             <Spinner
               style={styles.spinner}
-              type={Platform.OS === 'ios' ? 'Arc' : 'Arc'}
+              type={Platform.OS === 'ios' ? 'Bounce' : 'Arc'}
               size={scaleWidth(33)}
               color="#fff"
             />
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: scaleWidth(300),
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: '#68B2EF',
   },
 
   container: {

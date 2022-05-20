@@ -84,6 +84,7 @@ const StaffList = React.forwardRef(({
                                 getWaitingList={getWaitingList}
                             />
                         }
+                        style={{ paddingTop: 5 }}
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
                         ref={scrollViewStaffs}
@@ -128,12 +129,12 @@ const Item = ({ staff, selectStaff, staffSelected, showPopupAddBlockTime, getWai
                     [
                         Animated.timing(scaleActive, {
                             toValue: 1.075,
-                            duration: 1500,
+                            duration: 1000,
                             useNativeDriver: true
                         }),
                         Animated.timing(scaleActive, {
                             toValue: 1,
-                            duration: 1500,
+                            duration: 1000,
                             useNativeDriver: true
                         }),
                     ]
@@ -274,8 +275,8 @@ const AnimatedWrapper = ({ children, scaleActive, isActive, renderHighlight = ()
     return (
         <View style={{
             position: "relative",
-            padding: 5,
             borderRadius: 300,
+            justifyContent: "center"
         }}>
             <Animated.View
                 style={{
@@ -343,5 +344,6 @@ const styles = StyleSheet.create({
         width: scaleWidth(53),
         height: scaleWidth(53),
         borderRadius: 3000,
+        alignSelf: "center"
     }
 });

@@ -13,10 +13,10 @@ export const Layout = ({
   onEditProfile,
   goToNotification,
   staff
-}) => {
+}) => { 
 
   const [t] = useTranslation();
-  
+
   const roleName = staff?.roleName?.toString()?.toLowerCase();
 
   const itremsRender = (roleName == "admin" || roleName == "manager") ? itemsRoleManagerAdmin : items;
@@ -41,11 +41,12 @@ export const Layout = ({
                   key={item.title}
                   title={item.title}
                   icon={item.icon}
-                  onPress={()=>item.onPress()}
+                  onPress={() => item.onPress()}
+                  textStyle={{ fontFamily: fonts.MEDIUM }}
                 />
               ))
             }
-            <View style={{ height : scaleHeight(60) }} />
+            <View style={{ height: scaleHeight(60) }} />
           </ScrollView>
         </View>
       </SingleScreenLayout>
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    zIndex : -1
+    zIndex: -1
   },
 
   content: {
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
 
   containerItem: {
     transform: [{ translateY: -scaleWidth(375 / 3.5 / 2 - 15) }],
-    flex : 1,
-    zIndex : 99999
+    flex: 1,
+    zIndex: 99999
   },
 });

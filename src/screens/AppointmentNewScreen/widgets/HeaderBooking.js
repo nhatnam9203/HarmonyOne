@@ -35,6 +35,7 @@ const HeaderBooking = ({
         <ImageBackground
             source={images.imageHeaderBg}
             style={{ width: '100%', paddingBottom: scaleHeight(10) }}
+            blurRadius={3}
         >
             <View
                 source={images.imageHeaderBg}
