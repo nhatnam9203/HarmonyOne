@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   },
 
   bottom: {
-    padding: scaleWidth(16),
+    padding: scaleWidth(24),
     width: scaleWidth(375),
   },
 });

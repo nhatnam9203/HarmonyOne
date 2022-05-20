@@ -26,13 +26,6 @@ export const ItemService = ({ item, onPress, renderDuration = null , titleStyle,
                 resizeMode='cover'
                 style={styles.iconService}
             />
-                {/* <JollibeeImage
-          url={item.image}
-          width="100%"
-          height="100%"
-          // defaultSource={images.menu_3}
-          resizeMode="contain"
-        /> */}
             <View style={styles.containerRight}>
                 <Text
                     fontFamily='medium'

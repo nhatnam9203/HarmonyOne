@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { dataLocal } from "@redux/slices";
 import NavigationService from "@navigation/NavigationService";
 import { setI18nConfig } from "@localize";
+import CodePush from "react-native-code-push";
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
@@ -21,7 +22,10 @@ export const useProps = (props) => {
     switchLanguage: () => {
       dispatch(dataLocal.changeLanguage(lang));
       setI18nConfig(lang);
-      NavigationService.back();
+      setTimeout(() => {
+        CodePush.restartApp();
+      }, 500);
+      // NavigationService.back();
     },
   };
 
