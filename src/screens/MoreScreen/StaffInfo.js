@@ -5,13 +5,13 @@ import { slop } from "@shared/utils";
 import { images } from "@shared/themes/resources";
 import { ProgressiveImage } from "@shared/components";
 import { items } from "./Items";
-import { useSelector } from "react-redux";
 import { translate } from "@localize";
 
 
 export const StaffInfo = ({
     onEditProfile,
-    scroll
+    scroll,
+    staff
 }) => {
 
     const opacity = scroll.interpolate({
@@ -37,8 +37,6 @@ export const StaffInfo = ({
         outputRange: [0, -40],
         extrapolate: "clamp"
     });
-
-    const { staff } = useSelector((state) => state.auth);
 
     return (
         <View style={styles.container}>
