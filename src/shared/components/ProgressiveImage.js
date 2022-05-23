@@ -51,7 +51,7 @@ export const ProgressiveImage = React.memo(
             <Animatable.View
                 style={[styles.container, { width: width, height: height }, style]}>
                 <FastImage
-                    style={{ width: width, height: height, ...(cirle && { borderRadius: 3000 }) }}
+                    style={[style,{ width: width, height: height, ...(cirle && { borderRadius: 3000 }) }]}
                     source={
                         url && !loadFailed
                             ? { uri: fullPath, priority: FastImage.priority.normal }

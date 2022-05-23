@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, Image, ScrollView } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Image, ScrollView, Animated } from 'react-native';
 import { colors, fonts, images } from "@shared/themes";
-import { CustomImage, IconButton, Button } from "@shared/components";
+import { IconButton, Button, ProgressiveImage } from "@shared/components";
 import { ExtraOfService } from './ExtraOfService';
 import { slop } from "@shared/utils";
 import { isEmpty } from "lodash";
@@ -28,31 +28,64 @@ export const Layout = ({
   inputPriceRef
 }) => {
 
+  const scroll = React.useRef(new Animated.Value(0)).current;
+
+  const scaleImage = scroll.interpolate({
+    inputRange: [scaleHeight(-230), 0],
+    outputRange: [1.45, 1],
+    extrapolate: "clamp"
+  });
+
+  const scrollImage = scroll.interpolate({
+    inputRange: [0, scaleHeight(230)],
+    outputRange: [0, -scaleHeight(230)],
+    extrapolate: "clamp"
+  });
+
   return (
     <View style={styles.container}>
-      <KeyboardAwareScrollView bounces={false} style={styles.content}>
-        <View style={styles.containerBigImage}>
-          {
-            !isEmpty(item?.imageUrl) ?
-              <CustomImage
-                source={{ uri: item?.imageUrl, priority: "high" }}
-                style={{ width: '100%', height: '100%' }}
-                resizeMode='cover'
-              /> :
-              <CustomImage
-                source={images.serviceDefault}
-                style={{ width: '100%', height: '100%' }}
-                resizeMode='cover'
-              />
-          }
 
-          <IconButton
-            icon={images.iconBack}
-            iconStyle={styles.iconBack}
-            style={styles.wrapIconBack}
-            onPress={back}
+      <View style={[
+        styles.containerBigImage,
+        {
+          position: "absolute",
+          left: 0,
+          right: 0,
+          zIndex: 9
+        }
+      ]}>
+        <IconButton
+          icon={images.iconBack}
+          iconStyle={styles.iconBack}
+          style={[styles.wrapIconBack, { zIndex: 999999 }]}
+          onPress={back}
+        />
+
+        <Animated.View style={{
+          transform: [
+            { scale: scaleImage },
+            { translateY: scrollImage }
+          ],
+        }}>
+          <ProgressiveImage
+            url={item?.imageUrl}
+            defaultSource={images.serviceDefault}
+            resizeMode='cover'
+            width={"100%"}
+            height={"100%"}
           />
-        </View>
+        </Animated.View>
+      </View>
+
+      <Animated.ScrollView
+        style={[styles.content, { paddingTop: scaleHeight(230) }]}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scroll } } }],
+          {
+            useNativeDriver: true
+          },
+        )}
+      >
 
         <View style={styles.containerDescription}>
           <Text style={styles.servivceName}>{item?.name}</Text>
@@ -154,9 +187,8 @@ export const Layout = ({
           />
         }
 
-        <View style={{ height: scaleHeight(100) }} />
-
-      </KeyboardAwareScrollView>
+        <View style={{ height: scaleHeight(260) }} />
+      </Animated.ScrollView>
       <View style={styles.bottom}>
         <Button
           label="Next"
@@ -220,7 +252,7 @@ const styles = StyleSheet.create({
   },
   containerBigImage: {
     width: scaleWidth(375),
-    height: scaleWidth(230),
+    height: scaleHeight(230),
     position: 'relative'
   },
   iconBack: {

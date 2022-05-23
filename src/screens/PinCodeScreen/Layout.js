@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { Image, TouchableOpacity, StyleSheet, Text, View, Animated } from 'react-native';
 import { images, layouts, textStyles, fonts, colors } from '@shared/themes';
 import { Button, FocusBar } from '@shared/components';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
@@ -29,16 +29,9 @@ export const Layout = ({
           resizeMode="contain"
         />
         <View style={styles.marginHeight} />
-        <Text
-          style={[
-            layouts.sf_pt_medium_17_500,
-            { 
-              fontSize: scaleFont(20), color: colors.bluegrey,
-              fontFamily : fonts.BOLD
-            },
-          ]}>
-          {translate('txtEnterPincode')}
-        </Text>
+
+        <TextPincode />
+
         <View style={styles.marginHeight} />
         <View style={styles.containerInput}>
           <SmoothPinCodeInput
@@ -76,6 +69,44 @@ export const Layout = ({
   );
 };
 
+const TextPincode = () => {
+
+  const animatedValue = React.useRef(new Animated.Value(1)).current;
+
+  React.useEffect(() => {
+    Animated.loop(
+      Animated.sequence(
+        [
+          Animated.timing(animatedValue, {
+            toValue: 1.07,
+            duration: 700,
+            useNativeDriver: true
+          }),
+          Animated.timing(animatedValue, {
+            toValue: 1,
+            duration: 700,
+            useNativeDriver: true
+          }),
+        ]
+      )
+    ).start();
+  }, [])
+
+  return (
+    <Animated.Text
+      style={[
+        layouts.sf_pt_medium_17_500,
+        {
+          fontSize: scaleFont(18), color: colors.bluegrey,
+          fontFamily: fonts.BOLD,
+          transform: [{ scale: animatedValue }]
+        },
+      ]}>
+      {translate('txtEnterPincode')}
+    </Animated.Text>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -88,7 +119,7 @@ const styles = StyleSheet.create({
   logo: {
     marginTop: scaleHeight(45),
     width: scaleWidth(180),
-    height: scaleHeight(112),
+    height: scaleHeight(85),
   },
 
   marginHeight: {
@@ -103,13 +134,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#CCCCCC',
+    marginVertical: scaleHeight(8)
   },
 
   dotInput: {
     width: scaleWidth(20),
     height: scaleWidth(20),
     borderRadius: scaleWidth(300),
-    backgroundColor: '#7B99BA',
+    backgroundColor: '#8097B8',
     opacity: 0.3,
   },
 
@@ -130,12 +162,12 @@ const styles = StyleSheet.create({
     color: '#27aae1',
   },
 
-  buttonDisableStyle : {
-    backgroundColor : "transparent",
-    borderWidth : 1,
-    borderColor : '#2E63AA'
+  buttonDisableStyle: {
+    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderColor: '#2E63AA'
   },
-  textDisableStyle : {
-    color : "#2E63AA"
+  textDisableStyle: {
+    color: "#2E63AA"
   }
 });

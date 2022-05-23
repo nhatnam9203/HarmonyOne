@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, ScrollView, Pressable } from 'react-native';
 import { colors, fonts, images } from "@shared/themes";
-import { CustomImage, IconButton, Button } from "@shared/components";
+import { CustomImage, IconButton, Button, ProgressiveImage } from "@shared/components";
 import { convertMinsToHrsMins } from "@shared/utils";
 import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
 import { isEmpty } from "lodash";
@@ -85,10 +85,12 @@ const ItemExtra = ({ extra, onChangeExtraService }) => {
                         source={images.serviceDefault}
                         resizeMode="cover"
                     /> :
-                    <CustomImage
+                    <ProgressiveImage
+                        url={extra?.imageUrl}
+                        resizeMode='cover'
+                        width={scaleHeight(60)}
+                        height={scaleHeight(60)}
                         style={styles.serviceImage}
-                        source={{ uri: extra?.imageUrl }}
-                        resizeMode="cover"
                     />
             }
             <View style={styles.wrapContent}>

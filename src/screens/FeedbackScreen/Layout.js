@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Text, FlatList, ActivityIndicator, TextInput, Keyboard } from 'react-native';
-import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
 import { Button } from "@shared/components";
 import { images } from "@shared/themes/resources";
 import { ListEmoji } from "./ListEmoji";
+import { translate } from "@localize";
 
 export const Layout = ({
   value,
@@ -14,12 +14,10 @@ export const Layout = ({
   listEmojiRef
 }) => {
 
-  const [t] = useTranslation();
-
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t("Feedback")}
+        pageTitle={translate("txtFeedback")}
         isLeft={true}
         isRight={false}
         isScrollLayout={false}
@@ -27,16 +25,16 @@ export const Layout = ({
       >
         <View style={styles.content}>
           <Text style={styles.title}>
-            Share your feedback
+            {translate("txtShareFeedback")}
           </Text>
           <Text style={styles.subTitle}>
-            How satisfied are you with this app ?
+            {translate("txtShareFeedback2")}
           </Text>
           <ListEmoji ref={listEmojiRef} />
 
           <TextInput
             multiline={true}
-            placeholder='Type a comment'
+            placeholder={translate("txtTypeYourComment")}
             placeholderTextColor='#7B99BA'
             textAlignVertical='top'
             value={value}
@@ -47,7 +45,7 @@ export const Layout = ({
         </View>
         <View style={styles.bottom}>
           <Button
-            label="Send Feedback"
+            label={translate("txtSendFeedback")}
             onPress={onSubmit}
             highlight={true}
             width={'100%'}

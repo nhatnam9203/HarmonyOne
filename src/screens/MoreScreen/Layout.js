@@ -44,7 +44,7 @@ export const Layout = ({
     const y = e.nativeEvent.contentOffset.y;
     if (y < 90) {
       scrollViewRefst.current?.scrollTo({ y: 0, animated: true });
-    } else {
+    } else if(y >= 90 && y < 180) {
       scrollViewRefst.current?.scrollTo({ y: 180, animated: true });
     }
     setTimeout(() => {

@@ -12,7 +12,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FocusBar } from "@shared/components";
 import NavigationService from '@navigation/NavigationService';
-import AntDesign from "react-native-vector-icons/AntDesign";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 export const ContainerMoreScreen = ({
     children,
@@ -105,7 +105,7 @@ export const ContainerMoreScreen = ({
                     <Text style={[styles.headTitle, { color: headerTintColor, marginRight: 12 }]}>
                         {staff?.displayName}
                     </Text>
-                    <AntDesign size={25} name='edit' color={'#333'} />
+                    <FontAwesome5 size={25} name='user-edit' color={'#8097B8'} />
                 </AnimatedTouch>
 
                 {

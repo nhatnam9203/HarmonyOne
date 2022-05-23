@@ -60,7 +60,7 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='First name'
+            label={translate("txtFirstName")}
             isRequired
             error={errors?.firstName}
             renderInput={() =>
@@ -68,14 +68,13 @@ export const Layout = ({
                 form={form}
                 error={errors?.firstName}
                 name="firstName"
-                placeholder="First name"
-                error={errors?.firstName}
+                placeholder={translate("txtFirstName")}
               />
             }
           />
 
           <CustomInput
-            label='Last name'
+            label={translate("txtLastName")}
             isRequired
             error={errors?.lastName}
             renderInput={() =>
@@ -83,14 +82,13 @@ export const Layout = ({
                 form={form}
                 error={errors?.lastName}
                 name="lastName"
-                placeholder="Last name"
-                error={errors?.lastName}
+                placeholder={translate("txtLastName")}
               />
             }
           />
 
           <CustomInput
-            label='Display name'
+            label={translate("txtDisplayName")}
             isRequired
             error={errors?.displayName}
             renderInput={() =>
@@ -98,14 +96,13 @@ export const Layout = ({
                 form={form}
                 error={errors?.displayName}
                 name="displayName"
-                placeholder="Display name"
-                error={errors?.displayName}
+                placeholder={translate("txtDisplayName")}
               />
             }
           />
 
           <CustomInput
-            label='Phone number'
+            label={translate("txtPhoneNumber")}
             name="phone"
             isRequired
             error={errors?.phone}
@@ -134,39 +131,39 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Email'
+            label={translate("txtEmail")}
             error={errors?.email}
             renderInput={() =>
               <InputText
                 form={form}
                 name="email"
-                placeholder="Email"
+                placeholder={translate("txtEmail")}
                 error={errors?.email}
               />
             }
           />
 
           <CustomInput
-            label='Address'
+            label={translate("txtAddress")}
             error={errors?.street}
             renderInput={() =>
               <InputText
                 form={form}
                 name="street"
-                placeholder="Street"
+                placeholder={translate("txtStreet")}
                 error={errors?.street}
               />
             }
           />
 
           <CustomInput
-            label='City'
+            label={translate("txtCity")}
             error={errors?.city}
             renderInput={() =>
               <InputText
                 form={form}
                 name="city"
-                placeholder="City"
+                placeholder={translate("txtCity")}
                 error={errors?.city}
               />
             }
@@ -175,7 +172,7 @@ export const Layout = ({
         </KeyboardAwareScrollView>
         <View style={styles.bottom}>
           <Button
-            label="Save"
+            label={translate("txtSave")}
             onPress={form.handleSubmit(onSubmit)}
             highlight={true}
             width={'100%'}

@@ -83,6 +83,7 @@ export const Layout = ({
         isRight={canEdit}
         isScrollLayout={false}
         barStyle={getBarStyle()}
+        containerStyle={{ paddingVertical: 0 }}
         headerRightComponent={() =>
           canEdit && (
             <EditButton
@@ -245,7 +246,7 @@ const styles = StyleSheet.create({
   },
 
   bottom: {
-    paddingHorizontal: scaleWidth(24),
+    padding: scaleWidth(24),
     width: scaleWidth(375),
   },
 
