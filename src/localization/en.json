@@ -21,6 +21,39 @@
   "txtInvoices": "Invoices",
   "txtBusinessInformations": "Business Informations",
   "txtSettlement": "Settlement",
-  "txtEditProfile": "Edit profile"
+  "txtEditProfile": "Edit profile",
+  "txtSignin" : "Sign In",
+  "txtEnterMerchantId": "Enter your Merchant ID",
+  "txtContinue": "Continue",
+  "txtDontHaveAccount": "Don't have an account!",
+  "txtSignup": "Sign Up",
+  "txtEnterPincode": "Enter your PIN code",
+  "txtForgotPincode": "Forgot Pin code",
+  "txtUserAnotherMID": "Use another MID",
+  "txtEmailAddress": "Enter your email address, we'll send you a reset link",
+  "txtSubmit": "Submit",
+  "txtBackToSignin": "Back to Sign In",
+  "txtEnterEmail": "Enter your email address",
+  "txtAccount": "Account",
+  "txtSignout": "Sign out",
+  "txtAbout": "About",
+  "txtPrivacy": "Privacy policy",
+  "txtTerms": "Terms",
+  "txtSupport": "Support",
+  "txtHelpFAQ": "Help & FAQ",
+  "txtFeedback": "Feed back",
+  "txtSecurity": "Security",
+  "txtChangePincode": "Change PIN code",
+  "txtBiometricLogin": "Biometric login",
+  "txtCurrentPincode": "Current PIN code",
+  "txtWarning": "Warning",
+  "txtLogout" : "Are you sure yout want to log out of your account from this device ?",
+  "txtYes": "Yes",
+  "txtNo": "No",
+  "txtTermsOfService" : "Terms of Service",
+  "txtContentChangeLanguage": "Language being change ..."
+
+
+
 
 }

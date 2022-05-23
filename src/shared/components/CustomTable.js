@@ -647,7 +647,6 @@ function TableListExtended({
         renderHeader={renderHeader}
         renderSection={renderSection}
         renderIndexPath={renderItem}
-
         alwaysBounceHorizontal={false}
         showsHorizontalScrollIndicator={isContentSmallerThanScrollView}
         showsVerticalScrollIndicator={Platform.OS == "ios" ? true : false}

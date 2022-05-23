@@ -50,9 +50,9 @@ export const AppLoading = ({
         {
             <Spinner
               style={styles.spinner}
-              type={Platform.OS === 'ios' ? 'Bounce' : 'Arc'}
+              type={Platform.OS === 'ios' ? "Arc" : 'Arc'}
               size={scaleWidth(33)}
-              color="#fff"
+              color="#68B2EF"
             />
         }
         {/* <LottieView source={require('../../assets/loading.json')} autoPlay loop /> */}
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: scaleWidth(300),
-    backgroundColor: '#68B2EF',
+    backgroundColor: 'white',
   },
 
   container: {
@@ -79,7 +79,8 @@ const styles = StyleSheet.create({
     left: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex : 999999999999999
+    zIndex : 999999999999999,
+    backgroundColor : "rgba(0,0,0,0.25)"
   },
 
   spinner: {

@@ -2,8 +2,8 @@ import React from 'react';
 import { Image, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import { images, layouts, textStyles, fonts, colors } from '@shared/themes';
 import { Button, FocusBar } from '@shared/components';
-import { useTranslation } from 'react-i18next';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
+import { translate } from "@localize";
 
 export const Layout = ({
   onChangeInputCode,
@@ -14,14 +14,15 @@ export const Layout = ({
   useAnotherMID,
   isQuickLogin
 }) => {
-  const [t] = useTranslation();
 
   return (
     <View style={layouts.fill}>
       <FocusBar barStyle={"dark-content"} />
       <View style={styles.container}>
         <View style={layouts.marginVertical} />
-        <Text style={textStyles.sf_pt_medium_17_500}>{t('Sign In')}</Text>
+        <Text style={textStyles.sf_pt_medium_17_500}>
+          {translate('txtSignin')}
+        </Text>
         <Image
           source={images.iconSignIn}
           style={styles.logo}
@@ -36,7 +37,7 @@ export const Layout = ({
               fontFamily : fonts.BOLD
             },
           ]}>
-          {t('Enter your PIN code')}
+          {translate('txtEnterPincode')}
         </Text>
         <View style={styles.marginHeight} />
         <View style={styles.containerInput}>
@@ -56,7 +57,7 @@ export const Layout = ({
         </View>
         <View style={styles.marginHeight} />
         <Button
-          label={t('Sign In')}
+          label={translate('txtSignin')}
           width="100%"
           highlight={true}
           disabled={pinCode?.length !== 4}
@@ -65,10 +66,10 @@ export const Layout = ({
         />
         <View style={layouts.marginVertical} />
         <TouchableOpacity onPress={forgotPinCode} style={styles.btnLink}>
-          <Text style={styles.txtLink}>{t('Forgot Pin code ?')}</Text>
+          <Text style={styles.txtLink}>{`${translate('txtForgotPincode')} ?`}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={useAnotherMID} style={styles.btnLink}>
-          <Text style={styles.txtLink}>{t('Use another MID')}</Text>
+          <Text style={styles.txtLink}>{translate('txtUserAnotherMID')}</Text>
         </TouchableOpacity>
       </View>
     </View>

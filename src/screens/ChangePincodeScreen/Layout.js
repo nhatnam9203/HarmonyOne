@@ -5,6 +5,7 @@ import { Button } from '@shared/components';
 import { useTranslation } from 'react-i18next';
 import { SingleScreenLayout } from '@shared/layouts';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
+import { translate } from "@localize";
 
 export const Layout = ({
   onChangeInputCode,
@@ -17,7 +18,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Change PIN Code')}
+        pageTitle={translate("txtChangePincode")}
         isRight={false}
         isLeft={true}
         isScrollLayout={false}
@@ -35,7 +36,7 @@ export const Layout = ({
               layouts.sf_pt_medium_17_500,
               { fontSize: scaleFont(18), color: "#7A98BB", fontFamily: fonts.MEDIUM },
             ]}>
-            {t('Current PIN code')}
+            {translate("txtCurrentPincode")}
           </Text>
           <View style={styles.marginHeight} />
           <View style={styles.containerInput}>
@@ -54,7 +55,9 @@ export const Layout = ({
           </View>
 
           <TouchableOpacity onPress={forgotPinCode} style={[styles.btnLink, { marginTop: scaleHeight(16) }]}>
-            <Text style={styles.txtLink}>{t('Forgot PIN code ?')}</Text>
+            <Text style={styles.txtLink}>
+              {translate("txtForgotPincode")}
+            </Text>
           </TouchableOpacity>
         </View>
       </SingleScreenLayout>

@@ -3,19 +3,16 @@ import { useTranslation } from "react-i18next";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { colors, fonts, layouts } from "@shared/themes";
 import { images } from "@shared/themes/resources";
-import { Button } from "./Button";
-import { IconButton } from "./IconButton";
+import { Button } from "@shared/components";
 import Modal from "react-native-modal";
 import { translate } from "@localize";
+import Spinner from 'react-native-spinkit';
 
-export const DialogConfirm = React.forwardRef(
+export const LanguageLoading = React.forwardRef(
     ({
-        onConfirmYes = () => { },
-        onConfirmNo = () => { },
         title = "",
         titleContent = "",
         onModalHide = () => { },
-        isCloseButton = true,
     }, ref) => {
         const [t] = useTranslation();
 
@@ -59,14 +56,6 @@ export const DialogConfirm = React.forwardRef(
                 animationOut="zoomOut"
             >
                 <View style={styles.container}>
-                    {
-                        isCloseButton && <IconButton
-                            icon={images.iconClose}
-                            style={styles.buttonClose}
-                            iconStyle={styles.iconButtonClose}
-                            onPress={hideModal}
-                        />
-                    }
                     <Text style={styles.txtTitle}>
                         {title}
                     </Text>
@@ -75,29 +64,11 @@ export const DialogConfirm = React.forwardRef(
                     </Text>
 
                     <View style={styles.bottomStyle}>
-                        <Button
-                            onPress={onHandleYESButtonPress}
-                            highlight={false}
-                            height={scaleHeight(48)}
-                            width={scaleWidth(169)}
-                            label={translate("txtYes")}
-                            styleButton={{
-                                borderWidth: 0,
-                                backgroundColor: "transparent"
-                            }}
-                            styleText={{ color: "red" }}
-                        />
-                        <View style={styles.line} />
-                        <Button
-                            onPress={onHandleNOButtonPress}
-                            highlight={false}
-                            height={scaleHeight(48)}
-                            width={scaleWidth(169)}
-                            label={translate("txtNo")}
-                            styleButton={{
-                                borderWidth: 0,
-                                backgroundColor: "transparent"
-                            }}
+                        <Spinner
+                            style={styles.spinner}
+                            type={'Arc'}
+                            size={scaleWidth(33)}
+                            color="#68B2EF"
                         />
                     </View>
                 </View>
@@ -122,7 +93,7 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         shadowOpacity: 1,
         position: 'relative',
-        zIndex : 99999999
+        zIndex: 99999999
     },
 
 
@@ -133,7 +104,7 @@ const styles = StyleSheet.create({
 
     txtTitle: {
         fontFamily: fonts.BOLD,
-        fontSize: scaleFont(19),
+        fontSize: scaleFont(21),
         fontWeight: "500",
         fontStyle: "normal",
         letterSpacing: 0,
@@ -142,29 +113,10 @@ const styles = StyleSheet.create({
         color: colors.WHITE,
     },
 
-    buttonClose: {
-        width: scaleWidth(28),
-        height: scaleHeight(28),
-        borderRadius: scaleWidth(14),
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#fff",
-        marginRight: scaleWidth(10),
-        position: 'absolute',
-        right: scaleWidth(2),
-        top: scaleWidth(12),
-    },
-
-    iconButtonClose: {
-        width: scaleWidth(28),
-        height: scaleHeight(28),
-        tintColor: "#404040",
-    },
-
     titleContent: {
         fontFamily: fonts.REGULAR,
         marginTop: scaleHeight(20),
-        fontSize: scaleFont(15),
+        fontSize: scaleFont(16),
         marginHorizontal: scaleWidth(16),
         letterSpacing: 0,
         textAlign: "center",
@@ -175,13 +127,12 @@ const styles = StyleSheet.create({
         justifyContent: "space-evenly",
         alignItems: "center",
         flexDirection: "row",
-        borderTopWidth: 1,
-        borderTopColor: "#dddddd",
         marginTop: scaleHeight(20)
     },
-    line: {
-        height: scaleHeight(48),
-        width: scaleWidth(2),
-        backgroundColor: "#dddddd"
-    }
+
+    spinner: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginVertical: scaleHeight(12)
+    },
 });

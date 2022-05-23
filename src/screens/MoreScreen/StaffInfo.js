@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image, Animated } from 'react-native';
 import { fonts, colors } from "@shared/themes";
 import { slop } from "@shared/utils";
 import { images } from "@shared/themes/resources";
@@ -11,13 +11,44 @@ import { translate } from "@localize";
 
 export const StaffInfo = ({
     onEditProfile,
+    scroll
 }) => {
+
+    const opacity = scroll.interpolate({
+        inputRange: [0, 80],
+        outputRange: [1, 0],
+        extrapolate: "clamp"
+    });
+
+    const scale = scroll.interpolate({
+        inputRange: [85, 150],
+        outputRange: [1, 0],
+        extrapolate: "clamp"
+    });
+
+    const opacityAvatar = scroll.interpolate({
+        inputRange: [85, 150],
+        outputRange: [1, 0],
+        extrapolate: "clamp"
+    });
+
+    const translateText = scroll.interpolate({
+        inputRange: [0, 80],
+        outputRange: [0, -40],
+        extrapolate: "clamp"
+    });
 
     const { staff } = useSelector((state) => state.auth);
 
     return (
         <View style={styles.container}>
-            <View style={styles.wrapAvatar}>
+            <Animated.View style={[
+                styles.wrapAvatar,
+                {
+                    transform: [{ scale }],
+                    opacity: opacityAvatar
+                }
+            ]}>
                 <ProgressiveImage
                     style={styles.avatar}
                     url={staff?.imageUrl}
@@ -26,8 +57,14 @@ export const StaffInfo = ({
                     height={'100%'}
                     cirle={true}
                 />
-            </View>
-            <View style={styles.containerInfo}>
+            </Animated.View>
+            <Animated.View style={[
+                styles.containerInfo,
+                {
+                    opacity,
+                    transform: [{ translateY: translateText }]
+                }
+            ]}>
                 <Text style={styles.txtStaff}>{staff?.displayName}</Text>
                 <TouchableOpacity
                     onPress={onEditProfile}
@@ -35,7 +72,7 @@ export const StaffInfo = ({
                 >
                     <Text style={styles.txtEdit}>{translate("txtEditProfile")}</Text>
                 </TouchableOpacity>
-            </View>
+            </Animated.View>
         </View>
     );
 };
@@ -45,7 +82,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         elevation: 3,
-        zIndex: 2,
+        zIndex: 99999999999999999,
+        transform: [{ translateY: -scaleWidth(375 / 3.5 / 2) }],
+        position: "absolute",
+        left: "30%",
+        height: scaleHeight(190)
+
     },
     wrapAvatar: {
         shadowColor: "#000",
@@ -61,7 +103,7 @@ const styles = StyleSheet.create({
         width: scaleWidth(375 / 3.5),
         height: scaleWidth(375 / 3.5),
         borderRadius: 1000,
-        transform: [{ translateY: -scaleWidth(375 / 3.5 / 2) }],
+        zIndex: 9999999999,
     },
     avatar: {
         width: '100%',
@@ -69,9 +111,8 @@ const styles = StyleSheet.create({
         borderRadius: 1000,
     },
     containerInfo: {
-        transform: [{ translateY: -scaleWidth(375 / 3.5 / 2) }],
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     txtStaff: {
         marginTop: scaleHeight(24),

@@ -8,15 +8,15 @@ import { translate } from "@localize";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import ic_english from "../../localization/flags/ic-flag-english.png";
 import ic_vietnam from "../../localization/flags/ic-flag-vietnam.png";
+import { LanguageLoading } from "./LanguageLoading";
 
 export const Layout = ({
   language,
   switchLanguage,
   lang,
-  setLang
+  setLang,
+  refLanguageLoading,
 }) => {
-
-  const [t] = useTranslation();
 
   return (
     <View style={styles.container}>
@@ -58,6 +58,14 @@ export const Layout = ({
           width={'100%'}
         />
       </View>
+
+      <LanguageLoading
+        ref={refLanguageLoading}
+        title={`${translate("txtChangeLanguage")} !`}
+        titleContent={
+          translate("txtContentChangeLanguage")
+        }
+      />
     </View>
   );
 };
@@ -124,8 +132,8 @@ const styles = StyleSheet.create({
     height: scaleWidth(25),
     marginRight: scaleWidth(25)
   },
-  row : {
-    flexDirection: "row", 
+  row: {
+    flexDirection: "row",
     alignItems: "center"
   }
 });

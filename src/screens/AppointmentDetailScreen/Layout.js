@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
   },
 
   bottom: {
-    paddingHorizontal: scaleWidth(16),
+    paddingHorizontal: scaleWidth(24),
     width: scaleWidth(375),
   },
 

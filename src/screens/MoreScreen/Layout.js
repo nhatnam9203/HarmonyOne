@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableOpacity, ScrollView, Animated } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, ItemSelect, NotificationIcon } from "@shared/components";
@@ -13,7 +13,9 @@ export const Layout = ({
   onEditProfile,
   goToNotification,
   staff
-}) => { 
+}) => {
+
+  const scroll = React.useRef(new Animated.Value(0)).current;
 
   const [t] = useTranslation();
 
@@ -33,8 +35,20 @@ export const Layout = ({
         }
       >
         <View style={styles.content}>
-          <StaffInfo onEditProfile={onEditProfile} />
-          <ScrollView style={styles.containerItem}>
+          <StaffInfo onEditProfile={onEditProfile} scroll={scroll} />
+          <Animated.ScrollView
+            onScroll={
+              Animated.event(
+                [{
+                  nativeEvent: {
+                    contentOffset: {
+                      y: scroll
+                    }
+                  }
+                }]
+              )
+            }
+            style={styles.containerItem}>
             {
               itremsRender.map((item) => (
                 <ItemSelect
@@ -46,8 +60,8 @@ export const Layout = ({
                 />
               ))
             }
-            <View style={{ height: scaleHeight(60) }} />
-          </ScrollView>
+            <View style={{ height: scaleHeight(190) }} />
+          </Animated.ScrollView>
         </View>
       </SingleScreenLayout>
     </View>
@@ -66,8 +80,9 @@ const styles = StyleSheet.create({
   },
 
   containerItem: {
-    transform: [{ translateY: -scaleWidth(375 / 3.5 / 2 - 15) }],
+    // transform: [{ translateY: -scaleWidth(375 / 3.5 / 2 - 15) }],
     flex: 1,
-    zIndex: 99999
+    zIndex: 99999,
+    paddingTop: scaleHeight(140)
   },
 });

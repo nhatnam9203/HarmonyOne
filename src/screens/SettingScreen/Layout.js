@@ -33,7 +33,7 @@ export const Layout = ({
       >
         <View style={styles.content}>
           {/**************************************** SECURITY ****************************************/}
-          <Title content={t('Security')} />
+          <Title content={translate('txtSecurity')} />
           <IconButton
             icon={images.iconArrow}
             iconStyle={styles.iconStyle}
@@ -41,30 +41,30 @@ export const Layout = ({
             onPress={() =>
               NavigationService.navigate(screenNames.ChangePincodeScreen)
             }
-            renderText={() => <Text style={styles.txtItem}>{t('Change PIN code')}</Text>}
+            renderText={() => <Text style={styles.txtItem}>{translate('txtChangePincode')}</Text>}
           />
           <IconButton
             iconComponent={() => <SwitchButton value={isQuickLogin} toggle={toggleQuickLogin} />}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
-            renderText={() => <Text style={styles.txtItem}>{t('Biometric login')}</Text>}
+            renderText={() => <Text style={styles.txtItem}>{translate('txtBiometricLogin')}</Text>}
           />
           <View style={styles.seperateLine} />
 
           {/**************************************** SUPPORT ****************************************/}
-          <Title content={t('Support')} />
+          <Title content={translate('txtSupport')} />
           <IconButton
             icon={images.iconArrow}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
             onPress={() => NavigationService.navigate(screenNames.FaqPage)}
-            renderText={() => <Text style={styles.txtItem}>{t('Help & FAQ')}</Text>}
+            renderText={() => <Text style={styles.txtItem}>{translate('txtHelpFAQ')}</Text>}
           />
           <IconButton
             icon={images.iconArrow}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
-            renderText={() => <Text style={styles.txtItem}>{t('Feed back')}</Text>}
+            renderText={() => <Text style={styles.txtItem}>{translate('txtFeedback')}</Text>}
             onPress={() =>
               NavigationService.navigate(screenNames.FeedbackScreen)
             }
@@ -72,20 +72,20 @@ export const Layout = ({
           <View style={styles.seperateLine} />
 
           {/**************************************** ABOUT ****************************************/}
-          <Title content={t('About')} />
+          <Title content={translate('txtAbout')} />
           <IconButton
             icon={images.iconArrow}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
             onPress={() => NavigationService.navigate(screenNames.Privacy)}
-            renderText={() => <Text style={styles.txtItem}>{t('Privacy policy')}</Text>}
+            renderText={() => <Text style={styles.txtItem}>{translate('txtPrivacy')}</Text>}
           />
           <IconButton
             icon={images.iconArrow}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
             onPress={() => NavigationService.navigate(screenNames.TermOfService)}
-            renderText={() => <Text style={styles.txtItem}>{t('Terms')}</Text>}
+            renderText={() => <Text style={styles.txtItem}>{translate('txtTerms')}</Text>}
           />
           <View style={styles.seperateLine} />
 
@@ -113,20 +113,20 @@ export const Layout = ({
           <View style={styles.seperateLine} />
 
           {/**************************************** ACCOUNT ****************************************/}
-          <Title content={t('Account')} />
+          <Title content={translate('txtAccount')} />
           <IconButton
             icon={images.iconArrow}
             iconStyle={styles.iconStyle}
             style={styles.rowReverse}
-            renderText={() => <Text style={styles.txtItem}>{t('Sign out')}</Text>}
+            renderText={() => <Text style={styles.txtItem}>{translate('txtSignout')}</Text>}
             onPress={() => refDialogSignout?.current?.show()}
           />
 
           <DialogConfirm
             ref={refDialogSignout}
-            title={t("Warning !")}
+            title={`${translate("txtWarning")} !`}
             titleContent={
-              t("Are you sure yout want to log out of your account from this device ?")
+              translate("txtLogout")
             }
             onConfirmYes={onLogout}
             onModalHide={() => { }}

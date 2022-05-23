@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { dataLocal } from "@redux/slices";
 import NavigationService from "@navigation/NavigationService";
@@ -8,6 +8,8 @@ import CodePush from "react-native-code-push";
 export const useProps = (props) => {
   const dispatch = useDispatch();
   const language = useSelector(state => state.dataLocal.language);
+
+  const refLanguageLoading = useRef();
 
   const [lang, setLang] = useState('en');
 
@@ -21,12 +23,18 @@ export const useProps = (props) => {
     setLang,
     switchLanguage: () => {
       dispatch(dataLocal.changeLanguage(lang));
-      setI18nConfig(lang);
+      refLanguageLoading?.current?.show();
+
+      setTimeout(() => {
+        refLanguageLoading?.current?.hide()
+      }, 2000);
+
       setTimeout(() => {
         CodePush.restartApp();
-      }, 500);
+      }, 1800);
       // NavigationService.back();
     },
+    refLanguageLoading,
   };
 
 };

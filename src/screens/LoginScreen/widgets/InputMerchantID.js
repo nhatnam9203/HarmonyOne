@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import { CustomTextInput } from '@shared/components';
+import { translate } from "@localize";
 
 export const InputMerchantID = ({ onChangeMID, isLoading, valueMID }) => {
   const AnimatedButton = Animated.createAnimatedComponent(TouchableOpacity);
@@ -89,10 +90,10 @@ export const InputMerchantID = ({ onChangeMID, isLoading, valueMID }) => {
             styles.content,
             {
               fontSize: fontSizeAnimated,
-              fontFamily : fonts.BOLD
+              fontFamily: fonts.BOLD
             },
           ]}>
-          Enter your Merchant ID
+          {translate('txtEnterMerchantId')}
         </Animated.Text>
       </AnimatedButton>
     </View>

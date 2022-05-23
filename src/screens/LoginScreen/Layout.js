@@ -4,6 +4,7 @@ import { Image, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import { InputMerchantID } from './widgets';
 import { Button, FocusBar } from '@shared/components';
 import { useTranslation } from 'react-i18next';
+import { translate } from "@localize";
 
 export const Layout = ({
   onChangeMID,
@@ -21,7 +22,9 @@ export const Layout = ({
       <FocusBar barStyle={"dark-content"} />
       <View style={styles.container}>
         <View style={layouts.marginVertical} />
-        <Text style={textStyles.sf_pt_medium_17_500}>{t('Sign In')}</Text>
+        <Text style={textStyles.sf_pt_medium_17_500}>
+          {translate('txtSignin')}
+        </Text>
         <Image source={images.logo} style={styles.logo} resizeMode="contain" />
         <View style={styles.marginHeight} />
 
@@ -39,14 +42,17 @@ export const Layout = ({
           disabled={merchantID?.length < 4 || !merchantID}
           isLoading={isLoading}
           onPress={loginMerchant}
+          label={translate('txtContinue')}
         />
 
 
         <View style={styles.containerSignup}>
-          <Text style={styles.txtSignup}>Don't have an account!</Text>
+          <Text style={styles.txtSignup}>
+          {translate('txtDontHaveAccount')}
+          </Text>
           <TouchableOpacity onPress={signUp}>
             <Text style={[styles.txtSignup, styles.txtBtnSignup]}>
-              Sign Up
+            {translate('txtSignup')}
             </Text>
           </TouchableOpacity>
         </View>
