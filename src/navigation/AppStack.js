@@ -38,9 +38,11 @@ import {
   ApplyDiscountPage,
   PaymentPage,
   EditAppointmentScreen,
+  EditPaidAppointmentScreen,
   AddServicePage,
   GiftCardAmountPage,
   AddServiceDetailPage,
+  EditPaidServicePage,
   AddProductDetailPage,
   EnterAmountPage,
   InvoiceScreen,
@@ -146,8 +148,10 @@ const AppStack = () => {
         <Screen {...ApplyDiscountPage} />
         <Screen {...PaymentPage} />
         <Screen {...EditAppointmentScreen} />
+        <Screen {...EditPaidAppointmentScreen} />
         <Screen {...AddServicePage} />
         <Screen {...AddServiceDetailPage} />
+        <Screen {...EditPaidServicePage} />
         <Screen {...AddProductDetailPage} />
         <Screen {...EnterAmountPage} />
         <Screen {...InvoiceScreen} />

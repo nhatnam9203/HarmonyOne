@@ -281,6 +281,14 @@ export const getAppointmentByDate = (date) => ({
   },
 });
 
+export const updatePaidAppointment = (id) => ({
+  queryId: 'updatePaidAppointment',
+  params: {
+    url: `appointment/updateStaffAppointmentPaid/${id}`,
+    method: 'PUT',
+  }
+})
+
 
 /**
  * CUSTOMER

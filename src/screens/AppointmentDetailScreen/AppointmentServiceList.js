@@ -2,12 +2,20 @@ import React from 'react';
 import { View, StyleSheet, Text, FlatList } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { colors, fonts, layouts } from '@shared/themes';
-import { AppointmentServiceItem, AppointmentProductItem, AppointmentGiftCardItem } from '@shared/components';
+import { AppointmentServiceItem, 
+          AppointmentProductItem, 
+          AppointmentGiftCardItem 
+        } from '@shared/components';
 import { formatNumberFromCurrency, formatMoney, convertMinsToHrsMins } from "@shared/utils";
+import NavigationService from '@navigation/NavigationService';
+import { useSelector, useDispatch } from "react-redux";
 
-export const AppointmentServiceList = ({ services = [], extras = [], products = [], giftCards , editService}) => {
+export const AppointmentServiceList = ({ services = [], 
+                                          extras = [], 
+                                          products = [], 
+                                          giftCards , 
+                                        }) => {
   const { t } = useTranslation();
- 
 
   const totalDuration = (service, itemType) => {
     let total = 0;
@@ -28,7 +36,6 @@ export const AppointmentServiceList = ({ services = [], extras = [], products = 
         total += formatNumberFromCurrency(extras[i].price);
       }
     }
-    console.log('getTotalPrice', total, formatMoney(total))
     return formatMoney(total);
   }
 
@@ -44,7 +51,6 @@ export const AppointmentServiceList = ({ services = [], extras = [], products = 
             name={item?.serviceName}
             duration={totalDuration(item, "duration")}
             price={getTotalPrice(item)}
-            onPressItem={() => editService(item)}
           />
         ))
       }

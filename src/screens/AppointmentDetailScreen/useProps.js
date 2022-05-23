@@ -199,20 +199,6 @@ export const useProps = ({
     isShowButton,
     staffsByDate,
     getInvoiceDetail,
-    editService: (item) => {
-      NavigationService.navigate(
-        screenNames.AddServiceDetailPage,
-        {
-          item,
-          isEditItem: true,
-          extrasEdit: appointmentItem?.extras
-            .filter(
-              ex => ex?.bookingServiceId ? ex?.bookingServiceId == item?.bookingServiceId :
-                ex?.serviceId == item?.serviceId
-            )
-            .map(ex => ({ ...ex, name: ex?.extraName ?? ex?.name }))
-        });
-    },
     getActionSheets: () => {
       return appointmentItem?.status != APPOINTMENT_STATUS.PAID 
             && appointmentItem?.status != APPOINTMENT_STATUS.COMPLETE ? [
@@ -243,9 +229,9 @@ export const useProps = ({
           label: t('Edit Appointment'),
           func: () => {
             setIsEditPaidAppointment(true)
-            console.log('isEditPaidAppointment', isEditPaidAppointment)
+            console.log('isEditPaidAppointment', isEditPaidAppointment, appointmentDetail)
             dispatch(editAppointment.setAppointentEdit(appointmentDetail))
-            // NavigationService.navigate(screenNames.EditAppointmentScreen);
+            NavigationService.navigate(screenNames.EditPaidAppointmentScreen);
           },
         },
        ]

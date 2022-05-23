@@ -41,8 +41,10 @@ import { AddTipPage } from "./CheckoutScreen/pages";
 import { ApplyDiscountPage } from "./CheckoutScreen/pages";
 import { PaymentPage } from "./CheckoutScreen/pages/PaymentPage";
 import { EditAppointmentScreen } from "./EditAppointmentScreen";
+import { EditPaidAppointmentScreen } from "./EditPaidAppointmentScreen";
 import { AddServicePage } from "./ServiceScreen/pages/AddServicePage";
 import { AddServiceDetailPage } from "./ServiceScreen/pages/AddServiceDetailPage";
+import { EditPaidServicePage } from "./ServiceScreen/pages/EditPaidServicePage";
 import { GiftCardAmountPage } from "./ServiceScreen/pages/GiftCardAmountPage";
 import { AddProductDetailPage } from "./ServiceScreen/pages/AddProductDetailPage";
 import { EnterAmountPage } from "./CheckoutScreen/pages/EnterAmountPage";
@@ -136,9 +138,11 @@ module.exports = {
   ApplyDiscountPage,
   PaymentPage,
   EditAppointmentScreen,
+  EditPaidAppointmentScreen,
   AddServicePage,
   GiftCardAmountPage,
   AddServiceDetailPage,
+  EditPaidServicePage,
   AddProductDetailPage,
   EnterAmountPage,
   InvoiceScreen,

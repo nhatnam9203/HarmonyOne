@@ -19,6 +19,7 @@ export const AppointmentServiceItem = ({
     onPressItem = null,
     onPressItemReview = false,
     isShowStaff = true,
+    isShowTip = false,
 }) => {
 
     const { t } = useTranslation();
@@ -114,6 +115,12 @@ export const AppointmentServiceItem = ({
                         <Text style={styles.textServiceDuration}>
                             {convertMinsToHrsMins(duration)}
                         </Text>
+                        {
+                            isShowTip && 
+                            <Text style={styles.textServiceDuration}>
+                                {`Tip: $ ${service?.tipAmount}`}
+                            </Text>
+                        }
 
                         {
                             (service.displayName || !isNaN(service?.staff?.staffId)) && isShowStaff && 

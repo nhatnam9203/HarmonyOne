@@ -7,11 +7,10 @@ import { Button } from "@shared/components";
 import { colors, fonts, layouts, images } from '@shared/themes';
 import { WithPopupActionSheet } from '@shared/HOC';
 import { TotalView, TotalViewPaid, AppointmentTimeView, CustomerInfoView, InputSelectStaff, IconButton } from "@shared/components";
-import { CustomerAtHomeView } from './CustomerAtHomeView';
 import { AppointmentServiceList } from './AppointmentServiceList';
 import { InvoiceNumber } from "./InvoiceNumber";
 import moment from "moment";
-
+import NavigationService from '@navigation/NavigationService';
 
 let EditButton = ({ headerTintColor, ...props }) => {
   return (
@@ -27,52 +26,16 @@ let EditButton = ({ headerTintColor, ...props }) => {
 
 EditButton = WithPopupActionSheet(EditButton);
 
-const titleNextStatus = (status) => {
-  let text = "Confirm"
-  switch (status) {
-    case "unconfirm":
-      text = "Confirm"
-      break;
-
-    case "confirm":
-      text = "Check-in";
-      break;
-
-    case "checkin":
-      text = "Check-out";
-      break
-
-    case "waiting":
-      text = "Check-in";
-      break
-
-    case "paid" || "complete":
-      text = "Save";
-      break
-
-    default:
-      break;
-  }
-  return text;
-
-}
-
-
 export const Layout = ({
   appointmentItem,
   headerColor,
-  canEdit,
-  isShowButton,
-  getActionSheets,
-  updateNextStatus,
+  updatePaidAppointment,
   invoiceViewAppointmentDetail,
   getBarStyle,
   getInvoiceDetail,
   roleName,
   staffsByDate,
   assignOtherStaff,
-  checkInWaitigList,
-  isEditPaidAppointment,
 }) => {
   const [t] = useTranslation();
 
@@ -83,19 +46,20 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={`${t('Appointment')} #${appointmentItem?.code?.toString().substring(appointmentItem?.code?.length - 4)}`}
+        pageTitle={`${t('Edit Appointment')} #${appointmentItem?.code?.toString().substring(appointmentItem?.code?.length - 4)}`}
         {...headerColor}
-        isRight={canEdit}
-        isScrollLayout={false}
-        barStyle={getBarStyle()}
+        isLeft={false}
+        isRight={true}
         headerRightComponent={() =>
-          canEdit && (
-            <EditButton
-              headerTintColor={headerColor?.headerTintColor}
-              actions={getActionSheets()}
-            />
-          )
-        }>
+          <IconButton
+            icon={images.iconClose}
+            iconStyle={styles.iconClose}
+            style={styles.buttonClose}
+            onPress={() => NavigationService.back()}
+          />
+        }
+        isScrollLayout={false}
+        >
         <ScrollView style={styles.content}>
           <CustomerInfoView
             customerId={appointmentItem?.customerId}
@@ -104,7 +68,6 @@ export const Layout = ({
             phoneNumber={appointmentItem?.phoneNumber}
             isShowPhone={(roleName == "admin" || roleName == "manager")}
           />
-          {/* <CustomerAtHomeView /> */}
           <View style={styles.line} />
           <AppointmentTimeView
             fromTime={appointmentItem?.fromTime}
@@ -116,6 +79,7 @@ export const Layout = ({
             extras={appointmentItem?.extras}
             products={appointmentItem?.products}
             giftCards={appointmentItem?.giftCards}
+            appointmentItem={appointmentItem}
           />
 
           {
@@ -149,55 +113,16 @@ export const Layout = ({
         </ScrollView>
 
         {
-          canEdit && isShowButton && appointmentItem?.status !== "waiting" &&
-          appointmentItem?.status !== "paid" && appointmentItem?.status !== "complete" &&
           <View style={styles.bottom}>
             <Button
-              label={titleNextStatus(appointmentItem?.status)}
-              onPress={updateNextStatus}
+              label={"Save"}
+              onPress={updatePaidAppointment}
               highlight={true}
               width={'100%'}
             />
           </View>
         }
-        {
-          !isShowButton &&
-          <View style={styles.bottom}>
-            <Text style={styles.txtAppointmentAnyStaff}>Cannot checkout in any staff. </Text>
-            <InputSelectStaff
-              items={staffsByDate.filter(staff => staff?.isDisabled == 0)}
-              itemSelected={3}
-              serviceId={appointmentItem?.services[0]?.serviceId}
-              onSelect={(staffId) => { assignOtherStaff(staffId) }}
-              isAnyStaff={true}
-              renderInput={() => (
-                <View style={styles.buttonArrow}>
-                  <Text style={[styles.txtAppointmentAnyStaff, { color: "white", fontFamily: fonts.BOLD }]}>
-                    {`Assign appointment to other staff`}
-                  </Text>
-                </View>
-              )}
-            />
-          </View>
-        }
-        {
-          appointmentItem?.status == "waiting" &&
-          <View style={styles.bottom}>
-            <InputSelectStaff
-              items={staffsByDate.filter(staff => staff?.isDisabled == 0)}
-              itemSelected={0}
-              serviceId={appointmentItem?.services[0]?.serviceId}
-              onSelect={(staffId) => { checkInWaitigList(staffId) }}
-              renderInput={() => (
-                <View style={styles.buttonArrow}>
-                  <Text style={[styles.txtAppointmentAnyStaff, { color: "white", fontFamily: fonts.BOLD }]}>
-                    {`Check-in`}
-                  </Text>
-                </View>
-              )}
-            />
-          </View>
-        }
+     
       </SingleScreenLayout>
     </View>
   );
@@ -213,6 +138,17 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     backgroundColor: colors.ocean_blue,
     marginTop: scaleHeight(8)
+  },
+  iconClose: {
+    width: scaleWidth(30),
+    height: scaleWidth(30),
+    tintColor: "#ffffff"
+  },
+  buttonClose: {
+    width: scaleWidth(37),
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center"
   },
   invoiceNumber: {
     fontSize: scaleFont(15),
