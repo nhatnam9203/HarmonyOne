@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
-import { CustomImage } from "@shared/components";
+import { CustomImage, ProgressiveImage } from "@shared/components";
 import { isEmpty } from "lodash";
 
 export const Layout = ({
@@ -61,10 +61,12 @@ const ItemMarketPlace = ({ item }) => {
       onPress={() => openLinkMarket(item?.link)}
       style={styles.item}
     >
-      <CustomImage
-        source={{ uri: item?.fileURL }}
+      <ProgressiveImage
+        url={item?.fileURL}
         resizeMode='cover'
         style={styles.imgMarket}
+        width={"100%"}
+        height={scaleHeight(150)}
       />
       <View style={styles.bottomItem}>
         <Text style={styles.name}>{item?.name}</Text>
@@ -81,8 +83,8 @@ const styles = StyleSheet.create({
   },
   flatList: {
     flex: 1,
-    padding: scaleWidth(16),
-    backgroundColor : "#fafafa"
+    paddingVertical: scaleWidth(16),
+    backgroundColor: "#fafafa"
   },
   iconStyle: {
     width: scaleWidth(12),
@@ -92,6 +94,7 @@ const styles = StyleSheet.create({
   item: {
     width: scaleWidth(375 - 32),
     minHeight: scaleHeight(120),
+    marginHorizontal: scaleWidth(16),
     resizeMode: 'contain',
     shadowColor: "#403F3F",
     shadowOffset: {
