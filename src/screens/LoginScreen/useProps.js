@@ -15,6 +15,7 @@ export const useProps = (_params) => {
   const dispatch = useDispatch();
 
   const merchantIdSaved = useSelector(state => state?.auth?.merchantID);
+  const refInputMerchant = React.useRef();
 
   const [merchantID, setMerchantID] = React.useState(null);
   const [textMessage, setTextMessage] = React.useState(null);
@@ -31,8 +32,6 @@ export const useProps = (_params) => {
       }
     },
   });
-
-
 
   const [{ isLoading }, login] = useAxiosMutation({
     ...merchantLogin(merchantID),
@@ -80,8 +79,6 @@ export const useProps = (_params) => {
     requestUserPermission();
   }, []);
 
-
-
   React.useEffect(() => {
     setTextMessage(null);
   }, []);
@@ -90,8 +87,9 @@ export const useProps = (_params) => {
     const merchant_code = await AsyncStorage.getItem("@merchantID");
     if (merchant_code) {
       setMerchantID(JSON.parse(merchant_code));
+      refInputMerchant?.current?.animatedInput();
     }
-  }
+  };
 
   React.useState(() => {
     fetchStateCity();
@@ -100,6 +98,7 @@ export const useProps = (_params) => {
 
   return {
     merchantID,
+    refInputMerchant,
 
     onChangeMID: (mid) => {
       setMerchantID(mid);

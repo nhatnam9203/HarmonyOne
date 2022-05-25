@@ -13,7 +13,8 @@ export const Layout = ({
   whatMerchantID,
   loginMerchant,
   textMessage,
-  signUp
+  signUp,
+  refInputMerchant
 }) => {
   const [t] = useTranslation();
 
@@ -32,6 +33,7 @@ export const Layout = ({
           onChangeMID={onChangeMID}
           valueMID={merchantID}
           isLoading={isLoading}
+          ref={refInputMerchant}
         />
         <View style={layouts.marginVertical} />
         {textMessage && <Text style={styles.msgError}>{textMessage}</Text>}
