@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { IconButton } from "@shared/components";
 import { images, colors, fonts } from "@shared/themes";
-import { useDispatch , useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { bookAppointment } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 
@@ -12,6 +12,7 @@ const HeaderBooking = ({
     title = "Select service",
     step = "1",
     onPressBack = null,
+    renderRight = null,
 }) => {
     const dispatch = useDispatch();
 
@@ -20,7 +21,7 @@ const HeaderBooking = ({
     const { bookAppointment: { isQuickCheckout } } = useSelector(state => state);
 
     const onGoBack = () => {
-        if(onPressBack) onPressBack();
+        if (onPressBack) onPressBack();
         else NavigationService.back();
     }
 
@@ -35,7 +36,7 @@ const HeaderBooking = ({
         <ImageBackground
             source={images.imageHeaderBg}
             style={{ width: '100%', paddingBottom: scaleHeight(10) }}
-            blurRadius={5}
+            blurRadius={7}
         >
             <View
                 source={images.imageHeaderBg}
@@ -66,9 +67,12 @@ const HeaderBooking = ({
             <Text style={styles.txtStep}>
                 {`Step ${step} of ${steps}`}
             </Text>
-            <Text style={styles.title}>
-                {`${title}`}
-            </Text>
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingRight: scaleWidth(16) }}>
+                <Text style={styles.title}>
+                    {`${title}`}
+                </Text>
+                {renderRight && renderRight()}
+            </View>
         </ImageBackground>
     )
 };
@@ -127,7 +131,7 @@ const styles = StyleSheet.create({
         paddingTop: scaleHeight(48)
     },
     txtStep: {
-        fontSize: scaleFont(14),
+        fontSize: scaleFont(13),
         color: colors.white,
         fontFamily: fonts.REGULAR,
         marginBottom: scaleHeight(5),

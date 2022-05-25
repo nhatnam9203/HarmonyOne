@@ -9,8 +9,7 @@ export const useProps = ({
 }) => {
 
   const routeTest = useRoute();
-
-  // console.log({ routeName : routeTest.name });
+  const dialogActiveGiftCard = React.useRef();
 
   // useAndroidBackHandler(() => {
   //   const routeName = useRoute().name;
@@ -29,6 +28,23 @@ export const useProps = ({
 
   return {
     isAddMore,
+    dialogActiveGiftCard,
+
+    showDialogGiftCard: () => {
+      dialogActiveGiftCard?.current?.show();
+    },
+
+    onCheckGiftCardSucces: (data, serialNumber) => {
+      dialogActiveGiftCard?.current?.hide();
+      NavigationService.navigate(
+        screenNames.EnterGiftCardAmount, {
+        giftCardInfo: {
+          ...data,
+          name: "Gift card - " + serialNumber?.toString()?.substring(serialNumber?.toString()?.length - 4)
+        }
+      }
+      );
+    },
 
     onBack: () => {
       if (isAddMore) {

@@ -32,7 +32,7 @@ export const Layout = ({
 
   const scaleImage = scroll.interpolate({
     inputRange: [scaleHeight(-230), 0],
-    outputRange: [1.45, 1],
+    outputRange: [1.6, 1],
     extrapolate: "clamp"
   });
 
@@ -131,9 +131,7 @@ export const Layout = ({
                 <Text style={[styles.duration, { fontSize: scaleFont(18) }]}>
                   {`$ `}
                 </Text>
-                {
-                  isEditPrice ?
-                    <TextInputMask
+                <TextInputMask
                       ref={inputPriceRef}
                       value={price}
                       onChangeText={text => setPrice(text)}
@@ -143,14 +141,6 @@ export const Layout = ({
                       editable={isEditPrice}
                       options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
                     />
-                    :
-                    <Text
-                      style={[styles.duration, { fontSize: scaleFont(18) }]}
-                    >
-                      {price}
-                    </Text>
-                }
-
               </View>
 
               <TouchableOpacity hitSlop={slop(20)} onPress={() => {

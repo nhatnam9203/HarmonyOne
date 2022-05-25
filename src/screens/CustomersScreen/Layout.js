@@ -42,17 +42,6 @@ export const Layout = ({
         extrapolate: "clamp"
     });
 
-    console.log({ scaleButton, scrollY  });
-
-    console.log('ihjhjk')
-
-
-    // const scaleButton = scrollY.interpolate({
-    //     inputRange: [0, 50],
-    //     outputRange: [1, 0],
-    //     extrapolate: "clamp"
-    // });
-
     const AnimatedTouch = Animated.createAnimatedComponent(TouchableOpacity);
 
 

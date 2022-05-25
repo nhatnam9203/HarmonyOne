@@ -66,7 +66,7 @@ export const Layout = ({
                     onScrollToIndexFailed={info =>{
                 
                     }}
-                    ListFooterComponent={() => <View style={{ height: scaleHeight(0) }} />}
+                    ListFooterComponent={() => <View style={{ height: scaleHeight(30) }} />}
                 />
             </View>
         </View>
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         flex: 1,
         borderTopWidth: 1,
-        borderTopColor: "#eeeeee"
+        borderTopColor: "#eeeeee",
     },
     itemCategory: (categorySelected, categoryId) => {
         return {
@@ -111,8 +111,7 @@ const styles = StyleSheet.create({
         elevation: 3,
     },
     categoryList: {
-        paddingBottom: scaleHeight(16),
-        paddingTop: scaleHeight(16),
+        paddingVertical :  scaleHeight(8),
         backgroundColor: colors.white,
         shadowColor: Platform.OS == "ios" ? "#4040401A" : "#404040",
         shadowOffset: {
@@ -126,13 +125,13 @@ const styles = StyleSheet.create({
     },
     sectionList: {
         flex: 1,
+        paddingTop: 8
     },
     categoryName: {
         color: "#404040",
-        marginVertical: scaleHeight(16),
-        marginTop: scaleHeight(24),
+        marginTop: scaleHeight(16),
         fontFamily: fonts.MEDIUM,
-        fontSize: scaleFont(19),
+        fontSize: scaleFont(18),
         marginLeft: scaleWidth(16)
     }
 })

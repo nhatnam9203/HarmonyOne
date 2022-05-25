@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { colors, fonts, images } from '@shared/themes';
-import { CustomImage } from '@shared/components';
+import { ProgressiveImage } from '@shared/components';
 import { formatMoneyWithUnit, convertMinsToHrsMins } from '@shared/utils';
 import { isEmpty } from "lodash";
 import { guid } from "@shared/utils";
@@ -65,22 +65,15 @@ export const AppointmentServiceItem = ({
     return (
         <Pressable onPress={onPress} style={styles.container}>
             {isDelete && <View style={styles.lineDelete} />}
-            {
-                isEmpty(service?.imageUrl) ?
-                    <CustomImage
-                        style={styles.serviceImage}
-                        source={images.serviceDefault}
-                        resizeMode="cover"
-                    /> :
-                    <CustomImage
-                        style={styles.serviceImage}
-                        source={{
-                            uri: service.imageUrl,
-                            priority: 'normal',
-                        }}
-                        resizeMode="cover"
-                    />
-            }
+
+            <ProgressiveImage
+                style={styles.serviceImage}
+                width={scaleHeight(60)}
+                height={scaleHeight(60)}
+                url={service.imageUrl}
+                defaultSource={images.serviceDefault}
+                resizeMode="cover"
+            />
 
             <View style={styles.content}>
                 <Text
@@ -116,7 +109,7 @@ export const AppointmentServiceItem = ({
                         </Text>
 
                         {
-                            (service.displayName || !isNaN(service?.staff?.staffId)) && isShowStaff && 
+                            (service.displayName || !isNaN(service?.staff?.staffId)) && isShowStaff &&
                             <Text style={[styles.textServiceDuration, { fontFamily: fonts.MEDIUM, marginLeft: scaleWidth(15) }]}>
                                 {
                                     service?.displayName ? service?.displayName :

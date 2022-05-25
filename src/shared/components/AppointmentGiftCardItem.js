@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { colors, fonts, images } from '@shared/themes';
-import { CustomImage } from '@shared/components';
+import { ProgressiveImage } from '@shared/components';
 import { formatMoneyWithUnit, convertMinsToHrsMins } from '@shared/utils';
 import { isEmpty } from "lodash";
 import { guid, formatNumberFromCurrency, formatMoney } from "@shared/utils";
@@ -25,25 +25,15 @@ export const AppointmentGiftCardItem = ({
     return (
         <Pressable onPress={() => { }} style={styles.container}>
             {isDelete && <View style={styles.lineDelete} />}
-            {
-                !isEmpty(giftCard?.imageUrl) ?
-                    <View style={[styles.serviceImage, { backgroundColor: "#eafbff" }]}>
-                        <CustomImage
-                            style={styles.iconGiftCard}
-                            source={images.iconReportGiftcard}
-                            resizeMode="cover"
-                            tintColor="#77aed7"
-                        />
-                    </View> :
-                    <CustomImage
-                        style={styles.serviceImage}
-                        source={{
-                            uri: giftCard.imageUrl,
-                            priority: 'normal',
-                        }}
-                        resizeMode="cover"
-                    />
-            }
+
+            <ProgressiveImage
+                style={styles.iconGiftCard}
+                width={scaleHeight(60)}
+                height={scaleHeight(60)}
+                url={giftCard.imageUrl}
+                defaultSource={images.iconReportGiftcard}
+                resizeMode="cover"
+            />
 
             <View style={styles.content}>
                 <Text
@@ -56,7 +46,7 @@ export const AppointmentGiftCardItem = ({
 
                 <View style={[styles.bottomContent, { paddingRight: isDelete ? 15 : 0 }]}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
-                    <Text style={[styles.txtQty, { fontFamily: fonts.REGULAR }]}>
+                        <Text style={[styles.txtQty, { fontFamily: fonts.REGULAR }]}>
                             {`1 item(s)`}
                         </Text>
                         <Text style={styles.textServiceTotal}>

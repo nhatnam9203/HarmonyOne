@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Pressable, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, Pressable } from 'react-native';
 import { colors, fonts } from "@shared/themes";
 import { useDispatch, useSelector } from "react-redux";
 import { bookAppointment } from "@redux/slices";
@@ -18,28 +18,28 @@ export const ColumnTime = ({
                 <Text style={styles.title}>{title}</Text>
             </View>
             {
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    {
-                        data.map((item) => (
-                            <Pressable
-                                onPress={() => setTimePicker(item?.time)}
-                                key={item?.id?.toString() + "itemTime"}
-                                style={[
-                                    styles.item,
-                                    {
-                                        backgroundColor: timePicker == item?.time ? "#D5F8FC" : "transparent",
-                                        borderColor: timePicker == item?.time ? "#28AAE9" : "#dddddd"
-                                    }
-                                ]}
-                            >
-                                <Text style={[styles.txtItem,{ fontFamily : timePicker == item?.time ? fonts.MEDIUM : fonts.REGULAR }]}>
-                                    {moment(item?.time, "HH:mm").format("hh:mm A")}
-                                </Text>
-                            </Pressable>
-                        ))
-                    }
-                    <View style={{ height : scaleHeight(400) }} />
-                </ScrollView>
+                data.length > 0 ? data.map((item) => (
+                    <Pressable
+                        onPress={() => setTimePicker(item?.time)}
+                        key={item?.id?.toString() + "itemTime"}
+                        style={[
+                            styles.item,
+                            {
+                                backgroundColor: timePicker == item?.time ? "#D5F8FC" : "transparent",
+                                borderColor: timePicker == item?.time ? "#28AAE9" : "#dddddd"
+                            }
+                        ]}
+                    >
+                        <Text style={[styles.txtItem, { fontFamily: timePicker == item?.time ? fonts.MEDIUM : fonts.REGULAR }]}>
+                            {moment(item?.time, "HH:mm").format("hh:mm A")}
+                        </Text>
+                    </Pressable>
+                )) :
+                    <View style={[styles.item,{ borderWidth: 0 }]}>
+                        <Text style={[styles.txtItem, { fontFamily: fonts.REGULAR }]}>
+                            ...
+                        </Text>
+                    </View>
             }
         </View>
     );
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         marginBottom: scaleWidth(13)
     },
     txtItem: {
-        fontSize : scaleFont(13)
+        fontSize: scaleFont(13)
     }
 });
 

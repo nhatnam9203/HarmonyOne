@@ -179,7 +179,7 @@ export const statusGroup = [
 
 export function getTimeAvaible(staff_available_time) {
   const time12PM = `${moment().format('YYYY-MM-DD')}T12:00:00`;
-  const time05PM = `${moment().format('YYYY-MM-DD')}T17:00:00`;
+  const time05PM = `${moment().format('YYYY-MM-DD')}T18:00:00`;
 
   const morning = staff_available_time.filter((obj) => {
     const timeFilter = `${moment().format('YYYY-MM-DD')}T${moment(obj.time, [
