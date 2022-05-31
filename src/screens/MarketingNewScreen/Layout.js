@@ -169,13 +169,6 @@ export const Layout = ({
                 </>
               }
 
-              {/* <IconButton
-                iconComponent={() => <Switch color={colors.ocean_blue} onValueChange={setDisabled} value={isDisabled} />}
-                iconStyle={styles.iconStyle}
-                style={styles.rowReverse}
-                renderText={() => <Text style={styles.txtItem}>{t('Active')}</Text>}
-              /> */}
-
               <IconButton
                 iconComponent={() => <Switch color={colors.ocean_blue} onValueChange={setIsSchedule} value={isSchedule} />}
                 iconStyle={styles.iconStyle}
@@ -341,7 +334,7 @@ const styles = StyleSheet.create({
   },
 
   bottom: {
-    padding: scaleWidth(16),
+    padding: scaleWidth(24),
     width: scaleWidth(375),
   },
 

@@ -147,15 +147,15 @@ const styles = StyleSheet.create({
   },
 
   iconReport: {
-    width: scaleHeight(27),
-    height: scaleHeight(27),
+    width: scaleHeight(22),
+    height: scaleHeight(22),
   },
 
   txtGroup: {
-    fontSize: scaleFont(18),
+    fontSize: scaleFont(17),
     color: colors.ocean_blue,
     fontFamily: fonts.BOLD,
-    marginLeft: scaleWidth(12)
+    marginLeft: scaleWidth(10)
   },
 
   content: {

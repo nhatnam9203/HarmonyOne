@@ -7,5 +7,7 @@
   "Customer Group Type Normal": "Normal",
   "Customer Group Type Vip": "Vip",
   "Customer Group Type Blacklist": "Blacklist",
-  "Note ": "Chú ý: "
+  "Note ": "Chú ý: ",
+  "NoAppointments" : "Không có cuộc hẹn"
+
 }

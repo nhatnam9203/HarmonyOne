@@ -1,11 +1,12 @@
 import React from "react";
 import { auth, app, merchant } from "@redux/slices";
-import { useAxiosMutation, 
-  useAxiosQuery, 
-  getAdvanceSetting, 
+import {
+  useAxiosMutation,
+  useAxiosQuery,
+  getAdvanceSetting,
   editAdvanceSetting,
   merchantSetting,
-  getMerchantById 
+  getMerchantById
 } from "@src/apis";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -20,6 +21,7 @@ export const useProps = (_params) => {
 
   const [IsCashDiscount, setIsCashDiscount] = React.useState(null);
   const [receiptFooter, setReceiptFooter] = React.useState("");
+  const [isLoading, setLoading] = React.useState(false);
   const staff = useSelector((state) => state.auth.staff);
   const merchantDetail = useSelector(state => state.merchant);
 
@@ -27,6 +29,7 @@ export const useProps = (_params) => {
   const [, requestGetAdvanceSetting] = useAxiosQuery({
     ...getAdvanceSetting(),
     enabled: false,
+    isLoadingDefault: !isLoading,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
         setSettingData(data);
@@ -72,7 +75,7 @@ export const useProps = (_params) => {
   const [, fetchMerchantById] = useAxiosQuery({
     ...getMerchantById(staff?.merchantId),
     queryId: "fetchMerchantById_general",
-    isLoadingDefault: true,
+    isLoadingDefault: !isLoading,
     enabled: false,
     onSuccess: (data, response) => {
       if (response?.codeNumber == 200) {
@@ -84,8 +87,18 @@ export const useProps = (_params) => {
 
 
   React.useEffect(() => {
-    requestGetAdvanceSetting();
-    fetchMerchantById();
+    const fetchDataFirstLoad = () => {
+      setLoading(true);
+      return Promise.all([
+        requestGetAdvanceSetting(),
+        fetchMerchantById(),
+      ])
+        .then((values) => {
+          setLoading(false);
+        })
+    };
+
+    fetchDataFirstLoad();
   }, []);
 
 
@@ -143,5 +156,6 @@ export const useProps = (_params) => {
     IsCashDiscount,
     setReceiptFooter,
     receiptFooter,
+    isLoading
   };
 };

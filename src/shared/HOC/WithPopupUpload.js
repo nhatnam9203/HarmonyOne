@@ -2,8 +2,8 @@ import { PopupActionSheet } from '@shared/components/PopupActionSheet';
 import React from 'react';
 import * as ImagePicker from "react-native-image-picker";
 import { Alert, View } from 'react-native';
-import { useTranslation } from "react-i18next";
 import { colors } from "@shared/themes";
+import { translate } from "@localize";
 
 const options = {
     title: "Select Image",
@@ -17,8 +17,6 @@ export const WithPopupUpload = (WrappedComponent) => {
     return function WithDialogConfirmComponent({ onPress, onResponseImagePicker, ...props }) {
 
         const popupRef = React.useRef(null);
-
-        const [t] = useTranslation();
 
         const responseCamera = (response) => {
             if (response.didCancel) {
@@ -47,14 +45,14 @@ export const WithPopupUpload = (WrappedComponent) => {
         const actions = [
             {
                 id: 'picker-image',
-                label: t('Photo gallery'),
+                label: translate('txtPhoto'),
                 func: () => {
                     pickImage();
                 },
             },
             {
                 id: 'take-photo',
-                label: t('Launch camera'),
+                label: translate('txtCamera'),
                 func: () => {
                     takePicture();
                 },

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image, Pressable } from 'react-native';
 import { colors, fonts, images } from '@shared/themes';
-import { CustomImage } from '@shared/components';
+import { CustomImage, ProgressiveImage } from '@shared/components';
 import { formatMoneyWithUnit } from '@shared/utils';
 import { isEmpty } from "lodash";
 import NavigationService from '@navigation/NavigationService';
@@ -23,10 +23,11 @@ const ServiceItem = ({ service, disabled = false, onPress }) => {
                         source={images.serviceDefault}
                         resizeMode="cover"
                     /> :
-                    <CustomImage
-                        style={styles.serviceImage}
-                        source={{ uri: service?.imageUrl }}
-                        resizeMode="cover"
+                    <ProgressiveImage
+                        url={service?.imageUrl}
+                        resizeMode='cover'
+                        width={scaleHeight(70)}
+                        height={scaleHeight(70)}
                     />
             }
             <View style={styles.content}>
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: scaleHeight(1),
         marginHorizontal: scaleWidth(16)
     },
-    content: { flex: 1, marginLeft: scaleWidth(16), justifyContent: 'space-between',},
+    content: { flex: 1, marginLeft: scaleWidth(16), justifyContent: 'space-between', },
     textTitle: {
         fontFamily: fonts.BOLD,
         fontSize: scaleFont(17),

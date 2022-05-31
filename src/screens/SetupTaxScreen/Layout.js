@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: scaleWidth(15),
   },
   bottom: {
-    padding: scaleWidth(16),
+    padding: scaleWidth(24),
     width: scaleWidth(375),
   }
 });

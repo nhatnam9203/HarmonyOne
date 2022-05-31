@@ -71,6 +71,7 @@ export const Layout = ({
                         )
                     }}
                     ListEmptyComponent={() => <ListEmptyComponent description={"No Product"} />}
+                    ListFooterComponent={() => <View style={{ height: scaleHeight(30) }} />}å
                 />
             </View>
         </View>
@@ -115,8 +116,7 @@ const styles = StyleSheet.create({
         elevation: 3,
     },
     categoryList: {
-        paddingBottom: scaleHeight(16),
-        paddingTop: scaleHeight(16),
+        paddingVertical :  scaleHeight(8),
         backgroundColor: colors.white,
 
         shadowColor: Platform.OS == "ios" ? "#4040401A" : "#404040",
@@ -132,13 +132,13 @@ const styles = StyleSheet.create({
     },
     sectionList: {
         flex: 1,
+        paddingTop: 8
     },
     categoryName: {
         color: "#404040",
-        marginVertical: scaleHeight(16),
-        marginTop: scaleHeight(24),
+        marginTop: scaleHeight(16),
         fontFamily: fonts.MEDIUM,
-        fontSize: scaleFont(20),
+        fontSize: scaleFont(18),
         marginLeft: scaleWidth(16)
     }
 })

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
@@ -21,9 +21,13 @@ export const Layout = ({
         pageTitle={t('Settlement')}
         isRight={false}
         isLeft={true}
-        onPressLeft={()=>NavigationService.navigate(screenNames.MoreScreen)}
+        onPressLeft={() => NavigationService.navigate(screenNames.MoreScreen)}
         isScrollLayout={false}
-        containerStyle={{ paddingTop: 5, paddingBottom: 0 }}
+        containerStyle={{
+          paddingBottom: 0,
+          ...(Platform.OS == "android" && { borderWidth: 1 }),
+          borderColor: "#eeeeee"
+        }}
       >
         <View style={styles.content}>
           <Navigator
@@ -41,9 +45,9 @@ export const Layout = ({
               style: {
                 backgroundColor: colors.white,
               },
-              activeTintColor : colors.ocean_blue,
-              inactiveTintColor : "#585858",
-              allowFontScaling : false
+              activeTintColor: colors.ocean_blue,
+              inactiveTintColor: "#585858",
+              allowFontScaling: false
             }}
           >
             <Screen {...SettlementWaitingPage} />

@@ -5,6 +5,7 @@ import { Text } from '@components';
 import { slop } from '@utils';
 import * as Animatable from 'react-native-animatable';
 import styles from '../styles';
+import { translate } from "@localize";
 
 const Input = ({
     onPress,
@@ -50,7 +51,7 @@ const Input = ({
                             fontSize: fontSizeAnimated,
                         }
                     ]}>
-                    Enter your email address
+                    {translate("txtEnterEmail")}
                 </Animated.Text>
             </AnimatedButton>
         </View>

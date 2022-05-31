@@ -2,6 +2,7 @@ import React from 'react';
 import { CustomModal } from '@shared/components';
 import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import { colors, fonts } from '@shared/themes';
+import { translate } from "@localize";
 
 /**
  * @input
@@ -12,7 +13,7 @@ export const PopupActionSheet = React.forwardRef(
   ({ actions, onClose = () => { } }, ref) => {
     const [closeAction] = React.useState({
       id: 'close-action',
-      label: 'Close',
+      label: translate("txtClose"),
       func: () => {
         setOpen(false);
       },

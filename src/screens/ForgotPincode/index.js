@@ -5,8 +5,9 @@ import { FocusBar } from "@shared/components";
 import { icon_forgot } from '@assets';
 import { Input, ButtonContinue, TextLink, ButtonBack } from './widget'
 import { animatedHook, logic } from './customHook'
-import NavigationService from '@navigation/NavigationService'
-import styles from './styles'
+import { translate } from "@localize";
+import NavigationService from '@navigation/NavigationService';
+import styles from './styles';
 
 const index = (props) => {
     const [isOpenInput, setOpenInput] = React.useState(false);
@@ -35,14 +36,14 @@ const index = (props) => {
         <View style={styles.container}>
             <FocusBar barStyle={"dark-content"} />
             <ButtonBack onPress={back} />
-            <Text fontFamily='medium' style={styles.title}> Forgot PIN code </Text>
+            <Text fontFamily='medium' style={styles.title}>{translate("txtForgotPincode")}</Text>
             <Image
                 source={icon_forgot}
                 style={styles.logo}
                 resizeMode='contain'
             />
             <Text fontFamily='regular' style={styles.txtSub}>
-                Enter your email address, we'll send you a reset link
+                {translate("txtEmailAddress")}
             </Text>
 
 

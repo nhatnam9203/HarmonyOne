@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { colors, fonts } from "@shared/themes";
+import { View, StyleSheet, Image, Pressable } from 'react-native';
+import { colors, fonts, images } from "@shared/themes";
 import { createMaterialTopTabNavigator, MaterialTopTabBar } from '@react-navigation/material-top-tabs';
 import { HeaderBooking } from "../../widgets";
 import { ServicePage } from "./ServicePage";
 import { ProductPage } from "./ProductPage";
 import { GiftCardPage } from "./GiftCardPage";
+import {  DialogActiveGiftCard } from "@shared/components";
 
 
 const { Navigator, Screen } = createMaterialTopTabNavigator();
@@ -13,13 +14,35 @@ const { Navigator, Screen } = createMaterialTopTabNavigator();
 export const Layout = ({
   isAddMore,
   onBack,
-}) => {
+  dialogActiveGiftCard,
+  onCheckGiftCardSucces,
+  showDialogGiftCard,
+}) => {  
+
   return (
     <View style={styles.container}>
+      <DialogActiveGiftCard
+        ref={dialogActiveGiftCard}
+        title="Enter gift card serial number"
+        onConfirmYes={() => { }}
+        onModalHide={() => { }}
+        onSuccess={onCheckGiftCardSucces}
+      />
       <HeaderBooking
         step={1}
         title={'Select Services & Product'}
         onPressBack={onBack}
+        renderRight={() =>
+          <Pressable
+            hitSlop={{ top: 20, left: 20, right: 20, bottom: 20 }}
+            onPress={showDialogGiftCard}
+          >
+            <Image
+              source={images.iconReportGiftcard}
+              style={styles.iconGiftCard}
+            />
+          </Pressable>
+        }
       />
       <View style={styles.content}>
         <Navigator
@@ -28,27 +51,29 @@ export const Layout = ({
           tabBarOptions={{
             indicatorStyle: {
               height: 4,
-              backgroundColor: colors.ocean_blue
+              backgroundColor: colors.ocean_blue,
+              width: scaleWidth(80),
             },
             labelStyle: {
               fontFamily: fonts.REGULAR,
-              fontSize: scaleFont(16)
+              fontSize: scaleFont(16),
+              marginLeft: -scaleWidth(24),
             },
             style: {
               backgroundColor: colors.white,
-              width: scaleWidth(350),
+              width: scaleWidth(200),
               marginHorizontal: scaleWidth(16),
               borderBottomColor: 'transparent',
               elevation: 0
             },
             inactiveTintColor: "#404040",
             activeTintColor: colors.ocean_blue,
-            allowFontScaling : false
+            allowFontScaling: false
           }}
         >
           <Screen {...ServicePage} />
           <Screen {...ProductPage} />
-          <Screen {...GiftCardPage} />
+          {/* <Screen {...GiftCardPage} /> */}
         </Navigator>
       </View>
     </View>
@@ -63,6 +88,10 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     backgroundColor: colors.white,
-    paddingTop: scaleWidth(8)
   },
+  iconGiftCard: {
+    width: scaleWidth(25),
+    height: scaleWidth(25),
+    tintColor: "white"
+  }
 });

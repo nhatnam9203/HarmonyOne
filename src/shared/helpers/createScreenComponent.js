@@ -8,6 +8,6 @@ export const createScreenComponent = (screenName, Component, options = {}) => {
       const route = useRoute();
       return <Component {...props} params={route?.params ?? {}} />;
     }),
-    options,
+    options
   };
 };

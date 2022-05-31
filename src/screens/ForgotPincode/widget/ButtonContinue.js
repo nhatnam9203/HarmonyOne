@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, TouchableOpacity } from 'react-native'
 import { Text } from '@components'
 import styles from '../styles';
+import { translate } from "@localize";
 
 const ButtonContinue = ({
     onPress = () => { },
@@ -14,7 +15,7 @@ const ButtonContinue = ({
             disabled={!isActive}
         >
             <Text fontFamily='medium' style={styles.txtContinue(isActive)}>
-                Submit
+                {translate("txtSubmit")}
             </Text>
         </TouchableOpacity>
     )

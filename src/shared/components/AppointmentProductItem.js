@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { colors, fonts, images } from '@shared/themes';
-import { CustomImage } from '@shared/components';
+import { CustomImage, ProgressiveImage } from '@shared/components';
 import { formatMoneyWithUnit, convertMinsToHrsMins } from '@shared/utils';
 import { isEmpty } from "lodash";
 import { guid, formatNumberFromCurrency, formatMoney } from "@shared/utils";
@@ -47,22 +47,14 @@ export const AppointmentProductItem = ({
     return (
         <Pressable onPress={onPress} style={styles.container}>
             {isDelete && <View style={styles.lineDelete} />}
-            {
-                isEmpty(product?.imageUrl) ?
-                    <CustomImage
-                        style={styles.serviceImage}
-                        source={images.serviceDefault}
-                        resizeMode="cover"
-                    /> :
-                    <CustomImage
-                        style={styles.serviceImage}
-                        source={{
-                            uri: product.imageUrl,
-                            priority: 'normal',
-                        }}
-                        resizeMode="cover"
-                    />
-            }
+            <ProgressiveImage
+                style={styles.serviceImage}
+                width={scaleHeight(60)}
+                height={scaleHeight(60)}
+                url={service.imageUrl}
+                defaultSource={images.serviceDefault}
+                resizeMode="cover"
+            />
 
             <View style={styles.content}>
                 <Text
@@ -72,9 +64,9 @@ export const AppointmentProductItem = ({
                 >
                     {name}
                 </Text>
-    
+
                 <View style={[styles.bottomContent, { paddingRight: isDelete ? 15 : 0 }]}>
-             
+
 
                     <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
                         <Text style={[styles.txtQty, { fontFamily: fonts.REGULAR }]}>

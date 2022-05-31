@@ -3,7 +3,8 @@ import { View, StyleSheet, Text, ScrollView } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
-import NavigationService from '@navigation/NavigationService'
+import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 
 export const Layout = ({
 
@@ -14,7 +15,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Terms of Service')}
+        pageTitle={translate("txtTermsOfService")}
         isRight={false}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}

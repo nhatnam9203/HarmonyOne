@@ -29,7 +29,7 @@ export const ItemSelect = ({ title = '', icon, onPress, iconRight, iconRightStyl
                         ]}
                     />}
 
-                    <Text style={[styles.text, textStyle, { color: isFocus ? colors.white : "#404040" }]}>
+                    <Text style={[styles.text, textStyle, { color: isFocus ? colors.white : "#333" }]}>
                         {title}
                     </Text>
 
@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        fontSize: scaleFont(17),
-        fontFamily: fonts.MEDIUM,
+        fontSize: scaleFont(16),
+        fontFamily: fonts.REGULAR,
         marginLeft: scaleWidth(16),
         color: "#000",
     },

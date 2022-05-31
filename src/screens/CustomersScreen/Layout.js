@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, FlatList, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, Text, FlatList, ActivityIndicator, Animated, TouchableOpacity, Image } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, SearchInput, ListEmptyComponent } from "@shared/components";
@@ -27,11 +27,23 @@ export const Layout = ({
     addCustomer,
     refreshFromScreen,
     closeBookAppointment,
-    roleName
+    roleName,
+    scrollY
 }) => {
 
 
     const [t] = useTranslation();
+
+    const scrollYClamped = Animated.diffClamp(scrollY, 0, 50);
+
+    const scaleButton = scrollYClamped.interpolate({
+        inputRange: [0, 33],
+        outputRange: [1, 0],
+        extrapolate: "clamp"
+    });
+
+    const AnimatedTouch = Animated.createAnimatedComponent(TouchableOpacity);
+
 
     return (
         <View style={styles.container}>
@@ -61,7 +73,21 @@ export const Layout = ({
                         removeText={valueSearch.length > 0 ? () => onChangeSearch("") : () => { }}
                         placeholder="Search customer by phone or name"
                     />
-                    <FlatList
+                    <Animated.FlatList
+                        onScroll={
+                            Animated.event(
+                                [
+                                    {
+                                        nativeEvent: {
+                                            contentOffset: { y: scrollY },
+                                        },
+                                    },
+                                ],
+                                {
+                                    useNativeDriver: true,
+                                },
+                            )
+                        }
                         style={styles.flatList}
                         data={customerList}
                         renderItem={({ item }) =>
@@ -96,12 +122,27 @@ export const Layout = ({
                     />
                 </View>
 
-                <IconButton
+                <AnimatedTouch
+                    style={[
+                        styles.btnAddAppointment,
+                        {
+                            transform: [{ scale: scaleButton }]
+                        }
+                    ]}
+                    onPress={addCustomer}
+                >
+                    <Image
+                        source={images.iconAdd}
+                        style={styles.addIcon}
+                    />
+                </AnimatedTouch>
+
+                {/* <IconButton
                     icon={images.iconAdd}
                     iconStyle={styles.addIcon}
                     onPress={addCustomer}
                     style={styles.btnAddAppointment}
-                />
+                /> */}
             </SingleScreenLayout>
         </View>
     );
@@ -117,7 +158,7 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         paddingTop: scaleWidth(16),
-        backgroundColor : "white"
+        backgroundColor: "white"
     },
     flatList: {
         flex: 1,

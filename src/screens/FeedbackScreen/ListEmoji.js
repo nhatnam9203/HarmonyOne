@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, TouchableOpacity, Image, StyleSheet, TextInput, Text } from 'react-native'
-import {images} from "@shared/themes";
+import { View, TouchableOpacity, StyleSheet, TextInput, Text, Animated } from 'react-native'
+import { images } from "@shared/themes";
+import { CustomImage } from "@shared/components";
 
 const listStatus = [
     {
@@ -53,22 +54,62 @@ export const ListEmoji = React.forwardRef(({ }, ref) => {
         <View style={styles.row}>
             {
                 listStatus.map((obj) => (
-                    <TouchableOpacity
+                    <ItemEmoji
                         key={obj.status.toString()}
-                        activeOpacity={1}
-                        onPress={() => onChangeStatus(obj.status)}
-                        style={styles.wrapEmoji}
-                    >
-                        <Image
-                            source={status == obj.status ? obj.emoji_select : obj.emoji_unselect}
-                            style={styles.emoji}
-                        />
-                    </TouchableOpacity>
+                        onChangeStatus={onChangeStatus}
+                        obj={obj}
+                        status={status}
+                    />
                 ))
             }
         </View>
     );
 });
+
+const ItemEmoji = ({
+    onChangeStatus = () => { },
+    obj,
+    status
+}) => {
+
+    const isActive = status == obj.status ? true : false;
+    const animatedValue = React.useRef(new Animated.Value(1)).current;
+
+    const TouchAnimated = Animated.createAnimatedComponent(TouchableOpacity);
+
+    React.useEffect(() => {
+        if (isActive) {
+            Animated.timing(animatedValue, {
+                toValue: 1.3,
+                duration: 150
+            }).start(() => {
+                Animated.timing(animatedValue, {
+                    toValue: 1,
+                    duration: 150
+                }).start();
+            });
+        };
+    }, [isActive]);
+
+    return (
+        <TouchAnimated
+            key={obj.status.toString()}
+            activeOpacity={1}
+            onPress={() => onChangeStatus(obj.status)}
+            style={[
+                styles.wrapEmoji,
+                {
+                    transform : [{ scale : animatedValue }]
+                }
+            ]}
+        >
+            <CustomImage
+                source={isActive ? obj.emoji_select : obj.emoji_unselect}
+                style={styles.emoji}
+            />
+        </TouchAnimated>
+    );
+}
 
 const styles = StyleSheet.create({
     row: {

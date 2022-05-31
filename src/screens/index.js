@@ -96,6 +96,7 @@ import {
 import { TermOfService, Privacy, FaqPage } from "./SettingScreen/pages";
 import { SetupTaxScreen } from "./SetupTaxScreen";
 import { SignupScreen } from "./SignupScreen";
+import { LanguageScreen } from "./LanguageScreen";
 
 
 module.exports = {
@@ -191,4 +192,5 @@ module.exports = {
   SetupTaxScreen,
   SignupScreen,
   SettingAdvancedScreen,
+  LanguageScreen
 };

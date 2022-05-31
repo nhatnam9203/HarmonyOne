@@ -91,7 +91,6 @@ export const Layout = ({
             onModalHide={() => { }}
           />
 
-          {/* <View style={{ height: scaleHeight(30) }} /> */}
         </ScrollView>
       </SingleScreenLayout>
     </View>

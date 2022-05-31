@@ -179,7 +179,7 @@ export const statusGroup = [
 
 export function getTimeAvaible(staff_available_time) {
   const time12PM = `${moment().format('YYYY-MM-DD')}T12:00:00`;
-  const time05PM = `${moment().format('YYYY-MM-DD')}T17:00:00`;
+  const time05PM = `${moment().format('YYYY-MM-DD')}T18:00:00`;
 
   const morning = staff_available_time.filter((obj) => {
     const timeFilter = `${moment().format('YYYY-MM-DD')}T${moment(obj.time, [
@@ -227,8 +227,6 @@ export function convertMinsToHrsMins(mins) {
 
   let h = Math.floor(minutes / 60);
   let m = minutes % 60;
-  // h = h < 10 ? '0' + h : h;
-  // m = m < 10 ? '0' + m : m;
 
   let stringConvert = `${m} min`;
 
@@ -481,8 +479,6 @@ export const handleFileDownloaed = async (path, exportType, fileName) => {
     const shareResponse = await Share.open({
       url: `file://${pathFileInventory}`
     });
-    // const android = await RNFetchBlob.android;
-    // await android.actionViewIntent(pathFileInventory, 'application/vnd.android.package-archive')
   }
 }
 

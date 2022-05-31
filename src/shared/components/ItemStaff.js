@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Pressable, Text } from 'react-native';
 import { colors, fonts, images } from "@shared/themes";
-import { CustomImage } from "@shared/components";
+import { ProgressiveImage } from "@shared/components";
 import { isEmpty } from "lodash";
 
 export const ItemStaff = ({
@@ -15,19 +15,15 @@ export const ItemStaff = ({
             style={styles.container}
         >
             <View style={styles.row}>
-                {
-                    isEmpty(item?.imageUrl) ?
-                        <CustomImage
-                            source={images.staff_default}
-                            resizeMode='cover'
-                            style={styles.avatarStaff}
-                        /> :
-                        <CustomImage
-                            source={{ uri: item?.imageUrl }}
-                            resizeMode='cover'
-                            style={styles.avatarStaff}
-                        />
-                }
+                <ProgressiveImage
+                    url={item?.imageUrl}
+                    resizeMode='cover'
+                    width={scaleWidth(60)}
+                    height={scaleWidth(60)}
+                    cirle={true}
+                    style={styles.avatarStaff}
+                    defaultSouce={images.staff_default}
+                />
                 <View style={styles.containerRight}>
                     <Text style={styles.displayName}>
                         {item?.displayName}

@@ -3,6 +3,7 @@ import { View, TouchableOpacity } from 'react-native'
 import { Text } from '@components';
 import { slop } from '@utils'
 import styles from '../styles';
+import { translate } from "@localize";
 
 const TextLink = ({ onPress = () => { } }) => {
     return (
@@ -11,7 +12,9 @@ const TextLink = ({ onPress = () => { } }) => {
             hitSlop={slop}
             style={styles.buttonWhat}
         >
-            <Text style={styles.txtWhatIsMerchant}>Back to Sign In</Text>
+            <Text style={styles.txtWhatIsMerchant}>
+                {translate("txtBackToSignin")}
+            </Text>
         </TouchableOpacity>
     )
 }

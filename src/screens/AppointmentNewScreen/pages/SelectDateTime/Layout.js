@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, ScrollView } from 'react-native';
 import { colors, fonts } from "@shared/themes";
 import { Button } from "@shared/components";
 import { HeaderBooking } from "../../widgets";
@@ -26,7 +26,7 @@ export const Layout = ({
         title={'Select Date/Time'}
       />
       <View style={styles.content}>
-        <View style={{ flex: 1 }}>
+        <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
           <CalendarPicker
             ref={calendarRef}
             staffSelected={staffSelected}
@@ -37,7 +37,7 @@ export const Layout = ({
             ref={timePickerRef}
             timesAvailable={timesAvailable}
           />
-        </View>
+        </ScrollView>
 
         <View style={styles.bottom}>
           <Button

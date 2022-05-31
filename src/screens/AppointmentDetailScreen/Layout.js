@@ -88,6 +88,7 @@ export const Layout = ({
         isRight={canEdit}
         isScrollLayout={false}
         barStyle={getBarStyle()}
+        containerStyle={{ paddingVertical: 0 }}
         headerRightComponent={() =>
           canEdit && (
             <EditButton
@@ -104,7 +105,6 @@ export const Layout = ({
             phoneNumber={appointmentItem?.phoneNumber}
             isShowPhone={(roleName == "admin" || roleName == "manager")}
           />
-          {/* <CustomerAtHomeView /> */}
           <View style={styles.line} />
           <AppointmentTimeView
             fromTime={appointmentItem?.fromTime}
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
   },
 
   bottom: {
-    paddingHorizontal: scaleWidth(16),
+    padding: scaleWidth(24),
     width: scaleWidth(375),
   },
 

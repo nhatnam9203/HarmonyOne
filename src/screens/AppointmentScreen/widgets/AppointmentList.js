@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { findServiceInAnotherAppointment } from "./helper";
 import LottieView from 'lottie-react-native'
 import moment from 'moment';
+import { translate } from "@localize";
 
 import {
     useAxiosQuery,
@@ -175,6 +176,7 @@ const AppointmentList = React.forwardRef(({
     const [{ isLoading }, fetchAppointmentByDate] = useAxiosQuery({
         ...getAppointmentByDate(dateToFormat(appointmentDate, 'YYYY-MM-DD')),
         enabled: true,
+        isLoadingDefault : !isRefresh,
         onSuccess: (data, response) => {
             dispatch(appointment.setBlockTimeBydate(data));
             setRefresh(false);
@@ -254,7 +256,7 @@ const AppointmentList = React.forwardRef(({
     if (tempData.length == 0) {
         return (
             <ListEmptyComponent
-                description={t('No Appointments')}
+                description={translate('noAppointments')}
                 renderLottiewView={() => (
                     <View style={{ width: 180, height: 180 }}>
                         <LottieView

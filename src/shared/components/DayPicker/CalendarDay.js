@@ -8,7 +8,7 @@ import moment from 'moment'
 export const CalendarDay = ({
     onPress,
     closeCalendarPicker,
-    bottom = 0,
+    bottom = scaleHeight(30),
     onDayPress = () => { },
     selectedDay,
     selectDay,
@@ -60,7 +60,7 @@ export const CalendarDay = ({
                     )
                 }
             />
-
+{/* 
             <View style={styles.row}>
                 <TouchableOpacity
                     onPress={cancel}
@@ -73,7 +73,7 @@ export const CalendarDay = ({
                         Apply
                     </Text>
                 </TouchableOpacity>
-            </View>
+            </View> */}
         </View>
     )
 }
@@ -88,9 +88,10 @@ const styles = StyleSheet.create({
         }
     },
     iconButton: {
-        width: scaleWidth(15),
-        height: scaleWidth(15),
-        tintColor: 'white'
+        width: scaleWidth(13),
+        height: scaleWidth(13),
+        tintColor: 'white',
+        marginHorizontal : scaleWidth(10)
     },
     row: {
         flexDirection: 'row',

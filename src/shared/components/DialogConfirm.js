@@ -6,6 +6,7 @@ import { images } from "@shared/themes/resources";
 import { Button } from "./Button";
 import { IconButton } from "./IconButton";
 import Modal from "react-native-modal";
+import { translate } from "@localize";
 
 export const DialogConfirm = React.forwardRef(
     ({
@@ -79,7 +80,7 @@ export const DialogConfirm = React.forwardRef(
                             highlight={false}
                             height={scaleHeight(48)}
                             width={scaleWidth(169)}
-                            label="Yes"
+                            label={translate("txtYes")}
                             styleButton={{
                                 borderWidth: 0,
                                 backgroundColor: "transparent"
@@ -92,7 +93,7 @@ export const DialogConfirm = React.forwardRef(
                             highlight={false}
                             height={scaleHeight(48)}
                             width={scaleWidth(169)}
-                            label="No"
+                            label={translate("txtNo")}
                             styleButton={{
                                 borderWidth: 0,
                                 backgroundColor: "transparent"

@@ -58,15 +58,5 @@ export const ErrorHandler = (response, error) => {
     }
   }
 
-  // if (error.request) {
-  //   if (error.message.includes('timeout')) {
-  //     throw 'TIME_OUT';
-  //   } else if (error.message.includes('Network Error')) {
-  //     throw 'NET_WORK_REQUEST_FAIL';
-  //   } else {
-  //     throw error;
-  //   }
-  // }
-
   return response;
 };

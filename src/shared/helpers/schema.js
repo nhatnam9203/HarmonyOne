@@ -1,21 +1,22 @@
 import * as yup from "yup";
 import { isEmpty } from "lodash";
+import { translate } from "@localize";
 
 export const customerSchema = yup.object().shape({
-    firstName: yup.string().required("required"),
-    lastName: yup.string().required("required"),
-    phone: yup.string().required("required"),
+    firstName: yup.string().required(translate("required")),
+    lastName: yup.string().required(translate("required")),
+    phone: yup.string().required(translate("required")),
     email: yup.string().nullable().email("Invalid email")
 });
 
 export const categorySchema = yup.object().shape({
-    categoryName: yup.string().required("required"),
+    categoryName: yup.string().required(translate("required")),
 });
 
 export const serviceSchema = yup.object().shape({
-    name: yup.string().required("required"),
-    price: yup.string().required("required"),
-    duration: yup.string().required("required"),
+    name: yup.string().required(translate("required")),
+    price: yup.string().required(translate("required")),
+    duration: yup.string().required(translate("required")),
     category: yup.object().shape({
         value: yup.string(),
         label: yup.string(),
@@ -25,12 +26,12 @@ export const serviceSchema = yup.object().shape({
 });
 
 export const productSchema = yup.object().shape({
-    name: yup.string().required("required"),
-    price: yup.string().required("required"),
-    sku: yup.string().required("required"),
-    quantity: yup.string().required("required"),
-    minThreshold: yup.string().required("required"),
-    maxThreshold: yup.string().required("required"),
+    name: yup.string().required(translate("required")),
+    price: yup.string().required(translate("required")),
+    sku: yup.string().required(translate("required")),
+    quantity: yup.string().required(translate("required")),
+    minThreshold: yup.string().required(translate("required")),
+    maxThreshold: yup.string().required(translate("required")),
     category: yup.object().shape({
         value: yup.string(),
         label: yup.string(),
@@ -41,19 +42,19 @@ export const productSchema = yup.object().shape({
 
 
 export const extraSchema = yup.object().shape({
-    name: yup.string().required("required"),
-    price: yup.string().required("required"),
-    duration: yup.string().required("required"),
-    supplyFee: yup.string().required("required"),
+    name: yup.string().required(translate("required")),
+    price: yup.string().required(translate("required")),
+    duration: yup.string().required(translate("required")),
+    supplyFee: yup.string().required(translate("required")),
 });
 
 
 export const serviceSalarySchema = yup.object().shape({
-    firstName: yup.string().required("required"),
-    lastName: yup.string().required("required"),
-    displayName: yup.string().required("required"),
+    firstName: yup.string().required(translate("required")),
+    lastName: yup.string().required(translate("required")),
+    displayName: yup.string().required(translate("required")),
     email: yup.string().email("Invalid email"),
-    pin: yup.string().required("required").test('len', 'Pincode must be 4 characters', val => val.length === 4),
+    pin: yup.string().required(translate("required")).test('len', 'Pincode must be 4 characters', val => val.length === 4),
     confirmPin: yup.string()
         .oneOf([yup.ref('pin'), null], 'Pin code does not match')
 });
@@ -61,21 +62,21 @@ export const serviceSalarySchema = yup.object().shape({
 
 
 export const profileStaffLoginSchema = yup.object().shape({
-    firstName: yup.string().required("required"),
-    lastName: yup.string().required("required"),
-    displayName: yup.string().required("required"),
-    phone: yup.string().required("required"),
+    firstName: yup.string().required(translate("required")),
+    lastName: yup.string().required(translate("required")),
+    displayName: yup.string().required(translate("required")),
+    phone: yup.string().required(translate("required")),
     email: yup.string().email("Invalid email"),
 });
 
 
 export const settlmentEditAmountSchema = yup.object().shape({
-    paymentByCash: yup.string().required("required"),
-    otherPayment: yup.string().required("required"),
+    paymentByCash: yup.string().required(translate("required")),
+    otherPayment: yup.string().required(translate("required")),
 });
 
 export const basicEditSchema = yup.object().shape({
-    businessName: yup.string().required("required"),
+    businessName: yup.string().required(translate("required")),
     email: yup.string().email("Invalid email").nullable(),
 });
 
@@ -91,62 +92,62 @@ const checkStateValid = (stateCity, value) => {
 }
 
 export const signUpGeneralInfoSchema = (stateCity) => yup.object().shape({
-    businessName: yup.string().required("required"),
-    doingBusiness: yup.string().required("required"),
-    tax: yup.string().required("required"),
-    businessPhone: yup.string().required("required"),
-    firstName: yup.string().required("required"),
-    lastName: yup.string().required("required"),
-    position: yup.string().required("required"),
-    contactPhone: yup.string().required("required"),
+    businessName: yup.string().required(translate("required")),
+    doingBusiness: yup.string().required(translate("required")),
+    tax: yup.string().required(translate("required")),
+    businessPhone: yup.string().required(translate("required")),
+    firstName: yup.string().required(translate("required")),
+    lastName: yup.string().required(translate("required")),
+    position: yup.string().required(translate("required")),
+    contactPhone: yup.string().required(translate("required")),
 
-    streetBusinessAddress: yup.string().required("required"),
-    cityBusinessAddress: yup.string().required("required"),
-    zipBusinessAddress: yup.string().required("required"),
+    streetBusinessAddress: yup.string().required(translate("required")),
+    cityBusinessAddress: yup.string().required(translate("required")),
+    zipBusinessAddress: yup.string().required(translate("required")),
     stateBusinessAddress: yup.string()
-        .required("required").test("state-isValid", "State invalid",
+        .required(translate("required")).test("state-isValid", "State invalid",
             function (value) {
                 return checkStateValid(stateCity, value)
             })
         .nullable(),
 
-    streetDbaAddress: yup.string().required("required"),
-    cityDbaAddress: yup.string().required("required"),
-    zipDbaAddress: yup.string().required("required"),
+    streetDbaAddress: yup.string().required(translate("required")),
+    cityDbaAddress: yup.string().required(translate("required")),
+    zipDbaAddress: yup.string().required(translate("required")),
 
     stateDbaAddress: yup.string()
-        .required("required").test("state-isValid", "State invalid",
+        .required(translate("required")).test("state-isValid", "State invalid",
             function (value) {
                 return checkStateValid(stateCity, value)
             })
         .nullable(),
 
-    email: yup.string().required("required").email("Invalid email"),
+    email: yup.string().required(translate("required")).email("Invalid email"),
 });
 
 export const signUpGeneralInfoSchema2 = (stateCity) => {
     const test = checkStateValid(stateCity, "Ohi6");
     return yup.object().shape({
-        businessName: yup.string().required("required"),
-        doingBusiness: yup.string().required("required"),
-        tax: yup.string().required("required"),
-        businessPhone: yup.string().required("required"),
-        firstName: yup.string().required("required"),
-        lastName: yup.string().required("required"),
-        position: yup.string().required("required"),
-        contactPhone: yup.string().required("required"),
+        businessName: yup.string().required(translate("required")),
+        doingBusiness: yup.string().required(translate("required")),
+        tax: yup.string().required(translate("required")),
+        businessPhone: yup.string().required(translate("required")),
+        firstName: yup.string().required(translate("required")),
+        lastName: yup.string().required(translate("required")),
+        position: yup.string().required(translate("required")),
+        contactPhone: yup.string().required(translate("required")),
 
-        streetBusinessAddress: yup.string().required("required"),
-        cityBusinessAddress: yup.string().required("required"),
-        zipBusinessAddress: yup.string().required("required"),
+        streetBusinessAddress: yup.string().required(translate("required")),
+        cityBusinessAddress: yup.string().required(translate("required")),
+        zipBusinessAddress: yup.string().required(translate("required")),
         stateBusinessAddress: yup.string()
-            .required("required").test("state-isValid", "State invalid",
+            .required(translate("required")).test("state-isValid", "State invalid",
                 function (value) {
                     return checkStateValid(stateCity, value)
                 })
             .nullable(),
 
-        email: yup.string().required("required").email("Invalid email"),
+        email: yup.string().required(translate("required")).email("Invalid email"),
     });
 };
 
@@ -155,52 +156,52 @@ export const signUpBusiniessInfoSchema = yup.object().shape({
 });
 
 export const signUpBankInformation = yup.object().shape({
-    accountHolderName: yup.string().required("required"),
-    bankName: yup.string().required("required"),
-    accountNumber: yup.string().required("required"),
-    routingNumber: yup.string().required("required"),
+    accountHolderName: yup.string().required(translate("required")),
+    bankName: yup.string().required(translate("required")),
+    accountNumber: yup.string().required(translate("required")),
+    routingNumber: yup.string().required(translate("required")),
 });
 
 export const signUpPrincipalInfoSchema = (stateCity) => yup.object().shape({
     principalInfor: yup.array().of(
         yup.object().shape({
-            ownership: yup.string().required("required"),
-            // homePhone: yup.string().required("required"),
-            mobilePhone: yup.string().required("required"),
-            firstName: yup.string().required("required"),
-            lastName: yup.string().required("required"),
-            position: yup.string().required("required"),
+            ownership: yup.string().required(translate("required")),
+            // homePhone: yup.string().required(translate("required")),
+            mobilePhone: yup.string().required(translate("required")),
+            firstName: yup.string().required(translate("required")),
+            lastName: yup.string().required(translate("required")),
+            position: yup.string().required(translate("required")),
 
-            street: yup.string().required("required"),
-            city: yup.string().required("required"),
+            street: yup.string().required(translate("required")),
+            city: yup.string().required(translate("required")),
             state: yup.string()
-                .required("required").test("state-isValid", "State invalid",
+                .required(translate("required")).test("state-isValid", "State invalid",
                     function (value) {
                         return checkStateValid(stateCity, value)
                     })
                 .nullable(),
-            zip: yup.string().required("required"),
+            zip: yup.string().required(translate("required")),
 
-            email: yup.string().required("required").email("Invalid email"),
+            email: yup.string().required(translate("required")).email("Invalid email"),
             stateIssued: yup.string()
-                .required("required").test("state-isValid", "State invalid",
+                .required(translate("required")).test("state-isValid", "State invalid",
                     function (value) {
                         return checkStateValid(stateCity, value)
                     })
                 .nullable(),
-            yearAtThisAddress: yup.string().required("required"),
+            yearAtThisAddress: yup.string().required(translate("required")),
 
-            driverLicense: yup.string().required("required"),
-            ssn: yup.string().required("required"),
-            fileId: yup.string().required("required"),
+            driverLicense: yup.string().required(translate("required")),
+            ssn: yup.string().required(translate("required")),
+            fileId: yup.string().required(translate("required")),
         })
     ),
 });
 
 export const locationEditSchema = yup.object().shape({
-    address: yup.string().required("required"),
-    city: yup.string().required("required"),
-    zip: yup.string().required("required"),
-    longitude: yup.string().required("required"),
-    latitude: yup.string().required("required"),
+    address: yup.string().required(translate("required")),
+    city: yup.string().required(translate("required")),
+    zip: yup.string().required(translate("required")),
+    longitude: yup.string().required(translate("required")),
+    latitude: yup.string().required(translate("required")),
 });

@@ -3,25 +3,23 @@ import { View, StyleSheet, Text, ScrollView } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
-import NavigationService from '@navigation/NavigationService'
+import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 
 export const Layout = ({
 
 }) => {
 
-  const [t] = useTranslation();
-
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Privacy policy')}
+        pageTitle={translate('txtPrivacy')}
         isRight={false}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
       >
         <ScrollView style={styles.content}>
         <Text style={styles.title}>HarmonyPay - Harmony One</Text>
-          {/* <Text style={styles.title}>Privacy.</Text> */}
 
           <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15), marginTop: scaleHeight(24) }]}>
             Privacy

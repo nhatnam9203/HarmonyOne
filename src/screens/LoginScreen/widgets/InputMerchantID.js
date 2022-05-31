@@ -10,9 +10,14 @@ import {
   View,
 } from 'react-native';
 import { CustomTextInput } from '@shared/components';
+import { translate } from "@localize";
+import { isEmpty } from "lodash";
 
-export const InputMerchantID = ({ onChangeMID, isLoading, valueMID }) => {
+export const InputMerchantID = React.forwardRef(({
+  onChangeMID, isLoading, valueMID 
+ }, ref) => {
   const AnimatedButton = Animated.createAnimatedComponent(TouchableOpacity);
+  const animatedValue = React.useRef(new Animated.Value(1)).current;
 
   const bottomAnimated = React.useRef(
     new Animated.Value(scaleHeight(10)),
@@ -21,7 +26,6 @@ export const InputMerchantID = ({ onChangeMID, isLoading, valueMID }) => {
   const fontSizeAnimated = React.useRef(
     new Animated.Value(scaleFont(15)),
   ).current;
-  //   const leftAnimated = React.useRef(new Animated.Value(scaleWidth(25))).current;
 
   const animatedInput = () => {
     Animated.parallel([
@@ -35,11 +39,6 @@ export const InputMerchantID = ({ onChangeMID, isLoading, valueMID }) => {
         duration: 300,
         useNativeDriver: false,
       }),
-      //   Animated.timing(leftAnimated, {
-      //     toValue: scaleWidth(16),
-      //     duration: 300,
-      //     useNativeDriver: false,
-      //   }),
     ]).start();
   };
 
@@ -56,6 +55,31 @@ export const InputMerchantID = ({ onChangeMID, isLoading, valueMID }) => {
     }
   };
 
+    React.useImperativeHandle(ref, () => ({
+        animatedInput: () =>{
+          onPressInput();
+        },
+    }));
+
+    React.useEffect(() => {
+      Animated.loop(
+        Animated.sequence(
+          [
+            Animated.timing(animatedValue, {
+              toValue: 1.07,
+              duration: 700,
+              useNativeDriver: false
+            }),
+            Animated.timing(animatedValue, {
+              toValue: 1,
+              duration: 700,
+              useNativeDriver: false
+            }),
+          ]
+        )
+      ).start();
+    }, [])
+  
   return (
     <View style={styles.containerInput}>
       <View style={styles.inputContent}>
@@ -89,15 +113,16 @@ export const InputMerchantID = ({ onChangeMID, isLoading, valueMID }) => {
             styles.content,
             {
               fontSize: fontSizeAnimated,
-              fontFamily : fonts.BOLD
+              fontFamily: fonts.BOLD,
+              transform: [{ scale: animatedValue }]
             },
           ]}>
-          Enter your Merchant ID
+          {translate('txtEnterMerchantId')}
         </Animated.Text>
       </AnimatedButton>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   containerInput: {

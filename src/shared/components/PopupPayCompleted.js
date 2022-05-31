@@ -61,8 +61,8 @@ export const PopupPayCompleted = React.forwardRef(
                 onRequestClose={hideModal}
                 backdropTransitionOutTiming={0}
                 backdropTransitionInTiming={0}
-                animationIn="fadeInRight"
-                animationOut="fadeOutRight"
+                animationIn='zoomInUp'
+                animationOut='zoomOutDown'
                 backdropColor={'rgba(64,64,64,0.5)'}
             >
                 <View style={styles.container}>
