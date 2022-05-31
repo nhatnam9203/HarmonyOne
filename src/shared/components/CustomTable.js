@@ -573,10 +573,6 @@ function TableListExtended({
               }}
               disabled={true}
             >
-              {/* {key === sumTotalKey && (
-                  <Text style={styles.txtSum}>{"Total"}</Text>
-                )} */}
-
               {
                 arrTextTotal.includes(key) == true && <Text style={[styles.txtSum, { textAlign: "right" }]}>{"Total"}</Text>
               }

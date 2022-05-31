@@ -49,7 +49,6 @@ export const requestAPI = async (action, header = {}) => {
     headers["Authorization"] = `Bearer ${action.token}`;
   }
 
-  // headers["User-Agent"] = `HarmonyConsumer/${Config.VERSION}/${Config.IS_PLATFORM}`;
   let configs = {
     method: `${method}`,
     baseURL: baseURL,

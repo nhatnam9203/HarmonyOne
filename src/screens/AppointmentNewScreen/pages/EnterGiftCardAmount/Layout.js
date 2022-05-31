@@ -35,13 +35,6 @@ export const Layout = ({
             >
                 <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                     <View style={styles.content}>
-
-                        {/* <Text style={styles.txtTotal}>Gift Card Amount</Text>
-
-                    <View style={styles.wrapPrice}>
-                        <Text style={styles.priceTotal}>{ giftCardInfo?.isActive == 1 ? "$ 0.00" : `$ ${giftCardInfo?.amount}`}</Text>
-                    </View> */}
-
                         <CustomInput
                             label='Enter the amount'
                             error={errors?.amount}

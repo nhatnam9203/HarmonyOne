@@ -176,15 +176,6 @@ export const sortByDate = (items, sort, sortKey) => {
   return sortList;
 };
 
-// export const roundNumber = (num = 0)=> {
-//   const r = (Math.round(num * 100) / 100).toFixed(2);
-//   return r ?? 0;
-// };
-
-// export const roundFloatNumber = num => {
-//   return (Math.round(num * 100) / 100).toFixed(2);
-// };
-
 
 export const timeAvaiableRaw = [
   {
