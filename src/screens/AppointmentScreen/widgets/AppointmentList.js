@@ -249,7 +249,13 @@ const AppointmentList = React.forwardRef(({
         });
     }, [blockTimesVisibile]);
 
-    const tempData = staffSelected == -1 ? appointmentWaitings.filter(app => app?.status == "waiting") : blockTimeSort;
+    const tempData = staffSelected == -1 
+                    ? appointmentWaitings.filter(appointment => 
+                        {
+                            return appointment?.status == "waiting" 
+                            && appointment?.appointmentDepositStatus == "Default"
+                        }) 
+                    : blockTimeSort.filter(appointment => appointment?.appointmentDepositStatus == "Default") ;
 
     if (tempData.length == 0) {
         return (
