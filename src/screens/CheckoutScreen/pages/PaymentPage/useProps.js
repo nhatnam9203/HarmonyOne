@@ -241,7 +241,6 @@ export const useProps = (props) => {
       }, 200)
     },
     onSuccess: async (data, response) => {
-      console.log("response", response)
       if (response?.codeNumber == 200) {
 
         if (methodPay.method == "harmony") {
