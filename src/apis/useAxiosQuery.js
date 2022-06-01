@@ -11,7 +11,7 @@ export const useAxiosQuery = ({
   params,
   queryId,
   onSuccess,
-  onLoginError,
+  onError,
   isLoadingDefault = true,
   isStopLoading = false,
   enabled = false,
@@ -50,8 +50,8 @@ export const useAxiosQuery = ({
                 errorType: "error",
                 titleError: "Alert",
               }));
-            if (onLoginError && typeof onLoginError == "function") {
-              onLoginError(response?.message);
+            if (onError && typeof onError == "function") {
+              onError(response?.message);
             }
           }
         }
@@ -59,10 +59,10 @@ export const useAxiosQuery = ({
       onError: (err) => {
         if (
           err?.message &&
-          onLoginError &&
-          typeof onLoginError === 'function'
+          onError &&
+          typeof onError === 'function'
         ) {
-          onLoginError(err?.message);
+          onError(err?.message);
         }
       },
     }, // disable fetch auto

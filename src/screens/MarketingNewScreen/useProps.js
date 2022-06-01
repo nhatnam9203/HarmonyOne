@@ -392,7 +392,7 @@ export const useProps = (props) => {
         alertRef?.current?.alertWithType('info', 'Update Promotion', response?.message);
       }
     },
-    onLoginError: () => {
+    onError: () => {
       NavigationService.back();
     }
   });
@@ -431,7 +431,7 @@ export const useProps = (props) => {
     onSuccess: (data, response) => {
       fetchPromotion();
     },
-    onLoginError: () => {
+    onError: () => {
       NavigationService.navigate(screenNames.MarketingScreen);
     }
   });

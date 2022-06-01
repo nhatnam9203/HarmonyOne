@@ -7,7 +7,7 @@ import { app } from '@src/redux/slices';
 export const useAxiosMutation = ({
   params,
   onSuccess,
-  onLoginError,
+  onError,
   isLoadingDefault = true,
   isStopLoading = false,
   isReturnError = true
@@ -40,8 +40,8 @@ export const useAxiosMutation = ({
                   titleError: "Alert",
                 }));
             }
-            if(onLoginError && typeof onLoginError == "function"){
-              onLoginError(response?.message);
+            if(onError && typeof onError == "function"){
+              onError(response?.message);
             }
           }
         }
@@ -51,10 +51,10 @@ export const useAxiosMutation = ({
         console.log(err);
         if (
           err?.message &&
-          onLoginError &&
-          typeof onLoginError === 'function'
+          onError &&
+          typeof onError === 'function'
         ) {
-          onLoginError(err?.message);
+          onError(err?.message);
         }
       },
     }, // disable fetch auto

@@ -95,7 +95,7 @@ export const useProps = (props) => {
 
   const [{ isLoading }, staffLogin] = useAxiosMutationReport({
     ...staffLoginRequest(merchantID, pincodeSaved),
-    onLoginError: (msg) => {
+    onError: (msg) => {
       NavigationService.back();
     },
     isLoadingDefault : false,

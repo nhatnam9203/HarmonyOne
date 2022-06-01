@@ -13,7 +13,7 @@ export function CustomBottomBar({ state, descriptors, navigation }) {
 
   const [{ isLoading }, staffLogin] = useAxiosMutationReport({
     ...staffLoginRequest(merchantID, pincodeSaved),
-    onLoginError: (msg) => {
+    onError: (msg) => {
       NavigationService.back();
     },
     isLoadingDefault : false,
