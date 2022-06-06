@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { colors, fonts, layouts, images } from '@shared/themes';
+import { translate } from "@localize";
 
 export const TotalView = ({
     duration = "0",
@@ -25,7 +26,7 @@ export const TotalView = ({
         <View style={styles.totalContent}>
             <View style={styles.totalInfoContent}>
                 <Text style={styles.textTotalInfo}>
-                    {t('Total duration')}
+                    {translate('totalDuration')}
                 </Text>
                 <Text style={styles.textTotalInfo}>
                     {duration}
@@ -34,7 +35,7 @@ export const TotalView = ({
             {
                 !isShowSubtotal && <View style={styles.totalInfoContent}>
                     <Text style={styles.textTotal}>
-                        {t('Total')}
+                        {translate('txtTotal')}
                     </Text>
                     <Text style={styles.textTotalPrice}>
                         {price}
@@ -45,7 +46,7 @@ export const TotalView = ({
                 isShowSubtotal &&
                 <View style={styles.totalInfoContent}>
                     <Text style={styles.textTotal}>
-                        {t('Subtotal')}
+                        {translate('subTotal')}
                     </Text>
                     <Text style={styles.textTotalPrice}>
                         {subTotal}

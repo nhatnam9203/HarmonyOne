@@ -89,11 +89,24 @@
   "txtOwner": "Owner",
   "txtContactPhoneNumber": "Contact Phone Number",
   "txtNext": "Next",
-  "required": "required"
-
-
-
-
+  "required": "required",
+  "txtEnglish": "English",
+  "txtVietnamese": "Vietnamese",
+  "txtWalkingCustomer": "Walking customer",
+  "txtAddServices": "Add Services",
+  "check-out": "Check-out",
+  "check-in": "Check-in",
+  "confirm" : "Confirm",
+  "Assign appointment to other staff" : "Assign appointment to other staff",
+  "totalDuration": "Total duration",
+  "subTotal": "Sub total",
+  "txtTotal" : "Total",
+  "giftCard" : "Gift card",
+  "tip": "Tip",
+  "tax": "Tax",
+  "discount": "Discount",
+  "Paid at": "Paid at",
+  "Items" : "Items",
 
 
 }

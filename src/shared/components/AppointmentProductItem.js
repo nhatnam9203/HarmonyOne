@@ -43,7 +43,6 @@ export const AppointmentProductItem = ({
         }
     }
 
-
     return (
         <Pressable onPress={onPress} style={styles.container}>
             {isDelete && <View style={styles.lineDelete} />}
@@ -51,7 +50,7 @@ export const AppointmentProductItem = ({
                 style={styles.serviceImage}
                 width={scaleHeight(60)}
                 height={scaleHeight(60)}
-                url={service.imageUrl}
+                url={product?.imageUrl}
                 defaultSource={images.serviceDefault}
                 resizeMode="cover"
             />

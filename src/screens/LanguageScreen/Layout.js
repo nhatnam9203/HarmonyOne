@@ -32,7 +32,7 @@ export const Layout = ({
         <View style={styles.content}>
 
           <ItemLanguage
-            title="English"
+            title={translate("txtEnglish")}
             icon={ic_english}
             lng="en"
             lang={lang}
@@ -40,7 +40,7 @@ export const Layout = ({
           />
 
           <ItemLanguage
-            title="Việt Nam"
+            title={translate("txtVietnamese")}
             icon={ic_vietnam}
             lng="vi"
             lang={lang}
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.1345,
     shadowRadius: 1.84,
-    ...(Platform.OS == "android" && { borderWidth: 1, borderColor: "#dddddd" })
+    elevation: 1,
   },
   txtLanguage: {
     color: "#333",

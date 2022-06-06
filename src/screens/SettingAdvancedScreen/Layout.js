@@ -164,6 +164,8 @@ export const Layout = ({
                       numberOfLines={3}
                     />
                   </View>
+
+                  <View style={{ height: scaleHeight(120) }} /> 
                 </KeyboardAwareScrollView>
               </TouchableWithoutFeedback>
               <View style={styles.bottom}>

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { colors, fonts, layouts, images } from '@shared/themes';
+import { translate } from "@localize";
 
 export const TotalViewPaid = ({
     duration = "0",
@@ -26,7 +27,7 @@ export const TotalViewPaid = ({
         <View style={styles.totalContent}>
             <View style={styles.totalInfoContent}>
                 <Text style={styles.textTotal}>
-                    {t('Subtotal')}
+                    {translate('subTotal')}
                 </Text>
                 <Text style={styles.textTotalPrice}>
                     {subTotal}
@@ -34,7 +35,7 @@ export const TotalViewPaid = ({
             </View>
             <View style={styles.totalInfoContent}>
                 <Text style={styles.textTotal}>
-                    {t('Tax')}
+                    {translate("tax")}
                 </Text>
                 <Text style={styles.textTotalPrice}>
                     {tax}
@@ -42,7 +43,7 @@ export const TotalViewPaid = ({
             </View>
             <View style={styles.totalInfoContent}>
                 <Text style={styles.textTotal}>
-                    {t('Discount')}
+                    {translate("discount")}
                 </Text>
                 <Text style={styles.textTotalPrice}>
                     {discount}
@@ -50,7 +51,7 @@ export const TotalViewPaid = ({
             </View>
             <View style={styles.totalInfoContent}>
                 <Text style={styles.textTotal}>
-                    {t('Tip')}
+                    {translate("tip")}
                 </Text>
                 <Text style={styles.textTotalPrice}>
                     {tipAmount}
@@ -58,7 +59,7 @@ export const TotalViewPaid = ({
             </View>
             <View style={[styles.totalInfoContent]}>
                 <Text style={styles.textTotal}>
-                    {t('Gift card')}
+                    {translate("giftCard")}
                 </Text>
                 <Text style={styles.textTotalPrice}>
                     {giftCard}
@@ -66,7 +67,7 @@ export const TotalViewPaid = ({
             </View>
             <View style={[styles.totalInfoContent, { marginBottom: scaleHeight(8) }]}>
                 <Text style={[styles.textTotal, { fontFamily: fonts.BOLD }]}>
-                    {t('Total')}
+                    {translate("txtTotal")}
                 </Text>
                 <Text style={[styles.textTotalPrice, { fontFamily: fonts.BOLD, color: "#72CE3D" }]}>
                     {price}

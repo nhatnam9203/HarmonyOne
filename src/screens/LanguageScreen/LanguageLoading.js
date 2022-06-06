@@ -1,12 +1,10 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View, ActivityIndicator } from "react-native";
 import { colors, fonts, layouts } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { Button } from "@shared/components";
 import Modal from "react-native-modal";
 import { translate } from "@localize";
-import Spinner from 'react-native-spinkit';
 
 export const LanguageLoading = React.forwardRef(
     ({
@@ -14,7 +12,6 @@ export const LanguageLoading = React.forwardRef(
         titleContent = "",
         onModalHide = () => { },
     }, ref) => {
-        const [t] = useTranslation();
 
         const [open, setOpen] = React.useState(false);
         const hideModal = () => {
@@ -64,11 +61,10 @@ export const LanguageLoading = React.forwardRef(
                     </Text>
 
                     <View style={styles.bottomStyle}>
-                        <Spinner
-                            style={styles.spinner}
-                            type={'Arc'}
-                            size={scaleWidth(33)}
-                            color="#68B2EF"
+                        <ActivityIndicator
+                            size='large'
+                            color={'#2B62AB'}
+                            style={{ marginBottom : 24 }}
                         />
                     </View>
                 </View>

@@ -3,12 +3,12 @@ import { View, StyleSheet, Text, ScrollView, FlatList, Image, TouchableOpacity }
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
-import { Button, CustomImage, ListEmptyComponent, IconButton } from "@shared/components";
+import { Button, CustomImage, ListEmptyComponent, IconButton, ProgressiveImage } from "@shared/components";
 import { images } from "@shared/themes/resources";
 import { WithPopupUploadMultipleImage } from "@shared/HOC";
 import { ButtonUpload } from 'src/shared/components';
-import CheckBox from "@react-native-community/checkbox"
 
+import CheckBox from "@react-native-community/checkbox"
 
 let ButttonUploadMultippeImage = ({ onResponseImagePicker, ...props }) => {
     return (
@@ -87,10 +87,12 @@ export const Layout = ({
                                 style={{ position: 'relative' }}
                                 key={item?.merchantBannerId + "merchantBannerEdit"}
                             >
-                                <CustomImage
-                                    source={{ uri: item?.imageUrl }}
+                                <ProgressiveImage
+                                    url={item?.imageUrl}
                                     style={styles.banner}
                                     resizeMode='cover'
+                                    width={scaleWidth(375 - 32)}
+                                    height={scaleWidth(375 - 32 - 70)}
                                 />
                                 {
                                     bannersDelete?.includes(item?.merchantBannerId) &&

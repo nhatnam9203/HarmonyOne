@@ -47,14 +47,15 @@ export const AppLoading = ({
   return isLoading ? (
     <View style={styles.container}>
       <View style={styles.loadingBg}>
-        {
+        <ActivityIndicator size='large' color={'#2B62AB'} />
+        {/* {
             <Spinner
               style={styles.spinner}
               type={Platform.OS === 'ios' ? "Arc" : 'Arc'}
               size={scaleWidth(33)}
               color="#68B2EF"
             />
-        }
+        } */}
         {/* <LottieView source={require('../../assets/loading.json')} autoPlay loop /> */}
       </View>
     </View>
@@ -63,8 +64,8 @@ export const AppLoading = ({
 
 const styles = StyleSheet.create({
   loadingBg: {
-    width: scaleWidth(70),
-    height: scaleHeight(70),
+    width: scaleWidth(77),
+    height: scaleWidth(77),
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: scaleWidth(300),

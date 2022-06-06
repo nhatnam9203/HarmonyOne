@@ -89,6 +89,24 @@
   "txtOwner": "Chủ",
   "txtContactPhoneNumber": "Số điện thoại liên lạc",
   "txtNext": "Tiếp",
-  "required": "yêu cầu"
+  "required": "yêu cầu",
+  "txtEnglish": "Tiếng Anh",
+  "txtVietnamese": "Tiếng Việt",
+  "txtWalkingCustomer": "Chọn khách hàng",
+  "txtAddServices": "Thêm dịch vụ",
+  "check-out": "Thanh toán",
+  "check-in": "Đã xác nhận",
+  "confirm" : "Xác nhận",
+  "Assign appointment to other staff" : "Chọn nhân viên khác",
+  "totalDuration": "Tổng thời gian",
+  "subTotal": "Tổng phí dịch vụ",
+  "txtTotal" : "Tổng cộng",
+  "giftCard" : "Thẻ qùa tặng",
+  "tip": "Tiền bo",
+  "tax": "Thuế",
+  "discount": "Giảm giá",
+  "Paid at": "Trả lúc",
+  "Items" : "Dịch vụ",
+
 
 }

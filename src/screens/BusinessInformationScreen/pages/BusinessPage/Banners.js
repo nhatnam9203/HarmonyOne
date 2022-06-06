@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { images, colors, fonts } from "@shared/themes";
-import { CustomImage } from "@shared/components";
+import { ProgressiveImage } from "@shared/components";
 import { slop } from "@shared/utils";
 import { View } from 'react-native-animatable';
 import { Title } from "../../Title";
@@ -15,11 +15,13 @@ export const Banners = ({
             <Title text="Photos" onEdit={()=>{ NavigationService.navigate("PhotoEdit") }} />
             {
                 banners.map((banner) => (
-                    <CustomImage
-                        source={{ uri : banner?.imageUrl }}
+                    <ProgressiveImage
+                        url={banner?.imageUrl}
                         key={banner?.merchantBannerId + "merchantBannerId"}
                         style={styles.banner}
                         resizeMode='cover'
+                        width={scaleWidth(375 - 32)}
+                        height={scaleWidth(375 - 32 - 70)}
                     />
                 ))
             }
