@@ -107,6 +107,32 @@
   "discount": "Discount",
   "Paid at": "Paid at",
   "Items" : "Items",
+  "txtEditAppointment": "Edit Appointment",
+  "txtCancelAppointment": "Cancel Appointment",
+  "txtSelectServiceProduct": "Select Services & Product",
+  "Duration": "Duration",
+  "min" : "min",
+  "Price" : "Price",
+  "txtSelectStaff": "Select Staff",
+  "txtSelectDateTime": "Select Date/Time",
+  "txtReviewConfirm": "Review & Confirm",
+  "txtAddNote": "Add note",
+  "Add customer": "Add customer",
+  "txtNewAppointment": "New Appointment",
+  "Customers": "Customers",
+  "Search customer by phone or name": "Search customer by phone or name",
+  "Enter gift card serial number": "Enter gift card serial number",
+  "Check Out": "Check Out",
+  "Add more service or product": "Add more service or product",
+  "txtStep": "Step",
+  "txtProducts": "Products",
+  "Morning": "Morning",
+  "Afternoon": "Afternoon",
+  "Evening": "Evening",
+  "Something note about this appointment": "Something note about this appointment"
+
+
+
 
 
 }

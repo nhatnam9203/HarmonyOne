@@ -18,6 +18,7 @@ import { ButtonAddNote } from "./ButtonAddNote";
 import { guid } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 import moment from 'moment';
+import { translate } from "@localize";
 
 
 export const Layout = ({
@@ -77,7 +78,7 @@ export const Layout = ({
       <View style={styles.containerService}>
         <Text style={styles.titleService}>
           {
-            isQuickCheckout ? "Items" : "Services"
+            isQuickCheckout ? translate("Items") : translate("txtServices")
           }
         </Text>
       </View>
@@ -90,7 +91,7 @@ export const Layout = ({
         icon={images.iconAddMore}
         iconStyle={styles.iconAddMore}
         style={styles.buttonAddMore}
-        renderText={() => <Text style={styles.txtAddMore}>Add more service or product</Text>}
+        renderText={() => <Text style={styles.txtAddMore}>{translate("Add more service or product")}</Text>}
         onPress={addMore}
       />
 
@@ -115,7 +116,7 @@ export const Layout = ({
     <View style={styles.container}>
       <HeaderBooking
         step={step}
-        title={'Review & Confirm'}
+        title={translate('txtReviewConfirm')}
         onPressBack={onPressBack}
       />
       <View style={styles.content}>
@@ -176,7 +177,7 @@ export const Layout = ({
 
         <View style={styles.bottom}>
           <Button
-            label={isQuickCheckout ? "Check Out" : "Confirm"}
+            label={isQuickCheckout ? translate("Check Out" ): translate("confirm")}
             onPress={confirm}
             highlight={true}
             width={'100%'}

@@ -7,6 +7,7 @@ import { ServicePage } from "./ServicePage";
 import { ProductPage } from "./ProductPage";
 import { GiftCardPage } from "./GiftCardPage";
 import {  DialogActiveGiftCard } from "@shared/components";
+import { translate } from "@localize";
 
 
 const { Navigator, Screen } = createMaterialTopTabNavigator();
@@ -23,14 +24,14 @@ export const Layout = ({
     <View style={styles.container}>
       <DialogActiveGiftCard
         ref={dialogActiveGiftCard}
-        title="Enter gift card serial number"
+        title={translate("Enter gift card serial number")}
         onConfirmYes={() => { }}
         onModalHide={() => { }}
-        onSuccess={onCheckGiftCardSucces}
+        onSuccess={onCheckGiftCardSucces} 
       />
       <HeaderBooking
         step={1}
-        title={'Select Services & Product'}
+        title={translate('txtSelectServiceProduct')}
         onPressBack={onBack}
         renderRight={() =>
           <Pressable

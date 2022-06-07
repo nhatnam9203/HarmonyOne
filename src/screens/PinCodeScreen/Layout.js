@@ -78,7 +78,7 @@ const TextPincode = () => {
       Animated.sequence(
         [
           Animated.timing(animatedValue, {
-            toValue: 1.07,
+            toValue: 1.09,
             duration: 700,
             useNativeDriver: true
           }),

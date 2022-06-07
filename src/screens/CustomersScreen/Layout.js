@@ -9,6 +9,7 @@ import { slop } from "@shared/utils";
 import { isEmpty } from "lodash";
 import NavigationService from '@navigation/NavigationService';
 import ItemCustomer from "./ItemCustomer";
+import { translate } from "@localize";
 
 export const Layout = ({
     valueSearch,
@@ -48,7 +49,7 @@ export const Layout = ({
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={isBookAppointment ? t('New Appointment') : isQuickCheckout ? t("Add customer") : t('Customers')}
+                pageTitle={isBookAppointment ? translate('txtNewAppointment') : isQuickCheckout ? translate("Add customer") : translate('Customers')}
                 isLeft={!isBookAppointment}
                 isRight={isBookAppointment}
                 headerRightComponent={() =>
@@ -71,7 +72,7 @@ export const Layout = ({
                         value={valueSearch}
                         onChangeText={onChangeSearch}
                         removeText={valueSearch.length > 0 ? () => onChangeSearch("") : () => { }}
-                        placeholder="Search customer by phone or name"
+                        placeholder={translate("Search customer by phone or name")}
                     />
                     <Animated.FlatList
                         onScroll={

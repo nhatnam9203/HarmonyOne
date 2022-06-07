@@ -7,6 +7,7 @@ import { slop } from "@shared/utils";
 import { isEmpty } from "lodash";
 import { TextInputMask } from "react-native-masked-text";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { translate } from "@localize";
 
 
 export const Layout = ({
@@ -99,7 +100,7 @@ export const Layout = ({
         <View style={styles.containerDuration}>
           {/******************************* CỘNG TRỪ DURATION ********************************/}
           <View style={styles.rowBetween}>
-            <Text style={styles.duration}>Duration (min)</Text>
+            <Text style={styles.duration}>{translate('Duration')} ({translate('min')})</Text>
             <View style={styles.row}>
               <Button
                 onPress={() => { onChangeDurationService(durationService - 5) }}
@@ -124,7 +125,7 @@ export const Layout = ({
 
           {/******************************* EDIT PRICE ********************************/}
           <View style={[styles.rowBetween, { marginTop: scaleHeight(24) }]}>
-            <Text style={[styles.duration, { fontFamily: fonts.MEDIUM, fontSize: scaleFont(18) }]}>Price</Text>
+            <Text style={[styles.duration, { fontFamily: fonts.MEDIUM, fontSize: scaleFont(18) }]}>{translate('Price')}</Text>
 
             <View style={{ flexDirection: "row", alignItems: "center", }}>
               <View style={[styles.wrapPrice, { borderColor: isEditPrice ? "#dddddd" : "white" }]}>
@@ -181,7 +182,7 @@ export const Layout = ({
       </Animated.ScrollView>
       <View style={styles.bottom}>
         <Button
-          label="Next"
+          label={translate("txtNext")}
           onPress={isEditItem ? goToReview : goToSelectStaff}
           highlight={true}
           width={'100%'}

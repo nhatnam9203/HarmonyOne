@@ -66,7 +66,7 @@ export const InputMerchantID = React.forwardRef(({
         Animated.sequence(
           [
             Animated.timing(animatedValue, {
-              toValue: 1.07,
+              toValue: 1.09,
               duration: 700,
               useNativeDriver: false
             }),
@@ -113,7 +113,7 @@ export const InputMerchantID = React.forwardRef(({
             styles.content,
             {
               fontSize: fontSizeAnimated,
-              fontFamily: fonts.BOLD,
+              fontFamily: fonts.MEDIUM,
               transform: [{ scale: animatedValue }]
             },
           ]}>

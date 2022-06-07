@@ -9,6 +9,7 @@ import PrintManager from "@lib/PrintManager";
 import Share from "react-native-share";
 import configureStore from '@src/redux/store';
 import _, { min } from "lodash";
+import { translate } from "@localize";
 const { persistor, store } = configureStore();
 const { clover } = NativeModules;
 
@@ -228,10 +229,10 @@ export function convertMinsToHrsMins(mins) {
   let h = Math.floor(minutes / 60);
   let m = minutes % 60;
 
-  let stringConvert = `${m} min`;
+  let stringConvert = `${m} ${translate("min")}`;
 
   if (h !== 0 && m == 0) stringConvert = `${h} hour`;
-  if (h !== 0 && m !== 0) stringConvert = `${h} hour ${m} min`;
+  if (h !== 0 && m !== 0) stringConvert = `${h} hour ${m} ${translate("min")}`;
 
   if (mins?.toString().includes("+")) {
     stringConvert = `+${stringConvert}`;
