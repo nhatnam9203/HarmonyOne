@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, StyleSheet, Text, FlatList, ActivityIndicator, Animated, TouchableOpacity, Image } from 'react-native';
-import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, SearchInput, ListEmptyComponent } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
@@ -31,9 +30,6 @@ export const Layout = ({
     roleName,
     scrollY
 }) => {
-
-
-    const [t] = useTranslation();
 
     const scrollYClamped = Animated.diffClamp(scrollY, 0, 50);
 
@@ -109,7 +105,7 @@ export const Layout = ({
                         initialNumToRender={20}
                         maxToRenderPerBatch={5}
                         ItemSeparatorComponent={() => <View style={styles.seperateLine} />}
-                        ListEmptyComponent={() => roleName == "staff" ? null : <ListEmptyComponent image={images.iconNotFound} description={t('Not found customer')} />}
+                        ListEmptyComponent={() => roleName == "staff" ? null : <ListEmptyComponent image={images.iconNotFound} description={translate('Not found customer')} />}
                         ListFooterComponent={() =>
                             <View style={styles.itemLoadMore}>
                                 {
