@@ -74,7 +74,7 @@ const useConfirmBooking = ({
                 }
             }
         },
-        onLoginError: () => {
+        onError: () => {
             NavigationService.navigate(screenNames.AppointmentScreen);
         }
     });
@@ -92,7 +92,7 @@ const useConfirmBooking = ({
                 }
             }
         },
-        onLoginError: () => {
+        onError: () => {
             NavigationService.navigate(screenNames.AppointmentScreen);
         }
     });
@@ -108,7 +108,7 @@ const useConfirmBooking = ({
                 NavigationService.navigate(screenNames.CheckoutScreen);
             }
         },
-        onLoginError: () => {
+        onError: () => {
             NavigationService.navigate(screenNames.AppointmentScreen);
         }
     });

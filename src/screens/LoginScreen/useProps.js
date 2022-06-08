@@ -37,7 +37,7 @@ export const useProps = (_params) => {
     ...merchantLogin(merchantID),
     isLoadingDefault: false,
     isReturnError: false,
-    onLoginError: (msg) => {
+    onError: (msg) => {
       if (msg == "Cant found your item") {
         setTextMessage("Your MID does not exist.");
       } else {

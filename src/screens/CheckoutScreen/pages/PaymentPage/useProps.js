@@ -235,6 +235,11 @@ export const useProps = (props) => {
     ...selectPaymentMethod(),
     isStopLoading: true,
     isLoadingDefault: false,
+    onError: async () => {
+      setTimeout(() => {
+        popupPayProcessingRef?.current?.hide();
+      }, 200)
+    },
     onSuccess: async (data, response) => {
       if (response?.codeNumber == 200) {
 
@@ -254,7 +259,7 @@ export const useProps = (props) => {
           applyCheckoutSubmit(body.params);
         }
       }
-    }
+    } 
   });
 
   /************************************* GỌI API CHECKOUT SUBMIT *************************************/

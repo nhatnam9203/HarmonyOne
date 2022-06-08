@@ -36,7 +36,7 @@ export const useProps = (_params) => {
 
   const [{ isLoading }, staffLogin] = useAxiosMutation({
     ...staffLoginRequest(merchantCode, pinCode),
-    onLoginError: (msg) => {
+    onError: (msg) => {
       // setTextMessage(msg);
     },
     isLoadingDefault : false,
@@ -53,7 +53,7 @@ export const useProps = (_params) => {
   const [{ }, subnmitQuickLogin] = useAxiosMutation({
     ...staffLoginRequest(merchantCode, pincodeSaved),
     queryId: "",
-    onLoginError: (msg) => {
+    onError: (msg) => {
       // setTextMessage(msg);
     },
     onSuccess: (data) => {
@@ -64,7 +64,7 @@ export const useProps = (_params) => {
       }
       NavigationService.replace('HpOneStack');
     },
-    onLoginError : (message)=>{
+    onError : (message)=>{
       console.log({ message })
     },
   });

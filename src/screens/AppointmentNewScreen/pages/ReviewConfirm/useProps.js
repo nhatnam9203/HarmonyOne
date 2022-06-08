@@ -66,7 +66,7 @@ export const useProps = (_params) => {
         dialogBookingRef?.current?.show();
       }
     },
-    onLoginError: () => {
+    onError: () => {
       setDisabledConfirm(false);
       NavigationService.navigate(screenNames.AppointmentScreen);
     }
@@ -91,7 +91,7 @@ export const useProps = (_params) => {
         submitAddItem(body.params);
       }
     },
-    onLoginError: () => {
+    onError: () => {
       setDisabledConfirm(false);
       NavigationService.navigate(screenNames.AppointmentScreen);
     }
@@ -119,7 +119,7 @@ export const useProps = (_params) => {
         }
       }
     },
-    onLoginError: () => {
+    onError: () => {
       setDisabledConfirm(false);
       NavigationService.navigate(screenNames.AppointmentScreen);
     }

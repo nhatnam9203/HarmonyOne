@@ -38,7 +38,7 @@ export const useProps = (_params) => {
       fetchPromotion();
     },
 
-    onLoginError: () => {
+    onError: () => {
 
     }
   });
