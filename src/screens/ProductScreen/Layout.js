@@ -110,6 +110,7 @@ export const Layout = ({
                 </View>
               )
             }}
+            ListFooterComponent={()=><View style={{ height: scaleHeight(120) }} />}
           />
 
           <GroupButtonAdd
@@ -165,10 +166,10 @@ const styles = StyleSheet.create({
     marginTop: scaleHeight(5)
   },
   categoryName: {
-    color: "#404040",
+    color: "#333",
     marginVertical: scaleHeight(16),
     marginTop: scaleHeight(24),
-    fontFamily: fonts.BOLD,
+    fontFamily: fonts.MEDIUM,
     fontSize: scaleFont(20)
   },
   btnExport: {

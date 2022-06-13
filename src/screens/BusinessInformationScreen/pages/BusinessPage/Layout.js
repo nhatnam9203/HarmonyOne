@@ -31,7 +31,7 @@ export const Layout = ({
         isLeft={true}
         isRight={false}
         isScrollLayout={false}
-        containerStyle={{ paddingVertical: 0, paddingTop: scaleHeight(8) }}
+        containerStyle={{ paddingVertical: 0 }}
       >
         <ScrollView style={styles.content}>
           <BasicInformation

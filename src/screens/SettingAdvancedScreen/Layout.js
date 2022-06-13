@@ -39,7 +39,7 @@ export const Layout = ({
             </View> :
             <>
               <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-                <KeyboardAwareScrollView style={styles.content}>
+                <KeyboardAwareScrollView bounces={false} style={styles.content}>
                   <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                     <Text style={styles.title}>
                       Loyalty program
@@ -146,12 +146,12 @@ export const Layout = ({
                       value={IsCashDiscount}
                       onValueChange={setIsCashDiscount}
                       color={colors.ocean_blue}
-                      style={{ marginTop: scaleHeight(15) }}
+                      style={{ marginTop: scaleHeight(18) }}
                     />
                   </View>
 
                   {/* --------  Receipt Footer  --------- */}
-                  <Text style={styles.title}>
+                  <Text style={[styles.txt2,{ marginTop: 10 }]}>
                     Receipt Footer
                   </Text>
                   <View style={styles.textInputView}>
@@ -165,7 +165,7 @@ export const Layout = ({
                     />
                   </View>
 
-                  <View style={{ height: scaleHeight(120) }} /> 
+                  <View style={{ height: scaleHeight(140) }} /> 
                 </KeyboardAwareScrollView>
               </TouchableWithoutFeedback>
               <View style={styles.bottom}>

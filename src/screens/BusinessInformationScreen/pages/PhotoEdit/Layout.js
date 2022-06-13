@@ -99,7 +99,7 @@ export const Layout = ({
                                     <CustomImage
                                         source={images.checkbox_blue}
                                         style={styles.tick}
-                                        tintColor={"red"}
+                                        tintColor={"#585858"}
                                         resizeMode='cover'
                                     />
                                 }
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: scaleWidth(8),
         top: scaleWidth(8),
-        tintColor : "red"
+        tintColor : "#585858"
     },
 
     content: {
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     iconClear: {
         width: scaleWidth(30),
         height: scaleWidth(30),
-        tintColor: "red"
+        tintColor: "#333"
     },
 
     buttonClear: {
