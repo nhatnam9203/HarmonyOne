@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Text, Pressable, Image } from 'react-native';
-import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, NotificationIcon, CustomerInfoView } from "@shared/components";
 import { fonts, colors, images } from '@shared/themes';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { isEmpty } from "lodash";
+import { translate } from "@localize";
 
 
 export const Layout = ({
@@ -16,12 +16,10 @@ export const Layout = ({
   addService
 }) => {
 
-  const [t] = useTranslation();
-
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Checkout')}
+        pageTitle={translate('txtCheckout')}
         isRight={true}
         isLeft={false}
         isScrollLayout={false}
@@ -45,7 +43,7 @@ export const Layout = ({
                     style={styles.iconWalking}
                   />
                   <Text style={styles.txtWalkingCustomer}>
-                    Walking customer
+                    {translate('txtWalkingCustomer')}
                   </Text>
                 </View>
               </Pressable>
@@ -93,7 +91,7 @@ export const Layout = ({
             icon={images.plus}
             style={styles.rowReverse}
             iconStyle={styles.iconPlus}
-            renderText={() => <Text style={styles.addService}>Add services</Text>}
+            renderText={() => <Text style={styles.addService}>{translate('txtAddServices')}</Text>}
             onPress={addService}
             resizeMode="cover"
           />

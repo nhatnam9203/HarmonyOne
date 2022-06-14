@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#eeeeee',
         borderBottomWidth: scaleHeight(1),
         backgroundColor: "white",
-        position: 'relative'
+        position: 'relative',
     },
     lineDelete: {
         height: scaleHeight(90),

@@ -1,6 +1,5 @@
 import React from 'react';
 import { colors } from '@shared/themes';
-import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from "react-redux";
 import {
   updateAppointmentStatusRequest,
@@ -18,6 +17,7 @@ import { APPOINTMENT_STATUS, getColorForStatus, dateToFormat } from '@shared/uti
 import { appointment, editAppointment, invoice, app } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 import { axios } from '@shared/services/axiosClient';
+import {translate} from "@localize";
 
 const NoNeedEdit = [
   // APPOINTMENT_STATUS.PAID,
@@ -32,7 +32,6 @@ export const useProps = ({
   route
 }) => {
   const dispatch = useDispatch();
-  const [t] = useTranslation();
 
   const {
     appointment: { appointmentDetail, appointmentDate },
@@ -204,7 +203,7 @@ export const useProps = ({
             && appointmentItem?.status != APPOINTMENT_STATUS.COMPLETE ? [
         {
           id: 'edit-appointment',
-          label: t('Edit Appointment'),
+          label: translate('txtEditAppointment'),
           func: () => {
             dispatch(editAppointment.setAppointentEdit(appointmentDetail))
             NavigationService.navigate(screenNames.EditAppointmentScreen);
@@ -212,7 +211,7 @@ export const useProps = ({
         },
         {
           id: 'cancel-appointment',
-          label: t('Cancel Appointment'),
+          label: translate('txtCancelAppointment'),
           textColor: colors.red,
           func: async () => {
             const data = {
@@ -226,7 +225,7 @@ export const useProps = ({
       : [
         {
           id: 'edit-appointment',
-          label: t('Edit Appointment'),
+          label: translate('txtEditAppointment'),
           func: () => {
             setIsEditPaidAppointment(true)
             console.log('isEditPaidAppointment', isEditPaidAppointment, appointmentDetail)

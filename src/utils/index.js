@@ -7,6 +7,7 @@ import NavigationService from '@navigation/NavigationService';
 import { baseURL } from '../config';
 import axios from 'axios';
 export * from './dejavooRequest';
+import { translate } from "@localize";
 
 export function createReducer(initialState, handlers) {
   return function reducer(state = initialState, action) {
@@ -131,5 +132,5 @@ export function convertMinsToHrsMins(mins) {
     if(m == 0) return `${h} hour`;
     return `${h} hour ${m} min`;
   }
-  return `${m} min`;
+  return `${m} ${translate("min")}`;
 }

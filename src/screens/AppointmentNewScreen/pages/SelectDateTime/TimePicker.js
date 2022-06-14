@@ -8,6 +8,7 @@ import { ColumnTime } from "./ColumnTime";
 import { ListEmptyComponent } from "@shared/components";
 import { isElement, isEmpty } from "lodash";
 import moment from "moment";
+import {translate} from "@localize";
 
 export const TimePicker = React.forwardRef(({
     timesAvailable = [],
@@ -45,19 +46,19 @@ export const TimePicker = React.forwardRef(({
     return (
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: scaleHeight(10) }}>
             <ColumnTime
-                title="Morning"
+                title={translate("Morning")}
                 data={getTimeAvaible(timesAvailable).morning}
                 setTimePicker={setTimePicker}
                 timePicker={timePicker}
             />
             <ColumnTime
-                title="Afternoon"
+                title={translate("Afternoon")}
                 data={getTimeAvaible(timesAvailable).afternoon}
                 setTimePicker={setTimePicker}
                 timePicker={timePicker}
             />
             <ColumnTime
-                title="Evening"
+                title={translate("Evening")}
                 data={getTimeAvaible(timesAvailable).evening}
                 setTimePicker={setTimePicker}
                 timePicker={timePicker}

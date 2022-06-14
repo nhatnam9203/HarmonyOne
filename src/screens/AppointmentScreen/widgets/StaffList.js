@@ -344,6 +344,7 @@ const styles = StyleSheet.create({
         width: scaleWidth(53),
         height: scaleWidth(53),
         borderRadius: 3000,
-        alignSelf: "center"
+        alignSelf: "center",
+        zIndex: 9999
     }
 });

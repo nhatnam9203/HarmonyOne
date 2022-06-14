@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { bookAppointment } from "@redux/slices";
 import { CustomActionSheet, IconButton } from "@shared/components";
 import { SingleScreenLayout } from '@shared/layouts';
-import { useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next";
+import { translate } from "@localize";
 
 
 export const ButtonAddNote = ({
@@ -46,7 +47,7 @@ export const ButtonAddNote = ({
                 iconStyle={styles.iconAddMore}
                 style={styles.buttonAddMore}
                 onPress={openActionSheet}
-                renderText={() => <Text style={[styles.txtAddMore, { color: "#404040" }]}>Add note</Text>}
+                renderText={() => <Text style={[styles.txtAddMore, { color: "#404040" }]}>{translate("txtAddNote")}</Text>}
             />
 
             <Text style={styles.notesBooking}>
@@ -56,7 +57,7 @@ export const ButtonAddNote = ({
             <CustomActionSheet ref={actionSheetRef}>
                 <View style={styles.container}>
                     <SingleScreenLayout
-                        pageTitle={t('Add note')}
+                        pageTitle={translate("txtAddNote")}
                         isRight={true}
                         isLeft={true}
                         onPressLeft={closeActionSheet}
@@ -76,7 +77,7 @@ export const ButtonAddNote = ({
                                 multiline={true}
                                 value={valueNote}
                                 onChangeText={value => setValueNote(value)}
-                                placeholder="Something note about this appointment"
+                                placeholder={translate("Something note about this appointment")}
                                 style={styles.textInput}
                             />
                         </View>

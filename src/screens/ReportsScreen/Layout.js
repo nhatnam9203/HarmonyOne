@@ -6,6 +6,7 @@ import { IconButton, ItemSelect, NotificationIcon } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 
 export const Layout = ({
 }) => {
@@ -15,7 +16,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Reports')}
+        pageTitle={translate('txtReports')}
         isLeft={false}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
@@ -25,7 +26,7 @@ export const Layout = ({
       >
         <View style={styles.content}>
           <ScrollView>
-            <GroupItem icon={images.iconReportStaff} text="Staff" />
+            <GroupItem icon={images.iconReportStaff} text={translate("txtStaff")}/>
             <ItemSelect
               title={"Staff salary"}
               onPress={() => {

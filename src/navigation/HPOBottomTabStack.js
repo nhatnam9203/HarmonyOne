@@ -13,7 +13,8 @@ import { CustomBottomBar } from '@shared/components';
 import { useSelector } from "react-redux";
 import { translate } from "@localize";
 import { images } from '@shared/themes';
-import { Image } from "react-native"
+import { Image } from "react-native";
+import { MyTabBar } from "./BottomMain";
 
 
 const { Screen, Navigator } = createBottomTabNavigator();
@@ -30,7 +31,7 @@ export const HPOBottomTabStack = () => {
     <Navigator
       headerMode="none"
       initialRouteName={screenNames.AppointmentScreen}
-      tabBar={(props) => <CustomBottomBar {...props} />}
+      tabBar={(props) => <MyTabBar {...props} />}
     >
       <Screen
         {...AppointmentScreen}

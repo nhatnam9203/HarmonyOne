@@ -8,6 +8,7 @@ import { CalendarPicker } from "./CalendarPicker";
 import { TimePicker } from "./TimePicker";
 import { timeAvaiableRaw } from "@shared/utils";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { translate } from "@localize";
 
 export const Layout = ({
   staffsOfService,
@@ -23,7 +24,7 @@ export const Layout = ({
     <View style={styles.container}>
       <HeaderBooking
         step={3}
-        title={'Select Date/Time'}
+        title={translate('txtSelectDateTime')}
       />
       <View style={styles.content}>
         <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
@@ -41,7 +42,7 @@ export const Layout = ({
 
         <View style={styles.bottom}>
           <Button
-            label="Next"
+            label={translate("txtNext")}
             onPress={goToReview}
             highlight={true}
             width={'100%'}

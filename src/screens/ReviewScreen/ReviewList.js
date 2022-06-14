@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         marginVertical: scaleHeight(24)
     },
     flatList: {
-        marginTop: scaleHeight(20),
+        marginTop: scaleHeight(8),
         padding: scaleWidth(16)
     },
     title: {

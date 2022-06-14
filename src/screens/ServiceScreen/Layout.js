@@ -82,6 +82,7 @@ export const Layout = ({
                 </View>
               )
             }}
+            ListFooterComponent={()=><View style={{ height: scaleHeight(120) }} />}
           />
 
           <GroupButtonAdd

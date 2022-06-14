@@ -78,7 +78,7 @@ const TextPincode = () => {
       Animated.sequence(
         [
           Animated.timing(animatedValue, {
-            toValue: 1.07,
+            toValue: 1.09,
             duration: 700,
             useNativeDriver: true
           }),
@@ -98,7 +98,7 @@ const TextPincode = () => {
         layouts.sf_pt_medium_17_500,
         {
           fontSize: scaleFont(18), color: colors.bluegrey,
-          fontFamily: fonts.BOLD,
+          fontFamily: fonts.MEDIUM,
           transform: [{ scale: animatedValue }]
         },
       ]}>

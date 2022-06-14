@@ -26,14 +26,24 @@ export const AppointmentGiftCardItem = ({
         <Pressable onPress={() => { }} style={styles.container}>
             {isDelete && <View style={styles.lineDelete} />}
 
-            <ProgressiveImage
+            {/* <ProgressiveImage
                 style={styles.iconGiftCard}
                 width={scaleHeight(60)}
                 height={scaleHeight(60)}
                 url={giftCard.imageUrl}
                 defaultSource={images.iconReportGiftcard}
                 resizeMode="cover"
+            /> */}
+
+<ProgressiveImage
+                style={styles.iconGiftCard}
+                width={scaleHeight(60)}
+                height={scaleHeight(60)}
+                url={giftCard.imageUrl}
+                defaultSource={images.serviceDefault}
+                resizeMode="cover"
             />
+
 
             <View style={styles.content}>
                 <Text
@@ -67,7 +77,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#eeeeee',
         borderBottomWidth: scaleHeight(1),
         backgroundColor: "white",
-        position: 'relative'
+        position: 'relative',
     },
     lineDelete: {
         height: scaleHeight(90),
@@ -95,9 +105,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     iconGiftCard: {
-        width: scaleWidth(28),
-        height: scaleWidth(28),
-        tintColor: "#77aed7"
+        width: scaleHeight(60),
+        height: scaleHeight(60),
+        borderRadius: scaleHeight(3),
     },
     textServiceName: {
         fontFamily: fonts.MEDIUM,

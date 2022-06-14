@@ -73,6 +73,7 @@ export const Layout = ({
         isRight={true}
         isLeft={true}
         isScrollLayout={false}
+        containerStyle={{ paddingVertical: 0 }}
         headerRightComponent={() =>
           <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", height: "100%" }}>
             <View style={{ position: 'relative' }}>
@@ -497,7 +498,8 @@ const styles = StyleSheet.create({
   invoiceNumber: {
     fontSize: scaleFont(19),
     fontFamily: fonts.MEDIUM,
-    color: colors.ocean_blue
+    color: colors.ocean_blue,
+    marginTop: scaleHeight(16),
   },
   row: {
     flexDirection: "row",
@@ -524,7 +526,7 @@ const styles = StyleSheet.create({
   button: {
     height: '100%',
     alignItems: 'center',
-    justifyContent: "center",
+    justifyContent: "center"
   },
 
   bottom: {

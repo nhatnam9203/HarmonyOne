@@ -18,8 +18,10 @@ import {
   setting_bottom,
   information_bottom,
 } from '@assets';
+import { translate } from "@localize";
+import { images } from '@shared/themes';
 
-import Main from './Main';
+// import Main from './Main';
 
 const BottomStack = createBottomTabNavigator();
 
@@ -36,7 +38,7 @@ const IconAnimated = React.memo(({ source, focused }) => {
 
   React.useEffect(() => {
     Animated.timing(scale, {
-      toValue: focused ? 1.2 : 1,
+      toValue: focused ? 1.37 : 1,
       duration: 200,
       useNativeDriver: true,
     }).start();
@@ -56,7 +58,7 @@ const IconAnimated = React.memo(({ source, focused }) => {
 const LabelTab = ({ focused, color, title }) => {
   return (
     <Text
-      fontSize={scaleWidth(3.5)}
+      fontSize={scaleFont(14)}
       color={focused ? '#1366AE' : '#7B99BA'}
       fontFamily={focused ? 'medium' : 'regular'}>
       {title}
@@ -64,16 +66,40 @@ const LabelTab = ({ focused, color, title }) => {
   );
 };
 
+const getTitleName = (title) => {
+  let name = "";
+
+  switch (title) {
+    case "hpo.appointment":
+      name = translate("txtAppointment");
+      break;
+    case "hpo.reports":
+      name = translate("txtReports");
+      break;
+    case "hpo.checkoutTab":
+      name = translate("txtCheckout");
+      break;
+    case "hpo.more":
+      name = translate("txtMore");
+      break;
+
+    default:
+      break;
+  }
+
+  return name;
+}
+
 const Icon = ({ source, title, focused }) => {
   return (
     <View style={{ alignItems: 'center' }}>
       <IconAnimated source={source} focused={focused} />
       <Text
-        fontSize={scaleWidth(3.5)}
+        fontSize={scaleFont(11)}
         color={focused ? '#1366AE' : '#7B99BA'}
         fontFamily={focused ? 'medium' : 'regular'}
-        style={{ marginTop: scaleWidth(1) }}>
-        {title}
+        style={{ marginTop: scaleWidth(5) }}>
+        {getTitleName(title)}
       </Text>
     </View>
   );
@@ -82,17 +108,17 @@ const Icon = ({ source, title, focused }) => {
 const getIcon = (label) => {
   let icon = '';
   switch (label) {
-    case 'Main':
-      icon = calendar_bottom;
+    case 'hpo.appointment':
+      icon = require('@src/assets/images/icon_tab_appointment.png');
       break;
-    case 'Statistic':
-      icon = statistic_bottom;
+    case 'hpo.reports':
+      icon = images.iconTabReports;
       break;
-    case 'Informations':
-      icon = information_bottom;
+    case 'hpo.checkoutTab':
+      icon = images.iconPayment;
       break;
-    case 'Settings':
-      icon = setting_bottom;
+    case 'hpo.more':
+      icon = images.iconTabMore;
       break;
 
     default:
@@ -101,7 +127,7 @@ const getIcon = (label) => {
   return icon;
 };
 
-function MyTabBar({ state, descriptors, navigation }) {
+export function MyTabBar({ state, descriptors, navigation }) {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
 
   if (focusedOptions.tabBarVisible === false) {
@@ -153,12 +179,11 @@ function MyTabBar({ state, descriptors, navigation }) {
 const Bottom = () => {
   return (
     <BottomStack.Navigator
-      initialRouteName="Main"
       tabBarOptions={{
         allowFontScaling: false,
       }}
       tabBar={(props) => <MyTabBar {...props} />}>
-      <BottomStack.Screen
+      {/* <BottomStack.Screen
         name="Main"
         component={Main}
         options={{
@@ -169,7 +194,7 @@ const Bottom = () => {
             <LabelTab title="Appointment" focused={focused} color={color} />
           ),
         }}
-      />
+      /> */}
       <BottomStack.Screen
         name="Statistic"
         component={Statistic}
@@ -214,16 +239,16 @@ export default Bottom;
 
 const styles = StyleSheet.create({
   btnTab: {
-    width: scaleWidth(25),
-    height: scaleWidth(20),
+    width: scaleWidth(375 / 4),
+    height: scaleWidth(60),
     paddingBottom: scaleHeight(6),
-    paddingTop: scaleWidth(3),
+    paddingTop: scaleWidth(8),
     backgroundColor: 'white',
   },
   imgAnimated: (scale, focused) => {
     return {
-      width: scaleWidth(5.2),
-      height: scaleWidth(5.2),
+      width: scaleWidth(18),
+      height: scaleWidth(18),
       tintColor: focused ? '#1366AE' : '#7B99BA',
       transform: [{ scale }],
     };

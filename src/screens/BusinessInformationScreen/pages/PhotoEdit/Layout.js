@@ -3,12 +3,12 @@ import { View, StyleSheet, Text, ScrollView, FlatList, Image, TouchableOpacity }
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
-import { Button, CustomImage, ListEmptyComponent, IconButton } from "@shared/components";
+import { Button, CustomImage, ListEmptyComponent, IconButton, ProgressiveImage } from "@shared/components";
 import { images } from "@shared/themes/resources";
 import { WithPopupUploadMultipleImage } from "@shared/HOC";
 import { ButtonUpload } from 'src/shared/components';
-import CheckBox from "@react-native-community/checkbox"
 
+import CheckBox from "@react-native-community/checkbox"
 
 let ButttonUploadMultippeImage = ({ onResponseImagePicker, ...props }) => {
     return (
@@ -87,17 +87,19 @@ export const Layout = ({
                                 style={{ position: 'relative' }}
                                 key={item?.merchantBannerId + "merchantBannerEdit"}
                             >
-                                <CustomImage
-                                    source={{ uri: item?.imageUrl }}
+                                <ProgressiveImage
+                                    url={item?.imageUrl}
                                     style={styles.banner}
                                     resizeMode='cover'
+                                    width={scaleWidth(375 - 32)}
+                                    height={scaleWidth(375 - 32 - 70)}
                                 />
                                 {
                                     bannersDelete?.includes(item?.merchantBannerId) &&
                                     <CustomImage
                                         source={images.checkbox_blue}
                                         style={styles.tick}
-                                        tintColor={"red"}
+                                        tintColor={"#585858"}
                                         resizeMode='cover'
                                     />
                                 }
@@ -138,7 +140,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: scaleWidth(8),
         top: scaleWidth(8),
-        tintColor : "red"
+        tintColor : "#585858"
     },
 
     content: {
@@ -184,7 +186,7 @@ const styles = StyleSheet.create({
     iconClear: {
         width: scaleWidth(30),
         height: scaleWidth(30),
-        tintColor: "red"
+        tintColor: "#333"
     },
 
     buttonClear: {

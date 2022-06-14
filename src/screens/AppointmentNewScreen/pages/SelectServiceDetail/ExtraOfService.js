@@ -5,7 +5,8 @@ import { CustomImage, IconButton, Button, ProgressiveImage } from "@shared/compo
 import { convertMinsToHrsMins } from "@shared/utils";
 import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
 import { isEmpty } from "lodash";
-import CheckBox from "@react-native-community/checkbox"
+import CheckBox from "@react-native-community/checkbox";
+import { translate } from "@localize";
 
 export const ExtraOfService = ({ extras = [], onChangeExtraService, durationService = 0, service, servicePrice }) => {
 
@@ -33,7 +34,7 @@ export const ExtraOfService = ({ extras = [], onChangeExtraService, durationServ
 
     return (
         <View style={styles.containerExtras}>
-            <Text style={styles.titleExtra}>Extra services</Text>
+            <Text style={styles.titleExtra}>{translate("txtExtras")}</Text>
             {
                 extras.map((extra, key) => {
                     return (
@@ -47,7 +48,7 @@ export const ExtraOfService = ({ extras = [], onChangeExtraService, durationServ
             }
             <View style={styles.totalRow}>
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={styles.total}>Total:</Text>
+                    <Text style={styles.total}>{translate("txtTotal")}:</Text>
                     <Text style={styles.total}>{getTotalDuration()}</Text>
                 </View>
                 <Text style={[styles.total, { fontFamily: fonts.BOLD }]}>
@@ -97,7 +98,7 @@ const ItemExtra = ({ extra, onChangeExtraService }) => {
                 <Text style={styles.textServiceName}>{extra?.name}</Text>
                 <View style={styles.bottomContent}>
                     <Text style={styles.textServiceDuration}>
-                        {`${extra?.duration} min`}
+                        {`${extra?.duration} ${translate("min")}`}
                     </Text>
                     <Text style={styles.textServiceTotal}>
                         {`$ ${extra?.price}`}

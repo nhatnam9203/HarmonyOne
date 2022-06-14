@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, StyleSheet, Text, FlatList, ActivityIndicator, Animated, TouchableOpacity, Image } from 'react-native';
-import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, SearchInput, ListEmptyComponent } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
@@ -9,6 +8,7 @@ import { slop } from "@shared/utils";
 import { isEmpty } from "lodash";
 import NavigationService from '@navigation/NavigationService';
 import ItemCustomer from "./ItemCustomer";
+import { translate } from "@localize";
 
 export const Layout = ({
     valueSearch,
@@ -31,9 +31,6 @@ export const Layout = ({
     scrollY
 }) => {
 
-
-    const [t] = useTranslation();
-
     const scrollYClamped = Animated.diffClamp(scrollY, 0, 50);
 
     const scaleButton = scrollYClamped.interpolate({
@@ -48,7 +45,7 @@ export const Layout = ({
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={isBookAppointment ? t('New Appointment') : isQuickCheckout ? t("Add customer") : t('Customers')}
+                pageTitle={isBookAppointment ? translate('txtNewAppointment') : isQuickCheckout ? translate("Add customer") : translate('Customers')}
                 isLeft={!isBookAppointment}
                 isRight={isBookAppointment}
                 headerRightComponent={() =>
@@ -71,7 +68,7 @@ export const Layout = ({
                         value={valueSearch}
                         onChangeText={onChangeSearch}
                         removeText={valueSearch.length > 0 ? () => onChangeSearch("") : () => { }}
-                        placeholder="Search customer by phone or name"
+                        placeholder={translate("Search customer by phone or name")}
                     />
                     <Animated.FlatList
                         onScroll={
@@ -108,7 +105,7 @@ export const Layout = ({
                         initialNumToRender={20}
                         maxToRenderPerBatch={5}
                         ItemSeparatorComponent={() => <View style={styles.seperateLine} />}
-                        ListEmptyComponent={() => roleName == "staff" ? null : <ListEmptyComponent image={images.iconNotFound} description={t('Not found customer')} />}
+                        ListEmptyComponent={() => roleName == "staff" ? null : <ListEmptyComponent image={images.iconNotFound} description={translate('Not found customer')} />}
                         ListFooterComponent={() =>
                             <View style={styles.itemLoadMore}>
                                 {
@@ -157,7 +154,7 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        paddingTop: scaleWidth(16),
+        paddingTop: scaleWidth(8),
         backgroundColor: "white"
     },
     flatList: {

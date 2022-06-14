@@ -7,6 +7,7 @@ import { images, colors, fonts } from "@shared/themes";
 import { useDispatch, useSelector } from "react-redux";
 import { bookAppointment } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 
 const HeaderBooking = ({
     title = "Select service",
@@ -52,7 +53,7 @@ const HeaderBooking = ({
 
                 <View style={styles.headerCenterContent}>
                     <Text style={[styles.headTitle, { color: colors.white }]}>
-                        {isQuickCheckout ? 'Check out' : 'New appointment'}
+                        {isQuickCheckout ? translate('Check Out') : translate('txtNewAppointment')}
                     </Text>
                 </View>
 

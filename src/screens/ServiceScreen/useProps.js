@@ -13,7 +13,7 @@ import { service, product, category, extra } from '@redux/slices';
 import { useSelector, useDispatch } from "react-redux";
 import { colors } from "@shared/themes";
 import { useTranslation } from "react-i18next";
-import NavigationService from '@navigation/NavigationService'
+import NavigationService from '@navigation/NavigationService';
 
 export const useProps = (props) => {
   const dispatch = useDispatch();

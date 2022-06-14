@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal : scaleWidth(10),
         paddingVertical : Platform.OS === "android" ? 0 : scaleHeight(10),
-        marginBottom: scaleHeight(16),
+        marginBottom: scaleHeight(5),
         marginHorizontal : scaleWidth(16)
     },
     input: {

@@ -16,20 +16,14 @@ const ServiceItem = ({ service, disabled = false, onPress }) => {
 
     return (
         <Pressable onPress={onPress ? onPress : navigateDetail} style={[styles.container, { opacity: disabled ? 0.5 : 1 }]}>
-            {
-                isEmpty(service?.imageUrl) ?
-                    <CustomImage
-                        style={styles.serviceImage}
-                        source={images.serviceDefault}
-                        resizeMode="cover"
-                    /> :
-                    <ProgressiveImage
-                        url={service?.imageUrl}
-                        resizeMode='cover'
-                        width={scaleHeight(70)}
-                        height={scaleHeight(70)}
-                    />
-            }
+            <ProgressiveImage
+                url={service?.imageUrl}
+                resizeMode='cover'
+                width={scaleHeight(70)}
+                height={scaleHeight(70)}
+                defaultSource={images.serviceDefault}
+                style={{ borderRadius: 3 }}
+            />
             <View style={styles.content}>
                 <Text style={styles.textServiceName}>{service?.name}</Text>
                 <View style={styles.bottomContent}>

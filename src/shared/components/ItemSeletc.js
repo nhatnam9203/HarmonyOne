@@ -10,11 +10,11 @@ export const ItemSelect = ({ title = '', icon, onPress, iconRight, iconRightStyl
     const [isFocus, setFocus] = React.useState(false);
 
     return (
-        <TouchableRipple
+        <Pressable
             onLongPress={() => {
                 setFocus(true);
             }}
-            rippleColor="#baefff"
+            // rippleColor="#baefff"
             onPressOut={() => setFocus(false)}
             activeOpacity={1} onPress={() => onPress()}
         >
@@ -39,12 +39,12 @@ export const ItemSelect = ({ title = '', icon, onPress, iconRight, iconRightStyl
                     source={iconRight ? iconRight : images.iconArrow}
                     style={[
                         styles.arrow, iconRightStyle,
-                        { tintColor: isFocus ? colors.white : "#404040" }
+                        { tintColor: isFocus ? colors.white : "#8c8c8c" }
                     ]}
                     resizeMode='cover'
                 />
             </View>
-        </TouchableRipple>
+        </Pressable>
     )
 }
 
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     },
 
     arrow: {
-        width: scaleWidth(6),
-        height: scaleHeight(10),
+        width: scaleWidth(4.5),
+        height: scaleHeight(8),
     },
 });

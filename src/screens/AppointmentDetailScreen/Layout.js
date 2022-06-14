@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { SingleScreenLayout } from '@shared/layouts';
-import { useTranslation } from 'react-i18next';
 import { formatMoneyWithUnit, convertMinsToHrsMins } from '@shared/utils';
 import { Button } from "@shared/components";
 import { colors, fonts, layouts, images } from '@shared/themes';
@@ -10,6 +9,7 @@ import { TotalView, TotalViewPaid, AppointmentTimeView, CustomerInfoView, InputS
 import { CustomerAtHomeView } from './CustomerAtHomeView';
 import { AppointmentServiceList } from './AppointmentServiceList';
 import { InvoiceNumber } from "./InvoiceNumber";
+import { translate } from "@localize";
 import moment from "moment";
 
 
@@ -28,22 +28,22 @@ let EditButton = ({ headerTintColor, ...props }) => {
 EditButton = WithPopupActionSheet(EditButton);
 
 const titleNextStatus = (status) => {
-  let text = "Confirm"
+  let text = translate("confirm");
   switch (status) {
     case "unconfirm":
-      text = "Confirm"
+      text = translate("confirm");
       break;
 
     case "confirm":
-      text = "Check-in";
+      text = translate("check-in");
       break;
 
     case "checkin":
-      text = "Check-out";
+      text = translate("check-out");
       break
 
     case "waiting":
-      text = "Check-in";
+      text = translate("check-in");
       break
 
     case "paid" || "complete":
@@ -74,7 +74,6 @@ export const Layout = ({
   checkInWaitigList,
   isEditPaidAppointment,
 }) => {
-  const [t] = useTranslation();
 
   const getPrice = (price) => {
     return formatMoneyWithUnit(price);
@@ -83,7 +82,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={`${t('Appointment')} #${appointmentItem?.code?.toString().substring(appointmentItem?.code?.length - 4)}`}
+        pageTitle={`${translate('txtAppointment')} #${appointmentItem?.code?.toString().substring(appointmentItem?.code?.length - 4)}`}
         {...headerColor}
         isRight={canEdit}
         isScrollLayout={false}
@@ -173,7 +172,7 @@ export const Layout = ({
               renderInput={() => (
                 <View style={styles.buttonArrow}>
                   <Text style={[styles.txtAppointmentAnyStaff, { color: "white", fontFamily: fonts.BOLD }]}>
-                    {`Assign appointment to other staff`}
+                    {translate(`Assign appointment to other staff`)}
                   </Text>
                 </View>
               )}
@@ -191,7 +190,7 @@ export const Layout = ({
               renderInput={() => (
                 <View style={styles.buttonArrow}>
                   <Text style={[styles.txtAppointmentAnyStaff, { color: "white", fontFamily: fonts.BOLD }]}>
-                    {`Check-in`}
+                    {translate("check-in")}
                   </Text>
                 </View>
               )}
