@@ -69,6 +69,8 @@ export const useProps = (props) => {
      },
   } = useSelector(state => state);
 
+  const language = useSelector(state => state.dataLocal.language);
+
   const [, submitVoidRefundPaymentTransaction] = useAxiosMutation({
     ...voidRefundPaymentTransaction(),
     onSuccess: (data, response) => {
@@ -498,6 +500,7 @@ export const useProps = (props) => {
     popupConfirmPrintRef,
     invoiceRef,
     isDisabledButtonRefund,
+    language,
     
     voidRefundInvoice: async () => {
       if (invoiceDetail?.paymentMethod == "credit_card" 

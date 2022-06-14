@@ -9,14 +9,15 @@ import { useWatch } from "react-hook-form";
 import { getContentDate, arrDateFilter } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
+import {translate} from "@localize";
 
 const dateRangeData = [
-  { label: "Today", value: "Today" },
-  { label: "Yesterday", value: "Yesterday" },
-  { label: "This week", value: "This week" },
-  { label: "Last week", value: "Last week" },
-  { label: "This month", value: "This month" },
-  { label: "Last month", value: "Last month" },
+  { label: translate("Today"), value: "Today" },
+  { label: translate("Yesterday"), value: "Yesterday" },
+  { label: translate("This week"), value: "This week" },
+  { label: translate("Last week"), value: "Last week" },
+  { label: translate("This month"), value: "This month" },
+  { label: translate("Last month"), value: "Last month" },
 ];
 
 export const useProps = (props) => {
@@ -93,7 +94,7 @@ export const useProps = (props) => {
     const isIncludes = arrDateFilter.includes(contentDate);
 
     if(!isIncludes){
-      dateRangeRef?.current?.changeItemNoExist({ label : "Custom", value : "custom" })
+      dateRangeRef?.current?.changeItemNoExist({ label : translate("Custom"), value : "custom" })
     }
   }, [startDate, endDate])
 

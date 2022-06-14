@@ -7,6 +7,7 @@ import { ListEmptyComponent, IconButton, CustomInput, InputSelect, InputText, Da
 import { images } from "@shared/themes/resources";
 import CalendarView from "./CalendarView";
 import moment from 'moment';
+import { translate } from "@localize";
 
 
 export const Layout = ({
@@ -27,7 +28,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t("Select period")}
+        pageTitle={translate("Select period")}
         isLeft={true}
         isRight={true}
         isScrollLayout={false}
@@ -43,7 +44,7 @@ export const Layout = ({
       >
         <View style={styles.content}>
           <CustomInput
-            label='Date range'
+            label={translate('Date range')}
             labelStyle={styles.labelDate}
             renderInput={() =>
               <InputSelect
@@ -51,7 +52,7 @@ export const Layout = ({
                 form={form}
                 name="dateRange"
                 items={dateRangeData}
-                title="Date range"
+                title={translate("Date range")}
                 defaultValue={'Today'}
               />
             }
@@ -59,7 +60,7 @@ export const Layout = ({
 
           <View style={styles.rangeRow}>
             <CustomInput
-              label='Start date'
+              label={translate('Start date')}
               labelStyle={styles.labelDate}
               renderInput={() =>
                 <DayPicker
@@ -80,7 +81,7 @@ export const Layout = ({
               }
             />
             <CustomInput
-              label='End date'
+              label={translate('End date')}
               labelStyle={styles.labelDate}
               renderInput={() =>
                 <DayPicker

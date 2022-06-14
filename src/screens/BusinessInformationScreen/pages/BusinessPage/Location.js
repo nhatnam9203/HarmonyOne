@@ -15,7 +15,8 @@ export const Location = ({
     latitude,
     longitude,
     merchantDetail,
-    isReady
+    isReady,
+    translate
 }) => {
 
 
@@ -26,9 +27,9 @@ export const Location = ({
 
     return (
         <View style={styles.container}>
-            <Title text="Location" onEdit={() => { NavigationService.navigate("LocationEdit") }} />
+            <Title text={translate("Location")} onEdit={() => { NavigationService.navigate("LocationEdit") }} />
             <CustomInput
-                label='Address'
+                label={translate('Address')}
                 style={{ marginTop: scaleHeight(8) }}
                 renderInput={() =>
                     <Text style={styles.txtItem}>{

@@ -9,10 +9,11 @@ import NavigationService from '@navigation/NavigationService';
 
 export const Banners = ({
     banners = [],
+    translate
 }) => {
     return (
         <View style={styles.container}>
-            <Title text="Photos" onEdit={()=>{ NavigationService.navigate("PhotoEdit") }} />
+            <Title text={translate("Photos" )}onEdit={()=>{ NavigationService.navigate("PhotoEdit") }} />
             {
                 banners.map((banner) => (
                     <ProgressiveImage

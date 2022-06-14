@@ -77,20 +77,18 @@ export const Button = ({
       disabled={disabled || appLoading || isTurnOff}
     >
       {
-        isLoading ? (
-          <ActivityIndicator size={'small'} color="white" />
-        ) : (
-          <Text
-            style={[
-              styles.text,
-              highlight && { color: colors.white },
-              textDisableStyle,
-              styleText,
-            ]}
-          >
-            {label ?? t('Continue')}
-          </Text>
-        )}
+        isLoading && <ActivityIndicator size={'small'} color="white" style={{ marginRight: 10 }} />
+      }
+      <Text
+        style={[
+          styles.text,
+          highlight && { color: colors.white },
+          textDisableStyle,
+          styleText,
+        ]}
+      >
+        {label ?? t('Continue')}
+      </Text>
     </AnimatedButton>
   );
 };
@@ -104,6 +102,7 @@ const styles = StyleSheet.create({
     borderColor: colors.ocean_blue,
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: "row"
   },
 
   text: {

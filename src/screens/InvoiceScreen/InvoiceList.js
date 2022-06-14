@@ -8,6 +8,7 @@ import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import NavigationService from '@navigation/NavigationService';
 import moment from "moment";
+import { translate } from "@localize";
 
 
 export const InvoiceList = ({
@@ -107,12 +108,12 @@ export const InvoiceList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                checkoutId: "Invoice ID",
-                user: "Customer",
-                status: "Status",
-                createdDate: "Date/time",
-                createdById: "Created by",
-                total: "Total sales",
+                checkoutId: translate("Invoice ID"),
+                user: translate("Customer"),
+                status: translate("Status"),
+                createdDate: translate("Date/time"),
+                createdById: translate("Created by"),
+                total: translate("Total sales"),
             }}
             whiteKeys={[
                 "checkoutId",

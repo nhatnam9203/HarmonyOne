@@ -4,6 +4,7 @@ import Modal from 'react-native-modal';
 import { IconButton } from "./IconButton";
 import { Button } from "./Button";
 import { images, colors, fonts } from "@shared/themes";
+import { translate } from "@localize";
 
 export const ButtonFilter = ({
     children,
@@ -53,7 +54,7 @@ export const ButtonFilter = ({
             >
                 <View style={styles.containerFilter}>
                     <View style={styles.header}>
-                        <Text style={styles.txtHeader}>Filters</Text>
+                        <Text style={styles.txtHeader}>{translate('Filters')}</Text>
                         <TouchableOpacity onPress={toggleButton}>
                             <Image
                                 source={images.iconClose}
@@ -72,14 +73,14 @@ export const ButtonFilter = ({
                             onPress={reset}
                             height={scaleHeight(40)}
                             width={scaleWidth(132)}
-                            label="Reset"
+                            label={translate("Reset")}
                         />
                         <Button
                             onPress={apply}
                             highlight={true}
                             height={scaleHeight(40)}
                             width={scaleWidth(132)}
-                            label="Apply"
+                            label={translate("Apply")}
                         />
                     </View>
                 </View>

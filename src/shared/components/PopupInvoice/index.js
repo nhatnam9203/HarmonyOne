@@ -44,6 +44,7 @@ import { TotalView } from "./TotalView";
 import { layouts } from "@shared/themes";
 import _ from 'lodash';
 import Barcode from "@kichiyaki/react-native-barcode-generator";
+import { translate } from "@localize";
 
 export const PopupInvoice = React.forwardRef(
   ({ cancelInvoicePrint }, ref) => {
@@ -725,7 +726,7 @@ export const PopupInvoice = React.forwardRef(
           if (!portName && (machineType == PaymentTerminalType.Pax || 
           (machineType == PaymentTerminalType.Dejavoo && !_.get(dejavooMachineInfo, "isSetup")))) {
             onCancel(isPrintTempt);
-            alert("Please connect to your printer!");
+            alert(translate("Please connect to your printer!"));
             return;
           }
         }
