@@ -4,6 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
 import { isEmpty } from "lodash";
 import { bookAppointment, editAppointment } from "@redux/slices";
+import { formatNumberFromCurrency, 
+          formatMoney, 
+          convertMinsToHrsMins 
+        } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 
 export const useProps = ({
@@ -28,25 +32,8 @@ export const useProps = ({
   const [extrasService, setExtrasService] = React.useState([]);
 
   React.useEffect(() => {
-    // let extras = item?.extras || [];
-    // let tempExtrasEdit = extrasEdit || [];
-
-    // tempExtrasEdit = tempExtrasEdit.filter(ex => ex.checked);
-    extras = extrasEdit.map(ex => ({ ...ex, serviceId: item?.serviceId, isEditPrice: false }));
-
-    // for (let i = 0; i < extras.length; i++) {
-    //   // for (const ex of tempExtrasEdit) {
-    //     // if (ex.extraId == extras[i].extraId) {
-    //       extras[i].isEditPrice = false;
-    //     // }
-    //   // }
-    // }
-    // setExtrasService(extrasEdit);
-    // console.log('extrasEdit', extrasEdit)
-    console.log('extras', extras)
+    const extras = extrasEdit.map(ex => ({ ...ex, serviceId: item?.serviceId, isEditPrice: false }));
     setExtrasService(extras)
-    console.log('item', item)
-    console.log('tip', item?.tipAmount)
     setPrice(item?.price);
     setTip(item?.tipAmount);
   }, []);
@@ -60,10 +47,26 @@ export const useProps = ({
     }
     // const tempExtras = extrasService;
     dispatch(editAppointment.editService({ service: itemServiceEdit }));
-    console.log('extraService', extrasService)
     dispatch(editAppointment.updateExtras(extrasService));
     NavigationService.back();
   }
+
+  const getTotalDuration = () => {
+    let total = 0;
+    for (const el of extrasService) {
+        total += parseInt(el.duration);
+    }
+    return `${convertMinsToHrsMins(total)}`;
+}
+
+const getTotalPrice = () => {
+    let total = 0;
+    total += formatNumberFromCurrency(price);
+    for (const el of extrasService) {
+         total += formatNumberFromCurrency(el.price);
+    }
+    return formatMoney(total);
+}
 
 
   return {
@@ -94,5 +97,7 @@ export const useProps = ({
     },
 
     editService,
+    getTotalPrice,
+    getTotalDuration,
   };
 };

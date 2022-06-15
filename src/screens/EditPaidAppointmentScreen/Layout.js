@@ -6,7 +6,7 @@ import { formatMoneyWithUnit, convertMinsToHrsMins } from '@shared/utils';
 import { Button } from "@shared/components";
 import { colors, fonts, layouts, images } from '@shared/themes';
 import { WithPopupActionSheet } from '@shared/HOC';
-import { TotalView, TotalViewPaid, AppointmentTimeView, CustomerInfoView, InputSelectStaff, IconButton } from "@shared/components";
+import { TotalViewPaid, AppointmentTimeView, CustomerInfoView, InputSelectStaff, IconButton } from "@shared/components";
 import { AppointmentServiceList } from './AppointmentServiceList';
 import { InvoiceNumber } from "./InvoiceNumber";
 import moment from "moment";
@@ -81,29 +81,15 @@ export const Layout = ({
             appointmentItem={appointmentItem}
           />
 
-          {
-            (appointmentItem?.status == "paid" 
-            || appointmentItem?.status == "refund" 
-            || appointmentItem?.status == "void" 
-            || appointmentItem?.status == "no show") ?
-              <TotalViewPaid
-                duration={`${convertMinsToHrsMins(appointmentItem?.duration)}`}
-                price={`$ ${appointmentItem?.total}`}
-                subTotal={`$ ${appointmentItem?.subTotal}`}
-                discount={`$ ${appointmentItem?.discount}`}
-                tipAmount={`$ ${appointmentItem?.tipAmount}`}
-                tax={`$ ${appointmentItem?.tax}`}
-                giftCard={`$ ${appointmentItem?.giftCard}`}
-              /> :
-              <TotalView
-                duration={`${convertMinsToHrsMins(appointmentItem?.duration)}`}
-                price={`$ ${appointmentItem?.total}`}
-                subTotal={`$ ${appointmentItem?.subTotal}`}
-                isShowSubtotal={true}
-              />
-          }
-
-
+          <TotalViewPaid
+            duration={`${convertMinsToHrsMins(appointmentItem?.duration)}`}
+            price={`$ ${appointmentItem?.total}`}
+            subTotal={`$ ${appointmentItem?.subTotal}`}
+            discount={`$ ${appointmentItem?.discount}`}
+            tipAmount={`$ ${appointmentItem?.tipAmount}`}
+            tax={`$ ${appointmentItem?.tax}`}
+            giftCard={`$ ${appointmentItem?.giftCard}`}
+          /> 
           <InvoiceNumber
             invoiceViewAppointmentDetail={invoiceViewAppointmentDetail}
             appointmentItem={appointmentItem}

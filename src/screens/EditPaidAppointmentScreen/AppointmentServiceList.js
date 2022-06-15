@@ -50,15 +50,12 @@ export const AppointmentServiceList = ({ services = [],
   }
 
   const editService = (item) => {
-    console.log("editService", item)
     const extrasEdit = appointmentEdit?.extras
       .filter(
         ex => ex?.bookingServiceId ? ex?.bookingServiceId == item?.bookingServiceId :
           ex?.serviceId == item?.serviceId
       )
       .map(ex => ({ ...ex, name: ex?.extraName ?? ex?.name }))
-      console.log(appointmentEdit?.extras)
-    console.log('extrasEdit', extrasEdit)
     NavigationService.navigate(
       screenNames.EditPaidServicePage,
       {

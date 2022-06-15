@@ -22,6 +22,8 @@ export const Layout = ({
   onChangeExtraService,
   inputPriceRef,
   inputTipRef,
+  getTotalPrice,
+  getTotalDuration,
 }) => {
 
   
@@ -172,6 +174,15 @@ export const Layout = ({
             onChangeExtraService={onChangeExtraService}
           />
         }
+        <View style={styles.totalRow}>
+          <View style={{ flexDirection: 'row' }}>
+              <Text style={styles.total}>Total:</Text>
+              <Text style={styles.total}>{getTotalDuration()}</Text>
+          </View>
+          <Text style={[styles.total, { fontFamily: fonts.BOLD }]}>
+              {getTotalPrice()}
+          </Text>
+        </View>
 
         <View style={{ height: scaleHeight(100) }} />
 
@@ -291,5 +302,18 @@ const styles = StyleSheet.create({
     width: scaleWidth(120),
     justifyContent: 'flex-end',
     paddingHorizontal: 8,
-  }
+  },
+  totalRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: scaleHeight(16),
+    paddingRight: scaleWidth(16)
+  },
+  total: {
+    marginLeft: scaleWidth(17),
+    fontFamily: fonts.REGULAR,
+    fontSize: scaleFont(17),
+    letterSpacing: 0,
+    color: colors.greyish_brown_40,
+  },
 });

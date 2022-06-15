@@ -155,7 +155,6 @@ export const useProps = ({
         products: appointmentEdit.products.filter(sv => sv?.bookingProductId),
         giftCards: appointmentEdit.giftCards.filter(sv => sv?.bookingGiftCardId),
       };
-      console.log('data', data)
 
       const body = await updatePaidAppointment(appointmentItem.appointmentId, data);
       submitUpdatePaidAppointment(body.params);
@@ -165,9 +164,4 @@ export const useProps = ({
     }
 
   };
-};
-
-const nextStatus = {
-  unconfirm: 'confirm',
-  confirm: 'checkin',
 };

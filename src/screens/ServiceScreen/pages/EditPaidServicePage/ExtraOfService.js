@@ -9,23 +9,7 @@ import CheckBox from "@react-native-community/checkbox";
 import { TextInputMask } from "react-native-masked-text";
 
 export const ExtraOfService = ({ extras = [], onChangeExtraService, durationService = 0, service }) => {
-    const getTotalDuration = () => {
-        let total = 0;
-        total += parseInt(durationService);
-        for (const el of extras) {
-            total += parseInt(el.duration);
-        }
-        return `${convertMinsToHrsMins(total)}`;
-    }
-
-    const getTotalPrice = () => {
-        let total = 0;
-        total += formatNumberFromCurrency(service.price);
-        for (const el of extras) {
-             total += formatNumberFromCurrency(el.price);
-        }
-        return formatMoney(total);
-    }
+   
 
     return (
         <View style={styles.containerExtras}>
@@ -41,23 +25,7 @@ export const ExtraOfService = ({ extras = [], onChangeExtraService, durationServ
                     )
                 })
             }
-            <View style={styles.totalRow}>
-                <View style={{ flexDirection: 'row' }}>
-                    <Text style={styles.total}>Total:</Text>
-                    <Text style={styles.total}>{getTotalDuration()}</Text>
-                </View>
-                <Text style={[styles.total, { fontFamily: fonts.BOLD }]}>
-                    {getTotalPrice()}
-                </Text>
-            </View>
-            <View style={styles.totalRow}>
-                <View style={{ flexDirection: 'row' }}>
-                    <Text style={styles.total}>Tip:</Text>
-                </View>
-                <Text style={[styles.total, { fontFamily: fonts.BOLD }]}>
-                    {service?.tipAmount}
-                </Text>
-            </View>
+            
         </View>
     );
 };
@@ -76,7 +44,6 @@ const ItemExtra = ({ extra, onChangeExtraService }) => {
         onChangeExtraService({
             ...extra,
             price: newPrice,
-            isEditPrice: false,
         });
 
     } 
@@ -151,19 +118,6 @@ const ItemExtra = ({ extra, onChangeExtraService }) => {
 const styles = StyleSheet.create({
     containerExtras: {
         marginTop: scaleHeight(16)
-    },
-    totalRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: scaleHeight(16),
-        paddingRight: scaleWidth(16)
-    },
-    total: {
-        marginLeft: scaleWidth(17),
-        fontFamily: fonts.REGULAR,
-        fontSize: scaleFont(17),
-        letterSpacing: 0,
-        color: colors.greyish_brown_40,
     },
     titleExtra: {
         marginLeft: scaleWidth(17),
