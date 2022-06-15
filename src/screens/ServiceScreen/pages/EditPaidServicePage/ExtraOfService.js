@@ -107,10 +107,14 @@ const ItemExtra = ({ extra, onChangeExtraService }) => {
                         ref={inputPriceRef}
                         value={extra?.price}
                         onChangeText={text => setPrice(text)}
-                        style={[styles.duration, { fontSize: scaleFont(18), paddingVertical: 7, flex: 0, includeFontPadding: false, }]}
+                        style={[styles.duration, styles.textInput]}
                         type="money"
                         editable={extra?.isEditPrice}
-                        options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
+                        options={{ precision: 2, 
+                            separator: '.', 
+                            delimiter: ',', 
+                            unit: '', 
+                            suffixUnit: '' }}
                     />
                     }
                     {
@@ -226,5 +230,11 @@ const styles = StyleSheet.create({
         width: scaleWidth(16),
         height: scaleWidth(16),
         tintColor: "#404040"
+    },
+    textInput: { 
+        fontSize: scaleFont(18), 
+        paddingVertical: 7, 
+        flex: 0, 
+        includeFontPadding: false, 
     },
 });

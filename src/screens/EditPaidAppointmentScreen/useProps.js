@@ -11,7 +11,8 @@ import {
   getAppointmentById,
   getPromotionAppointment,
   getGroupAppointmentById,
-  getAppointmentWaitingList
+  getAppointmentWaitingList,
+  updatePaidAppointment,
 } from "@src/apis";
 
 import { APPOINTMENT_STATUS, 
@@ -86,6 +87,7 @@ export const useProps = ({
     isLoadingDefault: true,
     isStopLoading: true,
     onSuccess: (data, response) => {
+      console.log('response', response)
       if (response?.codeNumber == 200) {
         fetchAppointmentByDate();
         fetchAppointmentById();
@@ -145,34 +147,19 @@ export const useProps = ({
     roleName,
     staffsByDate,
     getInvoiceDetail,
-    updatePaidAppointment: async () => {
-     
-    },
-
-    assignOtherStaff: async (staffId) => {
-
-      let tempServices = [...appointmentItem.services];
-
-      tempServices = tempServices.map(sv => ({
-        ...sv,
-        staffId: staffId
-      }));
-
+    updateAppointment: async () => {
       const data = {
         staffId: appointmentItem.staffId,
-        fromTime: appointmentItem.fromTime,
-        status: "checkin",
-        categories: appointmentItem.categories,
-        services: tempServices,
-        extras: appointmentItem.extras,
-        products: appointmentItem.products,
-        giftCards: appointmentItem.giftCards
+        services: appointmentEdit.services.filter(sv => sv?.bookingServiceId),
+        extras: appointmentEdit.extras.filter(sv => sv?.bookingExtraId),
+        products: appointmentEdit.products.filter(sv => sv?.bookingProductId),
+        giftCards: appointmentEdit.giftCards.filter(sv => sv?.bookingGiftCardId),
       };
+      console.log('data', data)
 
-      const body = await updateAppointment(appointmentItem.appointmentId, data);
-      submitUpdateAppointment(body.params);
+      const body = await updatePaidAppointment(appointmentItem.appointmentId, data);
+      submitUpdatePaidAppointment(body.params);
     },
-
     getBarStyle: () => {
       return "dark-content";
     }

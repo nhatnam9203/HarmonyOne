@@ -29,13 +29,12 @@ EditButton = WithPopupActionSheet(EditButton);
 export const Layout = ({
   appointmentItem,
   headerColor,
-  updatePaidAppointment,
+  updateAppointment,
   invoiceViewAppointmentDetail,
   getBarStyle,
   getInvoiceDetail,
   roleName,
   staffsByDate,
-  assignOtherStaff,
 }) => {
   const [t] = useTranslation();
 
@@ -116,7 +115,7 @@ export const Layout = ({
           <View style={styles.bottom}>
             <Button
               label={"Save"}
-              onPress={updatePaidAppointment}
+              onPress={updateAppointment}
               highlight={true}
               width={'100%'}
             />
