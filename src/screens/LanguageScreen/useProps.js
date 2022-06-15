@@ -11,6 +11,9 @@ export const useProps = (props) => {
   const refLanguageLoading = useRef();
 
   const [lang, setLang] = useState('en');
+  const language = useSelector(state => state.dataLocal.language);
+
+  console.log({ language })
 
   useLayoutEffect(() => {
     setLang(language);

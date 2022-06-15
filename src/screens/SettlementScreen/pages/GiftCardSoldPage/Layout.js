@@ -6,7 +6,8 @@ import { fonts, colors } from "@shared/themes";
 import { SearchInput, PeriodPicker, IconButton, CustomInput, InputSelect } from "@shared/components";
 import { images } from "@shared/themes/resources";
 import { DataList } from "./DataList";
-import { customerGroup } from "@shared/utils"
+import { customerGroup } from "@shared/utils";
+import { translate } from "@localize";
 
 export const Layout = ({
   form,
@@ -23,7 +24,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Gift Card Sold')}
+        pageTitle={translate('Gift Card Sold')}
         isRight={true}
         isLeft={true}
         isScrollLayout={false}
@@ -42,7 +43,7 @@ export const Layout = ({
                 onSelect={(item) => {
                   setGiftCardSelected(item);
                 }}
-                title="Gift Card Sold"
+                title={translate("Gift Card Sold")}
                 defaultValue={giftCarList[0]?.label}
               />
             }
