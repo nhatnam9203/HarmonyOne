@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { fonts, colors } from "@shared/themes";
 import { useController } from "react-hook-form";
 import { CustomInput, InputText } from "@shared/components";
+import { translate } from "@localize";
 
 const MarketingDiscount = ({
     form,
@@ -21,7 +22,7 @@ const MarketingDiscount = ({
 
     return (
         <CustomInput
-            label='Discount Type'
+            label={translate('Discount Type')}
             renderInput={() =>
                 <View style={styles.row}>
                     <TouchableOpacity

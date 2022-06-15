@@ -7,7 +7,7 @@ import { Switch } from "react-native-paper";
 import moment from "moment";
 
 const MarketingDatePicker = React.forwardRef(({
-
+translate
 }, ref) => {
     const startDateRef = React.useRef();
     const startTimeRef = React.useRef();
@@ -43,7 +43,7 @@ const MarketingDatePicker = React.forwardRef(({
     return (
         <>
             <CustomInput
-                label='Start Date'
+                label={translate('Start date')}
                 renderInput={() =>
                     <View style={{ flexDirection: "row" }}>
                         <DayPicker
@@ -63,13 +63,14 @@ const MarketingDatePicker = React.forwardRef(({
                             renderInput={() => (
                                 <TempInput title={startTime} isRight />
                             )}
+                            title={translate('Start time')}
                         />
                     </View>
                 }
             />
 
             <CustomInput
-                label='End Date'
+                label={translate('End date')}
                 style={{ width: scaleWidth(375 - 32), alignItems: 'center', justifyContent: "space-between" }}
                 renderRight={() => <SwitchButton isVisible={visibleEndDate} onChange={setVisibleEndDate} />}
                 renderInput={() =>
@@ -90,7 +91,7 @@ const MarketingDatePicker = React.forwardRef(({
                                 renderInput={() => (
                                     <TempInput title={endTime} isRight />
                                 )}
-                                title={'End time'}
+                                title={translate('End time')}
                             />
                         </View> : null
                 }

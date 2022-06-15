@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import { slop } from "@shared/utils";
 import Collapsible from "react-native-collapsible";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { translate } from "@localize";
+
 
 const InputCategory = ({
     apply = () => { },
@@ -20,7 +22,7 @@ const InputCategory = ({
         category: { category },
     } = useSelector(state => state);
 
-    const [condition, setCondition] = React.useState("No condition");
+    const [condition, setCondition] = React.useState(translate("No condition"));
     const [dataCategory, setDataCategory] = React.useState([]);
 
     const getDataList = () => {
@@ -94,7 +96,7 @@ const InputCategory = ({
             <TouchableOpacity onPress={openActionSheet} style={[styles.containerInput]}>
                 <View style={styles.wrapInput}>
                     <Text style={[styles.value, { fontSize: scaleFont(15) }]}>
-                        {`${categorySelected?.length} items picked`}
+                        {`${categorySelected?.length} ${translate('items picked')}`}
                     </Text>
                     <Image
                         style={[styles.icon]}
@@ -106,7 +108,7 @@ const InputCategory = ({
 
                             <View style={[styles.row, { borderBottomWidth: 1, borderBottomColor: '#dddddd', paddingBottom: scaleHeight(12) }]}>
                                 <Text style={styles.title}>
-                                    {'Select category'}
+                                    {translate('Select category')}
                                 </Text>
                                 <IconButton
                                     iconStyle={styles.iconClose}
@@ -133,7 +135,7 @@ const InputCategory = ({
                                     highlight={false}
                                     height={scaleHeight(48)}
                                     width={scaleWidth(169)}
-                                    label="Cancel"
+                                    label={translate("Cancel")}
                                     styleButton={{
                                         borderWidth: 0,
                                         backgroundColor: "transparent"
@@ -146,7 +148,7 @@ const InputCategory = ({
                                     highlight={false}
                                     height={scaleHeight(48)}
                                     width={scaleWidth(169)}
-                                    label="Apply"
+                                    label={translate("Apply")}
                                     styleText={{ fontFamily: fonts.MEDIUM }}
                                     styleButton={{
                                         borderWidth: 0,

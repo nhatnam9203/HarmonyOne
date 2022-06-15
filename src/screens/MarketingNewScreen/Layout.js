@@ -18,6 +18,7 @@ import SmsConfiguration from "./MarketingSmsConfiguration";
 import MarketingCondition from "./MarketingCondition";
 import MarketingAction from "./MarketingAction";
 import { PoupFilterCustomer } from "./widget";
+import { translate } from "@localize";
 
 import DropdownAlert from 'react-native-dropdownalert';
 
@@ -86,7 +87,7 @@ export const Layout = ({
     <View style={styles.container}>
       <View style={{ flex: 1 }}>
         <SingleScreenLayout
-          pageTitle={isViewDetail ? t("Campaign detail") : isEdit ? t("Edit campaign") : t("New campaign")}
+          pageTitle={isViewDetail ? translate("Campaign detail") : isEdit ? translate("Edit campaign") : translate("New campaign")}
           isLeft={true}
           isRight={isViewDetail ? true : false}
           isScrollLayout={false}
@@ -98,14 +99,14 @@ export const Layout = ({
           <ScrollView style={styles.content}>
             <View pointerEvents={isViewDetail ? "none" : "auto"}>
               <CustomInput
-                label='Campaign name'
+                label={translate('Campaign name')}
                 isRequired
                 error={errors?.campaignName}
                 renderInput={() =>
                   <InputText
                     form={form}
                     name="campaignName"
-                    placeholder="Campaign name"
+                    placeholder={translate("Campaign name")}
                     error={errors?.campaignName}
                     onBlur={() => {
                       form.setValue("message", defaultMessage());
@@ -117,6 +118,7 @@ export const Layout = ({
 
               <MarketingDatePicker
                 ref={datePickerRef}
+                translate={translate}
               />
 
               <MarketingCondition
@@ -173,7 +175,7 @@ export const Layout = ({
                 iconComponent={() => <Switch color={colors.ocean_blue} onValueChange={setIsSchedule} value={isSchedule} />}
                 iconStyle={styles.iconStyle}
                 style={styles.rowReverse}
-                renderText={() => <Text style={styles.txtItem}>{t('Auto send message')}</Text>}
+                renderText={() => <Text style={styles.txtItem}>{translate('Auto send message')}</Text>}
               />
 
               {
@@ -181,7 +183,7 @@ export const Layout = ({
                   iconComponent={() => <Switch color={colors.ocean_blue} onValueChange={setManually} value={isManually} />}
                   iconStyle={styles.iconStyle}
                   style={styles.rowReverse}
-                  renderText={() => <Text style={styles.txtItem}>{t('Manually')}</Text>}
+                  renderText={() => <Text style={styles.txtItem}>{translate('Manually')}</Text>}
                 />
               }
               <View style={{ height: scaleHeight(200) }} />
@@ -203,13 +205,13 @@ export const Layout = ({
             isEdit ?
               <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 <Button
-                  label="Save"
+                  label={translate("Save")}
                   onPress={handleCampaign}
                   highlight={true}
                   width={scaleWidth(120)}
                 />
                 <Button
-                  label="Save and start"
+                  label={translate("Save and start")}
                   onPress={() => { dialogSendMessageRef?.current?.show() }}
                   highlight={true}
                   disabled={!(!isSchedule && isEdit)}
@@ -220,13 +222,13 @@ export const Layout = ({
 
               <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 <Button
-                  label="Save"
+                  label={translate("txtSave")}
                   onPress={handleCampaign}
                   highlight={true}
                   width={scaleWidth(120)}
                 />
                 <Button
-                  label="Save and send"
+                  label={translate("Save and send")}
                   onPress={() => { }}
                   highlight={true}
                   disabled={true}

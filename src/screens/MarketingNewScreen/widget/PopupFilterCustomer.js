@@ -6,6 +6,7 @@ import { images } from "@shared/themes/resources";
 import { Button, IconButton, ListEmptyComponent } from "@shared/components";
 import CheckBox from "@react-native-community/checkbox";
 import Modal from "react-native-modal";
+import { translate } from "@localize";
 
 const PopupFilterCustomer = React.forwardRef(
     ({
@@ -50,12 +51,12 @@ const PopupFilterCustomer = React.forwardRef(
             >
                 <View style={styles.container}>
                     <View style={styles.header}>
-                        <Text style={styles.txtHeader}>Filter customers</Text>
+                        <Text style={styles.txtHeader}>{translate("Filter customers")}</Text>
                     </View>
 
                     <View style={[styles.header, styles.header2]} >
-                        <Text style={[styles.txtHeader, { color: colors.ocean_blue, width: "50%", fontSize: scaleFont(15) }]}>Name</Text>
-                        <Text style={[styles.txtHeader, { color: colors.ocean_blue, width: "40%", fontSize: scaleFont(15) }]}>Phone number</Text>
+                        <Text style={[styles.txtHeader, { color: colors.ocean_blue, width: "50%", fontSize: scaleFont(15) }]}>{translate("Name")}</Text>
+                        <Text style={[styles.txtHeader, { color: colors.ocean_blue, width: "40%", fontSize: scaleFont(15) }]}>{translate("Phone number")}</Text>
                     </View>
                     <IconButton
                         icon={images.iconClose}
@@ -89,7 +90,7 @@ const PopupFilterCustomer = React.forwardRef(
                             highlight={true}
                             height={scaleHeight(38)}
                             width={scaleWidth(130)}
-                            label="Apply"
+                            label={translate("Apply")}
                         />
                     </View>
                 </View>

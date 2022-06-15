@@ -6,7 +6,7 @@ import { fonts, colors } from "@shared/themes";
 import { slop } from "@shared/utils";
 import { images } from "@shared/themes/resources";
 import { IconButton, DialogConfirm, Button } from "@shared/components";
-
+import { translate } from "@localize";
 
 export const Layout = ({
   newMarketing,
@@ -33,7 +33,7 @@ export const Layout = ({
                 {
                   item?.isDisabled == 0 ?
                     <Button
-                      label="Send"
+                      label={translate("Send")}
                       onPress={() => {
                         setPromotionIdSend(item?.id)
                         dialogSendMessageRef?.current?.show();
