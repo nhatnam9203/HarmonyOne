@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
-import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { SettlementWaitingPage, TransactionsPage, BatchHistoryPage } from "./pages"
 import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 const { Navigator, Screen } = createMaterialTopTabNavigator();
 
 
@@ -13,12 +13,10 @@ export const Layout = ({
 
 }) => {
 
-  const [t] = useTranslation();
-
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Settlement')}
+        pageTitle={translate('Settlement')}
         isRight={false}
         isLeft={true}
         onPressLeft={() => NavigationService.navigate(screenNames.MoreScreen)}

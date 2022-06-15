@@ -8,6 +8,7 @@ import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import NavigationService from '@navigation/NavigationService';
 import moment from "moment";
+import { translate } from "@localize";
 
 
 export const DataList = ({
@@ -105,10 +106,10 @@ export const DataList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                settlementId: "Batch ID",
-                date: "Date",
-                time: "Time",
-                total: "Amount",
+                settlementId: translate("Batch ID"),
+                date: translate("Date"),
+                time: translate("Time"),
+                total: translate("Amount"),
             }}
             whiteKeys={[
                 "settlementId",

@@ -8,6 +8,7 @@ import { TableSalesByStaff } from "./TableSalesByStaff";
 import { IncomeByPaymentMethod } from "./IncomeByPaymentMethod";
 import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
 import moment from "moment";
+import { translate } from "@localize";
 
 export const Layout = ({
   staffSales,
@@ -47,19 +48,19 @@ export const Layout = ({
         <ScrollView style={styles.content}>
           <View style={{ flexDirection: "row" }}>
             <Text style={[styles.title, { fontFamily: fonts.BOLD }]}>
-              Batch ID : #{batchDetail?.settlementId}
+              {translate("Batch ID")} : #{batchDetail?.settlementId}
             </Text>
             <Text style={[styles.title, { marginLeft: scaleWidth(16) }]}>
               {moment(batchDetail?.settlementdate).format("MM/DD/YYYY - hh:mm A")}
             </Text>
           </View>
 
-          <Text style={styles.bigTitle}>Sales by staff</Text>
+          <Text style={styles.bigTitle}>{translate("Sales by staff")}</Text>
           <TableSalesByStaff data={staffSales} />
 
           <TouchableOpacity onPress={viewGiftCardSold} style={[styles.rowBetween, { marginTop: scaleHeight(16) }]}>
             <Text style={[styles.title, { fontFamily: fonts.MEDIUM, color: colors.ocean_blue }]}>
-              Gift Card Sold
+              {translate("Gift Card Sold")}
             </Text>
 
             <Text style={[styles.title, { fontFamily: fonts.MEDIUM, paddingRight: scaleWidth(16), color: colors.ocean_blue }]}>
@@ -69,7 +70,7 @@ export const Layout = ({
 
           <View style={[styles.rowBetween, { backgroundColor: "#DCF7FF", alignItems: 'center', marginTop: scaleHeight(5) }]}>
             <Text style={[styles.title, { fontFamily: fonts.MEDIUM }]}>
-              Total
+              {translate("Total")}
             </Text>
 
             <Text style={[styles.title, { fontFamily: fonts.BOLD, padding: scaleWidth(16), color: "#4CD964" }]}>
@@ -77,12 +78,12 @@ export const Layout = ({
             </Text>
           </View>
 
-          <Text style={styles.bigTitle}>Income by payment methods</Text>
+          <Text style={styles.bigTitle}>{translate("Income by payment methods")}</Text>
           <IncomeByPaymentMethod batchDetail={batchDetail} />
 
           <View style={{ marginTop : scaleHeight(24) }} >
             <Text style={[styles.title, { fontFamily: fonts.MEDIUM, color: "#00408080" }]}>
-              Note
+              {translate("Note")}
             </Text>
 
             <View style={styles.containerNote}>

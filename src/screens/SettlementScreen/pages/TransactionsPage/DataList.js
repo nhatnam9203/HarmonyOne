@@ -6,6 +6,9 @@ import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
 import moment from "moment";
+import { translate } from "@localize";
+import { translateManual } from "@shared/utils";
+import { useSelector } from "react-redux";
  
 
 export const DataList = ({
@@ -15,6 +18,8 @@ export const DataList = ({
     isRefresh,
     endLoadMore,
 }) => {
+
+    const language = useSelector(state => state.dataLocal.language);
 
     const renderCell = ({ key, row, column, item }) => {
         const data = item[key];
@@ -42,7 +47,7 @@ export const DataList = ({
                 )
             case "status":
                 return <Text style={[styles.txt, { fontFamily: fonts.REGULAR, color: "#404040" , fontSize : scaleFont(13)}]}>
-                    {item?.status}
+                    {translateManual(language,item?.status)}
                 </Text>
             case "payment":
                 return item?.paymentData?.card_number ? (
@@ -74,12 +79,12 @@ export const DataList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                SettlementId: "Batch ID",
-                createdDate: "Date/time",
-                checkoutId: "Invoice",
-                status: "Status",
-                payment: "Payments",
-                amount: "Total",
+                SettlementId: translate("Batch ID"),
+                createdDate: translate("Date/time"),
+                checkoutId: translate("Invoice"),
+                status: translate("Status"),
+                payment: translate("Payments"),
+                amount: translate("Total"),
             }}
             whiteKeys={[
                 "SettlementId",
