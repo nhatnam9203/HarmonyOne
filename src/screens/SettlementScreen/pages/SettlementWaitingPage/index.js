@@ -8,5 +8,5 @@ import { translate } from "@localize";
 export const SettlementWaitingPage = createScreenComponent(
   "hpo.settlement.waiting",
   (props) => <Layout {...useProps(props)} />,
-  { tabBarLabel: translate('Settlement') },
+  { tabBarLabel: translate('txtServices') },
 );

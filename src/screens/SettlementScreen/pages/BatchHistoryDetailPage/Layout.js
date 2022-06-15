@@ -56,7 +56,6 @@ export const Layout = ({
           </View>
 
           <Text style={styles.bigTitle}>{translate("Sales by staff")}</Text>
-          <TableSalesByStaff data={staffSales} />
 
           <TouchableOpacity onPress={viewGiftCardSold} style={[styles.rowBetween, { marginTop: scaleHeight(16) }]}>
             <Text style={[styles.title, { fontFamily: fonts.MEDIUM, color: colors.ocean_blue }]}>

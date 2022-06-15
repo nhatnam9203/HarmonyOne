@@ -15,7 +15,7 @@ export const IncomeByPaymentMethod = ({
             </View>
 
             <View style={styles.rowIncone}>
-                <Text style={[styles.txtIncome, { fontFamily: fonts.REGULAR }]}>Harmony {translate("account")}</Text>
+                <Text style={[styles.txtIncome, { fontFamily: fonts.REGULAR }]}>{translate("Harmony accouny")}</Text>
                 <Text style={[styles.txtIncome, { fontFamily: fonts.MEDIUM }]}>$ {settlementWaiting?.paymentByHarmony || "0.00"}</Text>
             </View>
 

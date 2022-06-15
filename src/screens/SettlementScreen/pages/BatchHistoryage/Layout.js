@@ -6,6 +6,7 @@ import { fonts, colors } from "@shared/themes";
 import { SearchInput, PeriodPicker } from "@shared/components";
 import { images } from "@shared/themes/resources";
 import { DataList } from "./DataList";
+import { translate } from "@localize";
 
 export const Layout = ({
   isRefresh,
@@ -36,7 +37,7 @@ export const Layout = ({
           value={valueSearch}
           onChangeText={onChangeSearch}
           removeText={valueSearch.length > 0 ? () => removeSearch() : () => { }}
-          placeholder="Search client by phone or name"
+          placeholder={translate("Search client by phone or name")}
           onSubmit={onSubmitSearch}
         />
 
