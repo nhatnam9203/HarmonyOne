@@ -94,3 +94,27 @@ export const requestTransactionDejavoo = async (params) => {
     const response = await handleRequest(configs)
     return response
   };
+
+  export const requestEditTipDejavoo = async (params) => {
+    const dejavooMachineInfo = _.get(params, 'dejavooMachineInfo');
+    const param = `<request>`+
+                `<TransType>TipAdjust</TransType>`+
+                `<Amount>${_.get(params, 'amount')}</Amount>`+
+                `<InvNum>${_.get(params, 'invNum')}</InvNum>`+
+                `<RefId>${_.get(params, 'refId', '1')}</RefId>`+
+                `<Tip>${_.get(params, 'tip')}</Tip>`+
+                `<AcntLast4>${_.get(params, 'last4')}</AcntLast4>`+
+                `<AuthKey>${_.get(dejavooMachineInfo, 'authKey')}</AuthKey>`+
+                `<RegisterId>${_.get(dejavooMachineInfo, 'registerId')}</RegisterId>`+
+                `</request>`
+    
+   const configs = {
+    method: "get",
+    baseURL: api,
+    url: `?TerminalTransaction=${param}`,
+    headers: headers,
+    timeout: 90000,
+    };
+    const response = await handleRequest(configs)
+    return response
+  };
