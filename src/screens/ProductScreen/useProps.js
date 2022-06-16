@@ -19,6 +19,7 @@ import Share from "react-native-share";
 
 import NavigationService from '@navigation/NavigationService';
 import RNFetchBlob from 'rn-fetch-blob';
+import { translate } from "@localize";
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
@@ -218,7 +219,7 @@ export const useProps = (props) => {
     getActionSheets: (category) => [
       {
         id: 'new-product',
-        label: t('New product'),
+        label: translate('New Product'),
         func: () => {
           NavigationService.navigate(
             screenNames.ProductNewScreen,
@@ -228,7 +229,7 @@ export const useProps = (props) => {
       },
       {
         id: 'edit-category',
-        label: t('Edit category'),
+        label: translate('Edit Category'),
         func: () => {
           NavigationService.navigate(
             screenNames.CategoryNewScreen,
@@ -238,7 +239,7 @@ export const useProps = (props) => {
       },
       {
         id: 'delete-category',
-        label: t('Delete category'),
+        label: translate('Delete Category'),
         textColor: colors.red,
         func: () => {
           setTimeout(() => {

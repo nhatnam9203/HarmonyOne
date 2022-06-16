@@ -7,6 +7,7 @@ import { slop } from "@shared/utils";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import CheckBox from "@react-native-community/checkbox";
+import { translate } from "@localize";
 
 
 export const Layout = ({
@@ -29,7 +30,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Select extras')}
+        pageTitle={translate('Select extras')}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
         headerRightComponent={() =>
@@ -43,7 +44,7 @@ export const Layout = ({
       >
         <View style={styles.content}>
           <SearchInput
-            placeholder="Search by extra name"
+            placeholder={translate("Search by extra name")}
             value={valueSearch}
             onChangeText={onChangeSearch}
             removeText={() => onChangeSearch("")}
@@ -88,7 +89,7 @@ export const Layout = ({
 
         <View style={styles.bottom}>
           <Button
-            label="Apply"
+            label={translate("Apply")}
             onPress={apply}
             highlight={true}
             width={'100%'}

@@ -5,6 +5,7 @@ import { SingleScreenLayout } from '@shared/layouts';
 import { Button, CustomInput, InputText, IconButton, DropdownMenu } from "@shared/components";
 import { fonts, colors, images } from '@shared/themes';
 import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 
 
 export const Layout = ({
@@ -26,7 +27,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={isEdit ? t('Edit category') : t('New Category')}
+        pageTitle={isEdit ? translate('Edit Category') : translate('New Category')}
         isRight={true}
         isLeft={false}
         isScrollLayout={false}
@@ -41,14 +42,14 @@ export const Layout = ({
       >
         <View style={styles.content}>
           <CustomInput
-            label='Category name'
+            label={translate('Category name')}
             isRequired
             error={errors?.categoryName}
             renderInput={() =>
               <InputText
                 form={form}
                 name="categoryName"
-                placeholder="Category name"
+                placeholder={translate("Category name")}
                 error={errors?.categoryName}
               />
             }
@@ -60,7 +61,7 @@ export const Layout = ({
             onPress={form.handleSubmit(onSubmit)}
             height={scaleHeight(48)}
             width='100%'
-            label={t('Save')}
+            label={translate('txtSave')}
             highlight={true}
             disabled={errors?.categoryName}
           />

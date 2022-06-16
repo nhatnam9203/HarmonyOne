@@ -135,13 +135,21 @@ const AppStack = () => {
         <Screen {...MarketingScreen} />
         <Screen {...MarketingNewScreen} />
         <Screen {...ExtraScreen} />
-        <Screen {...ExtraNewScreen} />
+        <Screen {...ExtraNewScreen}
+          options={{
+            cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+          }}
+        />
         <Screen {...ProductScreen} />
         <Screen {...ProductNewScreen} />
         <Screen {...StaffScreen} />
         <Screen {...StaffNewScreen} />
         <Screen {...BusinessInformationScreen} />
-        <Screen {...ExtraSelectScreen} />
+        <Screen {...ExtraSelectScreen}
+          options={{
+            cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+          }}
+        />
         <Screen {...CheckoutScreen} />
         <Screen {...AddTipPage} />
         <Screen {...ApplyDiscountPage} />

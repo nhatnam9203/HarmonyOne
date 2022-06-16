@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, Image, TouchableOpacity, Animated, Text } from 'react-native'
-import { images, fonts } from "@shared/themes"
+import { images, fonts } from "@shared/themes";
+import { translate } from "@localize";
 
 const GroupButtonAdd = ({ onPressAdd = () => { }, newCategory, newService }) => {
 
@@ -59,7 +60,7 @@ const GroupButtonAdd = ({ onPressAdd = () => { }, newCategory, newService }) => 
                     { transform: [{ translateY }, { scale }] }
                 ]}
             >
-                <Text fontFamily='medium' style={styles.txtAdd}>New Category</Text>
+                <Text fontFamily='medium' style={styles.txtAdd}>{translate("New Category")}</Text>
             </ButtonAnimated>
 
             <ButtonAnimated
@@ -72,7 +73,7 @@ const GroupButtonAdd = ({ onPressAdd = () => { }, newCategory, newService }) => 
                     { transform: [{ translateY: translateY2 }, { scale }] }
                 ]}
             >
-                <Text fontFamily='medium' style={styles.txtAdd}>New product</Text>
+                <Text fontFamily='medium' style={styles.txtAdd}>{translate("New Product")}</Text>
             </ButtonAnimated>
 
             <TouchableOpacity

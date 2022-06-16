@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import { CustomImage } from "./CustomImage";
 import { WithPopupUpload } from '@shared/HOC';
 import { images } from '@shared/themes';
+import { translate } from "@localize";
 
 let ImageButton = ({ onResponseImagePicker, imageUrl, ...props }) => {
     if (!imageUrl)
@@ -19,7 +20,7 @@ let ImageButton = ({ onResponseImagePicker, imageUrl, ...props }) => {
                 />
 
                 <Text style={{ color: "#CCCCCC", fontSize: scaleFont(14) }}>
-                    Add image
+                    {translate("Add image")}
                 </Text>
             </TouchableOpacity>
         )

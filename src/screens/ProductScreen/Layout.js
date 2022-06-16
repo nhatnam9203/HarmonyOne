@@ -8,6 +8,7 @@ import { fonts, colors, images } from '@shared/themes';
 import { slop } from "@shared/utils";
 import { useSelector } from "react-redux";
 import { WithPopupActionSheet } from '@shared/HOC';
+import { translate } from "@localize";
 
 let EditButton = ({ ...props }) => {
   return (
@@ -60,21 +61,19 @@ export const Layout = ({
   newProductWithCategory
 }) => {
 
-  const [t] = useTranslation();
-
   const data = getDataList();
 
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Inventory')}
+        pageTitle={translate('Inventory')}
         isRight={true}
         headerRightComponent={() => <ExportButton actions={actionSheetExports()} />}
         isScrollLayout={false}
       >
         <View style={styles.content}>
           <SearchInput
-            placeholder="Search by product name"
+            placeholder={translate("Search by product name")}
             value={valueSearch}
             onChangeText={onChangeSearch}
             removeText={() => onChangeSearch("")}
@@ -86,7 +85,7 @@ export const Layout = ({
             style={styles.flatList}
             onRefresh={onRefresh}
             refreshing={isRefresh}
-            ListEmptyComponent={() => <ListEmptyComponent description={t('No products')} image={images.iconNotFound} />}
+            ListEmptyComponent={() => <ListEmptyComponent description={translate('No products')} image={images.iconNotFound} />}
             renderItem={({ item }) =>
               <ItemService
                 item={item}
@@ -94,7 +93,7 @@ export const Layout = ({
                 titleStyle={{ color: parseInt(item.quantity) < parseInt(item.minThreshold) ? "#DB0000" : colors.ocean_blue }}
                 renderDuration={() =>
                   parseInt(item.quantity) < parseInt(item.minThreshold) ?
-                    <Text style={styles.needToOrder}>Need to order</Text> :
+                    <Text style={styles.needToOrder}>{translate("Need to order")}</Text> :
                     <View />
                 }
               />
@@ -116,20 +115,20 @@ export const Layout = ({
           <GroupButtonAdd
             newCategory={newCategory}
             newService={newProduct}
-            titleButton2={"New Product"}
+            titleButton2={translate("New Product")}
           />
         </View>
         <DialogConfirm
           ref={dialogDeleteCategoryRef}
-          title={t("Delete category")}
-          titleContent={t("Are you sure you want to delete this category?")}
+          title={translate("Delete category")}
+          titleContent={translate("Are you sure you want to delete this category?")}
           onConfirmYes={handleArchiveCategory}
           onModalHide={() => setTempCategory("")}
         />
         <DiaglogExportProduct
           ref={diaglogExport}
-          title={t("Export")}
-          titleContent={t("Are you sure you want to delete this category?")}
+          title={translate("Export")}
+          titleContent={translate("Are you sure you want to delete this category?")}
           onConfirmYes={onExport}
           isNeedToOrder={isNeedToOrder}
           setNeedToOrder={setNeedToOrder}
