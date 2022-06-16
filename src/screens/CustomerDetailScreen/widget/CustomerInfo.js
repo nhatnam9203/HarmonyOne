@@ -8,6 +8,7 @@ import { images } from "@shared/themes/resources";
 import { dateToFormat, DATE_SHOW_FORMAT_STRING } from '@shared/utils';
 import { isEmpty } from "lodash";
 import Collapsible from 'react-native-collapsible';
+import { translate } from "@localize";
 
 const CustomerInfo = ({
     firstName = '',
@@ -50,7 +51,7 @@ const CustomerInfo = ({
                         />
                     }
                     <Text style={styles.textGroup}>
-                        {isVip == 0 ? 'Normal' : 'VIP'}
+                        {isVip == 0 ? translate('Normal') : translate('VIP')}
                     </Text>
                 </View>
             </View>
@@ -117,7 +118,7 @@ const CustomerInfo = ({
 
             <TouchableOpacity activeOpacity={1} onPress={toggleFullDetail}>
                 <Text style={styles.txtHide}>
-                    {isHideDetail ? `Full details` : `Hide details`}
+                    {isHideDetail ? translate(`Full details`) : translate(`Hide details`)}
                 </Text>
             </TouchableOpacity>
         </View>
@@ -166,7 +167,7 @@ const styles = StyleSheet.create({
     group: isVip => {
         return {
             marginTop: scaleHeight(12),
-            width: scaleWidth(100),
+            width: scaleWidth(120),
             height: scaleWidth(30),
             justifyContent: 'center',
             alignItems: 'center',

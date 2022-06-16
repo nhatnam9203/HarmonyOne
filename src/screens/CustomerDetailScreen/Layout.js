@@ -10,6 +10,7 @@ import { DialogConfirm } from "@shared/components";
 import { useRoute, useIsFocused, useNavigation } from '@react-navigation/native';
 import { useAndroidBackHandler } from "react-navigation-backhandler";
 import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 
 let EditButton = ({ ...props }) => {
   return (
@@ -47,7 +48,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Customer details')}
+        pageTitle={translate('Customer details')}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
         onPressLeft={back}
@@ -85,8 +86,8 @@ export const Layout = ({
           />
           <DialogConfirm
             ref={dialogDeleteCustomer}
-            title={t('Delete customer')}
-            titleContent={t("Are you sure you want to delete this customer?")}
+            title={translate('Delete customer')}
+            titleContent={translate("Are you sure you want to delete this customer?")}
             onConfirmYes={() => submitDeleteCustomer()}
             onModalHide={() => { }}
           />
