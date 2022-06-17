@@ -94,6 +94,7 @@ export const AppointmentServiceList = ({ services = [],
             onPressItem={() => editService(item)}
             isShowStaff={false}
             isShowTip={true}
+            paymentMethod={invoiceViewAppointmentDetail?.paymentMethod}
           />
           
             {/****************** STAFF OFF SERVICE ******************/}

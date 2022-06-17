@@ -129,6 +129,7 @@ export const useProps = ({
 
   React.useEffect(() => {
     if (item) {
+      console.log('edit appointment', item)
       setAppointmentItem(item);
 
       const tempColor = getColorForStatus(item?.status);

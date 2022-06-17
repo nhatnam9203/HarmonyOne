@@ -20,6 +20,7 @@ export const AppointmentServiceItem = ({
     onPressItemReview = false,
     isShowStaff = true,
     isShowTip = false,
+    paymentMethod = null,
 }) => {
 
     const { t } = useTranslation();
