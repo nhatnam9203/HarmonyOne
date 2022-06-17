@@ -17,7 +17,7 @@ export const AppointmentServiceList = ({ services = [],
                                           products = [], 
                                           giftCards , 
                                           appointmentItem,
-
+                                          invoice,
                                         }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -94,7 +94,6 @@ export const AppointmentServiceList = ({ services = [],
             onPressItem={() => editService(item)}
             isShowStaff={false}
             isShowTip={true}
-            paymentMethod={invoiceViewAppointmentDetail?.paymentMethod}
           />
           
             {/****************** STAFF OFF SERVICE ******************/}

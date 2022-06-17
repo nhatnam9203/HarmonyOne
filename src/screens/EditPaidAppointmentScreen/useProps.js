@@ -10,8 +10,6 @@ import {
   useAxiosQuery,
   getAppointmentById,
   getPromotionAppointment,
-  getGroupAppointmentById,
-  getAppointmentWaitingList,
   updatePaidAppointment,
 } from "@src/apis";
 
@@ -24,6 +22,12 @@ import { APPOINTMENT_STATUS,
 import { appointment, editAppointment, invoice, app } from "@redux/slices";
 import NavigationService from '@navigation/NavigationService';
 import { axios } from '@shared/services/axiosClient';
+import _ from "lodash";
+import { parseString } from 'react-native-xml2js';
+import {
+  requestEditTipDejavoo,
+  handleResponseDejavoo,
+} from "@utils";
 
 export const useProps = ({
   route
@@ -37,6 +41,7 @@ export const useProps = ({
     auth: { staff },
     staff: { staffsByDate = [] },
     editAppointment: { appointmentEdit },
+    hardware: { dejavooMachineInfo },
   } = useSelector(state => state);
 
   const item = appointmentEdit;
@@ -96,25 +101,7 @@ export const useProps = ({
   });
 
   /************************************** GET APPOINTMENT WAITING LIST ***************************************/
-  const [, requestGetWaitingList] = useAxiosQuery({
-    ...getAppointmentWaitingList(),
-    queryId: "getAppointmentWaitingList_appointmentDetailScreen",
-    enabled: false,
-    onSuccess: (data, response) => {
-      dispatch(appointment.setAppointmentWaitingList(data));
-    },
-  });
 
-  const [, fetchGroupApointmentById] = useAxiosQuery({
-    ...getGroupAppointmentById(appointmentDetail?.appointmentId),
-    enabled: false,
-    onSuccess: async (data, response) => {
-      if (response?.codeNumber == 200) {
-        dispatch(appointment.setGroupAppointment(data));
-        NavigationService.navigate(screenNames.CheckoutScreen);
-      }
-    }
-  });
 
 
   const [, fetchAppointmentById] = useAxiosQuery({
@@ -140,6 +127,20 @@ export const useProps = ({
     }
   }, [item]);
 
+  const handleUpdatePaidAppointment = async (responses) => {
+    const data = {
+      staffId: appointmentItem.staffId,
+      services: appointmentEdit.services.filter(sv => sv?.bookingServiceId),
+      extras: appointmentEdit.extras.filter(sv => sv?.bookingExtraId),
+      products: appointmentEdit.products.filter(sv => sv?.bookingProductId),
+      giftCards: appointmentEdit.giftCards.filter(sv => sv?.bookingGiftCardId),
+      responses,
+    };
+    
+    const body = await updatePaidAppointment(appointmentItem.appointmentId, data);
+    submitUpdatePaidAppointment(body.params);
+  }
+
   return {
     appointmentItem,
     headerColor,
@@ -148,17 +149,76 @@ export const useProps = ({
     roleName,
     staffsByDate,
     getInvoiceDetail,
-    updateAppointment: async () => {
-      const data = {
-        staffId: appointmentItem.staffId,
-        services: appointmentEdit.services.filter(sv => sv?.bookingServiceId),
-        extras: appointmentEdit.extras.filter(sv => sv?.bookingExtraId),
-        products: appointmentEdit.products.filter(sv => sv?.bookingProductId),
-        giftCards: appointmentEdit.giftCards.filter(sv => sv?.bookingGiftCardId),
-      };
+    updateAppointment: () => {
+      console.log('invoiceViewAppointmentDetail', invoiceViewAppointmentDetail)
+      if (invoiceViewAppointmentDetail?.paymentMethod == 'credit_card') {
+        const paymentInformation = _.get(invoiceViewAppointmentDetail, 'paymentInformation.0');
+        const paymentData = paymentInformation?.paymentData;
+        parseString(paymentInformation?.responseData, (err, result) => {
+          if (err) {
+            setTimeout(() => {
+              alert(err)
+            }, 300)
+          } else {
+            const refId = _.get(result, "xmp.response.0.RefId.0");
+            const invNum = _.get(result, "xmp.response.0.InvNum.0");
+            const last4 = _.get(paymentData, 'card_number');
+            const extraData = _.get(result, "xmp.response.0.ExtData.0").split(",");
+            let amount = 0;
+            let tipOnDejavoo = 0;
+            if (extraData) {
+              const findIndex = _.findIndex(extraData, item => {
+                return item.includes("Amount")
+              })
+              amount = findIndex > -1 ? extraData[findIndex].replace("Amount=", "") : 0;
 
-      const body = await updatePaidAppointment(appointmentItem.appointmentId, data);
-      submitUpdatePaidAppointment(body.params);
+              const findIndexTip = _.findIndex(extraData, item => {
+                return item.includes("Tip")
+              })
+              tipOnDejavoo = findIndexTip > -1 ? extraData[findIndexTip].replace("Tip=", "") : 0;
+            }
+            let tipSum = 0;
+            console.log('appointmentEdit', appointmentEdit)
+            console.log('invoiceViewAppointmentDetail', invoiceViewAppointmentDetail)
+            if (appointmentEdit?.services) {
+              tipSum = _.sumBy(appointmentEdit?.services, item =>{
+                return parseFloat(item?.tipAmount)
+              });
+              tipSum = tipSum;
+            }
+            if (tipSum.toFixed(2) != invoiceViewAppointmentDetail?.tipAmount) {
+              if (tipOnDejavoo != invoiceViewAppointmentDetail?.tipAmount
+                 && invoiceViewAppointmentDetail?.responses.length == 0) {
+                alert("Can not change tip for appointment that have added tip on POS app before.")
+              } else {
+                const params = {
+                  amount,
+                  refId,
+                  invNum,
+                  tip: tipSum.toFixed(2),
+                  last4,
+                  dejavooMachineInfo,
+                }
+                requestEditTipDejavoo(params).then(async (responses) => {
+                  handleResponseDejavoo(responses).then(result => {
+                    handleUpdatePaidAppointment(responses);
+                  },
+                  error => {
+                    setTimeout(() => {
+                      alert(error || "Error")
+                    }, 300)
+                  })
+                });
+              }
+            } else {
+              handleUpdatePaidAppointment(null)
+            }
+          }
+        });
+       
+      } else {
+        handleUpdatePaidAppointment(null);
+      }
     },
     getBarStyle: () => {
       return "dark-content";

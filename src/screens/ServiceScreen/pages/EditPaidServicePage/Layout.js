@@ -6,6 +6,7 @@ import { isEmpty } from "lodash";
 import { TextInputMask } from "react-native-masked-text";
 import { ExtraOfService } from './ExtraOfService';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { formatMoney } from "@shared/utils";
 export const Layout = ({
   item,
   back,
@@ -24,6 +25,7 @@ export const Layout = ({
   inputTipRef,
   getTotalPrice,
   getTotalDuration,
+  invoiceViewAppointmentDetail,
 }) => {
 
   
@@ -85,7 +87,7 @@ export const Layout = ({
                   />
                 }
                 {
-                  !isEditPrice && <Text
+                  (!isEditPrice || invoiceViewAppointmentDetail?.paymentMethod != "credit_card") && <Text
                     style={[styles.duration, { fontSize: scaleFont(18) }]}
                   >
                     {price}
@@ -93,24 +95,27 @@ export const Layout = ({
                 }
               </View>
 
-              <TouchableOpacity onPress={() => {
-                if (isEditPrice) {
-                  setStatusEditPrice(false);
+              {invoiceViewAppointmentDetail?.paymentMethod != "credit_card" && 
 
-                } else {
-                  setStatusEditPrice(true);
-                  setTimeout(() => {
-                    inputPriceRef?.current?._inputElement?.focus();
-                  }, 250);
-                }
-              }}
-              >
-                <Image
-                  source={!isEditPrice ? images.penEdit : images.iconChecked}
-                  resizeMode='contain'
-                  style={[styles.iconEditPencil, { tintColor: !isEditPrice ? "#333" : "#4AD100" }]}
-                />
-              </TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                  if (isEditPrice) {
+                    setStatusEditPrice(false);
+
+                  } else {
+                    setStatusEditPrice(true);
+                    setTimeout(() => {
+                      inputPriceRef?.current?._inputElement?.focus();
+                    }, 250);
+                  }
+                }}
+                >
+                  <Image
+                    source={!isEditPrice ? images.penEdit : images.iconChecked}
+                    resizeMode='contain'
+                    style={[styles.iconEditPencil, { tintColor: !isEditPrice ? "#333" : "#4AD100" }]}
+                  />
+                </TouchableOpacity>
+              }
             </View>
           </View>
        
@@ -180,8 +185,16 @@ export const Layout = ({
               <Text style={styles.total}>{getTotalDuration()}</Text>
           </View>
           <Text style={[styles.total, { fontFamily: fonts.BOLD }]}>
-              {getTotalPrice()}
+              {`$${getTotalPrice()}`}
           </Text>
+        </View>
+        <View style={styles.totalRow}>
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={styles.total}>Tip:</Text>
+            </View>
+            <Text style={[styles.total, { fontFamily: fonts.BOLD }]}>
+                {`$${formatMoney(tip)}`}
+            </Text>
         </View>
 
         <View style={{ height: scaleHeight(100) }} />

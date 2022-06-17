@@ -79,6 +79,7 @@ export const Layout = ({
             products={appointmentItem?.products}
             giftCards={appointmentItem?.giftCards}
             appointmentItem={appointmentItem}
+            invoice={invoiceViewAppointmentDetail}
           />
 
           <TotalViewPaid

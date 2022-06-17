@@ -17,6 +17,9 @@ export const useProps = ({
   const dispatch = useDispatch();
   const item = route?.params?.item;
   const extrasEdit = route?.params?.extrasEdit;
+  const {
+    invoice: { invoiceViewAppointmentDetail },
+  } = useSelector(state => state);
 
   const inputPriceRef = React.useRef();
   const inputTipRef = React.useRef();
@@ -99,5 +102,6 @@ const getTotalPrice = () => {
     editService,
     getTotalPrice,
     getTotalDuration,
+    invoiceViewAppointmentDetail,
   };
 };
