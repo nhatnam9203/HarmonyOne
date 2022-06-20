@@ -4,9 +4,11 @@ import { fonts, colors } from "@shared/themes";
 import { ListEmptyComponent } from '@shared/components';
 import { useTranslation } from "react-i18next";
 import ItemAppointment from "./ItemAppointment";
+import { translate } from "@localize";
 
 const UpcomingAppointment = ({
-    upcomings = []
+    upcomings = [],
+    language
 }) => {
 
     const [t] = useTranslation();
@@ -17,10 +19,10 @@ const UpcomingAppointment = ({
                 showsVerticalScrollIndicator={false}
                 style={styles.flatList}
                 data={upcomings}
-                renderItem={({ item }) => <ItemAppointment item={item} />}
+                renderItem={({ item }) => <ItemAppointment item={item} language={language} />}
                 keyExtractor={(item) => item.appointmentId.toString()}
                 ItemSeparatorComponent={() => <View style={styles.seperateLine} />}
-                ListEmptyComponent={()=><ListEmptyComponent description={t('No Appointments')} />}
+                ListEmptyComponent={()=><ListEmptyComponent description={translate('No Appointments')} />}
                 nestedScrollEnabled={true}
             />
         </SafeAreaView>

@@ -7,6 +7,7 @@ import { fonts, colors, images } from '@shared/themes';
 import { slop } from "@shared/utils";
 import { useSelector } from "react-redux";
 import { WithPopupActionSheet } from '@shared/HOC';
+import { translate } from "@localize";
 
 let EditButton = ({ ...props }) => {
   return (
@@ -46,13 +47,13 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Services')}
+        pageTitle={translate('Services')}
         isRight={false}
         isScrollLayout={false}
       >
         <View style={styles.content}>
           <SearchInput
-            placeholder="Search by service name"
+            placeholder={translate("Search by service name")}
             value={valueSearch}
             onChangeText={onChangeSearch}
             removeText={() => onChangeSearch("")}
@@ -64,7 +65,7 @@ export const Layout = ({
             style={styles.flatList}
             onRefresh={onRefresh}
             refreshing={isRefresh}
-            ListEmptyComponent={() => <ListEmptyComponent description={t('No Service')} image={images.iconNotFound} />}
+            ListEmptyComponent={() => <ListEmptyComponent description={translate('No Service')} image={images.iconNotFound} />}
             renderItem={({ item }) =>
               <ItemService
                 item={item}
@@ -92,8 +93,8 @@ export const Layout = ({
         </View>
         <DialogConfirm
           ref={dialogDeleteCategoryRef}
-          title={t("Delete category")}
-          titleContent={t("Are you sure you want to delete this category?")}
+          title={translate("Delete category")}
+          titleContent={translate("Are you sure you want to delete this category?")}
           onConfirmYes={handleArchiveCategory}
           onModalHide={() => setTempCategory("")}
         />

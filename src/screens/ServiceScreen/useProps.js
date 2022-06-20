@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { colors } from "@shared/themes";
 import { useTranslation } from "react-i18next";
 import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
@@ -155,7 +156,7 @@ export const useProps = (props) => {
     getActionSheets: (category) => [
       {
         id: 'new-service',
-        label: t('Add new service'),
+        label: translate('Add new service'),
         func: () => {
           NavigationService.navigate(
             screenNames.ServiceNewScreen,
@@ -165,7 +166,7 @@ export const useProps = (props) => {
       },
       {
         id: 'edit-category',
-        label: t('Edit category'),
+        label: translate('Edit Category'),
         func: () => {
           NavigationService.navigate(
             screenNames.CategoryNewScreen,
@@ -175,7 +176,7 @@ export const useProps = (props) => {
       },
       {
         id: 'delete-category',
-        label: t('Delete category'),
+        label: translate('Delete category'),
         textColor: colors.red,
         func: () => {
           setTimeout(() => {

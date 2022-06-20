@@ -7,9 +7,10 @@ import { fonts, images } from '@shared/themes';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { isEmpty } from "lodash";
 import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 
 const options = {
-  title: "Select Image",
+  title: translate("Select Image"),
   customButtons: [],
   storageOptions: {
     skipBackup: true,
@@ -18,8 +19,8 @@ const options = {
 };
 
 const statusData = [
-  { label: "Active", value: "0" },
-  { label: "Inactive", value: "1" },
+  { label: translate("Active"), value: "0" },
+  { label: translate("Inactive"), value: "1" },
 ];
 
 export const Layout = ({
@@ -42,7 +43,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={isEdit ? t('Edit product') : t('New product')}
+        pageTitle={isEdit ? translate('Edit Product') : translate('New Product')}
         isRight={true}
         isLeft={false}
         isScrollLayout={false}
@@ -57,21 +58,21 @@ export const Layout = ({
       >
         <KeyboardAwareScrollView style={styles.content}>
           <CustomInput
-            label='Product name'
+            label={translate('Product name')}
             isRequired
             error={errors?.name}
             renderInput={() =>
               <InputText
                 form={form}
                 name="name"
-                placeholder="Product name"
+                placeholder={translate("Product name")}
                 error={errors?.name}
               />
             }
           />
 
           <CustomInput
-            label='Category'
+            label={translate('Category')}
             isRequired
             error={errors?.category}
             renderInput={() =>
@@ -81,19 +82,19 @@ export const Layout = ({
                 name="category"
                 error={errors?.category}
                 items={dataCategory}
-                title="Select category"
-                defaultValue={'Select category'}
+                title={translate("Select category")}
+                defaultValue={translate('Select category')}
               />
             }
           />
 
           <CustomInput
-            label='Description'
+            label={translate('Description')}
             renderInput={() =>
               <InputText
                 form={form}
                 name="description"
-                placeholder="Description"
+                placeholder={translate("Description")}
                 style={{ height: scaleHeight(79), alignItems: 'flex-start', paddingTop: scaleHeight(8) }}
                 multiline={true}
               />
@@ -101,7 +102,7 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='SKU Number'
+            label={translate('SKU Number')}
             isRequired
             error={errors?.sku}
             renderInput={() =>
@@ -116,7 +117,7 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Item In Stocks'
+            label={translate('Item In Stocks')}
             isRequired
             error={errors?.quantity}
             renderInput={() =>
@@ -132,7 +133,7 @@ export const Layout = ({
 
           <View style={styles.durationRow}>
             <CustomInput
-              label='Low Threshold'
+              label={translate('Low Threshold')}
               isRequired
               renderInput={() =>
                 <InputText
@@ -146,7 +147,7 @@ export const Layout = ({
               }
             />
             <CustomInput
-              label='Max Threshold'
+              label={translate('Max Threshold')}
               isRequired
               renderInput={() =>
                 <InputText
@@ -162,7 +163,7 @@ export const Layout = ({
           </View>
 
           <CustomInput
-            label='Price'
+            label={translate('Price')}
             isRequired
             error={errors?.price}
             renderInput={() =>
@@ -182,7 +183,7 @@ export const Layout = ({
           />
 
           <Text style={styles.titleDuration}>
-            Image
+            {translate("Image")}
           </Text>
           <ButtonUpload
             onResponseImagePicker={onUploadImage}
@@ -190,7 +191,7 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Status'
+            label={translate('Status')}
             isRequired
             error={errors?.status}
             renderInput={() =>
@@ -199,7 +200,7 @@ export const Layout = ({
                 form={form}
                 name="status"
                 error={errors?.status}
-                title="Status"
+                title={translate("Status")}
                 items={statusData}
                 defaultValue={'0'}
               />
@@ -209,7 +210,7 @@ export const Layout = ({
       </SingleScreenLayout>
       <View style={styles.bottom}>
         <Button
-          label="Save"
+          label={translate("txtSave")}
           onPress={form.handleSubmit(onSubmit)}
           highlight={true}
           disabled={!isEmpty(errors)}

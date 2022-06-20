@@ -7,9 +7,10 @@ import { fonts, images, colors } from '@shared/themes';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { isEmpty } from "lodash";
 import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 
 const options = {
-  title: "Select Image",
+  title: translate("Select Image"),
   customButtons: [],
   storageOptions: {
     skipBackup: true,
@@ -18,8 +19,8 @@ const options = {
 };
 
 const statusData = [
-  { label: "Active", value: "0" },
-  { label: "Inactive", value: "1" },
+  { label: translate("Active"), value: "0" },
+  { label: translate("Inactive"), value: "1" },
 ];
 
 export const Layout = ({
@@ -46,7 +47,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={isEdit ? t('Edit service') : t('New service')}
+        pageTitle={isEdit ? translate('Edit Service') : translate('New Service')}
         isRight={true}
         isLeft={false}
         isScrollLayout={false}
@@ -61,7 +62,7 @@ export const Layout = ({
       >
         <KeyboardAwareScrollView style={styles.content}>
           <CustomInput
-            label='Service name'
+            label={translate('Service name')}
             isRequired
             error={errors?.name}
             renderInput={() =>
@@ -75,7 +76,7 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Category'
+            label={translate('Category')}
             isRequired
             error={errors?.category}
             renderInput={() =>
@@ -85,14 +86,14 @@ export const Layout = ({
                 name="category"
                 error={errors?.category}
                 items={dataCategory}
-                title="Select category"
-                defaultValue={'Select category'}
+                title={translate("Select category")}
+                defaultValue={translate('Select category' )}
               />
             }
           />
 
           <CustomInput
-            label='Service description'
+            label={translate('Service description')}
             renderInput={() =>
               <InputText
                 form={form}
@@ -104,10 +105,10 @@ export const Layout = ({
             }
           />
 
-          <Text style={styles.titleDuration}> Duration </Text>
+          <Text style={styles.titleDuration}> {translate("Duration")} </Text>
           <View style={styles.durationRow}>
             <CustomInput
-              label='Minutes'
+              label={translate('Minutes')}
               isRequired
               labelStyle={styles.labelDuration}
               renderInput={() =>
@@ -119,12 +120,12 @@ export const Layout = ({
                   placeholder="0"
                   options={{ mask: "9999" }}
                   error={errors?.duration}
-                  renderRight={() => <Text style={styles.duration}>min</Text>}
+                  renderRight={() => <Text style={styles.duration}>{translate("min")}</Text>}
                 />
               }
             />
             <CustomInput
-              label='Open time'
+              label={translate('Open time')}
               labelStyle={styles.labelDuration}
               renderInput={() =>
                 <InputText
@@ -134,12 +135,12 @@ export const Layout = ({
                   name="openTime"
                   placeholder="0"
                   options={{ mask: "9999" }}
-                  renderRight={() => <Text style={styles.duration}>min</Text>}
+                  renderRight={() => <Text style={styles.duration}>{translate("min")}</Text>}
                 />
               }
             />
             <CustomInput
-              label='Second time'
+              label={translate('Second time')}
               labelStyle={styles.labelDuration}
               renderInput={() =>
                 <InputText
@@ -156,7 +157,7 @@ export const Layout = ({
           </View>
 
           <CustomInput
-            label='Price'
+            label={translate('Price')}
             isRequired
             error={errors?.price}
             renderInput={() =>
@@ -176,7 +177,7 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Surcharge'
+            label={translate('Surcharged')}
             renderInput={() =>
               <InputText
                 form={form}
@@ -193,7 +194,7 @@ export const Layout = ({
           />
 
           <Text style={styles.titleDuration}>
-            Image
+            {translate("Image")}
           </Text>
           <ButtonUpload
             onResponseImagePicker={onUploadImage}
@@ -201,7 +202,7 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Status'
+            label={translate('Status')}
             isRequired
             error={errors?.status}
             renderInput={() =>
@@ -210,21 +211,21 @@ export const Layout = ({
                 form={form}
                 name="status"
                 error={errors?.status}
-                title="Status"
+                title={translate("Status")}
                 items={statusData}
                 defaultValue={'0'}
               />
             }
           />
 
-          <Text style={styles.txtExtra}>Extra</Text>
+          <Text style={styles.txtExtra}>{translate("Extras")}</Text>
           <CustomInput
-            label='Select exist extras'
+            label={translate('Select exist extras')}
             renderInput={() =>
               <TouchableOpacity onPress={selectExtraExist} style={styles.wrapInput}>
                 <Text style={styles.valueExtraSelected}>
                   {extraList.filter(ex=>ex.checked).length == 0 ? 
-                  "No extra selected" : 
+                  translate("No extra selected") : 
                   `${extraList.filter(ex=>ex.checked).length} extras selected`}
                 </Text>
                 <Image
@@ -239,7 +240,7 @@ export const Layout = ({
             icon={images.iconAddMore}
             iconStyle={styles.iconAddMore}
             style={styles.buttonAddMore}
-            renderText={() => <Text style={styles.txtAddNewExtra}>Add new extra</Text>}
+            renderText={() => <Text style={styles.txtAddNewExtra}>{translate("Add new extra")}</Text>}
             onPress={newExtra}
           />
           <View style={{ height: scaleHeight(100) }} />
@@ -247,7 +248,7 @@ export const Layout = ({
       </SingleScreenLayout>
       <View style={styles.bottom}>
         <Button
-          label="Save"
+          label={translate("txtSave")}
           onPress={form.handleSubmit(onSubmit)}
           highlight={true}
           disabled={!isEmpty(errors)}

@@ -6,6 +6,7 @@ import { fonts, colors, images } from '@shared/themes';
 import { slop } from "@shared/utils";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { translate } from "@localize";
 
 export const Layout = ({
   valueSearch,
@@ -26,13 +27,13 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Extras')}
+        pageTitle={translate('Extras')}
         isRight={false}
         isScrollLayout={false}
       >
         <View style={styles.content}>
           <SearchInput
-            placeholder="Search by extra name"
+            placeholder={translate("Search by extra name")}
             value={valueSearch}
             onChangeText={onChangeSearch}
             removeText={() => onChangeSearch("")}

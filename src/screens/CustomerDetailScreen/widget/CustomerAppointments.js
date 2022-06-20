@@ -4,12 +4,17 @@ import { fonts, colors } from "@shared/themes";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import UpcomingAppointment from "./UpcomingAppointment";
 import PastAppointment from "./PastAppointment";
+import { translate } from "@localize";
+import { useSelector } from "react-redux";
 
 const { Navigator, Screen } = createMaterialTopTabNavigator();
 
 const CustomerAppointments = ({
     upcomings,
 }) => {
+
+    const language = useSelector(state => state.dataLocal.language);
+
     return (
         <View style={styles.container}>
             <Navigator
@@ -34,18 +39,18 @@ const CustomerAppointments = ({
             >
                 <Screen
                     name="UpcomingAppointment"
-                    options={{ tabBarLabel: 'Upcoming' }}
+                    options={{ tabBarLabel: translate('Upcoming') }}
                 >
                 {
-                    props => <UpcomingAppointment {...props} upcomings={upcomings} />
+                    props => <UpcomingAppointment {...props} upcomings={upcomings} language={language} />
                 }
                 </Screen>
                 <Screen
                     name="PastAppointment"
-                    options={{ tabBarLabel: 'Past' }}
+                    options={{ tabBarLabel: translate('Past') }}
                 >
                 {
-                    props => <PastAppointment />
+                    props => <PastAppointment language={language} />
                 }
                 </Screen>
             </Navigator>

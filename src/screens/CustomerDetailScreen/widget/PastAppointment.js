@@ -6,8 +6,9 @@ import { useTranslation } from "react-i18next";
 import { useAxiosQuery, getPastAppointmentByCustomer } from '@src/apis';
 import { ListEmptyComponent } from '@shared/components';
 import ItemAppointment from "./ItemAppointment";
+import { translate } from "@localize";
 
-const PastAppointment = ({ }) => {
+const PastAppointment = ({ language }) => {
 
     const { customerDetail } = useSelector(state => state.customer);
 
@@ -47,7 +48,7 @@ const PastAppointment = ({ }) => {
                 showsVerticalScrollIndicator={false}
                 style={styles.flatList}
                 data={appointmentList}
-                renderItem={({ item }) => <ItemAppointment item={item} isPast={true} />}
+                renderItem={({ item }) => <ItemAppointment item={item} isPast={true} language={language} />}
                 keyExtractor={(item) => item.appointmentId.toString()}
                 ItemSeparatorComponent={() => <View style={styles.seperateLine} />}
                 onEndReached={loadMore}
@@ -55,7 +56,7 @@ const PastAppointment = ({ }) => {
                 removeClippedSubviews={true}
                 initialNumToRender={20}
                 maxToRenderPerBatch={5}
-                ListEmptyComponent={() => <ListEmptyComponent description={t('No Appointments')} />}
+                ListEmptyComponent={() => <ListEmptyComponent description={translate('No Appointments')} />}
                 ListFooterComponent={() =>
                     <View style={styles.itemLoadMore}>
                         {

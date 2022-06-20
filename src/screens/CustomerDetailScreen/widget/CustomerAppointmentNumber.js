@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { fonts, colors } from "@shared/themes";
+import { translate } from "@localize";
 
 const CustomerAppointmentNumber = ({
     allBooking,
@@ -12,13 +13,13 @@ const CustomerAppointmentNumber = ({
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.headerText}>Appointments</Text>
+                <Text style={styles.headerText}>{translate("Appointments")}</Text>
             </View>
             <View style={styles.content}>
-                <ItemAppointmentNumber title="All bookings" number={allBooking} />
-                <ItemAppointmentNumber title="Upcoming" number={upcomming} />
-                <ItemAppointmentNumber title="Paid" number={completed} />
-                <ItemAppointmentNumber title="Cancelled" number={cancelled} />
+                <ItemAppointmentNumber title={translate("All bookings")} number={allBooking} />
+                <ItemAppointmentNumber title={translate("Upcoming")} number={upcomming} />
+                <ItemAppointmentNumber title={translate("Paid")} number={completed} />
+                <ItemAppointmentNumber title={translate("Cancelled")} number={cancelled} />
             </View>
         </View>
     );

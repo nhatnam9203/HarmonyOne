@@ -7,9 +7,10 @@ import { fonts, images } from '@shared/themes';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { isEmpty } from "lodash";
 import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 
 const options = {
-  title: "Select Image",
+  title: translate("Select Image"),
   customButtons: [],
   storageOptions: {
     skipBackup: true,
@@ -18,8 +19,8 @@ const options = {
 };
 
 const statusData = [
-  { label: "Active", value: "0" },
-  { label: "Inactive", value: "1" },
+  { label: translate("Active"), value: "0" },
+  { label: translate("Inactive"), value: "1" },
 ];
 
 export const Layout = ({
@@ -39,7 +40,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={isEdit ? t('Edit extra') : t('New extra')}
+        pageTitle={isEdit ? translate('Edit extra') : translate('New extra')}
         isRight={true}
         isLeft={false}
         isScrollLayout={false}
@@ -54,7 +55,7 @@ export const Layout = ({
       >
         <KeyboardAwareScrollView style={styles.content}>
           <CustomInput
-            label='Extra name'
+            label={translate('Extra name')}
             isRequired
             error={errors?.name}
             renderInput={() =>
@@ -68,7 +69,7 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Description'
+            label={translate('Description')}
             renderInput={() =>
               <InputText
                 form={form}
@@ -80,10 +81,10 @@ export const Layout = ({
             }
           />
 
-          <Text style={styles.titleDuration}> Duration </Text>
+          <Text style={styles.titleDuration}> {translate("Duration")} </Text>
           <View style={styles.durationRow}>
             <CustomInput
-              label='Minutes'
+              label={translate('Minutes')}
               isRequired
               error={errors?.duration}
               labelStyle={styles.labelDuration}
@@ -95,14 +96,14 @@ export const Layout = ({
                   placeholder="0"
                   options={{ mask: "9999" }}
                   error={errors?.duration}
-                  renderRight={() => <Text style={styles.duration}>min</Text>}
+                  renderRight={() => <Text style={styles.duration}>{translate("min")}</Text>}
                 />
               }
             />
           </View>
 
           <CustomInput
-            label='Price'
+            label={translate('Price')}
             isRequired
             error={errors?.price}
             renderInput={() =>
@@ -122,7 +123,7 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Surcharged'
+            label={translate('Surcharged')}
             isRequired
             error={errors?.supplyFee}
             renderInput={() =>
@@ -142,7 +143,7 @@ export const Layout = ({
           />
 
           <Text style={styles.titleDuration}>
-            Image
+            {translate("Image")}
           </Text>
           <ButtonUpload
             onResponseImagePicker={onUploadImage}
@@ -150,7 +151,7 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Status'
+            label={translate('Status')}
             isRequired
             error={errors?.status}
             renderInput={() =>
@@ -159,7 +160,7 @@ export const Layout = ({
                 form={form}
                 name="status"
                 error={errors?.status}
-                title="Status"
+                title={translate("Status")}
                 items={statusData}
                 defaultValue={'0'}
               />
@@ -169,7 +170,7 @@ export const Layout = ({
       </SingleScreenLayout>
       <View style={styles.bottom}>
         <Button
-          label="Save"
+          label={translate("txtSave")}
           onPress={form.handleSubmit(onSubmit)}
           highlight={true}
           disabled={!isEmpty(errors)}

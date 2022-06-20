@@ -1,8 +1,9 @@
 import React from 'react'
 import { View, StyleSheet, Image, TouchableOpacity, Animated, Text } from 'react-native'
-import { images, fonts } from "@shared/themes"
+import { images, fonts } from "@shared/themes";
+import { translate } from "@localize";
 
-export const GroupButtonAdd = ({ onPressAdd = () => { }, newCategory, newService , titleButton2 = "New Service" }) => {
+export const GroupButtonAdd = ({ onPressAdd = () => { }, newCategory, newService , titleButton2 = translate("New Service") }) => {
 
     const animatedStatus = React.useRef(new Animated.Value(0)).current;
     const ImageAnimated = Animated.createAnimatedComponent(Image);
@@ -64,7 +65,7 @@ export const GroupButtonAdd = ({ onPressAdd = () => { }, newCategory, newService
                         { transform: [{ translateY: translateY2 }, { scale }] }
                     ]}
                 >
-                    <Text fontFamily='medium' style={styles.txtAdd}>New Category</Text>
+                    <Text fontFamily='medium' style={styles.txtAdd}>{translate("New Category")}</Text>
                 </ButtonAnimated>
 
                 <ButtonAnimated

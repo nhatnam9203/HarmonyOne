@@ -564,24 +564,50 @@ export const translateManual = (language, value) => {
         break;
 
       case "paid":
+      case "PAID":
         translated = "đã trả tiền";
         break;
 
       case "void":
+      case "VOID":
         translated = "vô hiệu";
         break;
 
       case "refund":
+      case "REFUND":
         translated = "đã hoàn tiền";
         break;
 
       case "cancel":
+      case "CANCEL":
         translated = "huỷ";
         break;
 
       case "transaction fail":
+      case "TRANSACTION FAIL":
         translated = "giao dịch lỗi";
         break;
+
+      case "check-in":
+      case "CHECK-IN":
+        translated = "Đã tới tiệm";
+        break;
+
+      case "unconfirm":
+      case "UNCONFIRM":
+        translated = "Chưa xác nhận";
+        break;
+
+      case "confirm":
+      case "CONFIRM":
+        translated = "Đẵ xác nhận";
+        break;
+
+        case "waiting":
+          case "WAITING":
+            translated = "Đang đợi";
+            break;
+
 
       default:
         break;

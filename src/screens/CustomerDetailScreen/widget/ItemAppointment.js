@@ -2,8 +2,11 @@ import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { fonts, colors } from "@shared/themes";
 import { dateToFormat, convertStatus, convertColorByStatus } from "@shared/utils";
+import { translate } from "@localize";
+import { translateManual } from "@shared/utils";
 
-const ItemAppointment = ({ item, isPast }) => {
+const ItemAppointment = ({ item, isPast, language }) => {
+
     return (
         <View style={styles.item}>
             <View style={styles.itemLeft}>
@@ -20,9 +23,9 @@ const ItemAppointment = ({ item, isPast }) => {
                     </Text>
                 </View>
 
-                <View style={{ marginLeft: scaleWidth(16), width : scaleWidth(185) }}>
+                <View style={{ marginLeft: scaleWidth(16), width: scaleWidth(185) }}>
                     <Text style={[styles.fromTime, { color: colors.black, fontFamily: fonts.MEDIUM }]}>
-                        {dateToFormat(item.fromTime, "dddd - hh:mm A")}
+                        {`${translateManual(language,dateToFormat(item.fromTime, "dddd"))} - ${dateToFormat(item.fromTime, "hh:mm A")}`}
                     </Text>
 
                     <View style={styles.itemServices}>
@@ -46,7 +49,7 @@ const ItemAppointment = ({ item, isPast }) => {
 
             <View style={{ alignItems: 'flex-end' }}>
                 <Text style={styles.status(item?.status)}>
-                    {convertStatus[item?.status]}
+                    {translateManual(language, convertStatus[item?.status])}
                 </Text>
                 <Text style={styles.total(item?.status)}>
                     $ {item?.total}
@@ -88,7 +91,7 @@ const styles = StyleSheet.create({
         return {
             color: convertColorByStatus(status),
             fontFamily: fonts.REGULAR,
-            fontSize: scaleFont(16),
+            fontSize: scaleFont(13),
         }
     },
     total: status => {

@@ -7,6 +7,7 @@ import { InputDate } from "./InputDate"
 import { fonts } from '@shared/themes';
 import { headerPhoneGroup, genders, customerGroup } from "@shared/utils"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { translate } from "@localize";
 // import { InputState } from "./InputState";
 
 
@@ -28,37 +29,37 @@ export const Layout = ({
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={isEdit ? t('Edit customer') : t('New customer')}
+                pageTitle={isEdit ? translate('Edit customer') : translate('New customer')}
                 isRight={false}
                 isScrollLayout={false}
             >
                 <KeyboardAwareScrollView style={styles.content}>
                     <CustomInput
-                        label='First Name'
+                        label={translate('First Name')}
                         isRequired
                         error={errors?.firstName}
                         renderInput={() =>
                             <InputText
                                 form={form}
                                 name="firstName"
-                                placeholder="First Name"
+                                placeholder={translate("First Name")}
                                 error={errors?.firstName}
                             />}
                     />
                     <CustomInput
-                        label='Last Name'
+                        label={translate('Last Name')}
                         isRequired
                         error={errors?.lastName}
                         renderInput={() =>
                             <InputText
                                 form={form}
                                 name="lastName"
-                                placeholder="Last Name"
+                                placeholder={translate("Last Name")}
                                 error={errors?.lastName}
                             />}
                     />
                     <CustomInput
-                        label='Phone Number'
+                        label={translate('Phone Number')}
                         name="phone"
                         isRequired
                         error={errors?.phone}
@@ -86,7 +87,7 @@ export const Layout = ({
                         }
                     />
                     <CustomInput
-                        label='Customer Group'
+                        label={translate('Customer Group')}
                         renderInput={() =>
                             <DropdownMenu
                                 ref={inputCustomerGroupRef}
@@ -99,19 +100,19 @@ export const Layout = ({
                         }
                     />
                     <CustomInput
-                        label='Contact Email'
+                        label={translate('Contact Email')}
                         error={errors?.email}
                         renderInput={() =>
                             <InputText
                                 form={form}
                                 name="email"
-                                placeholder="Email address"
+                                placeholder={translate('Contact Email')}
                                 error={errors?.email}
                             />
                         }
                     />
                     <CustomInput
-                        label='Gender'
+                        label={translate('Gender')}
                         renderInput={() =>
                             <DropdownMenu
                                 ref={inputGenderRef}
@@ -124,29 +125,29 @@ export const Layout = ({
                         }
                     />
                     <CustomInput
-                        label='Birthday'
+                        label={translate('Birthday')}
                         renderInput={() => <InputDate ref={inputDateRef} />}
                     />
                     <CustomInput
-                        label='Address'
+                        label={translate('Address')}
                         renderInput={() =>
                             <View>
                                 <InputText
                                     form={form}
                                     name="street"
-                                    placeholder="Street"
+                                    placeholder={translate("Street")}
                                 />
                                 <View style={{ flexDirection: "row", justifyContent: 'space-between', marginVertical: scaleHeight(15) }}>
                                     <InputText
                                         form={form}
                                         name="city"
-                                        placeholder="City"
+                                        placeholder={translate("City")}
                                         style={{ width: scaleWidth(165) }}
                                     />
                                     <InputText
                                         form={form}
                                         name="zip"
-                                        placeholder="Zip"
+                                        placeholder={translate("Zip")}
                                         options={{
                                             mask: "99999999999"
                                         }}
@@ -157,24 +158,24 @@ export const Layout = ({
                                     <InputState
                                         form={form}
                                         name="state"
-                                        placeholder="State"
+                                        placeholder={translate("State")}
                                         renderRight={()=>null}
                                     />
                             </View>
                         }
                     />
                     <CustomInput
-                        label='Referrer By'
+                        label={translate('Referrer By')}
                         renderInput={() =>
                             <InputText
                                 form={form}
                                 name="referrerBy"
-                                placeholder="Referrer by"
+                                placeholder={translate("Referrer By")}
                             />
                         }
                     />
                     <CustomInput
-                        label='Referrer Phone Number'
+                        label={translate('Referrer Phone Number')}
                         renderInput={() =>
                             <View style={styles.row}>
                                 <DropdownMenu
@@ -198,7 +199,7 @@ export const Layout = ({
                         }
                     />
                     <CustomInput
-                        label='Note'
+                        label={translate('Note')}
                         renderInput={() =>
                             <InputText
                                 style={{ height: scaleHeight(69), alignItems: "flex-start" }}
@@ -214,7 +215,7 @@ export const Layout = ({
                 </KeyboardAwareScrollView>
                 <View style={styles.bottom}>
                     <Button
-                        label="Save"
+                        label={translate("txtSave")}
                         onPress={form.handleSubmit(onSubmit)}
                         highlight={true}
                         width={'100%'}

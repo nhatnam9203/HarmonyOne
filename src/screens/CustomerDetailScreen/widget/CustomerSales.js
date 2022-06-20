@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { fonts, colors } from "@shared/themes";
 import { dateToFormat } from '@shared/utils';
+import { translate } from "@localize";
 
 const CustomerSales = ({
     totalSales,
@@ -11,16 +12,16 @@ const CustomerSales = ({
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.headerText}>Sales</Text>
+                <Text style={styles.headerText}>{translate("Sales")}</Text>
             </View>
             <View style={styles.content}>
                 <View style={[styles.contentItem, { borderRightWidth: 1, borderRightColor: "#dddddd" }]}>
                     <Text style={styles.price}>{`$ ${totalSales}`}</Text>
-                    <Text style={styles.totalSales}>Total sales</Text>
+                    <Text style={styles.totalSales}>{translate("Total sales")}</Text>
                 </View>
                 <View style={styles.contentItem}>
                     <Text style={styles.price}>{`$ ${lastVisitSale}`}</Text>
-                    <Text style={styles.totalSales}>Last visit sales</Text>
+                    <Text style={styles.totalSales}>{translate("Last visit sales")}</Text>
                     <Text style={[styles.totalSales, { fontFamily: fonts.LIGHT }]}>
                         { lastVisitDate ? `${dateToFormat(lastVisitDate,"MM/DD/YYYY")}` : ""}
                     </Text>
