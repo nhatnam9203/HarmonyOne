@@ -18,6 +18,8 @@ import ViewShot from "react-native-view-shot";
 import moment from "moment";
 import _ from "lodash";
 import Barcode from "@kichiyaki/react-native-barcode-generator";
+import { translate } from "@localize";
+import { translateManual } from "@shared/utils";
 
 const switchMethodText = (method) => {
 
@@ -51,7 +53,8 @@ export const Layout = ({
   shareInvoice,
   printInvoice,
   cancelInvoicePrint,
-  isDisabledButtonRefund
+  isDisabledButtonRefund,
+  language
 }) => {
 
   const [t] = useTranslation();
@@ -69,7 +72,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Invoice details')}
+        pageTitle={translate('Invoice details')}
         isRight={true}
         isLeft={true}
         isScrollLayout={false}
@@ -101,19 +104,19 @@ export const Layout = ({
             <View style={[styles.row]}>
               <View style={styles.circleStatus(invoiceDetail?.status)} />
               <Text style={styles.txtStatus(invoiceDetail?.status)}>
-                {invoiceDetail?.status}
+                {translateManual(language,invoiceDetail?.status)}
               </Text>
             </View>
 
             <View style={[styles.row]}>
-              <Text style={[styles.text, { width: scaleWidth(80) }]}>Date/time:</Text>
+              <Text style={[styles.text, { width: scaleWidth(80) }]}>{translate('Date/time')}:</Text>
               <Text style={[styles.text, { marginLeft: scaleWidth(16) }]}>
                 {moment(invoiceDetail?.createdDate).format("MMM DD YYYY hh:mm A")}
               </Text>
             </View>
 
             <View style={[styles.row]}>
-              <Text style={[styles.text, { width: scaleWidth(80) }]}>Staff</Text>
+              <Text style={[styles.text, { width: scaleWidth(80) }]}>{translate('txtStaff')}</Text>
               <Text style={[styles.text, { marginLeft: scaleWidth(16) }]}>
                 {invoiceDetail?.createdBy}
               </Text>
@@ -130,15 +133,15 @@ export const Layout = ({
 
             <View style={[styles.row]}>
               <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(150) }]}>
-                Description
+                {translate('Description')}
               </Text>
 
               <Text style={[styles.text, { fontFamily: fonts.MEDIUM, width: scaleWidth(105) }]}>
-                Staff
+                {translate('txtStaff')}
               </Text>
 
               <Text style={[styles.text, { fontFamily: fonts.BOLD, width: scaleWidth(74), textAlign: "right" }]}>
-                Total
+                {translate('txtTotal')}
               </Text>
             </View>
             <View style={[styles.line, { marginTop: scaleHeight(12) }]} />
@@ -173,7 +176,7 @@ export const Layout = ({
 
             <View style={[styles.row, { justifyContent: "space-between" }]}>
               <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
-                Subtotal
+                {translate('Subtotal')}
               </Text>
               <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                 $ {invoiceDetail?.subTotal}
@@ -188,7 +191,7 @@ export const Layout = ({
                <>
                   <View style={[styles.row, { justifyContent: "space-between" }]}>
                     <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
-                      Tax
+                      {translate('txtTax')}
                     </Text>
                     <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                     $ {invoiceDetail?.tax}
@@ -196,7 +199,7 @@ export const Layout = ({
                   </View>
                   <View style={[styles.row, { justifyContent: "space-between" }]}>
                     <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
-                      {` - Product Tax: ${invoiceDetail?.taxProductPercent}%`}
+                      {` - ${translate('Product')} ${translate('Tax')}: ${invoiceDetail?.taxProductPercent}%`}
                     </Text>
                     <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                       $ {invoiceDetail?.taxProductAmount}
@@ -205,7 +208,7 @@ export const Layout = ({
                   </View>
                   <View style={[styles.row, { justifyContent: "space-between" }]}>
                     <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
-                      {` - Service Tax: ${invoiceDetail?.taxServicePercent}%`}
+                      {` - ${translate('Service')} ${translate('Tax')}: ${invoiceDetail?.taxServicePercent}%`}
                     </Text>
                     <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                       $ {invoiceDetail?.taxServiceAmount}
@@ -231,7 +234,7 @@ export const Layout = ({
 
             <View style={[styles.row, { justifyContent: "space-between" }]}>
               <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
-                Tip
+                {translate('Tip')}
               </Text>
               <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                 $ {invoiceDetail?.tipAmount}
@@ -240,7 +243,7 @@ export const Layout = ({
 
             <View style={[styles.row, { justifyContent: "space-between" }]}>
               <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
-                Discount
+              {translate('Discount')}
               </Text>
               <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                 $ {invoiceDetail?.discount}
@@ -250,7 +253,7 @@ export const Layout = ({
               invoiceDetail?.checkoutPaymentFeeSum != 0 &&
               <View style={[styles.row, { justifyContent: "space-between" }]}>
                 <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
-                  Non-Cash Adjustment
+                  {translate('Non-Cash Adjustment')}
                 </Text>
                 <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                   $ {invoiceDetail?.checkoutPaymentFeeSum}
@@ -262,7 +265,7 @@ export const Layout = ({
               
               <View style={[styles.row, { justifyContent: "space-between" }]}>
                 <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
-                  Cash Discount
+                  {`${translate("Cash")} ${translate("Discount")}`}
                 </Text>
                 <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
                   $ {invoiceDetail?.checkoutPaymentCashDiscountSum}
@@ -272,7 +275,7 @@ export const Layout = ({
             
             <View style={[styles.row, { justifyContent: "space-between" }]}>
               <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
-                Total
+                {translate('Total')}
               </Text>
               <Text style={[styles.text, { fontFamily: fonts.BOLD }]}>
                 $ {invoiceDetail?.total}
@@ -311,14 +314,14 @@ export const Layout = ({
                               <Text style={[styles.fontPrintStyle]}>
                                 {`    ${
                                   pay?.paymentInformation?.sn
-                                    ? `Terminal ID: ${pay?.paymentInformation?.sn}`
+                                    ? `${translate("Terminal ID")}: ${pay?.paymentInformation?.sn}`
                                     : ""
                                 }`}
                               </Text>
                               <Text style={[styles.fontPrintStyle]}>
                                 {`    ${
                                   pay?.paymentInformation?.refNum
-                                    ? `Transaction #: ${pay?.paymentInformation?.refNum}`
+                                    ? `${translate("Transaction")} #: ${pay?.paymentInformation?.refNum}`
                                     : ""
                                 }`}
                               </Text>
@@ -326,7 +329,7 @@ export const Layout = ({
                               {!!_.get(pay, "paymentInformation.signData") && (
                                 <View style={styles.rowSignature}>
                                   <Text style={[styles.fontPrintStyle]}>
-                                    {"    Signature: "}
+                                    {`    ${translate('Signature')}: `}
                                   </Text>
                                   <Image
                                     style={styles.signImage}
@@ -382,8 +385,8 @@ export const Layout = ({
       />
       <DialogConfirm
         ref={popupConfirmPrintRef}
-        title={t('Confirmation')}
-        titleContent={t("Do you want to print receipt?")}
+        title={translate('Confirmation')}
+        titleContent={translate("Do you want to print receipt?")}
         onConfirmYes={printInvoice}
         onConfirmNo={() => NavigationService.back()}
         isCloseButton={false}
@@ -393,7 +396,7 @@ export const Layout = ({
         isVisibleButton &&
         <View style={styles.bottom}>
           <Button
-            label={invoiceDetail?.status == "paid" ? "Refund" : "Void"}
+            label={invoiceDetail?.status == "paid" ? translate("Refund") : translate("Void")}
             onPress={voidRefundInvoice}
             highlight={true}
             width={'100%'}

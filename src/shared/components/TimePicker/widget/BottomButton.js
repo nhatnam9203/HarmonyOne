@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { fonts, colors } from "@shared/themes";
-import styles from '../styles'
+import styles from '../styles';
+import { translate } from "@localize";
 
 const BottomButton = ({ cancel, onClickOK }) => {
     return (
@@ -11,7 +12,7 @@ const BottomButton = ({ cancel, onClickOK }) => {
                 style={[styles.btnBottom, { borderRightWidth: 1, borderRightColor: '#eeeeee' }]}
             >
                 <Text style={styles.txtBottom}>
-                    Cancel
+                    {translate('Cancel')}
                 </Text>
             </TouchableOpacity>
             
@@ -23,7 +24,7 @@ const BottomButton = ({ cancel, onClickOK }) => {
                     fontFamily='bold'
                     style={[styles.txtBottom, { color: '#1366AE', fontFamily : fonts.BOLD }]}
                 >
-                    Apply
+                    {translate('Apply')}
                 </Text>
             </TouchableOpacity>
         </View>

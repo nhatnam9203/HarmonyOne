@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, Text, ScrollView } from 'react-native';
-import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
 import { Button, WorkingTime } from "@shared/components";
 import { images } from "@shared/themes/resources";
+import { translate } from "@localize";
 
 export const Layout = ({
     merchantDetail,
@@ -12,13 +12,11 @@ export const Layout = ({
     onSave,
 }) => {
 
-    const [t] = useTranslation();
-
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={t("Opening Hour")}
-                isLeft={true} 
+                pageTitle={translate("Opening hour")}
+                isLeft={true}
                 isRight={false}
                 isScrollLayout={false}
                 containerStyle={{ paddingVertical: 0 }}
@@ -33,7 +31,7 @@ export const Layout = ({
                     <Button
                         onPress={onSave}
                         width='100%'
-                        label={t('Save')}
+                        label={translate('txtSave')}
                         highlight={true}
                     />
                 </View>

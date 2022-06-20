@@ -9,6 +9,7 @@ import { CustomTable } from "@shared/components";
 import { guid } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 import moment from "moment";
+import { translate } from "@localize";
 
 export const TableSalesByStaff = ({
     data = [],
@@ -22,11 +23,11 @@ export const TableSalesByStaff = ({
         <ScrollView bounces={false} showsHorizontalScrollIndicator={false} horizontal={true}>
             <View style={{ paddingHorizontal: scaleWidth(16) }} >
                 <View style={styles.tableHead}>
-                    <Text style={[styles.txtTitle, { width: scaleWidth(120) }]}>Staff name</Text>
-                    <Text style={[styles.txtTitle, { width: scaleWidth(100) }]}>Sales</Text>
-                    <Text style={[styles.txtTitle, { width: scaleWidth(70) }]}>Tax</Text>
-                    <Text style={[styles.txtTitle, { width: scaleWidth(70) }]}>Tip</Text>
-                    <Text style={[styles.txtTitle, { width: scaleWidth(83), textAlign: "right" }]}>Total sales</Text>
+                    <Text style={[styles.txtTitle, { width: scaleWidth(120) }]}>{translate("Staff name")}</Text>
+                    <Text style={[styles.txtTitle, { width: scaleWidth(100) }]}>{translate("Sales")}</Text>
+                    <Text style={[styles.txtTitle, { width: scaleWidth(70) }]}>{translate("Tax")}</Text>
+                    <Text style={[styles.txtTitle, { width: scaleWidth(70) }]}>{translate("Tip")}</Text>
+                    <Text style={[styles.txtTitle, { width: scaleWidth(83), textAlign: "right", width: scaleWidth(120) }]}>{translate("Total sales")}</Text>
                 </View>
                 {
                     data.map((obj) => (
@@ -35,7 +36,7 @@ export const TableSalesByStaff = ({
                             <Text style={[styles.txtTitle, { width: scaleWidth(100), fontFamily: fonts.LIGHT }]}>$ {obj.sales}</Text>
                             <Text style={[styles.txtTitle, { width: scaleWidth(70), fontFamily: fonts.LIGHT }]}>$ {obj.tax}</Text>
                             <Text style={[styles.txtTitle, { width: scaleWidth(70), fontFamily: fonts.LIGHT }]}>$ {obj.tip}</Text>
-                            <Text style={[styles.txtTitle, { width: scaleWidth(83), textAlign: "right" }]}>$ {obj.total}</Text>
+                            <Text style={[styles.txtTitle, { width: scaleWidth(83), textAlign: "right", width: scaleWidth(120) }]}>$ {obj.total}</Text>
                         </TouchableOpacity>
                     ))
                 }

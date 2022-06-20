@@ -7,6 +7,7 @@ import { Button, IconButton } from "@shared/components";
 import { ProgressBar, Colors } from 'react-native-paper';
 import { useSelector } from "react-redux";
 import Modal from "react-native-modal";
+import { translate } from "@localize";
 
 export const DialogProgress = React.forwardRef(
     ({
@@ -63,10 +64,10 @@ export const DialogProgress = React.forwardRef(
                     {
                         progress == 100 ?
                             <Text style={[styles.txtTitle, { color: "#4AD100" }]}>
-                                {'Batch Settlement SuccessFull'}
+                                {translate('Batch Settlement SuccessFull')}
                             </Text> :
                             <Text style={styles.txtTitle}>
-                                {'Batch Settlement in progress'}
+                                {translate('Batch Settlement in progress')}
                             </Text>
                     }
 
@@ -89,7 +90,7 @@ export const DialogProgress = React.forwardRef(
                             highlight={false}
                             height={scaleHeight(48)}
                             width={scaleWidth(169)}
-                            label="View batch"
+                            label={translate("View batch")}
                             styleButton={{
                                 borderWidth: 0,
                                 backgroundColor: "transparent"
@@ -101,7 +102,7 @@ export const DialogProgress = React.forwardRef(
                             highlight={false}
                             height={scaleHeight(48)}
                             width={scaleWidth(169)}
-                            label="Finish"
+                            label={translate("Finish")}
                             styleButton={{
                                 borderWidth: 0,
                                 backgroundColor: "transparent"

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { fonts, colors } from "@shared/themes";
+import { translate } from "@localize";
 
 export const IncomeByPaymentMethod = ({
     settlementWaiting
@@ -9,17 +10,17 @@ export const IncomeByPaymentMethod = ({
     return (
         <>
             <View style={styles.rowIncone}>
-                <Text style={[styles.txtIncome, { fontFamily: fonts.MEDIUM }]}>Payment</Text>
-                <Text style={[styles.txtIncome, { fontFamily: fonts.MEDIUM }]}>Amount</Text>
+                <Text style={[styles.txtIncome, { fontFamily: fonts.MEDIUM }]}>{translate("Payment")}</Text>
+                <Text style={[styles.txtIncome, { fontFamily: fonts.MEDIUM }]}>{translate("Amount")}</Text>
             </View>
 
             <View style={styles.rowIncone}>
-                <Text style={[styles.txtIncome, { fontFamily: fonts.REGULAR }]}>Harmony account</Text>
+                <Text style={[styles.txtIncome, { fontFamily: fonts.REGULAR }]}>Harmony {translate("account")}</Text>
                 <Text style={[styles.txtIncome, { fontFamily: fonts.MEDIUM }]}>$ {settlementWaiting?.paymentByHarmony || "0.00"}</Text>
             </View>
 
             <View style={styles.rowIncone}>
-                <Text style={[styles.txtIncome, { fontFamily: fonts.REGULAR }]}>Credit Card</Text>
+                <Text style={[styles.txtIncome, { fontFamily: fonts.REGULAR }]}>{translate("Credit Card")}</Text>
                 <Text style={[styles.txtIncome, { fontFamily: fonts.MEDIUM }]}>$ {settlementWaiting?.paymentByCreditCard || "0.00"}</Text>
             </View>
 
@@ -37,12 +38,12 @@ export const IncomeByPaymentMethod = ({
             </View>
 
             <View style={styles.rowIncone}>
-                <Text style={[styles.txtIncome, { fontFamily: fonts.REGULAR }]}>Giftcard</Text>
+                <Text style={[styles.txtIncome, { fontFamily: fonts.REGULAR }]}>{translate("Gift card")}</Text>
                 <Text style={[styles.txtIncome, { fontFamily: fonts.MEDIUM }]}>$ {settlementWaiting?.paymentByGiftcard || "0.00"}</Text>
             </View>
 
             <View style={styles.rowIncone}>
-                <Text style={[styles.txtIncome, { fontFamily: fonts.REGULAR }]}>Other</Text>
+                <Text style={[styles.txtIncome, { fontFamily: fonts.REGULAR }]}>{translate("Other")}</Text>
                 <View style={{ flexDirection: "row" }}>
                     {
                         settlementWaiting?.otherPaymentStatistic !== settlementWaiting?.otherPayment &&
@@ -55,13 +56,13 @@ export const IncomeByPaymentMethod = ({
             </View>
 
             <View style={styles.rowIncone}>
-                <Text style={[styles.txtIncome, { fontFamily: fonts.REGULAR }]}>Discount</Text>
+                <Text style={[styles.txtIncome, { fontFamily: fonts.REGULAR }]}>{translate("Discount")}</Text>
                 <Text style={[styles.txtIncome, { fontFamily: fonts.MEDIUM }]}>$ {settlementWaiting?.discount || "0.00"}</Text>
             </View>
 
             <View style={[styles.rowBetween, { backgroundColor: "#DCF7FF", alignItems: 'center' }]}>
                 <Text style={[styles.title, { fontFamily: fonts.MEDIUM }]}>
-                    Total
+                    {translate("Total")}
                 </Text>
                 <Text style={[styles.title, { fontFamily: fonts.MEDIUM, padding: scaleWidth(16), color: "#4CD964" }]}>
                     $ {settlementWaiting?.total}

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { fonts, colors } from "@shared/themes";
 import { Slider } from "./widget";
+import { translate } from "@localize";
 
 const MarketingMessageNumber = ({
     form,
@@ -18,7 +19,7 @@ const MarketingMessageNumber = ({
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Number of message</Text>
+            <Text style={styles.title}>{translate('Number of message')}</Text>
             <View style={styles.row}>
                 <Text style={styles.txtItem}>0</Text>
                 <Text style={styles.txtItem}>{smsMaxCustomer}</Text>

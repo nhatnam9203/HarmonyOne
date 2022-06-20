@@ -100,7 +100,7 @@ export const Layout = ({
               <View style={styles.rowLanguage}>
                 <Image
                   style={styles.flag}
-                  source={language == "en" ? ic_english : ic_vietnam}
+                  source={language !== "vi" ? ic_english : ic_vietnam}
                 />
                 <Image
                   style={styles.iconStyle}

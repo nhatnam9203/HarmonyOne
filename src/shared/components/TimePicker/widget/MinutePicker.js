@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import { scaleWidth, scaleHeight } from '@utils'
-import styles from '../styles'
+import styles from '../styles';
+import { translate } from "@localize";
 
 const minutes = ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'];
 
@@ -10,7 +11,7 @@ const MinutePicker = ({ minute, selectMinute, minutesPicker }) => {
     return (
         <View style={[styles.hourPickerContainer, { borderRightWidth: 0, marginLeft: scaleWidth(3) }]}>
             <Text fontFamily='medium' style={styles.txtSelect}>
-                Select Minutes
+                {translate('Select Minutes')}
             </Text>
             <View style={[styles.row, { flexWrap: 'wrap' }]}>
                 {

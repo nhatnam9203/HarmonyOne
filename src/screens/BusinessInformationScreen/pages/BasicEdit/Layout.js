@@ -7,9 +7,9 @@ import {
 } from '@shared/components';
 import { SingleScreenLayout } from '@shared/layouts';
 import { headerPhoneGroup } from '@shared/utils';
-import { useTranslation } from 'react-i18next';
 import { StyleSheet, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { translate } from "@localize";
 
 export const Layout = ({
   merchantDetail,
@@ -19,12 +19,11 @@ export const Layout = ({
   errors,
   checkWebsiteValid,
 }) => {
-  const [t] = useTranslation();
 
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Basic Informations')}
+        pageTitle={translate('Basic Informations')}
         isLeft={true}
         isRight={false}
         isScrollLayout={false}
@@ -32,13 +31,13 @@ export const Layout = ({
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <KeyboardAwareScrollView style={styles.content}>
             <CustomInput
-              label="Business Name"
+              label={translate("Business Name")}
               isRequired
               error={errors?.businessName}
               renderInput={() => <InputText form={form} name="businessName" error={errors?.businessName} placeholder="Business Name" />}
             />
             <CustomInput
-              label="Phone Number"
+              label={translate("Phone Number")}
               renderInput={() => (
                 <View style={styles.row}>
                   <DropdownMenu
@@ -62,12 +61,12 @@ export const Layout = ({
               )}
             />
             <CustomInput
-              label="Contact Email"
+              label={translate("Contact Email")}
               error={errors?.email}
               renderInput={() => <InputText form={form} name="email" error={errors?.email} placeholder="example@gmail.com" />}
             />
             <CustomInput
-              label="Website"
+              label={translate("Website")}
               renderInput={() => <InputText form={form} name="webLink" onBlur={checkWebsiteValid} placeholder="https://www.your-site.com" />}
             />
           </KeyboardAwareScrollView>
@@ -77,7 +76,7 @@ export const Layout = ({
             onPress={form.handleSubmit(onSubmit)}
             height={scaleHeight(48)}
             width="100%"
-            label={t('Save')}
+            label={translate('txtSave')}
             highlight={true}
             disabled={errors?.categoryName}
           />

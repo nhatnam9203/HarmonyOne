@@ -11,6 +11,7 @@ import { headerPhoneGroup } from '@shared/utils';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { translate } from "@localize";
 
 export const Layout = ({
     merchantDetail,
@@ -25,28 +26,28 @@ export const Layout = ({
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={t('Location')}
+                pageTitle={translate('Location')}
                 isLeft={true}
                 isRight={false}
                 isScrollLayout={false}
                 containerStyle={{ paddingVertical: 0, paddingTop: scaleHeight(8) }}>
                 <KeyboardAwareScrollView style={styles.content}>
                     <CustomInput
-                        label="Address"
+                        label={translate("Address")}
                         isRequired
                         error={errors?.address}
                         renderInput={() => <InputText form={form} name="address" error={errors?.address} />}
                     />
 
                     <CustomInput
-                        label="City"
+                        label={translate("City")}
                         isRequired
                         error={errors?.city}
                         renderInput={() => <InputText form={form} name="city" error={errors?.city} />}
                     />
 
                     <CustomInput
-                        label='State'
+                        label={translate('State')}
                         renderInput={() =>
                             <InputSelect
                                 ref={stateRef}
@@ -60,19 +61,19 @@ export const Layout = ({
                     />
 
                     <CustomInput
-                        label="Zip code"
+                        label={translate("Zip code")}
                         isRequired
                         error={errors?.zip}
                         renderInput={() => <InputText form={form} name="zip" error={errors?.zip} />}
                     />
                     <CustomInput
-                        label="Latitude"
+                        label={translate("Latitude")}
                         isRequired
                         error={errors?.latitude}
                         renderInput={() => <InputText form={form} name="latitude" keyboardType={'numeric'} error={errors?.latitude} />}
                     />
                     <CustomInput
-                        label="Longitude"
+                        label={translate("Longitude")}
                         isRequired
                         error={errors?.longitude}
                         renderInput={() => <InputText form={form} name="longitude" keyboardType={'numeric'} error={errors?.longitude} />}
@@ -84,7 +85,7 @@ export const Layout = ({
                         onPress={form.handleSubmit(onSubmit)}
                         height={scaleHeight(48)}
                         width="100%"
-                        label={t('Save')}
+                        label={translate('txtSave')}
                         highlight={true}
                         disabled={errors?.categoryName}
                     />

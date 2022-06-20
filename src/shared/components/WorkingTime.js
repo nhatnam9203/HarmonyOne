@@ -5,13 +5,17 @@ import { fonts, images, colors } from '@shared/themes';
 import { isEmpty } from "lodash";
 import { guid, workingTimesData } from "@shared/utils";
 import moment from 'moment';
-
+import { translate } from "@localize";
+import { translateManual } from "@shared/utils";
+import { useSelector } from "react-redux";
 
 export const WorkingTime = React.forwardRef(({ renderTitle = null }, ref) => {
 
     const [data, setData] = React.useState(workingTimesData);
     const [elRefs, setElRefs] = React.useState([]);
     const [isEdit, setIsEdit] = React.useState(false);
+
+    const language = useSelector(state=>state.dataLocal.language);
 
     React.useEffect(() => {
         setElRefs((elRefs) =>
@@ -53,7 +57,7 @@ export const WorkingTime = React.forwardRef(({ renderTitle = null }, ref) => {
                     {renderTitle ? renderTitle() : <View />}
                 </View>
                 <TouchableOpacity onPress={setAllChecked}>
-                    <Text style={styles.applyToAll}>Apply to all</Text>
+                    <Text style={styles.applyToAll}>{translate('Apply to all')}</Text>
                 </TouchableOpacity>
             </View>
 
@@ -65,6 +69,7 @@ export const WorkingTime = React.forwardRef(({ renderTitle = null }, ref) => {
                         index={index}
                         key={item[0]}
                         isEdit={isEdit}
+                        language={language}
                     />
                 ))
             }
@@ -73,7 +78,7 @@ export const WorkingTime = React.forwardRef(({ renderTitle = null }, ref) => {
 });
 
 
-const ItemInputTime = React.forwardRef(({ item, index, isEdit }, ref) => {
+const ItemInputTime = React.forwardRef(({ item, index, isEdit, language }, ref) => {
 
     const [isCheck, setChecked] = React.useState(true);
     const [fromTime, setFromTime] = React.useState(moment().format("hh:mm A"))
@@ -125,18 +130,19 @@ const ItemInputTime = React.forwardRef(({ item, index, isEdit }, ref) => {
                     style={{ width: scaleWidth(22), height: scaleWidth(22), resizeMode: 'cover', marginRight : scaleWidth(8) }}
                     resizeMode='cover'
                 />
-                <Text style={styles.txtDayName}>{(item[0].slice(0, 3))}</Text>
+                <Text style={styles.txtDayName}>{translateManual(language,item[0].slice(0, 3))}</Text>
             </TouchableOpacity>
             <InputSelectTime
                 time={fromTime}
                 apply={time => setFromTime(time)}
                 style={{ width: scaleWidth(120) }}
+                title={translate('Start time')}
             />
             <InputSelectTime
                 time={toTime}
                 apply={time => setToTime(time)}
                 style={{ width: scaleWidth(120) }}
-                title={'End time'}
+                title={translate('End time')}
             />
         </View>
     )
@@ -144,7 +150,7 @@ const ItemInputTime = React.forwardRef(({ item, index, isEdit }, ref) => {
 
 const styles = StyleSheet.create({
     txtDayName: {
-        fontSize: scaleFont(17),
+        fontSize: scaleFont(13),
         color: "#809DBD",
         fontFamily: fonts.MEDIUM,
         marginRight: scaleWidth(16)

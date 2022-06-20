@@ -4,6 +4,7 @@ import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { useWatch } from "react-hook-form";
 import { IconButton, CustomInput, InputText, InputSelect, InputDate } from "@shared/components";
+import { translate } from "@localize";
 
 const numberLength = () => {
     let ch = "";
@@ -27,7 +28,7 @@ const MarketingContent = ({
     return (
         <>
             <CustomInput
-                label='Content'
+                label={translate('Content')}
                 labelStyle={{ color: colors.greyish_brown_40 }}
                 style={{ flexDirection: 'row', justifyContent: 'space-between', width: scaleWidth(375 - 32), alignItems: 'center' }}
                 renderRight={() =>
@@ -36,7 +37,7 @@ const MarketingContent = ({
                         iconStyle={styles.iconRefresh}
                         style={{ marginTop: -10 }}
                         onPress={() => form.setValue("message", defaultMessage())}
-                        renderText={() => <Text style={styles.txtDefault}>Use default content</Text>
+                        renderText={() => <Text style={styles.txtDefault}>{translate('Use default content')}</Text>
                         }
                     />
                 }
@@ -45,14 +46,14 @@ const MarketingContent = ({
                         form={form}
                         name="message"
                         options={{ mask: numberLength() }}
-                        placeholder="Content"
+                        placeholder={translate("Content")}
                         multiline={true}
                         style={styles.inputContent}
                     />
                 }
             />
-            <Text style={styles.messageLimit}>Message length limit :
-                <Text style={{ fontFamily: fonts.MEDIUM }}>{1600 - (content?.toString()?.length || 0)} character</Text>
+            <Text style={styles.messageLimit}>{translate('Message length limit')}:
+                <Text style={{ fontFamily: fonts.MEDIUM }}>{1600 - (content?.toString()?.length || 0)} {translate('character')}</Text>
             </Text>
         </>
     );

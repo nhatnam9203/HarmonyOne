@@ -15,6 +15,7 @@ export const BasicInformation = ({
     businessName,
     phone,
     email,
+    translate
 }) => {
 
     const openLinkWebsite = () => {
@@ -25,18 +26,18 @@ export const BasicInformation = ({
 
     return (
         <View style={styles.container}>
-            <Title text="Basic Informations" onEdit={() => { NavigationService.navigate("BasicEdit") }} />
+            <Title text={translate("Basic Informations")} onEdit={() => { NavigationService.navigate("BasicEdit") }} />
 
             <CustomInput
-                label='Business Name'
-                style={{ marginTop: scaleHeight(8) }}
+                label={translate('Business Name')}
+                style={{ marginTop: scaleHeight(4) }}
                 renderInput={() =>
                     <Text style={styles.txtItem}>{businessName}</Text>
                 }
             />
             {
                 !isEmpty(phone) && <CustomInput
-                    label='Phone Number'
+                    label={translate('Phone Number')}
                     renderInput={() =>
                         <Text style={styles.txtItem}>{phone}</Text>
                     }
@@ -44,7 +45,7 @@ export const BasicInformation = ({
             }
             {
                 !isEmpty(email) && <CustomInput
-                    label='Contact Email'
+                    label={translate('Contact Email')}
                     renderInput={() =>
                         <Text style={styles.txtItem}>{email}</Text>
                     }
@@ -52,7 +53,7 @@ export const BasicInformation = ({
             }
             {
                 !isEmpty(webLink) && <CustomInput
-                    label='Website'
+                    label={translate('Website')}
                     renderInput={() =>
                         <TouchableOpacity onPress={openLinkWebsite}>
                             <Text style={[styles.txtItem, { color: "#19A9EC", marginBottom: scaleHeight(16), fontFamily: fonts.REGULAR, textDecorationLine: 'underline' }]}>
@@ -73,6 +74,6 @@ const styles = StyleSheet.create({
     txtItem: {
         fontSize: scaleFont(17),
         fontFamily: fonts.MEDIUM,
-        color: "#404040"
+        color: "#404040",
     }
 });

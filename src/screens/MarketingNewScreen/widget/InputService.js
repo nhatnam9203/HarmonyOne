@@ -11,6 +11,7 @@ import Collapsible from "react-native-collapsible";
 import Accordion from "react-native-collapsible/Accordion";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
+import { translate } from "@localize";
 
 
 const InputService = ({
@@ -25,7 +26,7 @@ const InputService = ({
         product: { products }
     } = useSelector(state => state);
 
-    const [condition, setCondition] = React.useState("No condition");
+    const [condition, setCondition] = React.useState(translate("No condition"));
     const [activeSections, setActiveSections] = React.useState([]);
     const [activeSectionsProduct, setActiveSectionsProduct] = React.useState([]);
 
@@ -408,7 +409,7 @@ const InputService = ({
                         <View style={styles.contentActionSheet}>
 
                             <SingleScreenLayout
-                                pageTitle={"Service / Product"}
+                                pageTitle={`${translate("Service")} / ${translate("Product")}`}
                                 isLeft={true}
                                 isRight={false}
                                 isScrollLayout={false}
@@ -416,7 +417,7 @@ const InputService = ({
                                 containerStyle={{ paddingVertical: 0, paddingTop: scaleHeight(20) }}
                             >
                                 <SearchInput
-                                    placeholder="Search by name"
+                                    placeholder={translate("Search by name")}
                                     value={valueSearch}
                                     onChangeText={(text) => { setValueSearch(text) }}
                                     removeText={() => { setValueSearch("") }}
@@ -424,7 +425,7 @@ const InputService = ({
 
                                 <ScrollView style={{ paddingTop: scaleHeight(16) }}>
                                     <View style={{ flexDirection: "row", alignItems: "center", paddingLeft: scaleWidth(16) }}>
-                                        <Text style={styles.txtSubTitle}>Service</Text>
+                                        <Text style={styles.txtSubTitle}>{translate("Service")}</Text>
                                     </View>
                                     <Accordion
                                         sections={getDataFilter().serviceList}
@@ -438,7 +439,7 @@ const InputService = ({
                                     />
 
                                     <View style={{ flexDirection: "row", alignItems: "center", marginTop: scaleHeight(16), paddingLeft: scaleWidth(16) }}>
-                                        <Text style={styles.txtSubTitle}>Product</Text>
+                                        <Text style={styles.txtSubTitle}>{translate("Product")}</Text>
                                     </View>
 
                                     {
@@ -455,7 +456,7 @@ const InputService = ({
                                             :
                                             <View style={{ alignItems: "center", justifyContent: "center", marginVertical: scaleHeight(20) }}>
                                                 <Image style={styles.imageStyle} source={images.EmptyList} resizeMode='contain' />
-                                                <Text style={styles.txtNoProduct}>No Products</Text>
+                                                <Text style={styles.txtNoProduct}>{translate("No Products")}</Text>
                                             </View>
                                     }
 

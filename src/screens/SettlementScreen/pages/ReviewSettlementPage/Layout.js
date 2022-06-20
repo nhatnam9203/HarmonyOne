@@ -10,6 +10,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { SingleScreenLayout } from '@shared/layouts';
 import { DialogProgress } from "./DialogProgress";
 import moment from "moment";
+import { translate } from "@localize";
 
 export const Layout = ({
   settlementWaiting,
@@ -28,19 +29,19 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Review settlement')}
+        pageTitle={translate('Review settlement')}
         isRight={false}
         isLeft={true}
         isScrollLayout={false}
       >
         <KeyboardAwareScrollView style={styles.content}>
 
-          <Text style={styles.bigTitle}>Actual amount</Text>
+          <Text style={styles.bigTitle}>{translate("Actual amount")}</Text>
           <IncomeByPaymentMethod settlementWaiting={settlementWaiting} />
 
           <View style={{ marginTop: scaleHeight(24) }} >
             <Text style={[styles.title, { fontFamily: fonts.MEDIUM, color: "#00408080" }]}>
-              Note
+              {translate("Note")}
             </Text>
 
             <View pointerEvents="none" style={styles.containerNote}>
@@ -54,11 +55,11 @@ export const Layout = ({
               />
             </View>
 
-            <Text style={[styles.bigTitle, { marginTop: scaleHeight(16) }]}>Open batch</Text>
+            <Text style={[styles.bigTitle, { marginTop: scaleHeight(16) }]}>{translate("Open batch")}</Text>
 
             <TouchableOpacity onPress={viewCreditTransactions} style={styles.wrapBatch}>
               <Text style={[styles.bigTitle, styles.txtCreditTrans]}>
-                Credit transactions:
+                {translate("Credit transactions")}:
               </Text>
               <Text style={[styles.bigTitle, { fontSize: scaleFont(15), marginBottom: 0 }]}>
                 {settlementWaiting?.paymentTransaction?.length || "0"}
@@ -74,7 +75,7 @@ export const Layout = ({
 
       <View style={styles.bottom}>
         <Button
-          label="Settle"
+          label={translate("Settle")}
           onPress={closeSettlement}
           highlight={true}
           width={'100%'}
@@ -92,9 +93,9 @@ export const Layout = ({
       <DialogConfirm
         ref={refDialogConfirm}
         isCloseButton={false}
-        title={t("Warning !")}
+        title={translate("Warning") + " !"}
         titleContent={
-          t("Unable to connect to payment terminal or not found any transaction on your payment terminal, Do you want to continue without payment terminal?")
+          translate("Unable to connect to payment terminal or not found any transaction on your payment terminal, Do you want to continue without payment terminal?")
         }
         onConfirmYes={onConfirmCloseoutWithoutPaymentTerminal}
         onModalHide={() => { }}

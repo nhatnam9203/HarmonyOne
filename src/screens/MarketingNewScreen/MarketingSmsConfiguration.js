@@ -10,6 +10,7 @@ import { RadioButton } from 'react-native-paper';
 import { uploadAvatarStaff, useAxiosMutation } from "@src/apis";
 import RadioButtonRN from 'radio-buttons-react-native';
 import Collapsible from "react-native-collapsible";
+import { translate } from "@localize";
 
 const dataRadioButton = [
     {
@@ -66,7 +67,7 @@ const MarketingSmsConfiguration = React.forwardRef(({
     return (
         <>
             <CustomInput
-                label='SMS/MMS configuration'
+                label={translate('SMS/MMS configuration')}
                 style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", width: "100%" }}
                 renderRight={() =>
                     <IconButton
@@ -92,14 +93,14 @@ const MarketingSmsConfiguration = React.forwardRef(({
 
             <Collapsible collapsed={smsType == "SMS"} duration={200}>
                 <Text style={[styles.txtItem, { color: colors.black }]}>
-                    Media
+                    {translate('Media')}
                 </Text>
                 <ButtonUpload
                     onResponseImagePicker={onUploadImage}
                     imageUrl={imageUrl}
                 />
                 <Text style={styles.messageLimit}>
-                    Image size less than <Text style={{ fontFamily: fonts.BOLD }}>5MB</Text>, support jpeg, png, gif.
+                    {translate('Image size less than')} <Text style={{ fontFamily: fonts.BOLD }}>5MB</Text>, {translate('support')} jpeg, png, gif.
                 </Text>
             </Collapsible>
         </>

@@ -330,7 +330,7 @@ export const getContentDate = (timeStart, timeEnd) => {
       text = "Last week";
     }
   }
-  return text;
+  return translate(text);
 };
 
 export const arrDateFilter = ["Today", "Yesterday", "This month", "Last month", "This week", "Last week"];

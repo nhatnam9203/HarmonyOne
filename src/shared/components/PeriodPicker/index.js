@@ -13,14 +13,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { useWatch } from "react-hook-form";
 import { getContentDate, arrDateFilter } from "@shared/utils";
 import moment from 'moment';
+import { translate } from "@localize";
 
 const dateRangeData = [
-  { label: "Today", value: "Today" },
-  { label: "Yesterday", value: "Yesterday" },
-  { label: "This week", value: "This week" },
-  { label: "Last week", value: "Last week" },
-  { label: "This month", value: "This month" },
-  { label: "Last month", value: "Last month" },
+  { label: translate("Today"), value: "Today" },
+  { label: translate("Yesterday"), value: "Yesterday" },
+  { label: translate("This week"), value: "This week" },
+  { label: translate("Last week"), value: "Last week" },
+  { label: translate("This month"), value: "This month" },
+  { label: translate("Last month"), value: "Last month" },
 ];
 
 
@@ -129,7 +130,7 @@ export const PeriodPicker = ({
     const isIncludes = arrDateFilter.includes(contentDate);
 
     if(!isIncludes){
-      dateRangeRef?.current?.changeItemNoExist({ label : "Custom", value : "custom" })
+      dateRangeRef?.current?.changeItemNoExist({ label : translate("Custom"), value : "custom" })
     }
   }, [startDate, endDate])
 
@@ -155,7 +156,7 @@ export const PeriodPicker = ({
         ref={periodRef}>
         <View style={styles.container}>
           <SingleScreenLayout
-            pageTitle={t("Select period")}
+            pageTitle={translate("Select period")}
             isLeft={true}
             onPressLeft={closeActionSheet}
             isRight={true}
@@ -172,7 +173,7 @@ export const PeriodPicker = ({
           >
             <View style={styles.content}>
               <CustomInput
-                label='Date range'
+                label={translate('Date range')}
                 labelStyle={styles.labelDate}
                 renderInput={() =>
                   <InputSelect
@@ -180,7 +181,7 @@ export const PeriodPicker = ({
                     form={form}
                     name="dateRange"
                     items={dateRangeData}
-                    title="Date range"
+                    title={translate("Date range")}
                     defaultValue={'Today'}
                   />
                 }
@@ -188,7 +189,7 @@ export const PeriodPicker = ({
 
               <View style={styles.rangeRow}>
                 <CustomInput
-                  label='Start date'
+                  label={translate('Start date')}
                   labelStyle={styles.labelDate}
                   renderInput={() =>
                     <DayPicker
@@ -209,7 +210,7 @@ export const PeriodPicker = ({
                   }
                 />
                 <CustomInput
-                  label='End date'
+                  label={translate('End date')}
                   labelStyle={styles.labelDate}
                   renderInput={() =>
                     <DayPicker

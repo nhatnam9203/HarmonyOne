@@ -9,6 +9,7 @@ import { IncomeByPaymentMethod } from "./IncomeByPaymentMethod";
 import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import moment from "moment";
+import { translate } from "@localize";
 
 export const Layout = ({
   listStaffSales,
@@ -17,7 +18,7 @@ export const Layout = ({
 
   valueNote,
   onChangeNote,
-  
+
   editActualAmount,
   reviewSettlement,
   viewGiftCardSold,
@@ -45,7 +46,7 @@ export const Layout = ({
       <KeyboardAwareScrollView style={styles.content}>
         <View style={{ flexDirection: "row" }}>
           <Text style={[styles.title, { fontFamily: fonts.BOLD }]}>
-            Last settlement :
+            {translate("Last settlement")} :
           </Text>
           <Text style={[styles.title, { marginLeft: scaleWidth(16) }]}>
             {moment(settlementWaiting?.settlementDate).format("MM/DD/YYYY - hh:mm A")}
@@ -53,14 +54,14 @@ export const Layout = ({
         </View>
 
         {/*********************************** TABLE SALES BY STAFF  ***********************************/}
-        <Text style={styles.bigTitle}>Sales by staff</Text>
+        <Text style={styles.bigTitle}>{translate("Sales by staff")}</Text>
         <TableSalesByStaff data={listStaffSales} />
 
         {/*********************************** TOTAL GIFT CARD SOLD  ***********************************/}
         <TouchableOpacity onPress={viewGiftCardSold} style={[styles.rowBetween, { marginTop: scaleHeight(16) }]}>
           <Text style={[styles.title, { fontFamily: fonts.MEDIUM, color: colors.ocean_blue }]}>
-            Gift Card Sold
-            </Text>
+            {translate("Gift Card Sold")}
+          </Text>
 
           <Text style={[styles.title, { fontFamily: fonts.MEDIUM, paddingRight: scaleWidth(16), color: colors.ocean_blue }]}>
             $ {formatMoney(giftCardTotal)}
@@ -70,16 +71,16 @@ export const Layout = ({
         {/*********************************** TOTAL  ***********************************/}
         <View style={[styles.rowBetween, { backgroundColor: "#DCF7FF", alignItems: 'center', marginTop: scaleHeight(5) }]}>
           <Text style={[styles.title, { fontFamily: fonts.MEDIUM }]}>
-            Total
+            {translate("Total")}
           </Text>
           <Text style={[styles.title, { fontFamily: fonts.BOLD, padding: scaleWidth(16), color: "#4CD964" }]}>
             $ {formatMoney(totalAmount)}
           </Text>
         </View>
 
-      {/*********************************** INCOME BY PAYMENT METHOD  ***********************************/}
+        {/*********************************** INCOME BY PAYMENT METHOD  ***********************************/}
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingRight: scaleWidth(16) }}>
-          <Text style={styles.bigTitle}>Income by payment methods</Text>
+          <Text style={styles.bigTitle}>{translate("Income by payment methods")}</Text>
           {
             settlementWaiting?.checkout && settlementWaiting?.checkout.length > 0 &&
             <IconButton
@@ -89,12 +90,15 @@ export const Layout = ({
             />
           }
         </View>
-        <IncomeByPaymentMethod settlementWaiting={settlementWaiting} />
+        <IncomeByPaymentMethod
+          settlementWaiting={settlementWaiting}
+          translate={translate}
+        />
 
-      {/*********************************** NOTE  ***********************************/}
+        {/*********************************** NOTE  ***********************************/}
         <View style={{ marginTop: scaleHeight(24) }} >
           <Text style={[styles.title, { fontFamily: fonts.MEDIUM, color: "#00408080" }]}>
-            Note
+            {translate("Note")}
           </Text>
 
           <View style={styles.containerNote}>
@@ -119,7 +123,7 @@ export const Layout = ({
         settlementWaiting?.total != 0 &&
         <View style={styles.bottom}>
           <Button
-            label="Confirm"
+            label={translate("Confirm")}
             onPress={reviewSettlement}
             highlight={true}
             width={'100%'}
@@ -167,7 +171,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor : "#fafafa"
+    backgroundColor: "#fafafa"
   },
 
   content: {

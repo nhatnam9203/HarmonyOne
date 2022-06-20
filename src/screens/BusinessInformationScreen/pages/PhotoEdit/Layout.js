@@ -7,8 +7,8 @@ import { Button, CustomImage, ListEmptyComponent, IconButton, ProgressiveImage }
 import { images } from "@shared/themes/resources";
 import { WithPopupUploadMultipleImage } from "@shared/HOC";
 import { ButtonUpload } from 'src/shared/components';
-
-import CheckBox from "@react-native-community/checkbox"
+import CheckBox from "@react-native-community/checkbox";
+import { translate } from "@localize";
 
 let ButttonUploadMultippeImage = ({ onResponseImagePicker, ...props }) => {
     return (
@@ -23,7 +23,7 @@ let ButttonUploadMultippeImage = ({ onResponseImagePicker, ...props }) => {
                     style={styles.iconUpload}
                     resizeMode='contain'
                 />
-                <Text style={styles.txtUpload}>Upload Image</Text>
+                <Text style={styles.txtUpload}>{translate('Upload Image')}</Text>
             </TouchableOpacity>
         </>
     )
@@ -45,13 +45,10 @@ export const Layout = ({
     actionDeleteBanners
 }) => {
 
-    const [t] = useTranslation();
-
-
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={t("Photos")}
+                pageTitle={translate("Photos")}
                 isLeft={true}
                 isRight={true}
                 isScrollLayout={false}
@@ -119,7 +116,7 @@ export const Layout = ({
                         onPress={onSave}
                         height={scaleHeight(48)}
                         width='100%'
-                        label={t('Save')}
+                        label={translate('txtSave')}
                         highlight={true}
                     />
                 </View>

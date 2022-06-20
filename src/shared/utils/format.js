@@ -513,4 +513,81 @@ export const timeAvaiableRaw = [
     "isBooked": false,
     "time": "23:45"
   },
-]
+];
+
+export const translateManual = (language, value) => {
+  let translated = value;
+  if (language == "vi") {
+    switch (value) {
+      case "Monday":
+      case "Mon":
+        translated = "Thứ hai";
+        break;
+
+      case "Tuesday":
+      case "Tue":
+        translated = "Thứ ba";
+        break;
+
+      case "Wednesday":
+      case "Wed":
+        translated = "Thứ tư";
+        break;
+
+      case "Thursday":
+      case "Thu":
+        translated = "Thứ năm";
+        break;
+
+      case "Friday":
+      case "Fri":
+        translated = "Thứ sáu";
+        break;
+
+      case "Saturday":
+      case "Sat":
+        translated = "Thứ bảy";
+        break;
+
+      case "Sunday":
+      case "Sun":
+        translated = "Chủ nhật";
+        break;
+
+      case "Saturday":
+      case "complete":
+        translated = "hoàn thành";
+        break;
+
+      case "incomplete":
+        translated = "chưa hoàn thành";
+        break;
+
+      case "paid":
+        translated = "đã trả tiền";
+        break;
+
+      case "void":
+        translated = "vô hiệu";
+        break;
+
+      case "refund":
+        translated = "đã hoàn tiền";
+        break;
+
+      case "cancel":
+        translated = "huỷ";
+        break;
+
+      case "transaction fail":
+        translated = "giao dịch lỗi";
+        break;
+
+      default:
+        break;
+    };
+  };
+
+  return translated;
+
+}

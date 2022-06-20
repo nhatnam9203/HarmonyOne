@@ -5,6 +5,7 @@ import {
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import NavigationService from "@navigation/NavigationService";
+import { translate } from "@localize";
 
 
 export const useProps = (props) => {
@@ -14,13 +15,13 @@ export const useProps = (props) => {
   const [giftCarList, setGiftCardList] = React.useState([]);
   const [giftCardSelected, setGiftCardSelected] = React.useState("");
 
-  const listGiftCardSales = props?.route?.params?.listGiftCardSales || [];
+  const listGiftCardSales = props?.route?.params?.listGiftCardSales?.result || [];
 
   React.useEffect(() => {
     let tempGiftCardList = listGiftCardSales.map((s) => ({ label: s?.name, value: s?.appointmentId }));
-    tempGiftCardList = [{ label: "All type", value: "all" }, ...tempGiftCardList,];
+    tempGiftCardList = [{ label: translate("All type"), value: "all" }, ...tempGiftCardList,];
     setGiftCardList(tempGiftCardList);
-    setGiftCardSelected({ label: "All type", value: "all" });
+    setGiftCardSelected({ label: translate("All type"), value: "all" });
   }, [listGiftCardSales]);
 
 
@@ -35,7 +36,7 @@ export const useProps = (props) => {
 
     getGiftCardSelectedData: () => {
       let tempArr = [];
-      const tempGiftCard = listGiftCardSales.find(obj => obj?.name == giftCardSelected?.label);
+      const tempGiftCard = listGiftCardSales?.find(obj => obj?.name == giftCardSelected?.label);
       if (tempGiftCard) {
         tempArr.push(tempGiftCard);
       }else{

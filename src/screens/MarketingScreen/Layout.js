@@ -6,7 +6,8 @@ import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Campaigns, MarketPlace } from "./pages";
-import NavigationService from '@navigation/NavigationService'
+import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 
 const { Screen, Navigator } = createMaterialTopTabNavigator();
 
@@ -18,7 +19,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t("Marketing")}
+        pageTitle={translate("Marketing")}
         isLeft={true}
         isRight={false}
         isScrollLayout={false}
@@ -52,11 +53,11 @@ export const Layout = ({
           >
             <Screen
               {...Campaigns}
-              options={{ tabBarLabel: 'Campaigns' }}
+              options={{ tabBarLabel: translate('Campaigns') }}
             />
             <Screen
               {...MarketPlace}
-              options={{ tabBarLabel: 'Market place' }}
+              options={{ tabBarLabel: translate('Market place' )}}
             />
           </Navigator>
         </View>

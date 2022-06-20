@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
-import { useTranslation } from "react-i18next";
 import { fonts, colors, images } from "@shared/themes";
 import { useSelector, useDispatch } from "react-redux";
 import { app, invoice } from "@redux/slices";
@@ -8,6 +7,8 @@ import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import NavigationService from '@navigation/NavigationService';
 import moment from "moment";
+import { translate } from "@localize";
+import { translateManual } from "@shared/utils";
 
 
 export const InvoiceList = ({
@@ -18,7 +19,7 @@ export const InvoiceList = ({
 }) => {
     const dispatch = useDispatch();
     const { staff: { staffListByMerchant = [] } } = useSelector(state => state);
-    const [t] = useTranslation();
+    const language = useSelector(state => state.dataLocal.language);
 
     const onRowPress = ({ key, row, column, item }) => {
         getInvoiceDetail(item?.checkoutId);
@@ -77,7 +78,9 @@ export const InvoiceList = ({
                 return (
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                         <View style={styles.circleStatus(data)} />
-                        <Text style={styles.txtStatus(data)}>{data}</Text>
+                        <Text style={styles.txtStatus(data)}>
+                            {translateManual(language,data)}
+                        </Text>
                     </View>
                 )
             case "total":
@@ -107,12 +110,12 @@ export const InvoiceList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                checkoutId: "Invoice ID",
-                user: "Customer",
-                status: "Status",
-                createdDate: "Date/time",
-                createdById: "Created by",
-                total: "Total sales",
+                checkoutId: translate("Invoice ID"),
+                user: translate("Customer"),
+                status: translate("Status"),
+                createdDate: translate("Date/time"),
+                createdById: translate("Created by"),
+                total: translate("Total sales"),
             }}
             whiteKeys={[
                 "checkoutId",

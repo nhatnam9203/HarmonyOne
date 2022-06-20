@@ -20,6 +20,8 @@ export const useProps = (props) => {
   const startDate = props?.route?.params?.startDate;
   const endDate = props?.route?.params?.endDate;
 
+  const language = useSelector(state => state.dataLocal.language);
+
 
   const {
     auth: { staff },
@@ -95,6 +97,7 @@ export const useProps = (props) => {
     valueSearch,
     invoiceList,
     paymentMethod,
+    language,
 
     selectPeriod: () => {
       NavigationService.navigate(screenNames.SelectPeriod, {

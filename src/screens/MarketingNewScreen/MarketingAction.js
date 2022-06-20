@@ -7,11 +7,12 @@ import { InputService, InputCategory } from "./widget";
 import { useSelector } from "react-redux";
 import AntDesign from "react-native-vector-icons/AntDesign"
 import Collapsible from "react-native-collapsible";
+import { translate } from "@localize";
 
 const actionList = [
-    { label: "Discount for whole cart", value: "1" },
-    { label: "Discount for specific services", value: "2" },
-    { label: "Discount by category", value: "3" },
+    { label: translate("Discount for whole cart"), value: "1" },
+    { label: translate("Discount for specific services"), value: "2" },
+    { label: translate("Discount by category"), value: "3" },
 ];
 
 const MarketingAction = React.forwardRef(({
@@ -28,7 +29,7 @@ const MarketingAction = React.forwardRef(({
         product : { products }
     } = useSelector(state => state);
 
-    const [condition, setAction] = React.useState("Discount for whole cart");
+    const [condition, setAction] = React.useState(translate("Discount for whole cart"));
     const conditionRef = React.useRef();
 
     const [serviceSelected, setServiceSelected] = React.useState([]);
@@ -161,13 +162,13 @@ const MarketingAction = React.forwardRef(({
     return (
         <>
             <CustomInput
-                label='Action'
+                label={translate('Action')}
                 renderInput={() =>
                     <InputSelect
                         ref={conditionRef}
                         form={form}
                         name="actionCondition"
-                        title="Action"
+                        title={translate("Action")}
                         items={actionList}
                         defaultValue={'1'}
                         onSelect={(item) => {
@@ -180,7 +181,7 @@ const MarketingAction = React.forwardRef(({
             />
 
             {
-                <Collapsible collapsed={!(condition == "Discount for specific services")} duration={200}>
+                <Collapsible collapsed={!(condition == translate("Discount for specific services"))} duration={200}>
                     <InputService
                         apply={(arrService, arrProduct) => onChangeServiceSelected(arrService, arrProduct)}
                         serviceSelected={serviceSelected}
@@ -229,7 +230,7 @@ const MarketingAction = React.forwardRef(({
             }
 
             {
-                <Collapsible collapsed={!(condition == "Discount by category")} duration={200}>
+                <Collapsible collapsed={!(condition == translate("Discount by category"))} duration={200}>
                     <InputCategory
                         apply={onChangeCategorySelected}
                         categorySelected={categorySelected}

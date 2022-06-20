@@ -4,6 +4,7 @@ import { images, colors, fonts } from "@shared/themes";
 import { CustomInput } from "@shared/components";
 import { slop } from "@shared/utils";
 import { View } from 'react-native-animatable';
+import { translate } from "@localize";
 
 export const Title = ({
     text = "Personal Info",
@@ -13,7 +14,7 @@ export const Title = ({
         <View style={styles.container}>
             <Text style={styles.title}>{text}</Text>
             <TouchableOpacity hitSlop={slop(20)} onPress={onEdit}>
-                <Text style={styles.txtEdit}>Edit</Text>
+                <Text style={styles.txtEdit}>{translate("Edit")}</Text>
             </TouchableOpacity>
         </View>
     )

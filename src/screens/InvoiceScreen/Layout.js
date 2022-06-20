@@ -6,25 +6,26 @@ import { fonts, colors } from "@shared/themes";
 import { ButtonFilter, CustomInput, DropdownMenu, SearchInput } from "@shared/components";
 import { images } from "@shared/themes/resources";
 import { InvoiceList } from "./InvoiceList";
+import { translate } from "@localize";
 
 const paymentMethodFilter = [
-  { label: "All", value: "" },
+  { label: translate("All"), value: "" },
   { label: "HarmonyPay", value: "harmony" },
-  { label: "Credit Card", value: "credit_card" },
-  { label: "Cash", value: "cash" },
-  { label: "Other", value: "other" },
-  { label: "Gift card", value: "giftcard" },
+  { label: translate("Credit Card"), value: "credit_card" },
+  { label: translate("Cash"), value: "cash" },
+  { label: translate("Other"), value: "other" },
+  { label: translate("Gift card"), value: "giftcard" },
 ];
 
 const statusFilter = [
-  { label: "All", value: "" },
-  { label: "Complete", value: "complete" },
-  { label: "Incomplete", value: "incomplete" },
-  { label: "Paid", value: "paid" },
-  { label: "Void", value: "void" },
-  { label: "Refund", value: "refund" },
-  { label: "Cancel", value: "cancel" },
-  { label: "Transaction Fail", value: "transaction fail" },
+  { label: translate("All"), value: "" },
+  { label: translate("Complete"), value: "complete" },
+  { label: translate("Incomplete"), value: "incomplete" },
+  { label: translate("Paid"), value: "paid" },
+  { label: translate("Void"), value: "void" },
+  { label: translate("Refund"), value: "refund" },
+  { label: translate("Cancel"), value: "cancel" },
+  { label: translate("Transaction Fail"), value: "transaction fail" },
 ];
 
 
@@ -47,12 +48,10 @@ export const Layout = ({
   onLoadMore,
 }) => {
 
-  const [t] = useTranslation();
-
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t("Invoices")}
+        pageTitle={translate("txtInvoices")}
         isLeft={true}
         isRight={true}
         isScrollLayout={false}
@@ -85,7 +84,7 @@ export const Layout = ({
               }}
             >
               <CustomInput
-                label='Payment method'
+                label={translate('Payment method')}
                 name="paymentMethod"
                 labelStyle={{ color: colors.greyish_brown_40 }}
                 renderInput={() =>
@@ -101,7 +100,7 @@ export const Layout = ({
                 }
               />
               <CustomInput
-                label='Status'
+                label={translate('Status')}
                 name="status"
                 labelStyle={{ color: colors.greyish_brown_40 }}
                 renderInput={() =>
@@ -125,7 +124,7 @@ export const Layout = ({
             value={valueSearch}
             onChangeText={onChangeSearch}
             removeText={valueSearch.length > 0 ? () => onChangeSearch("") : () => { }}
-            placeholder="Search client by phone or name"
+            placeholder={translate("Search client by phone or name")}
             onSubmit={onSubmitSearch}
           />
 

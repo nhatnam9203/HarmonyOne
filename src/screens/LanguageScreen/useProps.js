@@ -7,18 +7,19 @@ import CodePush from "react-native-code-push";
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
-  const language = useSelector(state => state.dataLocal.language);
 
   const refLanguageLoading = useRef();
 
   const [lang, setLang] = useState('en');
+  const language = useSelector(state => state.dataLocal.language);
+
+  console.log({ language })
 
   useLayoutEffect(() => {
     setLang(language);
   }, []);
 
   return {
-    language,
     lang,
     setLang,
     switchLanguage: () => {

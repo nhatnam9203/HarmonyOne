@@ -8,6 +8,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { isEmpty } from "lodash";
 import { guid, getCredicardIcon } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 
 export const Layout = ({
   settlementWaiting
@@ -20,7 +21,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Credit transactions')}
+        pageTitle={translate('Credit transactions')}
         isRight={false}
         isLeft={true}
         isScrollLayout={false}
@@ -33,13 +34,13 @@ export const Layout = ({
             renderItem={({ item }) => <Item item={item} />}
             ListHeaderComponent={() => (
               <View style={styles.row}>
-                <Text style={[styles.title, { width: "20%" }]}>Trans ID</Text>
-                <Text style={[styles.title, { width: "25%" }]}>Invoice</Text>
-                <Text style={[styles.title, { width: "35%" }]}>Payments</Text>
-                <Text style={[styles.title, { textAlign: "right", width: "20%" }]}>Amount</Text>
+                <Text style={[styles.title, { width: "20%" }]}>{translate("Trans ID")}</Text>
+                <Text style={[styles.title, { width: "25%" }]}>{translate("Invoice")}</Text>
+                <Text style={[styles.title, { width: "35%" }]}>{translate("Payments")}</Text>
+                <Text style={[styles.title, { textAlign: "right", width: "20%" }]}>{translate("Amount")}</Text>
               </View>
             )}
-            ListEmptyComponent={() => <ListEmptyComponent description={t('No credit transactions')} image={images.iconNotFound} />}
+            ListEmptyComponent={() => <ListEmptyComponent description={translate('No credit transactions')} image={images.iconNotFound} />}
           />
         </View>
       </SingleScreenLayout>

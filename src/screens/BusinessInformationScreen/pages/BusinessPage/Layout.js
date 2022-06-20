@@ -9,6 +9,7 @@ import { BasicInformation } from "./BasicInformation";
 import { Location } from "./Location";
 import { OpeningHour } from "./OpeningHour";
 import { Banners } from "./Banners";
+import { translate } from "@localize";
 
 export const Layout = ({
   merchantDetail,
@@ -27,7 +28,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t("Business Information")}
+        pageTitle={translate("Business Information")}
         isLeft={true}
         isRight={false}
         isScrollLayout={false}
@@ -39,18 +40,22 @@ export const Layout = ({
             businessName={merchantDetail?.businessName || ""}
             phone={merchantDetail?.phone || ""}
             email={merchantDetail?.email || ""}
+            translate={translate}
           />
           <Location
             addressFull={merchantDetail?.addressFull}
             longitude={merchantDetail?.longitude}
             latitude={merchantDetail?.latitude}
             merchantDetail={merchantDetail}
+            translate={translate}
           />
           <OpeningHour
             businessHour={merchantDetail?.businessHour}
+            translate={translate}
           />
           <Banners
             banners={bannersMerchant}
+            translate={translate}
           />
           <View style={{ height: scaleHeight(100) }} />
         </ScrollView>

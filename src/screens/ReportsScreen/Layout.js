@@ -28,23 +28,23 @@ export const Layout = ({
           <ScrollView>
             <GroupItem icon={images.iconReportStaff} text={translate("txtStaff")}/>
             <ItemSelect
-              title={"Staff salary"}
+              title={translate("Staff salary")}
               onPress={() => {
                 NavigationService.navigate(screenNames.ReportStaffSalary);
               }}
               style={{ paddingLeft: 0 }}
             />
             <ItemSelect
-              title={"Service duration"}
+              title={translate("Service duration")}
               onPress={() => { 
                 NavigationService.navigate(screenNames.ReportServiceDuration);
               }}
               style={{ paddingLeft: 0 }}
             />
 
-            <GroupItem icon={images.iconReportGiftcard} text="Gift card" />
+            <GroupItem icon={images.iconReportGiftcard} text={translate("Gift card")} />
             <ItemSelect
-              title={"Gift card sales"}
+              title={translate("Gift card sales")}
               onPress={() => { 
                 NavigationService.navigate(screenNames.ReportGiftCardSales);
               }}
@@ -52,9 +52,9 @@ export const Layout = ({
             />
 
 
-            <GroupItem icon={images.iconReportCustomer} text="Customer" />
+            <GroupItem icon={images.iconReportCustomer} text={translate("Customer")} />
             <ItemSelect
-              title={"Sales by customer"}
+              title={translate("Sales by customer")}
               onPress={() => { 
                 NavigationService.navigate(screenNames.ReportCustomerSales);
               }}
@@ -77,32 +77,32 @@ export const Layout = ({
               style={{ paddingLeft: 0 }}
             />
 
-            <GroupItem icon={images.iconReportProduct} text="Product" />
+            <GroupItem icon={images.iconReportProduct} text={translate("txtProducts")} />
             <ItemSelect
-              title={"Sales by category"}
+              title={translate("Sales by category")}
               onPress={() => { 
                 NavigationService.navigate(screenNames.ReportProductCategorySales);
                }}
               style={{ paddingLeft: 0 }}
             />
             <ItemSelect
-              title={"Sales by product"}
+              title={translate("Sales by product")}
               onPress={() => { 
                 NavigationService.navigate(screenNames.ReportProductSales);
               }}
               style={{ paddingLeft: 0 }}
             />
 
-            <GroupItem icon={images.iconReportOverall} text="Overall" />
+            <GroupItem icon={images.iconReportOverall} text={translate("Overall")} />
             <ItemSelect
-              title={"Sales by payment method"}
+              title={translate("Sales by payment method")}
               onPress={() => { 
                 NavigationService.navigate(screenNames.ReportOverallPaymentMethod);
               }}
               style={{ paddingLeft: 0 }}
             />
             <ItemSelect
-              title={"Marketing efficiency"}
+              title={translate("Marketing efficiency")}
               onPress={() => { 
                 NavigationService.navigate(screenNames.ReportOverallMarketingEfficiency);
               }}

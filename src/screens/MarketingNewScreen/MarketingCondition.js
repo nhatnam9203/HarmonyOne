@@ -8,13 +8,14 @@ import { TextInputMask } from "react-native-masked-text";
 import { useSelector } from "react-redux";
 import AntDesign from "react-native-vector-icons/AntDesign"
 import Collapsible from "react-native-collapsible";
+import { translate } from "@localize";
 
 const conditionList = [
-    { label: "No condition", value: "1" },
-    { label: "Using specific services", value: "2" },
-    { label: "Customer birthday is within the week", value: "3" },
-    { label: "Times using the service reached the quantity", value: "4" },
-    { label: "The customer is the referral", value: "5" },
+    { label: translate("No condition"), value: "1" },
+    { label: translate("Using specific services"), value: "2" },
+    { label: translate("Customer birthday is within the week"), value: "3" },
+    { label: translate("Times using the service reached the quantity"), value: "4" },
+    { label: translate("The customer is the referral"), value: "5" },
 ];
 
 const MarketingCondition = React.forwardRef(({
@@ -32,7 +33,7 @@ const MarketingCondition = React.forwardRef(({
     } = useSelector(state => state);
 
 
-    const [condition, setCondition] = React.useState("No condition");
+    const [condition, setCondition] = React.useState(translate("No condition"));
     const conditionRef = React.useRef();
 
     const [serviceSelected, setServiceSelected] = React.useState([]);
@@ -130,13 +131,13 @@ const MarketingCondition = React.forwardRef(({
     return (
         <>
             <CustomInput
-                label='Condition'
+                label={translate('Condition')}
                 renderInput={() =>
                     <InputSelect
                         ref={conditionRef}
                         form={form}
                         name="condition"
-                        title="Condition"
+                        title={translate("Condition")}
                         items={conditionList}
                         defaultValue={'1'}
                         onSelect={(item) => {
@@ -148,7 +149,7 @@ const MarketingCondition = React.forwardRef(({
             />
 
             {
-                <Collapsible collapsed={!(condition == "Using specific services")} duration={200}>
+                <Collapsible collapsed={!(condition == translate("Using specific services"))} duration={200}>
                     <InputService
                         apply={(arrService, arrProduct) => onChangeServiceSelected(arrService, arrProduct)}
                         serviceSelected={serviceSelected}
@@ -196,7 +197,7 @@ const MarketingCondition = React.forwardRef(({
             }
 
             {
-                condition == "Times using the service reached the quantity" &&
+                condition == translate("Times using the service reached the quantity") &&
                 <>
                     <Text style={styles.numberTimes}>Number of times applied</Text>
                     <View style={styles.containerInputNumber}>
@@ -204,7 +205,7 @@ const MarketingCondition = React.forwardRef(({
                             type={'custom'}
                             options={{ mask: "9999999999999" }}
                             onChangeText={text => setNumberOfTimesApply(text)}
-                            placeholder={"Number of times applied"}
+                            placeholder={conditionList("Number of times applied")}
                             value={numberOfTimesApply}
                             style={{ flex: 1, fontFamily: fonts.REGULAR, fontSize: scaleFont(15), padding: scaleWidth(8) }}
                         />
