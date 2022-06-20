@@ -4,7 +4,8 @@ import { fonts, images, colors } from '@shared/themes';
 import { InputText, CustomInput } from "@shared/components";
 import CheckBox from "@react-native-community/checkbox";
 import {useForm} from "react-hook-form";
-import Title from "./Title"
+import Title from "./Title";
+import { translate } from "@localize";
 
 const ProductSalary = React.forwardRef(({},ref) => {
 
@@ -31,7 +32,7 @@ const ProductSalary = React.forwardRef(({},ref) => {
 
     return (
         <View style={styles.container}>
-            <Title text="Product salary" />
+            <Title text={translate("Product salary")} />
             <View style={styles.row}>
                 <CheckBox
                     disabled={false}
@@ -45,14 +46,13 @@ const ProductSalary = React.forwardRef(({},ref) => {
                     offAnimationType='one-stroke'
                     style={{ width: 24, height: 24, marginRight: scaleWidth(16) }}
                 />
-                <Text style={styles.txt}>Commission</Text>
+                <Text style={styles.txt}>{translate("Commission")}</Text>
             </View>
             <InputText
                 form={form}
                 name="productValue"
                 defaultValue="0.00"
                 defaultValueRemove="0.00"
-                placeholder=""
                 type="money"
                 placeholder="0.00"
                 style={{ alignItems: 'center' }}

@@ -1,19 +1,17 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
-import { useTranslation } from "react-i18next";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { useSelector } from "react-redux";
 import { isEmpty } from "lodash";
-import Ionicons from "react-native-vector-icons/Ionicons"
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { translate } from "@localize";
 
 const ItemTotal = ({
     title,
     number,
     count,
 }) => {
-
-    const [t] = useTranslation();
 
     return (
         <View style={styles.wrap}>
@@ -23,7 +21,7 @@ const ItemTotal = ({
             </View>
 
             <View style={[styles.row, { marginTop: scaleHeight(8) }]}>
-                <Text style={styles.content}>{t('All time statictis')}</Text>
+                <Text style={styles.content}>{translate('All time statistic')}</Text>
                 <View style={{ flexDirection: 'row' }}>
                     {
                         !isEmpty(count) && new Array(parseInt(number)).fill().map(() => (
@@ -47,7 +45,7 @@ const ItemTotal = ({
             {
                 !isEmpty(count) &&
                 <Text style={[styles.content, { textAlign: 'right', marginTop: scaleHeight(8) }]}>
-                    {count} {t('reviews')}
+                    {count} {translate('reviews')}
                 </Text>
             }
         </View>

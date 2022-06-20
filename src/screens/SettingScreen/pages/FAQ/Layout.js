@@ -3,7 +3,8 @@ import { View, StyleSheet, Text, ScrollView } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors } from "@shared/themes";
-import NavigationService from '@navigation/NavigationService'
+import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 
 export const Layout = ({
 
@@ -22,12 +23,11 @@ export const Layout = ({
         <View style={styles.content}>
           <View style={{ marginVertical: scaleWidth(10) }} >
             <Text style={[styles.contentTerms, { fontWeight: "bold", fontSize: scaleFont(15) }]}>
-              Contacting HarmonyPay
+              {translate("Contacting HarmonyPay")}
             </Text>
           </View>
           <Text style={styles.contentTerms}>
-            If you have any questions, please contact HarmonyPay at
-            team@harmonypayment.com.
+            {translate("If you have any questions")}
           </Text>
         </View>
       </SingleScreenLayout>
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     color: "#000000",
     marginTop: scaleHeight(12),
     fontWeight: "400",
-    lineHeight : 22
+    lineHeight: 22
 
   }
 });

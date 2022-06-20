@@ -5,7 +5,8 @@ import { InputText, CustomInput, IconButton } from "@shared/components";
 import { useForm, useFieldArray, useController } from "react-hook-form";
 import { TextInputMask } from "react-native-masked-text"
 import CheckBox from "@react-native-community/checkbox";
-import Title from "./Title"
+import Title from "./Title";
+import { translate } from "@localize";
 
 
 const ServiceSalary = React.forwardRef(({ }, ref) => {
@@ -30,7 +31,7 @@ const ServiceSalary = React.forwardRef(({ }, ref) => {
         getIncomeValues: () => {
             return getValues("serviceSalary");
         },
-        getPerhourValue : () =>{
+        getPerhourValue: () => {
             return getValues("perHour");
         },
         getPerhourStatus: () => {
@@ -41,10 +42,10 @@ const ServiceSalary = React.forwardRef(({ }, ref) => {
         },
 
         setIncomeValue: (value) => {
-            return setValue("serviceSalary",value);
+            return setValue("serviceSalary", value);
         },
-        setPerhourValue : (value) =>{
-            return setValue("perHour",value);
+        setPerhourValue: (value) => {
+            return setValue("perHour", value);
         },
         setPerhourStatus: (status) => {
             return setPerHourStatus(status);
@@ -66,7 +67,7 @@ const ServiceSalary = React.forwardRef(({ }, ref) => {
 
     return (
         <View style={styles.container}>
-            <Title text="Service Salary" />
+            <Title text={translate("Service Salary")} />
             {/************************************  PER HOUR   ************************************/}
             <View style={styles.row}>
                 <CheckBox
@@ -81,7 +82,7 @@ const ServiceSalary = React.forwardRef(({ }, ref) => {
                     offAnimationType='one-stroke'
                     style={{ width: 24, height: 24, marginRight: scaleWidth(16) }}
                 />
-                <Text style={styles.txt}>Per hour</Text>
+                <Text style={styles.txt}>{translate("Per hour")}</Text>
             </View>
             <View pointerEvents={perHourStatus ? "auto" : "none"}>
                 <InputText
@@ -89,18 +90,17 @@ const ServiceSalary = React.forwardRef(({ }, ref) => {
                     name="perHour"
                     defaultValue="0.00"
                     defaultValueRemove="0.00"
-                    placeholder=""
                     type="money"
                     placeholder="0.00"
                     error={errors?.perHour}
-                    style={{ alignItems: 'center' }}
+                    style={{ alignItems: 'center', backgroundColor: perHourStatus ? "white" : "#eeeeee" }}
                     options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
                     renderLeft={() => <Text style={styles.dollar}>$</Text>}
                 />
 
             </View>
 
-            
+
             {/************************************  INCOME   ************************************/}
             <View style={[styles.row, { marginTop: scaleHeight(24) }]}>
                 <CheckBox
@@ -115,7 +115,7 @@ const ServiceSalary = React.forwardRef(({ }, ref) => {
                     offAnimationType='one-stroke'
                     style={{ width: 24, height: 24, marginRight: scaleWidth(16) }}
                 />
-                <Text style={styles.txt}>Income</Text>
+                <Text style={styles.txt}>{translate("Income")}</Text>
             </View>
 
             <View pointerEvents={incomeStatus ? "auto" : "none"}>
@@ -126,7 +126,7 @@ const ServiceSalary = React.forwardRef(({ }, ref) => {
                             <>
                                 <View key={field.id} style={styles.rowIncome}>
                                     <CustomInput
-                                        label='From'
+                                        label={translate('From')}
                                         style={{ width: scaleWidth(160) }}
                                         renderInput={() =>
                                             <InputText
@@ -134,17 +134,16 @@ const ServiceSalary = React.forwardRef(({ }, ref) => {
                                                 name={`serviceSalary.${index}.from`}
                                                 defaultValue="0.00"
                                                 defaultValueRemove="0.00"
-                                                placeholder=""
                                                 type="money"
                                                 placeholder="0.00"
-                                                style={{ alignItems: 'center' }}
+                                                style={{ alignItems: 'center', backgroundColor: incomeStatus ? "white" : "#eeeeee" }}
                                                 options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
                                                 renderLeft={() => <Text style={styles.dollar}>$</Text>}
                                             />
                                         }
                                     />
                                     <CustomInput
-                                        label='To'
+                                        label={translate('To')}
                                         style={{ width: scaleWidth(160) }}
                                         renderInput={() =>
                                             <InputText
@@ -152,10 +151,9 @@ const ServiceSalary = React.forwardRef(({ }, ref) => {
                                                 name={`serviceSalary.${index}.to`}
                                                 defaultValue="0.00"
                                                 defaultValueRemove="0.00"
-                                                placeholder=""
                                                 type="money"
                                                 placeholder="0.00"
-                                                style={{ alignItems: 'center' }}
+                                                style={{ alignItems: 'center', backgroundColor: incomeStatus ? "white" : "#eeeeee" }}
                                                 options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
                                                 renderLeft={() => <Text style={styles.dollar}>$</Text>}
                                             />
@@ -163,17 +161,16 @@ const ServiceSalary = React.forwardRef(({ }, ref) => {
                                     />
                                 </View>
                                 <CustomInput
-                                    label='Salary percented'
+                                    label={translate('Salary percented')}
                                     renderInput={() =>
                                         <InputText
                                             form={form}
                                             name={`serviceSalary.${index}.commission`}
                                             defaultValue="0.00"
                                             defaultValueRemove="0.00"
-                                            placeholder=""
                                             type="money"
                                             placeholder="0.00"
-                                            style={{ alignItems: 'center' }}
+                                            style={{ alignItems: 'center', backgroundColor: incomeStatus ? "white" : "#eeeeee" }}
                                             options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
                                             renderLeft={() => <Text style={styles.dollar}>%</Text>}
                                         />
@@ -201,7 +198,7 @@ const ServiceSalary = React.forwardRef(({ }, ref) => {
                     icon={images.iconAddMore}
                     iconStyle={styles.iconAdd}
                     style={styles.btnAddmore}
-                    renderText={() => <Text style={styles.txtAddmore}>Add more</Text>}
+                    renderText={() => <Text style={styles.txtAddmore}>{translate("Add more")}</Text>}
                     onPress={() => { append({ from: "0.00", to: "0.00", commission: "0.00" }); }}
                 />
             }
@@ -244,7 +241,7 @@ const styles = StyleSheet.create({
     iconTrash: {
         width: scaleWidth(23),
         height: scaleWidth(23),
-        tintColor : "#404040"
+        tintColor: "#404040"
     },
     txtAddmore: {
         marginLeft: scaleWidth(16),
@@ -255,7 +252,7 @@ const styles = StyleSheet.create({
     btnAddmore: {
         marginVertical: scaleHeight(16),
         marginBottom: scaleHeight(30),
-        alignSelf : "flex-start"
+        alignSelf: "flex-start"
     },
     wrapInput: {
         width: '100%',

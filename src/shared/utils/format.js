@@ -603,10 +603,25 @@ export const translateManual = (language, value) => {
         translated = "Đẵ xác nhận";
         break;
 
-        case "waiting":
-          case "WAITING":
-            translated = "Đang đợi";
-            break;
+      case "waiting":
+      case "WAITING":
+        translated = "Đang đợi";
+        break;
+
+      case "Staff":
+      case "staff":
+        translated = "Nhân viên";
+        break;
+
+      case "Admin":
+      case "admin":
+        translated = "Quản trị viên";
+        break;
+
+      case "Manager":
+      case "manager":
+        translated = "Quản lý";
+        break;
 
 
       default:

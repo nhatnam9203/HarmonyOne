@@ -10,7 +10,8 @@ import { SingleScreenLayout } from '@shared/layouts';
 import Title from "./Title";
 import Collapsible from "react-native-collapsible";
 import Accordion from "react-native-collapsible/Accordion";
-import CheckBox from "@react-native-community/checkbox"
+import CheckBox from "@react-native-community/checkbox";
+import { translate } from "@localize";
 
 
 const AssignServices = React.forwardRef(({
@@ -23,7 +24,7 @@ const AssignServices = React.forwardRef(({
         category: { category },
     } = useSelector(state => state);
 
-    const [condition, setCondition] = React.useState("No condition");
+    // const [condition, setCondition] = React.useState("No condition");
     const [dataServices, setDataServices] = React.useState([]);
     const [dataServicesSaved, setDataServicesSaved] = React.useState([]);
     const [activeSections, setActiveSections] = React.useState([]);
@@ -290,12 +291,12 @@ const AssignServices = React.forwardRef(({
 
     return (
         <>
-            <Title text="Services" />
-            <Text style={styles.txtAssign}>Assign services this staff can perform</Text>
+            <Title text={translate("Services")} />
+            <Text style={styles.txtAssign}>{translate("Assign services this staff can perform")}</Text>
             <TouchableOpacity onPress={openActionSheet} style={styles.containerInput}>
                 <View style={styles.wrapInput}>
                     <Text style={[styles.value, { fontSize: scaleFont(16) }]}>
-                        {`Services(${count})`}
+                        {`${translate("Services")}(${count})`}
                     </Text>
                     <Image
                         style={[styles.icon]}
@@ -305,7 +306,7 @@ const AssignServices = React.forwardRef(({
                     <CustomActionSheet ref={actionSheetRef}>
                         <View style={styles.contentActionSheet}>
                             <SingleScreenLayout
-                                pageTitle={"Assign services"}
+                                pageTitle={translate("Assign services")}
                                 isLeft={false}
                                 isRight={true}
                                 isScrollLayout={false}
@@ -320,7 +321,7 @@ const AssignServices = React.forwardRef(({
                                 }
                             >
                                 <SearchInput
-                                    placeholder="Search by service name"
+                                    placeholder={translate("Search by service name")}
                                     value={valueSearch}
                                     onChangeText={onChangeSearch}
                                     removeText={() => onChangeSearch("")}
@@ -346,7 +347,7 @@ const AssignServices = React.forwardRef(({
                                         highlight={true}
                                         height={scaleHeight(48)}
                                         width={"100%"}
-                                        label="Save"
+                                        label={translate("txtSave")}
                                     />
                                 </View>
                             </SingleScreenLayout>

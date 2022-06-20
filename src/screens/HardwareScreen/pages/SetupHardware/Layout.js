@@ -25,6 +25,7 @@ import {
     PaymentTerminalType,
    } from "@shared/utils";
 import _ from "lodash";
+import { translate } from "@localize";
 
 export const Layout = ({
     terminalListRef,
@@ -94,7 +95,7 @@ export const Layout = ({
                     fontWeight: '600',
                     color: '#0764B0',
                 }} >
-                    {`${isConnected ? "Connected" : ""}`}
+                    {`${isConnected ? translate("Connected") : ""}`}
                 </Text>
             </TouchableOpacity>
         );
@@ -112,7 +113,7 @@ export const Layout = ({
             <View style={{ flexDirection: 'row', marginTop: scaleHeight(20), }} >
                 <View style={{ width: scaleWidth(100), justifyContent: 'center', }} >
                     <Text style={{ fontSize: scaleFont(13), color: 'rgb(42,42,42)' }} >
-                        {t("Communication Type")}
+                        {translate("Communication Type")}
                     </Text>
                 </View>
                 <View style={{ flex: 1, flexDirection: "row", paddingHorizontal: scaleWidth(20) }} >
@@ -124,7 +125,7 @@ export const Layout = ({
                                 style={{ marginRight: scaleWidth(10) }}
                             />
                             <Text style={styles.textRadio} >
-                                {t("Ethernet")}
+                                {translate("Ethernet")}
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity 
@@ -135,7 +136,7 @@ export const Layout = ({
                                 style={{ marginRight: scaleWidth(10) }}
                             />
                             <Text style={styles.textRadio} >
-                                {t("Bluetooth")}
+                                {translate("Bluetooth")}
                             </Text>
                         </TouchableOpacity>
 
@@ -145,13 +146,13 @@ export const Layout = ({
                 commType === "BLUETOOTH" ?
                     <>
                         <SettingTextInput
-                            title={t('Name')}
-                            placeholder={t('Device name')}
+                            title={translate('Name')}
+                            placeholder={translate('Device name')}
                             value={name}
                             onChangeText={changeName}
                         />
                          <SettingTextInput
-                            title={t('Bluetooth ID')}
+                            title={translate('Bluetooth ID')}
                             placeholder={'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'}
                             value={bluetoothAddr}
                             onChangeText={changeBluetoothAddr}
@@ -166,7 +167,7 @@ export const Layout = ({
                                 width: '40%',
                                 }} >
 
-                                {t('Select Terminal ID')}
+                                {translate('Select Terminal ID')}
                             </Text>
                             <DropdownMenu
                                 ref={terminalListRef}
@@ -204,7 +205,7 @@ export const Layout = ({
                                 marginLeft: scaleWidth(8), fontWeight: "600"
                             }} >
 
-                                {t('Scan devices')}
+                                {translate('Scan devices')}
                             </Text>
                             <View style={{width: scaleWidth(15)}} />
                             {
@@ -231,13 +232,13 @@ export const Layout = ({
                     : <>
 
                         <SettingTextInput
-                            title={t('Name')}
-                            placeholder={t('Device name')}
+                            title={translate('Name')}
+                            placeholder={translate('Device name')}
                             value={name}
                             onChangeText={changeName}
                         />
                          <SettingTextInput
-                            title={t('IP Address')}
+                            title={translate('IP Address')}
                             placeholder={"192.168.1.1"}
                             value={ip}
                             onChangeText={ip => changeIp(ip)}
@@ -245,7 +246,7 @@ export const Layout = ({
                         />
 
                         <SettingTextInput
-                            title={t('Port')}
+                            title={translate('Port')}
                             placeholder={'10009'}
                             value={port}
                             onChangeText={port => changePort(port)}
@@ -264,7 +265,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Hardwares')}      
+        pageTitle={translate('Hardwares')}      
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0, justifyContent: 'space-between' }}
       >
@@ -275,7 +276,7 @@ export const Layout = ({
                 fontWeight: '600',
                 color: '#0764B0'
             }} >
-                {t('Payment Terminal')}
+                {translate('Payment Terminal')}
             </Text>
 
             <Text style={{
@@ -285,7 +286,7 @@ export const Layout = ({
                 marginTop: scaleHeight(26),
                 marginBottom: scaleHeight(10)
             }} >
-                {t('Device')}
+                {translate('Device')}
             </Text>
             <View style={{flexDirection:'row'}}>
                 { Platform.OS == "ios" && 
@@ -297,7 +298,7 @@ export const Layout = ({
                             style={{ marginRight: scaleWidth(10) }}
                         />
                         <Text style={styles.textRadio} >
-                            {t('Pax')}
+                            {translate('Pax')}
                         </Text>
                     </TouchableOpacity>
                 }
@@ -308,7 +309,7 @@ export const Layout = ({
                             style={{ marginRight: scaleWidth(10) }}
                         />
                         <Text style={styles.textRadio} >
-                            {t('Clover')}
+                            {translate('Clover')}
                         </Text>
                     </TouchableOpacity>
                 }
@@ -320,7 +321,7 @@ export const Layout = ({
                         style={{ marginRight: scaleWidth(10) }}
                     />
                     <Text style={styles.textRadio} >
-                        {t('Dejavoo')}
+                        {translate('Dejavoo')}
                     </Text>
                 </TouchableOpacity>
 
@@ -334,7 +335,7 @@ export const Layout = ({
                 marginBottom: scaleHeight(10)
             }} >
 
-                {t('Terminal Configuration')}
+                {translate('Terminal Configuration')}
             </Text>
 
             {/* ----------- Line ------------ */}
@@ -348,20 +349,20 @@ export const Layout = ({
                     (terminalName === PaymentTerminalType.Dejavoo) &&
                     <>
                         <SettingTextInput
-                            title={t('Name')}
-                            placeholder={t('Device name')}
+                            title={translate('Name')}
+                            placeholder={translate('Device name')}
                             value={name}
                             onChangeText={changeName}
                         />
                         <SettingTextInput
-                            title={t('Register ID')}
-                            placeholder={t('Register ID')}
+                            title={translate('Register ID')}
+                            placeholder={translate('Register ID')}
                             value={registerId}
                             onChangeText={registerId => changeRegisterId(registerId)}
                         />
                         <SettingTextInput
-                            title={t('Auth Key')}
-                            placeholder={t('Auth Key')}
+                            title={translate('Auth Key')}
+                            placeholder={translate('Auth Key')}
                             value={authKey}
                             onChangeText={authKey => changeAuthKey(authKey)}
                         />
@@ -374,13 +375,13 @@ export const Layout = ({
                     terminalName === PaymentTerminalType.Clover && Platform.OS == "ios" 
                     ? <>
                         <SettingTextInput
-                            title={t('Serial Number')}
-                            placeholder={t('Serial Number')}
+                            title={translate('Serial Number')}
+                            placeholder={translate('Serial Number')}
                             value={serialNumber}
                             onChangeText={serialNumber => changeSerialNumber(serialNumber)}
                         />
                         <SettingTextInput
-                            title={t('IP Address')}
+                            title={translate('IP Address')}
                             placeholder={"192.168.1.1"}
                             value={ip}
                             onChangeText={ip => changeIp(ip)}
@@ -388,7 +389,7 @@ export const Layout = ({
                         />
 
                         <SettingTextInput
-                            title={t('Port')}
+                            title={translate('Port')}
                             placeholder={'12345'}
                             value={port}
                             onChangeText={port => changePort(port)}
@@ -404,7 +405,7 @@ export const Layout = ({
                             width: '40%',
                             }} >
 
-                            {t('Select Terminal ID')}
+                            {translate('Select Terminal ID')}
                         </Text>
                         <DropdownMenu
                             ref={terminalListRef}
@@ -431,7 +432,7 @@ export const Layout = ({
                     width={scaleWidth(130)}
                     height={scaleHeight(50)}
                     backgroundColor="#F1F1F1"
-                    label={t('CANCEL')}
+                    label={translate('CANCEL')}
                     textColor="#6A6A6A"
                     onPress={() => cancelSetupPax()}
                     styleText={{ fontSize: scaleFont(16), fontWeight: '500' }}
@@ -441,7 +442,7 @@ export const Layout = ({
                     width={scaleWidth(130)}
                     height={scaleHeight(50)}
                     backgroundColor="#0764B0"
-                    label={t('SAVE')}
+                    label={translate('SAVE')}
                     textColor="#fff"
                     onPress={() => setupPaymentTerminal()}
                     styleText={{ fontSize: scaleFont(16), fontWeight: '500' }}
