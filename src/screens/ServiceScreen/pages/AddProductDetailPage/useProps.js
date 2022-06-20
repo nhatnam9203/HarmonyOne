@@ -22,8 +22,10 @@ export const useProps = ({
 
 
   const { bookAppointment: {
-    productsBooking = [],
-  } } = useSelector(state => state);
+      productsBooking = [],
+    },
+} = useSelector(state => state);
+
 
   const [quantity, setQuantity] = React.useState(0);
   const [extrasService, setExtrasService] = React.useState([]);
@@ -151,7 +153,7 @@ export const useProps = ({
 
     editProduct: () => {
       handleEditProduct();
-      NavigationService.navigate(screenNames.EditAppointmentScreen)
+      NavigationService.back();
     },
 
     onChangeQuantity: (qty) => {

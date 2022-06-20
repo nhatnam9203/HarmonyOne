@@ -76,7 +76,10 @@ export const Layout = ({
                   $
                 </Text>
                 {
-                  isEditPrice && <TextInputMask
+                  isEditPrice 
+                  && invoiceViewAppointmentDetail?.paymentMethod != "credit_card"
+                  && invoiceViewAppointmentDetail?.paymentMethod != "multiple"
+                  && <TextInputMask
                     ref={inputPriceRef}
                     value={price}
                     onChangeText={text => setPrice(text)}
@@ -87,7 +90,7 @@ export const Layout = ({
                   />
                 }
                 {
-                  (!isEditPrice || invoiceViewAppointmentDetail?.paymentMethod != "credit_card") && <Text
+                  !isEditPrice && <Text
                     style={[styles.duration, { fontSize: scaleFont(18) }]}
                   >
                     {price}
@@ -95,8 +98,8 @@ export const Layout = ({
                 }
               </View>
 
-              {invoiceViewAppointmentDetail?.paymentMethod != "credit_card" && 
-
+              {invoiceViewAppointmentDetail?.paymentMethod != "credit_card" 
+              && invoiceViewAppointmentDetail?.paymentMethod != "multiple" && 
                 <TouchableOpacity onPress={() => {
                   if (isEditPrice) {
                     setStatusEditPrice(false);
@@ -177,6 +180,8 @@ export const Layout = ({
             extras={extrasService}
             service={item}
             onChangeExtraService={onChangeExtraService}
+            isEditExtraPrice={invoiceViewAppointmentDetail?.paymentMethod != "credit_card"
+                              && invoiceViewAppointmentDetail?.paymentMethod != "multiple"}
           />
         }
         <View style={styles.totalRow}>

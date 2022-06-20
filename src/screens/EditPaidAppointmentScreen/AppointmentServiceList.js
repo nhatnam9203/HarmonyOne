@@ -65,6 +65,14 @@ export const AppointmentServiceList = ({ services = [],
     
   }
 
+  const editProduct = (item) => {
+    NavigationService.navigate(
+      screenNames.AddProductDetailPage,
+      {
+        item, isEditItem: true,
+      });
+  }
+
   const getStaffService = (staffId = 0) => {
     if (staffId == 0) {
       return "Any staff";
@@ -135,6 +143,9 @@ export const AppointmentServiceList = ({ services = [],
             product={item}
             name={item?.productName}
             price={item?.price}
+            onPressItem={() => invoice?.paymentMethod != "credit_card" 
+                                && invoice?.paymentMethod != "multiple"
+                                && editProduct(item)}
           />
         ))
       }

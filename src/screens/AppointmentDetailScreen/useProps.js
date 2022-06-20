@@ -146,7 +146,6 @@ export const useProps = ({
 
   React.useEffect(() => {
     if (item) {
-      console.log('item', item)
       setAppointmentItem(item);
 
       const tempColor = getColorForStatus(item?.status);
@@ -228,7 +227,6 @@ export const useProps = ({
           label: translate('txtEditAppointment'),
           func: () => {
             setIsEditPaidAppointment(true)
-            console.log('isEditPaidAppointment', isEditPaidAppointment, appointmentDetail)
             dispatch(editAppointment.setAppointentEdit(appointmentDetail))
             NavigationService.navigate(screenNames.EditPaidAppointmentScreen);
           },
@@ -239,7 +237,6 @@ export const useProps = ({
     updateNextStatus: async () => {
       if (appointmentItem.status == "complete" 
         || appointmentItem.status == "paid") {
-          console.log('editAppointment', editAppointment)
           setIsEditPaidAppointment(false);
 
 

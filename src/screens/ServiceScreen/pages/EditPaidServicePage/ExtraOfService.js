@@ -8,9 +8,12 @@ import { isEmpty } from "lodash";
 import CheckBox from "@react-native-community/checkbox";
 import { TextInputMask } from "react-native-masked-text";
 
-export const ExtraOfService = ({ extras = [], onChangeExtraService, durationService = 0, service }) => {
+export const ExtraOfService = ({ extras = [], 
+    onChangeExtraService, 
+    durationService = 0, 
+    service,
+    isEditExtraPrice = true }) => {
    
-
     return (
         <View style={styles.containerExtras}>
             <Text style={styles.titleExtra}>Extra services</Text>
@@ -21,6 +24,7 @@ export const ExtraOfService = ({ extras = [], onChangeExtraService, durationServ
                             key={extra?.extraId + "extraService"}
                             extra={extra}
                             onChangeExtraService={onChangeExtraService}
+                            isEditExtraPrice={isEditExtraPrice}
                         />
                     )
                 })
@@ -30,7 +34,7 @@ export const ExtraOfService = ({ extras = [], onChangeExtraService, durationServ
     );
 };
 
-const ItemExtra = ({ extra, onChangeExtraService }) => {
+const ItemExtra = ({ extra, onChangeExtraService, isEditExtraPrice }) => {
     const inputPriceRef = React.useRef();
 
     const changeIsEditPrice = (newValue) => {
@@ -70,7 +74,7 @@ const ItemExtra = ({ extra, onChangeExtraService }) => {
                         {`${extra?.duration} min`}
                     </Text>
                     {
-                    extra?.isEditPrice && <TextInputMask
+                    extra?.isEditPrice && isEditExtraPrice && <TextInputMask
                         ref={inputPriceRef}
                         value={extra?.price}
                         onChangeText={text => setPrice(text)}
@@ -91,24 +95,26 @@ const ItemExtra = ({ extra, onChangeExtraService }) => {
                         {extra?.price}
                     </Text>
                     }
-                    <TouchableOpacity onPress={() => {
-                        if (extra?.isEditPrice) {
-                            changeIsEditPrice(false);
+                    {isEditExtraPrice && 
+                        <TouchableOpacity onPress={() => {
+                            if (extra?.isEditPrice) {
+                                changeIsEditPrice(false);
 
-                        } else {
-                            changeIsEditPrice(true);
-                            setTimeout(() => {
-                                inputPriceRef?.current?._inputElement?.focus();
-                            }, 250);
-                        }
-                    }}
-                    >
-                        <Image
-                        source={!extra?.isEditPrice ? images.penEdit : images.iconChecked}
-                        resizeMode='contain'
-                        style={[styles.iconEditPencil, { tintColor: !extra?.isEditPrice ? "#333" : "#4AD100" }]}
-                        />
-                    </TouchableOpacity>
+                            } else {
+                                changeIsEditPrice(true);
+                                setTimeout(() => {
+                                    inputPriceRef?.current?._inputElement?.focus();
+                                }, 250);
+                            }
+                        }}
+                        >
+                            <Image
+                            source={!extra?.isEditPrice ? images.penEdit : images.iconChecked}
+                            resizeMode='contain'
+                            style={[styles.iconEditPencil, { tintColor: !extra?.isEditPrice ? "#333" : "#4AD100" }]}
+                            />
+                        </TouchableOpacity>
+                    }
                 </View>
             </View>
         </Pressable>
