@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image, Touchable } from 'react-native';
-import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors, images } from "@shared/themes";
 import { Button } from "@shared/components";
+import { translate } from "@localize";
+
 export const Layout = ({
   printerList,
   printerSelect,
@@ -12,7 +13,6 @@ export const Layout = ({
   selectPrinter,
   selectPortType,
 }) => {
-  const [t] = useTranslation();
 
   const ItemConnect = ({ title, isSelect, onPress }) => {
     const tempIconSelect = isSelect ? images.radioExportSe : images.radioExport;
@@ -48,7 +48,7 @@ export const Layout = ({
                   fontWeight: '600',
                   color: '#0764B0',
               }} >
-                  {`${isConnected ? "Connected" : ""}`}
+                  {`${isConnected ? translate("Connected") : ""}`}
               </Text>
           </TouchableOpacity>
       );
@@ -58,7 +58,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Hardwares')}      
+        pageTitle={translate('Hardwares')}      
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
       >
@@ -68,7 +68,7 @@ export const Layout = ({
                     fontWeight: '600',
                     color: '#0764B0'
                 }} >
-                    {t('Connect Printer By')}
+                    {translate('Connect Printer By')}
                 </Text>
                 <View style={{ paddingLeft: scaleWidth(15) }} >
                     <ItemConnect
@@ -93,7 +93,7 @@ export const Layout = ({
                     fontWeight: '600',
                     color: '#0764B0', marginTop: scaleHeight(20), marginBottom: scaleHeight(10)
                 }} >
-                    {t('My Printer Devices')}
+                    {translate('My Printer Devices')}
                 </Text>
                 {
                     printerList && printerList.map((printer) => <ItemPrinter
@@ -113,7 +113,7 @@ export const Layout = ({
                     width={scaleWidth(130)}
                     height={scaleHeight(50)}
                     backgroundColor="#F1F1F1"
-                    label={t('BACK')}
+                    label={translate('BACK')}
                     textColor="#6A6A6A"
                     onPress={backHomeHardware}
                     styleText={{ fontSize: scaleFont(16), fontWeight: '500' }}

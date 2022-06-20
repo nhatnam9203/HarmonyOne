@@ -7,6 +7,9 @@ import { isEmpty } from "lodash";
 export const ItemStaff = ({
     item,
     onPress = () => { },
+    translatetManual = () =>{},
+    language,
+    translateManual
 }) => {
 
     return (
@@ -29,7 +32,7 @@ export const ItemStaff = ({
                         {item?.displayName}
                     </Text>
                     <Text style={styles.roleName}>
-                        {item?.roleName}
+                        {translateManual(language,item?.roleName)}
                     </Text>
                 </View>
             </View>

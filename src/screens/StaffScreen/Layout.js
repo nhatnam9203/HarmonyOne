@@ -4,8 +4,9 @@ import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, SearchInput, AppointmentServiceItem, ItemService, ItemStaff } from "@shared/components";
 import { fonts, colors, images } from '@shared/themes';
 import { slop } from "@shared/utils";
-import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { translate } from "@localize";
+import { translateManual } from "@shared/utils";
 
 export const Layout = ({
   valueSearch,
@@ -16,21 +17,20 @@ export const Layout = ({
   getActionSheets,
   onRefresh,
   isRefresh,
-  getData
+  getData,
+  language
 }) => {
-
-  const [t] = useTranslation();
 
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Staff')}
+        pageTitle={translate('txtStaff')}
         isRight={false}
         isScrollLayout={false}
       >
         <View style={styles.content}>
           <SearchInput
-            placeholder="Search by name"
+            placeholder={translate("Search by name")}
             value={valueSearch}
             onChangeText={onChangeSearch}
             removeText={() => onChangeSearch("")}
@@ -46,6 +46,8 @@ export const Layout = ({
               <ItemStaff
                 item={item}
                 onPress={() => editStaff(item)}
+                language={language}
+                translateManual={translateManual}
               />
             }
             ListFooterComponent={() => <View style={{ height: scaleHeight(100) }} />}

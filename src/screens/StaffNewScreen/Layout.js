@@ -9,9 +9,10 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { isEmpty } from "lodash";
 import { Title, AssignServices, ServiceSalary, ProductSalary, TipSalary, PayoutWithCash, InputPincode } from "./widget";
 import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 
 const options = {
-  title: "Select Image",
+  title: translate("Select Image"),
   customButtons: [],
   storageOptions: {
     skipBackup: true,
@@ -20,14 +21,14 @@ const options = {
 };
 
 const statusData = [
-  { label: "Active", value: 0 },
-  { label: "Inactive", value: 1 },
+  { label: translate("Active"), value: 0 },
+  { label: translate("Inactive"), value: 1 },
 ];
 
 const roleData = [
-  { label: "Staff", value: "Staff" },
-  { label: "Admin", value: "Admin" },
-  { label: "Manager", value: "Manager" },
+  { label: translate("txtStaff"), value: "Staff" },
+  { label: translate("Admin"), value: "Admin" },
+  { label: translate("Manager"), value: "Manager" },
 ];
 
 
@@ -57,7 +58,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={isEdit ? t('Edit staff') : t('New staff')}
+        pageTitle={isEdit ? translate('Edit staff') : translate('New staff')}
         isRight={true}
         isLeft={false}
         isScrollLayout={false}
@@ -72,10 +73,10 @@ export const Layout = ({
       >
         <KeyboardAwareScrollView style={styles.content}>
 
-          <Title text="Personal Info" />
+          <Title text={translate("Personal Info")} />
 
           <CustomInput
-            label='First name'
+            label={translate('First Name')}
             isRequired
             error={errors?.firstName}
             renderInput={() =>
@@ -89,7 +90,7 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Last name'
+            label={translate('Last Name')}
             isRequired
             error={errors?.lastName}
             renderInput={() =>
@@ -103,7 +104,7 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Display name'
+            label={translate('Display Name')}
             isRequired
             error={errors?.displayName}
             renderInput={() =>
@@ -117,7 +118,7 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Phone number'
+            label={translate('Phone Number')}
             name="phone"
             error={errors?.phone}
             renderInput={() =>
@@ -145,7 +146,7 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Email'
+            label={translate('txtEmail')}
             error={errors?.email}
             renderInput={() =>
               <InputText
@@ -163,22 +164,22 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Role'
+            label={translate('Role')}
             isRequired
             renderInput={() =>
               <InputSelect
                 ref={roleRef}
                 form={form}
                 name="role"
-                title="Role"
+                title={translate("Role")}
                 items={roleData}
-                defaultValue={'Staff'}
+                defaultValue={translate('Staff')}
               />
             }
           />
 
           <Text style={styles.titleDuration}>
-            Avatar
+            {translate("Avatar")}
           </Text>
           <ButtonUpload
             onResponseImagePicker={onUploadImage}
@@ -186,13 +187,13 @@ export const Layout = ({
           />
 
           <CustomInput
-            label='Status'
+            label={translate('Status')}
             renderInput={() =>
               <InputSelect
                 ref={statusRef}
                 form={form}
                 name="status"
-                title="Status"
+                title={translate("Status")}
                 items={statusData}
                 defaultValue={'0'}
               />
@@ -201,7 +202,7 @@ export const Layout = ({
 
           <WorkingTime 
             ref={workingTimeRef}
-            renderTitle={()=><Title text="Workig time" />}
+            renderTitle={()=><Title text={translate("Working time")} />}
           />
 
           <AssignServices 
@@ -229,7 +230,7 @@ export const Layout = ({
       </SingleScreenLayout>
       <View style={styles.bottom}>
         <Button
-          label="Save"
+          label={translate("txtSave")}
           onPress={form.handleSubmit(onSubmit)}
           highlight={true}
           disabled={!isEmpty(errors)}

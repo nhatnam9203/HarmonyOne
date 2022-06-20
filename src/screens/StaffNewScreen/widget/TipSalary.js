@@ -4,7 +4,8 @@ import { fonts, images, colors } from '@shared/themes';
 import { InputText, CustomInput } from "@shared/components";
 import { useForm } from "react-hook-form";
 import CheckBox from "@react-native-community/checkbox";
-import Title from "./Title"
+import Title from "./Title";
+import { translate } from "@localize";
 
 const TipSalary = React.forwardRef(({ }, ref) => {
 
@@ -55,7 +56,7 @@ const TipSalary = React.forwardRef(({ }, ref) => {
 
     return (
         <View style={styles.container}>
-            <Title text="Tip" />
+            <Title text={translate("Tip")} />
             {/************************* PERCENT *************************/}
             <View style={styles.row}>
                 <CheckBox
@@ -70,18 +71,17 @@ const TipSalary = React.forwardRef(({ }, ref) => {
                     offAnimationType='one-stroke'
                     style={{ width: 24, height: 24, marginRight: scaleWidth(16) }}
                 />
-                <Text style={styles.txt}>Percent</Text>
+                <Text style={styles.txt}>{translate("Percent")}</Text>
             </View>
             <View pointerEvents={percentStatus ? "auto" : "none"}>
                 <InputText
                     form={form}
                     name="percentValue"
-                    placeholder=""
                     type="money"
                     placeholder="0.00"
                     defaultValue="0.00"
                     defaultValueRemove="0.00"
-                    style={{ alignItems: 'center' }}
+                    style={{ alignItems: 'center', backgroundColor: percentStatus ? "white" : "#eeeeee" }}
                     options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
                     renderLeft={() => <Text style={styles.dollar}>%</Text>}
                 />
@@ -103,18 +103,17 @@ const TipSalary = React.forwardRef(({ }, ref) => {
                     offAnimationType='one-stroke'
                     style={{ width: 24, height: 24, marginRight: scaleWidth(16) }}
                 />
-                <Text style={styles.txt}>Fixed amount</Text>
+                <Text style={styles.txt}>{translate("Fixed amount")}</Text>
             </View>
             <View pointerEvents={fixedAmountStatus ? "auto" : "none"}>
                 <InputText
                     form={form}
                     name="fixedAmountValue"
-                    placeholder=""
                     type="money"
                     placeholder="0.00"
                     defaultValue="0.00"
                     defaultValueRemove="0.00"
-                    style={{ alignItems: 'center' }}
+                    style={{ alignItems: 'center', backgroundColor: fixedAmountStatus ? "white" : "#eeeeee" }}
                     options={{ precision: 2, separator: '.', delimiter: ',', unit: '', suffixUnit: '' }}
                     renderLeft={() => <Text style={styles.dollar}>$</Text>}
                 />

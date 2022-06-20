@@ -8,6 +8,7 @@ import { ButtonFilter, CustomInput, DropdownMenu, LoadingAnimation } from "@shar
 import { ReviewList } from "./ReviewList";
 import { images } from "@shared/themes/resources";
 import { ItemTotal } from "./widget";
+import { translate } from "@localize";
 
 export const Layout = ({
   reviewTypeRef,
@@ -38,7 +39,7 @@ export const Layout = ({
     return (
       <View style={styles.container}>
         <SingleScreenLayout
-          pageTitle={t("Review")}
+          pageTitle={translate("Review")}
           isLeft={true}
           isRight={true}
           isScrollLayout={false}
@@ -54,10 +55,10 @@ export const Layout = ({
 
                 onReset={() => {
                   statusRef?.current?.changeValue(
-                    { label: "All Status", value: "all" },
+                    { label: translate("All"), value: "all" },
                   );
                   reviewTypeRef?.current?.changeValue(
-                    { label: "All reviews", value: "all" },
+                    { label: translate("All"), value: "all" },
                   );
                 }}
 
@@ -71,7 +72,7 @@ export const Layout = ({
                 }}
               >
                 <CustomInput
-                  label='Review type'
+                  label={translate('Review type')}
                   name="reviewType"
                   labelStyle={{ color: colors.greyish_brown_40 }}
                   renderInput={() =>
@@ -88,7 +89,7 @@ export const Layout = ({
                   }
                 />
                 <CustomInput
-                  label='Status'
+                  label={translate('Status')}
                   name="status"
                   labelStyle={{ color: colors.greyish_brown_40 }}
                   renderInput={() =>
@@ -118,18 +119,18 @@ export const Layout = ({
                 style={styles.wrapper}
               >
                 <ItemTotal
-                  title={t('Aggregate Rating')}
+                  title={translate('Aggregate Rating')}
                   number={summary?.rating}
                   count={summary?.count}
                 />
 
                 <ItemTotal
-                  title={t('Good Reviews')}
+                  title={translate('Good Reviews')}
                   number={summary?.goodCount}
                 />
 
                 <ItemTotal
-                  title={t('Bad Reviews')}
+                  title={translate('Bad Reviews')}
                   number={summary?.badCount}
                 />
 

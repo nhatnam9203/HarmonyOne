@@ -15,16 +15,6 @@ import { getContentDate, arrDateFilter } from "@shared/utils";
 import moment from 'moment';
 import { translate } from "@localize";
 
-const dateRangeData = [
-  { label: translate("Today"), value: "Today" },
-  { label: translate("Yesterday"), value: "Yesterday" },
-  { label: translate("This week"), value: "This week" },
-  { label: translate("Last week"), value: "Last week" },
-  { label: translate("This month"), value: "This month" },
-  { label: translate("Last month"), value: "Last month" },
-];
-
-
 export const PeriodPicker = ({
   timeStart,
   timeEnd,
@@ -135,6 +125,16 @@ export const PeriodPicker = ({
   }, [startDate, endDate])
 
   const [t] = useTranslation();
+
+  const dateRangeData = [
+    { label: translate("Today"), value: "Today" },
+    { label: translate("Yesterday"), value: "Yesterday" },
+    { label: translate("This week"), value: "This week" },
+    { label: translate("Last week"), value: "Last week" },
+    { label: translate("This month"), value: "This month" },
+    { label: translate("Last month"), value: "Last month" },
+  ];
+  
 
   return (
     <>

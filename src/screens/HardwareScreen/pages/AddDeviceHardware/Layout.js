@@ -10,6 +10,8 @@ import {
   PaymentTerminalType,
  } from "@shared/utils";
 import _ from "lodash";
+import { translate } from "@localize";
+
 export const Layout = ({
   name,
   isSetup,
@@ -30,7 +32,7 @@ export const Layout = ({
                 marginTop: scaleHeight(10),
                 marginBottom: scaleHeight(7)
             }} >
-                {t('No connected device')}
+                {translate('No connected device')}
             </Text>
 
             <TouchableOpacity onPress={addDevice} style={{
@@ -57,7 +59,7 @@ export const Layout = ({
                     color: '#0764B0',
                     marginLeft: scaleWidth(8)
                 }} >
-                    {t('Add device')}
+                    {translate('Add device')}
                 </Text>
           </TouchableOpacity>
         </View>
@@ -88,7 +90,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Hardwares')}      
+        pageTitle={translate('Hardwares')}      
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
       >
@@ -100,7 +102,7 @@ export const Layout = ({
                         color: '#0764B0'
                     }} >
 
-                {t('Payment Terminal')}
+                {translate('Payment terminal')}
             </Text>
 
             <Text style={{
@@ -110,7 +112,7 @@ export const Layout = ({
                 marginTop: scaleHeight(10)
             }} >
 
-                {t('Connected Device')}
+                {translate('Connected Device')}
             </Text>
             {!isSetup ? renderNoConnected() : renderConnected()}
           </View>
@@ -122,7 +124,7 @@ export const Layout = ({
                       width={scaleWidth(130)}
                       height={scaleHeight(50)}
                       backgroundColor="#F1F1F1"
-                      label={t('BACK')}
+                      label={translate('BACK')}
                       textColor="#6A6A6A"
                       onPress={backHomeHardware}
                       styleText={{ fontSize: scaleFont(16), fontWeight: '500' }}

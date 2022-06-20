@@ -8,6 +8,7 @@ import { Switch } from "react-native-paper";
 import NavigationService from '@navigation/NavigationService';
 import { Button, CustomInput, InputText } from "@shared/components";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { translate } from "@localize";
 
 export const Layout = ({
   onSubmit,
@@ -27,7 +28,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Advanced Settings')}
+        pageTitle={translate('Advanced Settings')}
         isRight={false}
         isScrollLayout={false}
         containerStyle={{ paddingVertical: 0 }}
@@ -42,7 +43,7 @@ export const Layout = ({
                 <KeyboardAwareScrollView bounces={false} style={styles.content}>
                   <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                     <Text style={styles.title}>
-                      Loyalty program
+                      {translate("Loyalty program")}
                     </Text>
                     <Switch
                       value={IsLoyaltyProgram}
@@ -56,28 +57,28 @@ export const Layout = ({
                     IsLoyaltyProgram &&
                     <>
                       <Text style={[styles.txt, { marginTop: scaleHeight(24), fontFamily: fonts.MEDIUM, textAlign: "center" }]}>
-                        Star earn per
+                        {translate("Star earn per")}
                         <Text style={{ color: colors.ocean_blue, fontFamily: fonts.BOLD }}>
                           {` $1 `}
                         </Text>
-                        spent
+                        {translate("spent")}
                       </Text>
                       <Text style={[styles.txt, { marginBottom: scaleHeight(30), marginTop: 4, fontFamily: fonts.MEDIUM, textAlign: "center" }]}>
-                        by payment method
+                        {translate("by payment method")}
                       </Text>
 
                       <View style={{ flexDirection: "row", marginBottom: scaleHeight(16) }}>
                         <Text style={[styles.txt2, { width: scaleWidth(180) }]}>
-                          Payment method
+                          {translate("Payment method")}
                         </Text>
                         <Text style={styles.txt2}>
-                          Star earned
+                          {translate("Star earned")}
                         </Text>
                       </View>
 
                       <View style={styles.rowMethod}>
                         <Text style={[styles.txt, { width: scaleWidth(180) }]}>
-                          Cash
+                          {translate("Cash")}
                         </Text>
                         <InputText
                           form={form}
@@ -107,7 +108,7 @@ export const Layout = ({
 
                       <View style={styles.rowMethod}>
                         <Text style={[styles.txt, { width: scaleWidth(180) }]}>
-                          Credit card
+                          {translate("Credit Card")}
                         </Text>
                         <InputText
                           form={form}
@@ -122,7 +123,7 @@ export const Layout = ({
 
                       <View style={styles.rowMethod}>
                         <Text style={[styles.txt, { width: scaleWidth(180) }]}>
-                          Other
+                          {translate("Other")}
                         </Text>
                         <InputText
                           form={form}
@@ -140,7 +141,7 @@ export const Layout = ({
                   {/* Cash discount */}
                   <View style={styles.rowView}>
                     <Text style={styles.title}>
-                      Apply Cash Discount program
+                      {translate("Apply Cash Discount program")}
                     </Text>
                     <Switch
                       value={IsCashDiscount}
@@ -152,12 +153,12 @@ export const Layout = ({
 
                   {/* --------  Receipt Footer  --------- */}
                   <Text style={[styles.txt2,{ marginTop: 10 }]}>
-                    Receipt Footer
+                    {translate("Receipt Footer")}
                   </Text>
                   <View style={styles.textInputView}>
                     <TextInput
                       style={{ flex: 1, fontSize: scaleFont(18) }}
-                      placeholder="Receipt footer input here..."
+                      placeholder={`${(translate("Receipt footer input here"))} ...`}
                       value={receiptFooter}
                       onChangeText={(value) => { setReceiptFooter(value) }}
                       multiline={true}
@@ -170,7 +171,7 @@ export const Layout = ({
               </TouchableWithoutFeedback>
               <View style={styles.bottom}>
                 <Button
-                  label="Cancel"
+                  label={translate("Cancel")}
                   onPress={resetValue}
                   width={'48%'}
                   styleButton={{
@@ -182,7 +183,7 @@ export const Layout = ({
                   }}
                 />
                 <Button
-                  label="Save"
+                  label={translate("txtSave")}
                   onPress={form.handleSubmit(onSubmit)}
                   highlight={true}
                   width={'48%'}
@@ -252,7 +253,7 @@ const styles = StyleSheet.create({
     marginTop: scaleHeight(10),
   },
   title: {
-    fontSize: scaleFont(17),
+    fontSize: scaleFont(15),
     fontFamily: fonts.REGULAR,
     color: "#333",
     marginTop: scaleHeight(20),

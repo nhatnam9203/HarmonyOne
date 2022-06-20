@@ -30,6 +30,8 @@ export const useProps = (props) => {
     staff: { staffListByMerchant = [] },
   } = useSelector((state) => state);
 
+  const language = useSelector(state => state.dataLocal.language);
+
   const [t] = useTranslation();
 
   const [, fetchStaffList] = useAxiosQuery({
@@ -83,6 +85,7 @@ export const useProps = (props) => {
   return {
     valueSearch,
     isRefresh,
+    language,
 
     onChangeSearch: (vl) => {
       setSearchValue(vl);

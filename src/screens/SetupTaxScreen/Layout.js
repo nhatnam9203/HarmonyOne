@@ -3,6 +3,7 @@ import { View, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-nati
 import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { Button, CustomInput, InputText } from "@shared/components";
+import { translate } from "@localize";
 
 export const Layout = ({
   form,
@@ -16,7 +17,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Tax Settings')}
+        pageTitle={translate('Tax Settings')}
         isRight={false}
         isLeft={true}
         isScrollLayout={false}
@@ -24,7 +25,7 @@ export const Layout = ({
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <View style={styles.content}>
             <CustomInput
-              label='Service (%)'
+              label={`${translate("Service")} (%)`}
               renderInput={() =>
                 <InputText
                   form={form}
@@ -40,7 +41,7 @@ export const Layout = ({
               }
             />
             <CustomInput
-              label='Product (%)'
+              label={`${translate("Product")} (%)`}
               renderInput={() =>
                 <InputText
                   form={form}
@@ -60,7 +61,7 @@ export const Layout = ({
       </SingleScreenLayout>
       <View style={styles.bottom}>
         <Button
-          label="Save"
+          label={translate("txtSave")}
           onPress={form.handleSubmit(onSubmit)}
           highlight={true}
           disabled={!isChange}

@@ -167,15 +167,15 @@ export const customerGroup = [
 ];
 
 export const reviewTypeGroup = [
-  { label: 'All reviews', value: 'all' },
-  { label: 'Bad reviews', value: 'bad' },
-  { label: 'Good reviews', value: 'good' },
+  { label: translate('All'), value: 'all' },
+  { label: translate('Bad Reviews'), value: 'bad' },
+  { label: translate('Good Reviews'), value: 'good' },
 ];
 
 export const statusGroup = [
-  { label: 'All Status', value: 'all' },
-  { label: 'Show', value: 'show' },
-  { label: 'Hidden', value: 'hidden' },
+  { label: translate('All'), value: 'all' },
+  { label: translate('Show'), value: 'show' },
+  { label: translate('Hidden'), value: 'hidden' },
 ];
 
 export function getTimeAvaible(staff_available_time) {

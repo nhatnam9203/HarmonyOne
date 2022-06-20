@@ -3,6 +3,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { Button, CustomInput, InputText, InputSelect, IconButton } from "@shared/components";
 import { fonts, images } from '@shared/themes';
+import { translate } from "@localize";
 
 
 const InputPincode = ({
@@ -19,7 +20,7 @@ const InputPincode = ({
     return (
         <>
             <CustomInput
-                label='Pin code'
+                label={translate('Pin code')}
                 isRequired
                 error={errors?.pin}
                 renderInput={() =>
@@ -45,7 +46,7 @@ const InputPincode = ({
             />
 
             <CustomInput
-                label='Confirm Pin code'
+                label={translate('Confirm Pin code')}
                 isRequired
                 error={errors?.confirmPin}
                 renderInput={() =>

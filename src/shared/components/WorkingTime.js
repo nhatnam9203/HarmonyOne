@@ -56,7 +56,7 @@ export const WorkingTime = React.forwardRef(({ renderTitle = null }, ref) => {
                 <View style={{ marginBottom: scaleHeight(24) }}>
                     {renderTitle ? renderTitle() : <View />}
                 </View>
-                <TouchableOpacity onPress={setAllChecked}>
+                <TouchableOpacity style={{ marginTop: 3 }} onPress={setAllChecked}>
                     <Text style={styles.applyToAll}>{translate('Apply to all')}</Text>
                 </TouchableOpacity>
             </View>
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     applyToAll: {
-        fontSize: scaleFont(16),
+        fontSize: scaleFont(13),
         color: colors.ocean_blue,
         fontFamily: fonts.MEDIUM
     }
