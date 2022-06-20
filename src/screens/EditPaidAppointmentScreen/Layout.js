@@ -11,6 +11,7 @@ import { AppointmentServiceList } from './AppointmentServiceList';
 import { InvoiceNumber } from "./InvoiceNumber";
 import moment from "moment";
 import NavigationService from '@navigation/NavigationService';
+import {translate} from "@localize";
 
 let EditButton = ({ headerTintColor, ...props }) => {
   return (
@@ -45,7 +46,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={`${t('Edit Appointment')} #${appointmentItem?.code?.toString().substring(appointmentItem?.code?.length - 4)}`}
+        pageTitle={`${translate('txtEditAppointment')} #${appointmentItem?.code?.toString().substring(appointmentItem?.code?.length - 4)}`}
         {...headerColor}
         isLeft={false}
         isRight={true}
@@ -101,7 +102,7 @@ export const Layout = ({
         {
           <View style={styles.bottom}>
             <Button
-              label={"Save"}
+              label={translate('txtSave')}
               onPress={updateAppointment}
               highlight={true}
               width={'100%'}

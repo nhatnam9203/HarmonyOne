@@ -20,8 +20,6 @@ import { axios } from '@shared/services/axiosClient';
 import {translate} from "@localize";
 
 const NoNeedEdit = [
-  // APPOINTMENT_STATUS.PAID,
-  // APPOINTMENT_STATUS.COMPLETE,
   APPOINTMENT_STATUS.CANCEL,
   APPOINTMENT_STATUS.VOID,
   APPOINTMENT_STATUS.REFUND,

@@ -318,7 +318,9 @@
   "No Products": "No Products",
   "Search by name": "Search by name",
   "items picked": "items picked",
-  "Select category": "Select category"
-
-
+  "Select category": "Select category",
+  "Can not change tip": "Can not change tip for appointment that have added tip on POS app before.",
+  "Have Error": "Error",
+  "Waiting List": "Waiting List",
+  "Any staff": "Any staff"
 }

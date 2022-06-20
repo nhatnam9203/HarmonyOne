@@ -11,6 +11,7 @@ import { formatNumberFromCurrency, formatMoney, convertMinsToHrsMins } from "@sh
 import NavigationService from '@navigation/NavigationService';
 import { useSelector, useDispatch } from "react-redux";
 import { bookAppointment, appointment, editAppointment, service, app } from "@redux/slices";
+import { translate } from "@localize";
 
 export const AppointmentServiceList = ({ services = [], 
                                           extras = [], 
@@ -75,7 +76,7 @@ export const AppointmentServiceList = ({ services = [],
 
   const getStaffService = (staffId = 0) => {
     if (staffId == 0) {
-      return "Any staff";
+      return translate('Any staff');
     } else {
       return staffListByMerchant.find(staff => staff?.staffId == staffId)?.displayName || "";
     }
@@ -87,7 +88,7 @@ export const AppointmentServiceList = ({ services = [],
 
   return (
     <View style={styles.container}>
-      <Text style={styles.textTitle}>{t('Items')}</Text>
+      <Text style={styles.textTitle}>{translate('Items')}</Text>
       {
         services?.map((item) => (
           <View>
@@ -109,7 +110,7 @@ export const AppointmentServiceList = ({ services = [],
               {
                   <>
                     <Text style={styles.titleStaff}>
-                      {getStaffService(item?.staffId) ? "Staff" : ""}
+                      {getStaffService(item?.staffId) ? translate('txtStaff') : ""}
                     </Text>
                     <InputSelectStaff
                       items={staffListByMerchant.filter(staff => staff?.isDisabled == 0)}
@@ -120,7 +121,7 @@ export const AppointmentServiceList = ({ services = [],
                       renderInput={() => (
                         <View style={styles.inputSelectTime}>
                           <Text style={styles.serviceFromtime}>
-                            {getStaffService(item?.staffId) || "Waiting List"}
+                            {getStaffService(item?.staffId) || translate('Waiting List')}
                           </Text>
                           <Image
                             source={images.downarrow}

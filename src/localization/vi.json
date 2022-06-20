@@ -302,5 +302,9 @@
   "No Products": "Không có sản phẩm",
   "Search by name": "Tìm theo tên",
   "items picked": "danh mục được chọn",
-  "Select category": "Chọn danh mục"
+  "Select category": "Chọn danh mục",
+  "Can not change tip": "Không thể sửa tip cho các đơn hàng được thêm tip trên ứng dụng POS từ trước.",
+  "Have Error": "Đã có lổi xảy ra.",
+  "Waiting List": "Hàng đợi",
+  "Any staff": "Chưa chọn nhân viên"
 }

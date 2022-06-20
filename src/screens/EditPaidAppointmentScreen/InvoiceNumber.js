@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { colors, fonts } from '@shared/themes';
 import moment from "moment";
+import { translate } from "@localize";
 
 export const InvoiceNumber = ({
   appointmentItem,
@@ -12,12 +13,12 @@ export const InvoiceNumber = ({
   if (appointmentItem?.status == "paid") {
     return (
       <View style={{ marginTop: scaleHeight(8) }}>
-        <Text style={styles.invoiceNumber}>{`Paid at`}</Text>
+        <Text style={styles.invoiceNumber}>{translate('Paid at')}</Text>
         <Text style={styles.invoiceNumber}>
           {moment(invoiceViewAppointmentDetail?.createdDate).format("hh:mm A, dddd, MM/DD/YYYY")}
         </Text>
         <TouchableOpacity onPress={()=>getInvoiceDetail(invoiceViewAppointmentDetail?.checkoutId)}>
-          <Text style={styles.invoiceNumber}>{`Invoice : `}
+          <Text style={styles.invoiceNumber}>{`${translate('Invoice')} : `}
             <Text style={{ color: colors.ocean_blue, fontFamily: fonts.BOLD }}>
               #{invoiceViewAppointmentDetail?.checkoutId}
             </Text>

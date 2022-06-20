@@ -28,6 +28,7 @@ import {
   requestEditTipDejavoo,
   handleResponseDejavoo,
 } from "@utils";
+import { translate } from '@localize';
 
 export const useProps = ({
   route
@@ -116,7 +117,6 @@ export const useProps = ({
 
   React.useEffect(() => {
     if (item) {
-      console.log('edit appointment', item)
       setAppointmentItem(item);
 
       const tempColor = getColorForStatus(item?.status);
@@ -150,7 +150,6 @@ export const useProps = ({
     staffsByDate,
     getInvoiceDetail,
     updateAppointment: () => {
-      console.log('invoiceViewAppointmentDetail', invoiceViewAppointmentDetail)
       if (invoiceViewAppointmentDetail?.paymentMethod == 'credit_card') {
         const paymentInformation = _.get(invoiceViewAppointmentDetail, 'paymentInformation.0');
         const paymentData = paymentInformation?.paymentData;
@@ -178,8 +177,6 @@ export const useProps = ({
               tipOnDejavoo = findIndexTip > -1 ? extraData[findIndexTip].replace("Tip=", "") : 0;
             }
             let tipSum = 0;
-            console.log('appointmentEdit', appointmentEdit)
-            console.log('invoiceViewAppointmentDetail', invoiceViewAppointmentDetail)
             if (appointmentEdit?.services) {
               tipSum = _.sumBy(appointmentEdit?.services, item =>{
                 return parseFloat(item?.tipAmount)
@@ -189,7 +186,14 @@ export const useProps = ({
             if (tipSum.toFixed(2) != invoiceViewAppointmentDetail?.tipAmount) {
               if (tipOnDejavoo != invoiceViewAppointmentDetail?.tipAmount
                  && invoiceViewAppointmentDetail?.responses.length == 0) {
-                alert("Can not change tip for appointment that have added tip on POS app before.")
+                  dispatch(
+                    app.setError({
+                      isError: true,
+                      messageError: translate('Can not change tip'),
+                      errorType: "error",
+                      titleError: translate('Alert'),
+                    }));
+                // alert("Can not change tip for appointment that have added tip on POS app before.")
               } else {
                 const params = {
                   amount,
@@ -204,9 +208,13 @@ export const useProps = ({
                     handleUpdatePaidAppointment(responses);
                   },
                   error => {
-                    setTimeout(() => {
-                      alert(error || "Error")
-                    }, 300)
+                      dispatch(
+                      app.setError({
+                        isError: true,
+                        messageError: translate('Have Error'),
+                        errorType: "error",
+                        titleError: "Alert",
+                      }));
                   })
                 });
               }
