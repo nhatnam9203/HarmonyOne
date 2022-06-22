@@ -6,6 +6,7 @@ import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
 import moment from "moment";
+import { translate } from "@localize";
 
 
 export const DataList = ({
@@ -91,17 +92,17 @@ export const DataList = ({
         <CustomTable
             tableData={getData()}
             tableHead={{
-                name: "Staff name",
-                serviceSales: "Service sales",
-                surcharge: "Surcharge",
-                netServiceSales: "Net service sales",
-                serviceSplit: "Service split",
-                productSales: "Product sales",
-                productSplit: "Product split",
-                tip: "Tip amount",
-                discountByStaff: "Discount by staff",
-                refundAmount: "Refund amount",
-                salary: "Salary"
+                name: translate("Staff name"),
+                serviceSales: translate("Service sales"),
+                surcharge: translate("Surcharge"),
+                netServiceSales: translate("Net service sales"),
+                serviceSplit: translate("Service split"),
+                productSales: translate("Product sales"),
+                productSplit: translate("Product split"),
+                tip: translate("Tip amount"),
+                discountByStaff: translate("Discount by staff"),
+                refundAmount: translate("Refund amount"),
+                salary: translate("Salary")
             }}
             whiteKeys={[
                 "name",

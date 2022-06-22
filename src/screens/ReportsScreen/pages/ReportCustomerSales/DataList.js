@@ -7,6 +7,7 @@ import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 import moment from "moment";
+import { translate } from "@localize";
 
 
 export const DataList = ({
@@ -72,11 +73,11 @@ export const DataList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                name: "Customer",
-                appointmentCount: "Appointments",
-                lastVisitDate: "Last visit",
-                lastVisitSale: "Last visit sales",
-                total: "Total sales",
+                name: translate("Customer"),
+                appointmentCount: translate("Appointments"),
+                lastVisitDate: translate("Last visit"),
+                lastVisitSale: translate("Last visit sales"),
+                total: translate("Total sales"),
             }}
             whiteKeys={[
                 "name",

@@ -6,6 +6,7 @@ import { fonts, colors, images } from "@shared/themes";
 import { PeriodPicker, IconButton, CustomInput, InputSelect } from "@shared/components";
 import { DataList } from "./DataList";
 import { WithPopupActionSheet } from "@shared/HOC";
+import { translate } from "@localize";
 
 export const Layout = ({
   item,
@@ -30,7 +31,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Service statistic')}
+        pageTitle={translate('Service statistic')}
         isLeft={true}
         isRight={true}
         headerRightComponent={() =>

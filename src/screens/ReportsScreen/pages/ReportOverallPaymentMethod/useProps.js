@@ -6,6 +6,7 @@ import { getContentDate, handleFileDownloaed } from "@shared/utils";
 import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
 import { Alert } from "react-native";
+import { translateManual } from "@shared/utils";
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
@@ -16,6 +17,8 @@ export const useProps = (props) => {
       listPaymentMethod = [],
     }
   } = useSelector(state => state);
+
+  const language = useSelector(state => state.dataLocal.languge);
 
   /********************************* STATE  ********************************* */
   const [currentPage, setCurrentPage] = React.useState(1);

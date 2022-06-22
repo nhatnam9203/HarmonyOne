@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { useTranslation } from "react-i18next";
 import { SingleScreenLayout } from '@shared/layouts';
 import { fonts, colors, images } from "@shared/themes";
 import { PeriodPicker, IconButton, CustomInput, InputSelect } from "@shared/components";
 import { DataList } from "./DataList";
 import { WithPopupActionSheet } from "@shared/HOC";
+import { translate } from "@localize";
 
 export const Layout = ({
   item,
@@ -25,12 +25,10 @@ export const Layout = ({
 
   ExportButton = WithPopupActionSheet(ExportButton);
 
-  const [t] = useTranslation();
-
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Category statistic')}
+        pageTitle={translate('Category statistic')}
         isLeft={true}
         isRight={true}
         headerRightComponent={() =>

@@ -6,6 +6,8 @@ import { fonts, colors, images } from "@shared/themes";
 import { PeriodPicker, IconButton, CustomInput, InputSelect } from "@shared/components";
 import { DataList } from "./DataList";
 import { WithPopupActionSheet } from "@shared/HOC";
+import { translate } from "@localize";
+
 export const Layout = ({
   actionSheetExports,
   listSelectedRef,
@@ -14,7 +16,9 @@ export const Layout = ({
   onChangeSelected,
   form,
   dataList,
-  exportFile
+  exportFile,
+  language,
+  translateManual,
 }) => {
 
   let ExportButton = ({ ...props }) => {
@@ -34,10 +38,11 @@ export const Layout = ({
 
   const list = dataList.find(obj => obj?.method == itemSelected?.value)?.statistics || [];
 
+
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Payment statistic')}
+        pageTitle={translate('Payment statistic')}
         isLeft={true}
         isRight={true}
         headerRightComponent={() =>
@@ -64,8 +69,8 @@ export const Layout = ({
                   onSelect={(item) => {
                     onChangeSelected(item);
                   }}
-                  title="Payment"
-                  defaultValue={itemSelected?.label}
+                  title={translate("Payment")}
+                  defaultValue={translateManual(language,itemSelected?.label)}
                 />
               }
             />

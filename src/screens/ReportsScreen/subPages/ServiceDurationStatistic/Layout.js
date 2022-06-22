@@ -6,6 +6,7 @@ import { fonts, colors, images } from "@shared/themes";
 import { PeriodPicker, IconButton, InputSelect, CustomInput } from "@shared/components";
 import { DataList } from "./DataList";
 import { WithPopupActionSheet } from "@shared/HOC";
+import { translate } from "@localize";
 export const Layout = ({
   isRefresh,
   listSelectedRef,
@@ -39,7 +40,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Staff statistic')}
+        pageTitle={translate('Staff statistic')}
         isLeft={true}
         isRight={true}
         headerRightComponent={() =>
@@ -67,7 +68,7 @@ export const Layout = ({
                   onSelect={(staff) => {
                     onChangeSelectec(staff);
                   }}
-                  title="Staff"
+                  title={translate("Staff")}
                   defaultValue={staffSelected?.label}
                 />
               }

@@ -7,6 +7,7 @@ import { CustomTable } from "@shared/components";
 import { getCredicardIcon, convertMinsToHrsMins } from "@shared/utils";
 import moment from "moment";
 import NavigationService from "@navigation/NavigationService";
+import { translate } from "@localize";
 
 
 export const DataList = ({
@@ -72,11 +73,11 @@ export const DataList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                name: "Service",
-                quantity: "Sale Qty",
-                totalDuration: "Total Durations",
-                avgPrice: "Av. Price",
-                totalSales: "Total Sales"
+                name: translate("Service"),
+                quantity: translate("Sale Qty"),
+                totalDuration: translate("Total Duration"),
+                avgPrice: translate("Av Price"),
+                totalSales: translate("Total Sales")
             }}
             whiteKeys={[
                 "name",
@@ -86,7 +87,6 @@ export const DataList = ({
                 "totalSales"
             ]}
             primaryId="name"
-            sumTotalKey="name"
             calcSumKeys={[
                 "quantity",
                 "totalDuration",
@@ -107,7 +107,6 @@ export const DataList = ({
             headStyle={{ color: colors.ocean_blue, fontSize: scaleFont(15), textAlign: 'left' }}
             unitKeys={{ totalDuration: "hrs" }}
             arrTextTotal={["name"]}
-            maxColumnCount={3}
             sortDefault="NONE"
             sortKey="name"
             tableCellWidth={{ totalDuration: scaleWidth(140) }}

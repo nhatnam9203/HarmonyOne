@@ -6,6 +6,8 @@ import { fonts, colors, images } from "@shared/themes";
 import { PeriodPicker, IconButton, CustomInput, InputSelect } from "@shared/components";
 import { DataList } from "./DataList";
 import { WithPopupActionSheet } from "@shared/HOC";
+import { translate } from "@localize";
+
 export const Layout = ({
   isRefresh,
   onRefresh,
@@ -37,12 +39,10 @@ export const Layout = ({
 
   ExportButton = WithPopupActionSheet(ExportButton);
 
-  const [t] = useTranslation();
-
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Sales by product')}
+        pageTitle={translate('Sales by product')}
         isLeft={true}
         isRight={true}
         headerRightComponent={() =>
@@ -77,7 +77,7 @@ export const Layout = ({
                   onSelect={(item) => {
                     onChangeFilter(item);
                   }}
-                  title="List"
+                  title={translate("List")}
                   defaultValue={"all"}
                 />
               }

@@ -7,12 +7,7 @@ import { useForm } from "react-hook-form";
 import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
 import { Alert } from "react-native";
-
-const filterList = [
-  { label : "Top 5 services", value : "top5" },
-  { label : "Top 10 services", value : "top10" },
-  { label : "All services", value : "all" }
-];
+import { translate } from "@localize";
 
 
 export const useProps = (props) => {
@@ -98,7 +93,12 @@ export const useProps = (props) => {
     }
   }, [timeStart, timeEnd]);
 
-
+  const filterList = [
+    { label : translate("Top 5 services"), value : "top5" },
+    { label : translate("Top 10 services"), value : "top10" },
+    { label : translate("All services"), value : "all" }
+  ];
+  
 
   return {
     isRefresh,

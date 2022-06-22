@@ -6,6 +6,7 @@ import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
 import moment from "moment";
+import { translate } from "@localize";
 
 
 export const DataList = ({
@@ -63,12 +64,12 @@ export const DataList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                appointmentId: "Appt ID",
-                date: "Date",
-                time: "Time",
-                serviceCount: "No. of services",
-                staffName: "Staff",
-                payamount: "Pay amount"
+                appointmentId: translate("Appt ID"),
+                date: translate("Date"),
+                time: translate("Time"),
+                serviceCount: translate("No of services"),
+                staffName: translate("Staff"),
+                payamount: translate("Pay amount")
             }}
             whiteKeys={[
                 "appointmentId",

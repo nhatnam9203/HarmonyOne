@@ -23,6 +23,7 @@ import { NormalHeader } from "react-native-spring-scrollview/NormalHeader";
 import moment from "moment";
 import sortArray from "sort-array";
 import { convertMinsToHrsMins } from '@shared/utils';
+import {translate} from "@localize";
 
 const { height: screenHeight, width: screenWidth } = Dimensions.get("window");
 
@@ -550,7 +551,7 @@ function TableListExtended({
                 disabled={true}
               >
                 {key === sumTotalKey && (
-                  <Text style={[styles.txtSum, { textAlign: "left" }]}>{"Total"}</Text>
+                  <Text style={[styles.txtSum, { textAlign: "left" }]}>{translate("Total")}</Text>
                 )}
 
                 {calcSumKeys.indexOf(key) > -1 && (
@@ -574,13 +575,13 @@ function TableListExtended({
               disabled={true}
             >
               {
-                arrTextTotal.includes(key) == true && <Text style={[styles.txtSum, { textAlign: "right" }]}>{"Total"}</Text>
+                arrTextTotal.includes(key) == true && <Text style={[styles.txtSum, { textAlign: "right" }]}>{translate("Total")}</Text>
               }
 
               {
                 key?.toString()?.toLowerCase()?.includes("duration") && key?.toString()?.length > 10 && isDurationHour ?
                   <Text style={styles.txtSum}>
-                    {`${parseFloat(sumObject[key].toFixed(2))} hrs`}
+                    {`${parseFloat(sumObject[key].toFixed(2))} ${translate("hrs")}`}
                   </Text>
                   :
                   key?.toString()?.toLowerCase()?.includes("duration") && key?.toString()?.length > 10 && !isDurationHour ?

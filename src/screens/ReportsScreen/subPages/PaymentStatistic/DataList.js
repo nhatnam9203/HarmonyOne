@@ -6,7 +6,7 @@ import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
 import moment from "moment";
-
+import { translate } from "@localize";
 
 export const DataList = ({
     data = [],
@@ -58,11 +58,11 @@ export const DataList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                date: "Date",
-                transactions: "Transactions",
-                grossPayment: "Gross payments",
-                refund: "Refunds",
-                netPayment: "Net payments",
+                date: translate("Date"),
+                transactions: translate("Transactions"),
+                grossPayment: translate("Gross payments"),
+                refund: translate("Refunds"),
+                netPayment: translate("Net payments"),
             }}
             whiteKeys={[
                 "date",
@@ -72,7 +72,6 @@ export const DataList = ({
                 "netPayment"
             ]}
             primaryId="staffId"
-            sumTotalKey="name"
             calcSumKeys={[
                 "grossPayment",
                 "transactions",
@@ -92,7 +91,6 @@ export const DataList = ({
             headStyle={{ color: colors.ocean_blue, fontSize: scaleFont(15), textAlign: 'left' }}
             unitKeys={{ type: "", }}
             arrTextTotal={["date"]}
-            maxColumnCount={3}
             sortDefault="NONE"
             sortKey="date"
             tableCellWidth={{ grossPayment: scaleWidth(150) }}

@@ -7,6 +7,7 @@ import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService'
 import moment from "moment";
+import { translate } from "@localize";
 
 
 export const DataList = ({
@@ -52,7 +53,7 @@ export const DataList = ({
             case "totalHour":
                 return (
                     <Text style={[styles.txtDate, { fontFamily: fonts.REGULAR, textAlign: 'right' }]}>
-                        {item?.totalHour} hrs
+                        {item?.totalHour} {translate("hrs")}
                     </Text>
                 );
             case "totalSales":
@@ -72,11 +73,11 @@ export const DataList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                categoryName: "Category",
-                serviceCount: "No. of services",
-                quantity: "Sale Qty",
-                totalHour: "Total Duration",
-                totalSales: "Total Sales"
+                categoryName: translate("Category"),
+                serviceCount: translate("No of services"),
+                quantity: translate("Sale Qty"),
+                totalHour: translate("Total Duration"),
+                totalSales: translate("Total Sales")
             }}
             whiteKeys={[
                 "categoryName",
@@ -86,7 +87,6 @@ export const DataList = ({
                 "totalSales"
             ]}
             primaryId="categoryId"
-            sumTotalKey="name"
             calcSumKeys={[
                 "serviceCount",
                 "quantity",
@@ -103,9 +103,8 @@ export const DataList = ({
             isRenderSection={true}
 
             headStyle={{ color: colors.ocean_blue, fontSize: scaleFont(15), textAlign: 'left' }}
-            unitKeys={{ totalHour: "hrs" }}
+            unitKeys={{ totalHour: translate("hrs") }}
             arrTextTotal={["categoryName"]}
-            maxColumnCount={3}
             sortDefault="NONE"
             sortKey="categoryName"
             tableCellWidth={{ totalDuration: scaleWidth(140) }}

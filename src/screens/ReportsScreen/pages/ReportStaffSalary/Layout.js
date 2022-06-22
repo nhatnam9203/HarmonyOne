@@ -7,6 +7,7 @@ import { PeriodPicker, IconButton } from "@shared/components";
 import { images } from "@shared/themes/resources";
 import { DataList } from "./DataList";
 import { WithPopupActionSheet } from "@shared/HOC";
+import { translate } from "@localize";
 
 export const Layout = ({
   isRefresh,
@@ -50,7 +51,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Staff salary')}
+        pageTitle={translate('Staff salary')}
         isLeft={(roleName == "admin" || roleName == "manager") ? true : false}
         isRight={(roleName == "admin" || roleName == "manager") ? true : false}
         headerRightComponent={() =>

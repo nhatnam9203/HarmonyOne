@@ -6,6 +6,7 @@ import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import { getCredicardIcon, convertMinsToHrsMins } from "@shared/utils";
 import moment from "moment";
+import { translate } from "@localize";
 
 
 export const DataList = ({
@@ -61,11 +62,11 @@ export const DataList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                date: "Date",
-                serviceCount: "No.of services",
-                quantity: "Sales Qty",
-                totalDuration: "Total Duration",
-                totalSales: "Total Sales",
+                date: translate("Date"),
+                serviceCount: translate("No of services"),
+                quantity: translate("Sales Qty"),
+                totalDuration: translate("Total Duration"),
+                totalSales: translate("Total Sales"),
             }}
             whiteKeys={[
                 "date",
@@ -75,7 +76,6 @@ export const DataList = ({
                 "totalSales"
             ]}
             primaryId="date"
-            sumTotalKey="date"
             calcSumKeys={[
                 "serviceCount",
                 "quantity",
@@ -96,7 +96,6 @@ export const DataList = ({
             headStyle={{ color: colors.ocean_blue, fontSize: scaleFont(15), textAlign: 'left' }}
             unitKeys={{ totalDuration: "hrs", }}
             arrTextTotal={["date"]}
-            maxColumnCount={3}
             sortDefault="NONE"
             sortKey="date"
             tableCellWidth={{ serviceCount: scaleWidth(150) }}

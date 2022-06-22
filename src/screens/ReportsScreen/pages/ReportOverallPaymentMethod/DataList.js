@@ -7,6 +7,9 @@ import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
 import moment from "moment";
 import NavigationService from "@navigation/NavigationService";
+import { translate } from "@localize";
+import { useSelector } from "react-redux";
+import { translateManual } from "@shared/utils";
 
 export const DataList = ({
     data = [],
@@ -16,6 +19,8 @@ export const DataList = ({
     timeStart,
     timeEnd,
 }) => {
+
+    const language = useSelector(state => state.dataLocal.language);
 
     const onRowPress = ({ item }) => {
         NavigationService.navigate(screenNames.PaymentStatistic, { item, dataList: data, timeStart, timeEnd, });
@@ -34,7 +39,7 @@ export const DataList = ({
         switch (key) {
             case "displayMethod":
                 return <Text style={[styles.txtDate, { fontFamily: fonts.MEDIUM, textAlign: "left" }]}>
-                    {item?.displayMethod}
+                    {translateManual(language,item?.displayMethod)}
                 </Text>
 
             case "transactions":
@@ -71,11 +76,11 @@ export const DataList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                displayMethod: "Payment",
-                transactions: "Transactions",
-                grossPayment: "Gross payments",
-                refund: "Refunds",
-                netPayment: "Net payments"
+                displayMethod: translate("Payment"),
+                transactions: translate("Transactions"),
+                grossPayment: translate("Gross payments"),
+                refund: translate("Refunds"),
+                netPayment: translate("Net payments")
             }}
             whiteKeys={[
                 "displayMethod",
@@ -85,7 +90,6 @@ export const DataList = ({
                 "netPayment"
             ]}
             primaryId="method"
-            sumTotalKey="displayMethod"
             calcSumKeys={[
                 "transactions",
                 "grossPayment",

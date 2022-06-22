@@ -5,9 +5,10 @@ import { app, invoice } from "@redux/slices";
 import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import { getCredicardIcon, convertMinsToHrsMins } from "@shared/utils";
-
 import moment from "moment";
 import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
+
 
 
 export const DataList = ({
@@ -57,8 +58,8 @@ export const DataList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                name: "Staff name",
-                differenceDurationMinute: "Duration difference",
+                name: translate("Staff name"),
+                differenceDurationMinute: translate("Duration difference"),
             }}
             whiteKeys={[
                 "name",

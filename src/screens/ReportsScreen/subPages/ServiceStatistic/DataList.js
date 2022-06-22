@@ -7,6 +7,7 @@ import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import moment from "moment";
+import { translate } from "@localize";
 
 
 export const DataList = ({
@@ -61,11 +62,11 @@ export const DataList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                date: "Date",
-                quantity: "Sale Qty",
-                totalDuration: "Total Duration",
-                avgPrice: "Av. Price",
-                totalSales: "Total Sales",
+                date: translate("Date"),
+                quantity: translate("Sales Qty"),
+                totalDuration: translate("Total Duration"),
+                avgPrice: translate("Av Price"),
+                totalSales: translate("Total Sales"),
             }}
             whiteKeys={[
                 "date",

@@ -6,6 +6,7 @@ import { axios } from '@shared/services/axiosClient';
 import { CustomTable } from "@shared/components";
 import { getCredicardIcon, convertMinsToHrsMins } from "@shared/utils";
 import moment from "moment";
+import { translate } from "@localize";
 
 
 export const DataList = ({
@@ -64,12 +65,12 @@ export const DataList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                date: "Date",
-                service: "Service",
-                duration: "Service duration",
-                fromTime: "Start time",
-                toTime: "End time",
-                differenceDurationMinute: "Duration difference",
+                date: translate("Date"),
+                service: translate("Service"),
+                duration: translate("Service duration"),
+                fromTime: translate("Start time"),
+                toTime: translate("End time"),
+                differenceDurationMinute: translate("Duration difference"),
             }}
             whiteKeys={[
                 "date",
@@ -80,7 +81,6 @@ export const DataList = ({
                 "differenceDurationMinute",
             ]}
             primaryId="name"
-            sumTotalKey="name"
             calcSumKeys={[
                 "differenceDurationMinute",
             ]}
@@ -96,7 +96,6 @@ export const DataList = ({
             headStyle={{ color: colors.ocean_blue, fontSize: scaleFont(15), textAlign: 'left' }}
             unitKeys={{ totalHour: "hrs" }}
             arrTextTotal={["date"]}
-            maxColumnCount={3}
             sortDefault="NONE"
             sortKey="date"
             tableCellWidth={{ date: scaleWidth(130) }}

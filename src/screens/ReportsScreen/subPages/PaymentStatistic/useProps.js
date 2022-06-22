@@ -8,10 +8,12 @@ import { useForm } from "react-hook-form";
 import NavigationService from "@navigation/NavigationService";
 import moment from "moment";
 import { Alert } from "react-native";
+import { translate } from "@localize";
+import { translateManual } from "@shared/utils";
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
-  const { item, dataList, timeStart,timeEnd } = props?.route?.params;
+  const { item, dataList, timeStart, timeEnd } = props?.route?.params;
 
   const {
     auth: { staff },
@@ -23,6 +25,8 @@ export const useProps = (props) => {
 
   const [statistic, setStatistic] = React.useState([]);
   const [itemSelected, setItemSelected] = React.useState(null);
+
+  const language = useSelector(state => state.dataLocal.language);
 
   /********************************* EXPOTR  ********************************* */
   const exportFile = async (
@@ -54,8 +58,8 @@ export const useProps = (props) => {
       const selectedObj = dataList.find(obj => obj?.method == item?.method);
       if (selectedObj) {
         setItemSelected({
-          label : selectedObj?.displayMethod,
-          value : selectedObj?.method,
+          label: selectedObj?.displayMethod,
+          value: selectedObj?.method,
         });
       }
     }
@@ -70,15 +74,17 @@ export const useProps = (props) => {
     form,
     dataList,
     exportFile,
+    language,
+    translateManual,
 
     getContentList: () => {
       return dataList.map(obj => ({
-        label: obj?.displayMethod,
+        label: translateManual(language, obj?.displayMethod),
         value: obj?.method
       }))
     },
 
-    onChangeSelected : (itemObj) =>{
+    onChangeSelected: (itemObj) => {
       setItemSelected(itemObj);
     },
 

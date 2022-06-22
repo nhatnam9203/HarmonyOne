@@ -624,6 +624,26 @@ export const translateManual = (language, value) => {
         break;
 
 
+      case "Giftcard":
+      case "Gift card":
+        translated = "Thẻ quà tặng";
+        break;
+
+      case "Credit Card":
+      case "Credit card":
+        translated = "Thẻ tín dụng";
+        break;
+
+      case "Cash":
+      case "Cash":
+        translated = "Tiền mặt";
+        break;
+
+      case "Other":
+      case "other":
+        translated = "Khác";
+        break;
+
       default:
         break;
     };

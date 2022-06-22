@@ -7,7 +7,7 @@ import { CustomTable } from "@shared/components";
 import { getCredicardIcon } from "@shared/utils";
 import moment from "moment";
 import NavigationService from "@navigation/NavigationService";
-
+import { translate } from "@localize";
 
 export const DataList = ({
     data = [],
@@ -53,10 +53,10 @@ export const DataList = ({
         <CustomTable
             tableData={data}
             tableHead={{
-                dateString: "Date",
-                quantity: "Qty Sold",
-                avgPrice: "Av. Price",
-                totalSales: "Total Sales"
+                dateString: translate("Date"),
+                quantity: translate("Qty sold"),
+                avgPrice: translate("Av Price"),
+                totalSales: translate("Total Sales")
             }}
             whiteKeys={[
                 "dateString",
@@ -65,7 +65,6 @@ export const DataList = ({
                 "totalSales"
             ]}
             primaryId="categoryId"
-            sumTotalKey="dateString"
             calcSumKeys={[
                 "quantity",
                 "avgPrice",
@@ -81,9 +80,8 @@ export const DataList = ({
             isRenderSection={true}
 
             headStyle={{ color: colors.ocean_blue, fontSize: scaleFont(15), textAlign: 'left' }}
-            unitKeys={{ totalHour: "hrs" }}
+            unitKeys={{ totalHour: translate("hrs") }}
             arrTextTotal={["date"]}
-            maxColumnCount={3}
             sortDefault="NONE"
             sortKey="dateString"
             tableCellWidth={{ stockOnHand: scaleWidth(140) }}
