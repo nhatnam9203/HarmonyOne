@@ -209,6 +209,7 @@ export const useProps = (_params) => {
 
 
     selectStaff: (staffId) => {
+      console.log("staffId")
       if (staffId == staffSelected) {
         // setStaffSelected('');
         // appointmentListRef?.current?.setStaffSelected('')
