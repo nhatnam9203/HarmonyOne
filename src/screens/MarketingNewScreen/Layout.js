@@ -205,7 +205,7 @@ export const Layout = ({
             isEdit ?
               <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 <Button
-                  label={translate("Save")}
+                  label={translate("txtSave")}
                   onPress={handleCampaign}
                   highlight={true}
                   width={scaleWidth(120)}
@@ -255,7 +255,7 @@ export const Layout = ({
 
       <DialogConfirm
         ref={dialogConfirmRef}
-        title={t("Warning !")}
+        title={translate("Warning")}
         titleContent={
           t("Are you sure you want to Delete this Campaign ?")
         }
@@ -266,9 +266,9 @@ export const Layout = ({
 
       <DialogConfirm
         ref={dialogSendMessageRef}
-        title={t("Warning !")}
+        title={translate("Warning")}
         titleContent={
-          t("Are you sure you want to send message for this Campaign ?")
+          translate("Are you sure you want to send message for this Campaign")
         }
         onConfirmYes={saveAndStartCampaign}
         onModalHide={() => { }}

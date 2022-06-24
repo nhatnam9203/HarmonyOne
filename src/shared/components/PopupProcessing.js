@@ -12,6 +12,7 @@ import { colors, fonts, layouts } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { Button } from "./Button";
 import { IconButton } from "./IconButton";
+import { translate } from "@localize";
 
 
 export const PopupProcessing = React.forwardRef(
@@ -47,10 +48,10 @@ export const PopupProcessing = React.forwardRef(
                 <View style={styles.wrapContainer}>
                     <View style={styles.container} >
                         <Text style={styles.title} >
-                            {"Please wait"}
+                            {translate("Please wait")}
                         </Text>
                         <Text style={styles.content} >
-                            {"Transaction is processing"}
+                            {translate("Transaction is processing")}
                         </Text>
 
                         <View style={styles.indicator} >

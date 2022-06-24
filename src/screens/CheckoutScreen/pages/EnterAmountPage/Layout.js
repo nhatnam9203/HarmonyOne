@@ -6,6 +6,7 @@ import { IconButton, CustomInput, InputText, Button } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
 import { images } from "@shared/themes/resources";
+import { translate } from "@localize";
 
 const amountList = ["10", "20", "50", "100"];
 
@@ -34,7 +35,7 @@ export const Layout = ({
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={t('Enter amount')}
+                pageTitle={translate('Enter amount')}
                 isLeft={true}
                 isRight={false}
                 isScrollLayout={false}
@@ -43,14 +44,14 @@ export const Layout = ({
                 <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
                     <View style={styles.content}>
 
-                        <Text style={styles.txtTotal}>Amount due</Text>
+                        <Text style={styles.txtTotal}>{translate("Amount due")}</Text>
 
                         <View style={styles.wrapPrice}>
                             <Text style={styles.priceTotal}>{`$ ${groupAppointments?.dueAmount}`}</Text>
                         </View>
 
                         <CustomInput
-                            label='Amount'
+                            label={translate("Amount")}
                             error={errors?.amount}
                             renderInput={() =>
                                 <InputText
@@ -83,11 +84,11 @@ export const Layout = ({
                         </View>
 
                         <TouchableOpacity onPress={exact} style={styles.buttonExact}>
-                            <Text style={styles.txtExact}>Exact</Text>
+                            <Text style={styles.txtExact}>{translate("Exact")}</Text>
                         </TouchableOpacity>
 
                         <View style={{ flexDirection: "row", alignItems: "center", marginTop: scaleHeight(16) }}>
-                            <Text style={styles.txtChange}>Change:</Text>
+                            <Text style={styles.txtChange}>{translate("Change")}:</Text>
                             <Text style={[styles.txtChange, styles.txtChangePrice]}>
                                 {`$ ${formatMoney(valueChange).toString().replace("-", "")}`}
                             </Text>
@@ -97,7 +98,7 @@ export const Layout = ({
                 </TouchableWithoutFeedback>
                 <View style={styles.bottom}>
                     <Button
-                        label="Done"
+                        label={translate("Done")}
                         onPress={form.handleSubmit(onSubmit)}
                         highlight={true}
                         width={'100%'}

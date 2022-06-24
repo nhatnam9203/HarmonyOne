@@ -7,6 +7,7 @@ import { Button } from "./Button";
 import { IconButton } from "./IconButton";
 import Modal from "react-native-modal";
 import CheckBox from "@react-native-community/checkbox";
+import { translate } from "@localize";
 
 
 export const PopupPayCompleted = React.forwardRef(
@@ -75,7 +76,7 @@ export const PopupPayCompleted = React.forwardRef(
                         resizeMode='contain'
                     />
                     <Text style={{ color: '#404040', fontSize: scaleFont(15), marginTop: scaleHeight(15) }}  >
-                        {t("Do you want to print receipt?")}
+                        {translate("Do you want to print receipt")}
                     </Text>
                     <View style={{ flexDirection: 'row', marginTop: scaleHeight(16) }}>
                         <CheckBox
@@ -85,7 +86,7 @@ export const PopupPayCompleted = React.forwardRef(
                             boxType='square'
                             style={{ width: scaleWidth(22), height: scaleWidth(18), marginRight: scaleWidth(8) }}
                         />
-                        <Text style={styles.txtSendLink}>Send Google Review Link</Text>
+                        <Text style={styles.txtSendLink}>{translate("Send Google Review Link")}</Text>
                     </View>
 
                     <View style={styles.bottomStyle}>
@@ -94,7 +95,7 @@ export const PopupPayCompleted = React.forwardRef(
                             highlight={false}
                             height={scaleHeight(48)}
                             width={"50%"}
-                            label={t("Yes")}
+                            label={translate("Yes")}
                             styleButton={{
                                 borderWidth: 0,
                                 backgroundColor: "transparent"
@@ -106,7 +107,7 @@ export const PopupPayCompleted = React.forwardRef(
                             highlight={false}
                             height={scaleHeight(48)}
                             width={"50%"}
-                            label={t("No")}
+                            label={translate("No")}
                             styleButton={{
                                 borderWidth: 0,
                                 backgroundColor: "transparent"

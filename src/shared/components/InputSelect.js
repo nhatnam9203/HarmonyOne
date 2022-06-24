@@ -7,6 +7,7 @@ import { IconButton } from "@shared/components";
 import { TextInputMask } from "react-native-masked-text"
 import { useController } from "react-hook-form";
 import { CustomActionSheet } from "./CustomActionSheet";
+import { translate } from "@localize";
 
 export const InputSelect = React.forwardRef(({
     style,
@@ -16,7 +17,8 @@ export const InputSelect = React.forwardRef(({
     form,
     name,
     error,
-    onSelect = () =>{},
+    onSelect = () => { },
+    isTranslate = false
 }, ref) => {
 
     const [isFocus, setFocus] = React.useState(false);
@@ -36,16 +38,16 @@ export const InputSelect = React.forwardRef(({
     }, []);
 
     React.useImperativeHandle(ref, () => ({
-        changeItem : (value) =>{
+        changeItem: (value) => {
             const obj = items.find(item => item.value == value);
             if (obj) {
                 field.onChange(obj);
             }
         },
-        changeItemNoExist : (obj) =>{
+        changeItemNoExist: (obj) => {
             field.onChange(obj);
         }
-      }));
+    }));
 
     const openActionSheet = () => {
         actionSheetRef?.current?.show();
@@ -66,8 +68,8 @@ export const InputSelect = React.forwardRef(({
             <View style={[styles.wrapInput, style, {
                 borderColor: isFocus ? colors.ocean_blue : error ? "red" : '#cccccc'
             }]}>
-                <Text style={[styles.value,{ fontSize : scaleFont(15) }]}>
-                    {field?.value?.label || defaultValue}
+                <Text style={[styles.value, { fontSize: scaleFont(15) }]}>
+                    {!isTranslate ? (field?.value?.label || defaultValue) : translate(field?.value?.label || defaultValue)}
                 </Text>
                 <Image
                     style={[styles.icon]}
@@ -93,10 +95,10 @@ export const InputSelect = React.forwardRef(({
                                         <Text style={[
                                             styles.itemText, {
                                                 color: field?.value?.value === it.value ? "#0764B0" : "#333",
-                                                fontFamily :  field?.value?.value === it.value ? fonts.MEDIUM : fonts.REGULAR,
+                                                fontFamily: field?.value?.value === it.value ? fonts.MEDIUM : fonts.REGULAR,
                                             }
                                         ]}>
-                                            {it?.label}
+                                            {!isTranslate ? it?.label : translate(it?.label)}
                                         </Text>
                                     </TouchableOpacity>
                                 ))
@@ -113,7 +115,7 @@ export const InputSelect = React.forwardRef(({
 
 const styles = StyleSheet.create({
     containerInput: {
-        zIndex : 2
+        zIndex: 2
     },
     label: {
         fontSize: scaleFont(16),
@@ -174,7 +176,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: scaleFont(18),
         fontFamily: fonts.MEDIUM,
-        color : "#404040"
+        color: "#404040"
     },
     itemText: {
         fontSize: scaleFont(16),

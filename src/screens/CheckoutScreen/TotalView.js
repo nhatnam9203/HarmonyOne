@@ -12,6 +12,7 @@ import {
 import { useDispatch } from "react-redux";
 import { appointment } from "@redux/slices";
 import { isEmpty } from "lodash";
+import { translate } from "@localize";
 
 
 export const TotalView = ({
@@ -50,12 +51,12 @@ export const TotalView = ({
     return (
         <View style={styles.container}>
             <View style={styles.row}>
-                <Text style={styles.text}>Subtotal</Text>
+                <Text style={styles.text}>{translate("Subtotal")}</Text>
                 <Text style={styles.text}>{`$ ${appointmentDetail?.subTotal}`}</Text>
             </View>
 
             <View style={styles.row}>
-                <Text style={styles.text}>Discount</Text>
+                <Text style={styles.text}>{translate("Discount")}</Text>
                 {
                     parseFloat(discount) > 0 ?
                         <TouchableOpacity
@@ -87,7 +88,7 @@ export const TotalView = ({
             </View>
 
             <View style={styles.row}>
-                <Text style={styles.text}>Tip</Text>
+                <Text style={styles.text}>{translate("Tip")}</Text>
                 {
                     parseFloat(tipAmount) > 0 ?
                         <TouchableOpacity
@@ -113,14 +114,14 @@ export const TotalView = ({
             </View>
 
             <View style={styles.row}>
-                <Text style={styles.text}>Tax</Text>
+                <Text style={styles.text}>{translate("Tax")}</Text>
                 <Text style={styles.text}>{`$ ${appointmentDetail?.tax}`}</Text>
             </View>
 
             <View style={styles.line} />
 
             <View style={styles.row}>
-                <Text style={[styles.text, { fontFamily: fonts.BOLD }]}>Total</Text>
+                <Text style={[styles.text, { fontFamily: fonts.BOLD }]}>{translate("Total")}</Text>
                 <Text style={[styles.text, { fontFamily: fonts.BOLD, color: "#4AD100" }]}>
                     {`$ ${appointmentDetail?.total}`}
                 </Text>
@@ -133,7 +134,7 @@ export const TotalView = ({
                 groupAppointments?.checkoutPayments?.map(item => (
                     <View key={item?.checkoutPaymentId + "checkoutPaymentId"} style={styles.row}>
                         <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
-                            Paid
+                            {translate("Paid")}
                             <Text style={{ fontFamily: fonts.REGULAR }}>{` (${item?.paymentMethod})`}</Text>
                         </Text>
                         <Text style={[styles.text, { fontFamily: fonts.MEDIUM }]}>
@@ -144,7 +145,7 @@ export const TotalView = ({
             }
 
             <View style={styles.row}>
-                <Text style={[styles.text, { fontFamily: fonts.BOLD, color: "red" }]}>Amount Due</Text>
+                <Text style={[styles.text, { fontFamily: fonts.BOLD, color: "red" }]}>{translate("Amount Due")}</Text>
                 <Text style={[styles.text, { fontFamily: fonts.BOLD, color: "red" }]}>
                     {`$ ${groupAppointments?.dueAmount}`}
                 </Text>

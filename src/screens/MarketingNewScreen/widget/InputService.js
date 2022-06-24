@@ -26,7 +26,7 @@ const InputService = ({
         product: { products }
     } = useSelector(state => state);
 
-    const [condition, setCondition] = React.useState(translate("No condition"));
+    const [condition, setCondition] = React.useState("No condition");
     const [activeSections, setActiveSections] = React.useState([]);
     const [activeSectionsProduct, setActiveSectionsProduct] = React.useState([]);
 

@@ -19,6 +19,7 @@ import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
 import { ItemsPay } from "./ItemsPay";
 import { PopupPaymentDetail, PopupChange, DialogActiveGiftCard } from "./widgets";
+import { translate } from "@localize";
 
 
 export const Layout = ({
@@ -58,21 +59,21 @@ export const Layout = ({
         <>
             <View style={styles.container}>
                 <SingleScreenLayout
-                    pageTitle={t('Check out')}
+                    pageTitle={translate('Check out')}
                     isLeft={true}
                     isRight={false}
                     isScrollLayout={false}
                     containerStyle={{ paddingVertical: 0 }}
                 >
                     <View style={styles.content}>
-                        <Text style={styles.txtTotal}>Total</Text>
+                        <Text style={styles.txtTotal}>{translate("Total")}</Text>
 
                         <View style={styles.wrapPrice}>
                             <Text style={styles.priceTotal}>{`$ ${groupAppointments?.appointments[0].total}`}</Text>
                         </View>
 
                         <Text style={styles.txtSelectPayment}>
-                            Select payment method
+                            {translate("Select payment method")}
                         </Text>
 
                         <ItemsPay
@@ -83,7 +84,7 @@ export const Layout = ({
 
                     <View style={styles.bottom}>
                         <Button
-                            label={isCancelHarmony ? "Cancel" : "Charge"}
+                            label={isCancelHarmony ? translate("Cancel") : translate("Charge")}
                             onPress={isCancelHarmony ? cancelHarmonyPay : onSubmitPayment}
                             highlight={true}
                             width={'100%'}
@@ -93,7 +94,7 @@ export const Layout = ({
 
                     <DialogActiveGiftCard
                         ref={dialogActiveGiftCard}
-                        title="Enter gift card serial number"
+                        title={translate("Enter gift card serial number")}
                         onConfirmYes={() => { }}
                         onModalHide={() => onChangeMethodPay("")}
                         onPayGiftCard={onPayGiftCard}
@@ -117,13 +118,13 @@ export const Layout = ({
 
                 <PopupErrorMessage
                     ref={popupErrorMessageRef}
-                    title={t("Trasaction Fail")}
+                    title={translate("Trasaction Fail")}
                     message={errorMessageFromPax}
                 />
 
                 <PopupPayCompleted
                     ref={dialogSuccessRef}
-                    title="Transaction completed"
+                    title={translate("Transaction completed")}
                     onConfirmYes={printBill}
                     onConfirmNo={donotPrintBill}
                 />
@@ -135,8 +136,8 @@ export const Layout = ({
 
                 <DialogConfirm
                     ref={popupConfirmDuplicateRef}
-                    title={t('Verify payment')}
-                    titleContent={t("This may be a duplicate, do you want to accept this payment?")}
+                    title={translate('Verify payment')}
+                    titleContent={translate("This may be a duplicate, do you want to accept this payment")}
                     onConfirmYes={confirmPaymentClover}
                     onConfirmNo={rejectPaymentClover}
                 />

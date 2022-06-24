@@ -10,9 +10,9 @@ import Collapsible from "react-native-collapsible";
 import { translate } from "@localize";
 
 const actionList = [
-    { label: translate("Discount for whole cart"), value: "1" },
-    { label: translate("Discount for specific services"), value: "2" },
-    { label: translate("Discount by category"), value: "3" },
+    { label: ("Discount for whole cart"), value: "1" },
+    { label: ("Discount for specific services"), value: "2" },
+    { label: ("Discount by category"), value: "3" },
 ];
 
 const MarketingAction = React.forwardRef(({
@@ -29,7 +29,7 @@ const MarketingAction = React.forwardRef(({
         product : { products }
     } = useSelector(state => state);
 
-    const [condition, setAction] = React.useState(translate("Discount for whole cart"));
+    const [condition, setAction] = React.useState("Discount for whole cart");
     const conditionRef = React.useRef();
 
     const [serviceSelected, setServiceSelected] = React.useState([]);
@@ -170,6 +170,7 @@ const MarketingAction = React.forwardRef(({
                         name="actionCondition"
                         title={translate("Action")}
                         items={actionList}
+                        isTranslate={true}
                         defaultValue={'1'}
                         onSelect={(item) => {
                             setAction(item.label);
@@ -181,7 +182,7 @@ const MarketingAction = React.forwardRef(({
             />
 
             {
-                <Collapsible collapsed={!(condition == translate("Discount for specific services"))} duration={200}>
+                <Collapsible collapsed={!(condition == "Discount for specific services")} duration={200}>
                     <InputService
                         apply={(arrService, arrProduct) => onChangeServiceSelected(arrService, arrProduct)}
                         serviceSelected={serviceSelected}
@@ -230,7 +231,7 @@ const MarketingAction = React.forwardRef(({
             }
 
             {
-                <Collapsible collapsed={!(condition == translate("Discount by category"))} duration={200}>
+                <Collapsible collapsed={!(condition == "Discount by category")} duration={200}>
                     <InputCategory
                         apply={onChangeCategorySelected}
                         categorySelected={categorySelected}

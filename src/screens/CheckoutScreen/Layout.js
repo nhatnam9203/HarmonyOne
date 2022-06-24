@@ -7,6 +7,7 @@ import { fonts, colors, images } from '@shared/themes';
 import { ItemList } from "./ItemList";
 import { TotalView } from "./TotalView";
 import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 
 export const Layout = ({
   appointmentDetail,
@@ -22,7 +23,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Check out')}
+        pageTitle={translate('Check out')}
         isRight={false}
         isLeft={true}
         isScrollLayout={false}
@@ -57,7 +58,7 @@ export const Layout = ({
           <Button
             onPress={selectPayment}
             width='100%'
-            label={t('Select payment')}
+            label={translate('Select payment')}
             highlight={true}
           />
         </View>

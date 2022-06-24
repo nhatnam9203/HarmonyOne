@@ -30,6 +30,7 @@ import {
 import moment from "moment";
 import NavigationService from '@navigation/NavigationService';
 import { Alert } from "react-native";
+import { translate } from "@localize";
 
 export const useProps = (props) => {
   const dispatch = useDispatch();
@@ -142,7 +143,7 @@ export const useProps = (props) => {
   const defaultMessage = (conditionServiceProductTags, actionServiceTags) => {
     const actionServices = actionRef?.current?.getServices();
     const actionCategories = actionRef?.current?.getCategories();
-    const actionCondition = actionRef?.current?.getConditionValue().value;
+    const actionCondition = actionRef?.current?.getConditionValue()?.value;
 
     const actionTags = actionServiceTags ? actionServiceTags : parseInt(actionCondition) == 2 ? actionServices :
       parseInt(actionCondition) == 3 ? actionCategories : [];
@@ -226,7 +227,7 @@ export const useProps = (props) => {
     const allSMSWord =
       smsLength +
       (title?.length || 0) +
-      (actionCondition.value === 2
+      (actionCondition?.value === 2
         ? `${servicesCondition.join(", ")}`.length + 35
         : 0) +
       (getShortNameForDiscountAction(actionCondition) === "specific"
@@ -496,33 +497,33 @@ export const useProps = (props) => {
     const toDate = new Date(campaign?.toDate).getTime();
 
     if (!campaign?.name) {
-      alert("Enter the campaign's name please!");
+      alert("Enter the campaigns name please");
       isValid = false;
     } else if (parseInt(fromDate) > parseInt(toDate) && visibleEndDate) {
-      alert("The start date is not larger than the end date ");
+      alert("The start date is not larger than the end date");
       isValid = false;
     } else if (
       campaign.conditionId === 2 &&
       actionServices.length < 1
     ) {
-      alert("Select services/product specific please!");
+      alert("Select services product specific please");
       isValid = false;
     } else if (
       campaign.conditionId === 4 &&
       parseInt(numberOfTimesApply ? numberOfTimesApply : 0) < 1
     ) {
-      alert("Enter the number of times applied please!");
+      alert("Enter the number of times applied please");
       isValid = false;
     } else if (campaign?.applyTo === "specific" && actionServices.length < 1) {
-      alert("Select services/product for discount specific please!");
+      alert("Select services product for discount specific please");
       isValid = false;
     }
     else if (campaign?.applyTo === "category" && actionCategories.length < 1) {
-      alert("Select category for dis count please!");
+      alert("Select category for dis count please");
       isValid = false;
     }
     else if (!promotionValue || promotionValue == 0 || promotionValue == "0.00") {
-      alert("Enter promotion value please!");
+      alert("Enter promotion value please");
       isValid = false;
     }
 
@@ -573,21 +574,21 @@ export const useProps = (props) => {
     getActionSheets: (category) => [
       {
         id: 'edit-campaign',
-        label: t('Edit campaign'),
+        label: translate('Edit campaign'),
         func: () => { navigation.push(screenNames.MarketingNewScreen, { isEdit: true, merchantPromotionId }) },
       },
       {
         id: 'delete-campaign',
-        label: t('Delete'),
+        label: translate('Delete'),
         textColor: colors.red,
         func: async () => {
           if (promotionDetailById?.isDisabled == 0) {
             dispatch(
               app.setError({
                 isError: true,
-                messageError: "You can't delete active Campaign!",
+                messageError: translate("You can't delete active Campaign"),
                 errorType: "error",
-                titleError: "Alert",
+                titleError: translate("Alert"),
               }));
           } else {
             setTimeout(() => {

@@ -9,6 +9,7 @@ import { DiscountType } from "./DiscountType";
 import { formatNumberFromCurrency, roundNumber, guid } from "@shared/utils";
 import { useWatch } from "react-hook-form";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { translate } from "@localize";
 
 
 export const Layout = ({
@@ -59,7 +60,7 @@ export const Layout = ({
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={t('Apply discount')}
+                pageTitle={translate('Apply discount')}
                 isLeft={false}
                 isRight={true}
                 headerRightComponent={() =>
@@ -79,8 +80,8 @@ export const Layout = ({
                         discount.length > 0 &&
                         <>
                             <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: scaleHeight(8) }}>
-                                <Text style={styles.txtDiscount}>Discount Campaigns:</Text>
-                                <Text style={styles.txtDiscount}>Apply value</Text>
+                                <Text style={styles.txtDiscount}>{translate("Discount Campaigns")}:</Text>
+                                <Text style={styles.txtDiscount}>{translate("Apply value")}</Text>
                             </View>
                             {
                                 discount.map((obj) => (
@@ -103,8 +104,8 @@ export const Layout = ({
                     </View>
 
                     <View style={[styles.viewRowContainer, { marginTop: scaleHeight(8) }]}>
-                        <Text style={styles.textNormal}>Discount by Owner</Text>
-                        <Text style={styles.textNormal}>Discount by Staff</Text>
+                        <Text style={styles.textNormal}>{translate("Discount by Owner")}</Text>
+                        <Text style={styles.textNormal}>{translate("Discount by Staff")}</Text>
                     </View>
 
                     <View style={[styles.viewRowContainer, { marginTop: scaleHeight(16) }]}>
@@ -150,7 +151,7 @@ export const Layout = ({
                     </View>
 
                     <CustomInput
-                        label='Note'
+                        label={translate('Note')}
                         style={{ marginTop: scaleHeight(20) }}
                         renderInput={() =>
                             <InputText
@@ -164,7 +165,7 @@ export const Layout = ({
                     />
 
                     <View style={styles.row}>
-                        <Text style={[styles.text]}>Total Discount</Text>
+                        <Text style={[styles.text]}>{translate("Total Discount")}</Text>
                         <Text style={[styles.text, { color: "#4AD100" }]}>
                             {`$ -${discountCustom == "0" ? total : roundNumber(parseFloat(discountCustom))}`}
                         </Text>
@@ -174,7 +175,7 @@ export const Layout = ({
                 </KeyboardAwareScrollView>
                 <View style={styles.bottom}>
                     <Button
-                        label="Apply"
+                        label={translate("Apply")}
                         onPress={submitPromotion}
                         highlight={true}
                         width={'100%'}

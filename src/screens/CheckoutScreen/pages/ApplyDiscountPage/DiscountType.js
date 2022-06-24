@@ -5,6 +5,7 @@ import { fonts, colors } from "@shared/themes";
 import { useWatch } from "react-hook-form";
 import { CustomInput, InputText } from "@shared/components";
 import { formatNumberFromCurrency, roundNumber } from "@shared/utils";
+import { translate } from "@localize";
 
 export const DiscountType = React.forwardRef(({
     form,
@@ -53,7 +54,7 @@ export const DiscountType = React.forwardRef(({
 
     return (
         <CustomInput
-            label='Manual discount'
+            label={translate('Manual discount')}
             renderInput={() =>
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                     <TouchableOpacity

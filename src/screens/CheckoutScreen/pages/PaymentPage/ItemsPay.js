@@ -5,6 +5,7 @@ import { SingleScreenLayout } from '@shared/layouts';
 import { IconButton, CustomInput, InputText, Button } from "@shared/components";
 import { fonts, colors } from "@shared/themes";
 import { images } from "@shared/themes/resources";
+import { translate } from "@localize";
 
 const methodPays = [
     // {
@@ -13,22 +14,22 @@ const methodPays = [
     //     method: "harmony"
     // },
     {
-        title: "HarmonyPay - GC",
+        title: translate("HarmonyPay - GC"),
         icon: images.harmonyPay,
         method: "giftcard"
     },
     {
-        title: "Cash",
+        title: translate("Cash"),
         icon: images.cashPay,
         method: "cash"
     },
     {
-        title: "Credit Card",
+        title: translate("Credit Card"),
         icon: images.creditCardPay,
         method: "credit_card"
     },
     {
-        title: "Others - Check",
+        title: translate("Others - Check"),
         icon: images.otherPay,
         method : "other"
     },

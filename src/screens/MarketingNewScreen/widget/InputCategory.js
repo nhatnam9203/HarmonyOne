@@ -22,7 +22,7 @@ const InputCategory = ({
         category: { category },
     } = useSelector(state => state);
 
-    const [condition, setCondition] = React.useState(translate("No condition"));
+    const [condition, setCondition] = React.useState("No condition");
     const [dataCategory, setDataCategory] = React.useState([]);
 
     const getDataList = () => {
@@ -92,7 +92,7 @@ const InputCategory = ({
 
     return (
         <>
-            <Text style={styles.titleService}>Select category</Text>
+            <Text style={styles.titleService}>{translate("Select category")}</Text>
             <TouchableOpacity onPress={openActionSheet} style={[styles.containerInput]}>
                 <View style={styles.wrapInput}>
                     <Text style={[styles.value, { fontSize: scaleFont(15) }]}>

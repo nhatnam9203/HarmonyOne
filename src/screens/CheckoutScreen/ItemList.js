@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, FlatList } from 'react-native';
 import { useTranslation } from "react-i18next";
 import { fonts, colors, images } from '@shared/themes';
 import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
+import { translate } from "@localize";
 
 export const ItemList = ({
     services = [],
@@ -32,25 +33,25 @@ export const ItemList = ({
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Services</Text>
+            <Text style={styles.title}>{translate("Services")}</Text>
             {
                 services.map((obj => ({ ...obj, qty: 1, name: obj?.serviceName, key: "service" + obj?.bookingServiceId }))).map((item) => (
                     renderItem(item)
                 ))
             }
-            {extras.length > 0 && <Text style={styles.title}>Extras</Text>}
+            {extras.length > 0 && <Text style={styles.title}>{translate("Extras")}</Text>}
             {
                 extras.map((obj => ({ ...obj, qty: 1, name: obj?.extraName, key: "extra" + obj?.bookingExtraId }))).map((item) => (
                     renderItem(item)
                 ))
             }
-            { products.length > 0 && <Text style={styles.title}>Products</Text>}
+            { products.length > 0 && <Text style={styles.title}>{translate("Products")}</Text>}
             {
                 products.map((obj => ({ ...obj, qty: obj?.quantity, name: obj?.productName, key: "product" + obj?.bookingProductId }))).map((item) => (
                     renderItem(item)
                 ))
             }
-            { giftCards.length > 0 && <Text style={styles.title}>Gift cards</Text>}
+            { giftCards.length > 0 && <Text style={styles.title}>{translate("Gift cards")}</Text>}
             {
                 giftCards.map((obj => ({ ...obj, qty: obj?.quantity, name: obj?.name, key: "giftCard" + obj?.giftCardId }))).map((item) => (
                     renderItem(item)

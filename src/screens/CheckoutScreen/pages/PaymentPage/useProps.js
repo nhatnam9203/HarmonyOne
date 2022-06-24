@@ -50,6 +50,8 @@ import { parseString } from 'react-native-xml2js';
 import _ from 'lodash';
 import Configs from '@src/config';
 import configureStore from '@src/redux/store';
+import { translate } from "@localize";
+
 const signalR = require("@microsoft/signalr");
 const { clover } = NativeModules;
 const PosLink = NativeModules.payment;
@@ -688,7 +690,7 @@ export const useProps = (props) => {
           openCashDrawerClover();
         } else {
           setTimeout(() => {
-            alert("Please connect to your cash drawer.");
+            alert(translate("Please connect to your cash drawer"));
           }, 700);
         }
       }
@@ -708,7 +710,7 @@ export const useProps = (props) => {
       await PrintManager.getInstance().openCashDrawer(portName);
     } else {
       setTimeout(() => {
-        alert("Please connect to your cash drawer.");
+        alert(translate("Please connect to your cash drawer"));
       }, 700);
     }
   };
@@ -745,7 +747,7 @@ export const useProps = (props) => {
       backToHome();
 
       setTimeout(() => {
-        alert("Please connect to your printer!");
+        alert(translate("Please connect to your printer"));
       }, 700);
     } else {
       if (methodPay.method == "cash"
