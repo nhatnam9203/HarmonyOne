@@ -549,7 +549,17 @@
   "Apply value": "Apply giá trị",
   "Discount by Owner": "Gỉảm giá cho chủ",
   "Discount by Staff": "Giảm giá cho nhân viên",
-  "Total Discount": "Total Discount"
+  "Total Discount": "Total Discount",
+  "Has Merchant been previously identified by Visa/Mastercard Risk Programs?": "Merchant đã định danh Visa/Mastercard trước đó?",
+  "Yes (if yes, who was the processor)": "Có (nếu có, ai là người xử lý)",
+  "Has Merchant or any associated principal and/or owners disclosed bellow filed bankruptcy or been subject to any involuntary bankruptcy?": "Merchant đã nộp đơn phá sản hoặc đã bị phá sản chưa?",
+  "Will product(s) or service(s) be sold outside of US?": "Dịch vụ hoặc sản phẩm đã được bán ở nước khác ( ngoài Mỹ )",
+  "Yes (if yes, date filed)": "Có (nếu có, hãy điền ngày)",
+  "Has a processor ever terminated your Merchant account?": "Người xử lý đã bao giờ chấm dứt tài khoản người bán chưa?",
+  "Yes (if yes, what was program and when)": "Có (nếu có, chương trình là gì và khi nào)",
+  "Have you ever accepted Credit/Edit cards before?" : "Bạn đã bao giờ xài thẻ tín dụng trước đây chưa?",
+  "Yes (if yes, who was your previous company)": "Có (nếu có, công ty trước đây của bạn là công ty nào)"
+
    
 
 }

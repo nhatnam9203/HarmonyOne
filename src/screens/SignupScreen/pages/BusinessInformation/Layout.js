@@ -6,7 +6,8 @@ import { Button } from "@shared/components";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { images } from "@shared/themes/resources";
 import { ItemInformation } from "./ItemInformation";
-import NavigationService from '@navigation/NavigationService'
+import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 
 
 export const Layout = ({
@@ -28,7 +29,7 @@ export const Layout = ({
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={t('Business Information')}
+                pageTitle={translate('Business Information')}
                 isRight={false}
                 isScrollLayout={false}
                 containerStyle={{ paddingVertical: 0 }}
@@ -37,32 +38,32 @@ export const Layout = ({
                     <ItemInformation
                         form={form}
                         errors={errors}
-                        label="Has Merchant been previously identified by Visa/Mastercard Risk Programs?"
-                        textYes="Yes (if yes, who was the processor)"
+                        label={translate("Has Merchant been previously identified by Visa/Mastercard Risk Programs?")}
+                        textYes={translate("Yes (if yes, who was the processor)")}
                         name="question1"
                         ref={question1Ref}
                     />
                     <ItemInformation
                         form={form}
                         errors={errors}
-                        label="Has Merchant or any associated principal and/or owners disclosed bellow filed bankruptcy or been subject to any involuntary bankruptcy?"
-                        textYes="Yes (if yes, who was the processor)"
+                        label={translate("Has Merchant or any associated principal and/or owners disclosed bellow filed bankruptcy or been subject to any involuntary bankruptcy?")}
+                        textYes={translate("Yes (if yes, who was the processor)")}
                         name="question2"
                         ref={question2Ref}
                     />
                     <ItemInformation
                         form={form}
                         errors={errors}
-                        label="Will product(s) or service(s) be sold outside of US?"
-                        textYes="Yes (if yes, date filed)"
+                        label={translate("Will product(s) or service(s) be sold outside of US?")}
+                        textYes={translate("Yes (if yes, date filed)")}
                         name="question3"
                         ref={question3Ref}
                     />
                     <ItemInformation
                         form={form}
                         errors={errors}
-                        label="Has a processor ever terminated your Merchant account?"
-                        textYes="Yes (if yes, what was program and when)"
+                        label={translate("Has a processor ever terminated your Merchant account?")}
+                        textYes={translate("Yes (if yes, what was program and when)")}
                         name="question4"
                         ref={question4Ref}
                     />
@@ -70,8 +71,8 @@ export const Layout = ({
                     <ItemInformation
                         form={form}
                         errors={errors}
-                        label="Have you ever accepted Credit/Edit cards before?"
-                        textYes="Yes (if yes, who was your previous company)"
+                        label={translate("Have you ever accepted Credit/Edit cards before?")}
+                        textYes={translate("Yes (if yes, who was your previous company)")}
                         name="question5"
                         ref={question5Ref}
                     />
@@ -80,7 +81,7 @@ export const Layout = ({
                 </KeyboardAwareScrollView>
                 <View style={styles.bottom}>
                     <Button
-                        label="Next"
+                        label={translate("txtNext")}
                         onPress={form.handleSubmit(onSubmit)}
                         highlight={true}
                         width={'100%'}

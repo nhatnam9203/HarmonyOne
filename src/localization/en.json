@@ -549,8 +549,16 @@
   "Apply value": "Apply value",
   "Discount by Owner": "Discount by Owner",
   "Discount by Staff": "Discount by Staff",
-  "Total Discount": "Total Discount"
-  
+  "Total Discount": "Total Discount",
+  "Has Merchant been previously identified by Visa/Mastercard Risk Programs?": "Has Merchant been previously identified by Visa/Mastercard Risk Programs?",
+  "Yes (if yes, who was the processor)": "Yes (if yes, who was the processor)",
+  "Has Merchant or any associated principal and/or owners disclosed bellow filed bankruptcy or been subject to any involuntary bankruptcy?": "Has Merchant or any associated principal and/or owners disclosed bellow filed bankruptcy or been subject to any involuntary bankruptcy?",
+  "Will product(s) or service(s) be sold outside of US?": "Will product(s) or service(s) be sold outside of US?",
+  "Yes (if yes, date filed)": "Yes (if yes, date filed)",
+  "Has a processor ever terminated your Merchant account?": "Has a processor ever terminated your Merchant account?",
+  "Yes (if yes, what was program and when)": "Yes (if yes, what was program and when)",
+  "Have you ever accepted Credit/Edit cards before?": "Have you ever accepted Credit/Edit cards before?",
+  "Yes (if yes, who was your previous company)": "Yes (if yes, who was your previous company)"  
 
   
   

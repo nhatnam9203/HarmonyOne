@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { InputText, IconButton } from "@shared/components";
-import { images, fonts } from "@shared/themes"
+import { images, fonts } from "@shared/themes";
+import { translate } from "@localize";
 
 export const ItemInformation = React.forwardRef(({ 
     form, errors, label, textYes, name = ""
@@ -26,7 +27,7 @@ export const ItemInformation = React.forwardRef(({
                     style={styles.btnIcon}
                     iconStyle={styles.checkBox}
                     resizeMode='cover'
-                    renderText={() => <Text style={styles.txtIcon}>No</Text>}
+                    renderText={() => <Text style={styles.txtIcon}>{translate("No")}</Text>}
                 />
 
                 <IconButton
