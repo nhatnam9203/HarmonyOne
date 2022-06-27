@@ -8,6 +8,7 @@ import { images } from "@shared/themes/resources";
 import { fonts } from "@shared/themes";
 import { WithPopupUpload } from '@shared/HOC';
 import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 
 let ButtonUpload = ({ onResponseImagePicker, imageUrl ,...props }) => (
     <TouchableOpacity
@@ -27,14 +28,14 @@ let ButtonUpload = ({ onResponseImagePicker, imageUrl ,...props }) => (
                         style={styles.iconCamera}
                     />
                     <Text style={styles.txtTakePhoto}>
-                        Take a photo
+                        {translate("Take a photo")}
                     </Text>
                     <Text style={[styles.txtTakePhoto, styles.txtOr]}>
-                        Or
+                        {translate("Or")}
                     </Text>
                     <View style={styles.wrapBrowseFile}>
                         <Text style={[styles.txtTakePhoto, styles.txtBrowFile]}>
-                            Browse File
+                            {translate("Browse File")}
                         </Text>
                     </View>
                 </>
@@ -57,14 +58,14 @@ export const Layout = ({
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={t('Bank Information')}
+                pageTitle={translate('Bank Information')}
                 isRight={false}
                 isScrollLayout={false}
                 containerStyle={{ paddingVertical: 0 }}
             >
                 <KeyboardAwareScrollView style={styles.content}>
                     <CustomInput
-                        label='Account Holder Name'
+                        label={translate('Account Holder Name')}
                         isRequired
                         error={errors?.accountHolderName}
                         blackLabel={true}
@@ -79,7 +80,7 @@ export const Layout = ({
                     />
 
                     <CustomInput
-                        label='Bank Name'
+                        label={translate('Bank Name')}
                         isRequired
                         error={errors?.bankName}
                         blackLabel={true}
@@ -94,7 +95,7 @@ export const Layout = ({
                     />
 
                     <CustomInput
-                        label='Routing Number (ABA)'
+                        label={translate('Routing Number (ABA)')}
                         isRequired
                         error={errors?.routingNumber}
                         blackLabel={true}
@@ -109,7 +110,7 @@ export const Layout = ({
                     />
 
                     <CustomInput
-                        label='Account Number (DDA)'
+                        label={translate('Account Number (DDA)')}
                         isRequired
                         error={errors?.accountNumber}
                         blackLabel={true}
@@ -125,14 +126,14 @@ export const Layout = ({
 
                     <View style={{ flexDirection: "row" }}>
                         <Text style={styles.label}>
-                            Void check
+                            {translate("Void check")}
                         </Text>
                         <Text style={styles.required}>
                             *
                         </Text>
                     </View>
 
-                    <Text style={styles.txtVoidCheck}>Please take or upload photos of void check</Text>
+                    <Text style={styles.txtVoidCheck}>{translate("Please take or upload photos of void check")}</Text>
 
                     <ButtonUpload
                         onResponseImagePicker={onResponseImagePicker}
@@ -142,7 +143,7 @@ export const Layout = ({
                 </KeyboardAwareScrollView>
                 <View style={styles.bottom}>
                     <Button
-                        label="Next"
+                        label={("txtNext")}
                         onPress={form.handleSubmit(onSubmit)}
                         highlight={true}
                         width={'100%'}

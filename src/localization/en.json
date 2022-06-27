@@ -558,7 +558,17 @@
   "Has a processor ever terminated your Merchant account?": "Has a processor ever terminated your Merchant account?",
   "Yes (if yes, what was program and when)": "Yes (if yes, what was program and when)",
   "Have you ever accepted Credit/Edit cards before?": "Have you ever accepted Credit/Edit cards before?",
-  "Yes (if yes, who was your previous company)": "Yes (if yes, who was your previous company)"  
+  "Yes (if yes, who was your previous company)": "Yes (if yes, who was your previous company)",
+  "Bank Information": "Bank Information",
+  "Account Holder Name": "Account Holder Name",
+  "Bank Name": "Bank Name",
+  "Routing Number (ABA)": "Routing Number (ABA)",
+  "Account Number (DDA)": "Account Number (DDA)",
+  "Void check": "Void check",
+  "Please take or upload photos of void check": "Please take or upload photos of void check",
+  "Take a photo": "Take a photo",
+  "Or": "Or",
+  "Browse File": "Browse File"  
 
   
   
