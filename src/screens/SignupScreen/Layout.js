@@ -20,8 +20,8 @@ export const Layout = () => {
           gestureEnabled: false
         }}
       >
-        {/* <Screen {...GeneralInformation} />
-        <Screen {...BusinessInformation} /> */}
+        <Screen {...GeneralInformation} />
+        <Screen {...BusinessInformation} />
         <Screen {...BankInformation} />
         <Screen {...PrincipalInformation} />
         <Screen {...PackagePricing} />

@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { app } from "@redux/slices";
 
 
-let ButtonUpload = ({ onResponseImagePicker, imageUrl, ...props }) => (
+let ButtonUpload = ({ onResponseImagePicker, imageUrl, translate, ...props }) => (
     <TouchableOpacity
         style={[styles.containerUpload, { borderWidth: imageUrl ? 0 : 2 }]}
         onResponseImagePicker={onResponseImagePicker}
@@ -30,14 +30,14 @@ let ButtonUpload = ({ onResponseImagePicker, imageUrl, ...props }) => (
                         style={styles.iconCamera}
                     />
                     <Text style={styles.txtTakePhoto}>
-                        Take a photo
+                        {translate("Take a photo")}
                     </Text>
                     <Text style={[styles.txtTakePhoto, styles.txtOr]}>
-                        Or
+                        {translate("Or")}
                     </Text>
                     <View style={styles.wrapBrowseFile}>
                         <Text style={[styles.txtTakePhoto, styles.txtBrowFile]}>
-                            Browse File
+                            {translate("Browse File")}
                         </Text>
                     </View>
                 </>
@@ -51,7 +51,8 @@ export const ItemPrincipal = ({
     form,
     index,
     errors,
-    checkErrors
+    checkErrors,
+    translate
 }) => {
     const dispatch = useDispatch();
 
@@ -91,7 +92,6 @@ export const ItemPrincipal = ({
     }
 
     const onResponseImagePicker = async (response) => {
-        console.log('response image : ', { response })
         let files = response?.assets ?? [];
         files = createFormData(files);
         const body = await uploadAvatarStaff(files);
@@ -100,13 +100,18 @@ export const ItemPrincipal = ({
 
     return (
         <View style={{ marginBottom: scaleHeight(15) }} key={index + "principalinfor"}>
-            <ActiveButton isActive={isActive} setActive={setActive} index={index} />
+            <ActiveButton
+                isActive={isActive}
+                setActive={setActive}
+                index={index}
+                translate={translate}
+            />
 
             {
                 isActive &&
                 <>
                     <CustomInput
-                        label='Principal Name'
+                        label={translate('Principal Name')}
                         isRequired
                         blackLabel={true}
                         error={errors?.principalInfor?.[index]?.lastName || errors?.principalInfor?.[index]?.firstName}
@@ -115,7 +120,7 @@ export const ItemPrincipal = ({
                                 <InputText
                                     form={form}
                                     name={`principalInfor.${index}.firstName`}
-                                    placeholder="First Name"
+                                    placeholder={translate("First Name")}
                                     error={errors?.principalInfor?.[index]?.firstName}
                                     style={{ width: scaleWidth(165) }}
                                     renderRight={() => <View />}
@@ -124,7 +129,7 @@ export const ItemPrincipal = ({
                                 <InputText
                                     form={form}
                                     name={`principalInfor.${index}.lastName`}
-                                    placeholder="Last Name"
+                                    placeholder={translate("Last Name")}
                                     error={errors?.principalInfor?.[index]?.lastName}
                                     style={{ width: scaleWidth(165) }}
                                     renderRight={() => <View />}
@@ -135,7 +140,7 @@ export const ItemPrincipal = ({
                     />
 
                     <CustomInput
-                        label='Title/Position'
+                        label={translate('Title/Position')}
                         isRequired
                         blackLabel={true}
                         error={errors?.principalInfor?.[index]?.position}
@@ -143,7 +148,7 @@ export const ItemPrincipal = ({
                             <InputText
                                 form={form}
                                 name={`principalInfor.${index}.position`}
-                                placeholder="President/Manager/Owner"
+                                placeholder={translate("President/Manager/Owner")}
                                 error={errors?.principalInfor?.[index]?.position}
                                 isRequired
                                 renderRight={() => <View />}
@@ -153,7 +158,7 @@ export const ItemPrincipal = ({
                     />
 
                     <CustomInput
-                        label='Ownership(%)'
+                        label={`${translate("Ownership")}(%)`}
                         isRequired
                         blackLabel={true}
                         error={errors?.principalInfor?.[index]?.ownership}
@@ -174,7 +179,7 @@ export const ItemPrincipal = ({
                     />
 
                     <CustomInput
-                        label='Home Phone'
+                        label={translate('Home Phone')}
                         // isRequired
                         blackLabel={true}
                         // error={errors?.principalInfor?.[index]?.homePhone}
@@ -190,7 +195,7 @@ export const ItemPrincipal = ({
                     />
 
                     <CustomInput
-                        label='Mobile Phone'
+                        label={translate('Mobile Phone')}
                         isRequired
                         blackLabel={true}
                         error={errors?.principalInfor?.[index]?.mobilePhone}
@@ -208,7 +213,7 @@ export const ItemPrincipal = ({
                     />
 
                     <CustomInput
-                        label='Address'
+                        label={translate('Address')}
                         isRequired
                         blackLabel={true}
                         renderInput={() =>
@@ -216,7 +221,7 @@ export const ItemPrincipal = ({
                                 <InputText
                                     form={form}
                                     name={`principalInfor.${index}.street`}
-                                    placeholder="Street Address"
+                                    placeholder={translate("Street Address")}
                                     error={errors?.principalInfor?.[index]?.street}
                                     renderRight={() => <View />}
                                     onBlur={checkErrors}
@@ -225,7 +230,7 @@ export const ItemPrincipal = ({
                                     <InputText
                                         form={form}
                                         name={`principalInfor.${index}.city`}
-                                        placeholder="City"
+                                        placeholder={translate("City")}
                                         style={{ width: scaleWidth(165) }}
                                         error={errors?.principalInfor?.[index]?.city}
                                         renderRight={() => <View />}
@@ -234,7 +239,7 @@ export const ItemPrincipal = ({
                                     <InputText
                                         form={form}
                                         name={`principalInfor.${index}.zip`}
-                                        placeholder="Zip Code"
+                                        placeholder={translate("Zip Code")}
                                         style={{ width: scaleWidth(165) }}
                                         error={errors?.principalInfor?.[index]?.zip}
                                         renderRight={() => <View />}
@@ -246,7 +251,7 @@ export const ItemPrincipal = ({
                                     form={form}
                                     name="state"
                                     name={`principalInfor.${index}.state`}
-                                    placeholder="State"
+                                    placeholder={translate("State")}
                                     error={errors?.principalInfor?.[index]?.state}
                                     renderRight={() => <View />}
                                     onBlur={checkErrors}
@@ -262,7 +267,7 @@ export const ItemPrincipal = ({
                     />
 
                     <CustomInput
-                        label='Year at this address'
+                        label={translate('Year at this address')}
                         isRequired
                         blackLabel={true}
                         error={errors?.principalInfor?.[index]?.yearAtThisAddress}
@@ -282,7 +287,7 @@ export const ItemPrincipal = ({
                     />
 
                     <CustomInput
-                        label='Social Security Number (SSN)'
+                        label={translate('Social Security Number (SSN)')}
                         isRequired
                         blackLabel={true}
                         error={errors?.principalInfor?.[index]?.ssn}
@@ -302,14 +307,14 @@ export const ItemPrincipal = ({
                     />
 
                     <CustomInput
-                        label='Date of birth (mm/dd/yyyy)'
+                        label={translate('Date of birth (mm/dd/yyyy)')}
                         isRequired
                         blackLabel={true}
                         renderInput={() => <InputDateForm form={form} name={`principalInfor.${index}.dateOfBirth`} />}
                     />
 
                     <CustomInput
-                        label='Email Address'
+                        label={translate('Email Address')}
                         isRequired
                         blackLabel={true}
                         error={errors?.principalInfor?.[index]?.email}
@@ -327,7 +332,7 @@ export const ItemPrincipal = ({
                     />
 
                     <CustomInput
-                        label='Driver License Number'
+                        label={translate('Driver License Number')}
                         isRequired
                         blackLabel={true}
                         error={errors?.principalInfor?.[index]?.driverLicense}
@@ -345,7 +350,7 @@ export const ItemPrincipal = ({
                     />
 
                     <CustomInput
-                        label='State Issued'
+                        label={translate('State Issued')}
                         isRequired
                         blackLabel={true}
                         error={errors?.principalInfor?.[index]?.stateIssued}
@@ -364,12 +369,13 @@ export const ItemPrincipal = ({
 
 
 
-                    <Text style={styles.txtVoidCheck}>Please take or upload photos of Driver License*</Text>
+                    <Text style={styles.txtVoidCheck}>{translate("Please take or upload photos of Driver License")}*</Text>
 
-                    {!fileId && <Text style={styles.txtErrorImage}>Required</Text>}
+                    {!fileId && <Text style={styles.txtErrorImage}>{translate("Required")}</Text>}
                     <ButtonUpload
                         onResponseImagePicker={onResponseImagePicker}
                         imageUrl={imageUrl}
+                        translate={translate}
                     />
                 </>}
 
@@ -377,14 +383,14 @@ export const ItemPrincipal = ({
     )
 }
 
-const ActiveButton = ({ isActive, setActive, index }) => (
+const ActiveButton = ({ isActive, setActive, index, translate }) => (
     <View style={styles.principalLine}>
         <Pressable
             onPress={() => setActive(!isActive)}
             style={{ flexDirection: "row", alignItems: "center" }}
         >
             <Text style={styles.txtTitle}>
-                Principal {index + 1}:
+                {translate("Principal")} {index + 1}:
             </Text>
             <Image
                 source={images.top_scroll_active}

@@ -568,7 +568,25 @@
   "Please take or upload photos of void check": "Please take or upload photos of void check",
   "Take a photo": "Take a photo",
   "Or": "Or",
-  "Browse File": "Browse File"  
+  "Browse File": "Browse File",
+  "Principal Information": "Principal Information",
+  "Principal Name": "Principal Name",
+  "Title/Position": "Title/Position",
+  "President/Manager/Owner": "President/Manager/Owner",
+  "Ownership": "Ownership",
+  "Home Phone": "Home Phone",
+  "Mobile Phone": "Mobile Phone",
+  "Street Address": "Street Address",
+  "Zip Code": "Zip Code",
+  "Year at this address": "Year at this address",
+  "Social Security Number (SSN)": "Social Security Number (SSN)",
+  "Date of birth (mm/dd/yyyy)": "Date of birth (mm/dd/yyyy)",
+  "Email Address": "Email Address",
+  "Driver License Number": "Driver License Number",
+  "State Issued": "State Issued",
+  "Please take or upload photos of Driver License": "Please take or upload photos of Driver License",
+  "Principal": "Principal",
+  "Required": "Required"  
 
   
   

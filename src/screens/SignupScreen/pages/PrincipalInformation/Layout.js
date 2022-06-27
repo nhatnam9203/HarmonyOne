@@ -7,6 +7,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { images } from "@shared/themes/resources";
 import { fonts } from "@shared/themes";
 import { ItemPrincipal } from "./ItemPrincipal";
+import { translate } from "@localize";
 
 
 export const Layout = ({
@@ -25,7 +26,7 @@ export const Layout = ({
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={t('Principal Information')}
+                pageTitle={translate('Principal Information')}
                 isRight={false}
                 isScrollLayout={false}
                 containerStyle={{ paddingVertical: 0 }}
@@ -41,6 +42,7 @@ export const Layout = ({
                                     errors={errors}
                                     imageUrl={imageUrl}
                                     checkErrors={checkErrors}
+                                    translate={translate}
                                 />
                             )
                         })
@@ -51,7 +53,7 @@ export const Layout = ({
                 
                 <View style={styles.bottom}>
                     <Button
-                        label="Next"
+                        label={translate("txtNext")}
                         onPress={onSubmit}
                         highlight={true}
                         width={'100%'}

@@ -568,6 +568,24 @@
    "Please take or upload photos of void check": "Chụp hoặc tải ảnh của chi phiếu khống",
    "Take a photo": "Chụp một tấm hình",
    "Or": "Hoặc",
-   "Browse File": "Duyệt tập tin"
+   "Browse File": "Duyệt tập tin",
+   "Principal Information": "Thông tin người chủ",
+   "Principal Name": "Tên người chủ",
+   "Title/Position": "Vị trí / chức vụ",
+   "President/Manager/Owner": "Chủ tịch / quản lý / chủ tiệm",
+   "Ownership": "Quyền sở hữu",
+   "Home Phone": "Số điện thoại nhà",
+   "Mobile Phone": "Số di động",
+   "Street Address": "Đường",
+   "Zip Code": "Mã bưu chính",
+   "Year at this address": "Năm hoạt động",
+   "Social Security Number (SSN)": "Số an sinh xã hội",
+   "Date of birth (mm/dd/yyyy)": "Ngày sinh (mm/dd/yyyy)",
+   "Email Address": "Địa chỉ email",
+   "Driver License Number": "Số giấy phép lái xe",
+   "State Issued": "Nhà nước ban hành",
+   "Please take or upload photos of Driver License": "Vui lòng chụp hoặc tải lên hình ảnh của giấy phép lái xe",
+   "Principal": "Người chủ",
+   "Required": "Yêu cầu"
 
 }
