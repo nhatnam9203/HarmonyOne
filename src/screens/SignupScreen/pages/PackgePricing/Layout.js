@@ -9,7 +9,7 @@ import { fonts, colors } from "@shared/themes";
 import { Switch } from "react-native-paper";
 import NavigationService from '@navigation/NavigationService';
 import ToggleSwitch from 'toggle-switch-react-native';
-
+import { translate } from "@localize";
 
 export const Layout = ({
     onSubmit,
@@ -24,7 +24,7 @@ export const Layout = ({
     return (
         <View style={styles.container}>
             <SingleScreenLayout
-                pageTitle={t('Packages & Pricing')}
+                pageTitle={translate('Packages & Pricing')}
                 isRight={false}
                 isScrollLayout={false}
                 containerStyle={{ paddingVertical: 0 }}
@@ -32,11 +32,11 @@ export const Layout = ({
                 <KeyboardAwareScrollView style={styles.content}>
                     <View style={{ marginBottom: scaleHeight(24) }}>
                         <Text style={styles.txtTrryApp}>
-                            Try Harmony One apps free for 30 days!
+                            {translate("Try Harmony One apps free for 30 days!")}
                         </Text>
                         <View style={{ flexDirection: "row", alignItems: "center" }}>
                             <Text style={styles.txtTrryApp}>
-                                No payment information required {" "}
+                                {translate("No payment information required")} {" "}
                             </Text>
                             <Image source={images.happy_face} style={styles.happy_face} />
                         </View>
@@ -45,21 +45,21 @@ export const Layout = ({
                     <View style={{ flexDirection: "row" }}>
                         <TouchableOpacity onPress={() => setNumberOfStaff(1)} style={[styles.containerHeaderItem, { borderBottomColor: numberOfStaff == 1 ? "#55A8DC" : "#dddddd", borderBottomWidth: numberOfStaff == 1 ? 5 : 1 }]}>
                             <Text style={[styles.txtHeader, { color: numberOfStaff == 1 ? colors.ocean_blue : "#000" }]}>
-                                SOLO
+                                {translate("SOLO")}
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => setNumberOfStaff(2)} style={[styles.containerHeaderItem, { borderBottomColor: numberOfStaff == 2 ? "#55A8DC" : "#dddddd", borderBottomWidth: numberOfStaff == 2 ? 5 : 1 }]}>
                             <Text style={[styles.txtHeader, { color: numberOfStaff == 2 ? colors.ocean_blue : "#000" }]}>
-                                DUO
+                                {translate("DUO")}
                             </Text>
                         </TouchableOpacity>
                     </View>
 
-                    <ItemPackage title="Number of Staff" numberOfStaff={numberOfStaff} />
-                    <ItemPackage title="Mobbile POS" />
-                    <ItemPackage title="Check-in App" />
-                    <ItemPackage title="Marketing" />
-                    <ItemPackage title="Report" isBottom={true} />
+                    <ItemPackage title={translate("Number of Staff")} numberOfStaff={numberOfStaff} />
+                    <ItemPackage title={translate("Mobbile POS")} />
+                    <ItemPackage title={translate("Check-in App" )}/>
+                    <ItemPackage title={translate("Marketing")} />
+                    <ItemPackage title={translate("Report")} isBottom={true} />
 
                     <View style={styles.containerBottom}>
                         {
@@ -79,8 +79,8 @@ export const Layout = ({
                         }
                         <View style={{ flexDirection: "row", alignItems: "center" }}>
                             <View style={{ alignItems: "center" }}>
-                                <Text style={styles.txtBilled}>Billed</Text>
-                                <Text style={styles.txtBilled}>Monthly</Text>
+                                <Text style={styles.txtBilled}>{translate("Billed")}</Text>
+                                <Text style={styles.txtBilled}>{translate("Monthly")}</Text>
                             </View>
                             <View style={{ marginHorizontal: scaleWidth(10) }}>
                                 <ToggleSwitch
@@ -92,8 +92,8 @@ export const Layout = ({
                                 />
                             </View>
                             <View style={{ alignItems: "center" }}>
-                                <Text style={styles.txtBilled}>Billed</Text>
-                                <Text style={styles.txtBilled}>Anually</Text>
+                                <Text style={styles.txtBilled}>{translate("Billed")}</Text>
+                                <Text style={styles.txtBilled}>{translate("Anually")}</Text>
                             </View>
                         </View>
                     </View>
@@ -103,7 +103,7 @@ export const Layout = ({
                 </KeyboardAwareScrollView>
                 <View style={styles.bottom}>
                     <Button
-                        label="Start free trial"
+                        label={translate("Start free trial")}
                         onPress={onSubmit}
                         highlight={true}
                         width={'100%'}
