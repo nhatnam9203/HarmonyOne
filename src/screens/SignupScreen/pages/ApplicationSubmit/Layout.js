@@ -5,6 +5,7 @@ import { Button } from "@shared/components";
 import { images } from "@shared/themes/resources";
 import { fonts, colors } from "@shared/themes";
 import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 
 
 export const Layout = ({
@@ -20,16 +21,16 @@ export const Layout = ({
                 <Image source={images.logo} style={styles.logo} resizeMode="contain" />
                 <View style={{ marginVertical: scaleHeight(80), alignItems: "center" }}>
                     <Text style={styles.txtTrryApp}>
-                        Thank for submitting your application!
+                        {translate("Thank for submitting your application!")}
                     </Text>
                     <Text style={[styles.txtTrryApp, { marginTop: scaleHeight(12) }]}>
-                        One of our agents will contact you within the next business day.
+                        {translate("One of our agents will contact you within the next business day")}.
                     </Text>
                 </View>
 
                 <View style={styles.bottom}>
                     <Button
-                        label="FINISH"
+                        label={translate("FINISH")}
                         onPress={onSubmit}
                         highlight={true}
                         width={'100%'}
