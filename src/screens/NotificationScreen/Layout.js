@@ -6,6 +6,7 @@ import { fonts, colors } from "@shared/themes";
 import { ListEmptyComponent, IconButton } from "@shared/components";
 import { images } from "@shared/themes/resources";
 import { ItemNotification } from "./ItemNotification";
+import { translate } from "@localize";
 
 export const Layout = ({
   notifications,
@@ -23,7 +24,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t("Notification")}
+        pageTitle={translate("Notification")}
         isLeft={true}
         isRight={true}
         isScrollLayout={false}
@@ -56,7 +57,7 @@ export const Layout = ({
             initialNumToRender={20}
             maxToRenderPerBatch={5}
             ItemSeparatorComponent={() => <View style={styles.seperateLine} />}
-            ListEmptyComponent={() => <ListEmptyComponent image={images.iconNotFound} description={t('No Notification')} />}
+            ListEmptyComponent={() => <ListEmptyComponent image={images.iconNotFound} description={translate('No Notification')} />}
             ListFooterComponent={() =>
               <View style={styles.itemLoadMore}>
                 {
