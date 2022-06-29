@@ -782,7 +782,7 @@
 					362C8D4226B247FD00CB63F0 = {
 						DevelopmentTeam = 69WQLJ9K8N;
 						LastSwiftMigration = 1250;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -2065,10 +2065,10 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Staging/Staging.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = arm64;
 				"EXCLUDED_ARCHS[sdk=*]" = "";
@@ -2184,7 +2184,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/trans/sdk",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.8;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-fembed-bitcode",
@@ -2213,7 +2213,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.harmonypay.one.staging;
 				PRODUCT_NAME = HarmonyOne;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "HPO Staging Appstore";
 				SWIFT_OBJC_BRIDGING_HEADER = "HarmonyOne-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -2230,10 +2230,10 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Staging/Staging.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 69WQLJ9K8N;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
@@ -2348,7 +2348,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/trans/sdk",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.8;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-fembed-bitcode",
@@ -2376,7 +2376,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.harmonypay.one.staging;
 				PRODUCT_NAME = HarmonyOne;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "HPO Staging Appstore";
 				SWIFT_OBJC_BRIDGING_HEADER = "HarmonyOne-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
