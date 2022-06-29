@@ -8,6 +8,7 @@ import { slop } from "@shared/utils";
 import { useSelector } from "react-redux";
 import { WithPopupActionSheet } from '@shared/HOC';
 import { AddGiftCard } from "./AddGiftCard";
+import { translate } from "@localize";
 
 let EditButton = ({ ...props }) => {
   return (
@@ -52,7 +53,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t('Service & product')}
+        pageTitle={translate('Service & product')}
         isRight={true}
         isScrollLayout={false}
         headerRightComponent={() => <AddGiftCard onPress={() => { dialogActiveGiftCard?.current?.show(); }} />}
@@ -60,7 +61,7 @@ export const Layout = ({
         <View style={styles.content}>
 
           <SearchInput
-            placeholder="Search by service or product name"
+            placeholder={translate("Search by service or product name")}
             value={valueSearch}
             onChangeText={onChangeSearch}
             removeText={() => onChangeSearch("")}
@@ -73,7 +74,7 @@ export const Layout = ({
               style={styles.flatList}
               onRefresh={onRefresh}
               refreshing={isRefresh}
-              ListEmptyComponent={() => <ListEmptyComponent description={t('No Service')} image={images.iconNotFound} />}
+              ListEmptyComponent={() => <ListEmptyComponent description={translate('No Service')} image={images.iconNotFound} />}
               renderItem={({ item }) => {
                 const isDiabled =
                   appointmentEdit?.services?.find(obj => obj?.serviceId == item?.serviceId) ||
@@ -140,7 +141,7 @@ export const Layout = ({
                               }
                               getServiceDetail(tempItem)
                             }}
-                            txtNoStaff="No staff available for this service"
+                            txtNoStaff={translate("No staff available for this service")}
                             renderInput={() => (
                               <ItemService
                                 item={item}
@@ -171,15 +172,15 @@ export const Layout = ({
         </View>
         <DialogConfirm
           ref={dialogDeleteCategoryRef}
-          title={t("Delete category")}
-          titleContent={t("Are you sure you want to delete this category?")}
+          title={translate("Delete category")}
+          titleContent={translate("Are you sure you want to delete this category?")}
           onConfirmYes={handleArchiveCategory}
           onModalHide={() => setTempCategory("")}
         />
 
         <DialogActiveGiftCard
           ref={dialogActiveGiftCard}
-          title="Enter gift card serial number"
+          title={translate("Enter gift card serial number")}
           onConfirmYes={() => { }}
           onModalHide={() => { }}
           onSuccess={onCheckGiftCardSucces}

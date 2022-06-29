@@ -602,7 +602,18 @@
   "Anually": "Anually",
   "Thank for submitting your application!": "Thank for submitting your application!",
   "One of our agents will contact you within the next business day": "One of our agents will contact you within the next business day",
-  "FINISH": "FINISH"
+  "FINISH": "FINISH",
+
+  "Edit Appointment": "Edit Appointment",
+  "Select staff": "Select staff",
+  "There is no staff available": "There is no staff available",
+  "Service & product": "Service & product",
+  "Search by service or product name": "Search by service or product name",
+  "Add card": "Add card",
+  "Active Gift Card": "Active Gift Card",
+  "Scan Your Code": "Scan Your Code"
+  
+  
 
   
   

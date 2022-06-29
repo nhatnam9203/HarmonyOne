@@ -8,13 +8,14 @@ import { CustomActionSheet } from "./CustomActionSheet";
 import { TimePicker } from "./TimePicker";
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 import moment from "moment";
+import { translate } from "@localize";
 
 let InputTime = React.forwardRef(({
     style,
     apply,
     time = moment().format("hh:mm A"),
     renderInput = null,
-    title = "Start time",
+    title = translate("Start time"),
     minutesPicker 
 }, ref) => {
 

@@ -106,7 +106,7 @@
   "tax": "Thuế",
   "discount": "Giảm giá",
   "Paid at": "Trả lúc",
-  "Items" : "Dịch vụ",
+  "Items" : "Mục",
   "txtEditAppointment": "Sửa",
   "txtCancelAppointment": "Huỷ cuộc hẹn",
   "txtSelectServiceProduct": "Chọn dịch vụ & sản phẩm",
@@ -339,7 +339,7 @@
   "Can not change tip": "Không thể sửa tip cho các đơn hàng được thêm tip trên ứng dụng POS từ trước.",
   "Have Error": "Đã có lổi xảy ra.",
   "Waiting List": "Hàng đợi",
-  "Any staff": "Chưa chọn nhân viên",
+  "Any staff": "Bất kỳ nhân viên",
   "Search by name": "Tìm theo tên",
   "Manager": "Quản lý",
   "Admin": "Quản trị viên",
@@ -602,6 +602,16 @@
    "Anually": "theo năm",
    "Thank for submitting your application!": "Cảm ơn bạn đã gửi đơn đăng ký!",
    "One of our agents will contact you within the next business day": "Một trong những đại lý của chúng tôi sẽ liên hệ với bạn trong ngày làm việc tiếp theo",
-   "FINISH": "HOÀN TẤT"
+   "FINISH": "HOÀN TẤT",
+
+   "Edit Appointment": "Sửa cuộc hẹn",
+   "Select staff": "Chọn nhân viên",
+   "There is no staff available": "Không có nhân viên khả thi",
+   "Service & product": "Dịch vụ & sản phẩm",
+   "Search by service or product name": "Tìm dịch vụ hoặc tên sản phẩm",
+   "Add card": "Thêm thẻ",
+   "Active Gift Card": "Kích hoạt thẻ quà",
+   "Scan Your Code": "Quét mã",
+   
    
 }

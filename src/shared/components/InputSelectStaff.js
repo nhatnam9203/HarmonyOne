@@ -10,17 +10,17 @@ import { isEmpty } from "lodash";
 import { useSelector } from "react-redux";
 import LottieView from 'lottie-react-native'
 import moment from "moment";
-
+import { translate } from "@localize";
 
 let InputStaff = React.forwardRef(({
     style,
     renderInput = null,
     items = [],
-    title = "Select staff",
+    title = translate("Select staff"),
     itemSelected,
     onSelect = () => { },
     serviceId,
-    txtNoStaff = "There is no staff available",
+    txtNoStaff = translate("There is no staff available"),
     isAnyStaff = false,
 }, ref) => {
 

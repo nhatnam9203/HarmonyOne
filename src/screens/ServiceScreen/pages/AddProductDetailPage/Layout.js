@@ -5,6 +5,7 @@ import { CustomImage, IconButton, Button } from "@shared/components";
 import { slop, formatNumberFromCurrency, formatMoney } from "@shared/utils";
 import { isEmpty } from "lodash";
 import { TextInputMask } from "react-native-masked-text";
+import { translate } from "@localize";
 
 
 export const Layout = ({
@@ -64,7 +65,7 @@ export const Layout = ({
         <View style={styles.containerDuration}>
           {/******************************* CỘNG TRỪ QUANTITY ********************************/}
           <View style={styles.rowBetween}>
-            <Text style={styles.duration}>Items</Text>
+            <Text style={styles.duration}>{translate("Items")}</Text>
             <View style={styles.row}>
               <Button
                 onPress={() => { onChangeQuantity(quantity - 1) }}
@@ -91,7 +92,7 @@ export const Layout = ({
 
           {/******************************* EDIT PRICE ********************************/}
           <View style={[styles.rowBetween, { marginTop: scaleHeight(24) }]}>
-            <Text style={[styles.duration, { fontFamily: fonts.MEDIUM, fontSize: scaleFont(18) }]}>Price</Text>
+            <Text style={[styles.duration, { fontFamily: fonts.MEDIUM, fontSize: scaleFont(18) }]}>{translate("Price")}</Text>
             <Text style={[styles.duration, { fontSize: scaleFont(18) }]}>
               {`$ ${formatMoney(tempPrice)}`}
             </Text>
@@ -103,7 +104,7 @@ export const Layout = ({
       </ScrollView>
       <View style={styles.bottom}>
         <Button
-          label="Save"
+          label={translate("txtSave")}
           onPress={isEditItem ? editProduct : addMoreProduct}
           highlight={true}
           width={'100%'}

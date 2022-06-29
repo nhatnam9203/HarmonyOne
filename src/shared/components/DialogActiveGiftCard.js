@@ -14,6 +14,7 @@ import { GiftCardScanner } from "./GiftCardScanner";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { isEmpty } from "lodash";
 import Modal from "react-native-modal";
+import { translate } from "@localize";
 
 
 export const DialogActiveGiftCard = React.forwardRef(
@@ -102,7 +103,7 @@ export const DialogActiveGiftCard = React.forwardRef(
                 >
                     <View pointerEvents={isLoading ? "none" : "auto"} style={styles.container}>
                         <View style={styles.header}>
-                            <Text style={styles.textHeader}>{titlePage}</Text>
+                            <Text style={styles.textHeader}>{translate(titlePage)}</Text>
                             <IconButton
                                 icon={images.iconClose}
                                 style={styles.buttonClose}
@@ -147,7 +148,7 @@ export const DialogActiveGiftCard = React.forwardRef(
                                             {
                                                 isLoading ?
                                                     <ActivityIndicator size='small' color='white' /> :
-                                                    <Text style={styles.textSubmit}>Add card</Text>
+                                                    <Text style={styles.textSubmit}>{translate("Add card")}</Text>
                                             }
                                         </TouchableOpacity>
                                     </View>

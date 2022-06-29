@@ -18,6 +18,7 @@ import { dateToFormat, slop, guid } from "@shared/utils";
 import NavigationService from '@navigation/NavigationService';
 import DropdownAlert from 'react-native-dropdownalert';
 import moment from 'moment';
+import { translate } from "@localize";
 
 
 export const Layout = ({
@@ -45,7 +46,7 @@ export const Layout = ({
 
   const getStaffService = (staffId = 0) => {
     if (staffId == 0) {
-      return "Any staff";
+      return translate("Any staff");
     } else {
       return staffListByMerchant.find(staff => staff?.staffId == staffId)?.displayName || "";
     }
@@ -82,7 +83,7 @@ export const Layout = ({
 
       <View style={styles.containerService}>
         <Text style={styles.titleService}>
-          Items
+          {translate("Items")}
         </Text>
       </View>
     </View>
@@ -94,7 +95,7 @@ export const Layout = ({
         icon={images.iconAddMore}
         iconStyle={styles.iconAddMore}
         style={styles.buttonAddMore}
-        renderText={() => <Text style={styles.txtAddMore}>Add more service or product</Text>}
+        renderText={() => <Text style={styles.txtAddMore}>{translate("Add more service or product")}</Text>}
         onPress={addMoreService}
         slop={slop(0)}
       />
@@ -116,7 +117,7 @@ export const Layout = ({
     <>
       <View style={styles.container}>
         <SingleScreenLayout
-          pageTitle={"Edit Appointment"}
+          pageTitle={translate("Edit Appointment")}
           isLeft={false}
           isRight={true}
           headerRightComponent={() =>
@@ -175,7 +176,7 @@ export const Layout = ({
 
                           {/****************** START TIME ******************/}
                           <View style={styles.rowItemTime}>
-                            <Text style={styles.titleStartTime}>Start time</Text>
+                            <Text style={styles.titleStartTime}>{translate("Start time")}</Text>
                             <InputSelectTime
                               apply={(time) => changeServiceTime(time, data?.item?.bookingServiceId)}
                               time={dateToFormat(data?.item?.fromTime, "hh:mm A")}
@@ -199,11 +200,11 @@ export const Layout = ({
                             {
                               appointmentDetail?.status == "waiting" ?
                                 <Text style={styles.serviceFromtime}>
-                                  {"Waiting List"}
+                                  {translate("Waiting List")}
                                 </Text> :
                                 <>
                                   <Text style={styles.titleStartTime}>
-                                    {getStaffService(data?.item?.staffId) ? "Staff" : ""}
+                                    {getStaffService(data?.item?.staffId) ? translate("Staff") : ""}
                                   </Text>
                                   <InputSelectStaff
                                     items={staffListByMerchant.filter(staff => staff?.isDisabled == 0)}
@@ -214,7 +215,7 @@ export const Layout = ({
                                     renderInput={() => (
                                       <View style={styles.inputSelectTime}>
                                         <Text style={styles.serviceFromtime}>
-                                          {getStaffService(data?.item?.staffId) || "Waiting List"}
+                                          {getStaffService(data?.item?.staffId) || translate("Waiting List")}
                                         </Text>
                                         <Image
                                           source={images.downarrow}
@@ -257,7 +258,7 @@ export const Layout = ({
 
             <View style={styles.bottom}>
               <Button
-                label={"Confirm"}
+                label={translate("Confirm")}
                 onPress={confirm}
                 highlight={true}
                 width={'100%'}
