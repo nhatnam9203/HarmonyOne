@@ -9,13 +9,14 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import ic_english from "../../localization/flags/ic-flag-english.png";
 import ic_vietnam from "../../localization/flags/ic-flag-vietnam.png";
 import { LanguageLoading } from "./LanguageLoading";
+import { isEmpty } from "lodash";
 
 export const Layout = ({
   language,
   switchLanguage,
   lang,
   setLang,
-  refLanguageLoading,
+  // refLanguageLoading,
 }) => {
 
   return (
@@ -35,7 +36,7 @@ export const Layout = ({
             title={translate("txtEnglish")}
             icon={ic_english}
             lng="en"
-            lang={lang}
+            lang={!isEmpty(lang) ? lang : "en"}
             setLang={setLang}
           />
 
@@ -43,7 +44,7 @@ export const Layout = ({
             title={translate("txtVietnamese")}
             icon={ic_vietnam}
             lng="vi"
-            lang={lang}
+            lang={!isEmpty(lang) ? lang : "vi"}
             setLang={setLang}
             style={{ marginTop: scaleWidth(16) }}
           />
@@ -59,13 +60,13 @@ export const Layout = ({
         />
       </View>
 
-      <LanguageLoading
+      {/* <LanguageLoading
         ref={refLanguageLoading}
         title={`${translate("txtChangeLanguage")} !`}
         titleContent={
           translate("txtContentChangeLanguage")
         }
-      />
+      /> */}
     </View>
   );
 };

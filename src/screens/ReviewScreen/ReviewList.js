@@ -7,6 +7,7 @@ import { images } from "@shared/themes/resources";
 import { ListEmptyComponent } from "@shared/components";
 import { ItemReview } from "./widget";
 import { useSelector } from "react-redux";
+import { translate } from "@localize";
 
 import moment from 'moment';
 
@@ -30,7 +31,7 @@ export const ReviewList = ({
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>{t(`Review (${count})`)}</Text>
+            <Text style={styles.title}>{`${translate("Review")} (${count})`}</Text>
             <FlatList
                 data={listReviews}
                 keyExtractor={(item) => item?.staffRatingId?.toString()}

@@ -6,10 +6,11 @@ import { useForm, useWatch } from "react-hook-form";
 import { formatNumberFromCurrency, formatMoney } from "@shared/utils";
 import { yupResolver } from '@hookform/resolvers/yup';
 import NavigationService from '@navigation/NavigationService';
+import { translate } from "@localize";
 import * as yup from "yup";
 
 export const enterAmountSchema = yup.object().shape({
-  amount: yup.string().required("required").test('len', 'Please enter amount', val => formatNumberFromCurrency(val) > 0),
+  amount: yup.string().required("required").test('len', translate('Please enter amount'), val => formatNumberFromCurrency(val) > 0),
 });
 
 const amountList = ["10", "20", "50", "100", "500"];

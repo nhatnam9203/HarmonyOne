@@ -63,14 +63,14 @@ export const Layout = ({
 
             <GroupItem icon={images.iconReportService} text="Service" />
             <ItemSelect
-              title={"Sales by category"}
+              title={translate("Sales by category")}
               onPress={() => { 
                 NavigationService.navigate(screenNames.ReportServiceCategorySales);
               }}
               style={{ paddingLeft: 0 }}
             />
             <ItemSelect
-              title={"Sales by service"}
+              title={translate("Sales by service")}
               onPress={() => { 
                 NavigationService.navigate(screenNames.ReportServiceSales);
               }}

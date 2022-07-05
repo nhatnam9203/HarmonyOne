@@ -150,7 +150,7 @@ export const Layout = ({
                   name="secondTime"
                   placeholder="0"
                   options={{ mask: "9999" }}
-                  renderRight={() => <Text style={styles.duration}>min</Text>}
+                  renderRight={() => <Text style={styles.duration}>{translate("min")}</Text>}
                 />
               }
             />

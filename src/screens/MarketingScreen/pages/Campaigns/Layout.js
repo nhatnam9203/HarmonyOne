@@ -74,9 +74,9 @@ export const Layout = ({
 
       <DialogConfirm
         ref={dialogSendMessageRef}
-        title={t("Warning !")}
+        title={`${translate("Warning")} !`}
         titleContent={
-          t("Are you sure you want to send message for this Campaign ?")
+          translate("Are you sure you want to send message for this Campaign")
         }
         onConfirmYes={sendPromotionById}
         onModalHide={() => { }}

@@ -613,7 +613,17 @@
    "Active Gift Card": "Kích hoạt thẻ quà",
    "Scan Your Code": "Quét mã",
    "No Notification": "Không có thông báo",
-   "Notification": "Thông báo"
-   
+   "Notification": "Thông báo",
+   "Zip": "Mã bưu chính",
+   "Pincode must be 4 characters": "Mã pin phải là 4 ký tự",
+   "Pin code does not match": "Mã pin không trùng khớp",
+   "Hide": "Ẩn",
+   "Appointment added successfully": "Đã đặt cuộc hẹn thành công",
+   "Please enter amount": "Hãy nhập số tiền",
+   "Payment details": "Chi tiết thanh toán",
+   "Invoice No": "Số hoá đơn",
+   "Customer name": "Tên khách hàng",
+   "Grand total": "Tổng cộng",
+
    
 }

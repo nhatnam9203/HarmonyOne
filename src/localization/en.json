@@ -612,11 +612,16 @@
   "Add card": "Add card",
   "Active Gift Card": "Active Gift Card",
   "Scan Your Code": "Scan Your Code",
-  "No Notification": "No Notification"
-  
-  
-  
-
+  "No Notification": "No Notification",
+  "Pincode must be 4 characters": "Pincode must be 4 characters",
+  "Pin code does not match": "Pin code does not match",
+  "Hide" : "Hide",
+  "Appointment added successfully": "Appointment added successfully",
+  "Please enter amount": "Please enter amount",
+  "Payment details": "Payment details",
+  "Invoice No": "Invoice No",
+  "Customer name": "Customer name",
+  "Grand total": "Grand total",
   
   
 }

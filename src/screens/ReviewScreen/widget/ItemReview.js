@@ -11,6 +11,7 @@ import { isEmpty, isInteger } from "lodash";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CustomImage } from '@shared/components';
+import { translate } from "@localize";
 
 
 let EditReview = ({ ...props }) => {
@@ -95,13 +96,13 @@ const ItemReview = ({
                                 onPress={() => hideReview(item)}
                                 style={[styles.buttonShow, { backgroundColor: "red" }]}
                             >
-                                <Text style={styles.txtShow}>Hide</Text>
+                                <Text style={styles.txtShow}>{translate("Hide")}</Text>
                             </TouchableOpacity> :
                             <TouchableOpacity
                                 onPress={() => showReview(item)}
                                 style={styles.buttonShow}
                             >
-                                <Text style={styles.txtShow}>Show</Text>
+                                <Text style={styles.txtShow}>{translate("Show")}</Text>
                             </TouchableOpacity>
                     }
                     {/* <EditReview actions={getActionSheetReview()} /> */}

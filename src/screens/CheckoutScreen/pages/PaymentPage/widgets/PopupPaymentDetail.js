@@ -8,6 +8,7 @@ import { app } from "@redux/slices";
 import { formatMoney, formatNumberFromCurrency, slop, guid } from "@shared/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { isEmpty } from "lodash";
+import { translate } from "@localize";
 import Modal from "react-native-modal";
 
 
@@ -52,29 +53,29 @@ export const PopupPaymentDetail = React.forwardRef(
                     </View>
                     <View style={{ width: "100%", backgroundColor: "white", borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
                         <View style={[styles.row]}>
-                            <Text style={[styles.txt]}>Invoice No:</Text>
+                            <Text style={[styles.txt]}>{translate("Invoice No")}:</Text>
                             <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}># {paymentDetail?.checkoutPaymentResponse?.invoiceNo}</Text>
                         </View>
                         <View style={[styles.row]}>
-                            <Text style={[styles.txt]}>Customer name:</Text>
+                            <Text style={[styles.txt]}>{translate("Customer name")}:</Text>
                             <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}>
                                 {paymentDetail?.checkoutPaymentResponse?.customerName}
                             </Text>
                         </View>
                         <View style={[styles.row]}>
-                            <Text style={[styles.txt]}>Phone number:</Text>
+                            <Text style={[styles.txt]}>{translate("Phone number")}:</Text>
                             <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}>
                                 {paymentDetail?.checkoutPaymentResponse?.phone}
                             </Text>
                         </View>
                         <View style={[styles.row]}>
-                            <Text style={[styles.txt]}>Status:</Text>
+                            <Text style={[styles.txt]}>{translate("Status")}:</Text>
                             <Text style={[styles.txt, { fontFamily: fonts.MEDIUM }]}>
                                 {paymentDetail?.checkoutPaymentResponse?.status}
                             </Text>
                         </View>
                         <View style={[styles.row]}>
-                            <Text style={[styles.txt]}>Grand total</Text>
+                            <Text style={[styles.txt]}>{translate("Grand total")}l</Text>
                             <Text style={[styles.txt, { fontFamily: fonts.BOLD, color: "#000" }]}>
                                 {`$ ${formatMoney(paymentDetail?.checkoutPaymentResponse?.grandTotal)}`}
                             </Text>
@@ -94,7 +95,7 @@ export const PopupPaymentDetail = React.forwardRef(
                         }
 
                         <View style={[styles.row]}>
-                            <Text style={[styles.txt, { color: "red" }]}>Amount Due: </Text>
+                            <Text style={[styles.txt, { color: "red" }]}>{translate("Amount Due")}: </Text>
                             <Text style={[styles.txt, { fontFamily: fonts.BOLD, color: "red" }]}>
                                 {`$ ${formatMoney(paymentDetail?.checkoutPaymentResponse?.dueAmount)}`}
                             </Text>
@@ -106,7 +107,7 @@ export const PopupPaymentDetail = React.forwardRef(
                                 style={styles.buttonSubmit}
                             >
 
-                                <Text style={styles.textSubmit}>Next</Text>
+                                <Text style={styles.textSubmit}>{translate("txtNext")}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

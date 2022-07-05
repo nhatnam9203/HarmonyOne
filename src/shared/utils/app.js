@@ -301,19 +301,19 @@ export const getContentDate = (timeStart, timeEnd) => {
   if (timeStart && timeEnd) {
     text = `${timeStart} - ${timeEnd}`;
     if (timeStart == timeEnd && timeStart == moment().format('MM/DD/YYYY')) {
-      text = 'Today';
+      text = translate('Today');
     }
     if (
       timeStart == timeEnd &&
       timeStart == moment().subtract('days', 1).format('MM/DD/YYYY')
     ) {
-      text = 'Yesterday';
+      text = translate('Yesterday');
     }
     if ((timeStart == timeEnd) && (timeStart == moment().subtract("days", 1).format("MM/DD/YYYY"))) {
-      text = "Yesterday"
+      text = translate("Yesterday")
     }
     if (moment().startOf("months").format("MM/DD/YYYY") == timeStart && moment().endOf("months").format("MM/DD/YYYY") == timeEnd) {
-      text = "This month";
+      text = translate("This month");
     }
     if (
       moment().subtract('months', 1).startOf('months').format('MM/DD/YYYY') ==
@@ -321,16 +321,16 @@ export const getContentDate = (timeStart, timeEnd) => {
       moment().subtract('months', 1).endOf('months').format('MM/DD/YYYY') ==
       timeEnd
     ) {
-      text = 'Last month';
+      text = translate('Last month');
     }
     if (moment().startOf("isoWeeks").format("MM/DD/YYYY") == timeStart && moment().endOf("isoWeeks").format("MM/DD/YYYY") == timeEnd) {
-      text = "This week";
+      text = translate("This week");
     }
     if (moment().subtract("weeks", 1).startOf("isoWeeks").format("MM/DD/YYYY") == timeStart && moment().subtract('weeks', 1).endOf("isoWeeks").format("MM/DD/YYYY") == timeEnd) {
-      text = "Last week";
+      text = translate("Last week");
     }
   }
-  return translate(text);
+  return text;
 };
 
 export const arrDateFilter = ["Today", "Yesterday", "This month", "Last month", "This week", "Last week"];

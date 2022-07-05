@@ -22,7 +22,7 @@ export const serviceSchema = yup.object().shape({
         label: yup.string(),
     })
         .nullable()
-        .required('required')
+        .required(translate('required'))
 });
 
 export const productSchema = yup.object().shape({
@@ -54,9 +54,9 @@ export const serviceSalarySchema = yup.object().shape({
     lastName: yup.string().required(translate("required")),
     displayName: yup.string().required(translate("required")),
     email: yup.string().email("Invalid email"),
-    pin: yup.string().required(translate("required")).test('len', 'Pincode must be 4 characters', val => val.length === 4),
+    pin: yup.string().required(translate("required")).test('len', translate('Pincode must be 4 characters'), val => val.length === 4),
     confirmPin: yup.string()
-        .oneOf([yup.ref('pin'), null], 'Pin code does not match')
+        .oneOf([yup.ref('pin'), null], translate('Pin code does not match'))
 });
 
 

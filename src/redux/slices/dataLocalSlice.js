@@ -6,7 +6,7 @@ const reducerName = 'hpo.dataLocal';
 const initialState = {
     isQuickLogin: false,
     pincodeSaved : "",
-    language : "vi",
+    language : "en",
 };
 
 const dataLocalSlice = createSlice({

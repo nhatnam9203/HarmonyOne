@@ -6,13 +6,14 @@ import { images } from "@shared/themes/resources";
 import { Button } from "./Button";
 import { IconButton } from "./IconButton";
 import Modal from "react-native-modal";
+import { translate } from "@localize";
 
 
 export const DialogSuccess = React.forwardRef(
     ({
         onConfirmYes = () => { },
         onModalHide = () => { },
-        title = "Appointment added successfully"
+        title = translate("Appointment added successfully")
     }, ref) => {
         const [t] = useTranslation();
 
@@ -70,7 +71,7 @@ export const DialogSuccess = React.forwardRef(
                             highlight={false}
                             height={scaleHeight(48)}
                             width={scaleWidth(169 * 2)}
-                            label="OK"
+                            label={translate("OK")}
                             styleButton={{
                                 borderWidth: 0,
                                 backgroundColor: "transparent"
