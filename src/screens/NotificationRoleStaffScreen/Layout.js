@@ -6,6 +6,7 @@ import { fonts, colors } from "@shared/themes";
 import { ListEmptyComponent, IconButton, DialogConfirm } from "@shared/components";
 import { images } from "@shared/themes/resources";
 import { ItemNotification } from "./ItemNotification";
+import { translate } from "@localize";
 
 export const Layout = ({
   notifications_roleStaff,
@@ -25,7 +26,7 @@ export const Layout = ({
   return (
     <View style={styles.container}>
       <SingleScreenLayout
-        pageTitle={t("Notification")}
+        pageTitle={translate("Notification")}
         isLeft={true}
         isRight={true}
         isScrollLayout={false}
