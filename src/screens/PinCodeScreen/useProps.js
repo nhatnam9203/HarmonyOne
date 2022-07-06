@@ -25,6 +25,7 @@ export const useProps = (_params) => {
   const merchantID = useSelector((state) => state.auth.merchantID);
   const isQuickLogin = useSelector((state) => state.dataLocal.isQuickLogin);
   const pincodeSaved = useSelector((state) => state.dataLocal.pincodeSaved);
+  const language = useSelector((state) => state.dataLocal.language);
 
   const [merchantCode, setMerchantCode] = React.useState("");
 
@@ -34,12 +35,38 @@ export const useProps = (_params) => {
 
   const [pinCode, setPinCode] = React.useState('');
 
+  const translateIncorrectPin = (message) => {
+    let text = message
+    switch (language) {
+      case "vi":
+        text = "Sai mã pin"
+        break;
+
+      default:
+        break;
+    };
+    return text;
+  }
+
+
+  const showMessageIncorrectPin = (message) => {
+    dispatch(
+      app.setError({
+        isError: true,
+        messageError: translateIncorrectPin(message),
+        errorType: "error",
+        titleError: language == "vi" ? "Thông báo" : "Alert",
+      }));
+  };
+
+
   const [{ isLoading }, staffLogin] = useAxiosMutation({
     ...staffLoginRequest(merchantCode, pinCode),
     onError: (msg) => {
       // setTextMessage(msg);
     },
-    isLoadingDefault : false,
+    isLoadingDefault: false,
+    isReturnError: false,
     onSuccess: (data) => {
       if (data) {
         dispatch(auth.loginStaff(data));
@@ -48,11 +75,15 @@ export const useProps = (_params) => {
       }
       NavigationService.replace('HpOneStack');
     },
+    onError: (message) => {
+      showMessageIncorrectPin(message);
+    },
   });
 
   const [{ }, subnmitQuickLogin] = useAxiosMutation({
     ...staffLoginRequest(merchantCode, pincodeSaved),
     queryId: "",
+    isReturnError: false,
     onError: (msg) => {
       // setTextMessage(msg);
     },
@@ -64,8 +95,8 @@ export const useProps = (_params) => {
       }
       NavigationService.replace('HpOneStack');
     },
-    onError : (message)=>{
-      console.log({ message })
+    onError: (message) => {
+      showMessageIncorrectPin(message);
     },
   });
 

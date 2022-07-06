@@ -49,7 +49,7 @@ export const PopupPaymentDetail = React.forwardRef(
             >
                 <View style={styles.container}>
                     <View style={styles.header}>
-                        <Text style={styles.textHeader}>{`Payment details`}</Text>
+                        <Text style={styles.textHeader}>{translate("Payment details")}</Text>
                     </View>
                     <View style={{ width: "100%", backgroundColor: "white", borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
                         <View style={[styles.row]}>

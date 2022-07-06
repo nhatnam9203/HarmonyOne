@@ -306,7 +306,7 @@ export const AppStateProvider = ({ children }) => {
           ref={alertRef}
           closeInterval={2000}
           infoColor="#1B68AC"
-          errorColor={"#DB0000"}
+          errorColor={"#AC2337"}
           titleStyle={styles.titleAlertStyle}
           messageStyle={styles.messageAlertStyle}
           defaultContainer={styles.alertStyle}

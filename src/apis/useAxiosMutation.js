@@ -10,7 +10,7 @@ export const useAxiosMutation = ({
   onError,
   isLoadingDefault = true,
   isStopLoading = false,
-  isReturnError = true
+  isReturnError = true,
 }) => {
   const dispatch = useDispatch();
 
@@ -30,6 +30,7 @@ export const useAxiosMutation = ({
           if (
             response?.message
           ) {
+            console.log('message:', response?.message)
             dispatch(app.hideLoading());
             if(isReturnError){
               dispatch(
