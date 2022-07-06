@@ -12,6 +12,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { TouchableRipple } from "react-native-paper"
 import { useSelector } from "react-redux";
+import { View } from "react-native";
 
 export const Button = ({
   onPress,
@@ -76,19 +77,21 @@ export const Button = ({
       ]}
       disabled={disabled || appLoading || isTurnOff}
     >
-      {
-        isLoading && <ActivityIndicator size={'small'} color="white" style={{ marginRight: 10 }} />
-      }
-      <Text
-        style={[
-          styles.text,
-          highlight && { color: colors.white },
-          textDisableStyle,
-          styleText,
-        ]}
-      >
-        {label ?? t('Continue')}
-      </Text>
+      <View style={{ flexDirection: "row" }}>
+        {
+          isLoading && <ActivityIndicator size={'small'} color="white" style={{ marginRight: 10 }} />
+        }
+        <Text
+          style={[
+            styles.text,
+            highlight && { color: colors.white },
+            textDisableStyle,
+            styleText,
+          ]}
+        >
+          {label ?? t('Continue')}
+        </Text>
+      </View>
     </AnimatedButton>
   );
 };
