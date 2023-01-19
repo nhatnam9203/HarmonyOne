@@ -8,7 +8,6 @@ import { getDeviceId, getDeviceName } from '@shared/services/Device';
 import { getDeviceIdStorage } from '@shared/storages/deviceUnique';
 
 const log = (obj, message = '') => {
-  // Logger.log(`[axiosClient] ${message}`, obj);
 };
 
 log(Configs, 'Configs');
