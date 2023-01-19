@@ -8,7 +8,7 @@ import { getDeviceId, getDeviceName } from '@shared/services/Device';
 import { getDeviceIdStorage } from '@shared/storages/deviceUnique';
 
 const log = (obj, message = '') => {
-};
+}
 
 log(Configs, 'Configs');
 export const axios = Axios.create({
